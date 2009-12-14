@@ -1,0 +1,9 @@
+; FaceSvm.def : Declares the module parameters for the DLL.
+
+LIBRARY      "FaceSvm"
+
+EXPORTS
+    ; Explicit exports can go here
+    SvmTrain
+	SvmPredict
+	InitSvmData

@@ -1,0 +1,156 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemoteImaging", "RemoteImaging\RemoteImaging.csproj", "{E0F855A2-D8FA-4D2F-9645-C6E8DE8AACD4}"
+	GlobalSection(MercurialSourceControlSolutionProperties) = preSolution
+		SolutionIsControlled = True
+		SolutionBindings = <Solution Location In Database>
+	EndGlobalSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0AD5B1FD-D3F1-45D6-B054-FD2ABA085E4F}"
+	GlobalSection(MercurialSourceControlSolutionProperties) = preSolution
+		SolutionIsControlled = True
+		SolutionBindings = <Solution Location In Database>
+	EndGlobalSection
+	ProjectSection(SolutionItems) = preProject
+		LocalTestRun.testrunconfig = LocalTestRun.testrunconfig
+		RemoteImaging.vsmdi = RemoteImaging.vsmdi
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemoteControlService", "RemoteControlService\RemoteControlService.csproj", "{3F01A85F-C1C4-4060-AA37-57AB6F0C90AB}"
+	GlobalSection(MercurialSourceControlSolutionProperties) = preSolution
+		SolutionIsControlled = True
+		SolutionBindings = <Solution Location In Database>
+	EndGlobalSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemoteImagingMC", "RemoteImagingMC\RemoteImagingMC.csproj", "{0C349962-22C7-4880-8D91-AFF6DADD0173}"
+	GlobalSection(MercurialSourceControlSolutionProperties) = preSolution
+		SolutionIsControlled = True
+		SolutionBindings = <Solution Location In Database>
+	EndGlobalSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonLibrary", "CommonLibrary\CommonLibrary.csproj", "{683B173B-831E-494D-A6FE-965934D3D315}"
+	GlobalSection(MercurialSourceControlSolutionProperties) = preSolution
+		SolutionIsControlled = True
+		SolutionBindings = <Solution Location In Database>
+	EndGlobalSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Messages", "Messages\Messages.csproj", "{80A13967-C4D2-4B5A-909D-FA595F57F88D}"
+	GlobalSection(MercurialSourceControlSolutionProperties) = preSolution
+		SolutionIsControlled = True
+		SolutionBindings = <Solution Location In Database>
+	EndGlobalSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FaceLibraryBuilder", "FaceLibraryBuilder\FaceLibraryBuilder.csproj", "{09479D85-7A51-4FB1-A027-64287A0FF827}"
+	GlobalSection(MercurialSourceControlSolutionProperties) = preSolution
+		SolutionIsControlled = True
+		SolutionBindings = <Solution Location In Database>
+	EndGlobalSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreamService", "StreamService\StreamService.csproj", "{EB0E48F0-2A60-4C07-9AB8-4C9A450665E4}"
+	GlobalSection(MercurialSourceControlSolutionProperties) = preSolution
+		SolutionIsControlled = True
+		SolutionBindings = <Solution Location In Database>
+	EndGlobalSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Discovery", "Discovery\Discovery.csproj", "{105AB30D-A893-4E2C-B149-764A80C1FDCE}"
+	GlobalSection(MercurialSourceControlSolutionProperties) = preSolution
+		SolutionIsControlled = True
+		SolutionBindings = <Solution Location In Database>
+	EndGlobalSection
+EndProject
+Global
+	GlobalSection(MercurialSourceControlSolutionProperties) = preSolution
+		SolutionIsControlled = True
+		SolutionBindings = <Solution Location In Database>
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Debug|Win32 = Debug|Win32
+		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E0F855A2-D8FA-4D2F-9645-C6E8DE8AACD4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0F855A2-D8FA-4D2F-9645-C6E8DE8AACD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0F855A2-D8FA-4D2F-9645-C6E8DE8AACD4}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{E0F855A2-D8FA-4D2F-9645-C6E8DE8AACD4}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{E0F855A2-D8FA-4D2F-9645-C6E8DE8AACD4}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{E0F855A2-D8FA-4D2F-9645-C6E8DE8AACD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0F855A2-D8FA-4D2F-9645-C6E8DE8AACD4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0F855A2-D8FA-4D2F-9645-C6E8DE8AACD4}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{E0F855A2-D8FA-4D2F-9645-C6E8DE8AACD4}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{E0F855A2-D8FA-4D2F-9645-C6E8DE8AACD4}.Release|Win32.ActiveCfg = Release|Any CPU
+		{3F01A85F-C1C4-4060-AA37-57AB6F0C90AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F01A85F-C1C4-4060-AA37-57AB6F0C90AB}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{3F01A85F-C1C4-4060-AA37-57AB6F0C90AB}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{3F01A85F-C1C4-4060-AA37-57AB6F0C90AB}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{3F01A85F-C1C4-4060-AA37-57AB6F0C90AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F01A85F-C1C4-4060-AA37-57AB6F0C90AB}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{3F01A85F-C1C4-4060-AA37-57AB6F0C90AB}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{3F01A85F-C1C4-4060-AA37-57AB6F0C90AB}.Release|Win32.ActiveCfg = Release|Any CPU
+		{0C349962-22C7-4880-8D91-AFF6DADD0173}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C349962-22C7-4880-8D91-AFF6DADD0173}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{0C349962-22C7-4880-8D91-AFF6DADD0173}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{0C349962-22C7-4880-8D91-AFF6DADD0173}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{0C349962-22C7-4880-8D91-AFF6DADD0173}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C349962-22C7-4880-8D91-AFF6DADD0173}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{0C349962-22C7-4880-8D91-AFF6DADD0173}.Release|Win32.ActiveCfg = Release|Any CPU
+		{683B173B-831E-494D-A6FE-965934D3D315}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{683B173B-831E-494D-A6FE-965934D3D315}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{683B173B-831E-494D-A6FE-965934D3D315}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{683B173B-831E-494D-A6FE-965934D3D315}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{683B173B-831E-494D-A6FE-965934D3D315}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{683B173B-831E-494D-A6FE-965934D3D315}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{683B173B-831E-494D-A6FE-965934D3D315}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{683B173B-831E-494D-A6FE-965934D3D315}.Release|Win32.ActiveCfg = Release|Any CPU
+		{80A13967-C4D2-4B5A-909D-FA595F57F88D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80A13967-C4D2-4B5A-909D-FA595F57F88D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80A13967-C4D2-4B5A-909D-FA595F57F88D}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{80A13967-C4D2-4B5A-909D-FA595F57F88D}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{80A13967-C4D2-4B5A-909D-FA595F57F88D}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{80A13967-C4D2-4B5A-909D-FA595F57F88D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80A13967-C4D2-4B5A-909D-FA595F57F88D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80A13967-C4D2-4B5A-909D-FA595F57F88D}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{80A13967-C4D2-4B5A-909D-FA595F57F88D}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{80A13967-C4D2-4B5A-909D-FA595F57F88D}.Release|Win32.ActiveCfg = Release|Any CPU
+		{09479D85-7A51-4FB1-A027-64287A0FF827}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09479D85-7A51-4FB1-A027-64287A0FF827}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09479D85-7A51-4FB1-A027-64287A0FF827}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{09479D85-7A51-4FB1-A027-64287A0FF827}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{09479D85-7A51-4FB1-A027-64287A0FF827}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{09479D85-7A51-4FB1-A027-64287A0FF827}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09479D85-7A51-4FB1-A027-64287A0FF827}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09479D85-7A51-4FB1-A027-64287A0FF827}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{09479D85-7A51-4FB1-A027-64287A0FF827}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{09479D85-7A51-4FB1-A027-64287A0FF827}.Release|Win32.ActiveCfg = Release|Any CPU
+		{EB0E48F0-2A60-4C07-9AB8-4C9A450665E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB0E48F0-2A60-4C07-9AB8-4C9A450665E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB0E48F0-2A60-4C07-9AB8-4C9A450665E4}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{EB0E48F0-2A60-4C07-9AB8-4C9A450665E4}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{EB0E48F0-2A60-4C07-9AB8-4C9A450665E4}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{EB0E48F0-2A60-4C07-9AB8-4C9A450665E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB0E48F0-2A60-4C07-9AB8-4C9A450665E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB0E48F0-2A60-4C07-9AB8-4C9A450665E4}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{EB0E48F0-2A60-4C07-9AB8-4C9A450665E4}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{EB0E48F0-2A60-4C07-9AB8-4C9A450665E4}.Release|Win32.ActiveCfg = Release|Any CPU
+		{105AB30D-A893-4E2C-B149-764A80C1FDCE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{105AB30D-A893-4E2C-B149-764A80C1FDCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{105AB30D-A893-4E2C-B149-764A80C1FDCE}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{105AB30D-A893-4E2C-B149-764A80C1FDCE}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{105AB30D-A893-4E2C-B149-764A80C1FDCE}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{105AB30D-A893-4E2C-B149-764A80C1FDCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{105AB30D-A893-4E2C-B149-764A80C1FDCE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{105AB30D-A893-4E2C-B149-764A80C1FDCE}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{105AB30D-A893-4E2C-B149-764A80C1FDCE}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{105AB30D-A893-4E2C-B149-764A80C1FDCE}.Release|Win32.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		VisualSVNWorkingCopyRoot = .
+	EndGlobalSection
+EndGlobal

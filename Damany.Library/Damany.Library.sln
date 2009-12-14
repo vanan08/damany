@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Damany.Component", "Damany.Component\Damany.Component.csproj", "{80DC56F4-DB48-4AF2-B1BE-6B944A81B293}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Damany.Net", "Damany.Net\Damany.Net.csproj", "{DE24702E-0C81-477E-B7EF-FD8DCFF46A04}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Damany.Windows.Form", "Damany.Windows.Form\Damany.Windows.Form.csproj", "{8AA0E208-9EC2-477B-BE96-00E4C7B7F827}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{80DC56F4-DB48-4AF2-B1BE-6B944A81B293}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80DC56F4-DB48-4AF2-B1BE-6B944A81B293}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80DC56F4-DB48-4AF2-B1BE-6B944A81B293}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80DC56F4-DB48-4AF2-B1BE-6B944A81B293}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE24702E-0C81-477E-B7EF-FD8DCFF46A04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE24702E-0C81-477E-B7EF-FD8DCFF46A04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE24702E-0C81-477E-B7EF-FD8DCFF46A04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE24702E-0C81-477E-B7EF-FD8DCFF46A04}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8AA0E208-9EC2-477B-BE96-00E4C7B7F827}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8AA0E208-9EC2-477B-BE96-00E4C7B7F827}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8AA0E208-9EC2-477B-BE96-00E4C7B7F827}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8AA0E208-9EC2-477B-BE96-00E4C7B7F827}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		BuildVersion_BuildVersioningStyle = None.None.Increment.None
+	EndGlobalSection
+EndGlobal
