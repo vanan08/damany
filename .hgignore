@@ -6,6 +6,7 @@ bin
 obj
 .svn
 Debug
+Release
 Disk
 *.user
 *.exe
