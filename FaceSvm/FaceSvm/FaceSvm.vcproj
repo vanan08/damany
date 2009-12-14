@@ -150,6 +150,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="cv.lib cxcore.lib cvaux.lib highgui.lib"
 				LinkIncremental="1"
 				ModuleDefinitionFile=".\FaceSvm.def"
 				GenerateDebugInformation="true"
