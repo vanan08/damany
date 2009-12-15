@@ -53,12 +53,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreamService", "StreamServ
 		SolutionBindings = <Solution Location In Database>
 	EndGlobalSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Discovery", "Discovery\Discovery.csproj", "{105AB30D-A893-4E2C-B149-764A80C1FDCE}"
-	GlobalSection(MercurialSourceControlSolutionProperties) = preSolution
-		SolutionIsControlled = True
-		SolutionBindings = <Solution Location In Database>
-	EndGlobalSection
-EndProject
 Global
 	GlobalSection(MercurialSourceControlSolutionProperties) = preSolution
 		SolutionIsControlled = True
@@ -136,16 +130,6 @@ Global
 		{EB0E48F0-2A60-4C07-9AB8-4C9A450665E4}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{EB0E48F0-2A60-4C07-9AB8-4C9A450665E4}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{EB0E48F0-2A60-4C07-9AB8-4C9A450665E4}.Release|Win32.ActiveCfg = Release|Any CPU
-		{105AB30D-A893-4E2C-B149-764A80C1FDCE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{105AB30D-A893-4E2C-B149-764A80C1FDCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{105AB30D-A893-4E2C-B149-764A80C1FDCE}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{105AB30D-A893-4E2C-B149-764A80C1FDCE}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{105AB30D-A893-4E2C-B149-764A80C1FDCE}.Debug|Win32.ActiveCfg = Debug|Any CPU
-		{105AB30D-A893-4E2C-B149-764A80C1FDCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{105AB30D-A893-4E2C-B149-764A80C1FDCE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{105AB30D-A893-4E2C-B149-764A80C1FDCE}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{105AB30D-A893-4E2C-B149-764A80C1FDCE}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{105AB30D-A893-4E2C-B149-764A80C1FDCE}.Release|Win32.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
