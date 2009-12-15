@@ -7,6 +7,7 @@ using Damany.RemoteImaging.Net.Discovery;
 
 namespace Discovery.Test
 {
+    [Serializable]
     class StringArgs : EventArgs
     {
         public string Msg { get; set; }
@@ -33,18 +34,21 @@ namespace Discovery.Test
 
             const string topic = "test topic";
             sub.Subscribe<string>(topic, this.handler);
+            sub.Subscribe<StringArgs>(topic, o => { System.Diagnostics.Debug.WriteLine("received: " + o.Msg); recvCount++; });
 
             pub.Start();
             sub.Start();
 
             pub.Publish(topic, "hi there", 3000);
-            sendCount++;
+            pub.Publish(topic, new StringArgs("args"), 3000);
+            sendCount+=2;
             System.Diagnostics.Debug.WriteLine("publish topic: " + topic);
 
             System.Threading.Thread.Sleep(3000);
 
             Assert.AreEqual(sendCount, recvCount);
         }
+
 
         private void handler(string msg)
         {
