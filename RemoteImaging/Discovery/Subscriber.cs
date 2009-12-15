@@ -7,9 +7,10 @@ using Emcaster.Topics;
 
 namespace Damany.RemoteImaging.Net.Discovery
 {
-    class Subscriber
+    public class Subscriber
     {
 
+        private MessageParser parser;
         private MessageParserFactory factory;
         private UdpReceiver receiveSocket;
 
@@ -17,17 +18,24 @@ namespace Damany.RemoteImaging.Net.Discovery
         public string ListenToIp { get; set; }
         public int ListeToPort { get; set; }
 
+        public Subscriber(string listenToIp, int listenToPort)
+        {
+            this.ListenToIp = listenToIp;
+            this.ListeToPort = listenToPort;
+
+            factory = new MessageParserFactory();
+            parser = factory.Create();
+        }
+
         public void Start()
         {
-            factory = new MessageParserFactory();
-            MessageParser parser = factory.Create();
             receiveSocket = new UdpReceiver(ListenToIp, ListeToPort);
             receiveSocket.ReceiveEvent += parser.OnBytes;
 
             receiveSocket.Start();
         }
 
-        public void Subscribe<T>(string topic, EventHandler<T> handler) where T : EventArgs
+        public void Subscribe<T>(string topic, Action<T> handler) where T: class
         {
             TopicSubscriber topicSubscriber = new TopicSubscriber(topic, factory);
             topicSubscriber.Start();
@@ -35,7 +43,7 @@ namespace Damany.RemoteImaging.Net.Discovery
             topicSubscriber.TopicMessageEvent += delegate(IMessageParser msgParser)
             {
                 T msg = msgParser.ParseObject() as T;
-                if (msg != null) handler(this, msg);
+                if (msg != null) handler(msg);
             };
         }
     }

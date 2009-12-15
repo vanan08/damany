@@ -7,7 +7,7 @@ using Emcaster.Topics;
 
 namespace Damany.RemoteImaging.Net.Discovery
 {
-    class Publisher
+    public class Publisher
     {
         UdpSource sendSocket;
         BatchWriter writer;
