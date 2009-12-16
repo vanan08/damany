@@ -7,17 +7,7 @@ using Damany.RemoteImaging.Net.Discovery;
 
 namespace Discovery.Test
 {
-    [Serializable]
-    class StringArgs : EventArgs
-    {
-        public string Msg { get; set; }
-
-        public StringArgs(string msg)
-        {
-            this.Msg = msg;
-        }
-    }
-
+    [TestFixture]
     public class PubSubTest
     {
         int sendCount = 0;
@@ -55,6 +45,17 @@ namespace Discovery.Test
             recvCount++;
             System.Diagnostics.Debug.WriteLine("received: " + msg);
 
+        }
+    }
+
+    [Serializable]
+    class StringArgs : EventArgs
+    {
+        public string Msg { get; set; }
+
+        public StringArgs(string msg)
+        {
+            this.Msg = msg;
         }
     }
 }
