@@ -40,10 +40,8 @@ namespace Damany.RemoteImaging.Net.Discovery
             TopicSubscriber topicSubscriber = new TopicSubscriber(topic, factory);
             topicSubscriber.Start();
 
-            topicSubscriber.TopicMessageEvent += delegate(IMessageParser msgParser)
-            {
-                handler(msgParser.EndPoint, new TopicArgs(msgParser) );
-            };
+            topicSubscriber.TopicMessageEvent += msgParser => handler( msgParser.EndPoint, new TopicArgs(msgParser) );
+            
         }
 
         #region IDisposable Members

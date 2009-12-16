@@ -7,18 +7,18 @@ namespace Damany.RemoteImaging.Net.Discovery
 {
     public class TopicArgs : EventArgs
     {
-        Emcaster.Topics.IMessageParser paser;
+        Emcaster.Topics.IMessageParser parser;
 
         public TopicArgs(Emcaster.Topics.IMessageParser parser)
         {
-            this.paser = parser;
+            this.parser = parser;
         }
 
         public object DataObject
         {
             get
             {
-                return paser.ParseObject();
+                return parser.ParseObject();
             }
         }
 
@@ -26,7 +26,15 @@ namespace Damany.RemoteImaging.Net.Discovery
         {
             get
             {
-                return paser.Topic;
+                return parser.Topic;
+            }
+        }
+
+        public System.Net.IPEndPoint From
+        {
+            get
+            {
+                return parser.EndPoint as System.Net.IPEndPoint;
             }
         }
     }

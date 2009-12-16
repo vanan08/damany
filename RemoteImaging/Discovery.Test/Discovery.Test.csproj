@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PubSubTest.cs" />
+    <Compile Include="UdpBusTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Discovery\Discovery.csproj">

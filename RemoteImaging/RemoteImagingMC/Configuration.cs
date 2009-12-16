@@ -12,9 +12,6 @@ namespace RemoteImaging
 {
     public class Configuration
     {
-        UdpSource sendSocket;
-        BatchWriter writer;
-        TopicPublisher publisher;
 
         /// <summary>
         /// Initializes a new instance of the Configuration class.
@@ -29,16 +26,7 @@ namespace RemoteImaging
 
         private void SendHostConfigQuery()
         {
-//             PgmSource sendSocket = new PgmSource("224.0.0.23", 7272);
-//             sendSocket.Start();
-// 
-//             BatchWriter asyncWriter = new BatchWriter(sendSocket, 1024 * 128);
-// 
-//             TopicPublisher publisher = new TopicPublisher(asyncWriter);
-//             publisher.Start();
-// 
-//             int sendTimeout = 1000;
-//             publish.PublishObject("Stock-Quotes-AAPL", 123.3, sendTimeout);
+
         }
 
         public void StartDiscovery()

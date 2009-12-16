@@ -7,7 +7,6 @@ using Damany.RemoteImaging.Net.Discovery;
 
 namespace Discovery.Test
 {
-    [TestFixture]
     public class PubSubTest
     {
         int sendCount = 0;
@@ -50,20 +49,10 @@ namespace Discovery.Test
             received = args.DataObject;
             System.Net.IPEndPoint ep = sender as System.Net.IPEndPoint;
            
-            System.Diagnostics.Debug.WriteLine("received: from: " + ep.ToString() + " msg: "  + received.ToString());
+            System.Diagnostics.Debug.WriteLine("received: from: " + args.From.ToString() + " Topic: " + args.Topic.ToString() + " msg: "  + received.ToString());
             go.Set();
 
         }
     }
 
-    [Serializable]
-    class StringArgs : EventArgs
-    {
-        public string Msg { get; set; }
-
-        public StringArgs(string msg)
-        {
-            this.Msg = msg;
-        }
-    }
 }
