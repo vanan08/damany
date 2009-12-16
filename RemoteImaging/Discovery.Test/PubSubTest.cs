@@ -30,7 +30,7 @@ namespace Discovery.Test
                 pub.Start();
                 sub.Start();
 
-                sub.Subscribe<object>(topic, this.handler);
+                sub.Subscribe(topic, this.handler);
 
                 pub.Publish(topic, toPub, 3000);
 
@@ -45,11 +45,12 @@ namespace Discovery.Test
 
         object received;
 
-        private void handler(object msg)
+        private void handler(object sender,  TopicArgs args)
         {
-            received = msg;
+            received = args.DataObject;
+            System.Net.IPEndPoint ep = sender as System.Net.IPEndPoint;
            
-            System.Diagnostics.Debug.WriteLine("received: " + msg.ToString());
+            System.Diagnostics.Debug.WriteLine("received: from: " + ep.ToString() + " msg: "  + received.ToString());
             go.Set();
 
         }

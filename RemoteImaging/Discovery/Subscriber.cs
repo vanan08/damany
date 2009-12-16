@@ -35,15 +35,14 @@ namespace Damany.RemoteImaging.Net.Discovery
             receiveSocket.Start();
         }
 
-        public void Subscribe<T>(string topic, Action<T> handler) where T: class
+        public void Subscribe(string topic, EventHandler<TopicArgs> handler)
         {
             TopicSubscriber topicSubscriber = new TopicSubscriber(topic, factory);
             topicSubscriber.Start();
 
             topicSubscriber.TopicMessageEvent += delegate(IMessageParser msgParser)
             {
-                T msg = msgParser.ParseObject() as T;
-                if (msg != null) handler(msg);
+                handler(msgParser.EndPoint, new TopicArgs(msgParser) );
             };
         }
 
