@@ -14,36 +14,41 @@ namespace Discovery.Test
         int recvCount = 0;
 
         [Test]
-        public void PubSub()
+        [Row("hi, topic", 123)]
+        [Row("abc", "jkf")]
+        public void PubSub(string topic, object toPub)
         {
             string ip = "224.0.0.23";
             int port = 40001;
 
-            Publisher pub = new Publisher(ip, port);
-            Subscriber sub = new Subscriber(ip, port);
+            using( Publisher pub = new Publisher(ip, port) )
+            using( Subscriber sub = new Subscriber(ip, port) )
+            {
+                sub.Subscribe<object>(topic, this.handler);
 
-            const string topic = "test topic";
-            sub.Subscribe<string>(topic, this.handler);
-            sub.Subscribe<StringArgs>(topic, o => { System.Diagnostics.Debug.WriteLine("received: " + o.Msg); recvCount++; });
+                pub.Start();
+                sub.Start();
 
-            pub.Start();
-            sub.Start();
+                pub.Publish(topic, toPub, 3000);
 
-            pub.Publish(topic, "hi there", 3000);
-            pub.Publish(topic, new StringArgs("args"), 3000);
-            sendCount+=2;
-            System.Diagnostics.Debug.WriteLine("publish topic: " + topic);
+                System.Diagnostics.Debug.WriteLine("publish: " + toPub.ToString());
 
-            System.Threading.Thread.Sleep(3000);
+                System.Threading.Thread.Sleep(3000);
 
-            Assert.AreEqual(sendCount, recvCount);
+                Assert.AreEqual(received, toPub);
+
+            }
+
+
         }
 
+        object received;
 
-        private void handler(string msg)
+        private void handler(object msg)
         {
-            recvCount++;
-            System.Diagnostics.Debug.WriteLine("received: " + msg);
+            received = msg;
+           
+            System.Diagnostics.Debug.WriteLine("received: " + msg.ToString());
 
         }
     }

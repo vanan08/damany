@@ -7,7 +7,7 @@ using Emcaster.Topics;
 
 namespace Damany.RemoteImaging.Net.Discovery
 {
-    public class Subscriber
+    public class Subscriber : IDisposable
     {
 
         private MessageParser parser;
@@ -46,5 +46,14 @@ namespace Damany.RemoteImaging.Net.Discovery
                 if (msg != null) handler(msg);
             };
         }
+
+        #region IDisposable Members
+
+        public void Dispose()
+        {
+            if (this.receiveSocket != null) this.receiveSocket.Dispose();
+        }
+
+        #endregion
     }
 }

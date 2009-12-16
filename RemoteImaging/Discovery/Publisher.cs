@@ -7,7 +7,7 @@ using Emcaster.Topics;
 
 namespace Damany.RemoteImaging.Net.Discovery
 {
-    public class Publisher
+    public class Publisher : IDisposable
     {
         UdpSource sendSocket;
         BatchWriter writer;
@@ -37,6 +37,15 @@ namespace Damany.RemoteImaging.Net.Discovery
             publisher.PublishObject(topic, data, timeout);
         }
 
-        
+
+
+        #region IDisposable Members
+
+        public void Dispose()
+        {
+            if (this.sendSocket != null) this.sendSocket.Dispose();
+        }
+
+        #endregion
     }
 }
