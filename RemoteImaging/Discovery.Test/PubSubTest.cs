@@ -13,6 +13,8 @@ namespace Discovery.Test
         int sendCount = 0;
         int recvCount = 0;
 
+        System.Threading.AutoResetEvent go = new System.Threading.AutoResetEvent(false);
+
         [Test]
         [Row("hi, topic", 123)]
         [Row("abc", "jkf")]
@@ -24,22 +26,21 @@ namespace Discovery.Test
             using( Publisher pub = new Publisher(ip, port) )
             using( Subscriber sub = new Subscriber(ip, port) )
             {
-                sub.Subscribe<object>(topic, this.handler);
-
+                
                 pub.Start();
                 sub.Start();
+
+                sub.Subscribe<object>(topic, this.handler);
 
                 pub.Publish(topic, toPub, 3000);
 
                 System.Diagnostics.Debug.WriteLine("publish: " + toPub.ToString());
 
-                System.Threading.Thread.Sleep(3000);
+                go.WaitOne(3000);
 
                 Assert.AreEqual(received, toPub);
 
             }
-
-
         }
 
         object received;
@@ -49,6 +50,7 @@ namespace Discovery.Test
             received = msg;
            
             System.Diagnostics.Debug.WriteLine("received: " + msg.ToString());
+            go.Set();
 
         }
     }
