@@ -47,12 +47,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreamService", "StreamServ
 		SolutionBindings = <Solution Location In Database>
 	EndGlobalSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemoteImagingMC.Test", "RemogeImagingMC.Test\RemoteImagingMC.Test.csproj", "{AC46524D-FF83-4031-80A7-51B101B573FA}"
-	GlobalSection(MercurialSourceControlSolutionProperties) = preSolution
-		SolutionIsControlled = True
-		SolutionBindings = <Solution Location In Database>
-	EndGlobalSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemoteImaging.Common", "CommonLibrary\RemoteImaging.Common.csproj", "{683B173B-831E-494D-A6FE-965934D3D315}"
 	GlobalSection(MercurialSourceControlSolutionProperties) = preSolution
 		SolutionIsControlled = True
@@ -66,6 +60,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Discovery", "Discovery\Disc
 	EndGlobalSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Discovery.Test", "Discovery.Test\Discovery.Test.csproj", "{74D590B6-9AFD-4ABA-B4EC-D8A7ED08B024}"
+	GlobalSection(MercurialSourceControlSolutionProperties) = preSolution
+		SolutionIsControlled = True
+		SolutionBindings = <Solution Location In Database>
+	EndGlobalSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemoteImagingMC.Test", "RemoteImagingMC.Test\RemoteImagingMC.Test.csproj", "{AC46524D-FF83-4031-80A7-51B101B573FA}"
 	GlobalSection(MercurialSourceControlSolutionProperties) = preSolution
 		SolutionIsControlled = True
 		SolutionBindings = <Solution Location In Database>
@@ -140,16 +140,6 @@ Global
 		{EB0E48F0-2A60-4C07-9AB8-4C9A450665E4}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{EB0E48F0-2A60-4C07-9AB8-4C9A450665E4}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{EB0E48F0-2A60-4C07-9AB8-4C9A450665E4}.Release|Win32.ActiveCfg = Release|Any CPU
-		{AC46524D-FF83-4031-80A7-51B101B573FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AC46524D-FF83-4031-80A7-51B101B573FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AC46524D-FF83-4031-80A7-51B101B573FA}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{AC46524D-FF83-4031-80A7-51B101B573FA}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{AC46524D-FF83-4031-80A7-51B101B573FA}.Debug|Win32.ActiveCfg = Debug|Any CPU
-		{AC46524D-FF83-4031-80A7-51B101B573FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AC46524D-FF83-4031-80A7-51B101B573FA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AC46524D-FF83-4031-80A7-51B101B573FA}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{AC46524D-FF83-4031-80A7-51B101B573FA}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{AC46524D-FF83-4031-80A7-51B101B573FA}.Release|Win32.ActiveCfg = Release|Any CPU
 		{683B173B-831E-494D-A6FE-965934D3D315}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{683B173B-831E-494D-A6FE-965934D3D315}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{683B173B-831E-494D-A6FE-965934D3D315}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -180,6 +170,16 @@ Global
 		{74D590B6-9AFD-4ABA-B4EC-D8A7ED08B024}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{74D590B6-9AFD-4ABA-B4EC-D8A7ED08B024}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{74D590B6-9AFD-4ABA-B4EC-D8A7ED08B024}.Release|Win32.ActiveCfg = Release|Any CPU
+		{AC46524D-FF83-4031-80A7-51B101B573FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC46524D-FF83-4031-80A7-51B101B573FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC46524D-FF83-4031-80A7-51B101B573FA}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{AC46524D-FF83-4031-80A7-51B101B573FA}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{AC46524D-FF83-4031-80A7-51B101B573FA}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{AC46524D-FF83-4031-80A7-51B101B573FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC46524D-FF83-4031-80A7-51B101B573FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC46524D-FF83-4031-80A7-51B101B573FA}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{AC46524D-FF83-4031-80A7-51B101B573FA}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{AC46524D-FF83-4031-80A7-51B101B573FA}.Release|Win32.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
