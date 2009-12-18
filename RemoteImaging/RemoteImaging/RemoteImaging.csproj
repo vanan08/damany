@@ -39,10 +39,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AForge.Imaging, Version=1.1.0.0, Culture=neutral, PublicKeyToken=d604c8342bbdeba9, processorArchitecture=MSIL" />
-    <Reference Include="CommonLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\OutPut\CommonLibrary.dll</HintPath>
-    </Reference>
     <Reference Include="Damany.Component, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Damany.Library\OutPut\Damany.Component.dll</HintPath>
@@ -84,10 +80,6 @@
     <Reference Include="IconExtractor, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\OutPut\IconExtractor.dll</HintPath>
-    </Reference>
-    <Reference Include="Messages, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\OutPut\Messages.dll</HintPath>
     </Reference>
     <Reference Include="MotionDetectWrapper, Version=1.0.3604.21378, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>

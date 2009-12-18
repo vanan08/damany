@@ -19,7 +19,6 @@ using System.Threading;
 using MotionDetectWrapper;
 using RemoteImaging.Query;
 using System.Net.Sockets;
-using Damany.RemoteImaging.Net.Discovery;
 
 namespace RemoteImaging.RealtimeDisplay
 {
@@ -672,7 +671,7 @@ namespace RemoteImaging.RealtimeDisplay
 
             foreach (var h in config.Hosts)
             {
-                ToolStripMenuItem mi = new ToolStripMenuItem(h.Name);
+                ToolStripMenuItem mi = new ToolStripMenuItem(h.Config.Name);
                 mi.Tag = h;
                 mi.Click += new EventHandler(mi_Click);
 
@@ -701,7 +700,7 @@ namespace RemoteImaging.RealtimeDisplay
             }
             catch (System.Net.Sockets.SocketException)
             {
-                string msg = string.Format("无法连接 {0}, 请检查设备", info.Source.Name);
+                string msg = string.Format("无法连接 {0}, 请检查设备", info.Source.Config.Name);
                 
                 Action showMsg = ()=> MessageBox.Show(this, msg, "连接错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
@@ -736,10 +735,10 @@ namespace RemoteImaging.RealtimeDisplay
 
             ToolStripMenuItem menuItem = sender as ToolStripMenuItem;
 
-            HostConfiguration host = menuItem.Tag as HostConfiguration;
+            Host host = menuItem.Tag as Host;
 
             TcpClient tcp = new TcpClient();
-            System.Net.IPAddress ip = System.Net.IPAddress.Parse(host.ip);
+            System.Net.IPAddress ip = host.Ip;
             System.Net.IPEndPoint ep = new System.Net.IPEndPoint(ip, 20000);
             try
             {
@@ -797,7 +796,7 @@ namespace RemoteImaging.RealtimeDisplay
         }
 
 
-        public void AddOrUpdateHost(HostConfiguration hostInfo)
+        public void AddOrUpdateHost()
         {
 
         }
@@ -807,7 +806,7 @@ namespace RemoteImaging.RealtimeDisplay
     internal class ConnectInfo
     {
         public Cell Target { get; set; }
-        public HostConfiguration Source { get; set; }
+        public Host Source { get; set; }
         public TcpClient Socket { get; set; }
     }
 

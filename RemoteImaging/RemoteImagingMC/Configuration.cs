@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Xml.Linq;
 using System.Threading;
-using Damany.RemoteImaging.Net.Discovery;
 using Emcaster.Sockets;
 using Emcaster.Topics;
 
@@ -67,13 +66,13 @@ namespace RemoteImaging
         }
 
 
-        public HostConfiguration this[object id]
+        public Host this[object id]
         {
             get
             {
                 try
                 {
-                    return this.Hosts.First(h => h.ID.Equals(id));
+                    return this.Hosts.First(h => h.Config.ID.Equals(id));
                 }
                 catch (System.InvalidOperationException)
                 {
@@ -84,7 +83,7 @@ namespace RemoteImaging
             
         }
 
-        public IList<HostConfiguration> Hosts
+        public IList<Host> Hosts
         {
             get;
             set;

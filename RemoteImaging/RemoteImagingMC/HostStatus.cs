@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using MbUnit.Framework;
 
-namespace RemogeImagingMC.Test
+namespace RemoteImaging
 {
-    class ConfigurationTest
+    public enum HostStatus
     {
-
+        OnLine,
+        OffLine,
     }
 }

@@ -13,7 +13,6 @@ using RemoteControlService;
 using System.Diagnostics;
 using System.ServiceModel.Channels;
 using System.ServiceModel;
-using Damany.RemoteImaging.Net.Discovery;
 
 namespace RemoteImaging.Query
 {
@@ -32,18 +31,18 @@ namespace RemoteImaging.Query
             setListViewColumns();
         }
 
-        private string GetSelectedIP()
+        private System.Net.IPAddress GetSelectedIP()
         {
-            HostConfiguration selected = this.comboBox1.SelectedItem as HostConfiguration;
+            Host selected = this.comboBox1.SelectedItem as Host;
 
-            selected = Configuration.Instance[selected.Name];
+            selected = Configuration.Instance[selected.Config.ID];
 
 
             if (selected == null)
             {
                 throw new Exception("No camera selected");
             }
-            return selected.ip;
+            return selected.Ip;
         }
 
         private void CreateProxy()

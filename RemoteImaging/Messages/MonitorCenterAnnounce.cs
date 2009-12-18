@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using MbUnit.Framework;
 
-namespace RemogeImagingMC.Test
+namespace Damany.RemoteImaging.Net.Messages
 {
-    class ConfigurationTest
+    [Serializable]
+    public class MonitorCenterAnnounce
     {
-
     }
 }

@@ -11,7 +11,6 @@ using RemoteImaging.Core;
 using RemoteControlService;
 using System.ServiceModel.Channels;
 using System.ServiceModel;
-using Damany.RemoteImaging.Net.Discovery;
 
 namespace RemoteImaging.Query
 {
@@ -134,9 +133,9 @@ namespace RemoteImaging.Query
 
         private void CreateProxy()
         {
-            HostConfiguration selected = this.comboBox1.SelectedItem as HostConfiguration;
+            Host selected = this.comboBox1.SelectedItem as Host;
 
-            selected = Configuration.Instance[selected.ID];
+            selected = Configuration.Instance[selected.Config.ID];
 
             if (selected == null)
             {

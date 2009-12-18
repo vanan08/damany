@@ -43,10 +43,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Damany.Library\OutPut\Damany.Component.dll</HintPath>
     </Reference>
-    <Reference Include="Damany.RemoteImaging.Net, Version=1.0.6.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\OutPut\Damany.RemoteImaging.Net.dll</HintPath>
-    </Reference>
     <Reference Include="Damany.Windows.Form, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Damany.Library\OutPut\Damany.Windows.Form.dll</HintPath>
@@ -149,6 +145,8 @@
       <DependentUpon>FormDetailedPic.cs</DependentUpon>
     </Compile>
     <Compile Include="FrameHandler.cs" />
+    <Compile Include="HostsPool.cs" />
+    <Compile Include="HostStatus.cs" />
     <Compile Include="ImageCapturedEventArgs.cs" />
     <Compile Include="ImageProcess\Controls\FilterPreview.cs">
       <SubType>Component</SubType>
@@ -167,6 +165,7 @@
     </Compile>
     <Compile Include="ManagedFrame.cs" />
     <Compile Include="MockCamera.cs" />
+    <Compile Include="Host.cs" />
     <Compile Include="OptionsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -394,6 +393,20 @@
       <Isolated>False</Isolated>
     </COMReference>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CommonLibrary\RemoteImaging.Common.csproj">
+      <Project>{683B173B-831E-494D-A6FE-965934D3D315}</Project>
+      <Name>RemoteImaging.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Discovery\Discovery.csproj">
+      <Project>{105AB30D-A893-4E2C-B149-764A80C1FDCE}</Project>
+      <Name>Discovery</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Messages\Messages.csproj">
+      <Project>{80A13967-C4D2-4B5A-909D-FA595F57F88D}</Project>
+      <Name>Messages</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
@@ -404,7 +417,7 @@
   -->
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_BuildAction="ReBuild" BuildVersion_ConfigurationName="Release" BuildVersion_UpdateFileVersion="True" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_BuildVersioningStyle="None.None.Increment.None" Reactor_Enabled="1" Reactor_Lib="0" Reactor_Automatic="1" Reactor_Commands="" Reactor_Project="" Reactor_Output="[main_assembly_dir]RemoteImagingMC_Secure\RemoteImagingMC.exe" />
+      <UserProperties Reactor_Output="[main_assembly_dir]RemoteImagingMC_Secure\RemoteImagingMC.exe" Reactor_Project="" Reactor_Commands="" Reactor_Automatic="1" Reactor_Lib="0" Reactor_Enabled="1" BuildVersion_BuildVersioningStyle="None.None.Increment.None" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_UpdateFileVersion="True" BuildVersion_ConfigurationName="Release" BuildVersion_BuildAction="ReBuild" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

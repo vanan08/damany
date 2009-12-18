@@ -789,14 +789,9 @@ namespace RemoteImaging.RealtimeDisplay
             this.axCamImgCtrl1.UnicastPort = 3939;
             this.axCamImgCtrl1.ComType = 0;
 
-#if !DEBUG
             this.axCamImgCtrl1.CamImgCtrlStart();
-
             this.axCamImgCtrl1.CamImgRecStart();
-#endif
 
-
-            //Properties.Settings.Default.CurIp = cam.IpAddress;
         }
 
         private void OnConnectionFinished(object ex)

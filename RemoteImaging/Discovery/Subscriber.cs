@@ -25,13 +25,14 @@ namespace Damany.RemoteImaging.Net.Discovery
 
             factory = new MessageParserFactory();
             parser = factory.Create();
+
+            receiveSocket = new UdpReceiver(ListenToIp, ListeToPort);
+            receiveSocket.ReceiveEvent += parser.OnBytes;
+
         }
 
         public void Start()
         {
-            receiveSocket = new UdpReceiver(ListenToIp, ListeToPort);
-            receiveSocket.ReceiveEvent += parser.OnBytes;
-
             receiveSocket.Start();
         }
 

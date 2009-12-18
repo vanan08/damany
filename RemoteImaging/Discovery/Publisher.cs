@@ -13,6 +13,8 @@ namespace Damany.RemoteImaging.Net.Discovery
         BatchWriter writer;
         TopicPublisher publisher;
 
+        bool started;
+
         public Publisher(string announceIp, int port)
         {
             this.AnnounceIp = announceIp;
@@ -30,14 +32,29 @@ namespace Damany.RemoteImaging.Net.Discovery
         {
             sendSocket.Start();
             publisher.Start();
+            this.started = true;
         }
 
         public void Publish(string topic, object data, int timeout)
         {
+            if (!this.started) throw new InvalidOperationException("Has not started");
+
             publisher.PublishObject(topic, data, timeout);
         }
 
 
+
+        public bool Started
+        {
+            get
+            {
+                return started;
+            }
+            set
+            {
+                started = value;
+            }
+        }
 
         #region IDisposable Members
 

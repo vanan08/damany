@@ -30,6 +30,8 @@ namespace Damany.RemoteImaging.Net.Discovery
 
         public void Publish(string topic, object data, int timeout)
         {
+            if (!pub.Started) throw new InvalidOperationException("Has not started");
+
             this.pub.Publish(topic, data, timeout);
         }
 

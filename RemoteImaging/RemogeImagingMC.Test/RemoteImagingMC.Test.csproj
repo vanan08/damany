@@ -31,6 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Damany.RemoteImaging.Net.Messages, Version=1.0.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\OutPut\Damany.RemoteImaging.Net.Messages.dll</HintPath>
+    </Reference>
     <Reference Include="Gallio, Version=3.1.0.0, Culture=neutral, PublicKeyToken=eb9cfa67ee6ab36e, processorArchitecture=MSIL" />
     <Reference Include="MbUnit, Version=3.1.0.0, Culture=neutral, PublicKeyToken=eb9cfa67ee6ab36e, processorArchitecture=MSIL" />
     <Reference Include="System" />
@@ -45,12 +49,24 @@
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConfigurationTest.cs" />
+    <Compile Include="HostsPoolTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CommonLibrary\RemoteImaging.Common.csproj">
+      <Project>{683B173B-831E-494D-A6FE-965934D3D315}</Project>
+      <Name>RemoteImaging.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Discovery\Discovery.csproj">
+      <Project>{105AB30D-A893-4E2C-B149-764A80C1FDCE}</Project>
+      <Name>Discovery</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RemoteImagingMC\RemoteImagingMC.csproj">
       <Project>{0C349962-22C7-4880-8D91-AFF6DADD0173}</Project>
       <Name>RemoteImagingMC</Name>
