@@ -7,6 +7,7 @@ using Damany.RemoteImaging.Net.Discovery;
 
 namespace Discovery.Test
 {
+    [TestFixture]
     public class PubSubTest
     {
         int sendCount = 0;

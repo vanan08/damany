@@ -22,6 +22,7 @@ namespace Damany.Component
 
 
 
+
         public static void SearchCamersAsync()
         {
             Thread t = new Thread(DoSearch);
@@ -122,6 +123,7 @@ namespace Damany.Component
             reqAuthorize.Credentials = new NetworkCredential(UserName, Password);
             reqAuthorize.CookieContainer = new CookieContainer();
             reqAuthorize.KeepAlive = true;
+            reqAuthorize.Proxy = System.Net.GlobalProxySelection.GetEmptyWebProxy();
 
             HttpWebResponse reply = (HttpWebResponse)reqAuthorize.GetResponse();
             cookies = reqAuthorize.CookieContainer;
@@ -242,6 +244,8 @@ namespace Damany.Component
             req.ProtocolVersion = new Version(1, 1);
             req.CookieContainer = cookies;
             req.KeepAlive = true;
+            reqAuthorize.Proxy = System.Net.GlobalProxySelection.GetEmptyWebProxy();
+
 
             HttpWebResponse reply = (HttpWebResponse)req.GetResponse();
 

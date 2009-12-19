@@ -795,6 +795,11 @@ namespace RemoteImaging.RealtimeDisplay
             }
         }
 
+        public void AddHost(Host h)
+        {
+
+        }
+
 
         public void AddOrUpdateHost()
         {

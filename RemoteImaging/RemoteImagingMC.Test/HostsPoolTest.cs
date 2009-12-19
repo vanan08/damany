@@ -27,9 +27,6 @@ namespace RemogeImagingMC.Test
             this.pool.ListChanged +=new System.ComponentModel.ListChangedEventHandler(pool_ListChanged);
         }
 
-       
-
-
         void pool_ListChanged(object sender, System.ComponentModel.ListChangedEventArgs e)
         {
             System.Diagnostics.Debug.WriteLine(e.ListChangedType);
