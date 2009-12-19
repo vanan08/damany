@@ -30,16 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("192.168.1.2", 1, 1);
-            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("2", 2, 2);
-            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("南门", new System.Windows.Forms.TreeNode[] {
-            treeNode7,
-            treeNode8});
-            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("192.168.1.1", 1, 1);
-            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("3", 2, 2);
-            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("北门", new System.Windows.Forms.TreeNode[] {
-            treeNode10,
-            treeNode11});
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.statusOutputFolder = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusProgressBar = new System.Windows.Forms.ToolStripProgressBar();
@@ -80,6 +70,7 @@
             this.options = new System.Windows.Forms.ToolStripButton();
             this.aboutButton = new System.Windows.Forms.ToolStripLabel();
             this.alertControl1 = new DevExpress.XtraBars.Alerter.AlertControl(this.components);
+            this.testButton = new System.Windows.Forms.ToolStripButton();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
@@ -140,7 +131,7 @@
             this.statusTime.Image = ((System.Drawing.Image)(resources.GetObject("statusTime.Image")));
             this.statusTime.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.statusTime.Name = "statusTime";
-            this.statusTime.Size = new System.Drawing.Size(488, 23);
+            this.statusTime.Size = new System.Drawing.Size(721, 23);
             this.statusTime.Spring = true;
             this.statusTime.Text = "toolStripStatusLabel1";
             // 
@@ -250,30 +241,6 @@
             this.cameraTree.ImageList = this.cameraImageList;
             this.cameraTree.Location = new System.Drawing.Point(0, 24);
             this.cameraTree.Name = "cameraTree";
-            treeNode7.ImageIndex = 1;
-            treeNode7.Name = "Node1";
-            treeNode7.SelectedImageIndex = 1;
-            treeNode7.Text = "192.168.1.2";
-            treeNode8.ImageIndex = 2;
-            treeNode8.Name = "Node4";
-            treeNode8.SelectedImageIndex = 2;
-            treeNode8.Text = "2";
-            treeNode9.ImageIndex = 0;
-            treeNode9.Name = "Node0";
-            treeNode9.Text = "南门";
-            treeNode10.ImageIndex = 1;
-            treeNode10.Name = "Node3";
-            treeNode10.SelectedImageIndex = 1;
-            treeNode10.Text = "192.168.1.1";
-            treeNode11.ImageIndex = 2;
-            treeNode11.Name = "Node5";
-            treeNode11.SelectedImageIndex = 2;
-            treeNode11.Text = "3";
-            treeNode12.Name = "Node2";
-            treeNode12.Text = "北门";
-            this.cameraTree.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode9,
-            treeNode12});
             this.cameraTree.SelectedImageIndex = 0;
             this.cameraTree.Size = new System.Drawing.Size(140, 453);
             this.cameraTree.TabIndex = 1;
@@ -285,11 +252,12 @@
             this.cameraImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("cameraImageList.ImageStream")));
             this.cameraImageList.TransparentColor = System.Drawing.Color.Transparent;
             this.cameraImageList.Images.SetKeyName(0, "NetHost.gif");
-            this.cameraImageList.Images.SetKeyName(1, "Camera16.gif");
-            this.cameraImageList.Images.SetKeyName(2, "spanner16.gif");
-            this.cameraImageList.Images.SetKeyName(3, "property.gif");
-            this.cameraImageList.Images.SetKeyName(4, "ip16.gif");
-            this.cameraImageList.Images.SetKeyName(5, "id16.gif");
+            this.cameraImageList.Images.SetKeyName(1, "NetHostOffLine.gif");
+            this.cameraImageList.Images.SetKeyName(2, "Camera16.gif");
+            this.cameraImageList.Images.SetKeyName(3, "spanner16.gif");
+            this.cameraImageList.Images.SetKeyName(4, "property.gif");
+            this.cameraImageList.Images.SetKeyName(5, "ip16.gif");
+            this.cameraImageList.Images.SetKeyName(6, "id16.gif");
             // 
             // panelControl4
             // 
@@ -489,7 +457,8 @@
             this.videoSearch,
             this.toolStripSeparator1,
             this.options,
-            this.aboutButton});
+            this.aboutButton,
+            this.testButton});
             this.mainToolStrip.Location = new System.Drawing.Point(0, 64);
             this.mainToolStrip.Name = "mainToolStrip";
             this.mainToolStrip.Size = new System.Drawing.Size(897, 26);
@@ -537,6 +506,16 @@
             // 
             this.alertControl1.ShowPinButton = false;
             // 
+            // testButton
+            // 
+            this.testButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.testButton.Image = ((System.Drawing.Image)(resources.GetObject("testButton.Image")));
+            this.testButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.testButton.Name = "testButton";
+            this.testButton.Size = new System.Drawing.Size(23, 23);
+            this.testButton.Text = "toolStripButton1";
+            this.testButton.Click += new System.EventHandler(this.testButton_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -552,6 +531,7 @@
             this.Text = "智能人像抓拍系统监控中心";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.MainForm_Load);
+            this.Shown += new System.EventHandler(this.MainForm_Shown);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
@@ -623,6 +603,7 @@
         private System.Windows.Forms.ToolStripMenuItem spot1ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem spot2ToolStripMenuItem;
         private DevExpress.XtraEditors.LabelControl labelControl3;
+        private System.Windows.Forms.ToolStripButton testButton;
 
     }
 }

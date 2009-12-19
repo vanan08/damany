@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -19,10 +20,12 @@ using System.Threading;
 using MotionDetectWrapper;
 using RemoteImaging.Query;
 using System.Net.Sockets;
+using System.Linq;
+using Damany.RemoteImaging.Common;
 
 namespace RemoteImaging.RealtimeDisplay
 {
-    public partial class MainForm : Form
+    public partial class MainForm : Form, IHostsPoolObserver
     {
         Configuration config = Configuration.Instance;
         System.Windows.Forms.Timer time = null;
@@ -614,14 +617,7 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if ((config.thread != null) && (config.thread.IsAlive))
-            {
-                config.thread.Abort();
-            }
-            if ((thread != null) && (thread.IsAlive))
-            {
-                thread.Abort();
-            }
+
             Properties.Settings.Default.Save();
 
         }
@@ -753,7 +749,7 @@ namespace RemoteImaging.RealtimeDisplay
             }
             catch (System.Net.Sockets.SocketException)
             {
-                MessageBox.Show(this, "无法连接, 请检查设备", "连接错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(this, "无法连接, 请检查设备", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             
@@ -797,12 +793,74 @@ namespace RemoteImaging.RealtimeDisplay
 
         public void AddHost(Host h)
         {
+            var item = new TreeNode();
+            item.Tag = h;
+
+            UpdateNodeProperty(item, h);
+
+            item.ExpandAll();
+
+            this.cameraTree.Nodes.Add(item);
 
         }
 
 
-        public void AddOrUpdateHost()
+        private static void UpdateNodeProperty(TreeNode node, Host h)
         {
+            node.Text = h.Config.Name;
+            node.ImageIndex = h.Status == HostStatus.OnLine ? 0 : 1;
+            node.SelectedImageIndex = node.ImageIndex;
+
+            //child nodes
+            node.Nodes.Clear();
+            node.Nodes.Add(
+                new TreeNode(string.Format("摄像头编号: {0}", h.Config.CameraID), 2, 2));
+        }
+
+        public void UpdateHost(Host h)
+        {
+            var nodes = from TreeNode n in this.cameraTree.Nodes
+                        where n.Tag == h
+                        select n;
+
+            TreeNode node = nodes.First();
+
+            UpdateNodeProperty(node, h);
+
+        }
+
+        private void testButton_Click(object sender, EventArgs e)
+        {
+            this.cameraTree.Nodes.Clear();
+
+            var cfg = new HostConfiguration();
+            cfg.CameraID = 2;
+            cfg.Index = 3;
+            cfg.Name = "南门";
+
+            var host = new Host();
+            host.Config = cfg;
+            host.Ip = System.Net.IPAddress.Loopback;
+            host.Status = HostStatus.OnLine;
+            host.LastSeen = DateTime.Now;
+
+            this.AddHost(host);
+
+
+            cfg.Name = "Hack";
+            host.Status = HostStatus.OffLine;
+
+            this.UpdateHost(host);
+        }
+
+        HostsPool hostsPool;
+
+        private void MainForm_Shown(object sender, EventArgs e)
+        {
+            hostsPool = new HostsPool("224.0.0.23", 40001);
+            hostsPool.Observer = this;
+
+            hostsPool.Start();
 
         }
     }

@@ -8,23 +8,44 @@ using Damany.RemoteImaging.Net.Messages;
 using Damany.RemoteImaging.Common;
 
 
-namespace RemoteImaging 
+namespace RemoteImaging
 {
     public class HostsPool : BindingList<Host>, IDisposable
     {
+        private System.Threading.SynchronizationContext sycCtx = System.Threading.SynchronizationContext.Current;
         UdpBus bus;
         BackgroundWorker worker = new BackgroundWorker();
+        object locker = new object();
+
+        public IHostsPoolObserver Observer { get; set; }
 
         public HostsPool(string announceIp, int port)
         {
+
             RaiseListChangedEvents = true;
-            
+
             bus = new UdpBus(announceIp, port);
 
             bus.Subscrib(Topics.HostConfigReport, HostMessageHandler);
 
             worker.DoWork += new DoWorkEventHandler(worker_DoWork);
             worker.WorkerSupportsCancellation = true;
+
+            this.Observer = new NullHostsPoolObserver();
+        }
+
+        void UpdateOnLineState()
+        {
+            foreach (var item in this)
+            {
+                if ((DateTime.Now - item.LastSeen) > new TimeSpan(0, 1, 0))
+                {
+                    lock (this.locker)
+                        item.Status = HostStatus.OffLine;
+                    NotifyUpdateHost(item);
+                }
+            }
+
         }
 
         void worker_DoWork(object sender, DoWorkEventArgs e)
@@ -33,6 +54,7 @@ namespace RemoteImaging
             {
                 this.bus.Publish(Topics.CenterAnnounce, new MonitorCenterAnnounce(), 3000);
                 System.Threading.Thread.Sleep(3000);
+                this.UpdateOnLineState();
             }
         }
 
@@ -42,6 +64,10 @@ namespace RemoteImaging
             this.worker.RunWorkerAsync();
         }
 
+        private void NotifyUpdateHost(Host h)
+        {
+            this.sycCtx.Post((o) => this.Observer.UpdateHost((Host)o), h);
+        }
         private void HostMessageHandler(object sender, TopicArgs args)
         {
             if (args.DataObject is HostConfiguration)
@@ -52,15 +78,23 @@ namespace RemoteImaging
                 if (this.ContainsID(config.ID))
                 {
                     Host h = this[config.ID];
-                    h.Config = config;
-                    h.Ip = args.From.Address;
-                    h.LastSeen = DateTime.Now;
-                    h.Status = HostStatus.OnLine;
+
+                    lock (this.locker)
+                    {
+                        h.Config = config;
+                        h.Ip = args.From.Address;
+                        h.LastSeen = DateTime.Now;
+                        h.Status = HostStatus.OnLine;
+                    }
+
+                    NotifyUpdateHost(h);
                 }
                 else//add new
                 {
                     var h = new Host { Config = config, Ip = args.From.Address, LastSeen = DateTime.Now, Status = HostStatus.OnLine };
                     this.InsertItem(0, h);
+
+                    this.sycCtx.Post((o) => this.Observer.AddHost((Host)o), h);
                 }
 
             }
