@@ -7,7 +7,7 @@ namespace Damany.RemoteImaging.Net.Messages
 {
     public static class Topics 
     {
-        public readonly static string CenterAnnounce = "CenterAnnounce";
-        public readonly static string HostConfigReport = "HostConfigReport";
+        public readonly static string CenterQuery = "CenterAuery";
+        public readonly static string HostReply = "HostReply";
     }
 }

@@ -31,10 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Damany.RemoteImaging.Net.Messages, Version=1.0.6.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\OutPut\Damany.RemoteImaging.Net.Messages.dll</HintPath>
-    </Reference>
     <Reference Include="Gallio, Version=3.1.0.0, Culture=neutral, PublicKeyToken=eb9cfa67ee6ab36e, processorArchitecture=MSIL" />
     <Reference Include="MbUnit, Version=3.1.0.0, Culture=neutral, PublicKeyToken=eb9cfa67ee6ab36e, processorArchitecture=MSIL" />
     <Reference Include="System" />
@@ -66,6 +62,10 @@
     <ProjectReference Include="..\Discovery\Discovery.csproj">
       <Project>{105AB30D-A893-4E2C-B149-764A80C1FDCE}</Project>
       <Name>Discovery</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Messages\Messages.csproj">
+      <Project>{80A13967-C4D2-4B5A-909D-FA595F57F88D}</Project>
+      <Name>Messages</Name>
     </ProjectReference>
     <ProjectReference Include="..\RemoteImagingMC\RemoteImagingMC.csproj">
       <Project>{0C349962-22C7-4880-8D91-AFF6DADD0173}</Project>

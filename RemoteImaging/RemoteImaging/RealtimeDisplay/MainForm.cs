@@ -316,17 +316,14 @@ namespace RemoteImaging.RealtimeDisplay
 
         #endregion
 
-
-        Damany.RemoteImaging.Net.Discovery.UdpBus bus;
+        Communication commucation;
 
         private void MainForm_Shown(object sender, EventArgs e)
         {
             diskSpaceCheckTimer.Enabled = true;
 
-
-            bus = new Damany.RemoteImaging.Net.Discovery.UdpBus("224.0.0.23", 40001);
-            bus.Start();
-
+            commucation = new Communication("224.0.0.23", 40001);
+            commucation.Start();
 
             FaceRecognition.FaceRecognizer.InitData(Program.ImageSampleCount, Program.ImageLen, Program.EigenNum);
 
@@ -647,20 +644,7 @@ namespace RemoteImaging.RealtimeDisplay
 
             statusTime.Text = DateTime.Now.ToString();
 
-            if (bus != null)
-            {
-                var cfg = new Damany.RemoteImaging.Common.HostConfiguration();
-                cfg.CameraID = 2;
-
-                int idx = new Random((int) DateTime.Now.Ticks).Next(10);
-
-                cfg.Name = "监控点" + idx.ToString();
-                cfg.Index = idx;
-
-                bus.Publish(Damany.RemoteImaging.Net.Messages.Topics.HostConfigReport, cfg, 3000);
-            }
-
-        }
+         }
 
         private void statusOutputFolder_Click(object sender, EventArgs e)
         {

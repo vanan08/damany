@@ -12,7 +12,7 @@ namespace RemoteImaging
 {
     public class HostsPool : BindingList<Host>, IDisposable
     {
-        private System.Threading.SynchronizationContext sycCtx = System.Threading.SynchronizationContext.Current;
+        private System.Threading.SynchronizationContext syncCtx;
         UdpBus bus;
         BackgroundWorker worker = new BackgroundWorker();
         object locker = new object();
@@ -21,12 +21,12 @@ namespace RemoteImaging
 
         public HostsPool(string announceIp, int port)
         {
-
+            syncCtx = System.Threading.SynchronizationContext.Current;
             RaiseListChangedEvents = true;
 
             bus = new UdpBus(announceIp, port);
 
-            bus.Subscrib(Topics.HostConfigReport, HostMessageHandler);
+            bus.Subscribe(Topics.HostReply, HostMessageHandler);
 
             worker.DoWork += new DoWorkEventHandler(worker_DoWork);
             worker.WorkerSupportsCancellation = true;
@@ -52,7 +52,7 @@ namespace RemoteImaging
         {
             while (!this.worker.CancellationPending)
             {
-                this.bus.Publish(Topics.CenterAnnounce, new MonitorCenterAnnounce(), 3000);
+                this.bus.Publish(Topics.CenterQuery, new MonitorCenterAnnounce(), 3000);
                 System.Threading.Thread.Sleep(3000);
                 this.UpdateOnLineState();
             }
@@ -66,10 +66,24 @@ namespace RemoteImaging
 
         private void NotifyUpdateHost(Host h)
         {
-            this.sycCtx.Post((o) => this.Observer.UpdateHost((Host)o), h);
+            if (this.syncCtx != null)
+                this.syncCtx.Post((o) => this.Observer.UpdateHost((Host)o), h);
+            else
+                this.Observer.UpdateHost(h);
         }
+
+        private void NotifyAddHost(Host h)
+        {
+            if (this.syncCtx != null)
+                this.syncCtx.Post((o) => this.Observer.AddHost((Host)o), h);
+            else
+                this.Observer.AddHost(h);
+        }
+
+
         private void HostMessageHandler(object sender, TopicArgs args)
         {
+
             if (args.DataObject is HostConfiguration)
             {
                 HostConfiguration config = args.DataObject as HostConfiguration;
@@ -94,7 +108,7 @@ namespace RemoteImaging
                     var h = new Host { Config = config, Ip = args.From.Address, LastSeen = DateTime.Now, Status = HostStatus.OnLine };
                     this.InsertItem(0, h);
 
-                    this.sycCtx.Post((o) => this.Observer.AddHost((Host)o), h);
+                    NotifyAddHost(h);
                 }
 
             }

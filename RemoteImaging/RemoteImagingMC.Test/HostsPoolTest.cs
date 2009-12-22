@@ -41,15 +41,13 @@ namespace RemogeImagingMC.Test
 
             System.Threading.AutoResetEvent evt = new System.Threading.AutoResetEvent(false);
 
-            bus.Subscrib(Topics.CenterAnnounce, (sender, args) => { received = args.DataObject; evt.Set(); });
-
             this.pool.Start();
 
             HostConfiguration hostSpec = new HostConfiguration{ CameraID = 2, Index = 0, Name = "mike", };
 
-            bus.Publish(Topics.HostConfigReport, hostSpec, 3000);
+            bus.Publish(Topics.HostReply, hostSpec, 3000);
 
-            evt.WaitOne(6000);
+            System.Threading.Thread.Sleep(6000);
 
             var host = this.pool[hostSpec.ID];
 
@@ -58,17 +56,15 @@ namespace RemogeImagingMC.Test
             Assert.AreEqual("mike", host.Config.Name);
 
             hostSpec.Name = "jack";
+            hostSpec.Index = 1;
 
-            bus.Publish(Topics.HostConfigReport, hostSpec, 3000);
+            bus.Publish(Topics.HostReply, hostSpec, 3000);
 
-            evt.Reset();
-            evt.WaitOne(6000);
+            System.Threading.Thread.Sleep(6000);
 
             host = this.pool[hostSpec.ID];
             Assert.AreEqual("jack", host.Config.Name);
-            
 
-            Assert.IsInstanceOfType(typeof(MonitorCenterAnnounce), received);
         }
 
         [Test]

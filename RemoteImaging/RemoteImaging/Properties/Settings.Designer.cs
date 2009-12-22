@@ -598,5 +598,29 @@ namespace RemoteImaging.Properties {
                 this["MaxFrameQueueLength"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
+        public string HostId {
+            get {
+                return ((string)(this["HostId"]));
+            }
+            set {
+                this["HostId"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string HostName {
+            get {
+                return ((string)(this["HostName"]));
+            }
+            set {
+                this["HostName"] = value;
+            }
+        }
     }
 }

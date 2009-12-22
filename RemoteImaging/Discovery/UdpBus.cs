@@ -35,7 +35,7 @@ namespace Damany.RemoteImaging.Net.Discovery
             this.pub.Publish(topic, data, timeout);
         }
 
-        public void Subscrib(string topic, EventHandler<TopicArgs> handler)
+        public void Subscribe(string topic, EventHandler<TopicArgs> handler)
         {
             this.sub.Subscribe(topic, handler);
         }
