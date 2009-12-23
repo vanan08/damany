@@ -8,20 +8,10 @@ namespace Damany.RemoteImaging.Common
     [Serializable]
     public class HostConfiguration : System.ComponentModel.INotifyPropertyChanged
     {
-        private int _Index;
-        public int Index
+
+        public HostConfiguration(object ID)
         {
-            get
-            {
-                return _Index;
-            }
-            set
-            {
-                _Index = value;
-
-                NotifyPropertyChanged("Index");
-
-            }
+            this.StationID = ID;
         }
 
         private string _Name;
@@ -53,18 +43,13 @@ namespace Damany.RemoteImaging.Common
         }
 
 
-        public object ID 
-        {
-            get
-            {
-                return this.Index;
-            }
-        }
+        public object StationID { get; private set; }
+
 
         public void CopyTo(HostConfiguration to)
         {
             to.CameraID = this.CameraID;
-            to.Index = this.Index;
+            to.StationID = this.StationID;
             to.Name = this.Name;
         }
 

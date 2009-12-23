@@ -81,7 +81,7 @@ namespace RemoteImaging
         {
             if (obj == null || !(obj is Host)) return false;
 
-            return this.Config.ID.Equals((obj as Host).Config.ID);
+            return this.Config.StationID.Equals((obj as Host).Config.StationID);
         }
 
 

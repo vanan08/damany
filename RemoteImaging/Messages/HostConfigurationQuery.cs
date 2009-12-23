@@ -6,7 +6,7 @@ using System.Text;
 namespace Damany.RemoteImaging.Net.Messages
 {
     [Serializable]
-    public class MonitorCenterAnnounce
+    public class HostConfigurationQuery
     {
     }
 }

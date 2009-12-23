@@ -135,7 +135,7 @@ namespace RemoteImaging.Query
         {
             Host selected = this.comboBox1.SelectedItem as Host;
 
-            selected = Configuration.Instance[selected.Config.ID];
+            selected = Configuration.Instance[selected.Config.StationID];
 
             if (selected == null)
             {

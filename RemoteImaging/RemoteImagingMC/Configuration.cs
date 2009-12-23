@@ -72,7 +72,7 @@ namespace RemoteImaging
             {
                 try
                 {
-                    return this.Hosts.First(h => h.Config.ID.Equals(id));
+                    return this.Hosts.First(h => h.Config.StationID.Equals(id));
                 }
                 catch (System.InvalidOperationException)
                 {

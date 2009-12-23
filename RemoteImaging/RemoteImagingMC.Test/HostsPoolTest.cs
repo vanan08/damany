@@ -43,26 +43,25 @@ namespace RemogeImagingMC.Test
 
             this.pool.Start();
 
-            HostConfiguration hostSpec = new HostConfiguration{ CameraID = 2, Index = 0, Name = "mike", };
+            HostConfiguration hostSpec = new HostConfiguration(0){ CameraID = 2, Name = "mike", };
 
             bus.Publish(Topics.HostReply, hostSpec, 3000);
 
             System.Threading.Thread.Sleep(6000);
 
-            var host = this.pool[hostSpec.ID];
+            var host = this.pool[hostSpec.StationID];
 
             Assert.IsNotNull(host);
 
             Assert.AreEqual("mike", host.Config.Name);
 
             hostSpec.Name = "jack";
-            hostSpec.Index = 1;
 
             bus.Publish(Topics.HostReply, hostSpec, 3000);
 
             System.Threading.Thread.Sleep(6000);
 
-            host = this.pool[hostSpec.ID];
+            host = this.pool[hostSpec.StationID];
             Assert.AreEqual("jack", host.Config.Name);
 
         }
@@ -71,28 +70,28 @@ namespace RemogeImagingMC.Test
         [ExpectedException(typeof(InvalidOperationException))]
         public void ContainsIDTest()
         {
-            HostConfiguration config = new HostConfiguration {  CameraID = 3,  Name = "abc",   Index = 0 };
+            HostConfiguration config = new HostConfiguration(0) {  CameraID = 3,  Name = "abc" };
             var host = new Host{ Config = config, Status = HostStatus.OnLine, LastSeen = DateTime.Now,};
 
-            HostConfiguration config1 = new HostConfiguration { CameraID = 4, Name = "abc", Index = 0 };
+            HostConfiguration config1 = new HostConfiguration(0) { CameraID = 4, Name = "abc" };
             var host1 = new Host { Config = config, Status = HostStatus.OnLine, LastSeen = DateTime.Now, };
 
             pool.Add(host);
 
-            Assert.IsTrue(pool.ContainsID(host.Config.ID));
+            Assert.IsTrue(pool.ContainsID(host.Config.StationID));
             Assert.IsTrue(pool.Contains(host1));
 
 
             Assert.IsFalse(pool.ContainsID(4));
 
-            var h = pool[config.ID];
+            var h = pool[config.StationID];
 
             Assert.IsNotNull(h);
 
             h.Config.Name = "benny";
             h.LastSeen = DateTime.Now;
 
-            h = pool[config.ID];
+            h = pool[config.StationID];
 
             Assert.AreEqual("benny", h.Config.Name);
 

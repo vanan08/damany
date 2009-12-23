@@ -21,7 +21,6 @@ namespace RemoteImaging
 
         public HostsPool(string announceIp, int port)
         {
-            syncCtx = System.Threading.SynchronizationContext.Current;
             RaiseListChangedEvents = true;
 
             bus = new UdpBus(announceIp, port);
@@ -52,7 +51,7 @@ namespace RemoteImaging
         {
             while (!this.worker.CancellationPending)
             {
-                this.bus.Publish(Topics.CenterQuery, new MonitorCenterAnnounce(), 3000);
+                this.bus.Publish(Topics.CenterQuery, new HostConfigurationQuery(), 3000);
                 System.Threading.Thread.Sleep(3000);
                 this.UpdateOnLineState();
             }
@@ -60,24 +59,25 @@ namespace RemoteImaging
 
         public void Start()
         {
+            if (System.Threading.SynchronizationContext.Current == null)
+            {
+                System.Threading.SynchronizationContext.SetSynchronizationContext(new System.Threading.SynchronizationContext());
+            }
+
+            this.syncCtx = System.Threading.SynchronizationContext.Current;
+
             this.bus.Start();
             this.worker.RunWorkerAsync();
         }
 
         private void NotifyUpdateHost(Host h)
         {
-            if (this.syncCtx != null)
-                this.syncCtx.Post((o) => this.Observer.UpdateHost((Host)o), h);
-            else
-                this.Observer.UpdateHost(h);
+            this.syncCtx.Post((o) => this.Observer.UpdateHost((Host)o), h);
         }
 
         private void NotifyAddHost(Host h)
         {
-            if (this.syncCtx != null)
-                this.syncCtx.Post((o) => this.Observer.AddHost((Host)o), h);
-            else
-                this.Observer.AddHost(h);
+            this.syncCtx.Post((o) => this.Observer.AddHost((Host)o), h);
         }
 
 
@@ -89,9 +89,9 @@ namespace RemoteImaging
                 HostConfiguration config = args.DataObject as HostConfiguration;
 
                 //update it 
-                if (this.ContainsID(config.ID))
+                if (this.ContainsID(config.StationID))
                 {
-                    Host h = this[config.ID];
+                    Host h = this[config.StationID];
 
                     lock (this.locker)
                     {
@@ -116,11 +116,11 @@ namespace RemoteImaging
 
         public bool ContainsID(object ID)
         {
-            var first = this.FirstOrDefault(h => h.Config.ID.Equals(ID));
+            var first = this.FirstOrDefault(h => h.Config.StationID.Equals(ID));
 
             if (first == null) return false;
 
-            return object.Equals(first.Config.ID, ID);
+            return object.Equals(first.Config.StationID, ID);
         }
 
         protected override void InsertItem(int index, Host item)
@@ -133,7 +133,7 @@ namespace RemoteImaging
         {
             get
             {
-                var firstMatch = this.FirstOrDefault(h => h.Config.ID.Equals(ID));
+                var firstMatch = this.FirstOrDefault(h => h.Config.StationID.Equals(ID));
                 return firstMatch;
             }
         }

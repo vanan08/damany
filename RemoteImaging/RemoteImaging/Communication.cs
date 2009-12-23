@@ -24,12 +24,11 @@ namespace RemoteImaging
 
         private void OnCenterQuery(object s, TopicArgs args)
         {
-            if (args.DataObject is MonitorCenterAnnounce)
+            if (args.DataObject is HostConfigurationQuery)
             {
-                var cfg = new Damany.RemoteImaging.Common.HostConfiguration();
+                var cfg = new Damany.RemoteImaging.Common.HostConfiguration( Configuration.Instance.GetStationID() );
                 cfg.CameraID = 2;
                 cfg.Name = Properties.Settings.Default.HostName;
-                cfg.Index = int.Parse(Properties.Settings.Default.HostId);
                 bus.Publish(Topics.HostReply, cfg, 3000);
             }
 

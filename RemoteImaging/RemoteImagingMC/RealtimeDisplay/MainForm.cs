@@ -832,9 +832,8 @@ namespace RemoteImaging.RealtimeDisplay
         {
             this.cameraTree.Nodes.Clear();
 
-            var cfg = new HostConfiguration();
+            var cfg = new HostConfiguration(0);
             cfg.CameraID = 2;
-            cfg.Index = 3;
             cfg.Name = "南门";
 
             var host = new Host();

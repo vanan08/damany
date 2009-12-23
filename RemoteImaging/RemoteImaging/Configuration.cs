@@ -110,5 +110,10 @@ namespace RemoteImaging
             //thread.Start();
         }
 
+        public object GetStationID()
+        {
+            return int.Parse(Properties.Settings.Default.HostId);
+        }
+
     }
 }
