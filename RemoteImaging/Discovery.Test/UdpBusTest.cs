@@ -18,7 +18,7 @@ namespace Discovery.Test
 
                 object received = null;
 
-                bus.Subscrib(topic, (o, e) =>
+                bus.Subscribe(topic, (o, e) =>
                    {
                        System.Diagnostics.Debug.WriteLine(e.DataObject.ToString());
                        received = e.DataObject;

@@ -64,8 +64,11 @@
             this.label29 = new System.Windows.Forms.Label();
             this.label31 = new System.Windows.Forms.Label();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.browseForOutputFolder = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
             this.label34 = new System.Windows.Forms.Label();
             this.label35 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.label24 = new System.Windows.Forms.Label();
@@ -76,6 +79,9 @@
             this.label20 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
             this.rgBrightMode = new DevExpress.XtraEditors.RadioGroup();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.label33 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.buttonOK = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
@@ -90,13 +96,6 @@
             this.label17 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.textBox8 = new System.Windows.Forms.TextBox();
-            this.browseForOutputFolder = new System.Windows.Forms.Button();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.label5 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.label33 = new System.Windows.Forms.Label();
             this.checkBoxRecheckFace = new System.Windows.Forms.CheckBox();
             this.removeDuplication = new System.Windows.Forms.CheckBox();
             this.detectMotion = new System.Windows.Forms.CheckBox();
@@ -110,6 +109,7 @@
             this.leftExtRatio = new System.Windows.Forms.TextBox();
             this.textBoxOutputFolder = new System.Windows.Forms.TextBox();
             this.DiskQuota = new System.Windows.Forms.ComboBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
@@ -140,7 +140,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(83, 64);
+            this.label2.Location = new System.Drawing.Point(84, 61);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(293, 12);
             this.label2.TabIndex = 2;
@@ -150,7 +150,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Tahoma", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label1.Location = new System.Drawing.Point(100, 28);
+            this.label1.Location = new System.Drawing.Point(101, 25);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(136, 24);
             this.label1.TabIndex = 1;
@@ -159,7 +159,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(29, 28);
+            this.pictureBox1.Location = new System.Drawing.Point(30, 25);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(48, 48);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -498,6 +498,24 @@
             this.tabPage5.Text = "存储设置";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
+            // browseForOutputFolder
+            // 
+            this.browseForOutputFolder.Location = new System.Drawing.Point(376, 54);
+            this.browseForOutputFolder.Name = "browseForOutputFolder";
+            this.browseForOutputFolder.Size = new System.Drawing.Size(75, 21);
+            this.browseForOutputFolder.TabIndex = 38;
+            this.browseForOutputFolder.Text = "浏览";
+            this.browseForOutputFolder.UseVisualStyleBackColor = true;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(32, 27);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(83, 12);
+            this.label4.TabIndex = 36;
+            this.label4.Text = "图片输出目录:";
+            // 
             // label34
             // 
             this.label34.AutoSize = true;
@@ -515,6 +533,14 @@
             this.label35.Size = new System.Drawing.Size(137, 12);
             this.label35.TabIndex = 32;
             this.label35.Text = "MB时，自动覆盖过期数据";
+            // 
+            // label3
+            // 
+            this.label3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label3.Location = new System.Drawing.Point(38, 33);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(410, 2);
+            this.label3.TabIndex = 39;
             // 
             // tabPage4
             // 
@@ -616,6 +642,38 @@
             new DevExpress.XtraEditors.Controls.RadioGroupItem("Outdoor", "室外")});
             this.rgBrightMode.Size = new System.Drawing.Size(332, 26);
             this.rgBrightMode.TabIndex = 29;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.textBox2);
+            this.tabPage1.Controls.Add(this.label33);
+            this.tabPage1.Controls.Add(this.label5);
+            this.tabPage1.Controls.Add(this.textBox1);
+            this.tabPage1.Location = new System.Drawing.Point(4, 21);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(486, 314);
+            this.tabPage1.TabIndex = 6;
+            this.tabPage1.Text = "其它";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Location = new System.Drawing.Point(33, 40);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(77, 12);
+            this.label33.TabIndex = 2;
+            this.label33.Text = "监控点名称：";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(33, 94);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(65, 12);
+            this.label5.TabIndex = 0;
+            this.label5.Text = "监控点ID：";
             // 
             // buttonOK
             // 
@@ -738,73 +796,6 @@
             this.textBox8.Name = "textBox8";
             this.textBox8.Size = new System.Drawing.Size(51, 21);
             this.textBox8.TabIndex = 0;
-            // 
-            // browseForOutputFolder
-            // 
-            this.browseForOutputFolder.Location = new System.Drawing.Point(376, 54);
-            this.browseForOutputFolder.Name = "browseForOutputFolder";
-            this.browseForOutputFolder.Size = new System.Drawing.Size(75, 21);
-            this.browseForOutputFolder.TabIndex = 38;
-            this.browseForOutputFolder.Text = "浏览";
-            this.browseForOutputFolder.UseVisualStyleBackColor = true;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(32, 27);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(83, 12);
-            this.label4.TabIndex = 36;
-            this.label4.Text = "图片输出目录:";
-            // 
-            // label3
-            // 
-            this.label3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label3.Location = new System.Drawing.Point(38, 33);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(410, 2);
-            this.label3.TabIndex = 39;
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.Controls.Add(this.textBox2);
-            this.tabPage1.Controls.Add(this.label33);
-            this.tabPage1.Controls.Add(this.textBox1);
-            this.tabPage1.Controls.Add(this.label5);
-            this.tabPage1.Location = new System.Drawing.Point(4, 21);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(486, 314);
-            this.tabPage1.TabIndex = 6;
-            this.tabPage1.Text = "其它";
-            this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(33, 94);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(65, 12);
-            this.label5.TabIndex = 0;
-            this.label5.Text = "监控点ID：";
-            // 
-            // textBox2
-            // 
-            this.textBox2.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "HostName", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.textBox2.Location = new System.Drawing.Point(116, 37);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 21);
-            this.textBox2.TabIndex = 3;
-            this.textBox2.Text = global::RemoteImaging.Properties.Settings.Default.HostName;
-            // 
-            // label33
-            // 
-            this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(33, 40);
-            this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(77, 12);
-            this.label33.TabIndex = 2;
-            this.label33.Text = "监控点名称：";
             // 
             // checkBoxRecheckFace
             // 
@@ -943,6 +934,15 @@
             this.DiskQuota.Size = new System.Drawing.Size(68, 20);
             this.DiskQuota.TabIndex = 35;
             this.DiskQuota.Text = global::RemoteImaging.Properties.Settings.Default.DiskQuota;
+            // 
+            // textBox2
+            // 
+            this.textBox2.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "HostName", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.textBox2.Location = new System.Drawing.Point(116, 37);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(100, 21);
+            this.textBox2.TabIndex = 3;
+            this.textBox2.Text = global::RemoteImaging.Properties.Settings.Default.HostName;
             // 
             // textBox1
             // 

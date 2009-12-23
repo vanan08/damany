@@ -93,7 +93,8 @@ namespace RemoteImaging.ImportPersonCompare
 
         private static int CompareTarget(ImportantPersonDetail x, ImportantPersonDetail y)
         {
-            return (int) (y.Similarity.similarity - x.Similarity.similarity);
+            //similarity is in percent float.
+            return (int) (y.Similarity.similarity*100 - x.Similarity.similarity*100);
         }
 
         protected void InitControl(List<ImportantPersonDetail> listpersons)

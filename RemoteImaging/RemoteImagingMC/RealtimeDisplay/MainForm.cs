@@ -20,7 +20,6 @@ using System.Threading;
 using MotionDetectWrapper;
 using RemoteImaging.Query;
 using System.Net.Sockets;
-using System.Linq;
 using Damany.RemoteImaging.Common;
 
 namespace RemoteImaging.RealtimeDisplay
