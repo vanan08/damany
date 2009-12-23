@@ -361,5 +361,12 @@ namespace RemoteImaging
 
         }
 
+        public static int GetTotalStorageMB()
+        {
+            int mb = (int) new System.IO.DriveInfo(Properties.Settings.Default.OutputPath).TotalSize / (1024 * 1024);
+            return mb;
+
+        }
+
     }
 }

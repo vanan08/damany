@@ -115,5 +115,10 @@ namespace RemoteImaging
             return int.Parse(Properties.Settings.Default.HostId);
         }
 
+        public int GetReservedSpaceinMB()
+        {
+            return int.Parse(Properties.Settings.Default.DiskQuota);
+        }
+
     }
 }

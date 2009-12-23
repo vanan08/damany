@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Damany.RemoteImaging.Net.Discovery;
 using Damany.RemoteImaging.Net.Messages;
+using Damany.RemoteImaging.Common;
 
 namespace RemoteImaging
 {
@@ -26,14 +27,18 @@ namespace RemoteImaging
         {
             if (args.DataObject is HostConfigurationQuery)
             {
-                var cfg = new Damany.RemoteImaging.Common.HostConfiguration( Configuration.Instance.GetStationID() );
+                var cfg = new HostConfiguration(Configuration.Instance.GetStationID());
                 cfg.CameraID = 2;
                 cfg.Name = Properties.Settings.Default.HostName;
+                cfg.TotalStorageCapacityMB = FileSystemStorage.GetTotalStorageMB();
+                cfg.ReservedStorageCapacityMB = Configuration.Instance.GetReservedSpaceinMB();
                 bus.Publish(Topics.HostReply, cfg, 3000);
             }
 
 
         }
+
+
         #region IDisposable Members
 
         public void Dispose()

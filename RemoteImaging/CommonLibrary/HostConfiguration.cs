@@ -45,6 +45,10 @@ namespace Damany.RemoteImaging.Common
 
         public object StationID { get; private set; }
 
+        public int TotalStorageCapacityMB { get; set; }
+
+        public int ReservedStorageCapacityMB { get; set; }
+
 
         public void CopyTo(HostConfiguration to)
         {
