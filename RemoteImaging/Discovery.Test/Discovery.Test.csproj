@@ -56,10 +56,6 @@
     <Compile Include="UdpBusTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CommonLibrary\RemoteImaging.Common.csproj">
-      <Project>{683B173B-831E-494D-A6FE-965934D3D315}</Project>
-      <Name>RemoteImaging.Common</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Discovery\Discovery.csproj">
       <Project>{105AB30D-A893-4E2C-B149-764A80C1FDCE}</Project>
       <Name>Discovery</Name>
