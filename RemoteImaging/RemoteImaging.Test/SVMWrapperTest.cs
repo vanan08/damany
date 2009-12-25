@@ -6,13 +6,13 @@ using Gallio.Framework;
 using MbUnit.Framework;
 using MbUnit.Framework.ContractVerifiers;
 using OpenCvSharp;
+using System.IO;
 
 namespace RemoteImaging.Test
 {
     [TestFixture]
     public class SVMWrapperTest
     {
-        [SetUp]
         public void SVMInitialize()
         {
             RemoteImaging.SVMWrapper.InitSvmData(100*100, 40);
@@ -20,14 +20,24 @@ namespace RemoteImaging.Test
 
 
         [Test]
-        [Row("d:\abc.jpg")]
+        [Row(@"d:\091223140130077_+1_0004.jpg")]
         public void SVMPredict(string fileFullPath)
         {
-            IplImage ipl = IplImage.FromFile(fileFullPath);
+            IplImage ipl = IplImage.FromFile(fileFullPath, LoadMode.GrayScale);
 
             System.Drawing.Bitmap bmp = ipl.ToBitmap();
 
-            float[] imgData = ImageProcess.NativeIconExtractor.ResizeIplTo(ipl, 100, 100, BitDepth.U8, 1);
+            float[] imgData = ImageProcess.NativeIconExtractor.ResizeIplTo(ipl, 100, 100);
+
+            var stream = File.OpenWrite(@"d:\data.txt");
+            StreamWriter sw = new StreamWriter(stream);
+            foreach (var f in imgData)
+            {
+                sw.WriteLine((int)f);
+            }
+
+            sw.Close();
+            stream.Close();
 
             double result =  RemoteImaging.SVMWrapper.SvmPredict(imgData);
 
