@@ -1,4 +1,4 @@
-﻿namespace RemoteImaging
+﻿namespace Damany.RemoteImaging.Common.Forms
 {
     partial class Login
     {
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Login));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Damany.RemoteImaging.Common.Forms.Login));
             this.bLogin = new System.Windows.Forms.Button();
             this.lHeader = new System.Windows.Forms.Label();
             this.lText = new System.Windows.Forms.Label();
@@ -36,8 +36,8 @@
             this.lUsername = new System.Windows.Forms.Label();
             this.tbPassword = new System.Windows.Forms.TextBox();
             this.pHeader = new System.Windows.Forms.Panel();
-            this.tbUsername = new System.Windows.Forms.TextBox();
             this.pbImage = new System.Windows.Forms.PictureBox();
+            this.tbUsername = new System.Windows.Forms.TextBox();
             this.pHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbImage)).BeginInit();
             this.SuspendLayout();
@@ -46,7 +46,7 @@
             // 
             this.bLogin.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.bLogin.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bLogin.Location = new System.Drawing.Point(293, 217);
+            this.bLogin.Location = new System.Drawing.Point(273, 187);
             this.bLogin.Name = "bLogin";
             this.bLogin.Size = new System.Drawing.Size(80, 24);
             this.bLogin.TabIndex = 15;
@@ -75,29 +75,29 @@
             // lPassword
             // 
             this.lPassword.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lPassword.Location = new System.Drawing.Point(3, 162);
+            this.lPassword.Location = new System.Drawing.Point(3, 135);
             this.lPassword.Name = "lPassword";
             this.lPassword.Size = new System.Drawing.Size(80, 20);
             this.lPassword.TabIndex = 17;
-            this.lPassword.Text = "密码";
+            this.lPassword.Text = "密码:";
             this.lPassword.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lUsername
             // 
             this.lUsername.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lUsername.Location = new System.Drawing.Point(3, 122);
+            this.lUsername.Location = new System.Drawing.Point(3, 95);
             this.lUsername.Name = "lUsername";
             this.lUsername.Size = new System.Drawing.Size(80, 20);
             this.lUsername.TabIndex = 16;
-            this.lUsername.Text = "用户名";
+            this.lUsername.Text = "用户名:";
             this.lUsername.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // tbPassword
             // 
             this.tbPassword.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tbPassword.Location = new System.Drawing.Point(103, 162);
+            this.tbPassword.Location = new System.Drawing.Point(103, 135);
             this.tbPassword.Name = "tbPassword";
-            this.tbPassword.Size = new System.Drawing.Size(270, 21);
+            this.tbPassword.Size = new System.Drawing.Size(250, 21);
             this.tbPassword.TabIndex = 13;
             this.tbPassword.UseSystemPasswordChar = true;
             // 
@@ -113,14 +113,6 @@
             this.pHeader.Size = new System.Drawing.Size(393, 60);
             this.pHeader.TabIndex = 14;
             // 
-            // tbUsername
-            // 
-            this.tbUsername.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tbUsername.Location = new System.Drawing.Point(103, 122);
-            this.tbUsername.Name = "tbUsername";
-            this.tbUsername.Size = new System.Drawing.Size(270, 21);
-            this.tbUsername.TabIndex = 12;
-            // 
             // pbImage
             // 
             this.pbImage.Image = ((System.Drawing.Image)(resources.GetObject("pbImage.Image")));
@@ -131,12 +123,20 @@
             this.pbImage.TabIndex = 5;
             this.pbImage.TabStop = false;
             // 
+            // tbUsername
+            // 
+            this.tbUsername.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tbUsername.Location = new System.Drawing.Point(103, 95);
+            this.tbUsername.Name = "tbUsername";
+            this.tbUsername.Size = new System.Drawing.Size(250, 21);
+            this.tbUsername.TabIndex = 12;
+            // 
             // Login
             // 
             this.AcceptButton = this.bLogin;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(393, 256);
+            this.ClientSize = new System.Drawing.Size(393, 229);
             this.Controls.Add(this.bLogin);
             this.Controls.Add(this.lPassword);
             this.Controls.Add(this.lUsername);

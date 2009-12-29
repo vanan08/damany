@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace RemoteImaging
+namespace Damany.RemoteImaging.Common.Forms
 {
     public partial class Login : Form
     {

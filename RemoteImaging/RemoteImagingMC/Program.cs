@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using System.ServiceModel;
+using Damany.RemoteImaging.Common.Forms;
 
 
 namespace RemoteImaging
@@ -33,7 +34,7 @@ namespace RemoteImaging
                 {
                     Application.Restart();
                 }
-                
+
                 return;
             }
 
@@ -41,15 +42,15 @@ namespace RemoteImaging
             Login log = null;
 
             do
-	        {
-                 log = new Login();
-                 if (log.ShowDialog() != DialogResult.OK)
-                     return;
+            {
+                log = new Login();
+                if (log.ShowDialog() != DialogResult.OK)
+                    return;
 
-	        } while ( log.UserName != Properties.Settings.Default.UserName
-                || log.Password != Properties.Settings.Default.PassWord ); 
+            } while (log.UserName != Properties.Settings.Default.UserName
+                || log.Password != Properties.Settings.Default.PassWord);
 #endif
-  
+
 
             if (argv.Length > 0)
             {
