@@ -15,3 +15,4 @@ Disk
 *.ncb
 *.suo
 *.db
+*.Cache
