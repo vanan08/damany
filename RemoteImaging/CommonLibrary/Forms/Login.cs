@@ -11,6 +11,19 @@ namespace Damany.RemoteImaging.Common.Forms
 {
     public partial class Login : Form
     {
+        public event EventHandler LabelClicked
+        {
+            add
+            {
+                this.linkLabel1.Click += value;
+            }
+            remove
+            {
+                this.linkLabel1.Click -= value;
+
+            }
+        }
+
         public Login()
         {
             InitializeComponent();

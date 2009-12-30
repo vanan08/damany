@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Damany.RemoteImaging.Common.Forms.Login));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Login));
             this.bLogin = new System.Windows.Forms.Button();
             this.lHeader = new System.Windows.Forms.Label();
             this.lText = new System.Windows.Forms.Label();
@@ -38,6 +38,8 @@
             this.pHeader = new System.Windows.Forms.Panel();
             this.pbImage = new System.Windows.Forms.PictureBox();
             this.tbUsername = new System.Windows.Forms.TextBox();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.button1 = new System.Windows.Forms.Button();
             this.pHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbImage)).BeginInit();
             this.SuspendLayout();
@@ -45,10 +47,10 @@
             // bLogin
             // 
             this.bLogin.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.bLogin.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bLogin.Location = new System.Drawing.Point(273, 187);
+            this.bLogin.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bLogin.Location = new System.Drawing.Point(197, 194);
             this.bLogin.Name = "bLogin";
-            this.bLogin.Size = new System.Drawing.Size(80, 24);
+            this.bLogin.Size = new System.Drawing.Size(75, 23);
             this.bLogin.TabIndex = 15;
             this.bLogin.Text = "登录";
             this.bLogin.Click += new System.EventHandler(this.bLogin_Click);
@@ -74,7 +76,7 @@
             // 
             // lPassword
             // 
-            this.lPassword.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lPassword.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lPassword.Location = new System.Drawing.Point(3, 135);
             this.lPassword.Name = "lPassword";
             this.lPassword.Size = new System.Drawing.Size(80, 20);
@@ -84,7 +86,7 @@
             // 
             // lUsername
             // 
-            this.lUsername.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lUsername.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lUsername.Location = new System.Drawing.Point(3, 95);
             this.lUsername.Name = "lUsername";
             this.lUsername.Size = new System.Drawing.Size(80, 20);
@@ -131,12 +133,33 @@
             this.tbUsername.Size = new System.Drawing.Size(250, 21);
             this.tbUsername.TabIndex = 12;
             // 
+            // linkLabel1
+            // 
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Location = new System.Drawing.Point(105, 167);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(53, 12);
+            this.linkLabel1.TabIndex = 18;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "修改密码";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(278, 194);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 19;
+            this.button1.Text = "取消";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
             // Login
             // 
             this.AcceptButton = this.bLogin;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(393, 229);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.bLogin);
             this.Controls.Add(this.lPassword);
             this.Controls.Add(this.lUsername);
@@ -145,6 +168,7 @@
             this.Controls.Add(this.tbUsername);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "Login";
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "登录到系统";
             this.pHeader.ResumeLayout(false);
@@ -166,5 +190,7 @@
         private System.Windows.Forms.TextBox tbPassword;
         private System.Windows.Forms.Panel pHeader;
         private System.Windows.Forms.TextBox tbUsername;
+        private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.Button button1;
     }
 }

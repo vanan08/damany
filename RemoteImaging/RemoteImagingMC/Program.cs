@@ -44,6 +44,7 @@ namespace RemoteImaging
             do
             {
                 log = new Login();
+                log.LabelClicked += new EventHandler(log_LabelClicked);
                 if (log.ShowDialog() != DialogResult.OK)
                     return;
 
@@ -59,6 +60,14 @@ namespace RemoteImaging
 
             Application.Run(new MainForm());
 
+        }
+
+        static void log_LabelClicked(object sender, EventArgs e)
+        {
+            using (var form = new ChangePasswordForm())
+            {
+                form.ShowDialog();
+            }
         }
 
         static void watcher_ImagesUploaded(object Sender, ImageUploadEventArgs args)
