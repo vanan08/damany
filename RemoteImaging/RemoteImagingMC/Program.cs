@@ -6,6 +6,7 @@ using System.ServiceModel;
 using Damany.RemoteImaging.Common.Forms;
 using Damany.Security.UsersAdmin;
 using System.IO;
+using System.Security.Principal;
 
 
 namespace RemoteImaging
@@ -26,7 +27,6 @@ namespace RemoteImaging
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-#if !DEBUG
 
             if (!Util.VerifyKey())
             {
@@ -48,6 +48,8 @@ namespace RemoteImaging
                 manager = UsersManager.LoadUsers(stream);
             }
 
+
+            User currentUser = null;
             do
             {
                 log = new Login();
@@ -55,9 +57,18 @@ namespace RemoteImaging
                 if (log.ShowDialog() != DialogResult.OK)
                     return;
 
-            } while (manager.GetUser(log.UserName, log.Password) == null);
-#endif
+                currentUser = manager.GetUser(log.UserName, log.Password);
+                if (currentUser != null)
+                {
+                    break;
+                }
 
+            } while (true);
+
+            IPrincipal principal = 
+                new GenericPrincipal(new GenericIdentity(currentUser.Name), currentUser.Roles.ToArray());
+
+            System.Threading.Thread.CurrentPrincipal = principal;
 
             if (argv.Length > 0)
             {
