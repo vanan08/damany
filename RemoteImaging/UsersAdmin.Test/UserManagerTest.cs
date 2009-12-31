@@ -5,6 +5,7 @@ using System.Text;
 using MbUnit.Framework;
 using Damany.Security.UsersAdmin;
 using System.IO;
+using System.Diagnostics;
 
 namespace UsersAdmin.Test
 {
@@ -24,7 +25,10 @@ namespace UsersAdmin.Test
         public void SerialDeserialTest()
         {
             UsersManager mnger = new UsersManager();
-            mnger.AddUser(new User("jack", "admin"));
+
+            var newUser = new User("admin", "admin");
+            newUser.Roles.Add("admin");
+            mnger.AddUser(newUser);
 
             using (FileStream stream = File.OpenWrite("users"))
             {
@@ -34,7 +38,16 @@ namespace UsersAdmin.Test
             using (FileStream stream = File.OpenRead("users"))
             {
                 UsersManager saved = UsersManager.LoadUsers(stream);
-                Assert.IsNotNull(saved["jack"]);
+
+
+                foreach (var user in saved.Users)
+                {
+                    Trace.Write(string.Format("name: {0}, pwd: {1}", user.Name, user.Password));
+                }
+
+                
+                Assert.IsNotNull(saved["admin"]);
+                Assert.IsNull(saved["abc"]);
             }
 
         }

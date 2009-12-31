@@ -6,6 +6,7 @@ using System.Xml.Linq;
 using System.Threading;
 using Emcaster.Sockets;
 using Emcaster.Topics;
+using System.IO;
 
 namespace RemoteImaging
 {
@@ -18,7 +19,7 @@ namespace RemoteImaging
         private Configuration(string brdcstip)
         {
             this.BroadcastIp = brdcstip;
-            
+
         }
 
         public string BroadcastIp { get; set; }
@@ -52,17 +53,17 @@ namespace RemoteImaging
             XDocument doc = XDocument.Load(fileName);
             doc.Root.RemoveNodes();
 
-//             foreach (Camera cam in Cameras)
-//             {
-//                 doc.Root.Add(new XElement("cam",
-//                     new XAttribute("ip", cam.IpAddress),
-//                     new XAttribute("name", cam.Name),
-//                     new XAttribute("id", cam.ID)
-//                    ));
-//             }
-// 
-//             doc.Save(Properties.Settings.Default.CamConfigFile);
-//             LoadConfig();
+            //             foreach (Camera cam in Cameras)
+            //             {
+            //                 doc.Root.Add(new XElement("cam",
+            //                     new XAttribute("ip", cam.IpAddress),
+            //                     new XAttribute("name", cam.Name),
+            //                     new XAttribute("id", cam.ID)
+            //                    ));
+            //             }
+            // 
+            //             doc.Save(Properties.Settings.Default.CamConfigFile);
+            //             LoadConfig();
         }
 
 
@@ -80,7 +81,7 @@ namespace RemoteImaging
                 }
 
             }
-            
+
         }
 
         public IList<Host> Hosts
@@ -96,8 +97,8 @@ namespace RemoteImaging
             {
                 if (instance == null)
                 {
-//                     instance = new Configuration();
-//                     instance.LoadConfig();
+                    //                     instance = new Configuration();
+                    //                     instance.LoadConfig();
                 }
                 return instance;
             }
@@ -113,7 +114,27 @@ namespace RemoteImaging
 
         }
 
-     
+        private static string UsersPersistentFile
+        {
+            get
+            {
+                return "users";
+            }
+        }
+
+
+        public static Stream getUsersSettingWriteStream()
+        {
+            var stream = File.OpenWrite(UsersPersistentFile);
+            return stream;
+        }
+
+        public static Stream getUsersSettingReadStream()
+        {
+            var stream = File.OpenRead(UsersPersistentFile);
+            return stream;
+        }
+
 
     }
 }

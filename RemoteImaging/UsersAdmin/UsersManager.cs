@@ -55,20 +55,22 @@ namespace Damany.Security.UsersAdmin
 
         }
 
-        private void MakeSureUserExists(string userName)
+        private bool UserNameExists(string userName)
         {
-            if (this.usersCollection.ContainsKey(userName))
-            {
-                throw new InvalidOperationException("user doesn't exists");
-            }
+            return this.usersCollection.ContainsKey(userName);
         }
 
+        private void CheckIfUserExists(string userName)
+        {
+            if (!this.UserNameExists(userName))
+                throw new InvalidOperationException(string.Format("user [{0}] doesn't exists", userName));
+        }
         public void DeleteUser(string userName)
         {
             if (String.IsNullOrEmpty(userName))
                 throw new ArgumentException("userName is null or empty.", "userName");
 
-            MakeSureUserExists(userName);
+            CheckIfUserExists(userName);
 
             this.usersCollection.Remove(userName);
 
@@ -90,40 +92,46 @@ namespace Damany.Security.UsersAdmin
 
 
 
-        private void verifyPassword(string userName, string password)
+        private bool IsValidUser(string userName, string password)
         {
-            MakeSureUserExists(userName);
+            if (!this.UserNameExists(userName))
+                return false;
 
             User usr = this[userName];
 
             if (string.Compare(usr.Password, password, false) != 0)
-            {
-                throw new InvalidOperationException("password is not valid");
-            }
+                return false;
+
+            return true;
         }
 
         public void ChangePassword(string userName, string oldPwd, string newPwd)
         {
-            MakeSureUserExists(userName);
+            if (!IsValidUser(userName, oldPwd))
+                throw new InvalidOperationException("user name or password is not correct");
 
             User user = this[userName];
 
-            verifyPassword(userName, oldPwd);
             user.Password = newPwd;
+        }
+
+
+        public IList<User> Users
+        {
+            get
+            {
+                return this.usersCollection.Values.ToList();
+            }
         }
 
         public User GetUser(string name, string password)
         {
-            try
-            {
-                this.MakeSureUserExists(name);
-                this.verifyPassword(name, password);
-                return this[name];
-            }
-            catch (System.InvalidOperationException)
+            if (!IsValidUser(name, password))
             {
                 return null;
             }
+
+            return this[name];
 
         }
 

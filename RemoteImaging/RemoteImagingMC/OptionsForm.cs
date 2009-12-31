@@ -8,30 +8,25 @@ using System.Xml.Linq;
 
 using System.Timers;
 using System.Runtime.InteropServices;
+using Damany.Security.UsersAdmin;
+using Damany.RemoteImaging.Common.Forms;
 
 namespace RemoteImaging
 {
     public partial class OptionsForm : Form
     {
         private static OptionsForm instance = null;
+        private UsersManager userManager;
 
-        public static OptionsForm Instance
+        public OptionsForm(UsersManager mnger)
         {
-            get
-            {
-                if (instance == null)
-                {
-                    instance = new OptionsForm();
-                }
-                return instance;
-            }
-        }
+            if (mnger == null)
+                throw new ArgumentNullException("mnger", "mnger is null.");
 
-        private OptionsForm()
-        {
             InitializeComponent();
             InitCamDatagridView();
 
+            this.userManager = mnger;
         }
 
         private void InitCamDatagridView()
@@ -143,13 +138,12 @@ namespace RemoteImaging
 
         }
 
-
-
         private void OptionsForm_Load(object sender, EventArgs e)
         {
+            this.usesList.DataSource = this.userManager.Users;
+            this.usesList.DisplayMember = "Name";
 
         }
-
 
 
         #region 弹出窗口的操作
@@ -177,5 +171,23 @@ namespace RemoteImaging
         private void ckbDiskSet_CheckedChanged(object sender, EventArgs e)
         {
         }
+
+        private void addNewUserButton_Click(object sender, EventArgs e)
+        {
+            using (var form = new AddNewUserForm())
+            {
+                DialogResult result = form.ShowDialog(this);
+                if (result != DialogResult.OK)
+                    return;
+
+                var user = new User(form.UserName, form.PassWord);
+                user.Roles.Add("Users");
+
+                this.userManager.AddUser(user);
+
+            }
+        }
+
+
     }
 }

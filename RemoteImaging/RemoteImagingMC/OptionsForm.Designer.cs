@@ -30,7 +30,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OptionsForm));
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
-            this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
@@ -40,6 +39,11 @@
             this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.IP = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.deleteSelectedUser = new System.Windows.Forms.Button();
+            this.addNewUserButton = new System.Windows.Forms.Button();
+            this.usesList = new System.Windows.Forms.ListBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.buttonOK = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
@@ -60,13 +64,13 @@
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridCameras)).BeginInit();
+            this.tabPage1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupControl1
             // 
             this.groupControl1.Appearance.BackColor = System.Drawing.Color.White;
             this.groupControl1.Appearance.Options.UseBackColor = true;
-            this.groupControl1.Controls.Add(this.label2);
             this.groupControl1.Controls.Add(this.label1);
             this.groupControl1.Controls.Add(this.pictureBox1);
             this.groupControl1.Location = new System.Drawing.Point(-6, -24);
@@ -74,20 +78,11 @@
             this.groupControl1.Size = new System.Drawing.Size(574, 89);
             this.groupControl1.TabIndex = 0;
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(103, 54);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(293, 12);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "在这里设置系统参数，如上传目录，图片转存目录等等";
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Tahoma", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label1.Location = new System.Drawing.Point(117, 17);
+            this.label1.Location = new System.Drawing.Point(110, 45);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(136, 24);
             this.label1.TabIndex = 1;
@@ -96,7 +91,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(49, 17);
+            this.pictureBox1.Location = new System.Drawing.Point(44, 33);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(48, 48);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -106,6 +101,7 @@
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Location = new System.Drawing.Point(5, 71);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -162,6 +158,57 @@
             // 
             this.IP.HeaderText = "IP";
             this.IP.Name = "IP";
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.deleteSelectedUser);
+            this.tabPage1.Controls.Add(this.addNewUserButton);
+            this.tabPage1.Controls.Add(this.usesList);
+            this.tabPage1.Controls.Add(this.label2);
+            this.tabPage1.Location = new System.Drawing.Point(4, 21);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(486, 314);
+            this.tabPage1.TabIndex = 2;
+            this.tabPage1.Text = "用户管理";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // deleteSelectedUser
+            // 
+            this.deleteSelectedUser.Location = new System.Drawing.Point(110, 216);
+            this.deleteSelectedUser.Name = "deleteSelectedUser";
+            this.deleteSelectedUser.Size = new System.Drawing.Size(88, 23);
+            this.deleteSelectedUser.TabIndex = 3;
+            this.deleteSelectedUser.Text = "删除选定用户";
+            this.deleteSelectedUser.UseVisualStyleBackColor = true;
+            // 
+            // addNewUserButton
+            // 
+            this.addNewUserButton.Location = new System.Drawing.Point(29, 216);
+            this.addNewUserButton.Name = "addNewUserButton";
+            this.addNewUserButton.Size = new System.Drawing.Size(75, 23);
+            this.addNewUserButton.TabIndex = 2;
+            this.addNewUserButton.Text = "添加新用户";
+            this.addNewUserButton.UseVisualStyleBackColor = true;
+            this.addNewUserButton.Click += new System.EventHandler(this.addNewUserButton_Click);
+            // 
+            // usesList
+            // 
+            this.usesList.FormattingEnabled = true;
+            this.usesList.ItemHeight = 12;
+            this.usesList.Location = new System.Drawing.Point(29, 50);
+            this.usesList.Name = "usesList";
+            this.usesList.Size = new System.Drawing.Size(417, 160);
+            this.usesList.TabIndex = 1;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(27, 26);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(65, 12);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "用户列表：";
             // 
             // buttonOK
             // 
@@ -302,6 +349,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "系统设置";
+            this.Load += new System.EventHandler(this.OptionsForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
             this.groupControl1.ResumeLayout(false);
             this.groupControl1.PerformLayout();
@@ -310,6 +358,8 @@
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridCameras)).EndInit();
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -317,7 +367,6 @@
         #endregion
 
         private DevExpress.XtraEditors.GroupControl groupControl1;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.TabControl tabControl1;
@@ -341,5 +390,10 @@
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.TextBox textBox8;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button deleteSelectedUser;
+        private System.Windows.Forms.Button addNewUserButton;
+        private System.Windows.Forms.ListBox usesList;
     }
 }

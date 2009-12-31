@@ -4,6 +4,8 @@ using System.Linq;
 using System.Windows.Forms;
 using System.ServiceModel;
 using Damany.RemoteImaging.Common.Forms;
+using Damany.Security.UsersAdmin;
+using System.IO;
 
 
 namespace RemoteImaging
@@ -40,6 +42,11 @@ namespace RemoteImaging
 
 
             Login log = null;
+            UsersManager manager = null;
+            using (var stream = Configuration.getUsersSettingReadStream())
+            {
+                manager = UsersManager.LoadUsers(stream);
+            }
 
             do
             {
@@ -48,8 +55,7 @@ namespace RemoteImaging
                 if (log.ShowDialog() != DialogResult.OK)
                     return;
 
-            } while (log.UserName != Properties.Settings.Default.UserName
-                || log.Password != Properties.Settings.Default.PassWord);
+            } while (manager.GetUser(log.UserName, log.Password) == null);
 #endif
 
 
@@ -58,7 +64,10 @@ namespace RemoteImaging
                 directory = argv[0];
             }
 
-            Application.Run(new MainForm());
+            var mainForm = new MainForm();
+            mainForm.UsersManager = manager;
+
+            Application.Run(mainForm);
 
         }
 

@@ -26,6 +26,7 @@ namespace RemoteImaging.RealtimeDisplay
 {
     public partial class MainForm : Form, IHostsPoolObserver
     {
+        private OptionsForm optionsForm;
         Configuration config = Configuration.Instance;
         System.Windows.Forms.Timer time = null;
         System.Collections.Generic.Dictionary<Cell, LiveClient> CellCameraMap =
@@ -51,6 +52,13 @@ namespace RemoteImaging.RealtimeDisplay
         }
 
 
+        public Damany.Security.UsersAdmin.UsersManager UsersManager
+        {
+            get;
+            set;
+        }
+
+
         //根据光亮值修改摄像机   线程
         private void StartSetCam(Properties.Settings setting)
         {
@@ -67,7 +75,7 @@ namespace RemoteImaging.RealtimeDisplay
 
         delegate void DataCallBack();
         Camera[] cams = null;
-        
+
 
         //动态 更新 Tree的方法
         private void SetTreeNode()
@@ -398,22 +406,27 @@ namespace RemoteImaging.RealtimeDisplay
         int tempModel = 0;
         private void options_Click(object sender, EventArgs e)
         {
-            OptionsForm frm = OptionsForm.Instance;
+            if (this.optionsForm == null)
+            {
+                this.optionsForm = new OptionsForm(this.UsersManager);
+            }
+
+
             IList<Camera> camCopy = new List<Camera>();
 
-
-
-            frm.Cameras = camCopy;
-            if (frm.ShowDialog(this) == DialogResult.OK)
+            optionsForm.Cameras = camCopy;
+            if (optionsForm.ShowDialog(this) == DialogResult.OK)
             {
-
-                Properties.Settings setting = Properties.Settings.Default;
-
+                using (var stream = Configuration.getUsersSettingWriteStream())
+                {
+                    this.UsersManager.Save(stream);
+                }
 
                 InitStatusBar();
 
-                this.Cameras = frm.Cameras.ToArray<Camera>();
+                this.Cameras = optionsForm.Cameras.ToArray<Camera>();
 
+                Properties.Settings setting = Properties.Settings.Default;
                 var minFaceWidth = int.Parse(setting.MinFaceWidth);
                 float ratio = float.Parse(setting.MaxFaceWidth) / minFaceWidth;
             }
@@ -696,8 +709,8 @@ namespace RemoteImaging.RealtimeDisplay
             catch (System.Net.Sockets.SocketException)
             {
                 string msg = string.Format("无法连接 {0}, 请检查设备", info.Source.Config.Name);
-                
-                Action showMsg = ()=> MessageBox.Show(this, msg, "连接错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                Action showMsg = () => MessageBox.Show(this, msg, "连接错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 this.BeginInvoke(showMsg);
 
@@ -713,7 +726,7 @@ namespace RemoteImaging.RealtimeDisplay
                 CellCameraMap.Remove(info.Target);
             }
 
-            
+
             lc.ImageReceived += new EventHandler<ImageCapturedEventArgs>(lc_ImageReceived);
             lc.ConnectAborted += new EventHandler(lc_ConnectAborted);
             lc.Start();
@@ -744,14 +757,14 @@ namespace RemoteImaging.RealtimeDisplay
 
                 tcp.BeginConnect(ip, 20000, this.ConnectCallback, lc);
 
-               
+
             }
             catch (System.Net.Sockets.SocketException)
             {
                 MessageBox.Show(this, "无法连接, 请检查设备", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            
+
 
 
 
