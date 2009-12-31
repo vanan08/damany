@@ -21,6 +21,7 @@ using MotionDetectWrapper;
 using RemoteImaging.Query;
 using System.Net.Sockets;
 using Damany.RemoteImaging.Common;
+using Microsoft.Practices.EnterpriseLibrary.Security;
 
 namespace RemoteImaging.RealtimeDisplay
 {
@@ -406,6 +407,20 @@ namespace RemoteImaging.RealtimeDisplay
         int tempModel = 0;
         private void options_Click(object sender, EventArgs e)
         {
+            bool canProceed = AuthorizationManager.IsCurrentUserAllowedToProceed();
+
+            if (!canProceed)
+            {
+                MessageBox.Show(this,
+                    "对不起，你没有权限执行本次操作！",
+                    this.Text,
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Stop);
+                return;
+            }
+
+
+
             if (this.optionsForm == null)
             {
                 this.optionsForm = new OptionsForm(this.UsersManager);

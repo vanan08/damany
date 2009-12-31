@@ -73,6 +73,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\OutPut\IconExtractor.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Security, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Practices.ObjectBuilder2, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="MotionDetectWrapper, Version=1.0.3615.29008, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\OutPut\MotionDetectWrapper.dll</HintPath>
@@ -126,6 +129,7 @@
     <Compile Include="AlertSettingRes.Designer.cs">
       <DependentUpon>AlertSettingRes.cs</DependentUpon>
     </Compile>
+    <Compile Include="AuthorizationManager.cs" />
     <Compile Include="BackGroundComparer.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="Converter.cs" />
@@ -417,7 +421,7 @@
   -->
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_BuildAction="ReBuild" BuildVersion_ConfigurationName="Release" BuildVersion_UpdateFileVersion="True" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_BuildVersioningStyle="None.None.Increment.None" Reactor_Enabled="1" Reactor_Lib="0" Reactor_Automatic="1" Reactor_Commands="" Reactor_Project="" Reactor_Output="[main_assembly_dir]RemoteImagingMC_Secure\RemoteImagingMC.exe" />
+      <UserProperties Reactor_Output="[main_assembly_dir]RemoteImagingMC_Secure\RemoteImagingMC.exe" Reactor_Project="" Reactor_Commands="" Reactor_Automatic="1" Reactor_Lib="0" Reactor_Enabled="1" BuildVersion_BuildVersioningStyle="None.None.Increment.None" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_UpdateFileVersion="True" BuildVersion_ConfigurationName="Release" BuildVersion_BuildAction="ReBuild" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
