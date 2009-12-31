@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Security.Principal;
 
 namespace Damany.Security.UsersAdmin
 {
@@ -25,6 +26,13 @@ namespace Damany.Security.UsersAdmin
             {
                 return roles;
             }
+        }
+
+        public IPrincipal ToPrincipal()
+        {
+            return new GenericPrincipal(
+                                new GenericIdentity(this.Name),
+                                this.roles.ToArray());
         }
     }
 }

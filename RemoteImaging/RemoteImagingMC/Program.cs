@@ -65,10 +65,7 @@ namespace RemoteImaging
 
             } while (true);
 
-            IPrincipal principal = 
-                new GenericPrincipal(new GenericIdentity(currentUser.Name), currentUser.Roles.ToArray());
-
-            System.Threading.Thread.CurrentPrincipal = principal;
+            System.Threading.Thread.CurrentPrincipal = currentUser.ToPrincipal();
 
             if (argv.Length > 0)
             {
