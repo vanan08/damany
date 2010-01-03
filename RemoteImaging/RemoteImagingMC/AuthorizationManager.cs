@@ -9,13 +9,13 @@ namespace RemoteImaging
 {
     public class AuthorizationManager
     {
-        public static bool IsCurrentUserAllowedToProceed()
+        public static bool IsCurrentUserAuthorized()
         {
             IAuthorizationProvider authorizeProvider =
                 AuthorizationFactory.GetAuthorizationProvider("RuleProvider");
 
-            bool canProceed = authorizeProvider.Authorize(System.Threading.Thread.CurrentPrincipal, "ConfigSystem");
-            return canProceed;
+            bool authorized = authorizeProvider.Authorize(System.Threading.Thread.CurrentPrincipal, "ConfigSystem");
+            return authorized;
         }
     }
 }

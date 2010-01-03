@@ -83,13 +83,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageProcessing", "IconExtr
 		SolutionBindings = <Solution Location In Database>
 	EndGlobalSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsersAdmin", "UsersAdmin\UsersAdmin.csproj", "{7C6269E8-3954-4451-8F33-67F3916231AF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Damany.Security", "UsersAdmin\Damany.Security.csproj", "{7C6269E8-3954-4451-8F33-67F3916231AF}"
 	GlobalSection(MercurialSourceControlSolutionProperties) = preSolution
 		SolutionIsControlled = True
 		SolutionBindings = <Solution Location In Database>
 	EndGlobalSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsersAdmin.Test", "UsersAdmin.Test\UsersAdmin.Test.csproj", "{77B2FDF7-A806-449A-B2F1-ABC8DAD8A940}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Damany.Security.UsersAdmin.Test", "UsersAdmin.Test\Damany.Security.UsersAdmin.Test.csproj", "{77B2FDF7-A806-449A-B2F1-ABC8DAD8A940}"
 	GlobalSection(MercurialSourceControlSolutionProperties) = preSolution
 		SolutionIsControlled = True
 		SolutionBindings = <Solution Location In Database>

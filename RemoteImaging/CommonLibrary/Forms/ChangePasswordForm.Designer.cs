@@ -28,22 +28,26 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChangePasswordForm));
             this.pbImage = new System.Windows.Forms.PictureBox();
             this.pHeader = new System.Windows.Forms.Panel();
             this.lText = new System.Windows.Forms.Label();
             this.lPassword = new System.Windows.Forms.Label();
             this.lUsername = new System.Windows.Forms.Label();
-            this.tbPassword = new System.Windows.Forms.TextBox();
+            this.oldPassword = new System.Windows.Forms.TextBox();
             this.tbUsername = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.newPassword = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.repeatedPassword = new System.Windows.Forms.TextBox();
+            this.okButton = new System.Windows.Forms.Button();
+            this.cancelButton = new System.Windows.Forms.Button();
+            this.userValidationProvider = new Microsoft.Practices.EnterpriseLibrary.Validation.Integration.WinForms.ValidationProvider();
+            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pbImage)).BeginInit();
             this.pHeader.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // pbImage
@@ -96,21 +100,23 @@
             this.lUsername.Text = "用户名:";
             this.lUsername.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // tbPassword
+            // oldPassword
             // 
-            this.tbPassword.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tbPassword.Location = new System.Drawing.Point(123, 132);
-            this.tbPassword.Name = "tbPassword";
-            this.tbPassword.Size = new System.Drawing.Size(217, 21);
-            this.tbPassword.TabIndex = 19;
-            this.tbPassword.UseSystemPasswordChar = true;
+            this.oldPassword.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.oldPassword.Location = new System.Drawing.Point(123, 132);
+            this.oldPassword.Name = "oldPassword";
+            this.oldPassword.Size = new System.Drawing.Size(217, 21);
+            this.oldPassword.TabIndex = 19;
+            this.oldPassword.UseSystemPasswordChar = true;
             // 
             // tbUsername
             // 
             this.tbUsername.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tbUsername.Location = new System.Drawing.Point(123, 92);
             this.tbUsername.Name = "tbUsername";
+            this.userValidationProvider.SetPerformValidation(this.tbUsername, true);
             this.tbUsername.Size = new System.Drawing.Size(217, 21);
+            this.userValidationProvider.SetSourcePropertyName(this.tbUsername, "Name");
             this.tbUsername.TabIndex = 18;
             // 
             // label1
@@ -123,14 +129,16 @@
             this.label1.Text = "新密码:";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // textBox1
+            // newPassword
             // 
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox1.Location = new System.Drawing.Point(123, 191);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(217, 21);
-            this.textBox1.TabIndex = 22;
-            this.textBox1.UseSystemPasswordChar = true;
+            this.newPassword.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.newPassword.Location = new System.Drawing.Point(123, 191);
+            this.newPassword.Name = "newPassword";
+            this.userValidationProvider.SetPerformValidation(this.newPassword, true);
+            this.newPassword.Size = new System.Drawing.Size(217, 21);
+            this.userValidationProvider.SetSourcePropertyName(this.newPassword, "Password");
+            this.newPassword.TabIndex = 22;
+            this.newPassword.UseSystemPasswordChar = true;
             // 
             // label2
             // 
@@ -142,58 +150,75 @@
             this.label2.Text = "确认新密码:";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // textBox2
+            // repeatedPassword
             // 
-            this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox2.Location = new System.Drawing.Point(123, 231);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(217, 21);
-            this.textBox2.TabIndex = 24;
-            this.textBox2.UseSystemPasswordChar = true;
+            this.repeatedPassword.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.errorProvider.SetError(this.repeatedPassword, "两次输入的密码不一致。");
+            this.repeatedPassword.Location = new System.Drawing.Point(123, 231);
+            this.repeatedPassword.Name = "repeatedPassword";
+            this.repeatedPassword.Size = new System.Drawing.Size(217, 21);
+            this.userValidationProvider.SetSourcePropertyName(this.repeatedPassword, "RepeatedPassword");
+            this.repeatedPassword.TabIndex = 24;
+            this.repeatedPassword.UseSystemPasswordChar = true;
+            this.repeatedPassword.Validating += new System.ComponentModel.CancelEventHandler(this.repeatedPassword_Validating);
             // 
-            // button1
+            // okButton
             // 
-            this.button1.Location = new System.Drawing.Point(110, 287);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 26;
-            this.button1.Text = "确认";
-            this.button1.UseVisualStyleBackColor = true;
+            this.okButton.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.okButton.Location = new System.Drawing.Point(107, 287);
+            this.okButton.Name = "okButton";
+            this.okButton.Size = new System.Drawing.Size(75, 23);
+            this.okButton.TabIndex = 26;
+            this.okButton.Text = "确认";
+            this.okButton.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // cancelButton
             // 
-            this.button2.Location = new System.Drawing.Point(207, 287);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 27;
-            this.button2.Text = "取消";
-            this.button2.UseVisualStyleBackColor = true;
+            this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.cancelButton.Location = new System.Drawing.Point(204, 287);
+            this.cancelButton.Name = "cancelButton";
+            this.cancelButton.Size = new System.Drawing.Size(75, 23);
+            this.cancelButton.TabIndex = 27;
+            this.cancelButton.Text = "取消";
+            this.cancelButton.UseVisualStyleBackColor = true;
+            // 
+            // userValidationProvider
+            // 
+            this.userValidationProvider.ErrorProvider = this.errorProvider;
+            this.userValidationProvider.RulesetName = "Rule Set";
+            this.userValidationProvider.SourceTypeName = "Damany.Security.UsersAdmin.User,Damany.Security";
+            // 
+            // errorProvider
+            // 
+            this.errorProvider.ContainerControl = this;
             // 
             // ChangePasswordForm
             // 
+            this.AcceptButton = this.okButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.cancelButton;
             this.ClientSize = new System.Drawing.Size(385, 322);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.cancelButton);
+            this.Controls.Add(this.okButton);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.repeatedPassword);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.newPassword);
             this.Controls.Add(this.lPassword);
             this.Controls.Add(this.lUsername);
-            this.Controls.Add(this.tbPassword);
+            this.Controls.Add(this.oldPassword);
             this.Controls.Add(this.tbUsername);
             this.Controls.Add(this.pHeader);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MaximizeBox = false;
             this.Name = "ChangePasswordForm";
-            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "修改密码";
             ((System.ComponentModel.ISupportInitialize)(this.pbImage)).EndInit();
             this.pHeader.ResumeLayout(false);
             this.pHeader.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -206,13 +231,15 @@
         private System.Windows.Forms.Label lText;
         private System.Windows.Forms.Label lPassword;
         private System.Windows.Forms.Label lUsername;
-        private System.Windows.Forms.TextBox tbPassword;
+        private System.Windows.Forms.TextBox oldPassword;
         private System.Windows.Forms.TextBox tbUsername;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox newPassword;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.TextBox repeatedPassword;
+        private System.Windows.Forms.Button okButton;
+        private System.Windows.Forms.Button cancelButton;
+        private Microsoft.Practices.EnterpriseLibrary.Validation.Integration.WinForms.ValidationProvider userValidationProvider;
+        private System.Windows.Forms.ErrorProvider errorProvider;
     }
 }

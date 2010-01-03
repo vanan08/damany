@@ -407,7 +407,7 @@ namespace RemoteImaging.RealtimeDisplay
         int tempModel = 0;
         private void options_Click(object sender, EventArgs e)
         {
-            bool canProceed = AuthorizationManager.IsCurrentUserAllowedToProceed();
+            bool canProceed = AuthorizationManager.IsCurrentUserAuthorized();
 
             if (!canProceed)
             {
@@ -434,7 +434,7 @@ namespace RemoteImaging.RealtimeDisplay
             {
                 using (var stream = Configuration.getUsersSettingWriteStream())
                 {
-                    this.UsersManager.Save(stream);
+                    this.UsersManager.Save();
                 }
 
                 InitStatusBar();

@@ -54,9 +54,9 @@
     <Compile Include="UserManagerTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\UsersAdmin\UsersAdmin.csproj">
+    <ProjectReference Include="..\UsersAdmin\Damany.Security.csproj">
       <Project>{7C6269E8-3954-4451-8F33-67F3916231AF}</Project>
-      <Name>UsersAdmin</Name>
+      <Name>Damany.Security</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

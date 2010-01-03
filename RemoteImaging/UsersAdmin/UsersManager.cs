@@ -10,20 +10,25 @@ namespace Damany.Security.UsersAdmin
     public class UsersManager
     {
         private Dictionary<string, User> usersCollection;
+        private const string usersPersistFile = "users";
 
         public UsersManager()
         {
             usersCollection = new Dictionary<string, User>();
         }
 
-        public static UsersManager LoadUsers(System.IO.Stream from)
+        public static UsersManager LoadUsers()
         {
-            var formatter = GetFormatter();
-            var users = (Dictionary<string, User>)  formatter.Deserialize(from);
-            var manager = new UsersManager();
-            manager.usersCollection = users;
+            using (var stream = System.IO.File.OpenRead(usersPersistFile))
+            {
+                var formatter = GetFormatter();
+                var users = (Dictionary<string, User>)formatter.Deserialize(stream);
+                var manager = new UsersManager();
+                manager.usersCollection = users;
 
-            return manager;
+                return manager;
+
+            }
         }
 
         private static IFormatter GetFormatter()
@@ -32,10 +37,14 @@ namespace Damany.Security.UsersAdmin
             return formatter;
         }
 
-        public void Save(System.IO.Stream to)
+        public void Save()
         {
-            var formatter = GetFormatter();
-            formatter.Serialize(to, usersCollection);
+            using (var stream = System.IO.File.Open(usersPersistFile, System.IO.FileMode.Truncate))
+            {
+                var formatter = GetFormatter();
+                formatter.Serialize(stream, usersCollection);
+            }
+            
         }
 
         private void MakeSureUserNotExists(User user)
@@ -105,14 +114,14 @@ namespace Damany.Security.UsersAdmin
             return true;
         }
 
-        public void ChangePassword(string userName, string oldPwd, string newPwd)
+        public bool ChangePassword(string userName, string oldPwd, string newPwd)
         {
             if (!IsValidUser(userName, oldPwd))
-                throw new InvalidOperationException("user name or password is not correct");
+                return false;
 
             User user = this[userName];
-
             user.Password = newPwd;
+            return true;
         }
 
 

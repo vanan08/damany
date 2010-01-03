@@ -39,7 +39,7 @@
             this.pbImage = new System.Windows.Forms.PictureBox();
             this.tbUsername = new System.Windows.Forms.TextBox();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-            this.button1 = new System.Windows.Forms.Button();
+            this.cancelButton = new System.Windows.Forms.Button();
             this.pHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbImage)).BeginInit();
             this.SuspendLayout();
@@ -77,22 +77,22 @@
             // lPassword
             // 
             this.lPassword.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lPassword.Location = new System.Drawing.Point(3, 135);
+            this.lPassword.Location = new System.Drawing.Point(31, 135);
             this.lPassword.Name = "lPassword";
-            this.lPassword.Size = new System.Drawing.Size(80, 20);
+            this.lPassword.Size = new System.Drawing.Size(40, 20);
             this.lPassword.TabIndex = 17;
             this.lPassword.Text = "密码:";
-            this.lPassword.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lPassword.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lUsername
             // 
             this.lUsername.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lUsername.Location = new System.Drawing.Point(3, 95);
+            this.lUsername.Location = new System.Drawing.Point(31, 96);
             this.lUsername.Name = "lUsername";
-            this.lUsername.Size = new System.Drawing.Size(80, 20);
+            this.lUsername.Size = new System.Drawing.Size(55, 20);
             this.lUsername.TabIndex = 16;
             this.lUsername.Text = "用户名:";
-            this.lUsername.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lUsername.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // tbPassword
             // 
@@ -143,22 +143,24 @@
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "修改密码";
             // 
-            // button1
+            // cancelButton
             // 
-            this.button1.Location = new System.Drawing.Point(278, 194);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 19;
-            this.button1.Text = "取消";
-            this.button1.UseVisualStyleBackColor = true;
+            this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.cancelButton.Location = new System.Drawing.Point(278, 194);
+            this.cancelButton.Name = "cancelButton";
+            this.cancelButton.Size = new System.Drawing.Size(75, 23);
+            this.cancelButton.TabIndex = 19;
+            this.cancelButton.Text = "取消";
+            this.cancelButton.UseVisualStyleBackColor = true;
             // 
             // Login
             // 
             this.AcceptButton = this.bLogin;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.cancelButton;
             this.ClientSize = new System.Drawing.Size(393, 229);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.bLogin);
             this.Controls.Add(this.lPassword);
@@ -168,7 +170,6 @@
             this.Controls.Add(this.tbUsername);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "Login";
-            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "登录到系统";
             this.pHeader.ResumeLayout(false);
@@ -191,6 +192,6 @@
         private System.Windows.Forms.Panel pHeader;
         private System.Windows.Forms.TextBox tbUsername;
         private System.Windows.Forms.LinkLabel linkLabel1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button cancelButton;
     }
 }

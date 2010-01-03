@@ -16,8 +16,13 @@ namespace RemoteImaging
 
     static class Program
     {
+        private static UsersManager usersManager;
         public static string directory;
 
+        private static void ShowErrorMessage()
+        {
+            MessageBox.Show(RemoteImaging.Properties.Resources.ErrorUserNameOrPassword, RemoteImaging.Properties.Resources.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -26,6 +31,9 @@ namespace RemoteImaging
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+
+            string fullQualifiedName = typeof(string).AssemblyQualifiedName;
 
 
             if (!Util.VerifyKey())
@@ -42,28 +50,27 @@ namespace RemoteImaging
 
 
             Login log = null;
-            UsersManager manager = null;
+            usersManager = null;
             using (var stream = Configuration.getUsersSettingReadStream())
             {
-                manager = UsersManager.LoadUsers(stream);
+                usersManager = UsersManager.LoadUsers();
             }
 
 
             User currentUser = null;
-            do
+            while (true)
             {
                 log = new Login();
                 log.LabelClicked += new EventHandler(log_LabelClicked);
                 if (log.ShowDialog() != DialogResult.OK)
                     return;
 
-                currentUser = manager.GetUser(log.UserName, log.Password);
+                currentUser = usersManager.GetUser(log.UserName, log.Password);
                 if (currentUser != null)
-                {
                     break;
-                }
-
-            } while (true);
+                else
+                    ShowErrorMessage();
+            }
 
             System.Threading.Thread.CurrentPrincipal = currentUser.ToPrincipal();
 
@@ -73,7 +80,7 @@ namespace RemoteImaging
             }
 
             var mainForm = new MainForm();
-            mainForm.UsersManager = manager;
+            mainForm.UsersManager = usersManager;
 
             Application.Run(mainForm);
 
@@ -81,10 +88,33 @@ namespace RemoteImaging
 
         static void log_LabelClicked(object sender, EventArgs e)
         {
-            using (var form = new ChangePasswordForm())
+            while (true)
             {
-                form.ShowDialog();
+                using (var form = new ChangePasswordForm())
+                {
+                    DialogResult result = form.ShowDialog();
+                    if (result == DialogResult.Cancel)
+                    {
+                        return;
+                    }
+                    else if (result == DialogResult.OK)
+                    {
+                        bool succeed = 
+                            usersManager.ChangePassword(form.UserName, form.OldPassword, form.NewPassword);
+                        if (succeed)
+                        {
+                            usersManager.Save();
+                            return;
+                        }
+                        else
+                        {
+                            ShowErrorMessage();
+                        }
+                    }
+                    
+                }
             }
+            
         }
 
         static void watcher_ImagesUploaded(object Sender, ImageUploadEventArgs args)

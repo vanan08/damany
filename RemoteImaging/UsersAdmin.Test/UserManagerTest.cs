@@ -30,25 +30,19 @@ namespace UsersAdmin.Test
             newUser.Roles.Add("admin");
             mnger.AddUser(newUser);
 
-            using (FileStream stream = File.OpenWrite("users"))
+            mnger.Save();
+
+            UsersManager saved = UsersManager.LoadUsers();
+
+
+            foreach (var user in saved.Users)
             {
-                mnger.Save(stream);
+                Trace.Write(string.Format("name: {0}, pwd: {1}", user.Name, user.Password));
             }
 
-            using (FileStream stream = File.OpenRead("users"))
-            {
-                UsersManager saved = UsersManager.LoadUsers(stream);
 
-
-                foreach (var user in saved.Users)
-                {
-                    Trace.Write(string.Format("name: {0}, pwd: {1}", user.Name, user.Password));
-                }
-
-                
-                Assert.IsNotNull(saved["admin"]);
-                Assert.IsNull(saved["abc"]);
-            }
+            Assert.IsNotNull(saved["admin"]);
+            Assert.IsNull(saved["abc"]);
 
         }
     }
