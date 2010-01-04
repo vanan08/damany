@@ -89,7 +89,16 @@ namespace RemoteImaging.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 无效的用户名或密码!.
+        ///   Looks up a localized string similar to 错误.
+        /// </summary>
+        internal static string Error {
+            get {
+                return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 无效的用户名或密码！请检查你的大小写输入是否正确。.
         /// </summary>
         internal static string ErrorUserNameOrPassword {
             get {
@@ -150,15 +159,6 @@ namespace RemoteImaging.Properties {
             get {
                 object obj = ResourceManager.GetObject("SearchVideo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 错误.
-        /// </summary>
-        internal static string Error {
-            get {
-                return ResourceManager.GetString("Error", resourceCulture);
             }
         }
     }
