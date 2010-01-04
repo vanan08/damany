@@ -21,7 +21,7 @@ namespace Damany.RemoteImaging.Common.Forms
         {
             get
             {
-                return this.tbUsername.Text;
+                return this.userName.Text;
             }
         }
 
@@ -29,7 +29,25 @@ namespace Damany.RemoteImaging.Common.Forms
         {
             get
             {
-                return this.tbPassword.Text;
+                return this.passWord.Text;
+            }
+        }
+
+        private void repeatPassword_Validating(object sender, CancelEventArgs e)
+        {
+            bool valid = string.Compare(
+                                this.repeatPassword.Text,
+                                this.passWord.Text,
+                                false) == 0;
+
+            if (!valid)
+            {
+                e.Cancel = true;
+                this.errorProvider.SetError(this.repeatPassword, "两次输入的密码不一致。");
+            }
+            else
+            {
+                this.errorProvider.SetError(this.repeatPassword, string.Empty);
             }
         }
     }

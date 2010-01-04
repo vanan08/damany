@@ -432,10 +432,6 @@ namespace RemoteImaging.RealtimeDisplay
             optionsForm.Cameras = camCopy;
             if (optionsForm.ShowDialog(this) == DialogResult.OK)
             {
-                using (var stream = Configuration.getUsersSettingWriteStream())
-                {
-                    this.UsersManager.Save();
-                }
 
                 InitStatusBar();
 

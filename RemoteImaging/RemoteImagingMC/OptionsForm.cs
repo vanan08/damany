@@ -31,7 +31,6 @@ namespace RemoteImaging
 
         private void InitCamDatagridView()
         {
-            InitCamList();
 
             this.dataGridCameras.AutoGenerateColumns = false;
             this.dataGridCameras.Columns[0].DataPropertyName = "Name";
@@ -40,9 +39,7 @@ namespace RemoteImaging
         }
 
 
-        private void InitCamList()
-        {
-        }
+      
         private void browseForUploadFolder_Click(object sender, EventArgs e)
         {
             using (FolderBrowserDialog dlg = new FolderBrowserDialog())
@@ -135,7 +132,10 @@ namespace RemoteImaging
 
         private void buttonOK_Click(object sender, EventArgs e)
         {
-
+            if (usersIsDirty)
+            {
+                userManager.Save();
+            }
         }
 
         private void OptionsForm_Load(object sender, EventArgs e)
@@ -168,10 +168,7 @@ namespace RemoteImaging
         {
         }
 
-        private void ckbDiskSet_CheckedChanged(object sender, EventArgs e)
-        {
-        }
-
+        bool usersIsDirty = false;
         private void addNewUserButton_Click(object sender, EventArgs e)
         {
             using (var form = new AddNewUserForm())
@@ -180,12 +177,32 @@ namespace RemoteImaging
                 if (result != DialogResult.OK)
                     return;
 
+                if (userManager.UserNameExists(form.UserName))
+                {
+                    Program.ShowErrorMessage("用户名已经存在!");
+                    return;
+                }
+
                 var user = new User(form.UserName, form.PassWord);
                 user.Roles.Add("Users");
 
                 this.userManager.AddUser(user);
-
+                this.usersIsDirty = true;
+                
             }
+        }
+
+        private void deleteSelectedUser_Click(object sender, EventArgs e)
+        {
+            if ((this.usesList.SelectedItem as User).Roles.Contains("admin"))
+            {
+                Program.ShowErrorMessage("不能删除'管理员'用户!");
+                return;
+            }
+
+            userManager.DeleteUser((this.usesList.SelectedItem as User).Name);
+            this.usersIsDirty = true;
+
         }
 
 

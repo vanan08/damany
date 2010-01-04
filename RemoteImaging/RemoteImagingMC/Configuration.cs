@@ -113,28 +113,5 @@ namespace RemoteImaging
         {
 
         }
-
-        private static string UsersPersistentFile
-        {
-            get
-            {
-                return "users";
-            }
-        }
-
-
-        public static Stream getUsersSettingWriteStream()
-        {
-            var stream = File.OpenWrite(UsersPersistentFile);
-            return stream;
-        }
-
-        public static Stream getUsersSettingReadStream()
-        {
-            var stream = File.OpenRead(UsersPersistentFile);
-            return stream;
-        }
-
-
     }
 }

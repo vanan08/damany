@@ -4,17 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;
+using System.ComponentModel;
 
 namespace Damany.Security.UsersAdmin
 {
     public class UsersManager
     {
-        private Dictionary<string, User> usersCollection;
+        private BindingList<User> usersCollection;
         private const string usersPersistFile = "users";
 
         public UsersManager()
         {
-            usersCollection = new Dictionary<string, User>();
+            usersCollection = new BindingList<User>();
         }
 
         public static UsersManager LoadUsers()
@@ -22,7 +23,7 @@ namespace Damany.Security.UsersAdmin
             using (var stream = System.IO.File.OpenRead(usersPersistFile))
             {
                 var formatter = GetFormatter();
-                var users = (Dictionary<string, User>)formatter.Deserialize(stream);
+                var users = (BindingList<User>)formatter.Deserialize(stream);
                 var manager = new UsersManager();
                 manager.usersCollection = users;
 
@@ -49,7 +50,7 @@ namespace Damany.Security.UsersAdmin
 
         private void MakeSureUserNotExists(User user)
         {
-            if (this.usersCollection.ContainsKey(user.Name))
+            if (this.usersCollection.Contains(user))
                 throw new InvalidOperationException("user with name already exists");
         }
 
@@ -60,28 +61,29 @@ namespace Damany.Security.UsersAdmin
 
             MakeSureUserNotExists(user);
 
-            this.usersCollection.Add(user.Name, user);
+            this.usersCollection.Add(user);
 
         }
 
-        private bool UserNameExists(string userName)
+        public bool UserNameExists(string userName)
         {
-            return this.usersCollection.ContainsKey(userName);
+            return this.usersCollection.FirstOrDefault(user => user.Name.Equals(userName)) != null; 
         }
 
-        private void CheckIfUserExists(string userName)
-        {
-            if (!this.UserNameExists(userName))
-                throw new InvalidOperationException(string.Format("user [{0}] doesn't exists", userName));
-        }
+
         public void DeleteUser(string userName)
         {
             if (String.IsNullOrEmpty(userName))
                 throw new ArgumentException("userName is null or empty.", "userName");
 
-            CheckIfUserExists(userName);
+            if (!UserNameExists(userName))
+            {
+                throw new InvalidOperationException("user name doesn't exist");
+            }
 
-            this.usersCollection.Remove(userName);
+            var userToRemove = this[userName];
+
+            this.usersCollection.Remove(userToRemove);
 
         }
 
@@ -89,12 +91,12 @@ namespace Damany.Security.UsersAdmin
         {
             get
             {
-                if (this.usersCollection.ContainsKey(name))
+                if (!this.UserNameExists(name))
                 {
-                    return this.usersCollection[name];
+                    return null;
                 }
 
-                return null;
+                return this.usersCollection.First( item => item.Name.Equals(name) );
             }
             
         }
@@ -125,11 +127,11 @@ namespace Damany.Security.UsersAdmin
         }
 
 
-        public IList<User> Users
+        public BindingList<User> Users
         {
             get
             {
-                return this.usersCollection.Values.ToList();
+                return this.usersCollection;
             }
         }
 

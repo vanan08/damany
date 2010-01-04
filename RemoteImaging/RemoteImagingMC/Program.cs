@@ -19,9 +19,9 @@ namespace RemoteImaging
         private static UsersManager usersManager;
         public static string directory;
 
-        private static void ShowErrorMessage()
+        public static void ShowErrorMessage(string msg)
         {
-            MessageBox.Show(RemoteImaging.Properties.Resources.ErrorUserNameOrPassword, RemoteImaging.Properties.Resources.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show(msg, RemoteImaging.Properties.Resources.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
         /// <summary>
         /// The main entry point for the application.
@@ -50,12 +50,7 @@ namespace RemoteImaging
 
 
             Login log = null;
-            usersManager = null;
-            using (var stream = Configuration.getUsersSettingReadStream())
-            {
-                usersManager = UsersManager.LoadUsers();
-            }
-
+            usersManager = UsersManager.LoadUsers();
 
             User currentUser = null;
             while (true)
@@ -69,7 +64,7 @@ namespace RemoteImaging
                 if (currentUser != null)
                     break;
                 else
-                    ShowErrorMessage();
+                    ShowErrorMessage(Properties.Resources.ErrorUserNameOrPassword);
             }
 
             System.Threading.Thread.CurrentPrincipal = currentUser.ToPrincipal();
@@ -95,7 +90,7 @@ namespace RemoteImaging
                     DialogResult result = form.ShowDialog();
                     if (result == DialogResult.Cancel)
                     {
-                        return;
+                        break;
                     }
                     else if (result == DialogResult.OK)
                     {
@@ -104,11 +99,11 @@ namespace RemoteImaging
                         if (succeed)
                         {
                             usersManager.Save();
-                            return;
+                            break;
                         }
                         else
                         {
-                            ShowErrorMessage();
+                            ShowErrorMessage(Properties.Resources.ErrorUserNameOrPassword);
                         }
                     }
                     
