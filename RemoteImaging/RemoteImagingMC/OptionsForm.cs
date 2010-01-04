@@ -179,7 +179,7 @@ namespace RemoteImaging
 
                 if (userManager.UserNameExists(form.UserName))
                 {
-                    Program.ShowErrorMessage("用户名已经存在!");
+                    Program.ShowErrorMessage("该用户名已经存在！");
                     return;
                 }
 
