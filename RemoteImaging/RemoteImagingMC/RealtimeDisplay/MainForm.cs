@@ -688,15 +688,17 @@ namespace RemoteImaging.RealtimeDisplay
             this.squareViewContextMenu.Items.Clear();
             Cell c = this.squareListView1.SelectedCell;
 
-            foreach (var h in config.Hosts)
+            foreach (TreeNode node in this.cameraTree.Nodes)
             {
-                ToolStripMenuItem mi = new ToolStripMenuItem(h.Config.Name);
-                mi.Tag = h;
+                var host = node.Tag as Host;
+
+                ToolStripMenuItem mi = new ToolStripMenuItem(host.Config.Name);
+                mi.Tag = host;
                 mi.Click += new EventHandler(mi_Click);
 
                 if (CellCameraMap.ContainsKey(c))
                 {
-                    if ((CellCameraMap[c].Tag as ConnectInfo).Source == h)
+                    if ((CellCameraMap[c].Tag as ConnectInfo).Source == host)
                     {
                         mi.Enabled = false;
                     }
@@ -763,7 +765,7 @@ namespace RemoteImaging.RealtimeDisplay
             {
                 ConnectInfo info = new ConnectInfo() { Socket = tcp, Target = c, Source = host };
 
-                LiveClient lc = new LiveClient(tcp);
+                LiveClient lc = new LiveClient(tcp, host);
                 lc.Tag = info;
 
                 tcp.BeginConnect(ip, 20000, this.ConnectCallback, lc);
@@ -788,18 +790,31 @@ namespace RemoteImaging.RealtimeDisplay
             this.CellCameraMap.Remove((lc.Tag as ConnectInfo).Target);
         }
 
+        private static void UpdateCellProperty(Damany.RemoteImaging.Common.Frame frame, ConnectInfo connect)
+        {
+            connect.Target.Image = frame.image;
+            connect.Target.OverlayText = connect.Source.Config.Name + " " + frame.timeStamp.ToString();
+            connect.Target.EnableOverlayText = true;
+
+            System.Diagnostics.Debug.WriteLine(connect.Target.Index);
+        }
+
         void lc_ImageReceived(object sender, ImageCapturedEventArgs e)
         {
             ConnectInfo c = (sender as LiveClient).Tag as ConnectInfo;
 
             if (this.InvokeRequired)
             {
-                Action<Image> updateImage = img => c.Target.Image = img;
-                this.BeginInvoke(updateImage, e.ImageCaptured);
+                Action<Damany.RemoteImaging.Common.Frame> updateImage = frame =>
+                    {
+                        UpdateCellProperty(frame, c);
+                    };
+
+                this.BeginInvoke(updateImage, e.FrameCaptured);
             }
             else
             {
-                c.Target.Image = e.ImageCaptured;
+                UpdateCellProperty(e.FrameCaptured, c);
             }
 
             this.squareListView1.Invalidate(c.Target.Rec);

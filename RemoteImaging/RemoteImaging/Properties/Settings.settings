@@ -150,7 +150,7 @@
       <Value Profile="(Default)">-1</Value>
     </Setting>
     <Setting Name="HostName" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">未命名监控点</Value>
     </Setting>
   </Settings>
 </SettingsFile>

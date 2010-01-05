@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Net.Sockets;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Drawing;
+using Damany.RemoteImaging.Common;
 
 namespace RemoteImaging
 {
@@ -14,8 +16,8 @@ namespace RemoteImaging
         BinaryFormatter formatter;
         object locker = new object();
         System.Threading.AutoResetEvent go = new System.Threading.AutoResetEvent(false);
-        System.Collections.Generic.Queue<System.Drawing.Image> images
-            = new System.Collections.Generic.Queue<System.Drawing.Image>();
+        System.Collections.Generic.Queue<Image> images
+            = new System.Collections.Generic.Queue<Image>();
 
         public LiveServer(TcpClient client, RealtimeDisplay.Presenter host)
         {
@@ -31,16 +33,16 @@ namespace RemoteImaging
         }
 
 
-        public void SendLiveImage(System.Drawing.Image img)
+        public void SendLiveImage(Image img)
         {
             lock (this.locker)
             {
                 if (this.images.Count < 2)
                 {
-                    this.images.Enqueue((System.Drawing.Image) img.Clone());
+                    this.images.Enqueue((Image)img.Clone());
                     this.go.Set();
                 }
-                
+
             }
         }
 
@@ -50,25 +52,29 @@ namespace RemoteImaging
 
         }
 
+
         public void DoSend(object state)
         {
             try
             {
                 while (true)
                 {
-                    
-
-                    System.Drawing.Image img = null;
                     if (images.Count > 0)
                     {
+                        //wait for the client to be ready
+                        client.GetStream().ReadByte();
+
+                        Image img = null;
                         lock (this.locker)
                         {
                             img = images.Dequeue();
                         }
 
-                        client.GetStream().ReadByte();
-                        
-                        formatter.Serialize(client.GetStream(), img);
+                        Frame frame = new Frame();
+                        frame.image = img;
+                        frame.timeStamp = DateTime.Now;
+
+                        formatter.Serialize(client.GetStream(), frame);
                         img.Dispose();
                     }
                     else

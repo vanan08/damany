@@ -203,5 +203,10 @@ namespace RemoteImaging
 
             return uuid.ToUpper();
         }
+
+        public static float PixelToPoint(int pixels)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

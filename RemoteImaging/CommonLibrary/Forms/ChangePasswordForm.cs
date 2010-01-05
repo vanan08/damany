@@ -52,21 +52,21 @@ namespace Damany.RemoteImaging.Common.Forms
             }
         }
 
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            e.Cancel = false;
+            base.OnFormClosing(e);
+        }
+
         private void repeatedPassword_Validating(object sender, CancelEventArgs e)
         {
-            e.Cancel = string.Compare(
-                this.repeatedPassword.Text,
-                this.newPassword.Text,
-                false
-                ) != 0;
-            if (e.Cancel)
-            {
-                this.errorProvider.SetError(this.repeatedPassword, "两次输入的密码不一致。");
-            }
-            else
-            {
-                this.errorProvider.SetError(this.repeatedPassword, string.Empty);
-            }
+            e.Cancel = string.Compare(this.repeatedPassword.Text,
+                                        this.newPassword.Text,
+                                        false
+                                        ) != 0;
+
+            this.errorProvider.SetError(this.repeatedPassword,
+                e.Cancel ? "两次输入的密码不一致。" : string.Empty);
         }
     }
 }

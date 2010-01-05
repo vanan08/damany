@@ -5,6 +5,7 @@ using System.Text;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
+using Damany.Drawing;
 
 namespace Damany.Windows.Form
 {
@@ -16,6 +17,9 @@ namespace Damany.Windows.Form
         public int Column { get; set; }
         public int Index { get; set; }
         public bool HightLight { get; set; }
+        public string OverlayText { get; set; }
+        public bool EnableOverlayText { get; set; }
+        public Font Font { get; set; }
 
 
         public static Cell Empty
@@ -69,14 +73,7 @@ namespace Damany.Windows.Form
 
         public string Text { get; set; }
 
-        private void DrawStringInCenterOfRectangle(string str, Graphics g, Font font, Rectangle rec)
-        {
-            SizeF sizeOfPrompt = g.MeasureString(str, font);
-            float x = rec.X + (rec.Width - sizeOfPrompt.Width) / 2;
-            float y = rec.Y + (rec.Height - sizeOfPrompt.Height) / 2;
-            Brush br = this.Selected ? Brushes.White : SystemBrushes.ControlText;
-            g.DrawString(str, font, br, x, y);
-        }
+
 
 
         public void CenterRectangleRelativeTo(Rectangle destRectangle, ref Rectangle srcRectangle)
@@ -107,14 +104,29 @@ namespace Damany.Windows.Form
             return resultRec;
         }
 
-        public void Paint(Graphics g, Font font)
+        private void DrawOverlayText(Graphics g, Rectangle rectangle)
         {
-            g.FillRectangle(SystemBrushes.Control, this.Bound);
+            if (this.EnableOverlayText && !string.IsNullOrEmpty(this.OverlayText))
+            {
+                using (Font font = new Font(FontFamily.GenericSansSerif, this.Font.Size + 5, FontStyle.Bold))
+                {
+                    g.DrawStringOutLined(this.OverlayText, font, rectangle.Left+3, rectangle.Top+3);
+                }
+            }
+        }
 
+        private void DrawHiliteBackground(Graphics g)
+        {
             if (this.HightLight && !this.Selected)
             {
                 g.FillRectangle(Brushes.LightBlue, this.Rec);
             }
+        }
+        public void Paint(Graphics g)
+        {
+            g.FillRectangle(SystemBrushes.Control, this.Bound);
+
+            DrawHiliteBackground(g);
 
             if (this.Selected)
             {
@@ -123,7 +135,12 @@ namespace Damany.Windows.Form
 
             if (this.Image == null)
             {
-                DrawStringInCenterOfRectangle("未指定图片", g, font, this.Rec);
+                g.DrawStringInCenterOfRectangle("未指定图片",
+                                                this.Font,
+                                                this.Selected ? Brushes.White : SystemBrushes.ControlText,
+                                                this.Rec);
+
+
                 g.DrawRectangle(Pens.Gray, this.Rec);
             }
             else
@@ -135,20 +152,25 @@ namespace Damany.Windows.Form
 
                 if (!string.IsNullOrEmpty(this.Text))
                 {
-                    sizeOfText = g.MeasureString(this.Text, font);
+                    sizeOfText = g.MeasureString(this.Text, this.Font);
                     Rectangle recText = this.Rec;
                     int h = this.Rec.Height - (int)sizeOfText.Height - space;
                     recText.Offset(0, h);
                     recText.Height -= h;
-                    DrawStringInCenterOfRectangle(this.Text, g, font, recText);
+
+                    g.DrawStringInCenterOfRectangle(this.Text, this.Font, SystemBrushes.ControlText, recText);
 
                     recOfImg.Height -= (int)sizeOfText.Height + space;
                 }
 
 
-                g.DrawImage(this.Image,
-                    CalculateAutoFitRectangle(recOfImg,
-                    new Rectangle(0, 0, this.Image.Width, this.Image.Height)));
+                Rectangle rectangleOfImagePart = CalculateAutoFitRectangle(
+                                                            recOfImg,
+                                                            new Rectangle(0, 0, this.Image.Width, this.Image.Height) );
+
+                g.DrawImage(this.Image, rectangleOfImagePart);
+
+                DrawOverlayText(g, rectangleOfImagePart);
 
                 g.DrawRectangle(Pens.Gray, recOfImg);
             }

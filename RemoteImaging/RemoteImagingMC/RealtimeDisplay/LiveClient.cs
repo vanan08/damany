@@ -6,6 +6,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Net.Sockets;
 using System.Drawing;
 using System.Threading;
+using Damany.RemoteImaging.Common;
 
 namespace RemoteImaging.RealtimeDisplay
 {
@@ -13,6 +14,7 @@ namespace RemoteImaging.RealtimeDisplay
     {
         TcpClient client;
         BinaryFormatter formatter;
+        Host peer;
 
         public event EventHandler<ImageCapturedEventArgs> ImageReceived;
         public event EventHandler ConnectAborted;
@@ -21,22 +23,23 @@ namespace RemoteImaging.RealtimeDisplay
 
         public object Tag { get; set; }
 
-        public LiveClient(TcpClient client)
+        public LiveClient(TcpClient client, Host peer)
         {
             context = SynchronizationContext.Current;
+            this.peer = peer;
 
             this.client = client;
             formatter = new BinaryFormatter();
         }
 
 
-        void FireImageReceivedEvent(Image img)
+        void FireImageReceivedEvent(Frame frame)
         {
             if (this.ImageReceived != null)
             {
                 ImageCapturedEventArgs args = new ImageCapturedEventArgs
                 {
-                    ImageCaptured = img,
+                    FrameCaptured = frame,
                 };
 
                 this.ImageReceived(this, args);
@@ -73,9 +76,9 @@ namespace RemoteImaging.RealtimeDisplay
                 {
                     client.GetStream().WriteByte(0);
                     client.GetStream().Flush();
-                    Image img = (Image)formatter.Deserialize(client.GetStream());
-                    imgSize = img.Size;
-                    this.FireImageReceivedEvent(img);
+                    Frame frame = (Frame)formatter.Deserialize(client.GetStream());
+                    imgSize = frame.image.Size;
+                    this.FireImageReceivedEvent(frame);
                 }
 
             }
@@ -98,7 +101,11 @@ namespace RemoteImaging.RealtimeDisplay
                         fmt
                         );
 
-                    this.FireImageReceivedEvent(bmp);
+                    Frame f = new Frame();
+                    f.image = bmp;
+                    f.timeStamp = DateTime.Now;
+
+                    this.FireImageReceivedEvent(f);
 
                     context.Post(o => OnConnectAborted(), null);
 

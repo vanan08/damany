@@ -244,7 +244,7 @@ namespace Damany.Component
             req.ProtocolVersion = new Version(1, 1);
             req.CookieContainer = cookies;
             req.KeepAlive = true;
-            reqAuthorize.Proxy = System.Net.GlobalProxySelection.GetEmptyWebProxy();
+            req.Proxy = System.Net.GlobalProxySelection.GetEmptyWebProxy();
 
 
             HttpWebResponse reply = (HttpWebResponse)req.GetResponse();

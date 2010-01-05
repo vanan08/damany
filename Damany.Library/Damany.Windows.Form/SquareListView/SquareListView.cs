@@ -195,6 +195,7 @@ namespace Damany.Windows.Form
                     this.cells[idx].Column = j;
                     this.cells[idx].Row = i;
                     this.cells[idx].Index = idx;
+                    this.cells[idx].Font = this.Font;
                 }
             }
 
@@ -211,7 +212,7 @@ namespace Damany.Windows.Form
                 Cell c = this.cells[i];
                 if (e.ClipRectangle.IntersectsWith(c.Bound))
                 {
-                    c.Paint(e.Graphics, this.Font);
+                    c.Paint(e.Graphics);
                 }
             }
 
