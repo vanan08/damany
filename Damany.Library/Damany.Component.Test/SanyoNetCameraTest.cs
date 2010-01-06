@@ -56,13 +56,24 @@ namespace Damany.Component.Test
             clock.ThreadSleep(5000);
         }
 
-        [Test]
         [Row(true, true)]
         public void AgcTest(bool enableAgc, bool enableDigitalGain)
         {
             this.camera.SetAgc(enableAgc, enableDigitalGain);
         }
 
+
+        [FixtureTearDown]
+        public void ResetCamera()
+        {
+            //this.camera.SetIrisLevel(IrisMode.Manual, 50);
+            var clock = new Clock();
+            //clock.ThreadSleep(15000);
+            //this.camera.SetShutterSpeed(ShutterMode.Short, 0);
+            //clock.ThreadSleep(15000);
+            this.camera.SetAgc(true, true);
+            //clock.ThreadSleep(15000);
+        }
 
 
     }

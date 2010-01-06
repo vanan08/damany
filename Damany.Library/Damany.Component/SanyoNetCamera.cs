@@ -13,6 +13,8 @@ using System.Threading;
 
 namespace Damany.Component
 {
+    using NameObjectCollection = Dictionary<string, object>;
+
     public partial class SanyoNetCamera : System.ComponentModel.Component, ICamera, IDisposable
     {
         const string _ShutterMode = "shutter_sw";
@@ -31,19 +33,14 @@ namespace Damany.Component
             InitializeComponent();
         }
 
-        private string BuildUri(KeyValuePair<string, object>[] nameValues)
+        private string BuildUri(NameObjectCollection nameValues)
         {
+            string parameters = string.Join("&", nameValues.Select(n => n.Key + "=" + n.Value.ToString()).ToArray());
 
-            var sb = new StringBuilder();
-            sb.AppendFormat("http://{0}/cgi-bin/camera_quality.cgi?", this.IPAddress);
+            var uri = String.Format("http://{0}/cgi-bin/camera_quality.cgi?{1}", this.IPAddress, parameters);
 
-            foreach (var name in nameValues)
-            {
-                sb.AppendFormat("{0}={1}&", name.Key, name.Value);
-            }
+            return uri;
 
-
-            return sb.ToString();
         }
 
         public void SetShutterSpeed(ShutterMode mode, int speedLevel)
@@ -69,12 +66,11 @@ namespace Damany.Component
                     break;
             }
 
+            var nameValues = new NameObjectCollection();
+            nameValues.Add(_ShutterMode, modeValue);
+            nameValues.Add(speedPropertyName, speedLevel);
             
-            string uri = BuildUri( new KeyValuePair<string, object>[]
-                                   {
-                                       new KeyValuePair<string, object>(_ShutterMode, modeValue),
-                                       new KeyValuePair<string, object>(speedPropertyName, speedLevel)
-                                   });
+            string uri = BuildUri(nameValues);
 
             SetCameraProperty(uri);
         }
@@ -98,13 +94,12 @@ namespace Damany.Component
                     break;
             }
 
-            var uri = BuildUri(
-                new KeyValuePair<string, object>[]
-                                   {
-                                       new KeyValuePair<string, object>(_IrisMode, irisModeValue),
-                                       new KeyValuePair<string, object>(propertyName, level)
-                                   }
-                                   );
+
+            var nameValues = new NameObjectCollection();
+            nameValues.Add(_IrisMode, irisModeValue);
+            nameValues.Add(propertyName, level);
+
+            var uri = BuildUri(nameValues);
 
             SetCameraProperty(uri);
 
@@ -115,14 +110,14 @@ namespace Damany.Component
             int agcModeValue = AgcEnable ? 1: 0;
             int digitalGainValue = digitalGainEnable ? 1: 0;
 
-            string uri = BuildUri(new KeyValuePair<string, object>[]
-                                            {
-                                                new KeyValuePair<string, object> (_AgcMode, agcModeValue),
-                                                new KeyValuePair<string, object> (_DigitalGain, digitalGainValue), 
-                                            });
-            SetCameraProperty(uri);
-            
 
+            var nameValues = new NameObjectCollection();
+            nameValues.Add(_AgcMode, agcModeValue);
+            nameValues.Add(_DigitalGain, digitalGainValue);
+
+            string uri = BuildUri(nameValues);
+
+            SetCameraProperty(uri);
         }
 
         public static void SearchCamersAsync()
