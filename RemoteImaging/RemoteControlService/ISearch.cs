@@ -10,7 +10,7 @@ namespace RemoteControlService
 {
     [ServiceContract]
     [ServiceKnownType(typeof(Bitmap))]
-    public interface IServiceFacade
+    public interface ISearch
     {
         [OperationContract]
         string[] SearchFaces(int cameraID, DateTime from, DateTime to);
@@ -28,16 +28,6 @@ namespace RemoteControlService
         [OperationContract]
         string VideoFilePathRecordedAt(DateTime time, int camID);
 
-    }
-
-    [ServiceContract]
-    public interface IStreamPlayer
-    {
-        [OperationContract]
-        bool StreamVideo(string path);
-
-        [OperationContract]
-        void Stop();
     }
 
 

@@ -778,9 +778,6 @@ namespace RemoteImaging.RealtimeDisplay
                 return;
             }
 
-
-
-
         }
 
         void lc_ConnectAborted(object sender, EventArgs e)
@@ -796,7 +793,6 @@ namespace RemoteImaging.RealtimeDisplay
             connect.Target.OverlayText = connect.Source.Config.Name + " " + frame.timeStamp.ToString();
             connect.Target.EnableOverlayText = true;
 
-            System.Diagnostics.Debug.WriteLine(connect.Target.Index);
         }
 
         void lc_ImageReceived(object sender, ImageCapturedEventArgs e)

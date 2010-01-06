@@ -440,7 +440,6 @@ namespace RemoteImaging.RealtimeDisplay
                             Program.faceSearch.AddInFrame(f);
                         }
 
-
                         ImageProcess.Target[] targets = Program.faceSearch.SearchFaces();
 
                         ImageDetail[] imgs = this.SaveImage(targets);
