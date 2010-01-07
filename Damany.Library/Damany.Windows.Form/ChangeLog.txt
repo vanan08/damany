@@ -1,2 +1,5 @@
+1.4.47.0:
+增加SanyoCamera控件
+
 1.3.46.0:
 增加SquareListView左上角水印文字。

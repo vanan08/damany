@@ -28,9 +28,148 @@ namespace Damany.Component
         const string _AgcMode = "agc_sw";
         const string _DigitalGain = "digital_gain";
 
+
+        NameObjectCollection properties;
+
         public SanyoNetCamera()
         {
             InitializeComponent();
+        }
+
+        public IrisMode IrisMode
+        {
+            get
+            {
+                EnsureUpdateCalled();
+
+                return (IrisMode) properties[_IrisMode];
+            }
+        }
+
+        public int ManualIrisLevel
+        {
+            get
+            {
+                EnsureUpdateCalled();
+
+                return (int) properties[_IrisManualLevel];
+            }
+        }
+
+        public bool AgcEnabled
+        {
+            get
+            {
+                EnsureUpdateCalled();
+
+                return ((int)(properties[_AgcMode])) == 0 ? false : true;
+            }
+        }
+
+        public bool DigitalGainEnabled
+        {
+            get
+            {
+                EnsureUpdateCalled();
+
+                return ((int)(properties[_DigitalGain])) == 0 ? false : true;
+            }
+        }
+
+        public ShutterMode ShutterMode
+        {
+            get
+            {
+                EnsureUpdateCalled();
+
+                return (ShutterMode)(properties[_ShutterMode]);
+            }
+        }
+
+        public int ShortShutterLevel
+        {
+            get
+            {
+                EnsureUpdateCalled();
+
+                return (int) properties[_ShutterShortSpeedLevel];
+            }
+        }
+
+        private static KeyValuePair<string, object> ParseSemicommaSplittedLine(string line)
+        {
+            string[] subStrings = line.Split(new char[] { ':' });
+            if (subStrings.Length != 2)
+            {
+                throw new ArgumentException("line is not splitted by semi comma(:)");
+            }
+
+            string valueString = subStrings[1].TrimStart('(').TrimEnd(')');
+            return new KeyValuePair<string, object>(subStrings[0], int.Parse(valueString));
+        }
+
+        private static bool ShouldSkip(string line)
+        {
+            return line == "end"
+                    || line == "200 OK"
+                    || line == "[camera_quality_cgi]"
+                    || string.IsNullOrEmpty(line);
+        }
+
+        private static NameObjectCollection ParseCameraProperties(System.IO.Stream replyStream)
+        {
+            var nameValues = new NameObjectCollection();
+            using (StreamReader rdr = new StreamReader(replyStream))
+            {
+                while (true)
+                {
+                    var line = rdr.ReadLine();
+
+                    if (line == null)//end of stream
+                    {
+                        break;
+                    }
+
+                    if (ShouldSkip(line)) continue;
+
+                    try
+                    {
+                        var keyValue = ParseSemicommaSplittedLine(line);
+                        if (!nameValues.ContainsKey(keyValue.Key))
+                        {
+                            nameValues.Add(keyValue.Key, keyValue.Value);
+                        }
+                    }
+                    catch (System.ArgumentException){}
+
+                }
+
+                return nameValues;
+
+            }
+        }
+
+        public void UpdateProperty()
+        {
+            EnsureConnected();
+
+            var nameValues = new NameObjectCollection();
+            nameValues.Add("status", 1);
+
+            var uri = this.BuildUri(nameValues);
+            var reply = this.GetHttpRequest(uri, this.cookies, true);
+
+            try
+            {
+                var properties = ParseCameraProperties(reply.GetResponseStream());
+                this.properties = properties;
+            }
+            finally
+            {
+                reply.Close();
+            }
+
+            
         }
 
         private string BuildUri(NameObjectCollection nameValues)
@@ -69,7 +208,7 @@ namespace Damany.Component
             var nameValues = new NameObjectCollection();
             nameValues.Add(_ShutterMode, modeValue);
             nameValues.Add(speedPropertyName, speedLevel);
-            
+
             string uri = BuildUri(nameValues);
 
             SetCameraProperty(uri);
@@ -107,8 +246,8 @@ namespace Damany.Component
 
         public void SetAgc(bool AgcEnable, bool digitalGainEnable)
         {
-            int agcModeValue = AgcEnable ? 1: 0;
-            int digitalGainValue = digitalGainEnable ? 1: 0;
+            int agcModeValue = AgcEnable ? 1 : 0;
+            int digitalGainValue = digitalGainEnable ? 1 : 0;
 
 
             var nameValues = new NameObjectCollection();
@@ -215,6 +354,15 @@ namespace Damany.Component
             }
         }
 
+        private void EnsureUpdateCalled()
+        {
+            if (this.properties == null)
+            {
+                throw new InvalidOperationException("call UpdateProperty first");
+            }
+        }
+
+
         public string UserName { get; set; }
         public string Password { get; set; }
         public string IPAddress { get; set; }
@@ -235,22 +383,152 @@ namespace Damany.Component
         }
 
 
-        enum Command : ushort
+        static int CameraPort = 10001;
+        static int PCPort = 10000;
+        static IList<string> ipFound = new List<string>();
+        static object locker = new object();
+        static volatile bool cancel;
+
+        CookieContainer cookies;
+
+        #region ICamera Members
+
+        public System.Drawing.Image CaptureImage()
         {
-            IpQueryStart = 0x4031, IpQueryReply = 0x0031, IpQueryReplyConfirm = 0x8031,
+            throw new NotImplementedException();
         }
 
-        class UdpState
+        public byte[] CaptureImageBytes()
         {
-            public UdpClient u;
-            public bool canceled;
+            EnsureConnected();
+
+            string uri = string.Format("http://{0}/liveimg.cgi", IPAddress);
+            var req = CreateHttpWebRequest(uri, this.cookies);
+
+            var reply = (HttpWebResponse)req.GetResponse();
+            Stream stream = reply.GetResponseStream();
+            try
+            {
+                long len = reply.ContentLength;
+                byte[] buff = new byte[len];
+                long count = 0;
+                while (true)
+                {
+                    int bytesRead = stream.Read(buff, (int) count, (int) (len - count));
+                    if (bytesRead <= 0)
+                    {
+                        break;
+                    }
+
+                    count += bytesRead;
+                    if (count == len)
+                    {
+                        break;
+                    }
+                }
+
+                return buff;
+
+            }
+            finally
+            {
+                reply.Close();
+                stream.Close();
+            }
+            
         }
+
+
+        public bool Record
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public void Start()
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
+
+
+        private HttpWebRequest CreateHttpWebRequest(string uri, CookieContainer cookies)
+        {
+            return CreateHttpWebRequest(uri, cookies, "GET", false);
+        }
+
+
+        private HttpWebRequest CreateHttpWebRequest(string uri, CookieContainer cookies, string method, bool adminPrivilegeRequired)
+        {
+            HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create(uri);
+            req.AuthenticationLevel = System.Net.Security.AuthenticationLevel.MutualAuthRequested;
+
+            if (adminPrivilegeRequired)
+            {
+                req.Credentials = new NetworkCredential("admin", "admin");
+            }
+            else
+            {
+                req.Credentials = new NetworkCredential(UserName, Password);
+            }
+
+            req.ProtocolVersion = new Version(1, 1);
+            req.CookieContainer = cookies;
+            req.KeepAlive = true;
+            req.PreAuthenticate = true;
+            req.Method = method;
+            System.Net.WebRequest.DefaultWebProxy = null;
+
+            return req;
+        }
+
+        private HttpWebResponse GetHttpRequest(string uri, CookieContainer cookies, bool adminPrivilegeRequired)
+        {
+            return this.SendHttpRequest(uri, cookies, "GET", adminPrivilegeRequired);
+        }
+
+        private HttpWebResponse PostHttpRequest(string uri, CookieContainer cookies, bool adminPrivilegeRequired)
+        {
+            return this.SendHttpRequest(uri, cookies, "POST", adminPrivilegeRequired);
+        }
+
+        private HttpWebResponse SendHttpRequest(string uri, CookieContainer cookies, string method, bool adminPrivilegeRequired)
+        {
+            var request = this.CreateHttpWebRequest(uri, cookies, method, adminPrivilegeRequired);
+
+            return (HttpWebResponse)request.GetResponse();
+        }
+
+
+        private void SetCameraProperty(string uri)
+        {
+            EnsureConnected();
+
+            var reply = PostHttpRequest(uri, this.cookies, true);
+            reply.Close();
+        }
+
+
+        #region IDisposable Members
+
+        void IDisposable.Dispose()
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
+
 
         class Header
         {
             byte[] buffer = new byte[32];
-
-
             public Header() { }
 
             public Header(Command cmd, MAC destMAC)
@@ -324,132 +602,17 @@ namespace Damany.Component
 
         }
 
-        static int CameraPort = 10001;
-        static int PCPort = 10000;
-        static IList<string> ipFound = new List<string>();
-        static object locker = new object();
-        static volatile bool cancel;
 
-        CookieContainer cookies;
-
-        #region ICamera Members
-
-        public System.Drawing.Image CaptureImage()
+        enum Command : ushort
         {
-            throw new NotImplementedException();
+            IpQueryStart = 0x4031, IpQueryReply = 0x0031, IpQueryReplyConfirm = 0x8031,
         }
 
-        public byte[] CaptureImageBytes()
+        class UdpState
         {
-            EnsureConnected();
-
-            string uri = string.Format("http://{0}/liveimg.cgi", IPAddress);
-            var req = CreateHttpWebRequest(uri, this.cookies);
-
-            var reply = (HttpWebResponse)req.GetResponse();
-
-            long len = reply.ContentLength;
-            byte[] buff = new byte[len];
-
-            Stream stream = reply.GetResponseStream();
-
-            long count = 0;
-
-            do
-            {
-                count += stream.Read(buff, (int)count, (int)(len - count));
-            } while (count < len);
-
-            return buff;
+            public UdpClient u;
+            public bool canceled;
         }
 
-
-        public bool Record
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        public void Start()
-        {
-
-
-            throw new NotImplementedException();
-        }
-
-        #endregion
-
-
-        private HttpWebRequest CreateHttpWebRequest(string uri, CookieContainer cookies)
-        {
-            return CreateHttpWebRequest(uri, cookies, "GET", false);
-        }
-
-
-        private HttpWebRequest CreateHttpWebRequest(string uri, CookieContainer cookies, string method, bool adminPrivilegeRequired)
-        {
-            HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create(uri);
-            req.AuthenticationLevel = System.Net.Security.AuthenticationLevel.MutualAuthRequested;
-
-            if (adminPrivilegeRequired)
-            {
-                req.Credentials = new NetworkCredential("admin", "admin");
-            }
-            else
-            {
-                req.Credentials = new NetworkCredential(UserName, Password);
-            }
-
-            req.ProtocolVersion = new Version(1, 1);
-            req.CookieContainer = cookies;
-            req.KeepAlive = true;
-            req.PreAuthenticate = true;
-            req.Method = method;
-            req.Timeout = 10000;
-            req.Proxy = System.Net.GlobalProxySelection.GetEmptyWebProxy();
-
-            return req;
-        }
-
-        private HttpWebResponse GetHttpRequest(string uri, CookieContainer cookies, bool adminPrivilegeRequired)
-        {
-            return this.SendHttpRequest(uri, cookies, "GET", adminPrivilegeRequired);
-        }
-
-        private HttpWebResponse PostHttpRequest(string uri, CookieContainer cookies, bool adminPrivilegeRequired)
-        {
-            return this.SendHttpRequest(uri, cookies, "POST", adminPrivilegeRequired);
-        }
-
-        private HttpWebResponse SendHttpRequest(string uri, CookieContainer cookies, string method, bool adminPrivilegeRequired)
-        {
-            var request = this.CreateHttpWebRequest(uri, cookies, method, adminPrivilegeRequired);
-
-            return (HttpWebResponse)request.GetResponse();
-        }
-
-
-        private void SetCameraProperty(string uri)
-        {
-            EnsureConnected();
-
-            PostHttpRequest(uri, this.cookies, true);
-        }
-
-
-        #region IDisposable Members
-
-        void IDisposable.Dispose()
-        {
-            throw new NotImplementedException();
-        }
-
-        #endregion
     }
 }
