@@ -1,27 +1,26 @@
-// faceSVM.cpp : Defines the exported functions for the DLL application.
-/************************************************************************************************
-Copyritht (c) 成都丹玛尼科技有限公司
-All right reserved!
-
-完成日期：2009年12月12日
-作    者：薛晓利
-当前版本：1.2
-
-摘要：提供SVM算法训练函数和SVM预测函数。其中，SVM训练函数用于得到SVM预测所需的model。
-	  SVM预测函数，用于对待识别的人脸进行预判别，判断是“好人”还是“坏人”。
-************************************************************************************************/
 #include "stdafx.h"
-#include "faceSVM.h"
+#include "FaceSVM.h"
 
-//该函数用于获得用于SVM训练的图片个数
-int GetSvmSampleCount()
+
+FaceSvm::FaceSvm()
+{
+	svmAvgVector = NULL;
+	svmEigenVector = NULL;
+	testModel = NULL;		
+	svmImgWidth = 100;
+	svmImgHeight = 100;
+	svmEigenNum = 20;
+	svmImgLen = svmImgWidth*svmImgHeight;
+}
+
+int FaceSvm::GetGoodGuySampleCount()
 {
 	AFX_MANAGE_STATE(AfxGetStaticModuleState());
 
 	CFileFind imageFile; 
 	int sampleCount = 0;//训练样本的图片个数
 
-	bool FileExist = imageFile.FindFile(_T("C:\\faceRecognition\\SVM\\faceSample\\*.jpg"),0); 
+	BOOL FileExist = imageFile.FindFile(_T("C:\\faceRecognition\\SVM\\faceSample\\*.jpg"),0); 
 	while (FileExist)
 	{
 		FileExist = imageFile.FindNextFile();  
@@ -34,7 +33,27 @@ int GetSvmSampleCount()
 	return sampleCount;
 }
 
-void DelSvmDataFile()
+int FaceSvm::GetBadGuySampleCount()
+{
+	AFX_MANAGE_STATE(AfxGetStaticModuleState());
+
+	CFileFind imageFile; 
+	int sampleCount = 0;//训练样本的图片个数
+
+	BOOL FileExist = imageFile.FindFile(_T("C:\\faceRecognition\\faceSample\\*.jpg"),0); 
+	while (FileExist)
+	{
+		FileExist = imageFile.FindNextFile();  
+		if (!imageFile.IsDots()) 
+		{
+			sampleCount++;//遍历得到训练样本图片的总数
+		}
+	}
+
+	return sampleCount;
+}
+
+void FaceSvm::DelSvmDataFile()
 {
 	fstream txtFile;
 	bool txtExist = false;
@@ -130,7 +149,7 @@ void DelSvmDataFile()
 	}
 }
 
-void WriteSvmAvgTxt(CvMat *AvgVector)
+void FaceSvm::WriteSvmAvgTxt(CvMat *AvgVector)
 {
 	ofstream out1("C:\\faceRecognition\\SVM\\data\\AverageValue.txt");//将平均值保存在文件中
 	if (out1.fail())
@@ -145,7 +164,7 @@ void WriteSvmAvgTxt(CvMat *AvgVector)
 	out1.close();
 }
 
-void WriteSvmEigenVectorTxt(CvMat *EigenVectorFinal)
+void FaceSvm::WriteSvmEigenVectorTxt(CvMat *EigenVectorFinal)
 {
 	ofstream out2("C:\\faceRecognition\\SVM\\data\\EigenVector.txt");//将特征向量保存在文件中
 	if (out2.fail())
@@ -161,10 +180,10 @@ void WriteSvmEigenVectorTxt(CvMat *EigenVectorFinal)
 		}
 		out2<<endl;
 	}
-	out2.close();  
+	out2.close(); 
 }
 
-void WriteSvmSamCoeffTxt(CvMat *resCoeff)
+void FaceSvm::WriteSvmSamCoeffTxt(CvMat *resCoeff)
 {
 	ofstream out3("C:\\faceRecognition\\SVM\\data\\SampleCoefficient.txt");//将样本图片的投影系数保存在文件中
 	if (out3.fail())
@@ -183,7 +202,7 @@ void WriteSvmSamCoeffTxt(CvMat *resCoeff)
 	out3.close();
 }
 
-void BallNormSvmResCoeff(CvMat *resCoeff)
+void FaceSvm::BallNormSvmResCoeff(CvMat *resCoeff)
 {
 	float refCoeffDis = 0.0;
 	for (int i=0; i<resCoeff->height; i++)//做球化处理
@@ -203,7 +222,7 @@ void BallNormSvmResCoeff(CvMat *resCoeff)
 	}
 }
 
-void WriteBallNormResCoeff(CvMat *resCoeff)
+void FaceSvm::WriteBallNormResCoeff(CvMat *resCoeff)
 {
 	ofstream out4("C:\\faceRecognition\\SVM\\data\\BallNorm.txt");//将球化后的结果予以保存
 	if (out4.fail())
@@ -222,7 +241,7 @@ void WriteBallNormResCoeff(CvMat *resCoeff)
 	out4.close();
 }
 
-void WriteLabel(int *label, int sampleCount)
+void FaceSvm::WriteLabel(int *label, int sampleCount)
 {
 	ofstream out5("C:\\faceRecognition\\SVM\\data\\Label.txt");
 	if (out5.fail())
@@ -237,7 +256,7 @@ void WriteLabel(int *label, int sampleCount)
 	out5.close();
 }
 
-void WriteSvmInfo(int imgWidth, int imgHeight, int eigenNum, int sampleCount)
+void FaceSvm::WriteSvmInfo(int imgWidth, int imgHeight, int eigenNum, int sampleCount)
 {
 	ofstream out6("C:\\faceRecognition\\SVM\\data\\Info.txt");
 	if (out6.fail())
@@ -252,9 +271,9 @@ void WriteSvmInfo(int imgWidth, int imgHeight, int eigenNum, int sampleCount)
 	out6.close();
 }
 
-void PCAforSVM(int imgWidth, int imgHeight, int eigenNum)
+void FaceSvm::PCAforSVM(int imgWidth, int imgHeight, int eigenNum)
 {
-	int sampleCount = GetSvmSampleCount(); 
+	int sampleCount = GetBadGuySampleCount() + GetGoodGuySampleCount(); 
 
 	if (eigenNum > sampleCount)
 	{
@@ -272,14 +291,14 @@ void PCAforSVM(int imgWidth, int imgHeight, int eigenNum)
 	CvMat *resCoeff = cvCreateMat(sampleCount, eigenNum, CV_32FC1);//取前eigenNum个最大特征值
 
 	int *label = new int[sampleCount];
+	int imgCount = 0;
 
-	int imgCount = 0; 
+	CvvImage pSourImg;
 
 	CFileFind imageFile;
 	CString fileName;
 	CString imgFileAdd;
-	bool FileExist; 
-	FileExist = imageFile.FindFile(_T("C:\\faceRecognition\\SVM\\faceSample\\*.jpg"),0); 
+	BOOL FileExist = imageFile.FindFile(_T("C:\\faceRecognition\\faceSample\\*.jpg"),0); 
 	while (FileExist)
 	{
 		FileExist = imageFile.FindNextFile();   
@@ -288,34 +307,29 @@ void PCAforSVM(int imgWidth, int imgHeight, int eigenNum)
 			fileName = imageFile.GetFileName();
 			int fileNameLen = fileName.GetLength();
 
-			imgFileAdd = "C:\\faceRecognition\\SVM\\faceSample\\";
+			imgFileAdd = _T("C:\\faceRecognition\\faceSample\\");
+
 			imgFileAdd += fileName;
 
 			int strLen = imgFileAdd.GetLength();
-			char *fileAddress = new char[strLen+1];
+			TCHAR *fileAddress = new TCHAR[strLen+1];
 
 			for (int i=0; i<strLen; i++)
 			{
 				fileAddress[i] = imgFileAdd[i];
 			}
-			fileAddress[strLen] = '\0';
+			fileAddress[strLen] = _T('\0');
 
-			if (fileAddress[strLen-11] == '+')
-			{
-				label[imgCount] = 1;
-			}
-			else
-			{
-				label[imgCount] = -1;
-			}
+			label[imgCount] = 1;
 
-			IplImage *bigImg = cvLoadImage(fileAddress, 0);
-			if (!bigImg)
-			{
-				break;
-			}
+			USES_CONVERSION;
+			pSourImg.Load(T2A(fileAddress));
+			IplImage *img1 = pSourImg.GetImage();
+			IplImage *img2 = cvCreateImage(cvSize(img1->width, img1->height), 8, 3);
+			cvCopy(img1, img2);
 
-			delete []fileAddress;
+			IplImage *bigImg = cvCreateImage(cvSize(img1->width, img1->height), 8, 1);
+			cvCvtColor(img2, bigImg, CV_BGR2GRAY);
 
 			IplImage *smallImg = cvCreateImage(cvSize(imgWidth, imgHeight), 8, 1);
 			uchar *smallImgData = (uchar*)smallImg->imageData;
@@ -333,62 +347,115 @@ void PCAforSVM(int imgWidth, int imgHeight, int eigenNum)
 				}
 			}
 
+			delete []fileAddress;
+			cvReleaseImage(&img2);
 			cvReleaseImage(&bigImg);
 			cvReleaseImage(&smallImg);
-
 			imgCount++;
-
-			if (imgCount == sampleCount)
-			{
-
-				float faceColSum = 0.0;
-				for (int i=0; i<imgWidth*imgHeight; i++)
-				{
-					faceColSum = 0.0;
-					for (int j=0; j<sampleCount; j++)
-					{
-						faceColSum += (float)cvGetReal2D(faceDB, i, j);
-					}
-					faceColSum = faceColSum/sampleCount;
-					cvmSet(AvgVector, i, 0, faceColSum);
-				}
-
-				for (int i=0; i<imgWidth*imgHeight; i++)
-				{
-					for (int j=0; j<sampleCount; j++)
-					{
-						cvmSet(faceDB, i, j, (double)(cvGetReal2D(faceDB, i, j) - cvGetReal2D(AvgVector, i, 0)));
-					}
-				}
-
-				cvMulTransposed(faceDB, reltiveMat, 1);//计算数组与其转置的乘积  
-
-				cvEigenVV(reltiveMat, EigenVector, EigenValue, 1.0e-6F);
-				for (int i=0; i<eigenNum; i++)
-				{
-					for (int j=0; j<sampleCount; j++)
-					{
-						cvmSet(selEigenVector, i, j, (double)cvGetReal2D(EigenVector, i, j));
-					}
-				}
-
-				cvGEMM(faceDB, selEigenVector, 1, NULL, 0, EigenVectorFinal, CV_GEMM_B_T);
-				cvGEMM(faceDB, EigenVectorFinal, 1, NULL, 0, resCoeff, CV_GEMM_A_T); 
-
-				DelSvmDataFile();//删除上次训练得到的数据文件
-
-				WriteSvmAvgTxt(AvgVector);
-				WriteSvmEigenVectorTxt(EigenVectorFinal);
-				WriteSvmSamCoeffTxt(resCoeff);
-
-				BallNormSvmResCoeff(resCoeff);
-				WriteBallNormResCoeff(resCoeff);
-
-				WriteLabel(label, sampleCount);
-				WriteSvmInfo(imgWidth, imgHeight, eigenNum, sampleCount);
-			}
 		}
 	}
+
+	FileExist = imageFile.FindFile(_T("C:\\faceRecognition\\SVM\\faceSample\\*.jpg"),0); 
+	while (FileExist)
+	{
+		FileExist = imageFile.FindNextFile();   
+		if (!imageFile.IsDots()) 
+		{
+			fileName = imageFile.GetFileName();
+			int fileNameLen = fileName.GetLength();
+
+			imgFileAdd = _T("C:\\faceRecognition\\SVM\\faceSample\\");
+			imgFileAdd += fileName;
+
+			int strLen = imgFileAdd.GetLength();
+			TCHAR *fileAddress = new TCHAR[strLen+1];
+
+			for (int i=0; i<strLen; i++)
+			{
+				fileAddress[i] = imgFileAdd[i];
+			}
+			fileAddress[strLen] = _T('\0');
+
+			label[imgCount] = -1;
+
+			USES_CONVERSION;
+			pSourImg.Load(T2A(fileAddress));
+			IplImage *img1 = pSourImg.GetImage();
+			IplImage *img2 = cvCreateImage(cvSize(img1->width, img1->height), 8, 3);
+			cvCopy(img1, img2);
+
+			IplImage *bigImg = cvCreateImage(cvSize(img1->width, img1->height), 8, 1);
+			cvCvtColor(img2, bigImg, CV_BGR2GRAY);
+
+			IplImage *smallImg = cvCreateImage(cvSize(imgWidth, imgHeight), 8, 1);
+			uchar *smallImgData = (uchar*)smallImg->imageData;
+
+			cvResize(bigImg, smallImg, CV_INTER_LINEAR);
+
+			int height = smallImg->height;
+			int width = smallImg->width;
+
+			for (int i=0; i<height; i++)
+			{
+				for (int j=0; j<width; j++) 
+				{
+					cvmSet(faceDB, i*width+j, imgCount, smallImgData[i*width+j]);
+				}
+			}
+
+			delete []fileAddress;
+			cvReleaseImage(&img2);
+			cvReleaseImage(&bigImg);
+			cvReleaseImage(&smallImg);
+			imgCount++;
+		}
+	}
+
+	float faceColSum = 0.0;
+	for (int i=0; i<imgWidth*imgHeight; i++)
+	{
+		faceColSum = 0.0;
+		for (int j=0; j<sampleCount; j++)
+		{
+			faceColSum += (float)cvGetReal2D(faceDB, i, j);
+		}
+		faceColSum = faceColSum/sampleCount;
+		cvmSet(AvgVector, i, 0, faceColSum);
+	}
+
+	for (int i=0; i<imgWidth*imgHeight; i++)
+	{
+		for (int j=0; j<sampleCount; j++)
+		{
+			cvmSet(faceDB, i, j, (double)(cvGetReal2D(faceDB, i, j) - cvGetReal2D(AvgVector, i, 0)));
+		}
+	}
+
+	cvMulTransposed(faceDB, reltiveMat, 1);//计算数组与其转置的乘积  
+
+	cvEigenVV(reltiveMat, EigenVector, EigenValue, 1.0e-6F);
+	for (int i=0; i<eigenNum; i++)
+	{
+		for (int j=0; j<sampleCount; j++)
+		{
+			cvmSet(selEigenVector, i, j, (double)cvGetReal2D(EigenVector, i, j));
+		}
+	}
+
+	cvGEMM(faceDB, selEigenVector, 1, NULL, 0, EigenVectorFinal, CV_GEMM_B_T);
+	cvGEMM(faceDB, EigenVectorFinal, 1, NULL, 0, resCoeff, CV_GEMM_A_T); 
+
+	DelSvmDataFile();//删除上次训练得到的数据文件
+
+	WriteSvmAvgTxt(AvgVector);
+	WriteSvmEigenVectorTxt(EigenVectorFinal);
+	WriteSvmSamCoeffTxt(resCoeff);
+
+	BallNormSvmResCoeff(resCoeff);
+	WriteBallNormResCoeff(resCoeff);
+
+	WriteLabel(label, sampleCount);
+	WriteSvmInfo(imgWidth, imgHeight, eigenNum, sampleCount);
 
 	cvReleaseMat(&faceDB);
 	cvReleaseMat(&selEigenVector);
@@ -399,10 +466,12 @@ void PCAforSVM(int imgWidth, int imgHeight, int eigenNum)
 	cvReleaseMat(&EigenVector);
 	cvReleaseMat(&resCoeff);
 
+	pSourImg.Destroy();
+
 	delete[] label; 
 }
 
-void ReadInfoTxt(int &imgWidth, int &imgHeight, int &eigenNum, int &sampleCount)
+void FaceSvm::ReadInfoTxt(int &imgWidth, int &imgHeight, int &eigenNum, int &sampleCount)
 {
 	ifstream fileIn1("C:\\faceRecognition\\SVM\\data\\Info.txt");
 	if (fileIn1.fail())
@@ -419,7 +488,7 @@ void ReadInfoTxt(int &imgWidth, int &imgHeight, int &eigenNum, int &sampleCount)
 	fileIn1.close();
 }
 
-void GetLabel(struct svm_problem *prob, int labelNum)
+void FaceSvm::GetLabel(struct svm_problem *prob, int labelNum)
 {
 	ifstream fileIn("C:\\faceRecognition\\SVM\\data\\Label.txt");
 	if (fileIn.fail())
@@ -435,7 +504,7 @@ void GetLabel(struct svm_problem *prob, int labelNum)
 	fileIn.close(); 
 }
 
-void GetProbX(struct svm_problem *prob, struct svm_node *x_space, int eigenNum)
+void FaceSvm::GetProbX(struct svm_problem *prob, struct svm_node *x_space, int eigenNum)
 {
 	ifstream fileIn("C:\\faceRecognition\\SVM\\data\\BallNorm.txt");
 	if (fileIn.fail())
@@ -444,25 +513,28 @@ void GetProbX(struct svm_problem *prob, struct svm_node *x_space, int eigenNum)
 		cvGuiBoxReport(CV_StsBadArg, __FUNCTION__, "file(BallNorm.txt) read error!!!", __FILE__, __LINE__, NULL);
 	}
 
-	int j = 0;
-	int index = 0;
+	int index2 = 0;
 	for (int i=0; i<prob->l; i++)
 	{
-		j = index;
-		prob->x[i] = &x_space[j];
+		prob->x[i] = &x_space[index2];
 		for (int k=0; k<eigenNum; k++)
 		{
-			x_space[(i+1)*eigenNum+1+k].index = k+1;
-			fileIn>>x_space[(i+1)*eigenNum+1+k].value;
+			x_space[index2].index = k+1;
+			fileIn>>x_space[index2].value;
+			index2++;
+			//x_space[(i+1)*eigenNum+1+k].index = k+1;
+			//fileIn>>x_space[(i+1)*eigenNum+1+k].value;
 		}
-		x_space[(i+1)*eigenNum].index = -1;
-		index = (i+1)*eigenNum + 1; 
+		x_space[index2].index = -1; 
+		index2++; 
+		//x_space[(i+1)*eigenNum].index = -1;
+		//index = (i+1)*eigenNum + 1; 
 	}
 
 	fileIn.close();
 }
 
-void GetSvmTrainData(struct svm_problem *prob, struct svm_node *x_space)
+void FaceSvm::GetSvmTrainData(struct svm_problem *prob, struct svm_node *x_space)
 {
 	int imgWidth = 0;
 	int imgHeight = 0;
@@ -474,7 +546,7 @@ void GetSvmTrainData(struct svm_problem *prob, struct svm_node *x_space)
 	GetProbX(prob, x_space, eigenNum);//获取SVM训练数据，并保存在prob.x当中
 }
 
-void DefaultSvmParam(struct svm_parameter *param)
+void FaceSvm::DefaultSvmParam(struct svm_parameter *param)
 {
 	param->svm_type = C_SVC;
 	param->kernel_type = RBF;
@@ -493,81 +565,68 @@ void DefaultSvmParam(struct svm_parameter *param)
 	param->weight = NULL;
 }
 
-void SwitchForSvmParma(struct svm_parameter *param, char ch, char num, int nr_fold, int cross_validation)
+void FaceSvm::SwitchForSvmParma(struct svm_parameter *param, char ch, char *strNum, int nr_fold, int cross_validation)
 {
-	char val[2];
 	switch(ch)
 	{
 	case 's':
 		{
-			val[0] = num;
-			param->svm_type = atoi(val);
+			param->svm_type = atoi(strNum);
 			break;
 		}
 	case 't':
 		{
-			val[0] = num;
-			param->kernel_type = atoi(val);
+			param->kernel_type = atoi(strNum);
 			break;
 		}
 	case 'd':
 		{
-			val[0] = num;
-			param->degree = atoi(val);
+			param->degree = atoi(strNum);
 			break;
 		}
 	case 'g':
 		{
-			val[0] = num;
-			param->gamma = atof(val);
+			param->gamma = atof(strNum);
 			break;
 		}
 	case 'r':
 		{
-			val[0] = num;
-			param->coef0 = atof(val);
+			param->coef0 = atof(strNum);
 			break;
 		}
 	case 'n':
 		{
-			val[0] = num;
-			param->nu = atof(val);
+			param->nu = atof(strNum);
 			break;
 		}
 	case 'm':
 		{
-			val[0] = num;
-			param->cache_size = atof(val);
+			param->cache_size = atof(strNum);
 			break;
 		}
 	case 'c':
 		{
-			val[0] = num;
-			param->C = atof(val);
+			param->C = atof(strNum);
 			break;
 		}
 	case 'e':
 		{
-			val[0] = num;
-			param->eps = atof(val);
+			param->eps = atof(strNum);
 			break;
 		}
 	case 'p':
 		{
-			val[0] = num;
-			param->p = atof(val);
+			param->p = atof(strNum);
 			break;
 		}
 	case 'h':
 		{
-			val[0] = num;
-			param->shrinking = atoi(val);
+			param->shrinking = atoi(strNum);
 			break;
 		}
 	case 'b':
 		{
-			val[0] = num;
-			param->probability = atoi(val);
+			param->probability = atoi(strNum);
 			break;
 		}
 	case 'q':
@@ -576,9 +635,8 @@ void SwitchForSvmParma(struct svm_parameter *param, char ch, char num, int nr_fo
 		}
 	case 'v':
 		{
-			val[0] = num;
 			cross_validation = 1;
-			nr_fold = atoi(val);
+			nr_fold = atoi(strNum);
 			if (nr_fold < 2)
 			{
 				cvSetErrMode(CV_ErrModeParent);
@@ -592,11 +650,9 @@ void SwitchForSvmParma(struct svm_parameter *param, char ch, char num, int nr_fo
 			param->weight_label = (int *)realloc(param->weight_label,sizeof(int)*param->nr_weight);
 			param->weight = (double *)realloc(param->weight,sizeof(double)*param->nr_weight);
 
-			val[0] = num;
-			param->weight_label[param->nr_weight-1] = atoi(val);
+			param->weight_label[param->nr_weight-1] = atoi(strNum);
 
-			val[0] = num;
-			param->weight[param->nr_weight-1] = atof(val);
+			param->weight[param->nr_weight-1] = atof(strNum);
 			break;
 		}
 	default:
@@ -606,24 +662,45 @@ void SwitchForSvmParma(struct svm_parameter *param, char ch, char num, int nr_fo
 	}
 }
 
-void SetSvmParam(struct svm_parameter *param, char *str, int cross_validation, int nr_fold)
+void FaceSvm::SetSvmParam(struct svm_parameter *param, char *str, int cross_validation, int nr_fold)
 {
 	DefaultSvmParam(param);
 	cross_validation = 0;
 
+	char ch = ' ';
 	int strSize = strlen(str);
-	if ((str[0] != '-') || (str[5] != '-'))
+	for (int i=0; i<strSize; i++)
 	{
-		cvSetErrMode(CV_ErrModeParent);
-		cvGuiBoxReport(CV_StsBadArg, __FUNCTION__, "parament error!!!", __FILE__, __LINE__, NULL);
+		if (str[i] == '-')
+		{
+			ch = str[i+1];
+			int length = 0;
+			for (int j=i+3; j<strSize; j++)
+			{
+				if ((isdigit(str[j])) || (str[j]=='.'))
+				{
+					length++;
+				}
+				else
+				{
+					break;
+				}
+			}
+			char *strNum = new char[length+1];
+			int index = 0;
+			for (int j=i+3; j<i+3+length; j++)
+			{
+				strNum[index] = str[j];
+				index++;
+			}
+			strNum[length] = '\0';
+			SwitchForSvmParma(param, ch, strNum, nr_fold, cross_validation);
+			delete strNum;
+		}
 	}
-
-	SwitchForSvmParma(param, str[1], str[3], nr_fold, cross_validation);
-	SwitchForSvmParma(param, str[6], str[8], nr_fold, cross_validation);
-
 }
 
-void ReadAvgTxt(CvMat *avgVector)
+void FaceSvm::ReadAvgTxt(CvMat *avgVector)
 {
 	ifstream fileIn("C:\\faceRecognition\\SVM\\data\\AverageValue.txt");
 	if (fileIn.fail())
@@ -641,7 +718,7 @@ void ReadAvgTxt(CvMat *avgVector)
 	fileIn.close();
 }
 
-void ReadEigVecTxt(CvMat *eigenVector)
+void FaceSvm::ReadEigVecTxt(CvMat *eigenVector)
 {
 	ifstream fileIn("C:\\faceRecognition\\SVM\\data\\EigenVector.txt");
 	if (fileIn.fail())
@@ -662,28 +739,7 @@ void ReadEigVecTxt(CvMat *eigenVector)
 	fileIn.close();
 }
 
-void ReadResCoeffTxt(CvMat *resCoeff)
-{
-	ifstream fileIn("C:\\faceRecognition\\SVM\\data\\SampleCoefficient.txt");
-	if (fileIn.fail())
-	{
-		cvSetErrMode(CV_ErrModeParent);
-		cvGuiBoxReport(CV_StsBadArg, __FUNCTION__, " file(AverageValue.txt) read error!!!", __FILE__, __LINE__, NULL);
-	}
-
-	float val;
-	for (int i=0; i<resCoeff->rows; i++)
-	{
-		for (int j=0; j<resCoeff->cols; j++)
-		{
-			fileIn>>val;
-			cvmSet(resCoeff, i, j, val);
-		}
-	}
-	fileIn.close();
-}
-
-void BallNorm(CvMat *targetResult, float *currBallNorm)
+void FaceSvm::BallNorm(CvMat *targetResult, float *currBallNorm)
 {
 	float val = 0.0;
 	for (int i=0; i<targetResult->cols; i++)
@@ -700,7 +756,7 @@ void BallNorm(CvMat *targetResult, float *currBallNorm)
 	}
 }
 
-void PcaProject(float *currentFace, int sampleCount, int imgLen, int eigenNum, float *currBallNorm)
+void FaceSvm::PcaProject(float *currentFace, int sampleCount, int imgLen, int eigenNum, float *currBallNorm)
 {
 	CvMat *targetMat = cvCreateMat(imgLen, 1, CV_32FC1);
 	CvMat *targetResult = cvCreateMat(1, eigenNum, CV_32FC1);
@@ -710,21 +766,21 @@ void PcaProject(float *currentFace, int sampleCount, int imgLen, int eigenNum, f
 		cvmSet(targetMat, i, 0, currentFace[i]); 
 	}
 
-	cvSub(targetMat, svmAvgVector, targetMat, NULL);
-	cvGEMM(targetMat, svmEigenVector, 1, NULL, 0, targetResult, CV_GEMM_A_T); 
+	cvSub(targetMat, svmAvgVector, targetMat, NULL); 
 
+	cvGEMM(targetMat, svmEigenVector, 1, NULL, 0, targetResult, CV_GEMM_A_T); 
 	BallNorm(targetResult, currBallNorm); 
 
 	cvReleaseMat(&targetMat);
 	cvReleaseMat(&targetResult);
 }
 
-//该函数用于加载SVM预测函数所需的相关数据（注：该函数在SVM训练完成后，只调用一次即可）
-extern "C" void EXPORT InitSvmData(int imgLen, int eigenNum)
+void FaceSvm::InitSvmData()
 {
 	if (svmAvgVector != NULL)
 	{
-		cvReleaseMat(&svmAvgVector);
+		//cvReleaseMat(&FaceSvm.svmAvgVector);
+		cvReleaseMat(&svmAvgVector); 
 	}
 	if (svmEigenVector != NULL)
 	{
@@ -732,11 +788,13 @@ extern "C" void EXPORT InitSvmData(int imgLen, int eigenNum)
 	}
 	if (testModel != NULL)
 	{
-		svm_destroy_model(testModel);
+		svm_destroy_model(testModel);   
 	}
 
-	svmAvgVector = cvCreateMat(imgLen, 1, CV_32FC1);//平均值向量
-	svmEigenVector = cvCreateMat(imgLen, eigenNum, CV_32FC1);//协方差矩阵的特征向量  
+	ReadInfoTxt(svmImgWidth, svmImgHeight, svmEigenNum, svmSampleCount);
+
+	svmAvgVector = cvCreateMat(svmImgLen, 1, CV_32FC1);//平均值向量
+	svmEigenVector = cvCreateMat(svmImgLen, svmEigenNum, CV_32FC1);//协方差矩阵的特征向量  
 
 	ReadAvgTxt(svmAvgVector);
 	ReadEigVecTxt(svmEigenVector);
@@ -745,8 +803,7 @@ extern "C" void EXPORT InitSvmData(int imgLen, int eigenNum)
 	testModel = svm_load_model(model_file_name);
 }
 
-//该函数用于SVM训练，对SVM的训练样本，按照相应的参数选项进行训练
-extern "C" void EXPORT SvmTrain(int imgWidth, int imgHeight, int eigenNum, char *option)
+void FaceSvm::SvmTrain(int imgWidth, int imgHeight, int eigenNum, char *option)
 {
 	PCAforSVM(imgWidth, imgHeight, eigenNum);
 
@@ -757,7 +814,7 @@ extern "C" void EXPORT SvmTrain(int imgWidth, int imgHeight, int eigenNum, char 
 	int cross_validation = 0;
 	int nr_fold = 0;
 
-	int sampleCount = 0;
+	int sampleCount = 0; 
 
 	ReadInfoTxt(imgWidth, imgHeight, eigenNum, sampleCount);
 	prob.l =  sampleCount;//得到训练样本个数
@@ -780,38 +837,27 @@ extern "C" void EXPORT SvmTrain(int imgWidth, int imgHeight, int eigenNum, char 
 	delete[] x_space; 
 }
 
-//SVM的预测函数,对加载的每张人脸图片，该函数返回+1表示“坏人”，返回“-1”表示好人
-extern "C" double EXPORT SvmPredict(float *currentFace)
+double FaceSvm::SvmPredict(float *currentFace)
 {
-	int imgWidth = 0;
-	int imgHeight = 0;
-	int eigenNum = 0;
-	int sampleCount = 0;
-	int imgLen = 0;
+	float *currBallNorm = new float[svmEigenNum];
 
-	ReadInfoTxt(imgWidth, imgHeight, eigenNum, sampleCount);
-	imgLen = imgWidth*imgHeight;
-
-	float *currBallNorm = new float[eigenNum];
-
-	PcaProject(currentFace, sampleCount, imgLen, eigenNum, currBallNorm);
+	PcaProject(currentFace, svmSampleCount, svmImgLen, svmEigenNum, currBallNorm);
 
 	struct svm_node *testX;
-	testX = new struct svm_node[eigenNum+1];
-	
-	for (int i=0; i<eigenNum; i++)
+	testX = new struct svm_node[svmEigenNum+1];
+
+	double p = 0.0;
+	for (int i=0; i<svmEigenNum; i++)
 	{
 		testX[i].index = i+1;
 		testX[i].value = currBallNorm[i]; 
 	}
-	testX[eigenNum].index = -1;
+	testX[svmEigenNum].index = -1;
 
-	double p = svm_predict(testModel, testX); 
-	
+	p = svm_predict(testModel, testX);
+
 	delete[] testX;
 	delete[] currBallNorm;
 
 	return p; 
 }
-
-

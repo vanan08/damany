@@ -45,8 +45,6 @@ namespace Damany.Component.Test
         [Row(4)]
         public void ShutterSpeedPropertyTest(int speed)
         {
-            var clock = new Clock();
-            int msToSleep = 15000;
 
             ShutterMode shutterMode = ShutterMode.Short;
             int shutterSpeed = 0;
@@ -67,7 +65,6 @@ namespace Damany.Component.Test
 
             Assert.IsTrue(enableAgc == this.camera.AgcEnabled && enableDigitalGain == this.camera.DigitalGainEnabled);
 
-
         }
 
         [Test]
@@ -87,10 +84,6 @@ namespace Damany.Component.Test
             this.camera.SetAgc(enableAgc, enableDigitalGain);
         }
 
-        public void UpdatePropertyTest()
-        {
-            this.camera.UpdateProperty();
-        }
 
 
         [FixtureTearDown]

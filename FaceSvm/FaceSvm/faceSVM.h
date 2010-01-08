@@ -1,8 +1,11 @@
-#ifdef FACESVM_EXPORTS
-#define FACESVM_API __declspec(dllexport)
+#pragma   once 
+
+#ifdef _AFXDLL
+#define DLL_API _declspec(dllexport)
 #else
-#define FACESVM_API __declspec(dllimport)
+#define DLL_API _declspec(dllimport)
 #endif
+
 
 #include "afxwin.h"  
 #include "stdafx.h"
@@ -12,15 +15,47 @@
 #include "svm.h"
 #include "iostream" 
 #include "fstream"
+
 using namespace std;
 
-CvMat *svmAvgVector;//SVM进行PCA投影所用的平均值向量
-CvMat *svmEigenVector;//SVM进行PCA投影所用的协方差矩阵的特征向量   
-struct svm_model* testModel; //SVM预测用的结构体
 
-extern "C"
+class DLL_API FaceSvm
 {
-	void EXPORT SvmTrain(int imgWidth, int imgHeight, int eigenNum, char *option);//SVM的训练函数，对SVM训练样本，该函数训练SVM所需的model
-	double EXPORT SvmPredict(float *currentFace);//SVM的预测函数，对于待识别的每一张人脸，该函数返回“1"表示“坏人”，返回“-1”表示“好人”
-	void EXPORT InitSvmData(int imgLen, int eigenNum);//该函数加载SVM预测函数所需的相关数据，在SvmTrain()函数调用之后，该函数只需调用一次即可
-}
+public:
+	FaceSvm();
+	int GetBadGuySampleCount();
+	int GetGoodGuySampleCount();
+	void DelSvmDataFile();
+	void WriteSvmAvgTxt(CvMat *AvgVector);
+	void WriteSvmEigenVectorTxt(CvMat *EigenVectorFinal);
+	void WriteSvmSamCoeffTxt(CvMat *resCoeff);
+	void BallNormSvmResCoeff(CvMat *resCoeff);
+	void WriteBallNormResCoeff(CvMat *resCoeff);
+	void WriteLabel(int *label, int sampleCount);
+	void WriteSvmInfo(int imgWidth, int imgHeight, int eigenNum, int sampleCount);
+	void PCAforSVM(int imgWidth, int imgHeight, int eigenNum);
+	void ReadInfoTxt(int &imgWidth, int &imgHeight, int &eigenNum, int &sampleCount);
+	void GetLabel(struct svm_problem *prob, int labelNum);
+	void GetProbX(struct svm_problem *prob, struct svm_node *x_space, int eigenNum);
+	void GetSvmTrainData(struct svm_problem *prob, struct svm_node *x_space);
+	void DefaultSvmParam(struct svm_parameter *param);
+	void SwitchForSvmParma(struct svm_parameter *param, char ch, char *strNum, int nr_fold, int cross_validation);
+	void SetSvmParam(struct svm_parameter *param, char *str, int cross_validation, int nr_fold);
+	void ReadAvgTxt(CvMat *avgVector);
+	void ReadEigVecTxt(CvMat *eigenVector);
+	void BallNorm(CvMat *targetResult, float *currBallNorm);
+	void PcaProject(float *currentFace, int sampleCount, int imgLen, int eigenNum, float *currBallNorm);
+	void InitSvmData();//SVM数据初始化
+	void SvmTrain(int imgWidth, int imgHeight, int eigenNum, char *option);//SVM训练函数
+	double SvmPredict(float *currentFace);//SVM预测函数
+
+private:
+	CvMat *svmAvgVector;
+	CvMat *svmEigenVector;  
+	svm_model* testModel;
+	int svmImgWidth;
+	int svmImgHeight;
+	int svmImgLen;
+	int svmEigenNum;
+	int svmSampleCount;
+};
