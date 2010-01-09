@@ -42,6 +42,9 @@ namespace RemoteImaging.RealtimeDisplay
         Thread motionDetectThread = null;
 
 
+      
+
+
         private IplImage _BackGround;
         public IplImage BackGround
         {
@@ -117,6 +120,8 @@ namespace RemoteImaging.RealtimeDisplay
 
             if (File.Exists("bg.jpg"))
                 BackGround = OpenCvSharp.IplImage.FromFile(@"bg.jpg");
+
+            new Service.ServiceProvider(Program.motionDetector, Program.faceSearch, this).OpenService();
         }
 
 
@@ -378,6 +383,9 @@ namespace RemoteImaging.RealtimeDisplay
 
             if (this.liveServer == null)
                 ThreadPool.QueueUserWorkItem(this.StartServer, 20000);
+
+
+            
         }
 
         private string PrepareDestFolder(ImageDetail imgToProcess)

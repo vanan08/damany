@@ -933,7 +933,7 @@
             this.DiskQuota.Name = "DiskQuota";
             this.DiskQuota.Size = new System.Drawing.Size(68, 20);
             this.DiskQuota.TabIndex = 35;
-            this.DiskQuota.Text = global::RemoteImaging.Properties.Settings.Default.DiskQuota;
+            this.DiskQuota.Text = global::RemoteImaging.Properties.Settings.Default.ReservedDiskSpaceMB;
             // 
             // textBox2
             // 

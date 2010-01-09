@@ -39,7 +39,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AForge.Imaging, Version=1.1.0.0, Culture=neutral, PublicKeyToken=d604c8342bbdeba9, processorArchitecture=MSIL" />
-    <Reference Include="Damany.Component, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Damany.Component, Version=1.2.43.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Damany.Library\OutPut\Damany.Component.dll</HintPath>
     </Reference>
@@ -88,10 +88,6 @@
     <Reference Include="OpenCvSharp, Version=2.0.3497.28493, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Library\OpenCvSharp\OpenCvSharp.dll</HintPath>
-    </Reference>
-    <Reference Include="RemoteControlService, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\OutPut\RemoteControlService.dll</HintPath>
     </Reference>
     <Reference Include="SuspectsRepository, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -335,7 +331,10 @@
     <Compile Include="RegisterForm.Designer.cs">
       <DependentUpon>RegisterForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Service\Service.cs" />
+    <Compile Include="Service\ConfigCameraProvider.cs" />
+    <Compile Include="Service\ConfigHostProvider.cs" />
+    <Compile Include="Service\SearchProvider.cs" />
+    <Compile Include="Service\ServiceProvider.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="SVMWrapper.cs" />
     <Compile Include="Util.cs" />
@@ -445,6 +444,10 @@
     <ProjectReference Include="..\Messages\Messages.csproj">
       <Project>{80A13967-C4D2-4B5A-909D-FA595F57F88D}</Project>
       <Name>Messages</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RemoteControlService\RemoteControlService.csproj">
+      <Project>{3F01A85F-C1C4-4060-AA37-57AB6F0C90AB}</Project>
+      <Name>RemoteControlService</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

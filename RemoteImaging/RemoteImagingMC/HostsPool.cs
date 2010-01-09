@@ -6,6 +6,7 @@ using System.Text;
 using Damany.RemoteImaging.Net.Discovery;
 using Damany.RemoteImaging.Net.Messages;
 using Damany.RemoteImaging.Common;
+using System.Collections.Generic;
 
 
 namespace RemoteImaging
@@ -135,8 +136,19 @@ namespace RemoteImaging
             {
                 var firstMatch = this.FirstOrDefault(h => h.Config.StationID.Equals(ID));
                 return firstMatch;
+
             }
         }
+
+        public IList<Host> Hosts
+        {
+            get
+            {
+                return this.ToList();
+            }
+        }
+
+        
 
         #region IDisposable Members
 

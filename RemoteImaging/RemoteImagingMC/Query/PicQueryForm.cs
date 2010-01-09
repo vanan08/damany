@@ -24,21 +24,34 @@ namespace RemoteImaging.Query
         int lastSpotID = 0;
         DateTime lastBeginTime = DateTime.Now;
         DateTime lastEndTime = DateTime.Now;
-        RemoteControlService.IServiceFacade SearchProxy;
+        RemoteControlService.ISearch SearchProxy;
         RemoteControlService.IStreamPlayer StreamProxy;
+
+        private HostsPool hosts;
 
 
         public PicQueryForm()
         {
             InitializeComponent();
 
-            this.comboBox1.DataSource = Configuration.Instance.Hosts;
-            this.comboBox1.DisplayMember = "Name";
-
-            
             this.PageSize = 20;
         }
 
+        public HostsPool Hosts
+        {
+            get
+            {
+                return hosts;
+            }
+            set
+            {
+                hosts = value;
+
+                this.comboBox1.DataSource = value.Hosts;
+                this.comboBox1.DisplayMember = "Name";
+
+            }
+        }
         private void UpdatePagesLabel()
         {
             this.toolStripLabelCurPage.Text = string.Format("第{0}/{1}页", currentPage, totalPage);
@@ -121,21 +134,19 @@ namespace RemoteImaging.Query
             return dt;
         }
 
-        private string GetSelectedIP()
+        private System.Net.IPAddress GetSelectedIP()
         {
-            Camera selected = this.comboBox1.SelectedItem as Camera;
+            Host selected = this.comboBox1.SelectedItem as Host;
             if (selected == null)
             {
                 throw new Exception("No camera selected");
             }
-            return selected.IpAddress;
+            return selected.Ip;
         }
 
         private void CreateProxy()
         {
             Host selected = this.comboBox1.SelectedItem as Host;
-
-            selected = Configuration.Instance[selected.Config.StationID];
 
             if (selected == null)
             {
@@ -145,7 +156,7 @@ namespace RemoteImaging.Query
             string searchAddress = string.Format("net.tcp://{0}:8000/TcpService", GetSelectedIP());
             string playerAddress = string.Format("net.tcp://{0}:4567/TcpService", GetSelectedIP());
 
-            this.SearchProxy = ServiceProxy.ProxyFactory.CreateProxy<IServiceFacade>(searchAddress);
+            this.SearchProxy = ServiceProxy.ProxyFactory.CreateProxy<ISearch>(searchAddress);
             this.StreamProxy = ServiceProxy.ProxyFactory.CreateProxy<IStreamPlayer>(playerAddress);
         }
 
@@ -398,6 +409,12 @@ namespace RemoteImaging.Query
 
         bool isPlaying = false;
 
+        private void ShowErrorMessage()
+        {
+            MessageBox.Show(this, "通讯错误, 请重试！", this.Text, 
+                MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
         private void toolStripButtonPlayVideo_Click(object sender, EventArgs e)
         {
             if (SearchProxy == null) return;
@@ -415,7 +432,7 @@ namespace RemoteImaging.Query
             }
             catch (System.ServiceModel.CommunicationException)
             {
-                MessageBox.Show("通讯错误, 请重试");
+                ShowErrorMessage();
                 IChannel ch = SearchProxy as IChannel;
                 if (ch.State == CommunicationState.Faulted)
                 {
@@ -434,8 +451,18 @@ namespace RemoteImaging.Query
 
             this.ReceiveVideoStream();
 
-            StreamProxy.StreamVideo(video);
-            isPlaying = true;
+            try
+            {
+                StreamProxy.StreamVideo(video);
+                isPlaying = true;
+            }
+            catch (System.ServiceModel.CommunicationException)
+            {
+                this.ShowErrorMessage();
+            	
+            }
+
+            
 
             
 

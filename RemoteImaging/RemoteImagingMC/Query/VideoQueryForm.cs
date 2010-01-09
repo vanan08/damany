@@ -19,14 +19,15 @@ namespace RemoteImaging.Query
     public partial class VideoQueryForm : Form
     {
         private IStreamPlayer StreamServerProxy;
-        private IServiceFacade SearchProxy;
+        private ISearch SearchProxy;
+
+
+        private HostsPool hosts;
+
+
         public VideoQueryForm()
         {
             InitializeComponent();
-
-            this.comboBox1.DataSource = Configuration.Instance.Hosts;
-            this.comboBox1.DisplayMember = "Name";
-
 
             setListViewColumns();
         }
@@ -35,13 +36,11 @@ namespace RemoteImaging.Query
         {
             Host selected = this.comboBox1.SelectedItem as Host;
 
-            selected = Configuration.Instance[selected.Config.StationID];
-
-
             if (selected == null)
             {
                 throw new Exception("No camera selected");
             }
+
             return selected.Ip;
         }
 
@@ -50,7 +49,7 @@ namespace RemoteImaging.Query
             string SearchAddress = string.Format("net.tcp://{0}:8000/TcpService", GetSelectedIP());
             string StreamingAddress = string.Format("net.tcp://{0}:4567/TcpService", GetSelectedIP());
             StreamServerProxy = ServiceProxy.ProxyFactory.CreateProxy<IStreamPlayer>(StreamingAddress);
-            SearchProxy = ServiceProxy.ProxyFactory.CreateProxy<IServiceFacade>(SearchAddress);
+            SearchProxy = ServiceProxy.ProxyFactory.CreateProxy<ISearch>(SearchAddress);
         }
 
         private void queryBtn_Click(object sender, EventArgs e)
@@ -296,6 +295,22 @@ namespace RemoteImaging.Query
         private void VideoQueryForm_Load(object sender, EventArgs e)
         {
             ReceiveVideoStream();
+        }
+
+
+        public HostsPool Hosts
+        {
+            get
+            {
+                return hosts;
+            }
+            set
+            {
+                hosts = value;
+
+                this.comboBox1.DataSource = value.Hosts;
+                this.comboBox1.DisplayMember = "Name";
+            }
         }
     }
 }

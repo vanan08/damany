@@ -627,7 +627,7 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void realTimer_Tick(object sender, EventArgs e)
         {
-            var reservedDiskSpaceBytes = (long)int.Parse(Properties.Settings.Default.DiskQuota) * (1024 * 1024);
+            var reservedDiskSpaceBytes = (long)int.Parse(Properties.Settings.Default.ReservedDiskSpaceMB) * (1024 * 1024);
             var totalFreeDiskSpaceBytes = FreeDiskSpaceBytes();
 
             var availableBytes = totalFreeDiskSpaceBytes - reservedDiskSpaceBytes;
@@ -968,7 +968,7 @@ namespace RemoteImaging.RealtimeDisplay
 
             var space = FileSystemStorage.GetFreeDiskSpaceBytes(drive);
 
-            long diskQuota = long.Parse(Properties.Settings.Default.DiskQuota) * (1024*1024);
+            long diskQuota = long.Parse(Properties.Settings.Default.ReservedDiskSpaceMB) * (1024*1024);
 
             if (space <= diskQuota && !isDeleting)
             {

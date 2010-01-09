@@ -30,6 +30,15 @@ namespace RemoteImaging
             }
         }
 
+        //for databinding
+        public string Name 
+        {
+            get
+            {
+                return this.Config.Name;
+            }
+        }
+
         void value_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             this.NotifyPropertyChanged("Config");

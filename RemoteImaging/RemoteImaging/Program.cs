@@ -21,6 +21,8 @@ namespace RemoteImaging
         public static FaceSearchWrapper.FaceSearch faceSearch;
         public static MotionDetectWrapper.MotionDetector motionDetector;
 
+  
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -56,18 +58,7 @@ namespace RemoteImaging
                 directory = argv[0];
             }
 
-            string baseAddress = string.Format("net.tcp://{0}:8000", System.Net.IPAddress.Any);
-
-            Uri netTcpBaseAddress = new Uri(baseAddress);
-            ServiceHost host = new ServiceHost(typeof(Service.Service), netTcpBaseAddress);
-
-            NetTcpBinding tcpBinding = BindingFactory.CreateNetTcpBinding();
-
-            host.AddServiceEndpoint(typeof(RemoteControlService.IServiceFacade),
-                tcpBinding, "TcpService");
-
-            host.Open();
-
+             
             Application.Run(new MainForm());
 
         }

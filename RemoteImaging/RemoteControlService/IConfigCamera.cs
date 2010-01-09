@@ -10,17 +10,12 @@ namespace RemoteControlService
     [ServiceContract]
     public interface IConfigCamera
     {
-        [OperationContract]
-        void SetShutterSpeed(int speed);
 
         [OperationContract]
-        void SetShutterMode(ShutterMode mode);
+        void SetShutter(ShutterMode mode, int level);
 
         [OperationContract]
-        void SetIrisMode(IrisMode mode);
-
-        [OperationContract]
-        void SetIrisLevel(int level);
+        void SetIris(IrisMode mode, int level);
 
         [OperationContract]
         void SetAGCMode(bool enableAGC, bool enableDigitalGain);

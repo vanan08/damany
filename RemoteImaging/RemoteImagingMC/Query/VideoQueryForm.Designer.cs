@@ -186,7 +186,7 @@
             this.timeEdit1.Name = "timeEdit1";
             this.timeEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.timeEdit1.Size = new System.Drawing.Size(96, 23);
+            this.timeEdit1.Size = new System.Drawing.Size(96, 21);
             this.timeEdit1.TabIndex = 7;
             // 
             // timeEdit2
@@ -196,7 +196,7 @@
             this.timeEdit2.Name = "timeEdit2";
             this.timeEdit2.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.timeEdit2.Size = new System.Drawing.Size(96, 23);
+            this.timeEdit2.Size = new System.Drawing.Size(96, 21);
             this.timeEdit2.TabIndex = 8;
             // 
             // imageList1

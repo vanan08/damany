@@ -67,29 +67,8 @@ namespace RemoteImaging
         }
 
 
-        public Host this[object id]
-        {
-            get
-            {
-                try
-                {
-                    return this.Hosts.First(h => h.Config.StationID.Equals(id));
-                }
-                catch (System.InvalidOperationException)
-                {
-                    return null;
-                }
+       
 
-            }
-
-        }
-
-        public IList<Host> Hosts
-        {
-            get;
-            set;
-
-        }
 
         public static Configuration Instance
         {

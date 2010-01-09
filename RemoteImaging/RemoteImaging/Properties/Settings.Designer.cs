@@ -518,12 +518,12 @@ namespace RemoteImaging.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("300")]
-        public string DiskQuota {
+        public string ReservedDiskSpaceMB {
             get {
-                return ((string)(this["DiskQuota"]));
+                return ((string)(this["ReservedDiskSpaceMB"]));
             }
             set {
-                this["DiskQuota"] = value;
+                this["ReservedDiskSpaceMB"] = value;
             }
         }
         

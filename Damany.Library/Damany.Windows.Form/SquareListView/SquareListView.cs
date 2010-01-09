@@ -145,7 +145,7 @@ namespace Damany.Windows.Form
                 this.Invalidate(dstCell.Bound);
                 cursor++;
             }
-            catch (InvalidOperationException ex)// the queue is empty
+            catch (InvalidOperationException)// the queue is empty
             {
                 this.refreshTimer.Enabled = false;
             }

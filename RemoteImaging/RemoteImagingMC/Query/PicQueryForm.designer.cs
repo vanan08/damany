@@ -137,9 +137,9 @@
             // 
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(85, 27);
+            this.comboBox1.Location = new System.Drawing.Point(59, 27);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(73, 20);
+            this.comboBox1.Size = new System.Drawing.Size(119, 20);
             this.comboBox1.TabIndex = 4;
             // 
             // dateTimePicker1
@@ -163,7 +163,7 @@
             this.timeEdit1.Name = "timeEdit1";
             this.timeEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.timeEdit1.Size = new System.Drawing.Size(75, 23);
+            this.timeEdit1.Size = new System.Drawing.Size(75, 21);
             this.timeEdit1.TabIndex = 7;
             // 
             // timeEdit2
@@ -173,7 +173,7 @@
             this.timeEdit2.Name = "timeEdit2";
             this.timeEdit2.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.timeEdit2.Size = new System.Drawing.Size(71, 23);
+            this.timeEdit2.Size = new System.Drawing.Size(71, 21);
             this.timeEdit2.TabIndex = 8;
             // 
             // imageList1
@@ -248,27 +248,27 @@
             // 
             // pictureBoxFace
             // 
-            this.pictureBoxFace.Location = new System.Drawing.Point(7, 7);
+            this.pictureBoxFace.Location = new System.Drawing.Point(12, 12);
             this.pictureBoxFace.Name = "pictureBoxFace";
-            this.pictureBoxFace.Size = new System.Drawing.Size(164, 86);
+            this.pictureBoxFace.Size = new System.Drawing.Size(154, 76);
             this.pictureBoxFace.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBoxFace.TabIndex = 19;
             this.pictureBoxFace.TabStop = false;
             // 
             // labelCaptureLoc
             // 
-            this.labelCaptureLoc.Location = new System.Drawing.Point(7, 103);
+            this.labelCaptureLoc.Location = new System.Drawing.Point(12, 92);
             this.labelCaptureLoc.Name = "labelCaptureLoc";
-            this.labelCaptureLoc.Size = new System.Drawing.Size(164, 22);
+            this.labelCaptureLoc.Size = new System.Drawing.Size(154, 28);
             this.labelCaptureLoc.TabIndex = 17;
             this.labelCaptureLoc.Text = "抓拍地点：";
             this.labelCaptureLoc.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // labelCaptureTime
             // 
-            this.labelCaptureTime.Location = new System.Drawing.Point(7, 135);
+            this.labelCaptureTime.Location = new System.Drawing.Point(12, 124);
             this.labelCaptureTime.Name = "labelCaptureTime";
-            this.labelCaptureTime.Size = new System.Drawing.Size(164, 23);
+            this.labelCaptureTime.Size = new System.Drawing.Size(154, 29);
             this.labelCaptureTime.TabIndex = 18;
             this.labelCaptureTime.Text = "抓拍时间：";
             this.labelCaptureTime.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -291,11 +291,11 @@
             // 
             this.layoutControlItem1.Control = this.labelCaptureTime;
             this.layoutControlItem1.CustomizationFormText = "layoutControlItem1";
-            this.layoutControlItem1.Location = new System.Drawing.Point(0, 128);
+            this.layoutControlItem1.Location = new System.Drawing.Point(0, 112);
             this.layoutControlItem1.MaxSize = new System.Drawing.Size(0, 33);
             this.layoutControlItem1.MinSize = new System.Drawing.Size(31, 33);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(174, 33);
+            this.layoutControlItem1.Size = new System.Drawing.Size(158, 33);
             this.layoutControlItem1.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.layoutControlItem1.Text = "layoutControlItem1";
             this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
@@ -306,11 +306,11 @@
             // 
             this.layoutControlItem2.Control = this.labelCaptureLoc;
             this.layoutControlItem2.CustomizationFormText = "layoutControlItem2";
-            this.layoutControlItem2.Location = new System.Drawing.Point(0, 96);
+            this.layoutControlItem2.Location = new System.Drawing.Point(0, 80);
             this.layoutControlItem2.MaxSize = new System.Drawing.Size(0, 32);
             this.layoutControlItem2.MinSize = new System.Drawing.Size(31, 32);
             this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(174, 32);
+            this.layoutControlItem2.Size = new System.Drawing.Size(158, 32);
             this.layoutControlItem2.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.layoutControlItem2.Text = "layoutControlItem2";
             this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
@@ -323,7 +323,7 @@
             this.layoutControlItem3.CustomizationFormText = "layoutControlItem3";
             this.layoutControlItem3.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem3.Name = "layoutControlItem3";
-            this.layoutControlItem3.Size = new System.Drawing.Size(174, 96);
+            this.layoutControlItem3.Size = new System.Drawing.Size(158, 80);
             this.layoutControlItem3.Text = "layoutControlItem3";
             this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem3.TextToControlDistance = 0;

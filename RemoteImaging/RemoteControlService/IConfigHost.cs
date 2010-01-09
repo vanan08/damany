@@ -19,6 +19,6 @@ namespace RemoteControlService
         void UpdateBackgroundImage();
 
         [OperationContract]
-        void SetReservedDiskSpaceMB();
+        void SetReservedDiskSpaceMB(int capacity);
     }
 }

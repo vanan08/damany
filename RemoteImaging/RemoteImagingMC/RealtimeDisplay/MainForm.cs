@@ -357,7 +357,9 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void searchPic_Click(object sender, EventArgs e)
         {
-            new RemoteImaging.Query.PicQueryForm().ShowDialog(this);
+            var form = new RemoteImaging.Query.PicQueryForm();
+            form.Hosts = this.hostsPool;
+            form.ShowDialog(this);
         }
 
 
@@ -399,7 +401,9 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void videoSearch_Click(object sender, EventArgs e)
         {
-            new RemoteImaging.Query.VideoQueryForm().ShowDialog(this);
+            var videoQueryForm = new RemoteImaging.Query.VideoQueryForm();
+            videoQueryForm.Hosts = this.hostsPool;
+            videoQueryForm.ShowDialog(this);
         }
 
         Thread thread = null;

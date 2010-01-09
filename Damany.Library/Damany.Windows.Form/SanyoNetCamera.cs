@@ -64,6 +64,23 @@ namespace Damany.Windows.Form
             {
                 return this.autoIris.Checked ? IrisMode.Auto : IrisMode.Manual;
             }
+            set
+            {
+                switch (value)
+                {
+                    case IrisMode.Auto:
+                        this.autoIris.Checked = true;
+                        break;
+                    case IrisMode.Manual:
+                        this.manualIris.Checked = true;
+                        break;
+                    default:
+                        throw new InvalidEnumArgumentException("IrisMode");
+#pragma warning disable 0162
+                        break;
+#pragma warning restore 0162
+                }
+            }
         }
 
         public ShutterMode ShutterMode
@@ -71,6 +88,26 @@ namespace Damany.Windows.Form
             get
             {
                 return this.shutterOff.Checked ? ShutterMode.Off : ShutterMode.Short;
+            }
+            set
+            {
+                switch (value)
+                {
+                    case ShutterMode.Long:
+                        break;
+                    case ShutterMode.Off:
+                        this.shutterOff.Checked = true;
+                        break;
+                    case ShutterMode.Short:
+                        this.shutterShort.Checked = true;
+                        break;
+                    default:
+                        throw new InvalidEnumArgumentException("ShutterMode");
+#pragma warning disable 0162
+                        break;
+#pragma warning restore 0162
+
+                }
             }
         }
 
@@ -80,6 +117,10 @@ namespace Damany.Windows.Form
             {
                 return (int) this.shutterLevel.SelectedValue;
             }
+            set
+            {
+                this.shutterLevel.SelectedValue = value;
+            }
         }
 
         public int IrisLevel
@@ -87,6 +128,10 @@ namespace Damany.Windows.Form
             get
             {
                 return (int) this.manualIrisLevel.SelectedValue;
+            }
+            set
+            {
+                this.manualIrisLevel.SelectedValue = value;
             }
         }
 
@@ -96,6 +141,10 @@ namespace Damany.Windows.Form
             {
                 return this.agcOn.Checked;
             }
+            set
+            {
+                this.agcOn.Checked = value;
+            }
         }
 
         public bool DigitalGainEnabled
@@ -103,6 +152,10 @@ namespace Damany.Windows.Form
             get
             {
                 return this.digitalGain.SelectedItem.Equals("开");
+            }
+            set
+            {
+                this.digitalGain.SelectedItem = value ? "开" : "关";
             }
         }
 
