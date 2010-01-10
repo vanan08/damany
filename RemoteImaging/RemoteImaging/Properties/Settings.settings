@@ -152,5 +152,14 @@
     <Setting Name="HostName" Type="System.String" Scope="User">
       <Value Profile="(Default)">未命名监控点</Value>
     </Setting>
+    <Setting Name="Live" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="SearchFace" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="SearchSuspecious" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

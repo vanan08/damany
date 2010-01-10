@@ -922,7 +922,7 @@
             // 
             // DiskQuota
             // 
-            this.DiskQuota.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "DiskQuota", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.DiskQuota.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "ReservedDiskSpaceMB", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.DiskQuota.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.DiskQuota.FormattingEnabled = true;
             this.DiskQuota.Items.AddRange(new object[] {

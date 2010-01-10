@@ -793,8 +793,12 @@ namespace RemoteImaging.RealtimeDisplay
             this.axCamImgCtrl1.UnicastPort = 3939;
             this.axCamImgCtrl1.ComType = 0;
 
-            this.axCamImgCtrl1.CamImgCtrlStart();
-            this.axCamImgCtrl1.CamImgRecStart();
+            if (Properties.Settings.Default.Live)
+            {
+                this.axCamImgCtrl1.CamImgCtrlStart();
+                this.axCamImgCtrl1.CamImgRecStart();
+
+            }
 
         }
 

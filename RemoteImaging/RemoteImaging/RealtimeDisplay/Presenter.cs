@@ -95,9 +95,6 @@ namespace RemoteImaging.RealtimeDisplay
             this.screen = screen;
             this.camera = camera;
 
-#if DEBUG
-            this.FaceRecognize = true;
-#endif
 
             motionDetectThread =
                 Properties.Settings.Default.DetectMotion ?
@@ -109,7 +106,6 @@ namespace RemoteImaging.RealtimeDisplay
             this.screen.Observer = this;
             this.worker = new System.ComponentModel.BackgroundWorker();
             worker.WorkerReportsProgress = true;
-            worker.RunWorkerCompleted += worker_RunWorkerCompleted;
             worker.DoWork += worker_DoWork;
 
             this.timer.Interval = 1000 / int.Parse(Properties.Settings.Default.FPs);
@@ -166,34 +162,14 @@ namespace RemoteImaging.RealtimeDisplay
 
         void worker_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
-            this.SearchFace();
+            if (Properties.Settings.Default.SearchFace)
+            {
+                this.SearchFace();
+            }
+            
 
         }
 
-        void worker_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
-        {
-            ImageDetail[] iconImgs = e.Result as ImageDetail[];
-
-            if (iconImgs.Length > 0)
-            {
-                if (screen.SelectedCamera.ID == -1
-                || screen.SelectedCamera.ID == iconImgs[0].FromCamera)
-                {
-                    screen.ShowImages(iconImgs);
-                }
-            }
-
-
-            if (framesArrayQueue.Count > 0)
-            {
-                screen.ShowProgress = true;
-                worker.RunWorkerAsync(framesArrayQueue.Dequeue());
-            }
-            else
-            {
-                screen.ShowProgress = false;
-            }
-        }
 
 
         public event EventHandler<ImageCapturedEventArgs> ImageCaptured;
@@ -337,7 +313,7 @@ namespace RemoteImaging.RealtimeDisplay
             {
                 Frame f = this.GetNewFrame();
 
-                if (f.image != null)
+                if (f != null && f.image != null)
                 {
                     IplImage ipl = f.image;
                     ipl.IsEnabledDispose = false;
@@ -453,7 +429,7 @@ namespace RemoteImaging.RealtimeDisplay
                         ImageDetail[] imgs = this.SaveImage(targets);
                         this.screen.ShowImages(imgs);
 
-                        if (this.FaceRecognize) DetectSuspecious(targets);
+                        if (Properties.Settings.Default.SearchSuspecious) DetectSuspecious(targets);
 
                         Array.ForEach(frames, f => { IntPtr cvPtr = f.image.CvPtr; OpenCvSharp.Cv.Release(ref cvPtr); f.image.Dispose(); });
                         Array.ForEach(targets, t =>

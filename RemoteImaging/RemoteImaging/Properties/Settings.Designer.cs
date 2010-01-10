@@ -622,5 +622,41 @@ namespace RemoteImaging.Properties {
                 this["HostName"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Live {
+            get {
+                return ((bool)(this["Live"]));
+            }
+            set {
+                this["Live"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool SearchFace {
+            get {
+                return ((bool)(this["SearchFace"]));
+            }
+            set {
+                this["SearchFace"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool SearchSuspecious {
+            get {
+                return ((bool)(this["SearchSuspecious"]));
+            }
+            set {
+                this["SearchSuspecious"] = value;
+            }
+        }
     }
 }
