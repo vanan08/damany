@@ -53,6 +53,8 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.axVLCPlugin21 = new AxAXVLC.AxVLCPlugin2();
+            this.testButton = new System.Windows.Forms.Button();
+            this.filePathToDownload = new System.Windows.Forms.TextBox();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.timeEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.timeEdit2.Properties)).BeginInit();
@@ -67,6 +69,8 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.filePathToDownload);
+            this.groupBox3.Controls.Add(this.testButton);
             this.groupBox3.Controls.Add(this.allVideoRadioButton);
             this.groupBox3.Controls.Add(this.faceCapturedRadioButton);
             this.groupBox3.Controls.Add(this.queryBtn);
@@ -315,6 +319,23 @@
             this.axVLCPlugin21.Size = new System.Drawing.Size(746, 372);
             this.axVLCPlugin21.TabIndex = 30;
             // 
+            // testButton
+            // 
+            this.testButton.Location = new System.Drawing.Point(672, 39);
+            this.testButton.Name = "testButton";
+            this.testButton.Size = new System.Drawing.Size(75, 23);
+            this.testButton.TabIndex = 20;
+            this.testButton.Text = "Test";
+            this.testButton.UseVisualStyleBackColor = true;
+            this.testButton.Click += new System.EventHandler(this.testButton_Click);
+            // 
+            // filePathToDownload
+            // 
+            this.filePathToDownload.Location = new System.Drawing.Point(622, 12);
+            this.filePathToDownload.Name = "filePathToDownload";
+            this.filePathToDownload.Size = new System.Drawing.Size(167, 21);
+            this.filePathToDownload.TabIndex = 21;
+            // 
             // VideoQueryForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -373,5 +394,7 @@
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.SplitContainer splitContainer2;
         private AxAXVLC.AxVLCPlugin2 axVLCPlugin21;
+        private System.Windows.Forms.Button testButton;
+        private System.Windows.Forms.TextBox filePathToDownload;
     }
 }

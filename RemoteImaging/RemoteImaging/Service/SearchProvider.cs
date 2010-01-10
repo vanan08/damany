@@ -93,7 +93,10 @@ namespace RemoteImaging.Service
         }
 
 
-   
+        public System.IO.Stream DownloadFile(string file)
+        {
+            return System.IO.File.OpenRead(file);
+        }
 
         #endregion
     }

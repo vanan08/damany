@@ -312,5 +312,29 @@ namespace RemoteImaging.Query
                 this.comboBox1.DisplayMember = "Name";
             }
         }
+
+        private void testButton_Click(object sender, EventArgs e)
+        {
+            this.CreateProxy();
+
+            var stream = this.SearchProxy.DownloadFile(filePathToDownload.Text);
+
+            byte[] buffer = new byte[1024];
+            int totalBytes = 0;
+            while (true)
+            {
+                int bytesRead = stream.Read(buffer, 0, buffer.Length);
+                if (bytesRead == 0)
+                {
+                    break;
+                }
+
+
+                Debug.WriteLine(string.Format("read {0} bytes", bytesRead));
+                totalBytes += bytesRead;
+            }
+
+            Debug.WriteLine(totalBytes);
+        }
     }
 }

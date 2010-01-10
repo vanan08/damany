@@ -11,7 +11,7 @@ namespace RemoteControlService
     {
         public static NetTcpBinding CreateNetTcpBinding()
         {
-            int messageSize = 5 * 1024 * 1024;
+            int messageSize = int.MaxValue;
 
             XmlDictionaryReaderQuotas readerQuotas =
                 new XmlDictionaryReaderQuotas();
@@ -21,6 +21,7 @@ namespace RemoteControlService
             NetTcpBinding tcpBinding = new NetTcpBinding(SecurityMode.None);
             tcpBinding.MaxReceivedMessageSize = messageSize;
             tcpBinding.ReaderQuotas = readerQuotas;
+            tcpBinding.TransferMode = TransferMode.Buffered;
 
             return tcpBinding;
         }

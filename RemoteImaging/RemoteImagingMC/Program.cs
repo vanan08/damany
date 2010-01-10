@@ -53,6 +53,8 @@ namespace RemoteImaging
             usersManager = UsersManager.LoadUsers();
 
             User currentUser = null;
+
+#if !DEBUG
             while (true)
             {
                 log = new Login();
@@ -66,6 +68,12 @@ namespace RemoteImaging
                 else
                     ShowErrorMessage(Properties.Resources.ErrorUserNameOrPassword);
             }
+#endif
+
+#if DEBUG
+            currentUser = usersManager.GetUser("admin", "admin");
+#endif
+
 
             System.Threading.Thread.CurrentPrincipal = currentUser.ToPrincipal();
 
