@@ -48,19 +48,19 @@ namespace Damany.Component.Test
 
             ShutterMode shutterMode = ShutterMode.Short;
             int shutterSpeed = 0;
-            this.camera.SetShutterSpeed(shutterMode, shutterSpeed);
+            this.camera.SetShutter(shutterMode, shutterSpeed);
             this.camera.UpdateProperty();
             Assert.IsTrue(shutterMode == this.camera.ShutterMode && shutterSpeed == this.camera.ShortShutterLevel);
 
             IrisMode irisMode = IrisMode.Manual;
             int irisLevel = 0;
-            this.camera.SetIrisLevel(irisMode, irisLevel);
+            this.camera.SetIris(irisMode, irisLevel);
             this.camera.UpdateProperty();
             Assert.IsTrue(irisMode == this.camera.IrisMode && irisLevel == this.camera.ManualIrisLevel);
 
             bool enableAgc = true;
             bool enableDigitalGain = true;
-            this.camera.SetAgc(enableAgc, enableDigitalGain);
+            this.camera.SetAGCMode(enableAgc, enableDigitalGain);
             this.camera.UpdateProperty();
 
             Assert.IsTrue(enableAgc == this.camera.AgcEnabled && enableDigitalGain == this.camera.DigitalGainEnabled);
@@ -71,7 +71,7 @@ namespace Damany.Component.Test
         [Row(75)]
         public void IrisPropertyTest(int level)
         {
-            this.camera.SetIrisLevel(IrisMode.Manual, level);
+            this.camera.SetIris(IrisMode.Manual, level);
 
             var clock = new Clock();
             clock.ThreadSleep(5000);
@@ -81,7 +81,7 @@ namespace Damany.Component.Test
         [Row(true, true)]
         public void AgcTest(bool enableAgc, bool enableDigitalGain)
         {
-            this.camera.SetAgc(enableAgc, enableDigitalGain);
+            this.camera.SetAGCMode(enableAgc, enableDigitalGain);
         }
 
 
@@ -89,12 +89,12 @@ namespace Damany.Component.Test
         [FixtureTearDown]
         public void ResetCamera()
         {
-            this.camera.SetIrisLevel(IrisMode.Manual, 50);
+            this.camera.SetIris(IrisMode.Manual, 50);
             var clock = new Clock();
             //clock.ThreadSleep(15000);
-            this.camera.SetShutterSpeed(ShutterMode.Short, 1);
+            this.camera.SetShutter(ShutterMode.Short, 1);
             //clock.ThreadSleep(15000);
-            this.camera.SetAgc(true, false);
+            this.camera.SetAGCMode(true, false);
             //clock.ThreadSleep(15000);
         }
 

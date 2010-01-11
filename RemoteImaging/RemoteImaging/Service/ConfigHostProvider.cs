@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.ServiceModel;
 
 namespace RemoteImaging.Service
 {
+    [ServiceBehavior(InstanceContextMode=InstanceContextMode.Single)]
     public class ConfigHostProvider : RemoteControlService.IConfigHost
     {
         object locker = new object();

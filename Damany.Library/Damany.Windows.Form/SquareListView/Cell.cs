@@ -170,7 +170,7 @@ namespace Damany.Windows.Form
 
                 g.DrawImage(this.Image, rectangleOfImagePart);
 
-                DrawOverlayText(g, rectangleOfImagePart);
+                DrawOverlayText(g, this.Rec);
 
                 g.DrawRectangle(Pens.Gray, recOfImg);
             }

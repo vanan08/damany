@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VideoQueryForm));
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.downloadBmp = new System.Windows.Forms.Button();
             this.filePathToDownload = new System.Windows.Forms.TextBox();
             this.testButton = new System.Windows.Forms.Button();
             this.allVideoRadioButton = new System.Windows.Forms.RadioButton();
@@ -55,7 +56,6 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.axVLCPlugin21 = new AxAXVLC.AxVLCPlugin2();
-            this.downloadBmp = new System.Windows.Forms.Button();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.timeEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.timeEdit2.Properties)).BeginInit();
@@ -88,23 +88,33 @@
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox3.Location = new System.Drawing.Point(0, 0);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(904, 99);
+            this.groupBox3.Size = new System.Drawing.Size(904, 91);
             this.groupBox3.TabIndex = 20;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "查询条件";
             // 
+            // downloadBmp
+            // 
+            this.downloadBmp.Location = new System.Drawing.Point(643, 65);
+            this.downloadBmp.Name = "downloadBmp";
+            this.downloadBmp.Size = new System.Drawing.Size(75, 21);
+            this.downloadBmp.TabIndex = 22;
+            this.downloadBmp.Text = "bmp";
+            this.downloadBmp.UseVisualStyleBackColor = true;
+            this.downloadBmp.Click += new System.EventHandler(this.downloadBmp_Click);
+            // 
             // filePathToDownload
             // 
-            this.filePathToDownload.Location = new System.Drawing.Point(622, 13);
+            this.filePathToDownload.Location = new System.Drawing.Point(622, 12);
             this.filePathToDownload.Name = "filePathToDownload";
-            this.filePathToDownload.Size = new System.Drawing.Size(256, 20);
+            this.filePathToDownload.Size = new System.Drawing.Size(256, 21);
             this.filePathToDownload.TabIndex = 21;
             // 
             // testButton
             // 
-            this.testButton.Location = new System.Drawing.Point(643, 42);
+            this.testButton.Location = new System.Drawing.Point(643, 39);
             this.testButton.Name = "testButton";
-            this.testButton.Size = new System.Drawing.Size(75, 25);
+            this.testButton.Size = new System.Drawing.Size(75, 23);
             this.testButton.TabIndex = 20;
             this.testButton.Text = "stream";
             this.testButton.UseVisualStyleBackColor = true;
@@ -113,9 +123,9 @@
             // allVideoRadioButton
             // 
             this.allVideoRadioButton.AutoSize = true;
-            this.allVideoRadioButton.Location = new System.Drawing.Point(532, 26);
+            this.allVideoRadioButton.Location = new System.Drawing.Point(532, 24);
             this.allVideoRadioButton.Name = "allVideoRadioButton";
-            this.allVideoRadioButton.Size = new System.Drawing.Size(73, 17);
+            this.allVideoRadioButton.Size = new System.Drawing.Size(71, 16);
             this.allVideoRadioButton.TabIndex = 12;
             this.allVideoRadioButton.TabStop = true;
             this.allVideoRadioButton.Text = "全部查询";
@@ -124,9 +134,9 @@
             // faceCapturedRadioButton
             // 
             this.faceCapturedRadioButton.AutoSize = true;
-            this.faceCapturedRadioButton.Location = new System.Drawing.Point(397, 26);
+            this.faceCapturedRadioButton.Location = new System.Drawing.Point(397, 24);
             this.faceCapturedRadioButton.Name = "faceCapturedRadioButton";
-            this.faceCapturedRadioButton.Size = new System.Drawing.Size(97, 17);
+            this.faceCapturedRadioButton.Size = new System.Drawing.Size(95, 16);
             this.faceCapturedRadioButton.TabIndex = 11;
             this.faceCapturedRadioButton.TabStop = true;
             this.faceCapturedRadioButton.Text = "查询有效视频";
@@ -135,9 +145,9 @@
             // queryBtn
             // 
             this.queryBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.queryBtn.Location = new System.Drawing.Point(794, 42);
+            this.queryBtn.Location = new System.Drawing.Point(794, 39);
             this.queryBtn.Name = "queryBtn";
-            this.queryBtn.Size = new System.Drawing.Size(84, 23);
+            this.queryBtn.Size = new System.Drawing.Size(84, 21);
             this.queryBtn.TabIndex = 19;
             this.queryBtn.Text = "查询";
             this.queryBtn.UseVisualStyleBackColor = true;
@@ -146,36 +156,36 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(338, 28);
+            this.label7.Location = new System.Drawing.Point(338, 26);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(55, 13);
+            this.label7.Size = new System.Drawing.Size(53, 12);
             this.label7.TabIndex = 10;
             this.label7.Text = "查询范围";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 28);
+            this.label4.Location = new System.Drawing.Point(6, 26);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(43, 13);
+            this.label4.Size = new System.Drawing.Size(41, 12);
             this.label4.TabIndex = 9;
             this.label4.Text = "监控点";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 65);
+            this.label2.Location = new System.Drawing.Point(6, 60);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(55, 13);
+            this.label2.Size = new System.Drawing.Size(53, 12);
             this.label2.TabIndex = 2;
             this.label2.Text = "时间起点";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(338, 65);
+            this.label3.Location = new System.Drawing.Point(338, 60);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(55, 13);
+            this.label3.Size = new System.Drawing.Size(53, 12);
             this.label3.TabIndex = 3;
             this.label3.Text = "时间终点";
             // 
@@ -183,43 +193,43 @@
             // 
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(79, 24);
+            this.comboBox1.Location = new System.Drawing.Point(79, 22);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(129, 21);
+            this.comboBox1.Size = new System.Drawing.Size(129, 20);
             this.comboBox1.TabIndex = 4;
             // 
             // dateTimePicker1
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(79, 61);
+            this.dateTimePicker1.Location = new System.Drawing.Point(79, 56);
             this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(129, 20);
+            this.dateTimePicker1.Size = new System.Drawing.Size(129, 21);
             this.dateTimePicker1.TabIndex = 5;
             // 
             // dateTimePicker2
             // 
-            this.dateTimePicker2.Location = new System.Drawing.Point(397, 61);
+            this.dateTimePicker2.Location = new System.Drawing.Point(397, 56);
             this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(129, 20);
+            this.dateTimePicker2.Size = new System.Drawing.Size(129, 21);
             this.dateTimePicker2.TabIndex = 6;
             // 
             // timeEdit1
             // 
             this.timeEdit1.EditValue = new System.DateTime(2009, 5, 7, 0, 0, 0, 0);
-            this.timeEdit1.Location = new System.Drawing.Point(217, 61);
+            this.timeEdit1.Location = new System.Drawing.Point(217, 56);
             this.timeEdit1.Name = "timeEdit1";
             this.timeEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.timeEdit1.Size = new System.Drawing.Size(96, 22);
+            this.timeEdit1.Size = new System.Drawing.Size(96, 21);
             this.timeEdit1.TabIndex = 7;
             // 
             // timeEdit2
             // 
             this.timeEdit2.EditValue = new System.DateTime(2009, 5, 7, 0, 0, 0, 0);
-            this.timeEdit2.Location = new System.Drawing.Point(532, 61);
+            this.timeEdit2.Location = new System.Drawing.Point(532, 56);
             this.timeEdit2.Name = "timeEdit2";
             this.timeEdit2.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.timeEdit2.Size = new System.Drawing.Size(96, 22);
+            this.timeEdit2.Size = new System.Drawing.Size(96, 21);
             this.timeEdit2.TabIndex = 8;
             // 
             // imageList1
@@ -234,9 +244,9 @@
             this.videoList.FullRowSelect = true;
             this.videoList.GridLines = true;
             this.videoList.HideSelection = false;
-            this.videoList.Location = new System.Drawing.Point(0, 13);
+            this.videoList.Location = new System.Drawing.Point(0, 12);
             this.videoList.Name = "videoList";
-            this.videoList.Size = new System.Drawing.Size(154, 546);
+            this.videoList.Size = new System.Drawing.Size(154, 504);
             this.videoList.SmallImageList = this.imageList2;
             this.videoList.TabIndex = 25;
             this.videoList.UseCompatibleStateImageBehavior = false;
@@ -256,17 +266,17 @@
             this.label1.Dock = System.Windows.Forms.DockStyle.Top;
             this.label1.Location = new System.Drawing.Point(0, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(67, 13);
+            this.label1.Size = new System.Drawing.Size(65, 12);
             this.label1.TabIndex = 26;
             this.label1.Text = "视频列表：";
             // 
             // picList
             // 
             this.picList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.picList.Location = new System.Drawing.Point(0, 13);
+            this.picList.Location = new System.Drawing.Point(0, 12);
             this.picList.MultiSelect = false;
             this.picList.Name = "picList";
-            this.picList.Size = new System.Drawing.Size(746, 126);
+            this.picList.Size = new System.Drawing.Size(746, 116);
             this.picList.TabIndex = 22;
             this.picList.UseCompatibleStateImageBehavior = false;
             // 
@@ -276,7 +286,7 @@
             this.label5.Dock = System.Windows.Forms.DockStyle.Top;
             this.label5.Location = new System.Drawing.Point(0, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(67, 13);
+            this.label5.Size = new System.Drawing.Size(65, 12);
             this.label5.TabIndex = 27;
             this.label5.Text = "相关图片：";
             // 
@@ -286,14 +296,14 @@
             this.label6.Dock = System.Windows.Forms.DockStyle.Top;
             this.label6.Location = new System.Drawing.Point(0, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(67, 13);
+            this.label6.Size = new System.Drawing.Size(65, 12);
             this.label6.TabIndex = 29;
             this.label6.Text = "视频播放：";
             // 
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 99);
+            this.splitContainer1.Location = new System.Drawing.Point(0, 91);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -304,7 +314,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
-            this.splitContainer1.Size = new System.Drawing.Size(904, 559);
+            this.splitContainer1.Size = new System.Drawing.Size(904, 516);
             this.splitContainer1.SplitterDistance = 154;
             this.splitContainer1.TabIndex = 30;
             // 
@@ -324,35 +334,25 @@
             // 
             this.splitContainer2.Panel2.Controls.Add(this.picList);
             this.splitContainer2.Panel2.Controls.Add(this.label5);
-            this.splitContainer2.Size = new System.Drawing.Size(746, 559);
-            this.splitContainer2.SplitterDistance = 416;
+            this.splitContainer2.Size = new System.Drawing.Size(746, 516);
+            this.splitContainer2.SplitterDistance = 384;
             this.splitContainer2.TabIndex = 0;
             // 
             // axVLCPlugin21
             // 
             this.axVLCPlugin21.Dock = System.Windows.Forms.DockStyle.Fill;
             this.axVLCPlugin21.Enabled = true;
-            this.axVLCPlugin21.Location = new System.Drawing.Point(0, 13);
+            this.axVLCPlugin21.Location = new System.Drawing.Point(0, 12);
             this.axVLCPlugin21.Name = "axVLCPlugin21";
             this.axVLCPlugin21.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axVLCPlugin21.OcxState")));
-            this.axVLCPlugin21.Size = new System.Drawing.Size(746, 403);
+            this.axVLCPlugin21.Size = new System.Drawing.Size(746, 372);
             this.axVLCPlugin21.TabIndex = 30;
-            // 
-            // downloadBmp
-            // 
-            this.downloadBmp.Location = new System.Drawing.Point(643, 70);
-            this.downloadBmp.Name = "downloadBmp";
-            this.downloadBmp.Size = new System.Drawing.Size(75, 23);
-            this.downloadBmp.TabIndex = 22;
-            this.downloadBmp.Text = "bmp";
-            this.downloadBmp.UseVisualStyleBackColor = true;
-            this.downloadBmp.Click += new System.EventHandler(this.downloadBmp_Click);
             // 
             // VideoQueryForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(904, 658);
+            this.ClientSize = new System.Drawing.Size(904, 607);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.groupBox3);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));

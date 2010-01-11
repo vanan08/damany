@@ -73,5 +73,22 @@ namespace RemoteImaging
         }
 
         #endregion
+
+        #region ICamera Members
+
+
+        public void SetAGCMode(bool enableAGC, bool enableDigitalGain)
+        {
+        }
+
+        public void SetIris(IrisMode mode, int level)
+        {
+        }
+
+        public void SetShutter(ShutterMode mode, int level)
+        {
+        }
+
+        #endregion
     }
 }

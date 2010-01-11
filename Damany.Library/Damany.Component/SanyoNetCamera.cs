@@ -182,7 +182,7 @@ namespace Damany.Component
 
         }
 
-        public void SetShutterSpeed(ShutterMode mode, int speedLevel)
+        public void SetShutter(ShutterMode mode, int speedLevel)
         {
             int modeValue = 0;
             string speedPropertyName = null;
@@ -214,7 +214,7 @@ namespace Damany.Component
             SetCameraProperty(uri);
         }
 
-        public void SetIrisLevel(IrisMode mode, int level)
+        public void SetIris(IrisMode mode, int level)
         {
             int irisModeValue = 0;
             string propertyName = null;
@@ -244,7 +244,7 @@ namespace Damany.Component
 
         }
 
-        public void SetAgc(bool AgcEnable, bool digitalGainEnable)
+        public void SetAGCMode(bool AgcEnable, bool digitalGainEnable)
         {
             int agcModeValue = AgcEnable ? 1 : 0;
             int digitalGainValue = digitalGainEnable ? 1 : 0;
@@ -613,6 +613,6 @@ namespace Damany.Component
             public UdpClient u;
             public bool canceled;
         }
-
+      
     }
 }

@@ -15,5 +15,9 @@ namespace Damany.Component
 
         Image CaptureImage();
         byte[] CaptureImageBytes();
+
+        void SetAGCMode(bool enableAGC, bool enableDigitalGain);
+        void SetShutter(ShutterMode mode, int level);
+        void SetIris(IrisMode mode, int level);
     }
 }

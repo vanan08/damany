@@ -58,7 +58,6 @@ namespace RemoteImaging.RealtimeDisplay
         }
 
         bool exit = false;
-        Size imgSize = Size.Empty;
 
         private void OnConnectAborted()
         {
@@ -77,13 +76,13 @@ namespace RemoteImaging.RealtimeDisplay
                     client.GetStream().WriteByte(0);
                     client.GetStream().Flush();
                     Frame frame = (Frame)formatter.Deserialize(client.GetStream());
-                    imgSize = frame.image.Size;
                     this.FireImageReceivedEvent(frame);
                 }
 
             }
             catch
             {
+                Size imgSize = new Size(1000, 1000);
                 Bitmap bmp = new Bitmap(imgSize.Width, imgSize.Height);
                 int fontSize = imgSize.Height / 10;
 

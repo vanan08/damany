@@ -117,7 +117,7 @@ namespace RemoteImaging.RealtimeDisplay
             if (File.Exists("bg.jpg"))
                 BackGround = OpenCvSharp.IplImage.FromFile(@"bg.jpg");
 
-            new Service.ServiceProvider(Program.motionDetector, Program.faceSearch, this).OpenService();
+            new Service.ServiceProvider(Program.motionDetector, Program.faceSearch, this, camera).OpenServices();
         }
 
 

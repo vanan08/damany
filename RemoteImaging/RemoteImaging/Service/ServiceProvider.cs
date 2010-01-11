@@ -12,32 +12,100 @@ namespace RemoteImaging.Service
         MotionDetectWrapper.MotionDetector motionDetector;
         FaceSearchWrapper.FaceSearch faceSearcher;
         RealtimeDisplay.Presenter presenter;
+        Damany.Component.ICamera camera;
 
         public ServiceProvider(
                     MotionDetectWrapper.MotionDetector motionDetector,
                     FaceSearchWrapper.FaceSearch faceSearcher,
-                    RealtimeDisplay.Presenter presenter )
+                    RealtimeDisplay.Presenter presenter,
+                    Damany.Component.ICamera camera)
         {
+            if (motionDetector == null)
+                throw new ArgumentNullException("motionDetector", "motionDetector is null.");
+            if (faceSearcher == null)
+                throw new ArgumentNullException("faceSearcher", "faceSearcher is null.");
+            if (presenter == null)
+                throw new ArgumentNullException("presenter", "presenter is null.");
+            if (camera == null)
+                throw new ArgumentNullException("camera", "camera is null.");
+
+
             this.motionDetector = motionDetector;
             this.faceSearcher = faceSearcher;
             this.presenter = presenter;
+            this.camera = camera;
         }
 
 
-        public void OpenService()
+        private static void DoOpenService(string baseAddress, Type serviceType, Type implementedContract)
         {
-            string baseAddress = string.Format("net.tcp://{0}:8000", System.Net.IPAddress.Any);
+            DoOpenService(baseAddress, null, serviceType, implementedContract);
+        }
 
+
+        private static void DoOpenService(string baseAddress, object instance, Type implementedContract)
+        {
+            DoOpenService(baseAddress, instance, null, implementedContract);
+        }
+
+
+        private static void DoOpenService(
+            string baseAddress,
+            object instance,
+            Type serviceType, 
+            Type implementedContract)
+        {
             Uri netTcpBaseAddress = new Uri(baseAddress);
-            ServiceHost host = new ServiceHost(typeof(Service.SearchProvider), netTcpBaseAddress);
+
+            ServiceHost host = null;
+            if (instance != null)
+            {
+                host = new ServiceHost(instance, netTcpBaseAddress);
+            }
+            else
+            {
+                host = new ServiceHost(serviceType , netTcpBaseAddress);
+            }
 
             NetTcpBinding tcpBinding = BindingFactory.CreateNetTcpBinding();
 
             host.AddServiceEndpoint(
-                typeof(RemoteControlService.ISearch),
+                implementedContract,
                 tcpBinding, "TcpService");
 
             host.Open();
+        }
+
+        private static void OpenSearchService()
+        {
+            var baseAddressSearch = string.Format("net.tcp://{0}:8000", System.Net.IPAddress.Any);
+            DoOpenService(baseAddressSearch, typeof(Service.SearchProvider), typeof(RemoteControlService.ISearch));
+        }
+
+        private void OpenConfigHostService()
+        {
+            var confitHost =
+                            new Service.ConfigHostProvider(this.motionDetector, this.faceSearcher, this.presenter);
+            var baseAddrConfigHost = string.Format("net.tcp://{0}:8001", System.Net.IPAddress.Any);
+            DoOpenService(baseAddrConfigHost, confitHost, typeof(RemoteControlService.IConfigHost));
+        }
+
+
+        private void OpenConfigCameraService()
+        {
+            var configCamera = new Service.ConfigCameraProvider(this.camera);
+            var baseAddr = string.Format("net.tcp://{0}:8002", System.Net.IPAddress.Any);
+            DoOpenService(baseAddr, configCamera, typeof(RemoteControlService.IConfigCamera));
+        }
+
+
+        public void OpenServices()
+        {
+            OpenSearchService();
+
+            OpenConfigHostService();
+
+            OpenConfigCameraService();
         }
     }
 }
