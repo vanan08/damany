@@ -187,6 +187,13 @@ namespace RemoteImaging.Query
             this.axVLCPlugin21.playlist.playItem(idx);
         }
 
+
+        private void ShowErrorMessage()
+        {
+            MessageBox.Show(this, "通讯错误, 请重试！", this.Text,
+                MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
         bool IsPlaying = false;
 
         private void videoList_ItemActivate(object sender, EventArgs e)
@@ -207,7 +214,15 @@ namespace RemoteImaging.Query
 
             ReceiveVideoStream();
 
-            StreamServerProxy.StreamVideo(item.Tag as string);
+            try
+            {
+                StreamServerProxy.StreamVideo(item.Tag as string);
+            }
+            catch (System.ServiceModel.CommunicationException)
+            {
+                this.ShowErrorMessage();
+            }
+            
 
 
 
@@ -317,7 +332,7 @@ namespace RemoteImaging.Query
         {
             this.CreateProxy();
 
-            var stream = this.SearchProxy.DownloadFile(filePathToDownload.Text);
+            var stream = this.SearchProxy.DownloadFile(filePathToDownload.Text, string.Empty);
 
             byte[] buffer = new byte[1024];
             int totalBytes = 0;
@@ -335,6 +350,16 @@ namespace RemoteImaging.Query
             }
 
             Debug.WriteLine(totalBytes);
+        }
+
+        private void downloadBmp_Click(object sender, EventArgs e)
+        {
+            var bmp = new System.Drawing.Bitmap(30, 30);
+            System.Diagnostics.Debug.Assert(bmp is System.Xml.Serialization.IXmlSerializable);
+            
+            this.CreateProxy();
+
+            bmp = this.SearchProxy.DownloadBitmap(filePathToDownload.Text);
         }
     }
 }
