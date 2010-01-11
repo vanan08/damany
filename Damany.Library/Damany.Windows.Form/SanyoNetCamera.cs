@@ -18,6 +18,7 @@ namespace Damany.Windows.Form
         public SanyoNetCamera()
         {
             InitializeComponent();
+            this.InitControls();
         }
 
         public event EventHandler ApplyAgcClick
@@ -127,11 +128,11 @@ namespace Damany.Windows.Form
         {
             get
             {
-                return (int) this.manualIrisLevel.SelectedValue;
+                return  (int) this.manualIrisLevel.SelectedItem;
             }
             set
             {
-                this.manualIrisLevel.SelectedValue = value;
+                this.manualIrisLevel.SelectedItem = value;
             }
         }
 
@@ -182,6 +183,7 @@ namespace Damany.Windows.Form
             shutterLevels.Add(new NameObjectPair("10000", 8));
 
             PopulateComboBox(shutterLevels, this.shutterLevel);
+            this.shutterLevel.SelectedIndex = 0;
         }
 
         private void PopulateIrisLevels()
@@ -203,7 +205,7 @@ namespace Damany.Windows.Form
             this.PopulateComboBox(digitalGains, this.digitalGain);
         }
 
-        private void SanyoNetCamera_Load(object sender, EventArgs e)
+        private void InitControls()
         {
             this.shutterShort.Checked = true;
             this.shutterShort.CheckedChanged += new EventHandler(shutterShort_CheckedChanged);

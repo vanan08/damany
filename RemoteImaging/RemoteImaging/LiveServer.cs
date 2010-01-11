@@ -81,7 +81,7 @@ namespace RemoteImaging
                         go.WaitOne();
                 }
             }
-            catch (System.IO.IOException ex)
+            catch (System.Net.Sockets.SocketException ex)
             {
                 this.host.ImageCaptured -= this.host_ImageCaptured;
                 return;

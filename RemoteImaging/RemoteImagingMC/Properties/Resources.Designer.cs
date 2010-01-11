@@ -148,6 +148,13 @@ namespace RemoteImaging.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap property {
+            get {
+                object obj = ResourceManager.GetObject("property", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap SearchPic {
             get {
                 object obj = ResourceManager.GetObject("SearchPic", resourceCulture);

@@ -900,6 +900,17 @@ namespace RemoteImaging.RealtimeDisplay
             hostsPool.Start();
 
         }
+
+        private void HidePropertyForm(bool hide)
+        {
+            this.splitContainer1.Panel2Collapsed = hide;
+           
+            
+        }
+        private void propertyToolBar_Click(object sender, EventArgs e)
+        {
+             this.HidePropertyForm( !this.splitContainer1.Panel2Collapsed );
+        }
     }
 
 

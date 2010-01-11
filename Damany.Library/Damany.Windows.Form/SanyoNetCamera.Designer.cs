@@ -250,7 +250,6 @@
             this.Controls.Add(this.groupBox1);
             this.Name = "SanyoNetCamera";
             this.Size = new System.Drawing.Size(277, 288);
-            this.Load += new System.EventHandler(this.SanyoNetCamera_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
