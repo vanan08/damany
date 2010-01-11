@@ -82,34 +82,7 @@ namespace RemoteImaging.RealtimeDisplay
             }
             catch
             {
-                Size imgSize = new Size(1000, 1000);
-                Bitmap bmp = new Bitmap(imgSize.Width, imgSize.Height);
-                int fontSize = imgSize.Height / 10;
-
-                using (Graphics g = Graphics.FromImage(bmp))
-                using (Font font = new Font(FontFamily.GenericSansSerif, fontSize, GraphicsUnit.Pixel))
-                {
-                    g.FillRectangle(Brushes.Black, new Rectangle(0, 0, imgSize.Width, imgSize.Height));
-                    StringFormat fmt = new StringFormat();
-                    fmt.Alignment = StringAlignment.Center;
-                    fmt.LineAlignment = StringAlignment.Center;
-                    g.DrawString("连接错误",
-                        font,
-                        Brushes.White,
-                        new RectangleF(0, 0, imgSize.Width, imgSize.Height),
-                        fmt
-                        );
-
-                    Frame f = new Frame();
-                    f.image = bmp;
-                    f.timeStamp = DateTime.Now;
-
-                    this.FireImageReceivedEvent(f);
-
-                    context.Post(o => OnConnectAborted(), null);
-
-                }
-
+                context.Post(o => OnConnectAborted(), null);
             }
             finally
             {
