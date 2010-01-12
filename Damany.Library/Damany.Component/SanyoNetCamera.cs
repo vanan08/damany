@@ -375,10 +375,26 @@ namespace Damany.Component
 
             var request = this.CreateHttpWebRequest(uri, new CookieContainer());
 
-            HttpWebResponse reply = (HttpWebResponse)request.GetResponse();
-            cookies = request.CookieContainer;
+            HttpWebResponse reply = null;
+            try
+            {
+                reply = (HttpWebResponse)request.GetResponse();
+                cookies = request.CookieContainer;
+                connected = true;
 
-            connected = true;
+            }
+            finally
+            {
+                if (reply != null)
+                {
+                    reply.Close();
+                    reply.GetResponseStream().Close();
+                }
+            }
+
+         
+
+            
 
         }
 
@@ -430,10 +446,22 @@ namespace Damany.Component
                 return buff;
 
             }
+            catch(System.IO.IOException ex)
+            {
+                throw new System.Net.WebException("capture frame error", ex);
+            }
             finally
             {
-                reply.Close();
-                stream.Close();
+                if (reply != null)
+                {
+                    reply.Close();
+                }
+                
+                if (stream != null)
+                {
+                    stream.Close();
+                }
+                
             }
             
         }
@@ -484,6 +512,7 @@ namespace Damany.Component
             req.KeepAlive = true;
             req.PreAuthenticate = true;
             req.Method = method;
+            req.Timeout = 10 * 1000;
             System.Net.WebRequest.DefaultWebProxy = null;
 
             return req;

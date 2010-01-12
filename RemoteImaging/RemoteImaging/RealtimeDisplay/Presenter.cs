@@ -20,11 +20,14 @@ namespace RemoteImaging.RealtimeDisplay
 {
     public class Presenter : IImageScreenObserver
     {
+        private const string strTip = "提示信息";
         private TcpListener liveServer;
         IImageScreen screen;
         ICamera camera;
         System.ComponentModel.BackgroundWorker worker;
+
         System.Timers.Timer timer = new System.Timers.Timer();
+        System.Timers.Timer reconnectTimer = new System.Timers.Timer();
         System.Timers.Timer videoFileCheckTimer = new System.Timers.Timer();
 
         Queue<Frame[]> framesArrayQueue = new Queue<Frame[]>();
@@ -40,10 +43,6 @@ namespace RemoteImaging.RealtimeDisplay
         AutoResetEvent goDetectMotion = new AutoResetEvent(false);
 
         Thread motionDetectThread = null;
-
-
-      
-
 
         private IplImage _BackGround;
         public IplImage BackGround
@@ -95,6 +94,8 @@ namespace RemoteImaging.RealtimeDisplay
             this.screen = screen;
             this.camera = camera;
 
+            this.InitializeTrayIcon();
+
 
             motionDetectThread =
                 Properties.Settings.Default.DetectMotion ?
@@ -111,6 +112,9 @@ namespace RemoteImaging.RealtimeDisplay
             this.timer.Interval = 1000 / int.Parse(Properties.Settings.Default.FPs);
             this.timer.Elapsed += new System.Timers.ElapsedEventHandler(timer_Elapsed);
 
+            this.reconnectTimer.Interval = 5000;
+            this.reconnectTimer.Elapsed += new System.Timers.ElapsedEventHandler(reconnectTimer_Elapsed);
+
             videoFileCheckTimer.Interval = 1000 * 60;
             videoFileCheckTimer.Elapsed += new System.Timers.ElapsedEventHandler(videoFileCheckTimer_Elapsed);
 
@@ -121,7 +125,45 @@ namespace RemoteImaging.RealtimeDisplay
         }
 
 
+        private void NotifyUserError(string msg, string title)
+        {
+            NotifyUser(msg, title, ToolTipIcon.Error);
+        }
 
+        private void NotifyUserInfo(string msg, string title)
+        {
+            NotifyUser(msg, title, ToolTipIcon.Info);
+        }
+
+        private void NotifyUser(string msg, string title, ToolTipIcon icon)
+        {
+            this.notifyIcon.Visible = true;
+            this.notifyIcon.ShowBalloonTip(3000,
+                title, msg,
+                icon);
+        }
+
+        void reconnectTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            this.reconnectTimer.Enabled = false;
+            try
+            {
+                this.camera.Connect();
+                NotifyUserInfo("重新连接摄像头成功！", strTip);
+                System.Threading.Thread.Sleep(3000);
+                this.notifyIcon.Visible = false;
+                this.timer.Enabled = true;
+
+            }
+            catch (System.Net.WebException)
+            {
+                NotifyUserError("重新连接摄像头失败！系统将继续尝试。", strTip);
+                System.Diagnostics.Debug.WriteLine("重连失败");
+                this.reconnectTimer.Enabled = true;
+                this.timer.Enabled = false;
+            }
+
+        }
 
         void videoFileCheckTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
@@ -154,9 +196,35 @@ namespace RemoteImaging.RealtimeDisplay
             }
         }
 
+        System.Windows.Forms.NotifyIcon notifyIcon;
+
+        private void InitializeTrayIcon()
+        {
+            notifyIcon = new System.Windows.Forms.NotifyIcon();
+            notifyIcon.Icon = new System.Drawing.Icon("mainicon.ico");
+        }
+
         void timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
-            this.QueryRawFrame();
+            try
+            {
+                System.Diagnostics.Debug.WriteLine("capture frame begin");
+                this.timer.Enabled = false;
+                this.QueryRawFrame();
+                System.Diagnostics.Debug.WriteLine("capture frame after");
+                this.timer.Enabled = true;
+
+            }
+            catch (System.Net.WebException)
+            {
+                this.timer.Enabled = false;
+
+                NotifyUserError("连接中断, 系统将自动重新连接摄像头。", strTip);
+                System.Diagnostics.Debug.WriteLine("连接中断");
+
+                this.reconnectTimer.Enabled = true;
+            }
+
         }
 
 
@@ -166,7 +234,7 @@ namespace RemoteImaging.RealtimeDisplay
             {
                 this.SearchFace();
             }
-            
+
 
         }
 
@@ -180,7 +248,7 @@ namespace RemoteImaging.RealtimeDisplay
         {
             lock (this.framesArrayQueueLocker)
             {
-                
+
                 bool result = this.framesArrayQueue.Count >= historyFramesQueueLength
                         && this.framesArrayQueue.Count >= Properties.Settings.Default.MaxFrameQueueLength;
                 historyFramesQueueLength = this.framesArrayQueue.Count;
@@ -360,7 +428,7 @@ namespace RemoteImaging.RealtimeDisplay
                 ThreadPool.QueueUserWorkItem(this.StartServer, 20000);
 
 
-            
+
         }
 
         private string PrepareDestFolder(ImageDetail imgToProcess)
@@ -406,7 +474,7 @@ namespace RemoteImaging.RealtimeDisplay
             {
                 try
                 {
-                    
+
                     Frame[] frames = null;
                     lock (framesArrayQueueLocker)
                     {
@@ -454,7 +522,7 @@ namespace RemoteImaging.RealtimeDisplay
             double verdict = SVMWrapper.SvmPredict(imgData);
 
             System.Diagnostics.Debug.WriteLine(string.Format("=======verdict: {0}=======", verdict));
-            
+
             return verdict == -1;
         }
         private void DetectSuspecious(Target[] targets)

@@ -23,14 +23,11 @@ namespace Damany.Component.Test
             camera.UserName = "guest";
             camera.Password = "guest";
 
-            camera.IPAddress = "192.168.1.200";
+            camera.IPAddress = "192.168.1.202";
             camera.Connect();
         }
 
-        [Test]
-        [Row(1)]
-        [Row(0)]
-        public void CaptureImageBytesTest(int i)
+        private void CaptureFrame()
         {
             var bytes = this.camera.CaptureImageBytes();
 
@@ -39,10 +36,21 @@ namespace Damany.Component.Test
             Assert.IsNotNull(img);
         }
 
+
+        public void CaptureImageBytesTest(int i)
+        {
+            CaptureFrame();
+        }
+
         [Test]
-        [Row(1)]
-        [Row(0)]
-        [Row(4)]
+        [Repeat(15)]
+        public void ReconnectTest()
+        {
+            System.Threading.Thread.Sleep(3000);
+            this.camera.Connect();
+            this.CaptureFrame();
+        }
+
         public void ShutterSpeedPropertyTest(int speed)
         {
 
@@ -67,8 +75,6 @@ namespace Damany.Component.Test
 
         }
 
-        [Test]
-        [Row(75)]
         public void IrisPropertyTest(int level)
         {
             this.camera.SetIris(IrisMode.Manual, level);
@@ -77,8 +83,6 @@ namespace Damany.Component.Test
             clock.ThreadSleep(5000);
         }
 
-        [Test]
-        [Row(true, true)]
         public void AgcTest(bool enableAgc, bool enableDigitalGain)
         {
             this.camera.SetAGCMode(enableAgc, enableDigitalGain);
@@ -86,7 +90,6 @@ namespace Damany.Component.Test
 
 
 
-        [FixtureTearDown]
         public void ResetCamera()
         {
             this.camera.SetIris(IrisMode.Manual, 50);
