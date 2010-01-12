@@ -185,8 +185,6 @@ namespace RemoteImaging.RealtimeDisplay
                         && this.framesArrayQueue.Count >= Properties.Settings.Default.MaxFrameQueueLength;
                 historyFramesQueueLength = this.framesArrayQueue.Count;
 
-
-
                 return result;
             }
 
@@ -194,7 +192,6 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void QueryRawFrame()
         {
-            if (this.cpuOverLoaded()) return;
 
             byte[] image = null;
             lock (this.camLocker)
@@ -202,8 +199,6 @@ namespace RemoteImaging.RealtimeDisplay
                 image = camera.CaptureImageBytes();
             }
 
-
-            
             Bitmap bmp = null;
             try
             {
@@ -220,8 +215,12 @@ namespace RemoteImaging.RealtimeDisplay
             if (ImageCaptured != null)
             {
                 ImageCapturedEventArgs args = new ImageCapturedEventArgs() { ImageCaptured = bmp };
+                System.Diagnostics.Debug.WriteLine("fire ImageCaptured event");
                 ImageCaptured(this, args);
             }
+
+
+            if (this.cpuOverLoaded()) return;
 
             Frame f = new Frame();
             f.timeStamp = DateTime.Now.Ticks;

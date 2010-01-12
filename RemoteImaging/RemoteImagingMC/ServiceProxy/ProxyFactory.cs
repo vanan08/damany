@@ -8,17 +8,47 @@ using System.Xml;
 
 namespace RemoteImaging.ServiceProxy
 {
-    public class ProxyFactory
+    public static class ProxyFactory
     {
+        static int searchPort = 8000;
+        static int configHostPort = 8001;
+        static int configCameraPort = 8002;
+        static int playerPort = 4567;
 
-        public static TInterface CreateProxy<TInterface>(string uri)
+
+        public static ISearch CreateSearchProxy(string ip)
+        {
+            return CreateProxy<ISearch>(ip, searchPort);
+        }
+
+        public static IStreamPlayer CreatePlayerProxy(string ip)
+        {
+            return CreateProxy<IStreamPlayer>(ip, playerPort);
+        }
+
+        public static IConfigHost CreateConfigHostProxy(string ip)
+        {
+            return CreateProxy<IConfigHost>(ip, configHostPort);
+        }
+
+        public static IConfigCamera CreateConfigCameraProxy(string ip)
+        {
+            return CreateProxy<IConfigCamera>(ip, configCameraPort);
+        }
+
+        public static TInterface CreateProxy<TInterface>(string ip, int port)
+        {
+            string address = string.Format("net.tcp://{0}:{1}/TcpService", ip, port);
+            return CreateProxy<TInterface>(address);
+        }
+
+        private static TInterface CreateProxy<TInterface>(string uri)
         {
             EndpointAddress ep = new EndpointAddress(uri);
 
             NetTcpBinding tcpBinding = BindingFactory.CreateNetTcpBinding();
 
-            TInterface proxy = ChannelFactory<TInterface>.CreateChannel(tcpBinding, ep);
-            return proxy;
+            return ChannelFactory<TInterface>.CreateChannel(tcpBinding, ep);
         }
 
     }

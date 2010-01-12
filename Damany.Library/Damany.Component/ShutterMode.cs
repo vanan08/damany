@@ -8,6 +8,11 @@ namespace Damany.Component
     [System.Runtime.Serialization.DataContract]
     public enum ShutterMode
     {
-        Off, Short, Long,
+        [System.Runtime.Serialization.EnumMember]
+        Off,
+        [System.Runtime.Serialization.EnumMember]
+        Short,
+        [System.Runtime.Serialization.EnumMember]
+        Long,
     }
 }

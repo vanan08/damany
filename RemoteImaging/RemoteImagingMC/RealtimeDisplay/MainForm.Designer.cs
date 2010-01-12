@@ -61,7 +61,7 @@
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panelControl2 = new DevExpress.XtraEditors.PanelControl();
-            this.cameraTree = new System.Windows.Forms.TreeView();
+            this.hostsTree = new System.Windows.Forms.TreeView();
             this.panelControl4 = new DevExpress.XtraEditors.PanelControl();
             this.labelControl3 = new DevExpress.XtraEditors.LabelControl();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -77,7 +77,6 @@
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
-            this.splitterItem2 = new DevExpress.XtraLayout.SplitterItem();
             this.splitterItem1 = new DevExpress.XtraLayout.SplitterItem();
             this.sanyoNetCamera1 = new Damany.Windows.Form.SanyoNetCamera();
             this.hostConfig1 = new RemoteImaging.Forms.HostConfig();
@@ -109,7 +108,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.splitterItem2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitterItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
@@ -400,7 +398,7 @@
             // splitContainer1
             // 
             this.splitContainer1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.splitContainer1.Location = new System.Drawing.Point(13, 7);
+            this.splitContainer1.Location = new System.Drawing.Point(7, 7);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -412,36 +410,36 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.tabControl1);
             this.splitContainer1.Panel2.Controls.Add(this.panelControl3);
-            this.splitContainer1.Size = new System.Drawing.Size(188, 477);
+            this.splitContainer1.Size = new System.Drawing.Size(194, 477);
             this.splitContainer1.SplitterDistance = 224;
             this.splitContainer1.TabIndex = 12;
             // 
             // panelControl2
             // 
             this.panelControl2.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.panelControl2.Controls.Add(this.cameraTree);
+            this.panelControl2.Controls.Add(this.hostsTree);
             this.panelControl2.Controls.Add(this.panelControl4);
             this.panelControl2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelControl2.Location = new System.Drawing.Point(0, 0);
             this.panelControl2.Name = "panelControl2";
-            this.panelControl2.Size = new System.Drawing.Size(184, 220);
+            this.panelControl2.Size = new System.Drawing.Size(190, 220);
             this.panelControl2.TabIndex = 11;
             // 
-            // cameraTree
+            // hostsTree
             // 
-            this.cameraTree.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.cameraTree.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cameraTree.FullRowSelect = true;
-            this.cameraTree.HideSelection = false;
-            this.cameraTree.ImageIndex = 0;
-            this.cameraTree.ImageList = this.cameraImageList;
-            this.cameraTree.Location = new System.Drawing.Point(0, 24);
-            this.cameraTree.Name = "cameraTree";
-            this.cameraTree.SelectedImageIndex = 0;
-            this.cameraTree.Size = new System.Drawing.Size(184, 196);
-            this.cameraTree.TabIndex = 1;
-            this.cameraTree.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.cameraTree_NodeMouseDoubleClick);
-            this.cameraTree.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.cameraTree_NodeMouseClick);
+            this.hostsTree.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.hostsTree.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.hostsTree.FullRowSelect = true;
+            this.hostsTree.HideSelection = false;
+            this.hostsTree.ImageIndex = 0;
+            this.hostsTree.ImageList = this.cameraImageList;
+            this.hostsTree.Location = new System.Drawing.Point(0, 24);
+            this.hostsTree.Name = "hostsTree";
+            this.hostsTree.SelectedImageIndex = 0;
+            this.hostsTree.Size = new System.Drawing.Size(190, 196);
+            this.hostsTree.TabIndex = 1;
+            this.hostsTree.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.cameraTree_NodeMouseDoubleClick);
+            this.hostsTree.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.cameraTree_NodeMouseClick);
             // 
             // panelControl4
             // 
@@ -453,7 +451,7 @@
             this.panelControl4.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelControl4.Location = new System.Drawing.Point(0, 0);
             this.panelControl4.Name = "panelControl4";
-            this.panelControl4.Size = new System.Drawing.Size(184, 24);
+            this.panelControl4.Size = new System.Drawing.Size(190, 24);
             this.panelControl4.TabIndex = 0;
             // 
             // labelControl3
@@ -488,7 +486,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 24);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(184, 221);
+            this.tabControl1.Size = new System.Drawing.Size(190, 221);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
@@ -508,7 +506,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(176, 195);
+            this.tabPage2.Size = new System.Drawing.Size(182, 195);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "摄像头";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -523,7 +521,7 @@
             this.panelControl3.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelControl3.Location = new System.Drawing.Point(0, 0);
             this.panelControl3.Name = "panelControl3";
-            this.panelControl3.Size = new System.Drawing.Size(184, 24);
+            this.panelControl3.Size = new System.Drawing.Size(190, 24);
             this.panelControl3.TabIndex = 1;
             // 
             // labelControl1
@@ -606,7 +604,6 @@
             this.layoutControlGroup1.CustomizationFormText = "Root";
             this.layoutControlGroup1.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlItem5,
-            this.splitterItem2,
             this.layoutControlItem4,
             this.splitterItem1});
             this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
@@ -615,15 +612,6 @@
             this.layoutControlGroup1.Size = new System.Drawing.Size(897, 491);
             this.layoutControlGroup1.Text = "Root";
             this.layoutControlGroup1.TextVisible = false;
-            // 
-            // splitterItem2
-            // 
-            this.splitterItem2.AllowHotTrack = true;
-            this.splitterItem2.ContentVisible = false;
-            this.splitterItem2.CustomizationFormText = "splitterItem2";
-            this.splitterItem2.Location = new System.Drawing.Point(0, 0);
-            this.splitterItem2.Name = "splitterItem2";
-            this.splitterItem2.Size = new System.Drawing.Size(6, 487);
             // 
             // splitterItem1
             // 
@@ -644,16 +632,21 @@
             this.sanyoNetCamera1.Name = "sanyoNetCamera1";
             this.sanyoNetCamera1.ShutterLevel = 0;
             this.sanyoNetCamera1.ShutterMode = Damany.Component.ShutterMode.Short;
-            this.sanyoNetCamera1.Size = new System.Drawing.Size(170, 189);
+            this.sanyoNetCamera1.Size = new System.Drawing.Size(176, 189);
             this.sanyoNetCamera1.TabIndex = 0;
+            this.sanyoNetCamera1.ApplyShutterClick += new System.EventHandler(this.sanyoNetCamera1_ApplyShutterClick);
+            this.sanyoNetCamera1.ApplyIrisClick += new System.EventHandler(this.sanyoNetCamera1_ApplyIrisClick);
+            this.sanyoNetCamera1.ApplyAgcClick += new System.EventHandler(this.sanyoNetCamera1_ApplyAgcClick);
             // 
             // hostConfig1
             // 
             this.hostConfig1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.hostConfig1.HostName = "";
             this.hostConfig1.Location = new System.Drawing.Point(3, 3);
             this.hostConfig1.Name = "hostConfig1";
             this.hostConfig1.Size = new System.Drawing.Size(170, 189);
             this.hostConfig1.TabIndex = 0;
+            this.hostConfig1.ApplyClick += new System.EventHandler(this.hostConfig1_ApplyClick);
             // 
             // layoutControlItem5
             // 
@@ -671,9 +664,9 @@
             // 
             this.layoutControlItem4.Control = this.splitContainer1;
             this.layoutControlItem4.CustomizationFormText = "layoutControlItem4";
-            this.layoutControlItem4.Location = new System.Drawing.Point(6, 0);
+            this.layoutControlItem4.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem4.Name = "layoutControlItem4";
-            this.layoutControlItem4.Size = new System.Drawing.Size(198, 487);
+            this.layoutControlItem4.Size = new System.Drawing.Size(204, 487);
             this.layoutControlItem4.Text = "layoutControlItem4";
             this.layoutControlItem4.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem4.TextToControlDistance = 0;
@@ -725,7 +718,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.splitterItem2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitterItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
@@ -743,7 +735,6 @@
         private DevExpress.XtraEditors.SimpleButton simpleButton1;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem3;
-        private DevExpress.XtraLayout.SplitterItem splitterItem2;
         private DevExpress.XtraEditors.PanelControl panelControl1;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem5;
         private DevExpress.LookAndFeel.DefaultLookAndFeel defaultLookAndFeel1;
@@ -756,7 +747,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TreeView cameraTree;
+        private System.Windows.Forms.TreeView hostsTree;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.ToolStripStatusLabel statusOutputFolder;
         private System.Windows.Forms.ToolStripStatusLabel statusTime;

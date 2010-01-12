@@ -46,10 +46,8 @@ namespace RemoteImaging.Query
 
         private void CreateProxy()
         {
-            string SearchAddress = string.Format("net.tcp://{0}:8000/TcpService", GetSelectedIP());
-            string StreamingAddress = string.Format("net.tcp://{0}:4567/TcpService", GetSelectedIP());
-            StreamServerProxy = ServiceProxy.ProxyFactory.CreateProxy<IStreamPlayer>(StreamingAddress);
-            SearchProxy = ServiceProxy.ProxyFactory.CreateProxy<ISearch>(SearchAddress);
+            StreamServerProxy = ServiceProxy.ProxyFactory.CreatePlayerProxy(GetSelectedIP().ToString());
+            SearchProxy = ServiceProxy.ProxyFactory.CreateSearchProxy(GetSelectedIP().ToString());
         }
 
         private void queryBtn_Click(object sender, EventArgs e)

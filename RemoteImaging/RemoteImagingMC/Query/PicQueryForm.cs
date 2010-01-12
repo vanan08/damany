@@ -153,11 +153,9 @@ namespace RemoteImaging.Query
                 throw new Exception("No camera selected");
             }
 
-            string searchAddress = string.Format("net.tcp://{0}:8000/TcpService", GetSelectedIP());
-            string playerAddress = string.Format("net.tcp://{0}:4567/TcpService", GetSelectedIP());
 
-            this.SearchProxy = ServiceProxy.ProxyFactory.CreateProxy<ISearch>(searchAddress);
-            this.StreamProxy = ServiceProxy.ProxyFactory.CreateProxy<IStreamPlayer>(playerAddress);
+            this.SearchProxy = ServiceProxy.ProxyFactory.CreateSearchProxy(GetSelectedIP().ToString());
+            this.StreamProxy = ServiceProxy.ProxyFactory.CreatePlayerProxy(GetSelectedIP().ToString());
         }
 
 

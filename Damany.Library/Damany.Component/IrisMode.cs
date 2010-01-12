@@ -8,6 +8,10 @@ namespace Damany.Component
     [System.Runtime.Serialization.DataContract]
     public enum IrisMode
     {
-        Auto, Manual,
+        [System.Runtime.Serialization.EnumMember]
+        Auto,
+
+        [System.Runtime.Serialization.EnumMember]
+        Manual,
     }
 }

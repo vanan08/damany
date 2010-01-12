@@ -40,6 +40,7 @@ namespace RemoteImaging
                 if (this.images.Count < 2)
                 {
                     this.images.Enqueue((Image)img.Clone());
+                    System.Diagnostics.Debug.WriteLine("enqueue live image");
                     this.go.Set();
                 }
 
@@ -76,9 +77,13 @@ namespace RemoteImaging
 
                         formatter.Serialize(client.GetStream(), frame);
                         img.Dispose();
+                        System.Diagnostics.Debug.WriteLine("sending live img");
                     }
                     else
+                    {
+                        System.Diagnostics.Debug.WriteLine("zzz...");
                         go.WaitOne();
+                    }
                 }
             }
             catch (System.Net.Sockets.SocketException ex)

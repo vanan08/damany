@@ -81,7 +81,7 @@ namespace RemoteImaging.RealtimeDisplay
         //动态 更新 Tree的方法
         private void SetTreeNode()
         {
-            this.cameraTree.Nodes.Clear();
+            this.hostsTree.Nodes.Clear();
 
             TreeNode rootNode = new TreeNode()
             {
@@ -149,55 +149,53 @@ namespace RemoteImaging.RealtimeDisplay
 
             });
 
-            this.cameraTree.Nodes.Add(rootNode);
+            this.hostsTree.Nodes.Add(rootNode);
 
-            this.cameraTree.ExpandAll();
+            this.hostsTree.ExpandAll();
         }
 
 
 
         Camera allCamera = new Camera() { ID = -1 };
 
-        private TreeNode getTopCamera(TreeNode node)
+        private TreeNode GetTopLevelNode(TreeNode childNode)
         {
-            if (node.Parent == null) return node;
+            if (childNode == null)
+                throw new ArgumentNullException("childNode", "childNode is null.");
 
-            while (node.Tag == null || !(node.Tag is Camera))
+            if (childNode.Parent == null) return childNode;
+
+            TreeNode node = childNode;
+            while (true)
             {
+                if (node.Parent == null)
+                {
+                    return node.Parent;
+                }
                 node = node.Parent;
             }
-            return node;
+
         }
 
-        private Camera getSelCamera()
+        private Host GetSelectedHost()
         {
-            if (this.cameraTree.SelectedNode == null
-                || this.cameraTree.SelectedNode.Level == 0)
+            if (this.hostsTree.SelectedNode == null)
             {
-                return allCamera;
+                return null;
             }
 
-            TreeNode nd = getTopCamera(this.cameraTree.SelectedNode);
-            return nd.Tag as Camera;
+            TreeNode nd = GetTopLevelNode(this.hostsTree.SelectedNode);
+            return nd.Tag as Host;
         }
 
 
         #region IImageScreen Members
 
-        public Camera SelectedCamera
+        public Host SelectedHost
         {
             get
             {
-                if (this.InvokeRequired)
-                {
-                    System.Func<Camera> func = this.getSelCamera;
-                    return this.Invoke(func) as Camera;
-                }
-                else
-                {
-                    return getSelCamera();
-                }
-
+                return this.GetSelectedHost();
             }
 
         }
@@ -256,7 +254,7 @@ namespace RemoteImaging.RealtimeDisplay
         {
             set
             {
-                this.cameraTree.Nodes.Clear();
+                this.hostsTree.Nodes.Clear();
 
                 TreeNode rootNode = new TreeNode()
                 {
@@ -323,9 +321,9 @@ namespace RemoteImaging.RealtimeDisplay
 
                 });
 
-                this.cameraTree.Nodes.Add(rootNode);
+                this.hostsTree.Nodes.Add(rootNode);
 
-                this.cameraTree.ExpandAll();
+                this.hostsTree.ExpandAll();
             }
         }
 
@@ -657,12 +655,12 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void SetupCameraToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (this.cameraTree.SelectedNode == null) return;
+            if (this.hostsTree.SelectedNode == null) return;
 
-            Action<string> setupCamera = this.cameraTree.SelectedNode.Tag as Action<string>;
+            Action<string> setupCamera = this.hostsTree.SelectedNode.Tag as Action<string>;
             if (setupCamera == null) return;
 
-            Camera cam = this.getTopCamera(this.cameraTree.SelectedNode).Tag as Camera;
+            Camera cam = this.GetTopLevelNode(this.hostsTree.SelectedNode).Tag as Camera;
             setupCamera(cam.IpAddress);
         }
 
@@ -692,7 +690,7 @@ namespace RemoteImaging.RealtimeDisplay
             this.squareViewContextMenu.Items.Clear();
             Cell c = this.squareListView1.SelectedCell;
 
-            foreach (TreeNode node in this.cameraTree.Nodes)
+            foreach (TreeNode node in this.hostsTree.Nodes)
             {
                 var host = node.Tag as Host;
 
@@ -838,7 +836,7 @@ namespace RemoteImaging.RealtimeDisplay
 
             item.ExpandAll();
 
-            this.cameraTree.Nodes.Add(item);
+            this.hostsTree.Nodes.Add(item);
 
         }
 
@@ -857,7 +855,7 @@ namespace RemoteImaging.RealtimeDisplay
 
         public void UpdateHost(Host h)
         {
-            var nodes = from TreeNode n in this.cameraTree.Nodes
+            var nodes = from TreeNode n in this.hostsTree.Nodes
                         where n.Tag == h
                         select n;
 
@@ -869,7 +867,7 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void testButton_Click(object sender, EventArgs e)
         {
-            this.cameraTree.Nodes.Clear();
+            this.hostsTree.Nodes.Clear();
 
             var cfg = new HostConfiguration(0);
             cfg.CameraID = 2;
@@ -907,9 +905,73 @@ namespace RemoteImaging.RealtimeDisplay
            
             
         }
+
         private void propertyToolBar_Click(object sender, EventArgs e)
         {
              this.HidePropertyForm( !this.splitContainer1.Panel2Collapsed );
+        }
+
+        private void hostConfig1_ApplyClick(object sender, EventArgs e)
+        {
+            var host = this.SelectedHost;
+            if (host == null)
+            {
+                return;
+            }
+
+            Gateways.HostConfig.SetHostName(host.Ip, hostConfig1.HostName);
+
+        }
+
+        private void ShowInformationBox(string msg)
+        {
+		        MessageBox.Show(this, msg, this.Text,
+		                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+
+        private bool MakeSureHostIsSelected()
+        {
+            if (this.SelectedHost == null)
+            {
+                ShowInformationBox("请选择一台主机");
+                return true;
+            }
+
+            return false;
+        }
+
+
+        private void sanyoNetCamera1_ApplyIrisClick(object sender, EventArgs e)
+        {
+            bool shouldReturn = MakeSureHostIsSelected();
+            if (shouldReturn) return;
+
+
+            Gateways.CameraConfig.SetIris(this.SelectedHost.Ip, 
+                this.sanyoNetCamera1.IrisMode, 
+                this.sanyoNetCamera1.IrisLevel);
+
+        }
+
+        private void sanyoNetCamera1_ApplyAgcClick(object sender, EventArgs e)
+        {
+            bool shouldReturn = MakeSureHostIsSelected();
+            if (shouldReturn) return;
+
+            Gateways.CameraConfig.SetAgc(this.SelectedHost.Ip, 
+                this.sanyoNetCamera1.AgcEnabled, 
+                this.sanyoNetCamera1.DigitalGainEnabled);
+        }
+
+        private void sanyoNetCamera1_ApplyShutterClick(object sender, EventArgs e)
+        {
+            bool shouldReturn = MakeSureHostIsSelected();
+            if (shouldReturn) return;
+
+            Gateways.CameraConfig.SetShutter(this.SelectedHost.Ip,
+                this.sanyoNetCamera1.ShutterMode,
+                this.sanyoNetCamera1.ShutterLevel);
         }
     }
 

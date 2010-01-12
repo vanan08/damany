@@ -10,7 +10,7 @@ namespace RemoteImaging.RealtimeDisplay
     {
         Camera[] Cameras { set; }
 
-        Camera SelectedCamera
+        Host SelectedHost
         {
             get;
         }

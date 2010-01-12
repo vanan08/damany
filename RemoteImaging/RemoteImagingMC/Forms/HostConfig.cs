@@ -15,5 +15,31 @@ namespace RemoteImaging.Forms
         {
             InitializeComponent();
         }
+
+
+        public string HostName
+        {
+            get
+            {
+                return this.hostName.Text;
+            }
+            set
+            {
+                this.hostName.Text = value;
+            }
+        }
+
+
+        public event EventHandler ApplyClick
+        {
+            add
+            {
+                this.applyButton.Click += value;
+            }
+            remove
+            {
+                this.applyButton.Click -= value;
+            }
+        }
     }
 }
