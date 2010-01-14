@@ -109,7 +109,6 @@ namespace RemoteImaging.RealtimeDisplay
             worker.WorkerReportsProgress = true;
             worker.DoWork += worker_DoWork;
 
-            this.timer.
             this.timer.Interval = 1000 / int.Parse(Properties.Settings.Default.FPs);
             this.timer.Elapsed += new System.Timers.ElapsedEventHandler(timer_Elapsed);
 
