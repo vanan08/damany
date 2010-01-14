@@ -109,6 +109,7 @@ namespace RemoteImaging.RealtimeDisplay
             worker.WorkerReportsProgress = true;
             worker.DoWork += worker_DoWork;
 
+            this.timer.
             this.timer.Interval = 1000 / int.Parse(Properties.Settings.Default.FPs);
             this.timer.Elapsed += new System.Timers.ElapsedEventHandler(timer_Elapsed);
 
@@ -167,8 +168,9 @@ namespace RemoteImaging.RealtimeDisplay
 
         void videoFileCheckTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
-            DateTime time = DateTime.Now.AddMinutes(-2);
             if (Properties.Settings.Default.KeepMotionLessVideo) return;
+
+            DateTime time = DateTime.Now.AddMinutes(-2);
 
             if (!FileSystemStorage.MotionImagesCapturedWhen(2, time))
                 FileSystemStorage.DeleteVideoFileAt(time);
