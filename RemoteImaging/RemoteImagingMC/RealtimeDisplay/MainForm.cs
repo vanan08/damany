@@ -22,6 +22,7 @@ using RemoteImaging.Query;
 using System.Net.Sockets;
 using Damany.RemoteImaging.Common;
 using Microsoft.Practices.EnterpriseLibrary.Security;
+using Microsoft.Practices.EnterpriseLibrary.ExceptionHandling;
 
 namespace RemoteImaging.RealtimeDisplay
 {
@@ -867,25 +868,8 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void testButton_Click(object sender, EventArgs e)
         {
-            this.hostsTree.Nodes.Clear();
-
-            var cfg = new HostConfiguration(0);
-            cfg.CameraID = 2;
-            cfg.Name = "南门";
-
-            var host = new Host();
-            host.Config = cfg;
-            host.Ip = System.Net.IPAddress.Loopback;
-            host.Status = HostStatus.OnLine;
-            host.LastSeen = DateTime.Now;
-
-            this.AddHost(host);
-
-
-            cfg.Name = "Hack";
-            host.Status = HostStatus.OffLine;
-
-            this.UpdateHost(host);
+            throw new Exception("abc");
+            
         }
 
         HostsPool hostsPool;

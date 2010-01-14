@@ -29,6 +29,10 @@ namespace RemoteImaging
         [STAThread]
         static void Main(string[] argv)
         {
+            AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
+            Application.SetUnhandledExceptionMode(UnhandledExceptionMode.ThrowException);
+
+
             faceSearch = new FaceSearchWrapper.FaceSearch();
             motionDetector = new MotionDetectWrapper.MotionDetector();
             ImageSampleCount = System.IO.Directory.GetFiles(Properties.Settings.Default.FaceSampleLib, "*.jpg").Length;
@@ -61,6 +65,23 @@ namespace RemoteImaging
              
             Application.Run(new MainForm());
 
+        }
+
+        static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            try
+            {
+                Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicy.HandleException(
+                   e.ExceptionObject as Exception, Constants.ExceptionHandlingLogging
+                   );
+
+            }
+            finally
+            {
+                Application.Exit();
+            }
+            
+            
         }
 
 

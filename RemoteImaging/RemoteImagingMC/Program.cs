@@ -7,6 +7,7 @@ using Damany.RemoteImaging.Common.Forms;
 using Damany.Security.UsersAdmin;
 using System.IO;
 using System.Security.Principal;
+using Microsoft.Practices.EnterpriseLibrary.ExceptionHandling;
 
 
 namespace RemoteImaging
@@ -29,6 +30,10 @@ namespace RemoteImaging
         [STAThread]
         static void Main(string[] argv)
         {
+            AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
+            Application.SetUnhandledExceptionMode(UnhandledExceptionMode.ThrowException);
+
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
@@ -87,6 +92,19 @@ namespace RemoteImaging
 
             Application.Run(mainForm);
 
+        }
+
+        static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            try
+            {
+                ExceptionPolicy.HandleException((Exception)e.ExceptionObject, Constants.ExceptionPolicyLogging);
+            }
+            finally
+            {
+                Application.Exit();
+            }
+            
         }
 
         static void log_LabelClicked(object sender, EventArgs e)
