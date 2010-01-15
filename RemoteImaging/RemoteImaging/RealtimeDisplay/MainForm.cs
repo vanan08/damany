@@ -13,6 +13,7 @@ using Damany.Component;
 using System.Threading;
 using RemoteImaging.ImportPersonCompare;
 using RemoteImaging.Query;
+using Microsoft.Practices.EnterpriseLibrary.ExceptionHandling;
 
 namespace RemoteImaging.RealtimeDisplay
 {
@@ -983,9 +984,13 @@ namespace RemoteImaging.RealtimeDisplay
                         {
                             FileSystemStorage.DeleteMostOutDatedDataForDay(1);
                         }
-                        catch (System.IO.IOException)
+                        catch (System.IO.IOException ex)
                         {
-                        	
+                        	bool rethrow = ExceptionPolicy.HandleException(ex, Constants.ExceptionHandlingLogging);
+                            if (rethrow)
+                            {
+                                throw;
+                            }
                         }
                         finally
                         {

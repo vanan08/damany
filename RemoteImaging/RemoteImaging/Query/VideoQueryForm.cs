@@ -9,6 +9,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using RemoteImaging.Core;
+using Microsoft.Practices.EnterpriseLibrary.ExceptionHandling;
 
 namespace RemoteImaging.Query
 {
@@ -161,7 +162,23 @@ namespace RemoteImaging.Query
 
             for (int i = 0; i < fileArr.Length; ++i)
             {
-                this.imageListFace.Images.Add(Image.FromFile(fileArr[i]));
+                Image img = null;
+                try
+                {
+                    img = Image.FromFile(fileArr[i]);
+                }
+                catch (System.Exception ex)
+                {
+                    bool rethrow = ExceptionPolicy.HandleException(ex, Constants.ExceptionHandlingLogging);
+                    if (rethrow)
+                    {
+                        throw;
+                    }
+
+                    continue;
+                }
+
+                this.imageListFace.Images.Add(img);
                 string text = System.IO.Path.GetFileName(fileArr[i]);
                 ListViewItem item = new ListViewItem()
                 {

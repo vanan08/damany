@@ -14,6 +14,7 @@ using System.Linq;
 using SuspectsRepository;
 using System.Net.Sockets;
 using System.Windows.Forms;
+using Microsoft.Practices.EnterpriseLibrary.ExceptionHandling;
 
 
 namespace RemoteImaging.RealtimeDisplay
@@ -274,10 +275,13 @@ namespace RemoteImaging.RealtimeDisplay
                 MemoryStream memStream = new MemoryStream(image);
                 bmp = (Bitmap)Image.FromStream(memStream);
             }
-            catch (System.ArgumentException)//图片格式出错
+            catch (System.ArgumentException ex)//图片格式出错
             {
-                MessageBox.Show("获取摄像头图片错误");
-                return;
+                bool rethrow = ExceptionPolicy.HandleException(ex, Constants.ExceptionHandlingWrap);
+                if (rethrow)
+                {
+                    throw;
+                }
             }
 
 
@@ -351,7 +355,19 @@ namespace RemoteImaging.RealtimeDisplay
                     }
                     else
                     {
-                        FileSystemStorage.SaveFrame(lastFrame);
+                        try
+                        {
+                            FileSystemStorage.SaveFrame(lastFrame);
+                        }
+                        catch (System.IO.IOException ex)
+                        {
+                            bool rethrow = ExceptionPolicy.HandleException(ex, Constants.ExceptionHandlingLogging);
+                            if (rethrow)
+                            {
+                                throw;
+                            }
+                        }
+                        
                         motionFrames.Enqueue(lastFrame);
                     }
 
@@ -455,7 +471,19 @@ namespace RemoteImaging.RealtimeDisplay
                 for (int j = 0; j < t.Faces.Length; ++j)
                 {
                     string facePath = FileSystemStorage.PathForFaceImage(frame, j);
-                    t.Faces[j].SaveImage(facePath);
+                    try
+                    {
+                        t.Faces[j].SaveImage(facePath);
+                    }
+                    catch (System.IO.IOException ex)
+                    {
+                        bool rethrow = ExceptionPolicy.HandleException(ex, Constants.ExceptionHandlingLogging);
+                        if (rethrow)
+                        {
+                            throw;
+                        }
+                    }
+                    
                     imgs.Add(ImageDetail.FromPath(facePath));
                 }
 
