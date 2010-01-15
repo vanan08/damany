@@ -54,6 +54,10 @@ namespace RemoteImaging
         }
 
 
+        private void TearDown()
+        {
+            this.host.ImageCaptured -= this.host_ImageCaptured;
+        }
         public void DoSend(object state)
         {
             try
@@ -88,7 +92,12 @@ namespace RemoteImaging
             }
             catch (System.Net.Sockets.SocketException ex)
             {
-                this.host.ImageCaptured -= this.host_ImageCaptured;
+                this.TearDown();
+                return;
+            }
+            catch (System.IO.IOException ex)
+            {
+                this.TearDown();
                 return;
             }
                 
