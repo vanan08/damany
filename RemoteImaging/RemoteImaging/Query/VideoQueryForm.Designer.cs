@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VideoQueryForm));
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.searchType = new System.Windows.Forms.ComboBox();
             this.queryBtn = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -51,7 +52,6 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.axVLCPlugin21 = new AxAXVLC.AxVLCPlugin2();
-            this.searchType = new System.Windows.Forms.ComboBox();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.timeEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.timeEdit2.Properties)).BeginInit();
@@ -84,6 +84,15 @@
             this.groupBox3.TabIndex = 20;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "查询条件";
+            // 
+            // searchType
+            // 
+            this.searchType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.searchType.FormattingEnabled = true;
+            this.searchType.Location = new System.Drawing.Point(397, 22);
+            this.searchType.Name = "searchType";
+            this.searchType.Size = new System.Drawing.Size(129, 20);
+            this.searchType.TabIndex = 20;
             // 
             // queryBtn
             // 
@@ -290,15 +299,6 @@
             this.axVLCPlugin21.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axVLCPlugin21.OcxState")));
             this.axVLCPlugin21.Size = new System.Drawing.Size(746, 372);
             this.axVLCPlugin21.TabIndex = 30;
-            // 
-            // searchType
-            // 
-            this.searchType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.searchType.FormattingEnabled = true;
-            this.searchType.Location = new System.Drawing.Point(397, 22);
-            this.searchType.Name = "searchType";
-            this.searchType.Size = new System.Drawing.Size(129, 20);
-            this.searchType.TabIndex = 20;
             // 
             // VideoQueryForm
             // 

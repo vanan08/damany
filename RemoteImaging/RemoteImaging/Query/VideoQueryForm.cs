@@ -29,7 +29,7 @@ namespace RemoteImaging.Query
         private void PopulateSearchScope()
         {
             var searchTypes = new List<SearchCategory>();
-            searchTypes.Add( new SearchCategory{ Name = "全部",  Scope= SearchScope.VideoWithFaces | SearchScope.VideoWithoutFaces }  );
+            searchTypes.Add( new SearchCategory{ Name = "全部",  Scope= SearchScope.All }  );
             searchTypes.Add( new SearchCategory{ Name = "有效视频",  Scope= SearchScope.VideoWithFaces } );
             searchTypes.Add( new SearchCategory{ Name = "无效视频",  Scope= SearchScope.VideoWithoutFaces } );
 
@@ -204,10 +204,11 @@ namespace RemoteImaging.Query
         }
 
         [Flags]
-        internal enum SearchScope
+        internal enum SearchScope : byte
         {
             VideoWithFaces = 1,
             VideoWithoutFaces = 2,
+            All = byte.MaxValue,
         }
 
         internal class SearchCategory
