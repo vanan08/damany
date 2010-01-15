@@ -21,8 +21,23 @@ namespace RemoteImaging.Query
             {
                 this.comboBox1.Items.Add(camera.ID.ToString());
             }
+
+            PopulateSearchScope();
             setListViewColumns();
         }
+
+        private void PopulateSearchScope()
+        {
+            var searchTypes = new List<SearchCategory>();
+            searchTypes.Add( new SearchCategory{ Name = "全部",  Scope= SearchScope.VideoWithFaces | SearchScope.VideoWithoutFaces }  );
+            searchTypes.Add( new SearchCategory{ Name = "有效视频",  Scope= SearchScope.VideoWithFaces } );
+            searchTypes.Add( new SearchCategory{ Name = "无效视频",  Scope= SearchScope.VideoWithoutFaces } );
+
+            this.searchType.DataSource = searchTypes;
+            this.searchType.DisplayMember = "Name";
+            this.searchType.ValueMember = "Scope";
+        }
+
 
         private void queryBtn_Click(object sender, EventArgs e)
         {
@@ -72,7 +87,8 @@ namespace RemoteImaging.Query
                 lvl.SubItems.Add(videoPath);
                 lvl.Tag = videoPath;
 
-                if (faceCapturedVideoRadioButton.Checked == true)
+                if ( ((SearchScope) this.searchType.SelectedValue & SearchScope.VideoWithFaces) 
+                      == SearchScope.VideoWithFaces )
                 {
                     if (v.HasFaceCaptured)
                     {
@@ -80,15 +96,17 @@ namespace RemoteImaging.Query
                         videoList.Items.Add(lvl);
                     }
                 }
-
-                if (AllVideoTypeRadioButton.Checked == true)
+                
+                if ( ((SearchScope) this.searchType.SelectedValue & SearchScope.VideoWithoutFaces) 
+                      == SearchScope.VideoWithoutFaces)
                 {
-                    if (v.HasFaceCaptured)
-                        lvl.ImageIndex = 0;
-                    else
+                    if (!v.HasFaceCaptured)
+                    {
                         lvl.ImageIndex = 1;
-                    videoList.Items.Add(lvl);
+                        videoList.Items.Add(lvl);
+                    }
                 }
+
 
 
             }
@@ -98,13 +116,12 @@ namespace RemoteImaging.Query
         {
             videoList.Columns.Add("抓拍时间", 150);
             videoList.Columns.Add("视频文件", 150);
-            faceCapturedVideoRadioButton.Checked = true;
         }
 
         private void cancelBtn_Click(object sender, EventArgs e)
         {
             this.picList.Clear();
-            this.imageList1.Images.Clear();
+            this.imageListFace.Images.Clear();
             this.Close();
         }
 
@@ -134,7 +151,7 @@ namespace RemoteImaging.Query
         void bindPiclist()
         {
             this.picList.Clear();
-            this.imageList1.Images.Clear();
+            this.imageListFace.Images.Clear();
 
             DateTime time = ImageSearch.getDateTimeStr(videoList.FocusedItem.Tag as string);
             int cameID = int.Parse(this.comboBox1.Text);
@@ -144,7 +161,7 @@ namespace RemoteImaging.Query
 
             for (int i = 0; i < fileArr.Length; ++i)
             {
-                this.imageList1.Images.Add(Image.FromFile(fileArr[i]));
+                this.imageListFace.Images.Add(Image.FromFile(fileArr[i]));
                 string text = System.IO.Path.GetFileName(fileArr[i]);
                 ListViewItem item = new ListViewItem()
                 {
@@ -157,7 +174,7 @@ namespace RemoteImaging.Query
             this.picList.Scrollable = true;
             this.picList.MultiSelect = false;
             this.picList.View = View.LargeIcon;
-            this.picList.LargeImageList = imageList1;
+            this.picList.LargeImageList = imageListFace;
         }
 
         #endregion
@@ -184,6 +201,19 @@ namespace RemoteImaging.Query
             detail.Img = img;
             detail.ShowDialog(this);
             detail.Dispose();
+        }
+
+        [Flags]
+        internal enum SearchScope
+        {
+            VideoWithFaces = 1,
+            VideoWithoutFaces = 2,
+        }
+
+        internal class SearchCategory
+        {
+            public string Name { get; set; }
+            public SearchScope Scope { get; set; }
         }
     }
 }

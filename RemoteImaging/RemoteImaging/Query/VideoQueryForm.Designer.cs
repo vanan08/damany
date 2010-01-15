@@ -31,8 +31,6 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VideoQueryForm));
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.AllVideoTypeRadioButton = new System.Windows.Forms.RadioButton();
-            this.faceCapturedVideoRadioButton = new System.Windows.Forms.RadioButton();
             this.queryBtn = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -43,9 +41,9 @@
             this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
             this.timeEdit1 = new DevExpress.XtraEditors.TimeEdit();
             this.timeEdit2 = new DevExpress.XtraEditors.TimeEdit();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.imageListFace = new System.Windows.Forms.ImageList(this.components);
             this.videoList = new System.Windows.Forms.ListView();
-            this.imageList2 = new System.Windows.Forms.ImageList(this.components);
+            this.imageListIcon = new System.Windows.Forms.ImageList(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.picList = new System.Windows.Forms.ListView();
             this.label5 = new System.Windows.Forms.Label();
@@ -53,6 +51,7 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.axVLCPlugin21 = new AxAXVLC.AxVLCPlugin2();
+            this.searchType = new System.Windows.Forms.ComboBox();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.timeEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.timeEdit2.Properties)).BeginInit();
@@ -67,8 +66,7 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.AllVideoTypeRadioButton);
-            this.groupBox3.Controls.Add(this.faceCapturedVideoRadioButton);
+            this.groupBox3.Controls.Add(this.searchType);
             this.groupBox3.Controls.Add(this.queryBtn);
             this.groupBox3.Controls.Add(this.label7);
             this.groupBox3.Controls.Add(this.label4);
@@ -86,28 +84,6 @@
             this.groupBox3.TabIndex = 20;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "查询条件";
-            // 
-            // AllVideoTypeRadioButton
-            // 
-            this.AllVideoTypeRadioButton.AutoSize = true;
-            this.AllVideoTypeRadioButton.Location = new System.Drawing.Point(532, 24);
-            this.AllVideoTypeRadioButton.Name = "AllVideoTypeRadioButton";
-            this.AllVideoTypeRadioButton.Size = new System.Drawing.Size(71, 16);
-            this.AllVideoTypeRadioButton.TabIndex = 12;
-            this.AllVideoTypeRadioButton.TabStop = true;
-            this.AllVideoTypeRadioButton.Text = "全部查询";
-            this.AllVideoTypeRadioButton.UseVisualStyleBackColor = true;
-            // 
-            // faceCapturedVideoRadioButton
-            // 
-            this.faceCapturedVideoRadioButton.AutoSize = true;
-            this.faceCapturedVideoRadioButton.Location = new System.Drawing.Point(397, 24);
-            this.faceCapturedVideoRadioButton.Name = "faceCapturedVideoRadioButton";
-            this.faceCapturedVideoRadioButton.Size = new System.Drawing.Size(95, 16);
-            this.faceCapturedVideoRadioButton.TabIndex = 11;
-            this.faceCapturedVideoRadioButton.TabStop = true;
-            this.faceCapturedVideoRadioButton.Text = "查询有效视频";
-            this.faceCapturedVideoRadioButton.UseVisualStyleBackColor = true;
             // 
             // queryBtn
             // 
@@ -198,11 +174,11 @@
             this.timeEdit2.Size = new System.Drawing.Size(96, 23);
             this.timeEdit2.TabIndex = 8;
             // 
-            // imageList1
+            // imageListFace
             // 
-            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
-            this.imageList1.ImageSize = new System.Drawing.Size(80, 60);
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageListFace.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
+            this.imageListFace.ImageSize = new System.Drawing.Size(80, 60);
+            this.imageListFace.TransparentColor = System.Drawing.Color.Transparent;
             // 
             // videoList
             // 
@@ -213,18 +189,18 @@
             this.videoList.Location = new System.Drawing.Point(0, 12);
             this.videoList.Name = "videoList";
             this.videoList.Size = new System.Drawing.Size(154, 504);
-            this.videoList.SmallImageList = this.imageList2;
+            this.videoList.SmallImageList = this.imageListIcon;
             this.videoList.TabIndex = 25;
             this.videoList.UseCompatibleStateImageBehavior = false;
             this.videoList.View = System.Windows.Forms.View.Details;
             this.videoList.ItemActivate += new System.EventHandler(this.videoList_ItemActivate);
             // 
-            // imageList2
+            // imageListIcon
             // 
-            this.imageList2.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList2.ImageStream")));
-            this.imageList2.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList2.Images.SetKeyName(0, "png-0005.png");
-            this.imageList2.Images.SetKeyName(1, "png-0652.png");
+            this.imageListIcon.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageListIcon.ImageStream")));
+            this.imageListIcon.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageListIcon.Images.SetKeyName(0, "png-0005.png");
+            this.imageListIcon.Images.SetKeyName(1, "png-0652.png");
             // 
             // label1
             // 
@@ -315,6 +291,15 @@
             this.axVLCPlugin21.Size = new System.Drawing.Size(746, 372);
             this.axVLCPlugin21.TabIndex = 30;
             // 
+            // searchType
+            // 
+            this.searchType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.searchType.FormattingEnabled = true;
+            this.searchType.Location = new System.Drawing.Point(397, 22);
+            this.searchType.Name = "searchType";
+            this.searchType.Size = new System.Drawing.Size(129, 20);
+            this.searchType.TabIndex = 20;
+            // 
             // VideoQueryForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -358,19 +343,18 @@
         private DevExpress.XtraEditors.TimeEdit timeEdit1;
         private DevExpress.XtraEditors.TimeEdit timeEdit2;
         private System.Windows.Forms.Button queryBtn;
-        private System.Windows.Forms.ImageList imageList1;
+        private System.Windows.Forms.ImageList imageListFace;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ListView videoList;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ListView picList;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.ImageList imageList2;
-        private System.Windows.Forms.RadioButton AllVideoTypeRadioButton;
-        private System.Windows.Forms.RadioButton faceCapturedVideoRadioButton;
+        private System.Windows.Forms.ImageList imageListIcon;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.SplitContainer splitContainer2;
         private AxAXVLC.AxVLCPlugin2 axVLCPlugin21;
+        private System.Windows.Forms.ComboBox searchType;
     }
 }
