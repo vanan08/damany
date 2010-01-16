@@ -1,28 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemoteImaging", "RemoteImaging\RemoteImaging.csproj", "{E0F855A2-D8FA-4D2F-9645-C6E8DE8AACD4}"
-	GlobalSection(MercurialSourceControlSolutionProperties) = preSolution
-		SolutionIsControlled = True
-		SolutionBindings = <Solution Location In Database>
-	EndGlobalSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0AD5B1FD-D3F1-45D6-B054-FD2ABA085E4F}"
-	GlobalSection(MercurialSourceControlSolutionProperties) = preSolution
-		SolutionIsControlled = True
-		SolutionBindings = <Solution Location In Database>
-	EndGlobalSection
-	ProjectSection(SolutionItems) = preProject
-		LocalTestRun.testrunconfig = LocalTestRun.testrunconfig
-		RemoteImaging.vsmdi = RemoteImaging.vsmdi
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemoteControlService", "RemoteControlService\RemoteControlService.csproj", "{3F01A85F-C1C4-4060-AA37-57AB6F0C90AB}"
-	GlobalSection(MercurialSourceControlSolutionProperties) = preSolution
-		SolutionIsControlled = True
-		SolutionBindings = <Solution Location In Database>
-	EndGlobalSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemoteImagingMC", "RemoteImagingMC\RemoteImagingMC.csproj", "{0C349962-22C7-4880-8D91-AFF6DADD0173}"
 	GlobalSection(MercurialSourceControlSolutionProperties) = preSolution
 		SolutionIsControlled = True
@@ -115,24 +93,6 @@ Global
 		Release|Win32 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{E0F855A2-D8FA-4D2F-9645-C6E8DE8AACD4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E0F855A2-D8FA-4D2F-9645-C6E8DE8AACD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E0F855A2-D8FA-4D2F-9645-C6E8DE8AACD4}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{E0F855A2-D8FA-4D2F-9645-C6E8DE8AACD4}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{E0F855A2-D8FA-4D2F-9645-C6E8DE8AACD4}.Debug|Win32.ActiveCfg = Debug|Any CPU
-		{E0F855A2-D8FA-4D2F-9645-C6E8DE8AACD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E0F855A2-D8FA-4D2F-9645-C6E8DE8AACD4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E0F855A2-D8FA-4D2F-9645-C6E8DE8AACD4}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{E0F855A2-D8FA-4D2F-9645-C6E8DE8AACD4}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{E0F855A2-D8FA-4D2F-9645-C6E8DE8AACD4}.Release|Win32.ActiveCfg = Release|Any CPU
-		{3F01A85F-C1C4-4060-AA37-57AB6F0C90AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3F01A85F-C1C4-4060-AA37-57AB6F0C90AB}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{3F01A85F-C1C4-4060-AA37-57AB6F0C90AB}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{3F01A85F-C1C4-4060-AA37-57AB6F0C90AB}.Debug|Win32.ActiveCfg = Debug|Any CPU
-		{3F01A85F-C1C4-4060-AA37-57AB6F0C90AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3F01A85F-C1C4-4060-AA37-57AB6F0C90AB}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{3F01A85F-C1C4-4060-AA37-57AB6F0C90AB}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{3F01A85F-C1C4-4060-AA37-57AB6F0C90AB}.Release|Win32.ActiveCfg = Release|Any CPU
 		{0C349962-22C7-4880-8D91-AFF6DADD0173}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0C349962-22C7-4880-8D91-AFF6DADD0173}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
 		{0C349962-22C7-4880-8D91-AFF6DADD0173}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
