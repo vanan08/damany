@@ -24,11 +24,8 @@ namespace RemoteImaging.Query
         int lastSpotID = 0;
         DateTime lastBeginTime = DateTime.Now;
         DateTime lastEndTime = DateTime.Now;
-        RemoteControlService.ISearch SearchProxy;
-        RemoteControlService.IStreamPlayer StreamProxy;
 
         private HostsPool hosts;
-
 
         public PicQueryForm()
         {
@@ -79,16 +76,11 @@ namespace RemoteImaging.Query
 
                 try
                 {
-                    ip = SearchProxy.GetFace(imagesFound[i]);
+                    ip = Gateways.Search.Instance.GetFace(this.GetSelectedIP(), imagesFound[i]);
                 }
                 catch (System.ServiceModel.CommunicationException)
                 {
                     MessageBox.Show("通讯错误, 请重试");
-                    IChannel ch = SearchProxy as IChannel;
-                    if (ch.State == CommunicationState.Faulted)
-                    {
-                        this.CreateProxy();
-                    }
                     break;
                 }
                 
@@ -144,21 +136,6 @@ namespace RemoteImaging.Query
             return selected.Ip;
         }
 
-        private void CreateProxy()
-        {
-            Host selected = this.comboBox1.SelectedItem as Host;
-
-            if (selected == null)
-            {
-                throw new Exception("No camera selected");
-            }
-
-
-            this.SearchProxy = ServiceProxy.ProxyFactory.CreateSearchProxy(GetSelectedIP().ToString());
-            this.StreamProxy = ServiceProxy.ProxyFactory.CreatePlayerProxy(GetSelectedIP().ToString());
-        }
-
-
         private void queryBtn_Click(object sender, EventArgs e)
         {
             Cursor.Current = Cursors.WaitCursor;
@@ -181,33 +158,13 @@ namespace RemoteImaging.Query
                 return;
             }
 
-            if (StreamProxy != null && isPlaying)
-            {
-                try
-                {
-                    StreamProxy.Stop();
-                    isPlaying = false;
-                }
-                catch (System.ServiceModel.EndpointNotFoundException)
-                {
-                    
-                }
-                
-            }
-
-            CreateProxy();
             try
             {
-                imagesFound = SearchProxy.SearchFaces(2, dateTime1, dateTime2);
+                imagesFound = Gateways.Search.Instance.SearchFaces(this.GetSelectedIP(), 2, dateTime1, dateTime2);
             }
             catch (System.ServiceModel.CommunicationException)
             {
                 MessageBox.Show("通讯错误, 请重试");
-                IChannel ch = SearchProxy as IChannel;
-                if (ch.State == CommunicationState.Faulted)
-                {
-                    this.CreateProxy();
-                }
                 return;
             }
 
@@ -405,7 +362,6 @@ namespace RemoteImaging.Query
             this.axVLCPlugin21.playlist.playItem(idx);
         }
 
-        bool isPlaying = false;
 
         private void ShowErrorMessage()
         {
@@ -415,7 +371,6 @@ namespace RemoteImaging.Query
 
         private void toolStripButtonPlayVideo_Click(object sender, EventArgs e)
         {
-            if (SearchProxy == null) return;
             if (this.bestPicListView.SelectedItems.Count != 1) return;
 
             ImagePair ip = this.bestPicListView.SelectedItems[0].Tag as ImagePair;
@@ -426,16 +381,11 @@ namespace RemoteImaging.Query
 
             try
             {
-                video  = SearchProxy.VideoFilePathRecordedAt(imgInfo.CaptureTime, imgInfo.FromCamera);
+                video  = Gateways.Search.Instance.VideoFilePathRecordedAt( GetSelectedIP(), imgInfo.CaptureTime, imgInfo.FromCamera );
             }
             catch (System.ServiceModel.CommunicationException)
             {
                 ShowErrorMessage();
-                IChannel ch = SearchProxy as IChannel;
-                if (ch.State == CommunicationState.Faulted)
-                {
-                    this.CreateProxy();
-                }
                 return;
             }
 
@@ -451,18 +401,13 @@ namespace RemoteImaging.Query
 
             try
             {
-                StreamProxy.StreamVideo(video);
-                isPlaying = true;
+                Gateways.StreamPlayer.Instance.StreamVideo( GetSelectedIP(), video);
             }
             catch (System.ServiceModel.CommunicationException)
             {
                 this.ShowErrorMessage();
             	
             }
-
-            
-
-            
 
         }
 
@@ -508,18 +453,11 @@ namespace RemoteImaging.Query
                 this.axVLCPlugin21.playlist.stop();
                 System.Threading.Thread.Sleep(1000);
             }
-
-            if (StreamProxy != null && isPlaying)
-            {
-                StreamProxy.Stop();
-            }
-
         }
 
 
         private void PicQueryForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            EnsureClosePlayer();
         }
     }
 }

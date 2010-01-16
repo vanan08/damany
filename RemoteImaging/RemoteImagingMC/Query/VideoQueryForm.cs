@@ -13,6 +13,7 @@ using RemoteControlService;
 using System.Diagnostics;
 using System.ServiceModel.Channels;
 using System.ServiceModel;
+using RemoteImaging.Gateways;
 
 namespace RemoteImaging.Query
 {
@@ -44,11 +45,7 @@ namespace RemoteImaging.Query
             return selected.Ip;
         }
 
-        private void CreateProxy()
-        {
-            StreamServerProxy = ServiceProxy.ProxyFactory.CreatePlayerProxy(GetSelectedIP().ToString());
-            SearchProxy = ServiceProxy.ProxyFactory.CreateSearchProxy(GetSelectedIP().ToString());
-        }
+
 
         private void queryBtn_Click(object sender, EventArgs e)
         {
@@ -92,23 +89,17 @@ namespace RemoteImaging.Query
                 }
             }
 
-            CreateProxy();
             Video[] videos = null;
 
 
 
             try
             {
-                videos = SearchProxy.SearchVideos(2, dateTime1, dateTime2);
+                videos = Search.Instance.SearchVideos(this.GetSelectedIP(), 2, dateTime1, dateTime2);
             }
             catch (System.ServiceModel.CommunicationException)
             {
                 MessageBox.Show("通讯错误, 请重试");
-                IChannel ch = SearchProxy as IChannel;
-                if (ch.State == CommunicationState.Faulted)
-                {
-                    this.CreateProxy();
-                }
 
                 return;
             }
@@ -248,11 +239,6 @@ namespace RemoteImaging.Query
             catch (System.ServiceModel.CommunicationException)
             {
                 MessageBox.Show("通讯错误, 请重试");
-                IChannel ch = SearchProxy as IChannel;
-                if (ch.State == CommunicationState.Faulted)
-                {
-                    this.CreateProxy();
-                }
 
                 return;
             }
@@ -328,7 +314,6 @@ namespace RemoteImaging.Query
 
         private void testButton_Click(object sender, EventArgs e)
         {
-            this.CreateProxy();
 
             var stream = this.SearchProxy.DownloadFile(filePathToDownload.Text, string.Empty);
 
@@ -354,8 +339,6 @@ namespace RemoteImaging.Query
         {
             var bmp = new System.Drawing.Bitmap(30, 30);
             System.Diagnostics.Debug.Assert(bmp is System.Xml.Serialization.IXmlSerializable);
-            
-            this.CreateProxy();
 
             bmp = this.SearchProxy.DownloadBitmap(filePathToDownload.Text);
         }

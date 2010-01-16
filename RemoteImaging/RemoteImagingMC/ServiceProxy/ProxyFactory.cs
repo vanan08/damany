@@ -16,27 +16,27 @@ namespace RemoteImaging.ServiceProxy
         static int playerPort = 4567;
 
 
-        public static ISearch CreateSearchProxy(string ip)
+        public static ISearch CreateSearchProxy(System.Net.IPAddress ip)
         {
             return CreateProxy<ISearch>(ip, searchPort);
         }
 
-        public static IStreamPlayer CreatePlayerProxy(string ip)
+        public static IStreamPlayer CreatePlayerProxy(System.Net.IPAddress ip)
         {
             return CreateProxy<IStreamPlayer>(ip, playerPort);
         }
 
-        public static IConfigHost CreateConfigHostProxy(string ip)
+        public static IConfigHost CreateConfigHostProxy(System.Net.IPAddress ip)
         {
             return CreateProxy<IConfigHost>(ip, configHostPort);
         }
 
-        public static IConfigCamera CreateConfigCameraProxy(string ip)
+        public static IConfigCamera CreateConfigCameraProxy(System.Net.IPAddress ip)
         {
             return CreateProxy<IConfigCamera>(ip, configCameraPort);
         }
 
-        public static TInterface CreateProxy<TInterface>(string ip, int port)
+        public static TInterface CreateProxy<TInterface>(System.Net.IPAddress ip, int port)
         {
             string address = string.Format("net.tcp://{0}:{1}/TcpService", ip, port);
             return CreateProxy<TInterface>(address);

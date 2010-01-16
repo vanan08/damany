@@ -81,11 +81,9 @@ namespace RemoteImaging
 
                         formatter.Serialize(client.GetStream(), frame);
                         img.Dispose();
-                        System.Diagnostics.Debug.WriteLine("sending live img");
                     }
                     else
                     {
-                        System.Diagnostics.Debug.WriteLine("zzz...");
                         go.WaitOne();
                     }
                 }

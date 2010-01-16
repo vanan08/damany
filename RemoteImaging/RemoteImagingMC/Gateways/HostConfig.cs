@@ -7,28 +7,28 @@ using System.ServiceModel;
 
 namespace RemoteImaging.Gateways
 {
-    public class HostConfig
+    public class HostConfig : GateWayBase<IConfigHost>
     {
-        static Dictionary<System.Net.IPAddress, IConfigHost> proxies
-                    = new Dictionary<System.Net.IPAddress, IConfigHost>();
+        public HostConfig():base(ServiceProxy.ProxyFactory.CreateConfigHostProxy) {}
 
-        private static void EnsureProxyCreated(System.Net.IPAddress ip)
+        static HostConfig instance;
+
+        public static HostConfig Instance
         {
-            if (!proxies.ContainsKey(ip))
+            get
             {
-                var proxy = ServiceProxy.ProxyFactory.CreateConfigHostProxy(ip.ToString());
-                proxies.Add(ip, proxy);
+                if (instance == null)
+                {
+                    instance = new HostConfig();
+                }
+
+                return instance;
             }
 
-            var channel = proxies[ip] as System.ServiceModel.Channels.IChannel;
-
-            if (channel.State == CommunicationState.Faulted)
-            {
-                proxies[ip] = ServiceProxy.ProxyFactory.CreateConfigHostProxy(ip.ToString());
-            }
         }
 
-        public static void SetHostName(System.Net.IPAddress ip, string name)
+
+        public void SetHostName(System.Net.IPAddress ip, string name)
         {
             EnsureProxyCreated(ip);
 

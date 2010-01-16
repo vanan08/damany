@@ -903,7 +903,7 @@ namespace RemoteImaging.RealtimeDisplay
                 return;
             }
 
-            Gateways.HostConfig.SetHostName(host.Ip, hostConfig1.HostName);
+            Gateways.HostConfig.Instance.SetHostName(host.Ip, hostConfig1.HostName);
 
         }
 
@@ -932,7 +932,7 @@ namespace RemoteImaging.RealtimeDisplay
             if (shouldReturn) return;
 
 
-            Gateways.CameraConfig.SetIris(this.SelectedHost.Ip, 
+            Gateways.CameraConfig.Instance.SetIris(this.SelectedHost.Ip, 
                 this.sanyoNetCamera1.IrisMode, 
                 this.sanyoNetCamera1.IrisLevel);
 
@@ -943,7 +943,7 @@ namespace RemoteImaging.RealtimeDisplay
             bool shouldReturn = MakeSureHostIsSelected();
             if (shouldReturn) return;
 
-            Gateways.CameraConfig.SetAgc(this.SelectedHost.Ip, 
+            Gateways.CameraConfig.Instance.SetAgc(this.SelectedHost.Ip, 
                 this.sanyoNetCamera1.AgcEnabled, 
                 this.sanyoNetCamera1.DigitalGainEnabled);
         }
@@ -953,7 +953,7 @@ namespace RemoteImaging.RealtimeDisplay
             bool shouldReturn = MakeSureHostIsSelected();
             if (shouldReturn) return;
 
-            Gateways.CameraConfig.SetShutter(this.SelectedHost.Ip,
+            Gateways.CameraConfig.Instance.SetShutter(this.SelectedHost.Ip,
                 this.sanyoNetCamera1.ShutterMode,
                 this.sanyoNetCamera1.ShutterLevel);
         }
