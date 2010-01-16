@@ -16,22 +16,12 @@ namespace RemoteImaging.Query
 {
     public partial class PicQueryForm : Form
     {
-        private string[] imagesFound = new string[0];
-        private int currentPage;
-        private int totalPage;
-        public int PageSize { get; set; }
-
-        int lastSpotID = 0;
-        DateTime lastBeginTime = DateTime.Now;
-        DateTime lastEndTime = DateTime.Now;
 
         private HostsPool hosts;
 
         public PicQueryForm()
         {
             InitializeComponent();
-
-            this.PageSize = 20;
         }
 
         public HostsPool Hosts
@@ -49,7 +39,62 @@ namespace RemoteImaging.Query
 
             }
         }
-        private void UpdatePagesLabel()
+
+        public DateTime SearchFrom
+        {
+            get
+            {
+                return (DateTime) this.searchFromTime.EditValue;
+            }
+        }
+
+        public DateTime SearchTo
+        {
+            get
+            {
+                return (DateTime) this.searchToTime.EditValue;
+            }
+        }
+
+        public int PageSize
+        {
+            get
+            {
+                return int.Parse(this.pageSizeComboBox.SelectedItem as string);
+            }
+        }
+
+        int currentPage;
+        public int CurrentPage
+        {
+            set
+            {
+                this.currentPage = value;
+                this.UpdatePagesLabel(value, this.totalPage);
+            }
+        }
+
+
+        int totalPage;
+        public int TotalPage
+        {
+            set
+            {
+                this.totalPage = value;
+                this.UpdatePagesLabel(this.currentPage, value);
+            }
+        }
+
+        public Image Face
+        {
+            set
+            {
+                this.
+            }
+        }
+
+
+        private void UpdatePagesLabel(int currentPage, int totalPage)
         {
             this.toolStripLabelCurPage.Text = string.Format("第{0}/{1}页", currentPage, totalPage);
         }
@@ -110,8 +155,8 @@ namespace RemoteImaging.Query
         {
             ClearCurPageList();
             this.imageList2.Images.Clear();
-            this.pictureBoxFace.Image = null;
-            this.pictureBoxWholeImg.Image = null;
+            this.facePictureBox.Image = null;
+            this.wholeImage.Image = null;
         }
 
         private DateTime CreateDateTime(
@@ -126,14 +171,19 @@ namespace RemoteImaging.Query
             return dt;
         }
 
-        private System.Net.IPAddress GetSelectedIP()
+        private System.Net.IPAddress SelectedIP
         {
-            Host selected = this.comboBox1.SelectedItem as Host;
-            if (selected == null)
+            get
             {
-                throw new Exception("No camera selected");
+                Host selected = this.comboBox1.SelectedItem as Host;
+                if (selected == null)
+                {
+                    throw new Exception("No camera selected");
+                }
+
+                return selected.Ip;
             }
-            return selected.Ip;
+            
         }
 
         private void queryBtn_Click(object sender, EventArgs e)
@@ -149,8 +199,8 @@ namespace RemoteImaging.Query
             Camera selectedCamera = this.comboBox1.SelectedItem as Camera;
 
             //judge the input validation
-            DateTime dateTime1 = CreateDateTime(this.dateTimePicker1, timeEdit1);
-            DateTime dateTime2 = CreateDateTime(this.dateTimePicker2, timeEdit2);
+            DateTime dateTime1 = CreateDateTime(this.searchFromDate, searchFromTime);
+            DateTime dateTime2 = CreateDateTime(this.searchToDate, searchToTime);
 
             if (dateTime1 >= dateTime2)
             {
@@ -211,7 +261,7 @@ namespace RemoteImaging.Query
         {
             ImagePair ip = this.bestPicListView.FocusedItem.Tag as ImagePair;
 
-            this.pictureBoxFace.Image = ip.Face;
+            this.facePictureBox.Image = ip.Face;
 
             //detail infomation
             ImageDetail imgInfo = ImageDetail.FromPath(ip.FacePath);
@@ -223,7 +273,7 @@ namespace RemoteImaging.Query
             this.labelCaptureTime.Text = captureTime;
 
 
-            this.pictureBoxWholeImg.Image = ip.BigImage;
+            this.wholeImage.Image = ip.BigImage;
 
         }
 
@@ -275,7 +325,7 @@ namespace RemoteImaging.Query
 
         private void PicQueryForm_Load(object sender, EventArgs e)
         {
-            this.toolStripComboBoxPageSize.Text = this.PageSize.ToString();
+            this.pageSizeComboBox.Text = this.PageSize.ToString();
         }
 
         private void toolStripButtonFirstPage_Click(object sender, EventArgs e)
@@ -326,7 +376,7 @@ namespace RemoteImaging.Query
 
         private void toolStripComboBoxPageSize_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string pageSize = (string)this.toolStripComboBoxPageSize.SelectedItem;
+            string pageSize = (string)this.pageSizeComboBox.SelectedItem;
 
             // if (string.IsNullOrEmpty(pageSize)) return;
 
@@ -389,8 +439,6 @@ namespace RemoteImaging.Query
                 return;
             }
 
-            
-
             if (string.IsNullOrEmpty(video))
             {
                 MessageBox.Show("未找到相关视频");
@@ -429,12 +477,12 @@ namespace RemoteImaging.Query
                 saveDialog.FileName = fileName;
                 if (saveDialog.ShowDialog() == DialogResult.OK)
                 {
-                    if (pictureBoxFace.Image != null)
+                    if (facePictureBox.Image != null)
                     {
                         string path = saveDialog.FileName;
-                        pictureBoxFace.Image.Save(path);
+                        facePictureBox.Image.Save(path);
                         path = path.Replace(fileName, Path.GetFileName(bigImgPath));
-                        pictureBoxWholeImg.Image.Save(path);
+                        wholeImage.Image.Save(path);
                     }
                 }
             }
