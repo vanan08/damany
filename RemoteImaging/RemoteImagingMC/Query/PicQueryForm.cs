@@ -11,6 +11,7 @@ using RemoteImaging.Core;
 using RemoteControlService;
 using System.ServiceModel.Channels;
 using System.ServiceModel;
+using System.Reflection;
 
 namespace RemoteImaging.Query
 {
@@ -23,10 +24,15 @@ namespace RemoteImaging.Query
         {
             InitializeComponent();
 
-            this.bestPicListView.Scrollable = true;
-            this.bestPicListView.MultiSelect = false;
-            this.bestPicListView.View = View.LargeIcon;
-            this.bestPicListView.LargeImageList = facesList;
+            this.facesListView.Scrollable = true;
+            this.facesListView.MultiSelect = false;
+            this.facesListView.View = View.LargeIcon;
+            this.facesListView.LargeImageList = facesList;
+
+            // set instance non-public property with name "DoubleBuffered" to true
+            typeof(Control).InvokeMember("DoubleBuffered",
+            BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic,
+            null, this.facesListView, new object[] { true });
 
             this.pageSizeComboBox.SelectedIndex = 0;
 
@@ -37,6 +43,8 @@ namespace RemoteImaging.Query
 
 
         }
+
+        public event EventHandler PageSizeChanged;
 
         public event EventHandler QueryClick
         {
@@ -61,6 +69,55 @@ namespace RemoteImaging.Query
                 this.toolStripButtonPlayVideo.Click -= value;
             }
         }
+
+        public event EventHandler NextPageClick
+        {
+            add
+            {
+                this.toolStripButtonNextPage.Click += value;
+            }
+            remove
+            {
+                this.toolStripButtonNextPage.Click -= value;
+            }
+        }
+
+        public event EventHandler PreviousPageClick
+        {
+            add
+            {
+                this.toolStripButtonPrePage.Click += value;
+            }
+            remove
+            {
+                this.toolStripButtonPrePage.Click -= value;
+            }
+        }
+
+        public event EventHandler LastPageClick
+        {
+            add
+            {
+                this.toolStripButtonLastPage.Click += value;
+            }
+            remove
+            {
+                this.toolStripButtonLastPage.Click -= value;
+            }
+        }
+
+        public event EventHandler FirstPageClick
+        {
+            add
+            {
+                this.toolStripButtonFirstPage.Click += value;
+            }
+            remove
+            {
+                this.toolStripButtonFirstPage.Click -= value;
+            }
+        }
+
 
         public event EventHandler<SaveEventArgs> SaveImageClick;
 
@@ -96,11 +153,23 @@ namespace RemoteImaging.Query
             }
         }
 
+        private int GetPageSize()
+        {
+            return int.Parse(this.pageSizeComboBox.SelectedItem as string);
+        }
+
         public int PageSize
         {
             get
             {
-                return int.Parse(this.pageSizeComboBox.SelectedItem as string);
+                if (this.InvokeRequired)
+                {
+                    Func<int> getPgSz = () => GetPageSize(); 
+
+                    return (int) this.Invoke( getPgSz );
+                }
+                else
+                    return GetPageSize();
             }
         }
 
@@ -166,7 +235,7 @@ namespace RemoteImaging.Query
                 Text = text,
                 ImageIndex = this.facesList.Images.Count - 1,
             };
-            this.bestPicListView.Items.Add(item);
+            this.facesListView.Items.Add(item);
         }
 
 
@@ -175,12 +244,10 @@ namespace RemoteImaging.Query
             this.toolStripLabelCurPage.Text = string.Format("第{0}/{1}页", currentPage, totalPage);
         }
 
-       
-
 
         public void ClearCurPageList()
         {
-            this.bestPicListView.Clear();
+            this.facesListView.Clear();
             this.facesList.Images.Clear();
         }
 
@@ -192,19 +259,31 @@ namespace RemoteImaging.Query
             this.wholeImage.Image = null;
         }
 
+        private System.Net.IPAddress InternalGetSelectedIP()
+        {
+            Host selected = this.comboBox1.SelectedItem as Host;
+            if (selected == null)
+            {
+                throw new Exception("No camera selected");
+            }
 
+            return selected.Ip;
+
+        }
 
         public System.Net.IPAddress SelectedIP
         {
             get
             {
-                Host selected = this.comboBox1.SelectedItem as Host;
-                if (selected == null)
+                if (this.InvokeRequired)
                 {
-                    throw new Exception("No camera selected");
-                }
+                    Func<System.Net.IPAddress> getIp = () => InternalGetSelectedIP();
 
-                return selected.Ip;
+                    return (System.Net.IPAddress)this.Invoke(getIp);
+                }
+                else
+                    return InternalGetSelectedIP();
+                
             }
             
         }
@@ -221,9 +300,9 @@ namespace RemoteImaging.Query
 
 
             Cursor.Current = Cursors.Default;
-
-
         }
+
+
         //以前
         //02_090702150918-0001.jpg -->大图片
         //02_090702152518-0006-0000.jpg--> 小图片
@@ -233,7 +312,7 @@ namespace RemoteImaging.Query
         //02_090807144104343-0000.jpg-->小图片
         private void bestPicListView_ItemActivate(object sender, System.EventArgs e)
         {
-            ImagePair ip = this.bestPicListView.FocusedItem.Tag as ImagePair;
+            ImagePair ip = this.facesListView.FocusedItem.Tag as ImagePair;
 
             this.facePictureBox.Image = ip.Face;
 
@@ -284,7 +363,7 @@ namespace RemoteImaging.Query
 
         private void cancelBtn_Click(object sender, EventArgs e)
         {
-            this.bestPicListView.Clear();
+            this.facesListView.Clear();
             this.facesList.Images.Clear();
             this.imageList2.Images.Clear();
 
@@ -323,6 +402,10 @@ namespace RemoteImaging.Query
 
         private void toolStripComboBoxPageSize_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (this.PageSizeChanged != null)
+            {
+                this.PageSizeChanged(this, EventArgs.Empty);
+            }
 
         }
 
@@ -367,9 +450,9 @@ namespace RemoteImaging.Query
 
         private void toolStripButtonPlayVideo_Click(object sender, EventArgs e)
         {
-            if (this.bestPicListView.SelectedItems.Count != 1) return;
+            if (this.facesListView.SelectedItems.Count != 1) return;
 
-            ImagePair ip = this.bestPicListView.SelectedItems[0].Tag as ImagePair;
+            ImagePair ip = this.facesListView.SelectedItems[0].Tag as ImagePair;
 
             ImageDetail imgInfo = ImageDetail.FromPath(ip.FacePath);
 
@@ -407,8 +490,8 @@ namespace RemoteImaging.Query
 
         private void SaveSelectedImage()
         {
-            if ((this.bestPicListView.Items.Count <= 0) || (this.bestPicListView.FocusedItem == null)) return;
-            ImagePair ip = this.bestPicListView.FocusedItem.Tag as ImagePair;
+            if ((this.facesListView.Items.Count <= 0) || (this.facesListView.FocusedItem == null)) return;
+            ImagePair ip = this.facesListView.FocusedItem.Tag as ImagePair;
 
 
             ImageDetail imgInfo = ImageDetail.FromPath(ip.FacePath);
