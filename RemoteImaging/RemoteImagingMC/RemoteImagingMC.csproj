@@ -362,6 +362,9 @@
     <Content Include="Library\JSZN.Component.dll" />
     <Content Include="MainIcon.ico" />
     <None Include="Resources\logo1.png" />
+    <Content Include="Resources\1x1.ico" />
+    <Content Include="Resources\2x2.ico" />
+    <Content Include="Resources\3x3.ico" />
     <Content Include="Resources\MainIcon.ico" />
     <None Include="Resources\NetHost.gif" />
     <None Include="Resources\NetHosts.gif" />

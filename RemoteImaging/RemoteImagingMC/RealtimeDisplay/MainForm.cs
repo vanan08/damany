@@ -49,6 +49,7 @@ namespace RemoteImaging.RealtimeDisplay
             //config.GetLineCameras();
             Properties.Settings setting = Properties.Settings.Default;
 
+
             InitStatusBar();
 
         }
@@ -715,6 +716,33 @@ namespace RemoteImaging.RealtimeDisplay
                 this.squareViewContextMenu.Items.Add(mi);
             }
 
+            if (this.squareViewContextMenu.Items.Count > 0)
+            {
+                this.squareViewContextMenu.Items.Add(new ToolStripSeparator());
+            }
+
+            for (int i = 1; i <= 3; ++i)
+            {
+                var layoutMode = new ToolStripMenuItem(string.Format("{0}X{0}", i));
+                layoutMode.Click += new EventHandler(layoutMode_Click);
+
+                layoutMode.Checked = this.squareListView1.NumberOfColumns == i;
+                layoutMode.Tag = i;
+                layoutMode.Image = this.menuItemImageList.Images[i-1];
+
+                this.squareViewContextMenu.Items.Add(layoutMode);
+            }
+
+        }
+
+        void layoutMode_Click(object sender, EventArgs e)
+        {
+            ToolStripMenuItem mi = sender as ToolStripMenuItem;
+
+            int i = (int) mi.Tag;
+
+            this.squareListView1.NumberOfColumns = i;
+            this.squareListView1.NumberofRows = i;
         }
 
         private void ConnectCallback(IAsyncResult ar)
@@ -873,7 +901,7 @@ namespace RemoteImaging.RealtimeDisplay
         private void testButton_Click(object sender, EventArgs e)
         {
             throw new Exception("abc");
-            
+
         }
 
         HostsPool hostsPool;
@@ -890,13 +918,13 @@ namespace RemoteImaging.RealtimeDisplay
         private void HidePropertyForm(bool hide)
         {
             this.splitContainer1.Panel2Collapsed = hide;
-           
-            
+
+
         }
 
         private void propertyToolBar_Click(object sender, EventArgs e)
         {
-             this.HidePropertyForm( !this.splitContainer1.Panel2Collapsed );
+            this.HidePropertyForm(!this.splitContainer1.Panel2Collapsed);
         }
 
         private void hostConfig1_ApplyClick(object sender, EventArgs e)
@@ -913,8 +941,8 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void ShowInformationBox(string msg)
         {
-		        MessageBox.Show(this, msg, this.Text,
-		                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(this, msg, this.Text,
+                                MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
 
@@ -936,8 +964,8 @@ namespace RemoteImaging.RealtimeDisplay
             if (shouldReturn) return;
 
 
-            Gateways.CameraConfig.Instance.SetIris(this.SelectedHost.Ip, 
-                this.sanyoNetCamera1.IrisMode, 
+            Gateways.CameraConfig.Instance.SetIris(this.SelectedHost.Ip,
+                this.sanyoNetCamera1.IrisMode,
                 this.sanyoNetCamera1.IrisLevel);
 
         }
@@ -947,8 +975,8 @@ namespace RemoteImaging.RealtimeDisplay
             bool shouldReturn = MakeSureHostIsSelected();
             if (shouldReturn) return;
 
-            Gateways.CameraConfig.Instance.SetAgc(this.SelectedHost.Ip, 
-                this.sanyoNetCamera1.AgcEnabled, 
+            Gateways.CameraConfig.Instance.SetAgc(this.SelectedHost.Ip,
+                this.sanyoNetCamera1.AgcEnabled,
                 this.sanyoNetCamera1.DigitalGainEnabled);
         }
 

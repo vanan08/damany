@@ -67,7 +67,6 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.hostConfig1 = new RemoteImaging.Forms.HostConfig();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.sanyoNetCamera1 = new Damany.Windows.Form.SanyoNetCamera();
             this.panelControl3 = new DevExpress.XtraEditors.PanelControl();
@@ -79,9 +78,11 @@
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
+            this.splitterItem1 = new DevExpress.XtraLayout.SplitterItem();
+            this.menuItemImageList = new System.Windows.Forms.ImageList(this.components);
+            this.hostConfig1 = new RemoteImaging.Forms.HostConfig();
             this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.splitterItem1 = new DevExpress.XtraLayout.SplitterItem();
             this.statusStrip1.SuspendLayout();
             this.squareViewContextMenu.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -108,9 +109,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.splitterItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.splitterItem1)).BeginInit();
             this.SuspendLayout();
             // 
             // statusStrip1
@@ -265,8 +266,8 @@
             this.squareListView1.Location = new System.Drawing.Point(3, 3);
             this.squareListView1.MaxCountOfCells = 25;
             this.squareListView1.Name = "squareListView1";
-            this.squareListView1.NumberOfColumns = 3;
-            this.squareListView1.NumberofRows = 3;
+            this.squareListView1.NumberOfColumns = 2;
+            this.squareListView1.NumberofRows = 2;
             this.squareListView1.SelectedCell = null;
             this.squareListView1.Size = new System.Drawing.Size(667, 468);
             this.squareListView1.TabIndex = 0;
@@ -284,12 +285,12 @@
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 26);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 29);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 26);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 29);
             // 
             // mainToolStrip
             // 
@@ -315,7 +316,7 @@
             this.searchPic.Image = ((System.Drawing.Image)(resources.GetObject("searchPic.Image")));
             this.searchPic.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.searchPic.Name = "searchPic";
-            this.searchPic.Size = new System.Drawing.Size(81, 23);
+            this.searchPic.Size = new System.Drawing.Size(94, 26);
             this.searchPic.Text = "图像检索";
             this.searchPic.Click += new System.EventHandler(this.searchPic_Click);
             // 
@@ -324,7 +325,7 @@
             this.videoSearch.Image = ((System.Drawing.Image)(resources.GetObject("videoSearch.Image")));
             this.videoSearch.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.videoSearch.Name = "videoSearch";
-            this.videoSearch.Size = new System.Drawing.Size(81, 23);
+            this.videoSearch.Size = new System.Drawing.Size(94, 26);
             this.videoSearch.Text = "视频检索";
             this.videoSearch.Click += new System.EventHandler(this.videoSearch_Click);
             // 
@@ -333,7 +334,7 @@
             this.options.Image = ((System.Drawing.Image)(resources.GetObject("options.Image")));
             this.options.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.options.Name = "options";
-            this.options.Size = new System.Drawing.Size(81, 23);
+            this.options.Size = new System.Drawing.Size(94, 26);
             this.options.Text = "系统设置";
             this.options.Click += new System.EventHandler(this.options_Click);
             // 
@@ -343,7 +344,7 @@
             this.aboutButton.Image = ((System.Drawing.Image)(resources.GetObject("aboutButton.Image")));
             this.aboutButton.IsLink = true;
             this.aboutButton.Name = "aboutButton";
-            this.aboutButton.Size = new System.Drawing.Size(77, 23);
+            this.aboutButton.Size = new System.Drawing.Size(90, 26);
             this.aboutButton.Text = "关于系统";
             this.aboutButton.Click += new System.EventHandler(this.aboutButton_Click);
             // 
@@ -352,7 +353,7 @@
             this.propertyToolBar.Image = global::RemoteImaging.Properties.Resources.property;
             this.propertyToolBar.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.propertyToolBar.Name = "propertyToolBar";
-            this.propertyToolBar.Size = new System.Drawing.Size(55, 23);
+            this.propertyToolBar.Size = new System.Drawing.Size(62, 26);
             this.propertyToolBar.Text = "属性";
             this.propertyToolBar.Click += new System.EventHandler(this.propertyToolBar_Click);
             // 
@@ -362,7 +363,7 @@
             this.testButton.Image = ((System.Drawing.Image)(resources.GetObject("testButton.Image")));
             this.testButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.testButton.Name = "testButton";
-            this.testButton.Size = new System.Drawing.Size(23, 23);
+            this.testButton.Size = new System.Drawing.Size(23, 26);
             this.testButton.Text = "toolStripButton1";
             this.testButton.Click += new System.EventHandler(this.testButton_Click);
             // 
@@ -372,7 +373,7 @@
             this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
             this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(23, 23);
+            this.toolStripButton2.Size = new System.Drawing.Size(23, 26);
             this.toolStripButton2.Text = "toolStripButton2";
             // 
             // alertControl1
@@ -501,17 +502,6 @@
             this.tabPage1.Text = "监控点";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // hostConfig1
-            // 
-            this.hostConfig1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.hostConfig1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.hostConfig1.HostName = "";
-            this.hostConfig1.Location = new System.Drawing.Point(3, 3);
-            this.hostConfig1.Name = "hostConfig1";
-            this.hostConfig1.Size = new System.Drawing.Size(176, 188);
-            this.hostConfig1.TabIndex = 0;
-            this.hostConfig1.ApplyClick += new System.EventHandler(this.hostConfig1_ApplyClick);
-            // 
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.sanyoNetCamera1);
@@ -534,7 +524,7 @@
             this.sanyoNetCamera1.Name = "sanyoNetCamera1";
             this.sanyoNetCamera1.ShutterLevel = 0;
             this.sanyoNetCamera1.ShutterMode = Damany.Component.ShutterMode.Short;
-            this.sanyoNetCamera1.Size = new System.Drawing.Size(176, 188);
+            this.sanyoNetCamera1.Size = new System.Drawing.Size(176, 189);
             this.sanyoNetCamera1.TabIndex = 0;
             this.sanyoNetCamera1.ApplyShutterClick += new System.EventHandler(this.sanyoNetCamera1_ApplyShutterClick);
             this.sanyoNetCamera1.ApplyIrisClick += new System.EventHandler(this.sanyoNetCamera1_ApplyIrisClick);
@@ -642,6 +632,33 @@
             this.layoutControlGroup1.Text = "Root";
             this.layoutControlGroup1.TextVisible = false;
             // 
+            // splitterItem1
+            // 
+            this.splitterItem1.AllowHotTrack = true;
+            this.splitterItem1.CustomizationFormText = "splitterItem1";
+            this.splitterItem1.Location = new System.Drawing.Point(204, 0);
+            this.splitterItem1.Name = "splitterItem1";
+            this.splitterItem1.Size = new System.Drawing.Size(6, 484);
+            // 
+            // menuItemImageList
+            // 
+            this.menuItemImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("menuItemImageList.ImageStream")));
+            this.menuItemImageList.TransparentColor = System.Drawing.Color.Transparent;
+            this.menuItemImageList.Images.SetKeyName(0, "1x1.ico");
+            this.menuItemImageList.Images.SetKeyName(1, "2x2.ico");
+            this.menuItemImageList.Images.SetKeyName(2, "3x3.ico");
+            // 
+            // hostConfig1
+            // 
+            this.hostConfig1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.hostConfig1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.hostConfig1.HostName = "";
+            this.hostConfig1.Location = new System.Drawing.Point(3, 3);
+            this.hostConfig1.Name = "hostConfig1";
+            this.hostConfig1.Size = new System.Drawing.Size(176, 188);
+            this.hostConfig1.TabIndex = 0;
+            this.hostConfig1.ApplyClick += new System.EventHandler(this.hostConfig1_ApplyClick);
+            // 
             // layoutControlItem5
             // 
             this.layoutControlItem5.Control = this.panelControl1;
@@ -665,14 +682,6 @@
             this.layoutControlItem4.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem4.TextToControlDistance = 0;
             this.layoutControlItem4.TextVisible = false;
-            // 
-            // splitterItem1
-            // 
-            this.splitterItem1.AllowHotTrack = true;
-            this.splitterItem1.CustomizationFormText = "splitterItem1";
-            this.splitterItem1.Location = new System.Drawing.Point(204, 0);
-            this.splitterItem1.Name = "splitterItem1";
-            this.splitterItem1.Size = new System.Drawing.Size(6, 487);
             // 
             // MainForm
             // 
@@ -720,9 +729,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.splitterItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.splitterItem1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -782,6 +791,7 @@
         private System.Windows.Forms.PictureBox pictureBox2;
         private RemoteImaging.Forms.HostConfig hostConfig1;
         private Damany.Windows.Form.SanyoNetCamera sanyoNetCamera1;
+        private System.Windows.Forms.ImageList menuItemImageList;
 
     }
 }
