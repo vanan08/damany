@@ -8,5 +8,8 @@ namespace RemoteImaging.Query
     class PicQueryPresenter
     {
 
+
+
+
     }
 }

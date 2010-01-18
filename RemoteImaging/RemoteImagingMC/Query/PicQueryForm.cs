@@ -89,7 +89,13 @@ namespace RemoteImaging.Query
         {
             set
             {
-                this.
+                var oldImage = this.facePictureBox.Image;
+                this.facePictureBox.Image = value;
+
+                if (oldImage != null)
+                {
+                    oldImage.Dispose();
+                }
             }
         }
 
@@ -99,51 +105,8 @@ namespace RemoteImaging.Query
             this.toolStripLabelCurPage.Text = string.Format("第{0}/{1}页", currentPage, totalPage);
         }
 
-        private int CalcPagesCount()
-        {
+       
 
-            totalPage = (imagesFound.Length + PageSize - 1) / PageSize;
-
-            return totalPage;
-        }
-
-        void ShowCurrentPage()
-        {
-            bestPicListView.BeginUpdate();
-
-            ClearCurPageList();
-
-            for (int i = (currentPage - 1) * PageSize;
-                (i < currentPage * PageSize) && (i < imagesFound.Length);
-                ++i)
-            {
-                ImagePair ip = null;
-
-                try
-                {
-                    ip = Gateways.Search.Instance.GetFace(this.GetSelectedIP(), imagesFound[i]);
-                }
-                catch (System.ServiceModel.CommunicationException)
-                {
-                    MessageBox.Show("通讯错误, 请重试");
-                    break;
-                }
-                
-
-                this.imageList1.Images.Add(ip.Face);
-                string text = System.IO.Path.GetFileName(ip.FacePath as string);
-                ListViewItem item = new ListViewItem()
-                {
-                    Tag = ip,
-                    Text = text,
-                    ImageIndex = i % PageSize
-                };
-                this.bestPicListView.Items.Add(item);
-            }
-
-            bestPicListView.EndUpdate();
-
-        }
 
         private void ClearCurPageList()
         {
@@ -196,55 +159,6 @@ namespace RemoteImaging.Query
                 return;
             }
 
-            Camera selectedCamera = this.comboBox1.SelectedItem as Camera;
-
-            //judge the input validation
-            DateTime dateTime1 = CreateDateTime(this.searchFromDate, searchFromTime);
-            DateTime dateTime2 = CreateDateTime(this.searchToDate, searchToTime);
-
-            if (dateTime1 >= dateTime2)
-            {
-                MessageBox.Show("时间起点不应该大于或者等于时间终点，请重新输入！", "警告");
-                return;
-            }
-
-            try
-            {
-                imagesFound = Gateways.Search.Instance.SearchFaces(this.GetSelectedIP(), 2, dateTime1, dateTime2);
-            }
-            catch (System.ServiceModel.CommunicationException)
-            {
-                MessageBox.Show("通讯错误, 请重试");
-                return;
-            }
-
-            
-
-            if (imagesFound.Length == 0)
-            {
-                MessageBox.Show(this, "未找到图片");
-                return;
-            }
-
-
-            CalcPagesCount();
-            currentPage = 1;
-            UpdatePagesLabel();
-
-
-            if (imagesFound == null)
-            {
-                MessageBox.Show("没有搜索到满足条件的图片！", "警告");
-                return;
-            }
-
-            this.bestPicListView.Scrollable = true;
-            this.bestPicListView.MultiSelect = false;
-            this.bestPicListView.View = View.LargeIcon;
-            this.bestPicListView.LargeImageList = imageList1;
-
-
-            ShowCurrentPage();
 
             Cursor.Current = Cursors.Default;
 
@@ -330,65 +244,25 @@ namespace RemoteImaging.Query
 
         private void toolStripButtonFirstPage_Click(object sender, EventArgs e)
         {
-            currentPage = 1;
-            ShowCurrentPage();
-            UpdatePagesLabel();
 
         }
 
         private void toolStripButtonPrePage_Click(object sender, EventArgs e)
         {
-            --currentPage;
-
-            if (currentPage <= 0)
-            {
-                currentPage = 1;
-                return;
-            }
-
-            ShowCurrentPage();
-            UpdatePagesLabel();
 
         }
 
         private void toolStripButtonNextPage_Click(object sender, EventArgs e)
         {
-            ++currentPage;
-
-            if (currentPage > totalPage)
-            {
-                currentPage = totalPage;
-                return;
-            }
-
-            ShowCurrentPage();
-            UpdatePagesLabel();
         }
 
         private void toolStripButtonLastPage_Click(object sender, EventArgs e)
         {
-            currentPage = totalPage;
-
-            ShowCurrentPage();
-            UpdatePagesLabel();
 
         }
 
         private void toolStripComboBoxPageSize_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string pageSize = (string)this.pageSizeComboBox.SelectedItem;
-
-            // if (string.IsNullOrEmpty(pageSize)) return;
-
-            int sz = int.Parse(pageSize);
-
-            this.PageSize = sz;
-
-            CalcPagesCount();
-            currentPage = 1;
-            UpdatePagesLabel();
-
-            ShowCurrentPage();
 
         }
 
@@ -431,7 +305,7 @@ namespace RemoteImaging.Query
 
             try
             {
-                video  = Gateways.Search.Instance.VideoFilePathRecordedAt( GetSelectedIP(), imgInfo.CaptureTime, imgInfo.FromCamera );
+                video  = Gateways.Search.Instance.VideoFilePathRecordedAt( SelectedIP, imgInfo.CaptureTime, imgInfo.FromCamera );
             }
             catch (System.ServiceModel.CommunicationException)
             {
@@ -449,7 +323,7 @@ namespace RemoteImaging.Query
 
             try
             {
-                Gateways.StreamPlayer.Instance.StreamVideo( GetSelectedIP(), video);
+                Gateways.StreamPlayer.Instance.StreamVideo( SelectedIP, video);
             }
             catch (System.ServiceModel.CommunicationException)
             {
