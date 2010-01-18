@@ -246,6 +246,12 @@ namespace RemoteImaging.Query
         public void ClearCurPageList()
         {
             this.facesListView.Clear();
+
+            foreach (Image image in this.facesList.Images)
+            {
+                image.Dispose();
+            }
+
             this.facesList.Images.Clear();
         }
 
@@ -353,11 +359,6 @@ namespace RemoteImaging.Query
             }
         }
 
-        private void secPicListView_ItemActive(object sender, System.EventArgs e)
-        {
-
-
-        }
 
         private void cancelBtn_Click(object sender, EventArgs e)
         {

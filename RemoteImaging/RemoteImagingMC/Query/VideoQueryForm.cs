@@ -37,6 +37,12 @@ namespace RemoteImaging.Query
             this.searchTo.EditValue = now;
             this.searchFrom.EditValue = now.AddDays(-1);
 
+            this.facesListView.Scrollable = true;
+            this.facesListView.MultiSelect = false;
+            this.facesListView.View = View.LargeIcon;
+            this.facesListView.LargeImageList = faceImageList;
+
+
             Damany.RemoteImaging.Common.ControlHelper.SetControlProperty(this.facesListView, "DoubleBuffered", true);
 
         }
@@ -51,6 +57,18 @@ namespace RemoteImaging.Query
             remove
             {
                 this.queryBtn.Click -= value;
+            }
+        }
+
+        public event EventHandler SelectVideoFile;
+
+        public string SelectedVideoFile
+        {
+            get
+            {
+                if (this.videoList.SelectedItems.Count == 0) return null;
+
+                return this.videoList.SelectedItems[0].Tag as string;
             }
         }
 
@@ -152,11 +170,6 @@ namespace RemoteImaging.Query
         }
 
 
-        private void queryBtn_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void setListViewColumns()//添加ListView行头
         {
             videoList.Columns.Add("抓拍时间", 150);
@@ -199,81 +212,59 @@ namespace RemoteImaging.Query
         private void videoList_ItemActivate(object sender, EventArgs e)
         {
 
-            if (StreamServerProxy == null) return;
             if (this.videoList.SelectedItems.Count == 0) return;
+
+            if (this.SelectVideoFile != null)
+            {
+                this.SelectVideoFile(this, EventArgs.Empty);
+            }
+
             if (string.IsNullOrEmpty(VideoPlayer.ExePath))
             {
                 MessageBox.Show("请安装vlc播放器");
                 return;
             }
 
-            ListViewItem item = this.videoList.SelectedItems[0];
-
+            if (string.IsNullOrEmpty(this.SelectedVideoFile)) return;
+            
             ReceiveVideoStream();
 
-            try
-            {
-                StreamServerProxy.StreamVideo(item.Tag as string);
-            }
-            catch (System.ServiceModel.CommunicationException)
-            {
-                this.ShowErrorMessage();
-            }
+            Func<System.Net.IPAddress, string, bool> playVideo = 
+                Gateways.StreamPlayer.Instance.StreamVideo;
+            
+            playVideo.BeginInvoke(this.SelectedIP, this.SelectedVideoFile, null, null);
+            
 
-
-
-
-            bindPiclist();
+            
         }
 
-
-        #region 绑定picList()
-
-        void bindPiclist()
+        public void AddFace(ImagePair pair)
         {
-            this.facesListView.Clear();
+            this.faceImageList.Images.Add(pair.Face);
+            string text = System.IO.Path.GetFileName(pair.FacePath);
+            ListViewItem item = new ListViewItem
+            {
+                Tag = pair,
+                Text = text,
+                ImageIndex = this.faceImageList.Images.Count - 1,
+            };
+            this.facesListView.Items.Add(item);
+
+        }
+
+        public void ClearFacesList()
+        {
+            foreach (Image img in this.faceImageList.Images)
+            {
+                img.Dispose();
+            }
+
             this.faceImageList.Images.Clear();
 
-            DateTime time = ImageSearch.getDateTimeStr(videoList.FocusedItem.Tag as string);
-
-            Camera selectedCamera = this.comboBox1.SelectedItem as Camera;
-
-            ImagePair[] faces = null;
-
-            try
-            {
-                faces = SearchProxy.FacesCapturedAt(2, time);
-            }
-            catch (System.ServiceModel.CommunicationException)
-            {
-                MessageBox.Show("通讯错误, 请重试");
-
-                return;
-            }
-
-
-            if (faces.Length == 0) return;
-
-            foreach (var aFace in faces)
-            {
-                this.faceImageList.Images.Add(aFace.Face);
-                string text = System.IO.Path.GetFileName(aFace.FacePath);
-                ListViewItem item = new ListViewItem
-                {
-                    Tag = aFace,
-                    Text = text,
-                    ImageIndex = this.faceImageList.Images.Count - 1,
-                };
-                this.facesListView.Items.Add(item);
-            }
-
-            this.facesListView.Scrollable = true;
-            this.facesListView.MultiSelect = false;
-            this.facesListView.View = View.LargeIcon;
-            this.facesListView.LargeImageList = faceImageList;
+            this.facesListView.Items.Clear();
         }
 
-        #endregion
+
 
         private void VideoQueryForm_FormClosing(object sender, FormClosingEventArgs e)
         {
