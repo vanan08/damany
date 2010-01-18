@@ -22,7 +22,47 @@ namespace RemoteImaging.Query
         public PicQueryForm()
         {
             InitializeComponent();
+
+            this.bestPicListView.Scrollable = true;
+            this.bestPicListView.MultiSelect = false;
+            this.bestPicListView.View = View.LargeIcon;
+            this.bestPicListView.LargeImageList = facesList;
+
+            this.pageSizeComboBox.SelectedIndex = 0;
+
+            DateTime now = DateTime.Now;
+
+            this.searchToTime.EditValue = now;
+            this.searchFromTime.EditValue = now.AddDays(-1);
+
+
         }
+
+        public event EventHandler QueryClick
+        {
+            add
+            {
+                this.queryBtn.Click += value;
+            }
+            remove
+            {
+                this.queryBtn.Click -= value;
+            }
+        }
+
+        public event EventHandler PlayVideoClick
+        {
+            add
+            {
+                this.toolStripButtonPlayVideo.Click += value;
+            }
+            remove
+            {
+                this.toolStripButtonPlayVideo.Click -= value;
+            }
+        }
+
+        public event EventHandler<SaveEventArgs> SaveImageClick;
 
         public HostsPool Hosts
         {
@@ -100,6 +140,36 @@ namespace RemoteImaging.Query
         }
 
 
+        public Image WholeImage
+        {
+            set
+            {
+                var oldImge = this.wholeImage.Image;
+
+                this.wholeImage.Image = value;
+
+                if (oldImge != null)
+                {
+                    oldImge.Dispose();
+                }
+            }
+        }
+
+
+        public void AddFace( ImagePair pair )
+        {
+            this.facesList.Images.Add(pair.Face);
+            string text = System.IO.Path.GetFileName(pair.FacePath as string);
+            ListViewItem item = new ListViewItem()
+            {
+                Tag = pair,
+                Text = text,
+                ImageIndex = this.facesList.Images.Count - 1,
+            };
+            this.bestPicListView.Items.Add(item);
+        }
+
+
         private void UpdatePagesLabel(int currentPage, int totalPage)
         {
             this.toolStripLabelCurPage.Text = string.Format("第{0}/{1}页", currentPage, totalPage);
@@ -108,13 +178,13 @@ namespace RemoteImaging.Query
        
 
 
-        private void ClearCurPageList()
+        public void ClearCurPageList()
         {
             this.bestPicListView.Clear();
-            this.imageList1.Images.Clear();
+            this.facesList.Images.Clear();
         }
 
-        private void ClearLists()
+        public void ClearLists()
         {
             ClearCurPageList();
             this.imageList2.Images.Clear();
@@ -122,19 +192,9 @@ namespace RemoteImaging.Query
             this.wholeImage.Image = null;
         }
 
-        private DateTime CreateDateTime(
-            DateTimePicker picker,
-            DevExpress.XtraEditors.TimeEdit time)
-        {
-            DateTime date = picker.Value;
-            DateTime t = time.Time;
 
-            DateTime dt = new DateTime(date.Year, date.Month, date.Day, t.Hour, t.Minute, t.Second);
 
-            return dt;
-        }
-
-        private System.Net.IPAddress SelectedIP
+        public System.Net.IPAddress SelectedIP
         {
             get
             {
@@ -225,7 +285,7 @@ namespace RemoteImaging.Query
         private void cancelBtn_Click(object sender, EventArgs e)
         {
             this.bestPicListView.Clear();
-            this.imageList1.Images.Clear();
+            this.facesList.Images.Clear();
             this.imageList2.Images.Clear();
 
 
@@ -239,7 +299,7 @@ namespace RemoteImaging.Query
 
         private void PicQueryForm_Load(object sender, EventArgs e)
         {
-            this.pageSizeComboBox.Text = this.PageSize.ToString();
+            
         }
 
         private void toolStripButtonFirstPage_Click(object sender, EventArgs e)
@@ -287,11 +347,23 @@ namespace RemoteImaging.Query
         }
 
 
-        private void ShowErrorMessage()
+        public void ShowErrorMessage(object state)
         {
-            MessageBox.Show(this, "通讯错误, 请重试！", this.Text, 
-                MessageBoxButtons.OK, MessageBoxIcon.Information);
+            this.ShowMessage(state as string, MessageBoxIcon.Error);
         }
+
+        public void ShowInfoMessage(object state)
+        {
+            this.ShowMessage(state as string, MessageBoxIcon.Information);
+        }
+
+
+        public void ShowMessage(string msg, MessageBoxIcon icon)
+        {
+            MessageBox.Show(this, msg, this.Text,
+                MessageBoxButtons.OK, icon);
+        }
+
 
         private void toolStripButtonPlayVideo_Click(object sender, EventArgs e)
         {
@@ -309,13 +381,13 @@ namespace RemoteImaging.Query
             }
             catch (System.ServiceModel.CommunicationException)
             {
-                ShowErrorMessage();
+                ShowErrorMessage("通讯错误，请重试！");
                 return;
             }
 
             if (string.IsNullOrEmpty(video))
             {
-                MessageBox.Show("未找到相关视频");
+                ShowInfoMessage("未找到相关视频");
                 return;
             }
 
@@ -327,7 +399,7 @@ namespace RemoteImaging.Query
             }
             catch (System.ServiceModel.CommunicationException)
             {
-                this.ShowErrorMessage();
+                this.ShowErrorMessage("未找到相关视频");
             	
             }
 

@@ -358,6 +358,7 @@ namespace RemoteImaging.RealtimeDisplay
         {
             var form = new RemoteImaging.Query.PicQueryForm();
             form.Hosts = this.hostsPool;
+            var presenter = new PicQueryPresenter(form);
             form.ShowDialog(this);
         }
 
