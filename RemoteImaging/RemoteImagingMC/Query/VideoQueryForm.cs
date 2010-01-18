@@ -22,139 +22,151 @@ namespace RemoteImaging.Query
         private IStreamPlayer StreamServerProxy;
         private ISearch SearchProxy;
 
-
         private HostsPool hosts;
-
 
         public VideoQueryForm()
         {
             InitializeComponent();
 
             setListViewColumns();
+
+            this.PopulateSearchScope();
+
+            DateTime now = DateTime.Now;
+
+            this.searchTo.EditValue = now;
+            this.searchFrom.EditValue = now.AddDays(-1);
+
+            Damany.RemoteImaging.Common.ControlHelper.SetControlProperty(this.facesListView, "DoubleBuffered", true);
+
         }
 
-        private System.Net.IPAddress GetSelectedIP()
-        {
-            Host selected = this.comboBox1.SelectedItem as Host;
 
-            if (selected == null)
+        public event EventHandler QueryClick
+        {
+            add
             {
-                throw new Exception("No camera selected");
+                this.queryBtn.Click += value;
+            }
+            remove
+            {
+                this.queryBtn.Click -= value;
+            }
+        }
+
+
+        private void PopulateSearchScope()
+        {
+            var searchTypes = new List<SearchCategory>();
+            searchTypes.Add(new SearchCategory { Name = "全部", Scope = SearchScope.All });
+            searchTypes.Add(new SearchCategory { Name = "有效视频", Scope = SearchScope.VideoWithFaces });
+            searchTypes.Add(new SearchCategory { Name = "无效视频", Scope = SearchScope.VideoWithoutFaces });
+
+            this.searchType.DataSource = searchTypes;
+            this.searchType.DisplayMember = "Name";
+            this.searchType.ValueMember = "Scope";
+        }
+
+        public SearchScope SelectedSearchScope
+        {
+            get
+            {
+                return (SearchScope)this.searchType.SelectedValue;
+            }
+        }
+
+
+        public System.Net.IPAddress SelectedIP
+        {
+            get
+            {
+                Host selected = this.comboBox1.SelectedItem as Host;
+
+                if (selected == null)
+                {
+                    throw new Exception("No camera selected");
+                }
+
+                return selected.Ip;
+
             }
 
-            return selected.Ip;
         }
 
+        public DateTime SearchFrom
+        {
+            get
+            {
+                return (DateTime)this.searchFrom.EditValue;
+            }
+        }
+
+        public DateTime SearchTo
+        {
+            get
+            {
+                return (DateTime)this.searchTo.EditValue;
+            }
+        }
+
+        public void ClearVideoFileList()
+        {
+            this.videoList.Items.Clear();
+        }
+
+        public Video[] VideoFiles
+        {
+            set
+            {
+                foreach (var v in value)
+                {
+                    string videoPath = v.Path;
+                    DateTime dTime = ImageSearch.getDateTimeStr(videoPath);//"2009-6-29 14:00:00"
+                    ListViewItem lvl = new ListViewItem();
+                    lvl.Text = dTime.ToString();
+                    lvl.SubItems.Add(videoPath);
+                    lvl.Tag = videoPath;
+
+                    if ((this.SelectedSearchScope & SearchScope.VideoWithFaces)
+                           == SearchScope.VideoWithFaces)
+                    {
+                        if (v.HasFaceCaptured)
+                        {
+                            lvl.ImageIndex = 0;
+                            videoList.Items.Add(lvl);
+                        }
+                    }
+
+                    if ((this.SelectedSearchScope & SearchScope.VideoWithoutFaces)
+                           == SearchScope.VideoWithoutFaces)
+                    {
+                        if (!v.HasFaceCaptured)
+                        {
+                            lvl.ImageIndex = 1;
+                            videoList.Items.Add(lvl);
+                        }
+                    }
+
+                }
+            }
+        }
 
 
         private void queryBtn_Click(object sender, EventArgs e)
         {
-            Cursor.Current = Cursors.WaitCursor;
 
-            this.picList.Clear();
-
-            if (this.comboBox1.Text == "" || this.comboBox1.Text == null)
-            {
-                MessageBox.Show("请选择要查询的摄像头ID", "警告");
-                return;
-            }
-
-            Camera selectedCamera = this.comboBox1.SelectedItem as Camera;
-
-
-            //judge the input validation
-            DateTime date1 = this.dateTimePicker1.Value;
-            DateTime date2 = this.dateTimePicker2.Value;
-            DateTime time1 = this.timeEdit1.Time;
-            DateTime time2 = this.timeEdit2.Time;
-
-            DateTime dateTime1 = new DateTime(date1.Year, date1.Month, date1.Day, time1.Hour, time1.Minute, time1.Second);
-            DateTime dateTime2 = new DateTime(date2.Year, date2.Month, date2.Day, time2.Hour, time2.Minute, time2.Second);
-            if (dateTime1 >= dateTime2)
-            {
-                MessageBox.Show("时间起点不应该大于或者等于时间终点，请重新输入！", "警告");
-                return;
-            }
-
-            if (StreamServerProxy != null && IsPlaying)
-            {
-                try
-                {
-                    StreamServerProxy.Stop();
-                    IsPlaying = false;
-                }
-                catch (System.ServiceModel.EndpointNotFoundException)
-                {
-
-                }
-            }
-
-            Video[] videos = null;
-
-
-
-            try
-            {
-                videos = Search.Instance.SearchVideos(this.GetSelectedIP(), 2, dateTime1, dateTime2);
-            }
-            catch (System.ServiceModel.CommunicationException)
-            {
-                MessageBox.Show("通讯错误, 请重试");
-
-                return;
-            }
-
-
-            if (videos.Length == 0)
-            {
-                MessageBox.Show("没有搜索到满足条件的视频！", "警告");
-                return;
-            }
-
-            this.videoList.Items.Clear();
-
-            foreach (Video v in videos)
-            {
-                string videoPath = v.Path;
-                DateTime dTime = ImageSearch.getDateTimeStr(videoPath);//"2009-6-29 14:00:00"
-                ListViewItem lvl = new ListViewItem();
-                lvl.Text = dTime.ToString();
-                lvl.SubItems.Add(videoPath);
-                lvl.Tag = videoPath;
-
-                if (this.faceCapturedRadioButton.Checked)
-                {
-                    if (v.HasFaceCaptured)
-                    {
-                        lvl.ImageIndex = 0;
-                        videoList.Items.Add(lvl);
-                    }
-                }
-
-                if (this.allVideoRadioButton.Checked)
-                {
-                    if (v.HasFaceCaptured)
-                        lvl.ImageIndex = 0;
-                    else
-                        lvl.ImageIndex = 1;
-                    videoList.Items.Add(lvl);
-                }
-            }
-
-            Cursor.Current = Cursors.Default;
         }
 
         private void setListViewColumns()//添加ListView行头
         {
             videoList.Columns.Add("抓拍时间", 150);
             videoList.Columns.Add("视频文件", 150);
-            faceCapturedRadioButton.Checked = true;
         }
 
         private void cancelBtn_Click(object sender, EventArgs e)
         {
-            this.picList.Clear();
-            this.imageList1.Images.Clear();
+            this.facesListView.Clear();
+            this.faceImageList.Images.Clear();
             this.Close();
         }
 
@@ -183,11 +195,9 @@ namespace RemoteImaging.Query
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        bool IsPlaying = false;
 
         private void videoList_ItemActivate(object sender, EventArgs e)
         {
-
 
             if (StreamServerProxy == null) return;
             if (this.videoList.SelectedItems.Count == 0) return;
@@ -198,8 +208,6 @@ namespace RemoteImaging.Query
             }
 
             ListViewItem item = this.videoList.SelectedItems[0];
-            IsPlaying = true;
-
 
             ReceiveVideoStream();
 
@@ -211,7 +219,7 @@ namespace RemoteImaging.Query
             {
                 this.ShowErrorMessage();
             }
-            
+
 
 
 
@@ -223,8 +231,8 @@ namespace RemoteImaging.Query
 
         void bindPiclist()
         {
-            this.picList.Clear();
-            this.imageList1.Images.Clear();
+            this.facesListView.Clear();
+            this.faceImageList.Images.Clear();
 
             DateTime time = ImageSearch.getDateTimeStr(videoList.FocusedItem.Tag as string);
 
@@ -248,21 +256,21 @@ namespace RemoteImaging.Query
 
             foreach (var aFace in faces)
             {
-                this.imageList1.Images.Add(aFace.Face);
+                this.faceImageList.Images.Add(aFace.Face);
                 string text = System.IO.Path.GetFileName(aFace.FacePath);
                 ListViewItem item = new ListViewItem
                 {
                     Tag = aFace,
                     Text = text,
-                    ImageIndex = this.imageList1.Images.Count - 1,
+                    ImageIndex = this.faceImageList.Images.Count - 1,
                 };
-                this.picList.Items.Add(item);
+                this.facesListView.Items.Add(item);
             }
 
-            this.picList.Scrollable = true;
-            this.picList.MultiSelect = false;
-            this.picList.View = View.LargeIcon;
-            this.picList.LargeImageList = imageList1;
+            this.facesListView.Scrollable = true;
+            this.facesListView.MultiSelect = false;
+            this.facesListView.View = View.LargeIcon;
+            this.facesListView.LargeImageList = faceImageList;
         }
 
         #endregion
@@ -274,12 +282,6 @@ namespace RemoteImaging.Query
                 this.axVLCPlugin21.playlist.stop();
                 System.Threading.Thread.Sleep(1000);
             }
-
-            if (StreamServerProxy != null && IsPlaying)
-            {
-                StreamServerProxy.Stop();
-            }
-
         }
 
 
@@ -315,32 +317,27 @@ namespace RemoteImaging.Query
         private void testButton_Click(object sender, EventArgs e)
         {
 
-            var stream = this.SearchProxy.DownloadFile(filePathToDownload.Text, string.Empty);
-
-            byte[] buffer = new byte[1024];
-            int totalBytes = 0;
-            while (true)
-            {
-                int bytesRead = stream.Read(buffer, 0, buffer.Length);
-                if (bytesRead == 0)
-                {
-                    break;
-                }
-
-
-                Debug.WriteLine(string.Format("read {0} bytes", bytesRead));
-                totalBytes += bytesRead;
-            }
-
-            Debug.WriteLine(totalBytes);
         }
 
         private void downloadBmp_Click(object sender, EventArgs e)
         {
-            var bmp = new System.Drawing.Bitmap(30, 30);
-            System.Diagnostics.Debug.Assert(bmp is System.Xml.Serialization.IXmlSerializable);
-
-            bmp = this.SearchProxy.DownloadBitmap(filePathToDownload.Text);
         }
     }
+
+    [Flags]
+    public enum SearchScope : byte
+    {
+        VideoWithFaces = 1,
+        VideoWithoutFaces = 2,
+        All = byte.MaxValue,
+    }
+
+    internal class SearchCategory
+    {
+        public string Name { get; set; }
+        public SearchScope Scope { get; set; }
+    }
+
+
+
 }

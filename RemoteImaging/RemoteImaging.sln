@@ -79,6 +79,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Damany.Component", "..\Dama
 		SolutionBindings = <Solution Location In Database>
 	EndGlobalSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemoteImaging", "RemoteImaging\RemoteImaging.csproj", "{E0F855A2-D8FA-4D2F-9645-C6E8DE8AACD4}"
+	GlobalSection(MercurialSourceControlSolutionProperties) = preSolution
+		SolutionIsControlled = True
+		SolutionBindings = <Solution Location In Database>
+	EndGlobalSection
+EndProject
 Global
 	GlobalSection(MercurialSourceControlSolutionProperties) = preSolution
 		SolutionIsControlled = True
@@ -221,6 +227,16 @@ Global
 		{80DC56F4-DB48-4AF2-B1BE-6B944A81B293}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{80DC56F4-DB48-4AF2-B1BE-6B944A81B293}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{80DC56F4-DB48-4AF2-B1BE-6B944A81B293}.Release|Win32.ActiveCfg = Release|Any CPU
+		{E0F855A2-D8FA-4D2F-9645-C6E8DE8AACD4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0F855A2-D8FA-4D2F-9645-C6E8DE8AACD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0F855A2-D8FA-4D2F-9645-C6E8DE8AACD4}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{E0F855A2-D8FA-4D2F-9645-C6E8DE8AACD4}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{E0F855A2-D8FA-4D2F-9645-C6E8DE8AACD4}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{E0F855A2-D8FA-4D2F-9645-C6E8DE8AACD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0F855A2-D8FA-4D2F-9645-C6E8DE8AACD4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0F855A2-D8FA-4D2F-9645-C6E8DE8AACD4}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{E0F855A2-D8FA-4D2F-9645-C6E8DE8AACD4}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{E0F855A2-D8FA-4D2F-9645-C6E8DE8AACD4}.Release|Win32.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

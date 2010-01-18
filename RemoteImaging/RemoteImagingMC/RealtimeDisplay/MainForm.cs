@@ -403,6 +403,9 @@ namespace RemoteImaging.RealtimeDisplay
         {
             var videoQueryForm = new RemoteImaging.Query.VideoQueryForm();
             videoQueryForm.Hosts = this.hostsPool;
+
+            var presenter = new VideoQueryPresenter(videoQueryForm);
+
             videoQueryForm.ShowDialog(this);
         }
 

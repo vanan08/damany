@@ -67,7 +67,9 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.hostConfig1 = new RemoteImaging.Forms.HostConfig();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.sanyoNetCamera1 = new Damany.Windows.Form.SanyoNetCamera();
             this.panelControl3 = new DevExpress.XtraEditors.PanelControl();
             this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
@@ -77,11 +79,9 @@
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
-            this.splitterItem1 = new DevExpress.XtraLayout.SplitterItem();
-            this.sanyoNetCamera1 = new Damany.Windows.Form.SanyoNetCamera();
-            this.hostConfig1 = new RemoteImaging.Forms.HostConfig();
             this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.splitterItem1 = new DevExpress.XtraLayout.SplitterItem();
             this.statusStrip1.SuspendLayout();
             this.squareViewContextMenu.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -108,9 +108,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.splitterItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.splitterItem1)).BeginInit();
             this.SuspendLayout();
             // 
             // statusStrip1
@@ -233,9 +233,9 @@
             this.label2.ForeColor = System.Drawing.Color.White;
             this.label2.Location = new System.Drawing.Point(85, 22);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(350, 31);
+            this.label2.Size = new System.Drawing.Size(406, 31);
             this.label2.TabIndex = 5;
-            this.label2.Text = "智能人像抓拍系统监控中心";
+            this.label2.Text = "智能人像抓拍检索系统监控中心";
             // 
             // pictureBox3
             // 
@@ -268,7 +268,7 @@
             this.squareListView1.NumberOfColumns = 3;
             this.squareListView1.NumberofRows = 3;
             this.squareListView1.SelectedCell = null;
-            this.squareListView1.Size = new System.Drawing.Size(667, 471);
+            this.squareListView1.Size = new System.Drawing.Size(667, 468);
             this.squareListView1.TabIndex = 0;
             this.toolTip1.SetToolTip(this.squareListView1, "双击查看全身图片");
             this.squareListView1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.squareListView1_MouseDown);
@@ -293,6 +293,7 @@
             // 
             // mainToolStrip
             // 
+            this.mainToolStrip.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.mainToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.searchPic,
             this.toolStripSeparator2,
@@ -305,7 +306,7 @@
             this.toolStripButton2});
             this.mainToolStrip.Location = new System.Drawing.Point(0, 64);
             this.mainToolStrip.Name = "mainToolStrip";
-            this.mainToolStrip.Size = new System.Drawing.Size(897, 26);
+            this.mainToolStrip.Size = new System.Drawing.Size(897, 29);
             this.mainToolStrip.TabIndex = 4;
             this.mainToolStrip.Text = "toolStrip2";
             // 
@@ -388,10 +389,10 @@
             this.layoutControl1.HiddenItems.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlItem1,
             this.layoutControlItem3});
-            this.layoutControl1.Location = new System.Drawing.Point(0, 90);
+            this.layoutControl1.Location = new System.Drawing.Point(0, 93);
             this.layoutControl1.Name = "layoutControl1";
             this.layoutControl1.Root = this.layoutControlGroup1;
-            this.layoutControl1.Size = new System.Drawing.Size(897, 491);
+            this.layoutControl1.Size = new System.Drawing.Size(897, 488);
             this.layoutControl1.TabIndex = 3;
             this.layoutControl1.Text = "layoutControl1";
             // 
@@ -410,8 +411,8 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.tabControl1);
             this.splitContainer1.Panel2.Controls.Add(this.panelControl3);
-            this.splitContainer1.Size = new System.Drawing.Size(194, 477);
-            this.splitContainer1.SplitterDistance = 224;
+            this.splitContainer1.Size = new System.Drawing.Size(194, 474);
+            this.splitContainer1.SplitterDistance = 222;
             this.splitContainer1.TabIndex = 12;
             // 
             // panelControl2
@@ -422,7 +423,7 @@
             this.panelControl2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelControl2.Location = new System.Drawing.Point(0, 0);
             this.panelControl2.Name = "panelControl2";
-            this.panelControl2.Size = new System.Drawing.Size(190, 220);
+            this.panelControl2.Size = new System.Drawing.Size(190, 218);
             this.panelControl2.TabIndex = 11;
             // 
             // hostsTree
@@ -436,7 +437,7 @@
             this.hostsTree.Location = new System.Drawing.Point(0, 24);
             this.hostsTree.Name = "hostsTree";
             this.hostsTree.SelectedImageIndex = 0;
-            this.hostsTree.Size = new System.Drawing.Size(190, 196);
+            this.hostsTree.Size = new System.Drawing.Size(190, 194);
             this.hostsTree.TabIndex = 1;
             this.hostsTree.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.cameraTree_NodeMouseDoubleClick);
             this.hostsTree.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.cameraTree_NodeMouseClick);
@@ -456,7 +457,7 @@
             // 
             // labelControl3
             // 
-            this.labelControl3.Appearance.Font = new System.Drawing.Font("Tahoma", 10F);
+            this.labelControl3.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelControl3.Appearance.ForeColor = System.Drawing.Color.White;
             this.labelControl3.Appearance.Options.UseFont = true;
             this.labelControl3.Appearance.Options.UseForeColor = true;
@@ -486,7 +487,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 24);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(190, 221);
+            this.tabControl1.Size = new System.Drawing.Size(190, 220);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
@@ -495,10 +496,21 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(176, 195);
+            this.tabPage1.Size = new System.Drawing.Size(182, 194);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "监控点";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // hostConfig1
+            // 
+            this.hostConfig1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.hostConfig1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.hostConfig1.HostName = "";
+            this.hostConfig1.Location = new System.Drawing.Point(3, 3);
+            this.hostConfig1.Name = "hostConfig1";
+            this.hostConfig1.Size = new System.Drawing.Size(176, 188);
+            this.hostConfig1.TabIndex = 0;
+            this.hostConfig1.ApplyClick += new System.EventHandler(this.hostConfig1_ApplyClick);
             // 
             // tabPage2
             // 
@@ -506,10 +518,27 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(182, 195);
+            this.tabPage2.Size = new System.Drawing.Size(182, 194);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "摄像头";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // sanyoNetCamera1
+            // 
+            this.sanyoNetCamera1.AgcEnabled = true;
+            this.sanyoNetCamera1.DigitalGainEnabled = false;
+            this.sanyoNetCamera1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.sanyoNetCamera1.IrisLevel = 0;
+            this.sanyoNetCamera1.IrisMode = Damany.Component.IrisMode.Manual;
+            this.sanyoNetCamera1.Location = new System.Drawing.Point(3, 3);
+            this.sanyoNetCamera1.Name = "sanyoNetCamera1";
+            this.sanyoNetCamera1.ShutterLevel = 0;
+            this.sanyoNetCamera1.ShutterMode = Damany.Component.ShutterMode.Short;
+            this.sanyoNetCamera1.Size = new System.Drawing.Size(176, 188);
+            this.sanyoNetCamera1.TabIndex = 0;
+            this.sanyoNetCamera1.ApplyShutterClick += new System.EventHandler(this.sanyoNetCamera1_ApplyShutterClick);
+            this.sanyoNetCamera1.ApplyIrisClick += new System.EventHandler(this.sanyoNetCamera1_ApplyIrisClick);
+            this.sanyoNetCamera1.ApplyAgcClick += new System.EventHandler(this.sanyoNetCamera1_ApplyAgcClick);
             // 
             // panelControl3
             // 
@@ -526,7 +555,7 @@
             // 
             // labelControl1
             // 
-            this.labelControl1.Appearance.Font = new System.Drawing.Font("Tahoma", 10F);
+            this.labelControl1.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelControl1.Appearance.ForeColor = System.Drawing.Color.White;
             this.labelControl1.Appearance.Options.UseFont = true;
             this.labelControl1.Appearance.Options.UseForeColor = true;
@@ -553,7 +582,7 @@
             this.panelControl1.Controls.Add(this.squareListView1);
             this.panelControl1.Location = new System.Drawing.Point(217, 7);
             this.panelControl1.Name = "panelControl1";
-            this.panelControl1.Size = new System.Drawing.Size(673, 477);
+            this.panelControl1.Size = new System.Drawing.Size(673, 474);
             this.panelControl1.TabIndex = 10;
             this.panelControl1.SizeChanged += new System.EventHandler(this.panelControl1_SizeChanged);
             // 
@@ -609,44 +638,9 @@
             this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup1.Name = "Root";
             this.layoutControlGroup1.OptionsItemText.TextToControlDistance = 5;
-            this.layoutControlGroup1.Size = new System.Drawing.Size(897, 491);
+            this.layoutControlGroup1.Size = new System.Drawing.Size(897, 488);
             this.layoutControlGroup1.Text = "Root";
             this.layoutControlGroup1.TextVisible = false;
-            // 
-            // splitterItem1
-            // 
-            this.splitterItem1.AllowHotTrack = true;
-            this.splitterItem1.CustomizationFormText = "splitterItem1";
-            this.splitterItem1.Location = new System.Drawing.Point(204, 0);
-            this.splitterItem1.Name = "splitterItem1";
-            this.splitterItem1.Size = new System.Drawing.Size(6, 487);
-            // 
-            // sanyoNetCamera1
-            // 
-            this.sanyoNetCamera1.AgcEnabled = true;
-            this.sanyoNetCamera1.DigitalGainEnabled = false;
-            this.sanyoNetCamera1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.sanyoNetCamera1.IrisLevel = 0;
-            this.sanyoNetCamera1.IrisMode = Damany.Component.IrisMode.Manual;
-            this.sanyoNetCamera1.Location = new System.Drawing.Point(3, 3);
-            this.sanyoNetCamera1.Name = "sanyoNetCamera1";
-            this.sanyoNetCamera1.ShutterLevel = 0;
-            this.sanyoNetCamera1.ShutterMode = Damany.Component.ShutterMode.Short;
-            this.sanyoNetCamera1.Size = new System.Drawing.Size(176, 189);
-            this.sanyoNetCamera1.TabIndex = 0;
-            this.sanyoNetCamera1.ApplyShutterClick += new System.EventHandler(this.sanyoNetCamera1_ApplyShutterClick);
-            this.sanyoNetCamera1.ApplyIrisClick += new System.EventHandler(this.sanyoNetCamera1_ApplyIrisClick);
-            this.sanyoNetCamera1.ApplyAgcClick += new System.EventHandler(this.sanyoNetCamera1_ApplyAgcClick);
-            // 
-            // hostConfig1
-            // 
-            this.hostConfig1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.hostConfig1.HostName = "";
-            this.hostConfig1.Location = new System.Drawing.Point(3, 3);
-            this.hostConfig1.Name = "hostConfig1";
-            this.hostConfig1.Size = new System.Drawing.Size(170, 189);
-            this.hostConfig1.TabIndex = 0;
-            this.hostConfig1.ApplyClick += new System.EventHandler(this.hostConfig1_ApplyClick);
             // 
             // layoutControlItem5
             // 
@@ -654,7 +648,7 @@
             this.layoutControlItem5.CustomizationFormText = "layoutControlItem5";
             this.layoutControlItem5.Location = new System.Drawing.Point(210, 0);
             this.layoutControlItem5.Name = "layoutControlItem5";
-            this.layoutControlItem5.Size = new System.Drawing.Size(683, 487);
+            this.layoutControlItem5.Size = new System.Drawing.Size(683, 484);
             this.layoutControlItem5.Text = "layoutControlItem5";
             this.layoutControlItem5.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem5.TextToControlDistance = 0;
@@ -666,11 +660,19 @@
             this.layoutControlItem4.CustomizationFormText = "layoutControlItem4";
             this.layoutControlItem4.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem4.Name = "layoutControlItem4";
-            this.layoutControlItem4.Size = new System.Drawing.Size(204, 487);
+            this.layoutControlItem4.Size = new System.Drawing.Size(204, 484);
             this.layoutControlItem4.Text = "layoutControlItem4";
             this.layoutControlItem4.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem4.TextToControlDistance = 0;
             this.layoutControlItem4.TextVisible = false;
+            // 
+            // splitterItem1
+            // 
+            this.splitterItem1.AllowHotTrack = true;
+            this.splitterItem1.CustomizationFormText = "splitterItem1";
+            this.splitterItem1.Location = new System.Drawing.Point(204, 0);
+            this.splitterItem1.Name = "splitterItem1";
+            this.splitterItem1.Size = new System.Drawing.Size(6, 487);
             // 
             // MainForm
             // 
@@ -684,7 +686,7 @@
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
-            this.Text = "智能人像抓拍系统监控中心";
+            this.Text = "智能人像抓拍检索系统监控中心";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.Shown += new System.EventHandler(this.MainForm_Shown);
@@ -718,9 +720,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.splitterItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.splitterItem1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -29,10 +29,8 @@ namespace RemoteImaging.Query
             this.facesListView.View = View.LargeIcon;
             this.facesListView.LargeImageList = facesList;
 
-            // set instance non-public property with name "DoubleBuffered" to true
-            typeof(Control).InvokeMember("DoubleBuffered",
-            BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic,
-            null, this.facesListView, new object[] { true });
+            Damany.RemoteImaging.Common.ControlHelper.SetControlProperty(this.facesListView, "DoubleBuffered", true);
+
 
             this.pageSizeComboBox.SelectedIndex = 0;
 

@@ -69,6 +69,7 @@
             this.toolStripButtonPlayVideo = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.saveToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.searchFromTime.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.searchToTime.Properties)).BeginInit();
             this.groupBox3.SuspendLayout();
@@ -413,6 +414,7 @@
             this.toolStripLabel1,
             this.toolStripSeparator2,
             this.toolStripButtonPlayVideo,
+            this.toolStripButton1,
             this.toolStripSeparator1,
             this.saveToolStripButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
@@ -492,7 +494,7 @@
             this.toolStripButtonPlayVideo.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonPlayVideo.Name = "toolStripButtonPlayVideo";
             this.toolStripButtonPlayVideo.Size = new System.Drawing.Size(81, 24);
-            this.toolStripButtonPlayVideo.Text = "相关视频";
+            this.toolStripButtonPlayVideo.Text = "播放视频";
             this.toolStripButtonPlayVideo.Click += new System.EventHandler(this.toolStripButtonPlayVideo_Click);
             // 
             // toolStripSeparator1
@@ -508,6 +510,14 @@
             this.saveToolStripButton.Size = new System.Drawing.Size(97, 24);
             this.saveToolStripButton.Text = "保存图片(&S)";
             this.saveToolStripButton.Click += new System.EventHandler(this.saveToolStripButton_Click);
+            // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(81, 24);
+            this.toolStripButton1.Text = "保存视频";
             // 
             // PicQueryForm
             // 
@@ -594,5 +604,6 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Splitter splitter1;
         private AxAXVLC.AxVLCPlugin2 axVLCPlugin21;
+        private System.Windows.Forms.ToolStripButton toolStripButton1;
     }
 }

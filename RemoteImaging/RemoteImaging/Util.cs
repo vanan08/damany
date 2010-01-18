@@ -9,6 +9,7 @@ using System.Security.Cryptography;
 using Encryptor;
 using Microsoft.Win32;
 using ImageProcess;
+using System.Reflection;
 
 namespace RemoteImaging
 {
@@ -69,6 +70,9 @@ namespace RemoteImaging
 
             return string.Compare(encodedSN, key, StringComparison.Ordinal) == 0;
         }
+
+
+      
 
 
 
