@@ -484,7 +484,6 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void InitStatusBar()
         {
-            statusOutputFolder.Text = "输出目录：" + Properties.Settings.Default.OutputPath;
         }
 
         private void aboutButton_Click(object sender, EventArgs e)
@@ -496,9 +495,7 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void realTimer_Tick(object sender, EventArgs e)
         {
-
             statusTime.Text = DateTime.Now.ToString();
-            this.StepProgress();
         }
 
         private void statusOutputFolder_Click(object sender, EventArgs e)
@@ -517,49 +514,6 @@ namespace RemoteImaging.RealtimeDisplay
         {
 
         }
-
-
-
-
-
-        #region IImageScreen Members
-
-
-        public bool ShowProgress
-        {
-            set
-            {
-                if (this.InvokeRequired)
-                {
-                    Action ac = () => this.statusProgressBar.Visible = value;
-                    //this.Invoke(ac);
-                }
-                else
-                {
-                    //this.statusProgressBar.Visible = value;
-                }
-
-            }
-        }
-
-        public void StepProgress()
-        {
-            if (InvokeRequired)
-            {
-                Action ac = () => this.statusProgressBar.PerformStep();
-
-                this.Invoke(ac);
-            }
-            else
-            {
-                this.statusProgressBar.PerformStep();
-
-            }
-
-        }
-
-        #endregion
-
 
 
         private void ShowDetailPic(ImageDetail img)
@@ -998,6 +952,11 @@ namespace RemoteImaging.RealtimeDisplay
             Gateways.CameraConfig.Instance.SetShutter(this.SelectedHost.Ip,
                 this.sanyoNetCamera1.ShutterMode,
                 this.sanyoNetCamera1.ShutterLevel);
+        }
+
+        private void toolStripButton2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 

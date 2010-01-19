@@ -153,7 +153,7 @@
             this.searchFrom.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
             this.searchFrom.Properties.Mask.EditMask = "f";
-            this.searchFrom.Size = new System.Drawing.Size(234, 21);
+            this.searchFrom.Size = new System.Drawing.Size(234, 23);
             this.searchFrom.TabIndex = 7;
             // 
             // searchTo
@@ -164,7 +164,7 @@
             this.searchTo.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
             this.searchTo.Properties.Mask.EditMask = "f";
-            this.searchTo.Size = new System.Drawing.Size(231, 21);
+            this.searchTo.Size = new System.Drawing.Size(231, 23);
             this.searchTo.TabIndex = 8;
             // 
             // faceImageList

@@ -31,8 +31,6 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.statusOutputFolder = new System.Windows.Forms.ToolStripStatusLabel();
-            this.statusProgressBar = new System.Windows.Forms.ToolStripProgressBar();
             this.statusTime = new System.Windows.Forms.ToolStripStatusLabel();
             this.squareViewContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.spot1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -56,7 +54,6 @@
             this.aboutButton = new System.Windows.Forms.ToolStripLabel();
             this.propertyToolBar = new System.Windows.Forms.ToolStripButton();
             this.testButton = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.alertControl1 = new DevExpress.XtraBars.Alerter.AlertControl(this.components);
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
@@ -67,7 +64,6 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.hostConfig1 = new RemoteImaging.Forms.HostConfig();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.sanyoNetCamera1 = new Damany.Windows.Form.SanyoNetCamera();
             this.panelControl3 = new DevExpress.XtraEditors.PanelControl();
@@ -79,10 +75,11 @@
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
-            this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
             this.splitterItem1 = new DevExpress.XtraLayout.SplitterItem();
             this.menuItemImageList = new System.Windows.Forms.ImageList(this.components);
+            this.hostConfig1 = new RemoteImaging.Forms.HostConfig();
+            this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
             this.statusStrip1.SuspendLayout();
             this.squareViewContextMenu.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -109,40 +106,20 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.splitterItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.splitterItem1)).BeginInit();
             this.SuspendLayout();
             // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.statusOutputFolder,
-            this.statusProgressBar,
             this.statusTime});
             this.statusStrip1.Location = new System.Drawing.Point(0, 581);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(897, 28);
             this.statusStrip1.TabIndex = 2;
             this.statusStrip1.Text = "statusStrip1";
-            // 
-            // statusOutputFolder
-            // 
-            this.statusOutputFolder.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top)
-                        | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)
-                        | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
-            this.statusOutputFolder.Image = ((System.Drawing.Image)(resources.GetObject("statusOutputFolder.Image")));
-            this.statusOutputFolder.Name = "statusOutputFolder";
-            this.statusOutputFolder.Size = new System.Drawing.Size(161, 23);
-            this.statusOutputFolder.Text = "toolStripStatusLabel2";
-            this.statusOutputFolder.Click += new System.EventHandler(this.statusOutputFolder_Click);
-            // 
-            // statusProgressBar
-            // 
-            this.statusProgressBar.Name = "statusProgressBar";
-            this.statusProgressBar.Size = new System.Drawing.Size(200, 22);
-            this.statusProgressBar.Step = 1;
-            this.statusProgressBar.Visible = false;
             // 
             // statusTime
             // 
@@ -152,7 +129,7 @@
             this.statusTime.Image = ((System.Drawing.Image)(resources.GetObject("statusTime.Image")));
             this.statusTime.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.statusTime.Name = "statusTime";
-            this.statusTime.Size = new System.Drawing.Size(721, 23);
+            this.statusTime.Size = new System.Drawing.Size(851, 23);
             this.statusTime.Spring = true;
             this.statusTime.Text = "toolStripStatusLabel1";
             // 
@@ -303,8 +280,7 @@
             this.options,
             this.aboutButton,
             this.propertyToolBar,
-            this.testButton,
-            this.toolStripButton2});
+            this.testButton});
             this.mainToolStrip.Location = new System.Drawing.Point(0, 64);
             this.mainToolStrip.Name = "mainToolStrip";
             this.mainToolStrip.Size = new System.Drawing.Size(897, 29);
@@ -365,16 +341,8 @@
             this.testButton.Name = "testButton";
             this.testButton.Size = new System.Drawing.Size(23, 26);
             this.testButton.Text = "toolStripButton1";
+            this.testButton.Visible = false;
             this.testButton.Click += new System.EventHandler(this.testButton_Click);
-            // 
-            // toolStripButton2
-            // 
-            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
-            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(23, 26);
-            this.toolStripButton2.Text = "toolStripButton2";
             // 
             // alertControl1
             // 
@@ -503,24 +471,13 @@
             this.tabPage1.Text = "监控点";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // hostConfig1
-            // 
-            this.hostConfig1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.hostConfig1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.hostConfig1.HostName = "";
-            this.hostConfig1.Location = new System.Drawing.Point(3, 3);
-            this.hostConfig1.Name = "hostConfig1";
-            this.hostConfig1.Size = new System.Drawing.Size(176, 188);
-            this.hostConfig1.TabIndex = 0;
-            this.hostConfig1.ApplyClick += new System.EventHandler(this.hostConfig1_ApplyClick);
-            // 
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.sanyoNetCamera1);
-            this.tabPage2.Location = new System.Drawing.Point(4, 21);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(182, 195);
+            this.tabPage2.Size = new System.Drawing.Size(182, 194);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "摄像头";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -644,6 +601,33 @@
             this.layoutControlGroup1.Text = "Root";
             this.layoutControlGroup1.TextVisible = false;
             // 
+            // splitterItem1
+            // 
+            this.splitterItem1.AllowHotTrack = true;
+            this.splitterItem1.CustomizationFormText = "splitterItem1";
+            this.splitterItem1.Location = new System.Drawing.Point(204, 0);
+            this.splitterItem1.Name = "splitterItem1";
+            this.splitterItem1.Size = new System.Drawing.Size(6, 484);
+            // 
+            // menuItemImageList
+            // 
+            this.menuItemImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("menuItemImageList.ImageStream")));
+            this.menuItemImageList.TransparentColor = System.Drawing.Color.Transparent;
+            this.menuItemImageList.Images.SetKeyName(0, "1x1.ico");
+            this.menuItemImageList.Images.SetKeyName(1, "2x2.ico");
+            this.menuItemImageList.Images.SetKeyName(2, "3x3.ico");
+            // 
+            // hostConfig1
+            // 
+            this.hostConfig1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.hostConfig1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.hostConfig1.HostName = "";
+            this.hostConfig1.Location = new System.Drawing.Point(3, 3);
+            this.hostConfig1.Name = "hostConfig1";
+            this.hostConfig1.Size = new System.Drawing.Size(176, 188);
+            this.hostConfig1.TabIndex = 0;
+            this.hostConfig1.ApplyClick += new System.EventHandler(this.hostConfig1_ApplyClick);
+            // 
             // layoutControlItem5
             // 
             this.layoutControlItem5.Control = this.panelControl1;
@@ -667,22 +651,6 @@
             this.layoutControlItem4.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem4.TextToControlDistance = 0;
             this.layoutControlItem4.TextVisible = false;
-            // 
-            // splitterItem1
-            // 
-            this.splitterItem1.AllowHotTrack = true;
-            this.splitterItem1.CustomizationFormText = "splitterItem1";
-            this.splitterItem1.Location = new System.Drawing.Point(204, 0);
-            this.splitterItem1.Name = "splitterItem1";
-            this.splitterItem1.Size = new System.Drawing.Size(6, 484);
-            // 
-            // menuItemImageList
-            // 
-            this.menuItemImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("menuItemImageList.ImageStream")));
-            this.menuItemImageList.TransparentColor = System.Drawing.Color.Transparent;
-            this.menuItemImageList.Images.SetKeyName(0, "1x1.ico");
-            this.menuItemImageList.Images.SetKeyName(1, "2x2.ico");
-            this.menuItemImageList.Images.SetKeyName(2, "3x3.ico");
             // 
             // MainForm
             // 
@@ -730,9 +698,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.splitterItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.splitterItem1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -761,10 +729,8 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TreeView hostsTree;
         private System.Windows.Forms.ToolTip toolTip1;
-        private System.Windows.Forms.ToolStripStatusLabel statusOutputFolder;
         private System.Windows.Forms.ToolStripStatusLabel statusTime;
         private System.Windows.Forms.Timer realTimer;
-        private System.Windows.Forms.ToolStripProgressBar statusProgressBar;
         private System.Windows.Forms.ToolStripButton searchPic;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripButton videoSearch;
@@ -780,7 +746,6 @@
         private DevExpress.XtraEditors.LabelControl labelControl3;
         private System.Windows.Forms.ToolStripButton testButton;
         private System.Windows.Forms.ToolStripButton propertyToolBar;
-        private System.Windows.Forms.ToolStripButton toolStripButton2;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
