@@ -33,12 +33,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.linkLabelConfigCamera = new System.Windows.Forms.LinkLabel();
-            this.dataGridCameras = new System.Windows.Forms.DataGridView();
-            this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IP = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.deleteSelectedUser = new System.Windows.Forms.Button();
             this.addNewUserButton = new System.Windows.Forms.Button();
@@ -63,8 +57,6 @@
             this.groupControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabControl1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridCameras)).BeginInit();
             this.tabPage1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -101,64 +93,12 @@
             // 
             // tabControl1
             // 
-            this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Location = new System.Drawing.Point(5, 71);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(494, 339);
             this.tabControl1.TabIndex = 1;
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Controls.Add(this.linkLabelConfigCamera);
-            this.tabPage2.Controls.Add(this.dataGridCameras);
-            this.tabPage2.Location = new System.Drawing.Point(4, 21);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(486, 314);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "摄像头";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // linkLabelConfigCamera
-            // 
-            this.linkLabelConfigCamera.AutoSize = true;
-            this.linkLabelConfigCamera.Location = new System.Drawing.Point(374, 15);
-            this.linkLabelConfigCamera.Name = "linkLabelConfigCamera";
-            this.linkLabelConfigCamera.Size = new System.Drawing.Size(89, 12);
-            this.linkLabelConfigCamera.TabIndex = 1;
-            this.linkLabelConfigCamera.TabStop = true;
-            this.linkLabelConfigCamera.Text = "设置摄像头参数";
-            this.linkLabelConfigCamera.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelConfigCamera_LinkClicked);
-            // 
-            // dataGridCameras
-            // 
-            this.dataGridCameras.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridCameras.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.name,
-            this.ID,
-            this.IP});
-            this.dataGridCameras.Location = new System.Drawing.Point(16, 30);
-            this.dataGridCameras.Name = "dataGridCameras";
-            this.dataGridCameras.RowTemplate.Height = 23;
-            this.dataGridCameras.Size = new System.Drawing.Size(449, 228);
-            this.dataGridCameras.TabIndex = 0;
-            // 
-            // name
-            // 
-            this.name.HeaderText = "名称";
-            this.name.Name = "name";
-            // 
-            // ID
-            // 
-            this.ID.HeaderText = "编号";
-            this.ID.Name = "ID";
-            // 
-            // IP
-            // 
-            this.IP.HeaderText = "IP";
-            this.IP.Name = "IP";
             // 
             // tabPage1
             // 
@@ -363,9 +303,6 @@
             this.groupControl1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.tabControl1.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridCameras)).EndInit();
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             this.ResumeLayout(false);
@@ -378,14 +315,8 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Button buttonOK;
         private System.Windows.Forms.Button buttonCancel;
-        private System.Windows.Forms.DataGridView dataGridCameras;
-        private System.Windows.Forms.DataGridViewTextBoxColumn name;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IP;
-        private System.Windows.Forms.LinkLabel linkLabelConfigCamera;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Label label13;

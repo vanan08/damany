@@ -893,13 +893,19 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void hostConfig1_ApplyClick(object sender, EventArgs e)
         {
-            var host = this.SelectedHost;
-            if (host == null)
+            bool shouldReturn = MakeSureHostIsSelected();
+            if (shouldReturn) return;
+
+
+            try
             {
-                return;
+                Gateways.HostConfig.Instance.SetHostName( this.SelectedHost.Ip , hostConfig1.HostName);
+            }
+            catch (System.ServiceModel.CommunicationException)
+            {
+                this.ShowInformationBox("通讯错误，请重试！");
             }
 
-            Gateways.HostConfig.Instance.SetHostName(host.Ip, hostConfig1.HostName);
 
         }
 
@@ -927,10 +933,19 @@ namespace RemoteImaging.RealtimeDisplay
             bool shouldReturn = MakeSureHostIsSelected();
             if (shouldReturn) return;
 
+            try
+            {
+                Gateways.CameraConfig.Instance.SetIris(this.SelectedHost.Ip,
+                    this.sanyoNetCamera1.IrisMode,
+                    this.sanyoNetCamera1.IrisLevel);
 
-            Gateways.CameraConfig.Instance.SetIris(this.SelectedHost.Ip,
-                this.sanyoNetCamera1.IrisMode,
-                this.sanyoNetCamera1.IrisLevel);
+            }
+            catch (System.ServiceModel.CommunicationException)
+            {
+                this.ShowInformationBox("通讯错误，请重试！");
+            	
+            }
+
 
         }
 
@@ -939,9 +954,17 @@ namespace RemoteImaging.RealtimeDisplay
             bool shouldReturn = MakeSureHostIsSelected();
             if (shouldReturn) return;
 
-            Gateways.CameraConfig.Instance.SetAgc(this.SelectedHost.Ip,
-                this.sanyoNetCamera1.AgcEnabled,
-                this.sanyoNetCamera1.DigitalGainEnabled);
+            try
+            {
+                Gateways.CameraConfig.Instance.SetAgc(this.SelectedHost.Ip,
+                   this.sanyoNetCamera1.AgcEnabled,
+                   this.sanyoNetCamera1.DigitalGainEnabled);
+            }
+            catch (System.ServiceModel.CommunicationException)
+            {
+                this.ShowInformationBox("通讯错误，请重试！");
+            }
+            
         }
 
         private void sanyoNetCamera1_ApplyShutterClick(object sender, EventArgs e)
@@ -949,9 +972,18 @@ namespace RemoteImaging.RealtimeDisplay
             bool shouldReturn = MakeSureHostIsSelected();
             if (shouldReturn) return;
 
-            Gateways.CameraConfig.Instance.SetShutter(this.SelectedHost.Ip,
-                this.sanyoNetCamera1.ShutterMode,
-                this.sanyoNetCamera1.ShutterLevel);
+            try
+            {
+                Gateways.CameraConfig.Instance.SetShutter(this.SelectedHost.Ip,
+                    this.sanyoNetCamera1.ShutterMode,
+                    this.sanyoNetCamera1.ShutterLevel);
+
+            }
+            catch (System.ServiceModel.CommunicationException)
+            {
+                this.ShowInformationBox("通讯错误，请重试！");
+            }
+
         }
 
         private void toolStripButton2_Click(object sender, EventArgs e)

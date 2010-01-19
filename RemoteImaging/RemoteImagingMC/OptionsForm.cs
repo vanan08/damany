@@ -24,22 +24,11 @@ namespace RemoteImaging
                 throw new ArgumentNullException("mnger", "mnger is null.");
 
             InitializeComponent();
-            InitCamDatagridView();
 
             this.userManager = mnger;
         }
 
-        private void InitCamDatagridView()
-        {
 
-            this.dataGridCameras.AutoGenerateColumns = false;
-            this.dataGridCameras.Columns[0].DataPropertyName = "Name";
-            this.dataGridCameras.Columns[1].DataPropertyName = "ID";
-            this.dataGridCameras.Columns[2].DataPropertyName = "IpAddress";
-        }
-
-
-      
         private void browseForUploadFolder_Click(object sender, EventArgs e)
         {
             using (FolderBrowserDialog dlg = new FolderBrowserDialog())
@@ -84,11 +73,6 @@ namespace RemoteImaging
                 {
                     camList.Add(item);
                 }
-
-                bs = new BindingSource();
-                bs.DataSource = camList;
-
-                this.dataGridCameras.DataSource = bs;
             }
         }
 
