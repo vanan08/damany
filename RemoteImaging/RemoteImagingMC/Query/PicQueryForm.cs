@@ -574,5 +574,14 @@ namespace RemoteImaging.Query
             }
 
         }
+
+        private void PicQueryForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (this.axVLCPlugin21.playlist.isPlaying)
+            {
+                this.axVLCPlugin21.playlist.stop();
+                System.Threading.Thread.Sleep(1000);
+            }
+        }
     }
 }

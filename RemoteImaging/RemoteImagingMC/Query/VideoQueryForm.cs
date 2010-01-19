@@ -273,11 +273,6 @@ namespace RemoteImaging.Query
 
         private void VideoQueryForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (this.axVLCPlugin21.playlist.isPlaying)
-            {
-                this.axVLCPlugin21.playlist.stop();
-                System.Threading.Thread.Sleep(1000);
-            }
         }
 
 
@@ -288,12 +283,6 @@ namespace RemoteImaging.Query
             detail.ShowDialog(this);
             detail.Dispose();
         }
-
-        private void VideoQueryForm_Load(object sender, EventArgs e)
-        {
-            ReceiveVideoStream();
-        }
-
 
         public HostsPool Hosts
         {
@@ -317,6 +306,16 @@ namespace RemoteImaging.Query
 
         private void downloadBmp_Click(object sender, EventArgs e)
         {
+        }
+
+        private void VideoQueryForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (this.axVLCPlugin21.playlist.isPlaying)
+            {
+                this.axVLCPlugin21.playlist.stop();
+                System.Threading.Thread.Sleep(1000);
+            }
+
         }
     }
 

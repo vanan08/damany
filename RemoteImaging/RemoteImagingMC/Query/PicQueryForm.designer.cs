@@ -47,9 +47,13 @@
             this.labelCaptureLoc = new System.Windows.Forms.Label();
             this.labelCaptureTime = new System.Windows.Forms.Label();
             this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
+            this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.axVLCPlugin21 = new AxAXVLC.AxVLCPlugin2();
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.wholeImage = new System.Windows.Forms.PictureBox();
@@ -63,14 +67,10 @@
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButtonPlayVideo = new System.Windows.Forms.ToolStripButton();
+            this.downloadVideoFile = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.saveToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.downloadVideoFile = new System.Windows.Forms.ToolStripButton();
             this.saveVideoFileDialog = new System.Windows.Forms.SaveFileDialog();
-            this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.axVLCPlugin21 = new AxAXVLC.AxVLCPlugin2();
             ((System.ComponentModel.ISupportInitialize)(this.searchFromTime.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.searchToTime.Properties)).BeginInit();
             this.groupBox3.SuspendLayout();
@@ -79,6 +79,9 @@
             this.layoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.facePictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
@@ -86,13 +89,10 @@
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.axVLCPlugin21)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.wholeImage)).BeginInit();
             this.toolStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.axVLCPlugin21)).BeginInit();
             this.SuspendLayout();
             // 
             // queryBtn
@@ -150,7 +150,7 @@
             this.searchFromTime.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
             this.searchFromTime.Properties.Mask.EditMask = "f";
-            this.searchFromTime.Size = new System.Drawing.Size(206, 21);
+            this.searchFromTime.Size = new System.Drawing.Size(206, 23);
             this.searchFromTime.TabIndex = 7;
             // 
             // searchToTime
@@ -161,7 +161,7 @@
             this.searchToTime.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
             this.searchToTime.Properties.Mask.EditMask = "f";
-            this.searchToTime.Size = new System.Drawing.Size(205, 21);
+            this.searchToTime.Size = new System.Drawing.Size(205, 23);
             this.searchToTime.TabIndex = 8;
             // 
             // facesList
@@ -234,27 +234,27 @@
             // 
             // facePictureBox
             // 
-            this.facePictureBox.Location = new System.Drawing.Point(12, 12);
+            this.facePictureBox.Location = new System.Drawing.Point(7, 7);
             this.facePictureBox.Name = "facePictureBox";
-            this.facePictureBox.Size = new System.Drawing.Size(154, 76);
+            this.facePictureBox.Size = new System.Drawing.Size(164, 86);
             this.facePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.facePictureBox.TabIndex = 19;
             this.facePictureBox.TabStop = false;
             // 
             // labelCaptureLoc
             // 
-            this.labelCaptureLoc.Location = new System.Drawing.Point(12, 92);
+            this.labelCaptureLoc.Location = new System.Drawing.Point(7, 103);
             this.labelCaptureLoc.Name = "labelCaptureLoc";
-            this.labelCaptureLoc.Size = new System.Drawing.Size(154, 28);
+            this.labelCaptureLoc.Size = new System.Drawing.Size(164, 22);
             this.labelCaptureLoc.TabIndex = 17;
             this.labelCaptureLoc.Text = "抓拍地点：";
             this.labelCaptureLoc.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // labelCaptureTime
             // 
-            this.labelCaptureTime.Location = new System.Drawing.Point(12, 124);
+            this.labelCaptureTime.Location = new System.Drawing.Point(7, 135);
             this.labelCaptureTime.Name = "labelCaptureTime";
-            this.labelCaptureTime.Size = new System.Drawing.Size(154, 29);
+            this.labelCaptureTime.Size = new System.Drawing.Size(164, 23);
             this.labelCaptureTime.TabIndex = 18;
             this.labelCaptureTime.Text = "抓拍时间：";
             this.labelCaptureTime.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -272,6 +272,48 @@
             this.layoutControlGroup1.Size = new System.Drawing.Size(178, 165);
             this.layoutControlGroup1.Text = "layoutControlGroup1";
             this.layoutControlGroup1.TextVisible = false;
+            // 
+            // layoutControlItem1
+            // 
+            this.layoutControlItem1.Control = this.labelCaptureTime;
+            this.layoutControlItem1.CustomizationFormText = "layoutControlItem1";
+            this.layoutControlItem1.Location = new System.Drawing.Point(0, 128);
+            this.layoutControlItem1.MaxSize = new System.Drawing.Size(0, 33);
+            this.layoutControlItem1.MinSize = new System.Drawing.Size(31, 33);
+            this.layoutControlItem1.Name = "layoutControlItem1";
+            this.layoutControlItem1.Size = new System.Drawing.Size(174, 33);
+            this.layoutControlItem1.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
+            this.layoutControlItem1.Text = "layoutControlItem1";
+            this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem1.TextToControlDistance = 0;
+            this.layoutControlItem1.TextVisible = false;
+            // 
+            // layoutControlItem2
+            // 
+            this.layoutControlItem2.Control = this.labelCaptureLoc;
+            this.layoutControlItem2.CustomizationFormText = "layoutControlItem2";
+            this.layoutControlItem2.Location = new System.Drawing.Point(0, 96);
+            this.layoutControlItem2.MaxSize = new System.Drawing.Size(0, 32);
+            this.layoutControlItem2.MinSize = new System.Drawing.Size(31, 32);
+            this.layoutControlItem2.Name = "layoutControlItem2";
+            this.layoutControlItem2.Size = new System.Drawing.Size(174, 32);
+            this.layoutControlItem2.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
+            this.layoutControlItem2.Text = "layoutControlItem2";
+            this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem2.TextToControlDistance = 0;
+            this.layoutControlItem2.TextVisible = false;
+            // 
+            // layoutControlItem3
+            // 
+            this.layoutControlItem3.Control = this.facePictureBox;
+            this.layoutControlItem3.CustomizationFormText = "layoutControlItem3";
+            this.layoutControlItem3.Location = new System.Drawing.Point(0, 0);
+            this.layoutControlItem3.Name = "layoutControlItem3";
+            this.layoutControlItem3.Size = new System.Drawing.Size(174, 96);
+            this.layoutControlItem3.Text = "layoutControlItem3";
+            this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem3.TextToControlDistance = 0;
+            this.layoutControlItem3.TextVisible = false;
             // 
             // splitContainer1
             // 
@@ -321,6 +363,16 @@
             this.groupBox2.TabIndex = 19;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "视频";
+            // 
+            // axVLCPlugin21
+            // 
+            this.axVLCPlugin21.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.axVLCPlugin21.Enabled = true;
+            this.axVLCPlugin21.Location = new System.Drawing.Point(3, 17);
+            this.axVLCPlugin21.Name = "axVLCPlugin21";
+            this.axVLCPlugin21.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axVLCPlugin21.OcxState")));
+            this.axVLCPlugin21.Size = new System.Drawing.Size(204, 165);
+            this.axVLCPlugin21.TabIndex = 31;
             // 
             // splitter1
             // 
@@ -446,6 +498,15 @@
             this.toolStripButtonPlayVideo.Text = "播放视频";
             this.toolStripButtonPlayVideo.Click += new System.EventHandler(this.toolStripButtonPlayVideo_Click);
             // 
+            // downloadVideoFile
+            // 
+            this.downloadVideoFile.Image = ((System.Drawing.Image)(resources.GetObject("downloadVideoFile.Image")));
+            this.downloadVideoFile.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.downloadVideoFile.Name = "downloadVideoFile";
+            this.downloadVideoFile.Size = new System.Drawing.Size(81, 24);
+            this.downloadVideoFile.Text = "保存视频";
+            this.downloadVideoFile.Click += new System.EventHandler(this.downloadVideoFile_Click);
+            // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
@@ -460,72 +521,11 @@
             this.saveToolStripButton.Text = "保存图片(&S)";
             this.saveToolStripButton.Click += new System.EventHandler(this.saveToolStripButton_Click);
             // 
-            // downloadVideoFile
-            // 
-            this.downloadVideoFile.Image = ((System.Drawing.Image)(resources.GetObject("downloadVideoFile.Image")));
-            this.downloadVideoFile.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.downloadVideoFile.Name = "downloadVideoFile";
-            this.downloadVideoFile.Size = new System.Drawing.Size(81, 24);
-            this.downloadVideoFile.Text = "保存视频";
-            this.downloadVideoFile.Click += new System.EventHandler(this.downloadVideoFile_Click);
-            // 
             // saveVideoFileDialog
             // 
             this.saveVideoFileDialog.DefaultExt = "m4v";
             this.saveVideoFileDialog.Filter = "视频文件 (*.m4v)|*.m4v";
             this.saveVideoFileDialog.RestoreDirectory = true;
-            // 
-            // layoutControlItem1
-            // 
-            this.layoutControlItem1.Control = this.labelCaptureTime;
-            this.layoutControlItem1.CustomizationFormText = "layoutControlItem1";
-            this.layoutControlItem1.Location = new System.Drawing.Point(0, 112);
-            this.layoutControlItem1.MaxSize = new System.Drawing.Size(0, 33);
-            this.layoutControlItem1.MinSize = new System.Drawing.Size(31, 33);
-            this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(158, 33);
-            this.layoutControlItem1.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
-            this.layoutControlItem1.Text = "layoutControlItem1";
-            this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
-            this.layoutControlItem1.TextToControlDistance = 0;
-            this.layoutControlItem1.TextVisible = false;
-            // 
-            // layoutControlItem2
-            // 
-            this.layoutControlItem2.Control = this.labelCaptureLoc;
-            this.layoutControlItem2.CustomizationFormText = "layoutControlItem2";
-            this.layoutControlItem2.Location = new System.Drawing.Point(0, 80);
-            this.layoutControlItem2.MaxSize = new System.Drawing.Size(0, 32);
-            this.layoutControlItem2.MinSize = new System.Drawing.Size(31, 32);
-            this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(158, 32);
-            this.layoutControlItem2.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
-            this.layoutControlItem2.Text = "layoutControlItem2";
-            this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
-            this.layoutControlItem2.TextToControlDistance = 0;
-            this.layoutControlItem2.TextVisible = false;
-            // 
-            // layoutControlItem3
-            // 
-            this.layoutControlItem3.Control = this.facePictureBox;
-            this.layoutControlItem3.CustomizationFormText = "layoutControlItem3";
-            this.layoutControlItem3.Location = new System.Drawing.Point(0, 0);
-            this.layoutControlItem3.Name = "layoutControlItem3";
-            this.layoutControlItem3.Size = new System.Drawing.Size(158, 80);
-            this.layoutControlItem3.Text = "layoutControlItem3";
-            this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
-            this.layoutControlItem3.TextToControlDistance = 0;
-            this.layoutControlItem3.TextVisible = false;
-            // 
-            // axVLCPlugin21
-            // 
-            this.axVLCPlugin21.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.axVLCPlugin21.Enabled = true;
-            this.axVLCPlugin21.Location = new System.Drawing.Point(3, 17);
-            this.axVLCPlugin21.Name = "axVLCPlugin21";
-            this.axVLCPlugin21.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axVLCPlugin21.OcxState")));
-            this.axVLCPlugin21.Size = new System.Drawing.Size(204, 165);
-            this.axVLCPlugin21.TabIndex = 31;
             // 
             // PicQueryForm
             // 
@@ -541,6 +541,7 @@
             this.Text = "搜索图片";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.PicQueryForm_Load);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.PicQueryForm_FormClosed);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PicQueryForm_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.searchFromTime.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.searchToTime.Properties)).EndInit();
@@ -551,6 +552,9 @@
             this.layoutControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.facePictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.Panel2.PerformLayout();
@@ -559,14 +563,11 @@
             this.splitContainer2.Panel2.ResumeLayout(false);
             this.splitContainer2.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.axVLCPlugin21)).EndInit();
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.wholeImage)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.axVLCPlugin21)).EndInit();
             this.ResumeLayout(false);
 
         }
