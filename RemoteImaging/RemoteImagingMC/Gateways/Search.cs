@@ -61,10 +61,18 @@ namespace RemoteImaging.Gateways
             return proxies[ip].VideoFilePathRecordedAt(time, camID);
         }
 
-        public System.IO.Stream DownloadFile(System.Net.IPAddress ip, string file, string uselessString)
+        public long GetFileSizeInBytes(System.Net.IPAddress ip, int camId, string pathToFile)
         {
             EnsureProxyCreated(ip);
-            return proxies[ip].DownloadFile(file, uselessString);
+
+            return proxies[ip].GetFileSizeInBytes(pathToFile);
+        }
+
+
+        public System.IO.Stream DownloadFile(System.Net.IPAddress ip, string file)
+        {
+            EnsureProxyCreated(ip);
+            return proxies[ip].DownloadFile(file);
         }
 
         public System.Drawing.Bitmap DownloadBitmap(System.Net.IPAddress ip, string file)

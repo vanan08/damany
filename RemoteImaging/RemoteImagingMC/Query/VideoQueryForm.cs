@@ -45,21 +45,26 @@ namespace RemoteImaging.Query
 
             Damany.RemoteImaging.Common.ControlHelper.SetControlProperty(this.facesListView, "DoubleBuffered", true);
 
+            this.queryBtn.Click += new EventHandler(queryBtn_Click);
+
         }
 
-
-        public event EventHandler QueryClick
+        void queryBtn_Click(object sender, EventArgs e)
         {
-            add
+            if (this.hostsComboBox.SelectedValue == null)
             {
-                this.queryBtn.Click += value;
+                this.ShowErrorMessage("请选择要查询的监控点!");
+                return;
             }
-            remove
+
+            if (this.QueryClick != null)
             {
-                this.queryBtn.Click -= value;
+                this.QueryClick(this, EventArgs.Empty);
             }
         }
 
+
+        public event EventHandler QueryClick;
         public event EventHandler SelectVideoFile;
 
         public string SelectedVideoFile
@@ -98,7 +103,7 @@ namespace RemoteImaging.Query
         {
             get
             {
-                Host selected = this.comboBox1.SelectedItem as Host;
+                Host selected = this.hostsComboBox.SelectedItem as Host;
 
                 if (selected == null)
                 {
@@ -202,9 +207,9 @@ namespace RemoteImaging.Query
         }
 
 
-        private void ShowErrorMessage()
+        private void ShowErrorMessage(object state)
         {
-            MessageBox.Show(this, "通讯错误, 请重试！", this.Text,
+            MessageBox.Show(this, state as string, this.Text,
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
@@ -226,16 +231,16 @@ namespace RemoteImaging.Query
             }
 
             if (string.IsNullOrEmpty(this.SelectedVideoFile)) return;
-            
+
             ReceiveVideoStream();
 
-            Func<System.Net.IPAddress, string, bool> playVideo = 
+            Func<System.Net.IPAddress, string, bool> playVideo =
                 Gateways.StreamPlayer.Instance.StreamVideo;
-            
-            playVideo.BeginInvoke(this.SelectedIP, this.SelectedVideoFile, null, null);
-            
 
-            
+            playVideo.BeginInvoke(this.SelectedIP, this.SelectedVideoFile, null, null);
+
+
+
         }
 
         public void AddFace(ImagePair pair)
@@ -300,8 +305,8 @@ namespace RemoteImaging.Query
             {
                 hosts = value;
 
-                this.comboBox1.DataSource = value.Hosts;
-                this.comboBox1.DisplayMember = "Name";
+                this.hostsComboBox.DataSource = value.Hosts;
+                this.hostsComboBox.DisplayMember = "Name";
             }
         }
 

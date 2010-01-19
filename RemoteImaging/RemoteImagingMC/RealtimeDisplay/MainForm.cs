@@ -413,7 +413,7 @@ namespace RemoteImaging.RealtimeDisplay
         Thread thread = null;
         string tempComName = "";
         int tempModel = 0;
-        private void options_Click(object sender, EventArgs e)
+        private bool AuthorizeCurrentUser()
         {
             bool canProceed = AuthorizationManager.IsCurrentUserAuthorized();
 
@@ -424,9 +424,14 @@ namespace RemoteImaging.RealtimeDisplay
                     this.Text,
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Stop);
-                return;
             }
 
+            return canProceed;
+        }
+
+        private void options_Click(object sender, EventArgs e)
+        {
+            if (!AuthorizeCurrentUser()) return;
 
 
             if (this.optionsForm == null)
@@ -691,6 +696,17 @@ namespace RemoteImaging.RealtimeDisplay
         }
 
 
+        private void AddLayoutMenuItem(string text, int i)
+        {
+            var layoutMode = new ToolStripMenuItem(text);
+            layoutMode.Click += new EventHandler(layoutMode_Click);
+
+            layoutMode.Checked = this.squareListView1.NumberOfColumns == i;
+            layoutMode.Tag = i;
+            layoutMode.Image = this.menuItemImageList.Images[i- 1];
+
+            this.squareViewContextMenu.Items.Add(layoutMode);
+        }
         private void squareViewContextMenu_Opening(object sender, CancelEventArgs e)
         {
             this.squareViewContextMenu.Items.Clear();
@@ -721,17 +737,9 @@ namespace RemoteImaging.RealtimeDisplay
                 this.squareViewContextMenu.Items.Add(new ToolStripSeparator());
             }
 
-            for (int i = 1; i <= 3; ++i)
-            {
-                var layoutMode = new ToolStripMenuItem(string.Format("{0}X{0}", i));
-                layoutMode.Click += new EventHandler(layoutMode_Click);
-
-                layoutMode.Checked = this.squareListView1.NumberOfColumns == i;
-                layoutMode.Tag = i;
-                layoutMode.Image = this.menuItemImageList.Images[i-1];
-
-                this.squareViewContextMenu.Items.Add(layoutMode);
-            }
+            AddLayoutMenuItem("单屏", 1);
+            AddLayoutMenuItem("四分屏", 2);
+            AddLayoutMenuItem("九分屏", 3);
 
         }
 
@@ -924,6 +932,8 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void propertyToolBar_Click(object sender, EventArgs e)
         {
+            if (!AuthorizeCurrentUser()) return;
+
             this.HidePropertyForm(!this.splitContainer1.Panel2Collapsed);
         }
 

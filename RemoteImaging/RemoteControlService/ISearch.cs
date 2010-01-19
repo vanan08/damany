@@ -29,7 +29,10 @@ namespace RemoteControlService
         string VideoFilePathRecordedAt(DateTime time, int camID);
 
         [OperationContract]
-        System.IO.Stream DownloadFile(string file, string uselessString);
+        long GetFileSizeInBytes(string file);
+
+        [OperationContract]
+        System.IO.Stream DownloadFile(string file);
 
         [OperationContract]
         System.Drawing.Bitmap DownloadBitmap(string file);

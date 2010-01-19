@@ -67,6 +67,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.hostConfig1 = new RemoteImaging.Forms.HostConfig();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.sanyoNetCamera1 = new Damany.Windows.Form.SanyoNetCamera();
             this.panelControl3 = new DevExpress.XtraEditors.PanelControl();
@@ -78,11 +79,10 @@
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
-            this.splitterItem1 = new DevExpress.XtraLayout.SplitterItem();
-            this.menuItemImageList = new System.Windows.Forms.ImageList(this.components);
-            this.hostConfig1 = new RemoteImaging.Forms.HostConfig();
             this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.splitterItem1 = new DevExpress.XtraLayout.SplitterItem();
+            this.menuItemImageList = new System.Windows.Forms.ImageList(this.components);
             this.statusStrip1.SuspendLayout();
             this.squareViewContextMenu.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -109,9 +109,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.splitterItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.splitterItem1)).BeginInit();
             this.SuspendLayout();
             // 
             // statusStrip1
@@ -412,6 +412,7 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.tabControl1);
             this.splitContainer1.Panel2.Controls.Add(this.panelControl3);
+            this.splitContainer1.Panel2Collapsed = true;
             this.splitContainer1.Size = new System.Drawing.Size(194, 474);
             this.splitContainer1.SplitterDistance = 222;
             this.splitContainer1.TabIndex = 12;
@@ -424,7 +425,7 @@
             this.panelControl2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelControl2.Location = new System.Drawing.Point(0, 0);
             this.panelControl2.Name = "panelControl2";
-            this.panelControl2.Size = new System.Drawing.Size(190, 218);
+            this.panelControl2.Size = new System.Drawing.Size(190, 470);
             this.panelControl2.TabIndex = 11;
             // 
             // hostsTree
@@ -438,7 +439,7 @@
             this.hostsTree.Location = new System.Drawing.Point(0, 24);
             this.hostsTree.Name = "hostsTree";
             this.hostsTree.SelectedImageIndex = 0;
-            this.hostsTree.Size = new System.Drawing.Size(190, 194);
+            this.hostsTree.Size = new System.Drawing.Size(190, 446);
             this.hostsTree.TabIndex = 1;
             this.hostsTree.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.cameraTree_NodeMouseDoubleClick);
             this.hostsTree.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.cameraTree_NodeMouseClick);
@@ -502,13 +503,24 @@
             this.tabPage1.Text = "监控点";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // hostConfig1
+            // 
+            this.hostConfig1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.hostConfig1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.hostConfig1.HostName = "";
+            this.hostConfig1.Location = new System.Drawing.Point(3, 3);
+            this.hostConfig1.Name = "hostConfig1";
+            this.hostConfig1.Size = new System.Drawing.Size(176, 188);
+            this.hostConfig1.TabIndex = 0;
+            this.hostConfig1.ApplyClick += new System.EventHandler(this.hostConfig1_ApplyClick);
+            // 
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.sanyoNetCamera1);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Location = new System.Drawing.Point(4, 21);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(182, 194);
+            this.tabPage2.Size = new System.Drawing.Size(182, 195);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "摄像头";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -632,33 +644,6 @@
             this.layoutControlGroup1.Text = "Root";
             this.layoutControlGroup1.TextVisible = false;
             // 
-            // splitterItem1
-            // 
-            this.splitterItem1.AllowHotTrack = true;
-            this.splitterItem1.CustomizationFormText = "splitterItem1";
-            this.splitterItem1.Location = new System.Drawing.Point(204, 0);
-            this.splitterItem1.Name = "splitterItem1";
-            this.splitterItem1.Size = new System.Drawing.Size(6, 484);
-            // 
-            // menuItemImageList
-            // 
-            this.menuItemImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("menuItemImageList.ImageStream")));
-            this.menuItemImageList.TransparentColor = System.Drawing.Color.Transparent;
-            this.menuItemImageList.Images.SetKeyName(0, "1x1.ico");
-            this.menuItemImageList.Images.SetKeyName(1, "2x2.ico");
-            this.menuItemImageList.Images.SetKeyName(2, "3x3.ico");
-            // 
-            // hostConfig1
-            // 
-            this.hostConfig1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.hostConfig1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.hostConfig1.HostName = "";
-            this.hostConfig1.Location = new System.Drawing.Point(3, 3);
-            this.hostConfig1.Name = "hostConfig1";
-            this.hostConfig1.Size = new System.Drawing.Size(176, 188);
-            this.hostConfig1.TabIndex = 0;
-            this.hostConfig1.ApplyClick += new System.EventHandler(this.hostConfig1_ApplyClick);
-            // 
             // layoutControlItem5
             // 
             this.layoutControlItem5.Control = this.panelControl1;
@@ -682,6 +667,22 @@
             this.layoutControlItem4.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem4.TextToControlDistance = 0;
             this.layoutControlItem4.TextVisible = false;
+            // 
+            // splitterItem1
+            // 
+            this.splitterItem1.AllowHotTrack = true;
+            this.splitterItem1.CustomizationFormText = "splitterItem1";
+            this.splitterItem1.Location = new System.Drawing.Point(204, 0);
+            this.splitterItem1.Name = "splitterItem1";
+            this.splitterItem1.Size = new System.Drawing.Size(6, 484);
+            // 
+            // menuItemImageList
+            // 
+            this.menuItemImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("menuItemImageList.ImageStream")));
+            this.menuItemImageList.TransparentColor = System.Drawing.Color.Transparent;
+            this.menuItemImageList.Images.SetKeyName(0, "1x1.ico");
+            this.menuItemImageList.Images.SetKeyName(1, "2x2.ico");
+            this.menuItemImageList.Images.SetKeyName(2, "3x3.ico");
             // 
             // MainForm
             // 
@@ -729,9 +730,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.splitterItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.splitterItem1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

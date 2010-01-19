@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("RemoteImaging")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("成都宇飞创通")]
+[assembly: AssemblyCompany("Damany")]
 [assembly: AssemblyProduct("RemoteImaging")]
-[assembly: AssemblyCopyright("成都宇飞创通 Copyright ©  2009")]
+[assembly: AssemblyCopyright("Damany Copyright ©  2009")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -30,7 +30,7 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.9.0")]
-[assembly: AssemblyFileVersion("1.0.9.0")]
+[assembly: AssemblyVersion("2.0.10.0")]
+[assembly: AssemblyFileVersion("2.0.10.0")]
 
 [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("RemoteImaging.Test")]

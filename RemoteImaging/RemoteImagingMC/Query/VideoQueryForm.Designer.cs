@@ -37,7 +37,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.hostsComboBox = new System.Windows.Forms.ComboBox();
             this.searchFrom = new DevExpress.XtraEditors.TimeEdit();
             this.searchTo = new DevExpress.XtraEditors.TimeEdit();
             this.faceImageList = new System.Windows.Forms.ImageList(this.components);
@@ -70,7 +70,7 @@
             this.groupBox3.Controls.Add(this.label4);
             this.groupBox3.Controls.Add(this.label2);
             this.groupBox3.Controls.Add(this.label3);
-            this.groupBox3.Controls.Add(this.comboBox1);
+            this.groupBox3.Controls.Add(this.hostsComboBox);
             this.groupBox3.Controls.Add(this.searchFrom);
             this.groupBox3.Controls.Add(this.searchTo);
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Top;
@@ -136,14 +136,14 @@
             this.label3.TabIndex = 3;
             this.label3.Text = "时间终点";
             // 
-            // comboBox1
+            // hostsComboBox
             // 
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(79, 22);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(129, 20);
-            this.comboBox1.TabIndex = 4;
+            this.hostsComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.hostsComboBox.FormattingEnabled = true;
+            this.hostsComboBox.Location = new System.Drawing.Point(79, 22);
+            this.hostsComboBox.Name = "hostsComboBox";
+            this.hostsComboBox.Size = new System.Drawing.Size(129, 20);
+            this.hostsComboBox.TabIndex = 4;
             // 
             // searchFrom
             // 
@@ -321,7 +321,7 @@
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox hostsComboBox;
         private DevExpress.XtraEditors.TimeEdit searchFrom;
         private DevExpress.XtraEditors.TimeEdit searchTo;
         private System.Windows.Forms.Button queryBtn;

@@ -39,23 +39,11 @@ namespace RemoteImaging.Query
             this.searchToTime.EditValue = now;
             this.searchFromTime.EditValue = now.AddDays(-1);
 
-
         }
 
         public event EventHandler PageSizeChanged;
-
-        public event EventHandler QueryClick
-        {
-            add
-            {
-                this.queryBtn.Click += value;
-            }
-            remove
-            {
-                this.queryBtn.Click -= value;
-            }
-        }
-
+        public event EventHandler DownLoadVideoFileClick;
+        public event EventHandler QueryClick;
         public event EventHandler PlayVideoClick
         {
             add
@@ -68,54 +56,37 @@ namespace RemoteImaging.Query
             }
         }
 
-        public event EventHandler NextPageClick
+        public event EventHandler NextPageClick;
+
+        public event EventHandler PreviousPageClick;
+
+        public event EventHandler LastPageClick;
+
+        public event EventHandler FirstPageClick;
+
+
+        public Damany.RemoteImaging.Common.IProgress ProgressIndicator
         {
-            add
+            get
             {
-                this.toolStripButtonNextPage.Click += value;
-            }
-            remove
-            {
-                this.toolStripButtonNextPage.Click -= value;
+                Damany.RemoteImaging.Common.Forms.ProgressForm progress =
+                    new Damany.RemoteImaging.Common.Forms.ProgressForm();
+
+                if (this.InvokeRequired)
+                {
+                    Action<System.Windows.Forms.Form> show = progress.Show;
+
+                    show.Invoke(this);
+                }
+                else
+                {
+                    progress.Show(this);
+
+                }
+
+                return progress;
             }
         }
-
-        public event EventHandler PreviousPageClick
-        {
-            add
-            {
-                this.toolStripButtonPrePage.Click += value;
-            }
-            remove
-            {
-                this.toolStripButtonPrePage.Click -= value;
-            }
-        }
-
-        public event EventHandler LastPageClick
-        {
-            add
-            {
-                this.toolStripButtonLastPage.Click += value;
-            }
-            remove
-            {
-                this.toolStripButtonLastPage.Click -= value;
-            }
-        }
-
-        public event EventHandler FirstPageClick
-        {
-            add
-            {
-                this.toolStripButtonFirstPage.Click += value;
-            }
-            remove
-            {
-                this.toolStripButtonFirstPage.Click -= value;
-            }
-        }
-
 
         public event EventHandler<SaveEventArgs> SaveImageClick;
 
@@ -129,9 +100,8 @@ namespace RemoteImaging.Query
             {
                 hosts = value;
 
-                this.comboBox1.DataSource = value.Hosts;
-                this.comboBox1.DisplayMember = "Name";
-
+                this.hostsComboBox.DataSource = value.Hosts;
+                this.hostsComboBox.DisplayMember = "Name";
             }
         }
 
@@ -139,7 +109,7 @@ namespace RemoteImaging.Query
         {
             get
             {
-                return (DateTime) this.searchFromTime.EditValue;
+                return (DateTime)this.searchFromTime.EditValue;
             }
         }
 
@@ -147,7 +117,7 @@ namespace RemoteImaging.Query
         {
             get
             {
-                return (DateTime) this.searchToTime.EditValue;
+                return (DateTime)this.searchToTime.EditValue;
             }
         }
 
@@ -162,9 +132,9 @@ namespace RemoteImaging.Query
             {
                 if (this.InvokeRequired)
                 {
-                    Func<int> getPgSz = () => GetPageSize(); 
+                    Func<int> getPgSz = () => GetPageSize();
 
-                    return (int) this.Invoke( getPgSz );
+                    return (int)this.Invoke(getPgSz);
                 }
                 else
                     return GetPageSize();
@@ -222,8 +192,24 @@ namespace RemoteImaging.Query
             }
         }
 
+        public DateTime SelectedTime
+        {
+            get
+            {
+                if (this.facesListView.FocusedItem == null) return default(DateTime);
 
-        public void AddFace( ImagePair pair )
+                ImagePair ip = this.facesListView.FocusedItem.Tag as ImagePair;
+
+                ImageDetail imgInfo = ImageDetail.FromPath(ip.FacePath);
+
+                return imgInfo.CaptureTime;
+
+            }
+
+        }
+
+
+        public void AddFace(ImagePair pair)
         {
             this.facesList.Images.Add(pair.Face);
             string text = System.IO.Path.GetFileName(pair.FacePath as string);
@@ -265,7 +251,7 @@ namespace RemoteImaging.Query
 
         private System.Net.IPAddress InternalGetSelectedIP()
         {
-            Host selected = this.comboBox1.SelectedItem as Host;
+            Host selected = this.hostsComboBox.SelectedItem as Host;
             if (selected == null)
             {
                 throw new Exception("No camera selected");
@@ -287,23 +273,29 @@ namespace RemoteImaging.Query
                 }
                 else
                     return InternalGetSelectedIP();
-                
+
             }
-            
+
         }
 
-        private void queryBtn_Click(object sender, EventArgs e)
+        private bool IsHostSelected()
         {
-            Cursor.Current = Cursors.WaitCursor;
-
-            if (this.comboBox1.Text == "" || this.comboBox1.Text == null)
+            if (this.hostsComboBox.SelectedValue == null)
             {
-                MessageBox.Show("请选择要查询的摄像头ID", "警告");
-                return;
+                this.ShowErrorMessage("请选择要查询的监控点");
+                return false;
             }
 
+            return true;
+        }
+        private void queryBtn_Click(object sender, EventArgs e)
+        {
+            if (!IsHostSelected()) return;
 
-            Cursor.Current = Cursors.Default;
+            if (this.QueryClick != null)
+            {
+                this.QueryClick(this, EventArgs.Empty);
+            }
         }
 
 
@@ -377,25 +369,52 @@ namespace RemoteImaging.Query
 
         private void PicQueryForm_Load(object sender, EventArgs e)
         {
-            
+
         }
 
         private void toolStripButtonFirstPage_Click(object sender, EventArgs e)
         {
+            if (!IsHostSelected()) return;
+
+            if (FirstPageClick != null)
+            {
+                FirstPageClick(sender, e);
+            }
 
         }
 
         private void toolStripButtonPrePage_Click(object sender, EventArgs e)
         {
+            if (!IsHostSelected()) return;
+
+            if (PreviousPageClick != null)
+            {
+                PreviousPageClick(sender, e);
+            }
+
 
         }
 
         private void toolStripButtonNextPage_Click(object sender, EventArgs e)
         {
+            if (!IsHostSelected()) return;
+
+            if (NextPageClick != null)
+            {
+                NextPageClick(sender, e);
+            }
+
         }
 
         private void toolStripButtonLastPage_Click(object sender, EventArgs e)
         {
+            if (!IsHostSelected()) return;
+
+            if (LastPageClick != null)
+            {
+                LastPageClick(sender, e);
+            }
+
 
         }
 
@@ -459,7 +478,7 @@ namespace RemoteImaging.Query
 
             try
             {
-                video  = Gateways.Search.Instance.VideoFilePathRecordedAt( SelectedIP, imgInfo.CaptureTime, imgInfo.FromCamera );
+                video = Gateways.Search.Instance.VideoFilePathRecordedAt(SelectedIP, imgInfo.CaptureTime, imgInfo.FromCamera);
             }
             catch (System.ServiceModel.CommunicationException)
             {
@@ -477,12 +496,12 @@ namespace RemoteImaging.Query
 
             try
             {
-                Gateways.StreamPlayer.Instance.StreamVideo( SelectedIP, video);
+                Gateways.StreamPlayer.Instance.StreamVideo(SelectedIP, video);
             }
             catch (System.ServiceModel.CommunicationException)
             {
                 this.ShowErrorMessage("未找到相关视频");
-            	
+
             }
 
         }
@@ -534,6 +553,26 @@ namespace RemoteImaging.Query
 
         private void PicQueryForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+        }
+
+
+        public System.IO.Stream DestinationStream { get { return saveVideoFileDialog.OpenFile(); } }
+
+        private void downloadVideoFile_Click(object sender, EventArgs e)
+        {
+            if (this.SelectedTime == default(DateTime))
+            {
+                ShowErrorMessage("请选择一幅图片！");
+                return;
+            }
+
+            if (saveVideoFileDialog.ShowDialog(this) == DialogResult.Cancel) return;
+
+            if (this.DownLoadVideoFileClick != null)
+            {
+                this.DownLoadVideoFileClick(this, EventArgs.Empty);
+            }
+
         }
     }
 }

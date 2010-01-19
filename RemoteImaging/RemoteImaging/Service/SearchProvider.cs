@@ -93,19 +93,23 @@ namespace RemoteImaging.Service
         }
 
 
-        public System.IO.Stream DownloadFile(string file, string abc)
+        public System.IO.Stream DownloadFile(string file)
         {
             return System.IO.File.OpenRead(file);
         }
 
-        #endregion
-
-        #region ISearch Members
 
 
         public Bitmap DownloadBitmap(string file)
         {
             return (System.Drawing.Bitmap) System.Drawing.Bitmap.FromFile(file);
+        }
+
+
+        public long GetFileSizeInBytes(string file)
+        {
+            var fileInfo = new System.IO.FileInfo(file);
+            return fileInfo.Length;
         }
 
         #endregion

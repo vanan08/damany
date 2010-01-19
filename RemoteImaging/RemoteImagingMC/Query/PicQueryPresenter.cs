@@ -24,6 +24,20 @@ namespace RemoteImaging.Query
             this.view.FirstPageClick += new EventHandler(view_FirstPageClick);
             this.view.LastPageClick += new EventHandler(view_LastPageClick);
             this.view.PageSizeChanged += new EventHandler(view_PageSizeChanged);
+
+            this.view.DownLoadVideoFileClick += new EventHandler(view_DownLoadVideoFileClick);
+        }
+
+        void view_DownLoadVideoFileClick(object sender, EventArgs e)
+        {
+            var ip = this.view.SelectedIP;
+            var time = this.view.SelectedTime;
+            var progress = this.view.ProgressIndicator;
+
+            System.Threading.ThreadPool.QueueUserWorkItem( o => 
+                this.DownloadVideoFileAt(ip, 2, time, this.view.DestinationStream, progress)
+                );
+
         }
 
         void view_PageSizeChanged(object sender, EventArgs e)
@@ -77,6 +91,8 @@ namespace RemoteImaging.Query
         {
             this.syncContext.Post(o => this.view.ClearCurPageList(), null);
         }
+
+
         private void DoShowCurrent()
         {
             ClearViewAsync();
@@ -100,6 +116,52 @@ namespace RemoteImaging.Query
                 this.syncContext.Post(o => this.view.AddFace(o as ImagePair), ip);
 
             }
+        }
+
+        public void DownloadVideoFileAt(
+                                        System.Net.IPAddress ip, 
+                                        int cameraId, 
+                                        DateTime time, 
+                                        System.IO.Stream destStream, 
+                                        Damany.RemoteImaging.Common.IProgress progress
+                                        )
+        {
+            var path = Gateways.Search.Instance.VideoFilePathRecordedAt(ip, time, cameraId);
+            if (string.IsNullOrEmpty(path))
+            {
+                throw new System.IO.FileNotFoundException();
+            }
+
+            long size = Gateways.Search.Instance.GetFileSizeInBytes(ip, cameraId, path);
+            
+            var buffer = new byte[64 * 1024];
+            using (progress)
+            using (System.IO.Stream fs = Gateways.Search.Instance.DownloadFile(ip, path))
+            using (destStream)
+            {
+                long bytesCount = 0;
+                while (true)
+                {
+                    int bytesRead = fs.Read(buffer, 0, buffer.Length);
+                    if (bytesRead == 0)
+                    {
+                        break;
+                    }
+
+                    destStream.Write(buffer, 0, bytesRead);
+                    bytesCount += bytesRead;
+
+                    double percent = (double) bytesCount / size;
+                    percent *= 100;
+
+                    progress.Percent = (int)  percent;
+                    System.Diagnostics.Debug.WriteLine(percent);
+
+                }
+
+
+            }
+
         }
 
         void ShowCurrentPageAsync()
@@ -162,16 +224,16 @@ namespace RemoteImaging.Query
         int totalPages;
         private int CalcPagesCount()
         {
+            if (this.imagesFound == null)
+            {
+                return 0;
+            }
 
             totalPages = (imagesFound.Length + view.PageSize - 1) / this.view.PageSize;
             this.view.TotalPage = totalPages;
 
             return totalPages;
         }
-
-
-
-
 
     }
 }
