@@ -158,7 +158,11 @@ namespace Damany.Windows.Form
                     recText.Offset(0, h);
                     recText.Height -= h;
 
-                    g.DrawStringInCenterOfRectangle(this.Text, this.Font, SystemBrushes.ControlText, recText);
+                    g.DrawStringInCenterOfRectangle(
+                        this.Text, 
+                        this.Font, 
+                        this.Selected ? Brushes.White : SystemBrushes.ControlText, 
+                        recText);
 
                     recOfImg.Height -= (int)sizeOfText.Height + space;
                 }
