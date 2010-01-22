@@ -7,12 +7,6 @@ using namespace System::Runtime::InteropServices;
 
 FaceSVMWrapper::SVM^ FaceSVMWrapper::SVM::LoadFrom(System::String^ directory)
 {
-	System::String^ svmDirectory = System::IO::Path::Combine( directory, "SVM" );
-	if ( !System::IO::Directory::Exists( svmDirectory ) )
-	{
-		throw gcnew System::IO::DirectoryNotFoundException(svmDirectory);
-	}
-
 	SVM^ svm = gcnew FaceSVMWrapper::SVM(directory);
 	svm->Load();
 
