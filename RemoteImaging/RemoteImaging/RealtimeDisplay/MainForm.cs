@@ -828,7 +828,7 @@ namespace RemoteImaging.RealtimeDisplay
 
             if (string.IsNullOrEmpty(Program.directory))
             {
-                var camera = new SanyoNetCamera();
+                var camera = new Damany.Component.SanyoNetCamera();
                 camera.IPAddress = cam.IpAddress;
                 camera.UserName = "guest";
                 camera.Password = "guest";

@@ -61,6 +61,18 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Discovery.Test", "Discovery
 		SolutionBindings = <Solution Location In Database>
 	EndGlobalSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FaceSVMWrapper", "FaceSVMWrapper\FaceSVMWrapper.vcproj", "{02B00EA5-D734-429C-BF58-44769501B940}"
+	GlobalSection(MercurialSourceControlSolutionProperties) = preSolution
+		SolutionIsControlled = True
+		SolutionBindings = <Solution Location In Database>
+	EndGlobalSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FaceSVMWrapper.Test", "FaceSVMWrapper.Test\FaceSVMWrapper.Test.csproj", "{7F738107-2BE8-474F-B375-BAFD537018EA}"
+	GlobalSection(MercurialSourceControlSolutionProperties) = preSolution
+		SolutionIsControlled = True
+		SolutionBindings = <Solution Location In Database>
+	EndGlobalSection
+EndProject
 Global
 	GlobalSection(MercurialSourceControlSolutionProperties) = preSolution
 		SolutionIsControlled = True
@@ -175,6 +187,26 @@ Global
 		{74D590B6-9AFD-4ABA-B4EC-D8A7ED08B024}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{74D590B6-9AFD-4ABA-B4EC-D8A7ED08B024}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{74D590B6-9AFD-4ABA-B4EC-D8A7ED08B024}.Release|Win32.ActiveCfg = Release|Any CPU
+		{02B00EA5-D734-429C-BF58-44769501B940}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{02B00EA5-D734-429C-BF58-44769501B940}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{02B00EA5-D734-429C-BF58-44769501B940}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{02B00EA5-D734-429C-BF58-44769501B940}.Debug|Win32.ActiveCfg = Debug|Win32
+		{02B00EA5-D734-429C-BF58-44769501B940}.Debug|Win32.Build.0 = Debug|Win32
+		{02B00EA5-D734-429C-BF58-44769501B940}.Release|Any CPU.ActiveCfg = Release|Win32
+		{02B00EA5-D734-429C-BF58-44769501B940}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{02B00EA5-D734-429C-BF58-44769501B940}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{02B00EA5-D734-429C-BF58-44769501B940}.Release|Win32.ActiveCfg = Release|Win32
+		{02B00EA5-D734-429C-BF58-44769501B940}.Release|Win32.Build.0 = Release|Win32
+		{7F738107-2BE8-474F-B375-BAFD537018EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F738107-2BE8-474F-B375-BAFD537018EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F738107-2BE8-474F-B375-BAFD537018EA}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{7F738107-2BE8-474F-B375-BAFD537018EA}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{7F738107-2BE8-474F-B375-BAFD537018EA}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{7F738107-2BE8-474F-B375-BAFD537018EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F738107-2BE8-474F-B375-BAFD537018EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F738107-2BE8-474F-B375-BAFD537018EA}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{7F738107-2BE8-474F-B375-BAFD537018EA}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{7F738107-2BE8-474F-B375-BAFD537018EA}.Release|Win32.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

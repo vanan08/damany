@@ -161,5 +161,11 @@
     <Setting Name="SearchSuspecious" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="ImageRepositoryDirectory" Type="System.String" Scope="User">
+      <Value Profile="(Default)">c:\facerecognition</Value>
+    </Setting>
+    <Setting Name="SVMDirectoryName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">SVM</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -1,7 +1,7 @@
 // FaceSearchWrapper.h
 
 #pragma once
-#include "../../OutPut/FaceSelect.h"
+#include "../../FaceSelDll/FaceSelect.h"
 #include "FaceSearchConfiguration.h"
 
 using namespace System;

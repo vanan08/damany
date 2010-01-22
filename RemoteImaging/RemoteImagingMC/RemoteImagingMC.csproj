@@ -39,15 +39,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AForge.Imaging, Version=1.1.0.0, Culture=neutral, PublicKeyToken=d604c8342bbdeba9, processorArchitecture=MSIL" />
-    <Reference Include="Damany.Component, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Damany.Library\OutPut\Damany.Component.dll</HintPath>
-    </Reference>
     <Reference Include="Damany.Drawing, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
-    <Reference Include="Damany.Windows.Form, Version=1.4.48.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Damany.Library\Damany.Windows.Form\Release\Damany.Windows.Form.dll</HintPath>
-    </Reference>
     <Reference Include="DevExpress.BonusSkins.v9.2, Version=9.2.9.0, Culture=neutral, PublicKeyToken=95fc6c5621878f0a" />
     <Reference Include="DevExpress.Data.v9.2, Version=9.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.OfficeSkins.v9.2, Version=9.2.9.0, Culture=neutral, PublicKeyToken=95fc6c5621878f0a" />
@@ -65,15 +57,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Library\Emcaster.0.1.5\Emcaster.dll</HintPath>
     </Reference>
-    <Reference Include="Encryptor, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\OutPut\Encryptor.dll</HintPath>
-    </Reference>
     <Reference Include="EnvDTE, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-    <Reference Include="IconExtractor, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\OutPut\IconExtractor.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -82,10 +66,6 @@
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Validation, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Validation.Integration.WinForms, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Practices.ObjectBuilder2, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
-    <Reference Include="MotionDetectWrapper, Version=1.0.3615.29008, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\OutPut\MotionDetectWrapper.dll</HintPath>
-    </Reference>
     <Reference Include="OpenCvSharp, Version=2.0.3497.28493, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Library\OpenCvSharp\OpenCvSharp.dll</HintPath>
@@ -422,6 +402,14 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Damany.Library\Damany.Component\Damany.Component.csproj">
+      <Project>{80DC56F4-DB48-4AF2-B1BE-6B944A81B293}</Project>
+      <Name>Damany.Component</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Damany.Library\Damany.Windows.Form\Damany.Windows.Form.csproj">
+      <Project>{8AA0E208-9EC2-477B-BE96-00E4C7B7F827}</Project>
+      <Name>Damany.Windows.Form</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CommonLibrary\RemoteImaging.Common.csproj">
       <Project>{683B173B-831E-494D-A6FE-965934D3D315}</Project>
       <Name>RemoteImaging.Common</Name>
@@ -430,9 +418,21 @@
       <Project>{105AB30D-A893-4E2C-B149-764A80C1FDCE}</Project>
       <Name>Discovery</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Encryptor\Encryptor.csproj">
+      <Project>{B377F693-4975-4BB6-A6DC-C0C3844517B1}</Project>
+      <Name>Encryptor</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IconExtractor\ImageProcessing.csproj">
+      <Project>{C917EC7F-9A59-4845-9108-87056AC61D4F}</Project>
+      <Name>ImageProcessing</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Messages\Messages.csproj">
       <Project>{80A13967-C4D2-4B5A-909D-FA595F57F88D}</Project>
       <Name>Messages</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MotionDetectWrapper\MotionDetectWrapper.vcproj">
+      <Project>{135CB419-42DC-468F-A6A5-C368AE5D7E8D}</Project>
+      <Name>MotionDetectWrapper</Name>
     </ProjectReference>
     <ProjectReference Include="..\RemoteControlService\RemoteControlService.csproj">
       <Project>{3F01A85F-C1C4-4060-AA37-57AB6F0C90AB}</Project>
@@ -453,7 +453,7 @@
   -->
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_BuildAction="ReBuild" BuildVersion_ConfigurationName="Release" BuildVersion_UpdateFileVersion="True" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_BuildVersioningStyle="None.None.Increment.None" Reactor_Enabled="1" Reactor_Lib="0" Reactor_Automatic="1" Reactor_Commands="" Reactor_Project="" Reactor_Output="[main_assembly_dir]RemoteImagingMC_Secure\RemoteImagingMC.exe" />
+      <UserProperties Reactor_Output="[main_assembly_dir]RemoteImagingMC_Secure\RemoteImagingMC.exe" Reactor_Project="" Reactor_Commands="" Reactor_Automatic="1" Reactor_Lib="0" Reactor_Enabled="1" BuildVersion_BuildVersioningStyle="None.None.Increment.None" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_UpdateFileVersion="True" BuildVersion_ConfigurationName="Release" BuildVersion_BuildAction="ReBuild" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

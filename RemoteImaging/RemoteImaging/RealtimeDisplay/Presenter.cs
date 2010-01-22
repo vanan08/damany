@@ -45,6 +45,8 @@ namespace RemoteImaging.RealtimeDisplay
 
         Thread motionDetectThread = null;
 
+        FaceSVMWrapper.SVM svm;
+
         private IplImage _BackGround;
         public IplImage BackGround
         {
@@ -61,16 +63,30 @@ namespace RemoteImaging.RealtimeDisplay
 
         public void UpdateBG()
         {
-            byte[] imgData = null;
-            lock (this.camLocker)
-                imgData = this.camera.CaptureImageBytes();
+            try
+            {
+                byte[] imgData = null;
+                lock (this.camLocker)
+                    imgData = this.camera.CaptureImageBytes();
 
-            Image img = Image.FromStream(new MemoryStream(imgData));
+                Image img = Image.FromStream(new MemoryStream(imgData));
 
-            lock (this.bgLocker)
-                this.BackGround = BitmapConverter.ToIplImage((Bitmap)img);
+                lock (this.bgLocker)
+                    this.BackGround = BitmapConverter.ToIplImage((Bitmap)img);
 
-            img.Save("BG.jpg");
+                img.Save("BG.jpg");
+            }
+            catch (System.Net.WebException)
+            {
+                MessageBox.Show("获取背景图片错误，请重试！");
+                return;
+            }
+            catch(System.ArgumentException)
+            {
+                MessageBox.Show("获取背景图片错误，请重试！");
+                return;
+            }
+            
         }
 
 
@@ -94,6 +110,8 @@ namespace RemoteImaging.RealtimeDisplay
         {
             this.screen = screen;
             this.camera = camera;
+
+            this.svm = FaceSVMWrapper.SVM.LoadFrom(Properties.Settings.Default.ImageRepositoryDirectory);
 
             this.InitializeTrayIcon();
 
@@ -546,9 +564,9 @@ namespace RemoteImaging.RealtimeDisplay
         }
 
 
-        private static bool IsGoodGuy(float[] imgData)
+        private bool IsGoodGuy(float[] imgData)
         {
-            double verdict = SVMWrapper.SvmPredict(imgData);
+            double verdict = this.svm.Predict(imgData);
 
             System.Diagnostics.Debug.WriteLine(string.Format("=======verdict: {0}=======", verdict));
 
@@ -563,7 +581,7 @@ namespace RemoteImaging.RealtimeDisplay
 
                     IplImage normalized = Program.faceSearch.NormalizeImage(t.BaseFrame.image, t.FacesRectsForCompare[i]);
 
-                    float[] imgData = NativeIconExtractor.ResizeIplTo(normalized, 100, 100, BitDepth.U8, 1);
+                    float[] imgData = NativeIconExtractor.ResizeIplTo(normalized, 100, 100);
 
                     if (IsGoodGuy(imgData)) return;
 

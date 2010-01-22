@@ -182,10 +182,9 @@
 			AssemblyName="System.Xml, Version=2.0.0.0, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL"
 			MinFrameworkVersion="131072"
 		/>
-		<AssemblyReference
-			RelativePath="..\..\OutPut\IconExtractor.dll"
-			AssemblyName="IconExtractor, Version=1.0.8.0, processorArchitecture=MSIL"
-			MinFrameworkVersion="0"
+		<ProjectReference
+			ReferencedProjectIdentifier="{C917EC7F-9A59-4845-9108-87056AC61D4F}"
+			RelativePathToProject=".\IconExtractor\ImageProcessing.csproj"
 		/>
 		<AssemblyReference
 			RelativePath="..\..\Library\OpenCvSharp\OpenCvSharp.dll"

@@ -658,5 +658,29 @@ namespace RemoteImaging.Properties {
                 this["SearchSuspecious"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("c:\\facerecognition")]
+        public string ImageRepositoryDirectory {
+            get {
+                return ((string)(this["ImageRepositoryDirectory"]));
+            }
+            set {
+                this["ImageRepositoryDirectory"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("SVM")]
+        public string SVMDirectoryName {
+            get {
+                return ((string)(this["SVMDirectoryName"]));
+            }
+            set {
+                this["SVMDirectoryName"] = value;
+            }
+        }
     }
 }
