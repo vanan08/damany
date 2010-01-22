@@ -2,14 +2,10 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9.00"
-	Name="FaceSvm"
-	ProjectGUID="{62BA9C03-0951-40C4-B2B9-EDABC8815177}"
-	RootNamespace="FaceSvm"
-	SccProjectName="&lt;Project Location In Database&gt;"
-	SccAuxPath="&lt;Source Control Database&gt;"
-	SccLocalPath="&lt;Local Binding Root of Project&gt;"
-	SccProvider="Mercurial Source Control Package"
-	Keyword="MFCDLLProj"
+	Name="FaceSVMWrapper"
+	ProjectGUID="{02B00EA5-D734-429C-BF58-44769501B940}"
+	RootNamespace="FaceSVMWrapper"
+	Keyword="ManagedCProj"
 	TargetFrameworkVersion="196613"
 	>
 	<Platforms>
@@ -26,7 +22,8 @@
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="2"
 			UseOfMFC="2"
-			CharacterSet="2"
+			CharacterSet="1"
+			ManagedExtensions="1"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -42,40 +39,31 @@
 			/>
 			<Tool
 				Name="VCMIDLTool"
-				PreprocessorDefinitions="_DEBUG"
-				MkTypLibCompatible="false"
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				UseUnicodeResponseFiles="true"
 				Optimization="0"
-				PreprocessorDefinitions="WIN32;_WINDOWS;_DEBUG;_USRDLL"
-				MinimalRebuild="true"
-				BasicRuntimeChecks="3"
+				PreprocessorDefinitions="WIN32;_DEBUG"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="2"
 				WarningLevel="3"
-				DebugInformationFormat="4"
+				DebugInformationFormat="3"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
 			/>
 			<Tool
 				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions="_DEBUG"
-				Culture="1033"
-				AdditionalIncludeDirectories="$(IntDir)"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="cv.lib cxcore.lib cvaux.lib highgui.lib"
+				AdditionalDependencies="$(NoInherit)"
 				LinkIncremental="2"
-				ModuleDefinitionFile=".\FaceSvm.def"
 				GenerateDebugInformation="true"
-				SubSystem="2"
+				AssemblyDebug="1"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -106,7 +94,8 @@
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="2"
 			UseOfMFC="2"
-			CharacterSet="2"
+			CharacterSet="1"
+			ManagedExtensions="1"
 			WholeProgramOptimization="1"
 			>
 			<Tool
@@ -123,17 +112,11 @@
 			/>
 			<Tool
 				Name="VCMIDLTool"
-				PreprocessorDefinitions="NDEBUG"
-				MkTypLibCompatible="false"
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				UseUnicodeResponseFiles="true"
-				Optimization="2"
-				EnableIntrinsicFunctions="true"
-				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;_USRDLL;DLL_EXPORTS"
+				PreprocessorDefinitions="WIN32;NDEBUG"
 				RuntimeLibrary="2"
-				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="2"
 				WarningLevel="3"
 				DebugInformationFormat="3"
@@ -143,22 +126,15 @@
 			/>
 			<Tool
 				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions="NDEBUG"
-				Culture="1033"
-				AdditionalIncludeDirectories="$(IntDir)"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="cv.lib cxcore.lib cvaux.lib highgui.lib"
+				AdditionalDependencies="$(NoInherit)"
 				LinkIncremental="1"
-				ModuleDefinitionFile=".\FaceSvm.def"
 				GenerateDebugInformation="true"
-				SubSystem="2"
-				OptimizeReferences="2"
-				EnableCOMDATFolding="2"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -185,6 +161,25 @@
 		</Configuration>
 	</Configurations>
 	<References>
+		<AssemblyReference
+			RelativePath="System.dll"
+			AssemblyName="System, Version=2.0.0.0, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL"
+			MinFrameworkVersion="131072"
+		/>
+		<AssemblyReference
+			RelativePath="System.Data.dll"
+			AssemblyName="System.Data, Version=2.0.0.0, PublicKeyToken=b77a5c561934e089, processorArchitecture=x86"
+			MinFrameworkVersion="131072"
+		/>
+		<AssemblyReference
+			RelativePath="System.XML.dll"
+			AssemblyName="System.Xml, Version=2.0.0.0, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL"
+			MinFrameworkVersion="131072"
+		/>
+		<ProjectReference
+			ReferencedProjectIdentifier="{62BA9C03-0951-40C4-B2B9-EDABC8815177}"
+			RelativePathToProject="..\FaceSvm\FaceSvm\FaceSvm.vcproj"
+		/>
 	</References>
 	<Files>
 		<Filter
@@ -193,15 +188,15 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\FaceSvm.cpp"
+				RelativePath=".\AssemblyInfo.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\FaceSvmApp.cpp"
+				RelativePath=".\FaceSVMWrapper.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\stdafx.cpp"
+				RelativePath=".\Stdafx.cpp"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
@@ -220,10 +215,6 @@
 					/>
 				</FileConfiguration>
 			</File>
-			<File
-				RelativePath=".\svm.cpp"
-				>
-			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -231,27 +222,15 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\faceSVM.h"
+				RelativePath=".\FaceSVMWrapper.h"
 				>
 			</File>
 			<File
-				RelativePath=".\FaceSvmApp.h"
+				RelativePath=".\resource.h"
 				>
 			</File>
 			<File
-				RelativePath=".\Resource.h"
-				>
-			</File>
-			<File
-				RelativePath=".\stdafx.h"
-				>
-			</File>
-			<File
-				RelativePath=".\svm.h"
-				>
-			</File>
-			<File
-				RelativePath=".\targetver.h"
+				RelativePath=".\Stdafx.h"
 				>
 			</File>
 		</Filter>
@@ -261,11 +240,11 @@
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
 			<File
-				RelativePath=".\FaceSvm.rc"
+				RelativePath=".\app.ico"
 				>
 			</File>
 			<File
-				RelativePath=".\res\FaceSvm.rc2"
+				RelativePath=".\app.rc"
 				>
 			</File>
 		</Filter>

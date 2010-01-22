@@ -22,10 +22,35 @@ using namespace std;
 class DLL_API FaceSvm
 {
 public:
-	FaceSvm();
+	FaceSvm(const char* path);
+	void Load();//SVM数据初始化
+	void SvmTrain();
+	void SvmTrain(int imgWidth, int imgHeight, int eigenNum, const char *option);//SVM训练函数
+	double SvmPredict(float *currentFace);//SVM预测函数
+
+private:
+	void ReadConfigInfo();
+	CString GetSVMProfileString(const CString& name);
+	void WriteSVMProfileString(const CString& name, const CString& val);
+	int GetSVMProfileInt(const CString& name);
+	void WriteSVMProfileInt(const CString& name, int val);
 	int GetBadGuySampleCount();
 	int GetGoodGuySampleCount();
+	int GetFileCount(CString path, CString pattern);
+	void DelFile(CString filePath);
 	void DelSvmDataFile();
+	CString GetConfigFile();
+
+	inline CString GetSampleCoefficientFilePath();
+	inline CString GetBallNormFilePath();
+	inline CString GetLabelFilePath();
+	inline CString GetEigenVectorFilePath();
+	inline CString GetAverageVauleFilePath();
+	inline CString GetModelFilePath(); 
+
+	CString GetSVMroot();
+	CString GetBadGuyPath();
+	CString GetGoodGuyPath();
 	void WriteSvmAvgTxt(CvMat *AvgVector);
 	void WriteSvmEigenVectorTxt(CvMat *EigenVectorFinal);
 	void WriteSvmSamCoeffTxt(CvMat *resCoeff);
@@ -40,16 +65,12 @@ public:
 	void GetSvmTrainData(struct svm_problem *prob, struct svm_node *x_space);
 	void DefaultSvmParam(struct svm_parameter *param);
 	void SwitchForSvmParma(struct svm_parameter *param, char ch, char *strNum, int nr_fold, int cross_validation);
-	void SetSvmParam(struct svm_parameter *param, char *str, int cross_validation, int nr_fold);
+	void SetSvmParam(struct svm_parameter *param, const char *str, int cross_validation, int nr_fold);
 	void ReadAvgTxt(CvMat *avgVector);
 	void ReadEigVecTxt(CvMat *eigenVector);
 	void BallNorm(CvMat *targetResult, float *currBallNorm);
-	void PcaProject(float *currentFace, int sampleCount, int imgLen, int eigenNum, float *currBallNorm);
-	void InitSvmData();//SVM数据初始化
-	void SvmTrain(int imgWidth, int imgHeight, int eigenNum, char *option);//SVM训练函数
-	double SvmPredict(float *currentFace);//SVM预测函数
+	void PcaProject(float *currentFace, int sampleCount, int imgLen, int eigenNum, float *currBallNorm); 
 
-private:
 	CvMat *svmAvgVector;
 	CvMat *svmEigenVector;  
 	svm_model* testModel;
@@ -58,4 +79,6 @@ private:
 	int svmImgLen;
 	int svmEigenNum;
 	int svmSampleCount;
+	CString rootPath;
+	CString options;
 };
