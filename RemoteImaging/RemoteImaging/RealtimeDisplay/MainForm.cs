@@ -331,6 +331,12 @@ namespace RemoteImaging.RealtimeDisplay
 
         Communication commucation;
 
+        private Camera GetLastSelectedCamera()
+        {
+            Camera c = config.FindCameraByID(Properties.Settings.Default.LastSelCamID);
+            return c;
+        }
+
         private void MainForm_Shown(object sender, EventArgs e)
         {
             diskSpaceCheckTimer.Enabled = true;
@@ -340,8 +346,7 @@ namespace RemoteImaging.RealtimeDisplay
 
             FaceRecognition.FaceRecognizer.InitData(Program.ImageSampleCount, Program.ImageLen, Program.EigenNum);
 
-            Camera c = config.FindCameraByID(Properties.Settings.Default.LastSelCamID);
-
+            Camera c = GetLastSelectedCamera();
             if (c == null) return;
 
             if (FileSystemStorage.DriveRemoveable(Properties.Settings.Default.OutputPath))
@@ -832,6 +837,8 @@ namespace RemoteImaging.RealtimeDisplay
         }
 
 
+        int? lastSelCamID = null;
+
         private void StartCamera(Camera cam)
         {
             SynchronizationContext context = SynchronizationContext.Current;
@@ -846,7 +853,7 @@ namespace RemoteImaging.RealtimeDisplay
                 camera.Password = "guest";
 
                 Icam = camera;
-                this.StartRecord(cam);
+                
             }
             else
             {
@@ -879,7 +886,8 @@ namespace RemoteImaging.RealtimeDisplay
 
                     if (error == null)
                     {
-                        Properties.Settings.Default.LastSelCamID = cam.ID;
+                        lastSelCamID = cam.ID;
+                        this.StartRecord(cam);
                     }
 
                 });
@@ -945,6 +953,12 @@ namespace RemoteImaging.RealtimeDisplay
             {
                 thread.Abort();
             }
+
+            if (lastSelCamID != null)
+            {
+                Properties.Settings.Default.LastSelCamID = (int) this.lastSelCamID;
+            }
+
             Properties.Settings.Default.Save();
 
         }
