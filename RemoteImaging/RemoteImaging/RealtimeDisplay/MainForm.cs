@@ -299,6 +299,17 @@ namespace RemoteImaging.RealtimeDisplay
 
         public IImageScreenObserver Observer { get; set; }
 
+        private void ShowLiveFace(ImageDetail[] images)
+        {
+            Image oldFace = this.liveFace.Image;
+
+            this.liveFace.Image = Image.FromFile(images.Last().Path);
+
+            if (oldFace != null)
+            {
+                oldFace.Dispose();
+            }
+        }
         public void ShowImages(ImageDetail[] images)
         {
             ImageCell[] cells = new ImageCell[images.Length];
@@ -310,6 +321,7 @@ namespace RemoteImaging.RealtimeDisplay
                 cells[i] = newCell;
             }
 
+            ShowLiveFace(images);
 
             this.squareListView1.ShowImages(cells);
 
