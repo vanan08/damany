@@ -224,8 +224,16 @@ namespace RemoteImaging
                 {
                     bool hasFaceCaptured =
                         FaceImagesCapturedWhen(cameraID, startUTC.ToLocalTime());
+                    bool isMotionLess =
+                        !MotionImagesCapturedWhen(cameraID, startUTC.ToLocalTime());
+                    bool isMotionWithoutFace = !isMotionLess && !hasFaceCaptured;
 
-                    videos.Add(new RemoteImaging.Core.Video { HasFaceCaptured = hasFaceCaptured, Path = path });
+                    videos.Add(new RemoteImaging.Core.Video { 
+                                                            HasFaceCaptured = hasFaceCaptured, 
+                                                            Path = path, 
+                                                            IsMotionWithoutFace = isMotionWithoutFace,
+                                                            IsMotionLess = isMotionLess,
+                                                            });
                 }
 
                 startUTC = startUTC.AddMinutes(1);

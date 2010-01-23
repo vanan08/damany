@@ -170,7 +170,7 @@
             this.timeEdit1.Name = "timeEdit1";
             this.timeEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.timeEdit1.Size = new System.Drawing.Size(96, 21);
+            this.timeEdit1.Size = new System.Drawing.Size(96, 23);
             this.timeEdit1.TabIndex = 7;
             // 
             // timeEdit2
@@ -180,7 +180,7 @@
             this.timeEdit2.Name = "timeEdit2";
             this.timeEdit2.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.timeEdit2.Size = new System.Drawing.Size(96, 21);
+            this.timeEdit2.Size = new System.Drawing.Size(96, 23);
             this.timeEdit2.TabIndex = 8;
             // 
             // imageListFace
@@ -208,8 +208,9 @@
             // 
             this.imageListIcon.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageListIcon.ImageStream")));
             this.imageListIcon.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageListIcon.Images.SetKeyName(0, "png-0005.png");
-            this.imageListIcon.Images.SetKeyName(1, "png-0652.png");
+            this.imageListIcon.Images.SetKeyName(0, "FaceIcon.gif");
+            this.imageListIcon.Images.SetKeyName(1, "png-0005.png");
+            this.imageListIcon.Images.SetKeyName(2, "png-0652.png");
             // 
             // label1
             // 

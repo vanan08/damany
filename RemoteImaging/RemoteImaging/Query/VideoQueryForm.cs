@@ -31,8 +31,9 @@ namespace RemoteImaging.Query
         {
             var searchTypes = new List<SearchCategory>();
             searchTypes.Add( new SearchCategory{ Name = "全部",  Scope= SearchScope.All }  );
-            searchTypes.Add( new SearchCategory{ Name = "有效视频",  Scope= SearchScope.VideoWithFaces } );
-            searchTypes.Add( new SearchCategory{ Name = "无效视频",  Scope= SearchScope.VideoWithoutFaces } );
+            searchTypes.Add(new SearchCategory { Name = "有人像视频", Scope = SearchScope.FaceCapturedVideo });
+            searchTypes.Add( new SearchCategory{ Name = "有动态无人像视频",  Scope= SearchScope.MotionWithoutFaceVideo } );
+            searchTypes.Add( new SearchCategory{ Name = "无动态视频",  Scope= SearchScope.MotionLessVideo } );
 
             this.searchType.DataSource = searchTypes;
             this.searchType.DisplayMember = "Name";
@@ -88,8 +89,8 @@ namespace RemoteImaging.Query
                 lvl.SubItems.Add(videoPath);
                 lvl.Tag = videoPath;
 
-                if ( ((SearchScope) this.searchType.SelectedValue & SearchScope.VideoWithFaces) 
-                      == SearchScope.VideoWithFaces )
+                if ( ((SearchScope) this.searchType.SelectedValue & SearchScope.FaceCapturedVideo) 
+                      == SearchScope.FaceCapturedVideo )
                 {
                     if (v.HasFaceCaptured)
                     {
@@ -98,15 +99,27 @@ namespace RemoteImaging.Query
                     }
                 }
                 
-                if ( ((SearchScope) this.searchType.SelectedValue & SearchScope.VideoWithoutFaces) 
-                      == SearchScope.VideoWithoutFaces)
+                if (((SearchScope)this.searchType.SelectedValue & SearchScope.MotionWithoutFaceVideo)
+                     == SearchScope.MotionWithoutFaceVideo)
                 {
-                    if (!v.HasFaceCaptured)
+                    if (v.IsMotionWithoutFace)
                     {
                         lvl.ImageIndex = 1;
                         videoList.Items.Add(lvl);
                     }
                 }
+                
+                if ( ((SearchScope) this.searchType.SelectedValue & SearchScope.MotionLessVideo) 
+                      == SearchScope.MotionLessVideo)
+                {
+                    if (v.IsMotionLess)
+                    {
+                        lvl.ImageIndex = 2;
+                        videoList.Items.Add(lvl);
+                    }
+                }
+
+               
 
 
 
@@ -223,8 +236,9 @@ namespace RemoteImaging.Query
         [Flags]
         internal enum SearchScope : byte
         {
-            VideoWithFaces = 1,
-            VideoWithoutFaces = 2,
+            FaceCapturedVideo = 1,
+            MotionWithoutFaceVideo = 2,
+            MotionLessVideo = 4,
             All = byte.MaxValue,
         }
 
