@@ -153,7 +153,7 @@
             this.searchFrom.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
             this.searchFrom.Properties.Mask.EditMask = "f";
-            this.searchFrom.Size = new System.Drawing.Size(234, 23);
+            this.searchFrom.Size = new System.Drawing.Size(234, 21);
             this.searchFrom.TabIndex = 7;
             // 
             // searchTo
@@ -164,7 +164,7 @@
             this.searchTo.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
             this.searchTo.Properties.Mask.EditMask = "f";
-            this.searchTo.Size = new System.Drawing.Size(231, 23);
+            this.searchTo.Size = new System.Drawing.Size(231, 21);
             this.searchTo.TabIndex = 8;
             // 
             // faceImageList
@@ -192,8 +192,9 @@
             // 
             this.videoFileIconImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("videoFileIconImageList.ImageStream")));
             this.videoFileIconImageList.TransparentColor = System.Drawing.Color.Transparent;
-            this.videoFileIconImageList.Images.SetKeyName(0, "png-0005.png");
-            this.videoFileIconImageList.Images.SetKeyName(1, "png-0652.png");
+            this.videoFileIconImageList.Images.SetKeyName(0, "FaceIcon.gif");
+            this.videoFileIconImageList.Images.SetKeyName(1, "png-0005.png");
+            this.videoFileIconImageList.Images.SetKeyName(2, "png-0652.png");
             // 
             // label1
             // 

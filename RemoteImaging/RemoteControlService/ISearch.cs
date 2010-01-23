@@ -47,6 +47,12 @@ namespace RemoteControlService
         public bool HasFaceCaptured { get; set; }
 
         [DataMember]
+        public bool IsMotionWithoutFace { get; set; }
+
+        [DataMember]
+        public bool IsMotionLess { get; set; }
+
+        [DataMember]
         public string Path { get; set; }
     }
 

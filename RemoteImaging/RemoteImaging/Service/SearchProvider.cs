@@ -12,7 +12,7 @@ using System.Diagnostics;
 namespace RemoteImaging.Service
 {
     [ServiceKnownType(typeof(System.Drawing.Bitmap))]
-    [ServiceBehavior(IncludeExceptionDetailInFaults=true)]
+    [ServiceBehavior(IncludeExceptionDetailInFaults = true)]
     class SearchProvider : ISearch
     {
         string[] FaceFiles;
@@ -60,6 +60,8 @@ namespace RemoteImaging.Service
                 serviceVideos[i] = new Video()
                 {
                     HasFaceCaptured = videos[i].HasFaceCaptured,
+                    IsMotionLess = videos[i].IsMotionLess,
+                    IsMotionWithoutFace = videos[i].IsMotionWithoutFace,
                     Path = videos[i].Path,
                 };
             }
@@ -78,17 +80,17 @@ namespace RemoteImaging.Service
             string[] files = ImageSearch.FacesCapturedAt(time, cameraID, true);
             ImagePair[] bmps = new ImagePair[files.Length];
 
-            for (int i = 0; i < files.Length ; i++)
+            for (int i = 0; i < files.Length; i++)
             {
                 ImagePair ip = new ImagePair();
-                ip.Face = (Bitmap) Bitmap.FromFile(files[i]);
+                ip.Face = (Bitmap)Bitmap.FromFile(files[i]);
                 ip.FacePath = files[i];
 
                 bmps[i] = ip;
             }
 
             return bmps;
-            
+
 
         }
 
@@ -102,7 +104,7 @@ namespace RemoteImaging.Service
 
         public Bitmap DownloadBitmap(string file)
         {
-            return (System.Drawing.Bitmap) System.Drawing.Bitmap.FromFile(file);
+            return (System.Drawing.Bitmap)System.Drawing.Bitmap.FromFile(file);
         }
 
 

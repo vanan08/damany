@@ -111,7 +111,11 @@ namespace RemoteImaging.RealtimeDisplay
             this.screen = screen;
             this.camera = camera;
 
-            this.svm = FaceSVMWrapper.SVM.LoadFrom(Properties.Settings.Default.ImageRepositoryDirectory);
+            if (Properties.Settings.Default.SearchSuspecious)
+            {
+                this.svm = FaceSVMWrapper.SVM.LoadFrom(Properties.Settings.Default.ImageRepositoryDirectory);
+            }
+
 
             this.InitializeTrayIcon();
 
