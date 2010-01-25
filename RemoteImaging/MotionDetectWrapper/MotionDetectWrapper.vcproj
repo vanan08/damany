@@ -191,6 +191,10 @@
 			AssemblyName="OpenCvSharp, Version=2.0.3497.28493, processorArchitecture=MSIL"
 			MinFrameworkVersion="131072"
 		/>
+		<ProjectReference
+			ReferencedProjectIdentifier="{665D7EEC-EB5E-4381-A552-B860E07A1FAC}"
+			RelativePathToProject="..\PreProcess\PreProcess.vcproj"
+		/>
 	</References>
 	<Files>
 		<Filter
