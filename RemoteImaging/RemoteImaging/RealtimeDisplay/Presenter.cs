@@ -38,7 +38,6 @@ namespace RemoteImaging.RealtimeDisplay
         object framesArrayQueueLocker = new object();
         object rawFrameLocker = new object();
         object bgLocker = new object();
-        object camLocker = new object();
 
         AutoResetEvent goSearch = new AutoResetEvent(false);
         AutoResetEvent goDetectMotion = new AutoResetEvent(false);
@@ -61,31 +60,24 @@ namespace RemoteImaging.RealtimeDisplay
             }
         }
 
+        private void UpdateBGInternal(object sender, ImageCapturedEventArgs args)
+        {
+            this.ImageCaptured -= this.UpdateBGInternal;
+
+            IplImage oldIpl = this.BackGround;
+
+            lock (this.bgLocker)
+                this.BackGround = BitmapConverter.ToIplImage((Bitmap) args.ImageCaptured);
+
+            args.ImageCaptured.Save("BG.jpg");
+
+            oldIpl.IsEnabledDispose = true;
+            oldIpl.Dispose();
+        }
+
         public void UpdateBG()
         {
-            try
-            {
-                byte[] imgData = null;
-                lock (this.camLocker)
-                    imgData = this.camera.CaptureImageBytes();
-
-                Image img = Image.FromStream(new MemoryStream(imgData));
-
-                lock (this.bgLocker)
-                    this.BackGround = BitmapConverter.ToIplImage((Bitmap)img);
-
-                img.Save("BG.jpg");
-            }
-            catch (System.Net.WebException)
-            {
-                MessageBox.Show("获取背景图片错误，请重试！");
-                return;
-            }
-            catch(System.ArgumentException)
-            {
-                MessageBox.Show("获取背景图片错误，请重试！");
-                return;
-            }
+            this.ImageCaptured += this.UpdateBGInternal;
             
         }
 
@@ -282,14 +274,20 @@ namespace RemoteImaging.RealtimeDisplay
 
         }
 
+        private void FireImageCapturedEvent(Bitmap bmp)
+        {
+            if (ImageCaptured != null)
+            {
+                ImageCapturedEventArgs args = new ImageCapturedEventArgs() { ImageCaptured = bmp };
+                System.Diagnostics.Debug.WriteLine("fire ImageCaptured event");
+                ImageCaptured(this, args);
+            }
+        }
+
         private void QueryRawFrame()
         {
 
-            byte[] image = null;
-            lock (this.camLocker)
-            {
-                image = camera.CaptureImageBytes();
-            }
+            byte[] image = camera.CaptureImageBytes();
 
             Bitmap bmp = null;
             try
@@ -307,13 +305,7 @@ namespace RemoteImaging.RealtimeDisplay
             }
 
 
-            if (ImageCaptured != null)
-            {
-                ImageCapturedEventArgs args = new ImageCapturedEventArgs() { ImageCaptured = bmp };
-                System.Diagnostics.Debug.WriteLine("fire ImageCaptured event");
-                ImageCaptured(this, args);
-            }
-
+            FireImageCapturedEvent(bmp);
 
             if (this.cpuOverLoaded()) return;
 

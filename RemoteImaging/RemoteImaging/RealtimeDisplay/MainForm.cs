@@ -301,6 +301,8 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void ShowLiveFace(ImageDetail[] images)
         {
+            if (images.Length == 0) return;
+
             Image oldFace = this.liveFace.Image;
 
             this.liveFace.Image = Image.FromFile(images.Last().Path);
