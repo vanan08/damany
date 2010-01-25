@@ -44,7 +44,7 @@ namespace RemoteImaging.RealtimeDisplay
 
         Thread motionDetectThread = null;
 
-        FaceSVMWrapper.SVM svm;
+        FaceProcessingWrapper.SVM svm;
 
         private IplImage _BackGround;
         public IplImage BackGround
@@ -105,7 +105,7 @@ namespace RemoteImaging.RealtimeDisplay
 
             if (Properties.Settings.Default.SearchSuspecious)
             {
-                this.svm = FaceSVMWrapper.SVM.LoadFrom(Properties.Settings.Default.ImageRepositoryDirectory);
+                this.svm = FaceProcessingWrapper.SVM.LoadFrom(Properties.Settings.Default.ImageRepositoryDirectory);
             }
 
 

@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9.00"
-	Name="FaceSvm"
+	Name="FaceProcessing"
 	ProjectGUID="{62BA9C03-0951-40C4-B2B9-EDABC8815177}"
 	RootNamespace="FaceSvm"
 	SccProjectName="&lt;Project Location In Database&gt;"
@@ -49,7 +49,7 @@
 				Name="VCCLCompilerTool"
 				UseUnicodeResponseFiles="true"
 				Optimization="0"
-				PreprocessorDefinitions="WIN32;_WINDOWS;_DEBUG;_USRDLL"
+				PreprocessorDefinitions="WIN32;_WINDOWS;_DEBUG;_USRDLL;DLL_EXPORTS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -73,7 +73,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="cv.lib cxcore.lib cvaux.lib highgui.lib"
 				LinkIncremental="2"
-				ModuleDefinitionFile=".\FaceSvm.def"
+				ModuleDefinitionFile=""
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				TargetMachine="1"
@@ -201,6 +201,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\FrontFaceChecker.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\stdafx.cpp"
 				>
 				<FileConfiguration
@@ -236,6 +240,10 @@
 			</File>
 			<File
 				RelativePath=".\FaceSvmApp.h"
+				>
+			</File>
+			<File
+				RelativePath=".\FrontFaceChecker.h"
 				>
 			</File>
 			<File
