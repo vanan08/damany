@@ -31,7 +31,6 @@
     <ROW Component="AxInterop.AXVLC.dll" ComponentId="{0B2CDCA6-A1C9-432E-946E-83B485C0BBE1}" Directory_="APPDIR" Attributes="0" KeyPath="AxInterop.AXVLC.dll"/>
     <ROW Component="AxInterop.IMGCTRLLib.dll" ComponentId="{F78BE95B-7A10-4420-A6CB-E2C9EE55E32E}" Directory_="APPDIR" Attributes="0" KeyPath="AxInterop.IMGCTRLLib.dll"/>
     <ROW Component="Common.Logging.dll" ComponentId="{5E37CFC6-16F0-4910-865A-FC8CCB87DC75}" Directory_="APPDIR" Attributes="0" KeyPath="Common.Logging.dll"/>
-    <ROW Component="CommonLibrary.dll" ComponentId="{C5E00393-08D5-4056-BB2E-4C144502DF33}" Directory_="APPDIR" Attributes="0" KeyPath="CommonLibrary.dll"/>
     <ROW Component="Damany" ComponentId="{DABE8D22-CDEC-4967-9E9A-6C7C95F7CA7A}" Directory_="Damany_DIR" Attributes="0"/>
     <ROW Component="Damany.Component.dll" ComponentId="{A2A3090B-5ED1-4A41-8604-9233F8C24BB4}" Directory_="APPDIR" Attributes="0" KeyPath="Damany.Component.dll"/>
     <ROW Component="Damany.Drawing.dll" ComponentId="{40D4D3C9-812F-4D92-BBA2-0B6F80C1228D}" Directory_="APPDIR" Attributes="0" KeyPath="Damany.Drawing.dll"/>
@@ -86,7 +85,7 @@
     <ROW Component="ml100.dll" ComponentId="{370F78AD-7AF3-42EB-A5EF-1AF2FAD9BCC0}" Directory_="APPDIR" Attributes="0" KeyPath="ml100.dll"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiFeatsComponent">
-    <ROW Feature="MainFeature" Title="MainFeature" Description="描述" Display="1" Level="1" Directory_="APPDIR" Attributes="0" Components="AForge.dll AForge.Imaging.dll AForge.Math.dll AxInterop.AXVLC.dll AxInterop.IMGCTRLLib.dll Common.Logging.dll CommonLibrary.dll Damany.Component.dll Damany.Net.dll Damany.Windows.Form.dll Emcaster.dll Encryptor.dll FaceRecognition.dll FaceSearchWrapper.dll IconExtractor.dll Interop.AXVLC.dll Interop.IMGCTRLLib.dll MotionDetectWrapper.dll OpenCvSharp.dll RemoteControlService.dll RemoteImaging.exe SuspectsRepository.dll FacePca.dll FaceSelDll.dll PreProcess.dll cv100.dll cvaux100.dll cvcam100.dll cxcore100.dll cxts001.dll highgui100.dll libguide40.dll ml100.dll RemoteImaging.vshost.exe.manifest Damany REye18x12.xml StreamService.exe DevExpress.XtraLayout.v9.2.dll DevExpress.XtraEditors.v9.2.dll DevExpress.XtraBars.v9.2.dll DevExpress.Utils.v9.2.dll DevExpress.Data.v9.2.dll Damany.Security.dll Microsoft.Practices.EnterpriseLibrary.Common.dll Microsoft.Practices.Unity.dll Microsoft.Practices.ObjectBuilder2.dll Microsoft.Practices.EnterpriseLibrary.Validation.Integration.WinForms.dl Microsoft.Practices.EnterpriseLibrary.Validation.dll Microsoft.Practices.EnterpriseLibrary.Logging.dll Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging.dll Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.dll Damany.RemoteImaging.Net.Discovery.dll FaceSvm.dll Damany.RemoteImaging.Net.Messages.dll Damany.Drawing.dll Damany.RemoteImaging.Common.dll FaceLibraryBuilder.exe FaceProcessingWrapper.dll FaceProcessing.dll"/>
+    <ROW Feature="MainFeature" Title="MainFeature" Description="描述" Display="1" Level="1" Directory_="APPDIR" Attributes="0" Components="AForge.dll AForge.Imaging.dll AForge.Math.dll AxInterop.AXVLC.dll AxInterop.IMGCTRLLib.dll Common.Logging.dll Damany.Component.dll Damany.Net.dll Damany.Windows.Form.dll Emcaster.dll Encryptor.dll FaceRecognition.dll FaceSearchWrapper.dll IconExtractor.dll Interop.AXVLC.dll Interop.IMGCTRLLib.dll MotionDetectWrapper.dll OpenCvSharp.dll RemoteControlService.dll RemoteImaging.exe SuspectsRepository.dll FacePca.dll FaceSelDll.dll PreProcess.dll cv100.dll cvaux100.dll cvcam100.dll cxcore100.dll cxts001.dll highgui100.dll libguide40.dll ml100.dll RemoteImaging.vshost.exe.manifest Damany REye18x12.xml StreamService.exe DevExpress.XtraLayout.v9.2.dll DevExpress.XtraEditors.v9.2.dll DevExpress.XtraBars.v9.2.dll DevExpress.Utils.v9.2.dll DevExpress.Data.v9.2.dll Damany.Security.dll Microsoft.Practices.EnterpriseLibrary.Common.dll Microsoft.Practices.Unity.dll Microsoft.Practices.ObjectBuilder2.dll Microsoft.Practices.EnterpriseLibrary.Validation.Integration.WinForms.dl Microsoft.Practices.EnterpriseLibrary.Validation.dll Microsoft.Practices.EnterpriseLibrary.Logging.dll Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging.dll Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.dll Damany.RemoteImaging.Net.Discovery.dll FaceSvm.dll Damany.RemoteImaging.Net.Messages.dll Damany.Drawing.dll Damany.RemoteImaging.Common.dll FaceLibraryBuilder.exe FaceProcessingWrapper.dll FaceProcessing.dll"/>
     <ATTRIBUTE name="CurrentFeature" value="MainFeature"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiFilesComponent">
@@ -95,83 +94,80 @@
     <ROW File="AForge.dll" Component_="AForge.dll" FileName="AForge.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\AForge.dll" SelfReg="false" Sequence="1"/>
     <ROW File="AxInterop.AXVLC.dll" Component_="AxInterop.AXVLC.dll" FileName="AxInte~1.dll|AxInterop.AXVLC.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\AxInterop.AXVLC.dll" SelfReg="false" Sequence="4"/>
     <ROW File="AxInterop.IMGCTRLLib.dll" Component_="AxInterop.IMGCTRLLib.dll" FileName="AxInte~2.dll|AxInterop.IMGCTRLLib.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\AxInterop.IMGCTRLLib.dll" SelfReg="false" Sequence="5"/>
-    <ROW File="CamConfig.xml" Component_="RemoteImaging.vshost.exe.manifest" FileName="CamCon~1.xml|CamConfig.xml" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\CamConfig.xml" SelfReg="false" Sequence="79"/>
-    <ROW File="CamSettingsConfig.xml" Component_="RemoteImaging.vshost.exe.manifest" FileName="CamSet~1.xml|CamSettingsConfig.xml" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\CamSettingsConfig.xml" SelfReg="false" Sequence="80"/>
+    <ROW File="CamConfig.xml" Component_="RemoteImaging.vshost.exe.manifest" FileName="CamCon~1.xml|CamConfig.xml" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\CamConfig.xml" SelfReg="false" Sequence="75"/>
+    <ROW File="CamSettingsConfig.xml" Component_="RemoteImaging.vshost.exe.manifest" FileName="CamSet~1.xml|CamSettingsConfig.xml" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\CamSettingsConfig.xml" SelfReg="false" Sequence="76"/>
     <ROW File="Common.Logging.dll" Component_="Common.Logging.dll" FileName="Common~1.dll|Common.Logging.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Common.Logging.dll" SelfReg="false" Sequence="6"/>
-    <ROW File="CommonLibrary.dll" Component_="CommonLibrary.dll" FileName="Common~2.dll|CommonLibrary.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\CommonLibrary.dll" SelfReg="false" Sequence="7"/>
-    <ROW File="Damany.Component.dll" Component_="Damany.Component.dll" FileName="Damany~2.dll|Damany.Component.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Damany.Component.dll" SelfReg="false" Sequence="8"/>
-    <ROW File="Damany.Component.pdb" Component_="RemoteImaging.vshost.exe.manifest" FileName="Damany~4.pdb|Damany.Component.pdb" Attributes="0" SourcePath="..\..\Damany.Library\Damany.Component\bin\Release\Damany.Component.pdb" SelfReg="false" Sequence="74"/>
-    <ROW File="Damany.Drawing.dll" Component_="Damany.Drawing.dll" FileName="Damany~7.dll|Damany.Drawing.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Damany.Drawing.dll" SelfReg="false" Sequence="73"/>
-    <ROW File="Damany.Drawing.pdb" Component_="RemoteImaging.vshost.exe.manifest" FileName="Damany~3.pdb|Damany.Drawing.pdb" Attributes="0" SourcePath="..\..\Damany.Library\Damany.Drawing\bin\Release\Damany.Drawing.pdb" SelfReg="false" Sequence="72"/>
-    <ROW File="Damany.Net.dll" Component_="Damany.Net.dll" FileName="Damany~1.dll|Damany.Net.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Damany.Net.dll" SelfReg="false" Sequence="9"/>
-    <ROW File="Damany.Net.pdb" Component_="RemoteImaging.vshost.exe.manifest" FileName="Damany~2.pdb|Damany.Net.pdb" Attributes="0" SourcePath="..\..\Damany.Library\Damany.Net\bin\Release\Damany.Net.pdb" SelfReg="false" Sequence="71"/>
-    <ROW File="Damany.RemoteImaging.Common.dll" Component_="Damany.RemoteImaging.Common.dll" FileName="Damany~8.dll|Damany.RemoteImaging.Common.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Damany.RemoteImaging.Common.dll" SelfReg="false" Sequence="75"/>
-    <ROW File="Damany.RemoteImaging.Net.Discovery.dll" Component_="Damany.RemoteImaging.Net.Discovery.dll" FileName="Damany~5.dll|Damany.RemoteImaging.Net.Discovery.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Damany.RemoteImaging.Net.Discovery.dll" SelfReg="false" Sequence="67"/>
-    <ROW File="Damany.RemoteImaging.Net.Messages.dll" Component_="Damany.RemoteImaging.Net.Messages.dll" FileName="Damany~6.dll|Damany.RemoteImaging.Net.Messages.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Damany.RemoteImaging.Net.Messages.dll" SelfReg="false" Sequence="70"/>
-    <ROW File="Damany.Security.dll" Component_="Damany.Security.dll" FileName="Damany~4.dll|Damany.Security.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Damany.Security.dll" SelfReg="false" Sequence="51"/>
-    <ROW File="Damany.Windows.Form.dll" Component_="Damany.Windows.Form.dll" FileName="Damany~3.dll|Damany.Windows.Form.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Damany.Windows.Form.dll" SelfReg="false" Sequence="10"/>
-    <ROW File="DevExpress.Data.v9.2.dll" Component_="DevExpress.Data.v9.2.dll" FileName="DevExp~5.dll|DevExpress.Data.v9.2.dll" Attributes="0" SourcePath="..\..\..\RemoteImaging_shen_retlang\Library\DevExpress\DevExpress.Data.v9.2.dll" SelfReg="false" Sequence="50"/>
-    <ROW File="DevExpress.Utils.v9.2.dll" Component_="DevExpress.Utils.v9.2.dll" FileName="DevExp~4.dll|DevExpress.Utils.v9.2.dll" Attributes="0" SourcePath="..\..\..\RemoteImaging_shen_retlang\Library\DevExpress\DevExpress.Utils.v9.2.dll" SelfReg="false" Sequence="49"/>
-    <ROW File="DevExpress.XtraBars.v9.2.dll" Component_="DevExpress.XtraBars.v9.2.dll" FileName="DevExp~3.dll|DevExpress.XtraBars.v9.2.dll" Attributes="0" SourcePath="..\..\..\RemoteImaging_shen_retlang\Library\DevExpress\DevExpress.XtraBars.v9.2.dll" SelfReg="false" Sequence="48"/>
-    <ROW File="DevExpress.XtraEditors.v9.2.dll" Component_="DevExpress.XtraEditors.v9.2.dll" FileName="DevExp~2.dll|DevExpress.XtraEditors.v9.2.dll" Attributes="0" SourcePath="..\..\..\RemoteImaging_shen_retlang\Library\DevExpress\DevExpress.XtraEditors.v9.2.dll" SelfReg="false" Sequence="47"/>
-    <ROW File="DevExpress.XtraLayout.v9.2.dll" Component_="DevExpress.XtraLayout.v9.2.dll" FileName="DevExp~1.dll|DevExpress.XtraLayout.v9.2.dll" Attributes="0" SourcePath="..\..\..\RemoteImaging_shen_retlang\Library\DevExpress\DevExpress.XtraLayout.v9.2.dll" SelfReg="false" Sequence="46"/>
-    <ROW File="EL.config" Component_="RemoteImaging.vshost.exe.manifest" FileName="EL~1.con|EL.config" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\EL.config" SelfReg="false" Sequence="52"/>
-    <ROW File="Emcaster.dll" Component_="Emcaster.dll" FileName="Emcaster.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Emcaster.dll" SelfReg="false" Sequence="11"/>
-    <ROW File="Encryptor.dll" Component_="Encryptor.dll" FileName="Encryp~1.dll|Encryptor.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Encryptor.dll" SelfReg="false" Sequence="12"/>
-    <ROW File="Eyes22x5.xml" Component_="REye18x12.xml" FileName="Eyes22x5.xml" Attributes="0" SourcePath="..\IconExtractor\data\Eyes22x5.xml" SelfReg="false" Sequence="36"/>
-    <ROW File="FaceLibraryBuilder.exe" Component_="FaceLibraryBuilder.exe" FileName="FaceLi~1.exe|FaceLibraryBuilder.exe" Attributes="0" SourcePath="..\FaceLibraryBuilder\Release\FaceLibraryBuilder.exe" SelfReg="false" Sequence="77"/>
-    <ROW File="FaceLibraryBuilder.exe.config" Component_="RemoteImaging.vshost.exe.manifest" FileName="FaceLi~1.con|FaceLibraryBuilder.exe.config" Attributes="0" SourcePath="..\FaceLibraryBuilder\Release\FaceLibraryBuilder.exe.config" SelfReg="false" Sequence="76"/>
-    <ROW File="FacePca.dll" Component_="FacePca.dll" FileName="FacePca.dll" Attributes="0" SourcePath="..\Release\FacePca.dll" SelfReg="false" Sequence="24"/>
-    <ROW File="FaceProcessing.dll" Component_="FaceProcessing.dll" FileName="FacePr~2.dll|FaceProcessing.dll" Attributes="0" SourcePath="..\Release\FaceProcessing.dll" SelfReg="false" Sequence="82"/>
-    <ROW File="FaceProcessingWrapper.dll" Component_="FaceProcessingWrapper.dll" FileName="FacePr~1.dll|FaceProcessingWrapper.dll" Attributes="0" SourcePath="..\Release\FaceProcessingWrapper.dll" SelfReg="false" Sequence="78"/>
-    <ROW File="FaceRecognition.dll" Component_="FaceRecognition.dll" FileName="FaceRe~1.dll|FaceRecognition.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\FaceRecognition.dll" SelfReg="false" Sequence="13"/>
-    <ROW File="FaceSearchWrapper.dll" Component_="FaceSearchWrapper.dll" FileName="FaceSe~2.dll|FaceSearchWrapper.dll" Attributes="0" SourcePath="..\Release\FaceSearchWrapper.dll" SelfReg="false" Sequence="14"/>
-    <ROW File="FaceSelDll.dll" Component_="FaceSelDll.dll" FileName="FaceSe~1.dll|FaceSelDll.dll" Attributes="0" SourcePath="..\Release\FaceSelDll.dll" SelfReg="false" Sequence="25"/>
-    <ROW File="FaceSvm.dll" Component_="FaceSvm.dll" FileName="FaceSvm.dll" Attributes="0" SourcePath="..\..\..\RemoteImaging_1\FaceSvm\FaceSvm\Release\FaceSvm.dll" SelfReg="false" Sequence="68"/>
-    <ROW File="IconExtractor.dll" Component_="IconExtractor.dll" FileName="IconEx~1.dll|IconExtractor.dll" Attributes="0" SourcePath="..\Release\IconExtractor.dll" SelfReg="false" Sequence="15"/>
-    <ROW File="Interop.AXVLC.dll" Component_="Interop.AXVLC.dll" FileName="Intero~1.dll|Interop.AXVLC.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Interop.AXVLC.dll" SelfReg="false" Sequence="16"/>
-    <ROW File="Interop.IMGCTRLLib.dll" Component_="Interop.IMGCTRLLib.dll" FileName="Intero~2.dll|Interop.IMGCTRLLib.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Interop.IMGCTRLLib.dll" SelfReg="false" Sequence="17"/>
-    <ROW File="LEye18x12.xml" Component_="REye18x12.xml" FileName="LEye18~1.xml|LEye18x12.xml" Attributes="0" SourcePath="..\IconExtractor\data\LEye18x12.xml" SelfReg="false" Sequence="41"/>
-    <ROW File="MainIcon.ico" Component_="RemoteImaging.vshost.exe.manifest" FileName="MainIcon.ico" Attributes="0" SourcePath="..\RemoteImaging\Resources\MainIcon.ico" SelfReg="false" Sequence="69"/>
-    <ROW File="Microsoft.Practices.EnterpriseLibrary.Common.dll" Component_="Microsoft.Practices.EnterpriseLibrary.Common.dll" FileName="Micros~1.dll|Microsoft.Practices.EnterpriseLibrary.Common.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Microsoft.Practices.EnterpriseLibrary.Common.dll" SelfReg="false" Sequence="53"/>
-    <ROW File="Microsoft.Practices.EnterpriseLibrary.Common.xml" Component_="RemoteImaging.vshost.exe.manifest" FileName="Micros~6.xml|Microsoft.Practices.EnterpriseLibrary.Common.xml" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Microsoft.Practices.EnterpriseLibrary.Common.xml" SelfReg="false" Sequence="66"/>
-    <ROW File="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging.dll" Component_="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging.dll" FileName="Micros~7.dll|Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging.dll" SelfReg="false" Sequence="59"/>
-    <ROW File="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging.xml" Component_="RemoteImaging.vshost.exe.manifest" FileName="Micros~5.xml|Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging.xml" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging.xml" SelfReg="false" Sequence="65"/>
-    <ROW File="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.dll" Component_="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.dll" FileName="Micros~8.dll|Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.dll" SelfReg="false" Sequence="60"/>
-    <ROW File="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.xml" Component_="RemoteImaging.vshost.exe.manifest" FileName="Micros~4.xml|Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.xml" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.xml" SelfReg="false" Sequence="64"/>
-    <ROW File="Microsoft.Practices.EnterpriseLibrary.Logging.dll" Component_="Microsoft.Practices.EnterpriseLibrary.Logging.dll" FileName="Micros~6.dll|Microsoft.Practices.EnterpriseLibrary.Logging.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Microsoft.Practices.EnterpriseLibrary.Logging.dll" SelfReg="false" Sequence="58"/>
-    <ROW File="Microsoft.Practices.EnterpriseLibrary.Logging.xml" Component_="RemoteImaging.vshost.exe.manifest" FileName="Micros~3.xml|Microsoft.Practices.EnterpriseLibrary.Logging.xml" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Microsoft.Practices.EnterpriseLibrary.Logging.xml" SelfReg="false" Sequence="63"/>
-    <ROW File="Microsoft.Practices.EnterpriseLibrary.Validation.Integration.WinFor_1" Component_="RemoteImaging.vshost.exe.manifest" FileName="Micros~2.xml|Microsoft.Practices.EnterpriseLibrary.Validation.Integration.WinForms.xml" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Microsoft.Practices.EnterpriseLibrary.Validation.Integration.WinForms.xml" SelfReg="false" Sequence="62"/>
-    <ROW File="Microsoft.Practices.EnterpriseLibrary.Validation.Integration.WinForms" Component_="Microsoft.Practices.EnterpriseLibrary.Validation.Integration.WinForms.dl" FileName="Micros~4.dll|Microsoft.Practices.EnterpriseLibrary.Validation.Integration.WinForms.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Microsoft.Practices.EnterpriseLibrary.Validation.Integration.WinForms.dll" SelfReg="false" Sequence="56"/>
-    <ROW File="Microsoft.Practices.EnterpriseLibrary.Validation.dll" Component_="Microsoft.Practices.EnterpriseLibrary.Validation.dll" FileName="Micros~5.dll|Microsoft.Practices.EnterpriseLibrary.Validation.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Microsoft.Practices.EnterpriseLibrary.Validation.dll" SelfReg="false" Sequence="57"/>
-    <ROW File="Microsoft.Practices.EnterpriseLibrary.Validation.xml" Component_="RemoteImaging.vshost.exe.manifest" FileName="Micros~1.xml|Microsoft.Practices.EnterpriseLibrary.Validation.xml" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Microsoft.Practices.EnterpriseLibrary.Validation.xml" SelfReg="false" Sequence="61"/>
-    <ROW File="Microsoft.Practices.ObjectBuilder2.dll" Component_="Microsoft.Practices.ObjectBuilder2.dll" FileName="Micros~3.dll|Microsoft.Practices.ObjectBuilder2.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Microsoft.Practices.ObjectBuilder2.dll" SelfReg="false" Sequence="55"/>
-    <ROW File="Microsoft.Practices.Unity.dll" Component_="Microsoft.Practices.Unity.dll" FileName="Micros~2.dll|Microsoft.Practices.Unity.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Microsoft.Practices.Unity.dll" SelfReg="false" Sequence="54"/>
-    <ROW File="MotionDetectWrapper.dll" Component_="MotionDetectWrapper.dll" FileName="Motion~1.dll|MotionDetectWrapper.dll" Attributes="0" SourcePath="..\Release\MotionDetectWrapper.dll" SelfReg="false" Sequence="18"/>
-    <ROW File="Mouth25x15.xml" Component_="REye18x12.xml" FileName="Mouth2~1.xml|Mouth25x15.xml" Attributes="0" SourcePath="..\IconExtractor\data\Mouth25x15.xml" SelfReg="false" Sequence="42"/>
-    <ROW File="Nose25x15.xml" Component_="REye18x12.xml" FileName="Nose25~1.xml|Nose25x15.xml" Attributes="0" SourcePath="..\IconExtractor\data\Nose25x15.xml" SelfReg="false" Sequence="43"/>
-    <ROW File="OpenCvSharp.dll" Component_="OpenCvSharp.dll" FileName="OpenCv~1.dll|OpenCvSharp.dll" Attributes="0" SourcePath="..\Release\OpenCvSharp.dll" SelfReg="false" Sequence="19"/>
-    <ROW File="PreProcess.dll" Component_="PreProcess.dll" FileName="PrePro~1.dll|PreProcess.dll" Attributes="0" SourcePath="..\Release\PreProcess.dll" SelfReg="false" Sequence="26"/>
-    <ROW File="REye18x12.xml" Component_="REye18x12.xml" FileName="REye18~1.xml|REye18x12.xml" Attributes="0" SourcePath="..\IconExtractor\data\REye18x12.xml" SelfReg="false" Sequence="35"/>
-    <ROW File="RemoteControlService.dll" Component_="RemoteControlService.dll" FileName="Remote~1.dll|RemoteControlService.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\RemoteControlService.dll" SelfReg="false" Sequence="20"/>
-    <ROW File="RemoteImaging.exe" Component_="RemoteImaging.exe" FileName="Remote~2.exe|RemoteImaging.exe" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\RemoteImaging.exe" SelfReg="false" Sequence="21"/>
-    <ROW File="RemoteImaging.exe.config" Component_="RemoteImaging.vshost.exe.manifest" FileName="Remote~1.con|RemoteImaging.exe.config" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\RemoteImaging.exe.config" SelfReg="false" Sequence="22"/>
-    <ROW File="SetVal.xml" Component_="RemoteImaging.vshost.exe.manifest" FileName="SetVal.xml" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\SetVal.xml" SelfReg="false" Sequence="81"/>
-    <ROW File="StreamService.exe" Component_="StreamService.exe" FileName="Stream~1.exe|StreamService.exe" Attributes="0" SourcePath="..\StreamService\bin\Release\StreamService.exe" SelfReg="false" Sequence="45"/>
-    <ROW File="StreamService.exe.config" Component_="RemoteImaging.vshost.exe.manifest" FileName="Stream~1.con|StreamService.exe.config" Attributes="0" SourcePath="..\StreamService\bin\Release\StreamService.exe.config" SelfReg="false" Sequence="44"/>
-    <ROW File="SuspectsRepository.dll" Component_="SuspectsRepository.dll" FileName="Suspec~1.dll|SuspectsRepository.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\SuspectsRepository.dll" SelfReg="false" Sequence="23"/>
-    <ROW File="cv100.dll" Component_="cv100.dll" FileName="cv100.dll" Attributes="0" SourcePath="..\..\Library\OpenCv\cv100.dll" SelfReg="false" Sequence="27"/>
-    <ROW File="cvaux100.dll" Component_="cvaux100.dll" FileName="cvaux100.dll" Attributes="0" SourcePath="..\..\Library\OpenCv\cvaux100.dll" SelfReg="false" Sequence="28"/>
-    <ROW File="cvcam100.dll" Component_="cvcam100.dll" FileName="cvcam100.dll" Attributes="0" SourcePath="..\..\Library\OpenCv\cvcam100.dll" SelfReg="false" Sequence="29"/>
-    <ROW File="cxcore100.dll" Component_="cxcore100.dll" FileName="cxcore~1.dll|cxcore100.dll" Attributes="0" SourcePath="..\..\Library\OpenCv\cxcore100.dll" SelfReg="false" Sequence="30"/>
-    <ROW File="cxts001.dll" Component_="cxts001.dll" FileName="cxts001.dll" Attributes="0" SourcePath="..\..\Library\OpenCv\cxts001.dll" SelfReg="false" Sequence="31"/>
-    <ROW File="haarcascade_frontalface_alt.xml" Component_="REye18x12.xml" FileName="haarca~2.xml|haarcascade_frontalface_alt.xml" Attributes="0" SourcePath="..\IconExtractor\data\haarcascade_frontalface_alt.xml" SelfReg="false" Sequence="38"/>
-    <ROW File="haarcascade_frontalface_alt2.xml" Component_="REye18x12.xml" FileName="haarca~1.xml|haarcascade_frontalface_alt2.xml" Attributes="0" SourcePath="..\IconExtractor\data\haarcascade_frontalface_alt2.xml" SelfReg="false" Sequence="37"/>
-    <ROW File="haarcascade_frontalface_alt_tree.xml" Component_="REye18x12.xml" FileName="haarca~3.xml|haarcascade_frontalface_alt_tree.xml" Attributes="0" SourcePath="..\IconExtractor\data\haarcascade_frontalface_alt_tree.xml" SelfReg="false" Sequence="39"/>
-    <ROW File="haarcascade_frontalface_default.xml" Component_="REye18x12.xml" FileName="haarca~4.xml|haarcascade_frontalface_default.xml" Attributes="0" SourcePath="..\IconExtractor\data\haarcascade_frontalface_default.xml" SelfReg="false" Sequence="40"/>
-    <ROW File="highgui100.dll" Component_="highgui100.dll" FileName="highgu~1.dll|highgui100.dll" Attributes="0" SourcePath="..\..\Library\OpenCv\highgui100.dll" SelfReg="false" Sequence="32"/>
-    <ROW File="libguide40.dll" Component_="libguide40.dll" FileName="libgui~1.dll|libguide40.dll" Attributes="0" SourcePath="..\..\Library\OpenCv\libguide40.dll" SelfReg="false" Sequence="33"/>
-    <ROW File="ml100.dll" Component_="ml100.dll" FileName="ml100.dll" Attributes="0" SourcePath="..\..\Library\OpenCv\ml100.dll" SelfReg="false" Sequence="34"/>
+    <ROW File="Damany.Component.dll" Component_="Damany.Component.dll" FileName="Damany~2.dll|Damany.Component.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Damany.Component.dll" SelfReg="false" Sequence="7"/>
+    <ROW File="Damany.Drawing.dll" Component_="Damany.Drawing.dll" FileName="Damany~7.dll|Damany.Drawing.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Damany.Drawing.dll" SelfReg="false" Sequence="70"/>
+    <ROW File="Damany.Net.dll" Component_="Damany.Net.dll" FileName="Damany~1.dll|Damany.Net.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Damany.Net.dll" SelfReg="false" Sequence="8"/>
+    <ROW File="Damany.RemoteImaging.Common.dll" Component_="Damany.RemoteImaging.Common.dll" FileName="Damany~8.dll|Damany.RemoteImaging.Common.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Damany.RemoteImaging.Common.dll" SelfReg="false" Sequence="71"/>
+    <ROW File="Damany.RemoteImaging.Net.Discovery.dll" Component_="Damany.RemoteImaging.Net.Discovery.dll" FileName="Damany~5.dll|Damany.RemoteImaging.Net.Discovery.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Damany.RemoteImaging.Net.Discovery.dll" SelfReg="false" Sequence="66"/>
+    <ROW File="Damany.RemoteImaging.Net.Messages.dll" Component_="Damany.RemoteImaging.Net.Messages.dll" FileName="Damany~6.dll|Damany.RemoteImaging.Net.Messages.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Damany.RemoteImaging.Net.Messages.dll" SelfReg="false" Sequence="69"/>
+    <ROW File="Damany.Security.dll" Component_="Damany.Security.dll" FileName="Damany~4.dll|Damany.Security.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Damany.Security.dll" SelfReg="false" Sequence="50"/>
+    <ROW File="Damany.Windows.Form.dll" Component_="Damany.Windows.Form.dll" FileName="Damany~3.dll|Damany.Windows.Form.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Damany.Windows.Form.dll" SelfReg="false" Sequence="9"/>
+    <ROW File="DevExpress.Data.v9.2.dll" Component_="DevExpress.Data.v9.2.dll" FileName="DevExp~5.dll|DevExpress.Data.v9.2.dll" Attributes="0" SourcePath="..\..\..\RemoteImaging_shen_retlang\Library\DevExpress\DevExpress.Data.v9.2.dll" SelfReg="false" Sequence="49"/>
+    <ROW File="DevExpress.Utils.v9.2.dll" Component_="DevExpress.Utils.v9.2.dll" FileName="DevExp~4.dll|DevExpress.Utils.v9.2.dll" Attributes="0" SourcePath="..\..\..\RemoteImaging_shen_retlang\Library\DevExpress\DevExpress.Utils.v9.2.dll" SelfReg="false" Sequence="48"/>
+    <ROW File="DevExpress.XtraBars.v9.2.dll" Component_="DevExpress.XtraBars.v9.2.dll" FileName="DevExp~3.dll|DevExpress.XtraBars.v9.2.dll" Attributes="0" SourcePath="..\..\..\RemoteImaging_shen_retlang\Library\DevExpress\DevExpress.XtraBars.v9.2.dll" SelfReg="false" Sequence="47"/>
+    <ROW File="DevExpress.XtraEditors.v9.2.dll" Component_="DevExpress.XtraEditors.v9.2.dll" FileName="DevExp~2.dll|DevExpress.XtraEditors.v9.2.dll" Attributes="0" SourcePath="..\..\..\RemoteImaging_shen_retlang\Library\DevExpress\DevExpress.XtraEditors.v9.2.dll" SelfReg="false" Sequence="46"/>
+    <ROW File="DevExpress.XtraLayout.v9.2.dll" Component_="DevExpress.XtraLayout.v9.2.dll" FileName="DevExp~1.dll|DevExpress.XtraLayout.v9.2.dll" Attributes="0" SourcePath="..\..\..\RemoteImaging_shen_retlang\Library\DevExpress\DevExpress.XtraLayout.v9.2.dll" SelfReg="false" Sequence="45"/>
+    <ROW File="EL.config" Component_="RemoteImaging.vshost.exe.manifest" FileName="EL~1.con|EL.config" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\EL.config" SelfReg="false" Sequence="51"/>
+    <ROW File="Emcaster.dll" Component_="Emcaster.dll" FileName="Emcaster.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Emcaster.dll" SelfReg="false" Sequence="10"/>
+    <ROW File="Encryptor.dll" Component_="Encryptor.dll" FileName="Encryp~1.dll|Encryptor.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Encryptor.dll" SelfReg="false" Sequence="11"/>
+    <ROW File="Eyes22x5.xml" Component_="REye18x12.xml" FileName="Eyes22x5.xml" Attributes="0" SourcePath="..\IconExtractor\data\Eyes22x5.xml" SelfReg="false" Sequence="35"/>
+    <ROW File="FaceLibraryBuilder.exe" Component_="FaceLibraryBuilder.exe" FileName="FaceLi~1.exe|FaceLibraryBuilder.exe" Attributes="0" SourcePath="..\FaceLibraryBuilder\Release\FaceLibraryBuilder.exe" SelfReg="false" Sequence="73"/>
+    <ROW File="FaceLibraryBuilder.exe.config" Component_="RemoteImaging.vshost.exe.manifest" FileName="FaceLi~1.con|FaceLibraryBuilder.exe.config" Attributes="0" SourcePath="..\FaceLibraryBuilder\Release\FaceLibraryBuilder.exe.config" SelfReg="false" Sequence="72"/>
+    <ROW File="FacePca.dll" Component_="FacePca.dll" FileName="FacePca.dll" Attributes="0" SourcePath="..\Release\FacePca.dll" SelfReg="false" Sequence="23"/>
+    <ROW File="FaceProcessing.dll" Component_="FaceProcessing.dll" FileName="FacePr~2.dll|FaceProcessing.dll" Attributes="0" SourcePath="..\Release\FaceProcessing.dll" SelfReg="false" Sequence="78"/>
+    <ROW File="FaceProcessingWrapper.dll" Component_="FaceProcessingWrapper.dll" FileName="FacePr~1.dll|FaceProcessingWrapper.dll" Attributes="0" SourcePath="..\Release\FaceProcessingWrapper.dll" SelfReg="false" Sequence="74"/>
+    <ROW File="FaceRecognition.dll" Component_="FaceRecognition.dll" FileName="FaceRe~1.dll|FaceRecognition.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\FaceRecognition.dll" SelfReg="false" Sequence="12"/>
+    <ROW File="FaceSearchWrapper.dll" Component_="FaceSearchWrapper.dll" FileName="FaceSe~2.dll|FaceSearchWrapper.dll" Attributes="0" SourcePath="..\Release\FaceSearchWrapper.dll" SelfReg="false" Sequence="13"/>
+    <ROW File="FaceSelDll.dll" Component_="FaceSelDll.dll" FileName="FaceSe~1.dll|FaceSelDll.dll" Attributes="0" SourcePath="..\Release\FaceSelDll.dll" SelfReg="false" Sequence="24"/>
+    <ROW File="FaceSvm.dll" Component_="FaceSvm.dll" FileName="FaceSvm.dll" Attributes="0" SourcePath="..\..\..\RemoteImaging_1\FaceSvm\FaceSvm\Release\FaceSvm.dll" SelfReg="false" Sequence="67"/>
+    <ROW File="IconExtractor.dll" Component_="IconExtractor.dll" FileName="IconEx~1.dll|IconExtractor.dll" Attributes="0" SourcePath="..\Release\IconExtractor.dll" SelfReg="false" Sequence="14"/>
+    <ROW File="Interop.AXVLC.dll" Component_="Interop.AXVLC.dll" FileName="Intero~1.dll|Interop.AXVLC.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Interop.AXVLC.dll" SelfReg="false" Sequence="15"/>
+    <ROW File="Interop.IMGCTRLLib.dll" Component_="Interop.IMGCTRLLib.dll" FileName="Intero~2.dll|Interop.IMGCTRLLib.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Interop.IMGCTRLLib.dll" SelfReg="false" Sequence="16"/>
+    <ROW File="LEye18x12.xml" Component_="REye18x12.xml" FileName="LEye18~1.xml|LEye18x12.xml" Attributes="0" SourcePath="..\IconExtractor\data\LEye18x12.xml" SelfReg="false" Sequence="40"/>
+    <ROW File="MainIcon.ico" Component_="RemoteImaging.vshost.exe.manifest" FileName="MainIcon.ico" Attributes="0" SourcePath="..\RemoteImaging\Resources\MainIcon.ico" SelfReg="false" Sequence="68"/>
+    <ROW File="Microsoft.Practices.EnterpriseLibrary.Common.dll" Component_="Microsoft.Practices.EnterpriseLibrary.Common.dll" FileName="Micros~1.dll|Microsoft.Practices.EnterpriseLibrary.Common.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Microsoft.Practices.EnterpriseLibrary.Common.dll" SelfReg="false" Sequence="52"/>
+    <ROW File="Microsoft.Practices.EnterpriseLibrary.Common.xml" Component_="RemoteImaging.vshost.exe.manifest" FileName="Micros~6.xml|Microsoft.Practices.EnterpriseLibrary.Common.xml" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Microsoft.Practices.EnterpriseLibrary.Common.xml" SelfReg="false" Sequence="65"/>
+    <ROW File="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging.dll" Component_="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging.dll" FileName="Micros~7.dll|Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging.dll" SelfReg="false" Sequence="58"/>
+    <ROW File="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging.xml" Component_="RemoteImaging.vshost.exe.manifest" FileName="Micros~5.xml|Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging.xml" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging.xml" SelfReg="false" Sequence="64"/>
+    <ROW File="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.dll" Component_="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.dll" FileName="Micros~8.dll|Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.dll" SelfReg="false" Sequence="59"/>
+    <ROW File="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.xml" Component_="RemoteImaging.vshost.exe.manifest" FileName="Micros~4.xml|Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.xml" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.xml" SelfReg="false" Sequence="63"/>
+    <ROW File="Microsoft.Practices.EnterpriseLibrary.Logging.dll" Component_="Microsoft.Practices.EnterpriseLibrary.Logging.dll" FileName="Micros~6.dll|Microsoft.Practices.EnterpriseLibrary.Logging.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Microsoft.Practices.EnterpriseLibrary.Logging.dll" SelfReg="false" Sequence="57"/>
+    <ROW File="Microsoft.Practices.EnterpriseLibrary.Logging.xml" Component_="RemoteImaging.vshost.exe.manifest" FileName="Micros~3.xml|Microsoft.Practices.EnterpriseLibrary.Logging.xml" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Microsoft.Practices.EnterpriseLibrary.Logging.xml" SelfReg="false" Sequence="62"/>
+    <ROW File="Microsoft.Practices.EnterpriseLibrary.Validation.Integration.WinFor_1" Component_="RemoteImaging.vshost.exe.manifest" FileName="Micros~2.xml|Microsoft.Practices.EnterpriseLibrary.Validation.Integration.WinForms.xml" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Microsoft.Practices.EnterpriseLibrary.Validation.Integration.WinForms.xml" SelfReg="false" Sequence="61"/>
+    <ROW File="Microsoft.Practices.EnterpriseLibrary.Validation.Integration.WinForms" Component_="Microsoft.Practices.EnterpriseLibrary.Validation.Integration.WinForms.dl" FileName="Micros~4.dll|Microsoft.Practices.EnterpriseLibrary.Validation.Integration.WinForms.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Microsoft.Practices.EnterpriseLibrary.Validation.Integration.WinForms.dll" SelfReg="false" Sequence="55"/>
+    <ROW File="Microsoft.Practices.EnterpriseLibrary.Validation.dll" Component_="Microsoft.Practices.EnterpriseLibrary.Validation.dll" FileName="Micros~5.dll|Microsoft.Practices.EnterpriseLibrary.Validation.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Microsoft.Practices.EnterpriseLibrary.Validation.dll" SelfReg="false" Sequence="56"/>
+    <ROW File="Microsoft.Practices.EnterpriseLibrary.Validation.xml" Component_="RemoteImaging.vshost.exe.manifest" FileName="Micros~1.xml|Microsoft.Practices.EnterpriseLibrary.Validation.xml" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Microsoft.Practices.EnterpriseLibrary.Validation.xml" SelfReg="false" Sequence="60"/>
+    <ROW File="Microsoft.Practices.ObjectBuilder2.dll" Component_="Microsoft.Practices.ObjectBuilder2.dll" FileName="Micros~3.dll|Microsoft.Practices.ObjectBuilder2.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Microsoft.Practices.ObjectBuilder2.dll" SelfReg="false" Sequence="54"/>
+    <ROW File="Microsoft.Practices.Unity.dll" Component_="Microsoft.Practices.Unity.dll" FileName="Micros~2.dll|Microsoft.Practices.Unity.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Microsoft.Practices.Unity.dll" SelfReg="false" Sequence="53"/>
+    <ROW File="MotionDetectWrapper.dll" Component_="MotionDetectWrapper.dll" FileName="Motion~1.dll|MotionDetectWrapper.dll" Attributes="0" SourcePath="..\Release\MotionDetectWrapper.dll" SelfReg="false" Sequence="17"/>
+    <ROW File="Mouth25x15.xml" Component_="REye18x12.xml" FileName="Mouth2~1.xml|Mouth25x15.xml" Attributes="0" SourcePath="..\IconExtractor\data\Mouth25x15.xml" SelfReg="false" Sequence="41"/>
+    <ROW File="Nose25x15.xml" Component_="REye18x12.xml" FileName="Nose25~1.xml|Nose25x15.xml" Attributes="0" SourcePath="..\IconExtractor\data\Nose25x15.xml" SelfReg="false" Sequence="42"/>
+    <ROW File="OpenCvSharp.dll" Component_="OpenCvSharp.dll" FileName="OpenCv~1.dll|OpenCvSharp.dll" Attributes="0" SourcePath="..\Release\OpenCvSharp.dll" SelfReg="false" Sequence="18"/>
+    <ROW File="PreProcess.dll" Component_="PreProcess.dll" FileName="PrePro~1.dll|PreProcess.dll" Attributes="0" SourcePath="..\Release\PreProcess.dll" SelfReg="false" Sequence="25"/>
+    <ROW File="REye18x12.xml" Component_="REye18x12.xml" FileName="REye18~1.xml|REye18x12.xml" Attributes="0" SourcePath="..\IconExtractor\data\REye18x12.xml" SelfReg="false" Sequence="34"/>
+    <ROW File="RemoteControlService.dll" Component_="RemoteControlService.dll" FileName="Remote~1.dll|RemoteControlService.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\RemoteControlService.dll" SelfReg="false" Sequence="19"/>
+    <ROW File="RemoteImaging.exe" Component_="RemoteImaging.exe" FileName="Remote~2.exe|RemoteImaging.exe" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\RemoteImaging.exe" SelfReg="false" Sequence="20"/>
+    <ROW File="RemoteImaging.exe.config" Component_="RemoteImaging.vshost.exe.manifest" FileName="Remote~1.con|RemoteImaging.exe.config" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\RemoteImaging.exe.config" SelfReg="false" Sequence="21"/>
+    <ROW File="RemoteImagingMCSetup.aip" Component_="RemoteImaging.vshost.exe.manifest" FileName="Remote~1.aip|RemoteImagingMCSetup.aip" Attributes="0" SourcePath="..\SetupMC\RemoteImagingMCSetup.aip" SelfReg="false" Sequence="79"/>
+    <ROW File="SetVal.xml" Component_="RemoteImaging.vshost.exe.manifest" FileName="SetVal.xml" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\SetVal.xml" SelfReg="false" Sequence="77"/>
+    <ROW File="StreamService.exe" Component_="StreamService.exe" FileName="Stream~1.exe|StreamService.exe" Attributes="0" SourcePath="..\StreamService\bin\Release\StreamService.exe" SelfReg="false" Sequence="44"/>
+    <ROW File="StreamService.exe.config" Component_="RemoteImaging.vshost.exe.manifest" FileName="Stream~1.con|StreamService.exe.config" Attributes="0" SourcePath="..\StreamService\bin\Release\StreamService.exe.config" SelfReg="false" Sequence="43"/>
+    <ROW File="SuspectsRepository.dll" Component_="SuspectsRepository.dll" FileName="Suspec~1.dll|SuspectsRepository.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\SuspectsRepository.dll" SelfReg="false" Sequence="22"/>
+    <ROW File="cv100.dll" Component_="cv100.dll" FileName="cv100.dll" Attributes="0" SourcePath="..\..\Library\OpenCv\cv100.dll" SelfReg="false" Sequence="26"/>
+    <ROW File="cvaux100.dll" Component_="cvaux100.dll" FileName="cvaux100.dll" Attributes="0" SourcePath="..\..\Library\OpenCv\cvaux100.dll" SelfReg="false" Sequence="27"/>
+    <ROW File="cvcam100.dll" Component_="cvcam100.dll" FileName="cvcam100.dll" Attributes="0" SourcePath="..\..\Library\OpenCv\cvcam100.dll" SelfReg="false" Sequence="28"/>
+    <ROW File="cxcore100.dll" Component_="cxcore100.dll" FileName="cxcore~1.dll|cxcore100.dll" Attributes="0" SourcePath="..\..\Library\OpenCv\cxcore100.dll" SelfReg="false" Sequence="29"/>
+    <ROW File="cxts001.dll" Component_="cxts001.dll" FileName="cxts001.dll" Attributes="0" SourcePath="..\..\Library\OpenCv\cxts001.dll" SelfReg="false" Sequence="30"/>
+    <ROW File="haarcascade_frontalface_alt.xml" Component_="REye18x12.xml" FileName="haarca~2.xml|haarcascade_frontalface_alt.xml" Attributes="0" SourcePath="..\IconExtractor\data\haarcascade_frontalface_alt.xml" SelfReg="false" Sequence="37"/>
+    <ROW File="haarcascade_frontalface_alt2.xml" Component_="REye18x12.xml" FileName="haarca~1.xml|haarcascade_frontalface_alt2.xml" Attributes="0" SourcePath="..\IconExtractor\data\haarcascade_frontalface_alt2.xml" SelfReg="false" Sequence="36"/>
+    <ROW File="haarcascade_frontalface_alt_tree.xml" Component_="REye18x12.xml" FileName="haarca~3.xml|haarcascade_frontalface_alt_tree.xml" Attributes="0" SourcePath="..\IconExtractor\data\haarcascade_frontalface_alt_tree.xml" SelfReg="false" Sequence="38"/>
+    <ROW File="haarcascade_frontalface_default.xml" Component_="REye18x12.xml" FileName="haarca~4.xml|haarcascade_frontalface_default.xml" Attributes="0" SourcePath="..\IconExtractor\data\haarcascade_frontalface_default.xml" SelfReg="false" Sequence="39"/>
+    <ROW File="highgui100.dll" Component_="highgui100.dll" FileName="highgu~1.dll|highgui100.dll" Attributes="0" SourcePath="..\..\Library\OpenCv\highgui100.dll" SelfReg="false" Sequence="31"/>
+    <ROW File="libguide40.dll" Component_="libguide40.dll" FileName="libgui~1.dll|libguide40.dll" Attributes="0" SourcePath="..\..\Library\OpenCv\libguide40.dll" SelfReg="false" Sequence="32"/>
+    <ROW File="ml100.dll" Component_="ml100.dll" FileName="ml100.dll" Attributes="0" SourcePath="..\..\Library\OpenCv\ml100.dll" SelfReg="false" Sequence="33"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.AutorunComponent">
     <ROW VerbKey="0" Type="1" Order="0" Text="Install [|ProductName]"/>
@@ -198,19 +194,11 @@
     <ROW Fragment="Visual_C_2005_SP1_0.aip" Path="&lt;CommonAppDataFolder&gt;Caphyon\Advanced Installer\Repository\Prerequisites\Visual C++ 2005 SP1 _0\Visual C++ 2005 SP1 _0.aip"/>
     <ROW Fragment="Visual_C_2008_SP1_0.aip" Path="&lt;CommonAppDataFolder&gt;Caphyon\Advanced Installer\Repository\Prerequisites\Visual C++ 2008 SP1 _0\Visual C++ 2008 SP1 _0.aip"/>
   </COMPONENT>
-  <COMPONENT cid="caphyon.advinst.msicomp.MsiActionTextComponent">
-    <ROW Action="AI_XmlConfig" Description="正在执行 XML 文件配置" Template="正在配置 XML 文件: &quot;[1]&quot;" DescriptionLocId="ActionText.Description.AI_XmlConfig" TemplateLocId="ActionText.Template.AI_XmlConfig"/>
-    <ROW Action="AI_XmlInstall" Description="正在生成配置 XML 文件操作" DescriptionLocId="ActionText.Description.AI_XmlInstall"/>
-    <ROW Action="AI_XmlRemove" Description="正在执行 XML 文件配置" Template="正在配置 XML 文件: &quot;[1]&quot;" DescriptionLocId="ActionText.Description.AI_XmlRemove" TemplateLocId="ActionText.Template.AI_XmlRemove"/>
-    <ROW Action="AI_XmlRollback" Description="正在回滚 XML 文件配置" Template="正在回滚 XML 文件配置" DescriptionLocId="ActionText.Description.AI_XmlRollback" TemplateLocId="ActionText.Template.AI_XmlRollback"/>
-    <ROW Action="AI_XmlUninstall" Description="正在生成配置 XML 文件操作" DescriptionLocId="ActionText.Description.AI_XmlUninstall"/>
-  </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiBinaryComponent">
     <ROW Name="Prereq.dll" SourcePath="&lt;AI_CUSTACTS&gt;Prereq.dll"/>
     <ROW Name="aicustact.dll" SourcePath="&lt;AI_CUSTACTS&gt;aicustact.dll"/>
     <ROW Name="default_banner.bmp" SourcePath="&lt;AI_RES&gt;default-banner.bmp"/>
     <ROW Name="default_dialog.bmp" SourcePath="&lt;AI_RES&gt;default-dialog.bmp"/>
-    <ROW Name="xmlCfg.dll" SourcePath="&lt;AI_CUSTACTS&gt;xmlCfg.dll"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiControlComponent">
     <ATTRIBUTE name="FixedSizeBitmaps" value="2"/>
@@ -236,11 +224,6 @@
     <ROW Action="AI_PREPARE_UPGRADE" Type="65" Source="aicustact.dll" Target="PrepareUpgrade"/>
     <ROW Action="AI_RESTORE_LOCATION" Type="65" Source="aicustact.dll" Target="RestoreLocation"/>
     <ROW Action="AI_STORE_LOCATION" Type="51" Source="ARPINSTALLLOCATION" Target="[APPDIR]"/>
-    <ROW Action="AI_XmlConfig" Type="11265" Source="xmlCfg.dll" Target="OnXmlConfig" WithoutSeq="true"/>
-    <ROW Action="AI_XmlInstall" Type="1" Source="xmlCfg.dll" Target="OnXmlInstall"/>
-    <ROW Action="AI_XmlRemove" Type="11265" Source="xmlCfg.dll" Target="OnXmlRemove" WithoutSeq="true"/>
-    <ROW Action="AI_XmlRollback" Type="11521" Source="xmlCfg.dll" Target="OnXmlRollback" WithoutSeq="true"/>
-    <ROW Action="AI_XmlUninstall" Type="1" Source="xmlCfg.dll" Target="OnXmlUninstall"/>
     <ROW Action="SET_APPDIR" Type="307" Source="APPDIR" Target="[ProgramFilesFolder][Manufacturer]\[ProductName]"/>
     <ROW Action="SET_SHORTCUTDIR" Type="307" Source="SHORTCUTDIR" Target="[ProgramMenuFolder][ProductName]"/>
     <ROW Action="SET_TARGETDIR_TO_APPDIR" Type="51" Source="TARGETDIR" Target="[APPDIR]"/>
@@ -253,8 +236,6 @@
     <ROW Action="AI_RESTORE_LOCATION" Condition="APPDIR=&quot;&quot;" Sequence="749"/>
     <ROW Action="AI_STORE_LOCATION" Condition="Not Installed" Sequence="1501"/>
     <ROW Action="AI_PREPARE_UPGRADE" Condition="AI_UPGRADE=&quot;No&quot; AND (Not Installed)" Sequence="1399"/>
-    <ROW Action="AI_XmlInstall" Condition="(REMOVE &lt;&gt; &quot;ALL&quot;)" Sequence="5101"/>
-    <ROW Action="AI_XmlUninstall" Condition="(REMOVE)" Sequence="3101"/>
     <ROW Action="AI_AppSearchEx" Sequence="101"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiInstallUISequenceComponent">
@@ -262,7 +243,7 @@
     <ROW Action="AI_AppSearchEx" Sequence="101"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiMediaComponent">
-    <ROW LastSequence="82" DiskPrompt="Disk" Cabinet="Cab" VolumeLabel="Disk" CabinetSize="649" CabinetSizeUnit="2" UseCompressed="0" Compressed="0" InsideCabinet="1" Build="DefaultBuild"/>
+    <ROW LastSequence="79" DiskPrompt="Disk" Cabinet="Cab" VolumeLabel="Disk" CabinetSize="649" CabinetSizeUnit="2" UseCompressed="0" Compressed="0" InsideCabinet="1" Build="DefaultBuild"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiServCtrlComponent">
     <ROW ServiceControl="StreamService.exe" Name="StreamingService" Event="161" Wait="1" Component_="StreamService.exe"/>
@@ -285,168 +266,5 @@
   <COMPONENT cid="caphyon.advinst.msicomp.PreReqSearchComponent">
     <ROW SearchKey="SystemFolder_file.dll" Prereq="VLC" SearchType="0" SearchString="[ProgramFilesFolder]\videolan\vlc\axvlc.dll" VerMin="0.9.8.1" VerMax="0.9.8.1" Order="1" Property="PreReqSearch_1"/>
     <ROW SearchKey="imgctrl.dll" Prereq="SanyoSDK" SearchType="0" SearchString="[CommonFilesFolder]\sanyo\h264\imgctrl.dll" VerMin="1.0" VerMax="3.0" Order="1" Property="PreReqSearch_2"/>
-  </COMPONENT>
-  <COMPONENT cid="caphyon.advinst.msicomp.XmlAttributeComponent">
-    <ROW XmlElement="1" Name="id" Flags="14" Order="0" Value="2"/>
-    <ROW XmlElement="1" Name="name" Flags="14" Order="1" Value="北门"/>
-    <ROW XmlElement="1" Name="ip" Flags="14" Order="2" Value="192.168.167.2"/>
-    <ROW XmlElement="1" Name="MAC" Flags="14" Order="3" Value="8.0.7B.88.2E.3E"/>
-    <ROW XmlElement="5" Name="value" Flags="14" Order="0" Value="10"/>
-    <ROW XmlElement="5" Name="iris" Flags="14" Order="1" Value="100"/>
-    <ROW XmlElement="5" Name="shutter" Flags="14" Order="2" Value="2"/>
-    <ROW XmlElement="5" Name="agc" Flags="14" Order="3" Value="1"/>
-    <ROW XmlElement="6" Name="value" Flags="14" Order="0" Value="20"/>
-    <ROW XmlElement="6" Name="iris" Flags="14" Order="1" Value="100"/>
-    <ROW XmlElement="6" Name="shutter" Flags="14" Order="2" Value="2"/>
-    <ROW XmlElement="6" Name="agc" Flags="14" Order="3" Value="1"/>
-    <ROW XmlElement="7" Name="value" Flags="14" Order="0" Value="30"/>
-    <ROW XmlElement="7" Name="iris" Flags="14" Order="1" Value="90"/>
-    <ROW XmlElement="7" Name="shutter" Flags="14" Order="2" Value="2"/>
-    <ROW XmlElement="7" Name="agc" Flags="14" Order="3" Value="1"/>
-    <ROW XmlElement="8" Name="value" Flags="14" Order="0" Value="40"/>
-    <ROW XmlElement="8" Name="iris" Flags="14" Order="1" Value="80"/>
-    <ROW XmlElement="8" Name="shutter" Flags="14" Order="2" Value="2"/>
-    <ROW XmlElement="8" Name="agc" Flags="14" Order="3" Value="1"/>
-    <ROW XmlElement="9" Name="value" Flags="14" Order="0" Value="50"/>
-    <ROW XmlElement="9" Name="iris" Flags="14" Order="1" Value="75"/>
-    <ROW XmlElement="9" Name="shutter" Flags="14" Order="2" Value="2"/>
-    <ROW XmlElement="9" Name="agc" Flags="14" Order="3" Value="1"/>
-    <ROW XmlElement="10" Name="value" Flags="14" Order="0" Value="60"/>
-    <ROW XmlElement="10" Name="iris" Flags="14" Order="1" Value="70"/>
-    <ROW XmlElement="10" Name="shutter" Flags="14" Order="2" Value="2"/>
-    <ROW XmlElement="10" Name="agc" Flags="14" Order="3" Value="1"/>
-    <ROW XmlElement="11" Name="value" Flags="14" Order="0" Value="70"/>
-    <ROW XmlElement="11" Name="iris" Flags="14" Order="1" Value="65"/>
-    <ROW XmlElement="11" Name="shutter" Flags="14" Order="2" Value="2"/>
-    <ROW XmlElement="11" Name="agc" Flags="14" Order="3" Value="1"/>
-    <ROW XmlElement="12" Name="value" Flags="14" Order="0" Value="80"/>
-    <ROW XmlElement="12" Name="iris" Flags="14" Order="1" Value="60"/>
-    <ROW XmlElement="12" Name="shutter" Flags="14" Order="2" Value="2"/>
-    <ROW XmlElement="12" Name="agc" Flags="14" Order="3" Value="1"/>
-    <ROW XmlElement="13" Name="value" Flags="14" Order="0" Value="90"/>
-    <ROW XmlElement="13" Name="iris" Flags="14" Order="1" Value="55"/>
-    <ROW XmlElement="13" Name="shutter" Flags="14" Order="2" Value="2"/>
-    <ROW XmlElement="13" Name="agc" Flags="14" Order="3" Value="1"/>
-    <ROW XmlElement="14" Name="value" Flags="14" Order="0" Value="100"/>
-    <ROW XmlElement="14" Name="iris" Flags="14" Order="1" Value="55"/>
-    <ROW XmlElement="14" Name="shutter" Flags="14" Order="2" Value="2"/>
-    <ROW XmlElement="14" Name="agc" Flags="14" Order="3" Value="1"/>
-    <ROW XmlElement="15" Name="value" Flags="14" Order="0" Value="110"/>
-    <ROW XmlElement="15" Name="iris" Flags="14" Order="1" Value="50"/>
-    <ROW XmlElement="15" Name="shutter" Flags="14" Order="2" Value="2"/>
-    <ROW XmlElement="15" Name="agc" Flags="14" Order="3" Value="1"/>
-    <ROW XmlElement="16" Name="value" Flags="14" Order="0" Value="120"/>
-    <ROW XmlElement="16" Name="iris" Flags="14" Order="1" Value="50"/>
-    <ROW XmlElement="16" Name="shutter" Flags="14" Order="2" Value="2"/>
-    <ROW XmlElement="16" Name="agc" Flags="14" Order="3" Value="1"/>
-    <ROW XmlElement="17" Name="value" Flags="14" Order="0" Value="130"/>
-    <ROW XmlElement="17" Name="iris" Flags="14" Order="1" Value="50"/>
-    <ROW XmlElement="17" Name="shutter" Flags="14" Order="2" Value="2"/>
-    <ROW XmlElement="17" Name="agc" Flags="14" Order="3" Value="1"/>
-    <ROW XmlElement="18" Name="value" Flags="14" Order="0" Value="140"/>
-    <ROW XmlElement="18" Name="iris" Flags="14" Order="1" Value="45"/>
-    <ROW XmlElement="18" Name="shutter" Flags="14" Order="2" Value="2"/>
-    <ROW XmlElement="18" Name="agc" Flags="14" Order="3" Value="1"/>
-    <ROW XmlElement="19" Name="value" Flags="14" Order="0" Value="150"/>
-    <ROW XmlElement="19" Name="iris" Flags="14" Order="1" Value="70"/>
-    <ROW XmlElement="19" Name="shutter" Flags="14" Order="2" Value="2"/>
-    <ROW XmlElement="19" Name="agc" Flags="14" Order="3" Value="0"/>
-    <ROW XmlElement="20" Name="value" Flags="14" Order="0" Value="160"/>
-    <ROW XmlElement="20" Name="iris" Flags="14" Order="1" Value="65"/>
-    <ROW XmlElement="20" Name="shutter" Flags="14" Order="2" Value="2"/>
-    <ROW XmlElement="20" Name="agc" Flags="14" Order="3" Value="0"/>
-    <ROW XmlElement="21" Name="value" Flags="14" Order="0" Value="170"/>
-    <ROW XmlElement="21" Name="iris" Flags="14" Order="1" Value="60"/>
-    <ROW XmlElement="21" Name="shutter" Flags="14" Order="2" Value="2"/>
-    <ROW XmlElement="21" Name="agc" Flags="14" Order="3" Value="0"/>
-    <ROW XmlElement="22" Name="value" Flags="14" Order="0" Value="180"/>
-    <ROW XmlElement="22" Name="iris" Flags="14" Order="1" Value="60"/>
-    <ROW XmlElement="22" Name="shutter" Flags="14" Order="2" Value="2"/>
-    <ROW XmlElement="22" Name="agc" Flags="14" Order="3" Value="0"/>
-    <ROW XmlElement="23" Name="value" Flags="14" Order="0" Value="190"/>
-    <ROW XmlElement="23" Name="iris" Flags="14" Order="1" Value="60"/>
-    <ROW XmlElement="23" Name="shutter" Flags="14" Order="2" Value="2"/>
-    <ROW XmlElement="23" Name="agc" Flags="14" Order="3" Value="0"/>
-    <ROW XmlElement="24" Name="value" Flags="14" Order="0" Value="200"/>
-    <ROW XmlElement="24" Name="iris" Flags="14" Order="1" Value="60"/>
-    <ROW XmlElement="24" Name="shutter" Flags="14" Order="2" Value="2"/>
-    <ROW XmlElement="24" Name="agc" Flags="14" Order="3" Value="0"/>
-    <ROW XmlElement="25" Name="value" Flags="14" Order="0" Value="210"/>
-    <ROW XmlElement="25" Name="iris" Flags="14" Order="1" Value="65"/>
-    <ROW XmlElement="25" Name="shutter" Flags="14" Order="2" Value="2"/>
-    <ROW XmlElement="25" Name="agc" Flags="14" Order="3" Value="0"/>
-    <ROW XmlElement="26" Name="value" Flags="14" Order="0" Value="220"/>
-    <ROW XmlElement="26" Name="iris" Flags="14" Order="1" Value="60"/>
-    <ROW XmlElement="26" Name="shutter" Flags="14" Order="2" Value="2"/>
-    <ROW XmlElement="26" Name="agc" Flags="14" Order="3" Value="0"/>
-    <ROW XmlElement="27" Name="value" Flags="14" Order="0" Value="230"/>
-    <ROW XmlElement="27" Name="iris" Flags="14" Order="1" Value="50"/>
-    <ROW XmlElement="27" Name="shutter" Flags="14" Order="2" Value="2"/>
-    <ROW XmlElement="27" Name="agc" Flags="14" Order="3" Value="0"/>
-    <ROW XmlElement="28" Name="value" Flags="14" Order="0" Value="240"/>
-    <ROW XmlElement="28" Name="iris" Flags="14" Order="1" Value="42"/>
-    <ROW XmlElement="28" Name="shutter" Flags="14" Order="2" Value="2"/>
-    <ROW XmlElement="28" Name="agc" Flags="14" Order="3" Value="0"/>
-    <ROW XmlElement="29" Name="value" Flags="14" Order="0" Value="250"/>
-    <ROW XmlElement="29" Name="iris" Flags="14" Order="1" Value="40"/>
-    <ROW XmlElement="29" Name="shutter" Flags="14" Order="2" Value="2"/>
-    <ROW XmlElement="29" Name="agc" Flags="14" Order="3" Value="0"/>
-    <ROW XmlElement="30" Name="value" Flags="14" Order="0" Value="260"/>
-    <ROW XmlElement="30" Name="iris" Flags="14" Order="1" Value="40"/>
-    <ROW XmlElement="30" Name="shutter" Flags="14" Order="2" Value="2"/>
-    <ROW XmlElement="30" Name="agc" Flags="14" Order="3" Value="0"/>
-  </COMPONENT>
-  <COMPONENT cid="caphyon.advinst.msicomp.XmlElementComponent">
-    <ROW XmlElement="0" Name="cameras" Order="0" Flags="30"/>
-    <ROW XmlElement="1" ParentElement="0" Name="cam" Order="0" Flags="30"/>
-    <ROW XmlElement="2" Name="SettingItem" Order="0" Flags="30"/>
-    <ROW XmlElement="3" ParentElement="2" Name="Indoor_Front" Order="0" Flags="30"/>
-    <ROW XmlElement="4" ParentElement="3" Name="Comment" Order="0" Flags="1" Text="室内顺光"/>
-    <ROW XmlElement="5" ParentElement="3" Name="illumination" Order="1" Flags="30"/>
-    <ROW XmlElement="6" ParentElement="3" Name="illumination" Order="2" Flags="30"/>
-    <ROW XmlElement="7" ParentElement="3" Name="illumination" Order="3" Flags="30"/>
-    <ROW XmlElement="8" ParentElement="3" Name="illumination" Order="4" Flags="30"/>
-    <ROW XmlElement="9" ParentElement="3" Name="illumination" Order="5" Flags="30"/>
-    <ROW XmlElement="10" ParentElement="3" Name="illumination" Order="6" Flags="30"/>
-    <ROW XmlElement="11" ParentElement="3" Name="illumination" Order="7" Flags="30"/>
-    <ROW XmlElement="12" ParentElement="3" Name="illumination" Order="8" Flags="30"/>
-    <ROW XmlElement="13" ParentElement="3" Name="illumination" Order="9" Flags="30"/>
-    <ROW XmlElement="14" ParentElement="3" Name="illumination" Order="10" Flags="30"/>
-    <ROW XmlElement="15" ParentElement="3" Name="illumination" Order="11" Flags="30"/>
-    <ROW XmlElement="16" ParentElement="3" Name="illumination" Order="12" Flags="30"/>
-    <ROW XmlElement="17" ParentElement="3" Name="illumination" Order="13" Flags="30"/>
-    <ROW XmlElement="18" ParentElement="3" Name="illumination" Order="14" Flags="30"/>
-    <ROW XmlElement="19" ParentElement="3" Name="illumination" Order="15" Flags="30"/>
-    <ROW XmlElement="20" ParentElement="3" Name="illumination" Order="16" Flags="30"/>
-    <ROW XmlElement="21" ParentElement="3" Name="illumination" Order="17" Flags="30"/>
-    <ROW XmlElement="22" ParentElement="3" Name="illumination" Order="18" Flags="30"/>
-    <ROW XmlElement="23" ParentElement="3" Name="illumination" Order="19" Flags="30"/>
-    <ROW XmlElement="24" ParentElement="3" Name="illumination" Order="20" Flags="30"/>
-    <ROW XmlElement="25" ParentElement="3" Name="illumination" Order="21" Flags="30"/>
-    <ROW XmlElement="26" ParentElement="3" Name="illumination" Order="22" Flags="30"/>
-    <ROW XmlElement="27" ParentElement="3" Name="illumination" Order="23" Flags="30"/>
-    <ROW XmlElement="28" ParentElement="3" Name="illumination" Order="24" Flags="30"/>
-    <ROW XmlElement="29" ParentElement="3" Name="illumination" Order="25" Flags="30"/>
-    <ROW XmlElement="30" ParentElement="3" Name="illumination" Order="26" Flags="30"/>
-    <ROW XmlElement="31" ParentElement="2" Name="Indoor_Back" Order="1" Flags="30"/>
-    <ROW XmlElement="32" ParentElement="31" Name="Comment" Order="0" Flags="1" Text="室内逆光"/>
-    <ROW XmlElement="33" ParentElement="2" Name="Outdoor" Order="2" Flags="30"/>
-    <ROW XmlElement="34" ParentElement="33" Name="Comment" Order="0" Flags="1" Text="室外"/>
-    <ROW XmlElement="35" ParentElement="2" Name="Infrared" Order="3" Flags="30"/>
-    <ROW XmlElement="36" ParentElement="35" Name="Comment" Order="0" Flags="1" Text="红外"/>
-    <ROW XmlElement="37" Name="Root" Order="0" Flags="30"/>
-    <ROW XmlElement="38" ParentElement="37" Name="WarnDisk" Order="0" Flags="30"/>
-    <ROW XmlElement="39" ParentElement="38" Name="Type" Order="0" Flags="30" Text="WarnDisk"/>
-    <ROW XmlElement="40" ParentElement="38" Name="Value" Order="1" Flags="30" Text="400MB"/>
-    <ROW XmlElement="41" ParentElement="38" Name="SettedTime" Order="2" Flags="30" Text="2009-8-4 11:23:29"/>
-    <ROW XmlElement="42" ParentElement="37" Name="Video" Order="1" Flags="30"/>
-    <ROW XmlElement="43" ParentElement="42" Name="Type" Order="0" Flags="30" Text="Video"/>
-    <ROW XmlElement="44" ParentElement="42" Name="Value" Order="1" Flags="30" Text="3"/>
-    <ROW XmlElement="45" ParentElement="42" Name="SettedTime" Order="2" Flags="30" Text="2009-8-4 11:23:29"/>
-  </COMPONENT>
-  <COMPONENT cid="caphyon.advinst.msicomp.XmlFileComponent">
-    <ROW XmlFile="CamConfig.xml" FileName="CamCon~1.xml|CamConfig.xml" DirProperty="APPDIR" Component="AxInterop.IMGCTRLLib.dll" RootElement="0" Flags="25" Version="1.0" Encoding="UTF-8" IndentUnits="2"/>
-    <ROW XmlFile="CamSettingsConfig.xml" FileName="CamSet~1.xml|CamSettingsConfig.xml" DirProperty="APPDIR" Component="AxInterop.IMGCTRLLib.dll" RootElement="2" Flags="25" Version="1.0" Encoding="UTF-8" IndentUnits="2"/>
-    <ROW XmlFile="SetVal.xml" FileName="SetVal.xml" DirProperty="APPDIR" Component="AxInterop.IMGCTRLLib.dll" RootElement="37" Flags="25" Version="1.0" Encoding="UTF-8" IndentUnits="2"/>
   </COMPONENT>
 </DOCUMENT>
