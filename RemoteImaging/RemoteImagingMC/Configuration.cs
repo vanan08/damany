@@ -4,17 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Xml.Linq;
 using System.Threading;
-using Damany.RemoteImaging.Net.Discovery;
 using Emcaster.Sockets;
 using Emcaster.Topics;
+using System.IO;
 
 namespace RemoteImaging
 {
     public class Configuration
     {
-        UdpSource sendSocket;
-        BatchWriter writer;
-        TopicPublisher publisher;
 
         /// <summary>
         /// Initializes a new instance of the Configuration class.
@@ -22,23 +19,14 @@ namespace RemoteImaging
         private Configuration(string brdcstip)
         {
             this.BroadcastIp = brdcstip;
-            
+
         }
 
         public string BroadcastIp { get; set; }
 
         private void SendHostConfigQuery()
         {
-//             PgmSource sendSocket = new PgmSource("224.0.0.23", 7272);
-//             sendSocket.Start();
-// 
-//             BatchWriter asyncWriter = new BatchWriter(sendSocket, 1024 * 128);
-// 
-//             TopicPublisher publisher = new TopicPublisher(asyncWriter);
-//             publisher.Start();
-// 
-//             int sendTimeout = 1000;
-//             publish.PublishObject("Stock-Quotes-AAPL", 123.3, sendTimeout);
+
         }
 
         public void StartDiscovery()
@@ -65,43 +53,22 @@ namespace RemoteImaging
             XDocument doc = XDocument.Load(fileName);
             doc.Root.RemoveNodes();
 
-//             foreach (Camera cam in Cameras)
-//             {
-//                 doc.Root.Add(new XElement("cam",
-//                     new XAttribute("ip", cam.IpAddress),
-//                     new XAttribute("name", cam.Name),
-//                     new XAttribute("id", cam.ID)
-//                    ));
-//             }
-// 
-//             doc.Save(Properties.Settings.Default.CamConfigFile);
-//             LoadConfig();
+            //             foreach (Camera cam in Cameras)
+            //             {
+            //                 doc.Root.Add(new XElement("cam",
+            //                     new XAttribute("ip", cam.IpAddress),
+            //                     new XAttribute("name", cam.Name),
+            //                     new XAttribute("id", cam.ID)
+            //                    ));
+            //             }
+            // 
+            //             doc.Save(Properties.Settings.Default.CamConfigFile);
+            //             LoadConfig();
         }
 
 
-        public HostConfiguration this[object id]
-        {
-            get
-            {
-                try
-                {
-                    return this.Hosts.First(h => h.ID.Equals(id));
-                }
-                catch (System.InvalidOperationException)
-                {
-                    return null;
-                }
+       
 
-            }
-            
-        }
-
-        public IList<HostConfiguration> Hosts
-        {
-            get;
-            set;
-
-        }
 
         public static Configuration Instance
         {
@@ -109,8 +76,8 @@ namespace RemoteImaging
             {
                 if (instance == null)
                 {
-//                     instance = new Configuration();
-//                     instance.LoadConfig();
+                    //                     instance = new Configuration();
+                    //                     instance.LoadConfig();
                 }
                 return instance;
             }
@@ -125,6 +92,5 @@ namespace RemoteImaging
         {
 
         }
-
     }
 }

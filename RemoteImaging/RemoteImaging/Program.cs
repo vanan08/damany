@@ -21,17 +21,21 @@ namespace RemoteImaging
         public static FaceSearchWrapper.FaceSearch faceSearch;
         public static MotionDetectWrapper.MotionDetector motionDetector;
 
+  
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
         static void Main(string[] argv)
         {
+            AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
+            Application.SetUnhandledExceptionMode(UnhandledExceptionMode.ThrowException);
+
+
             faceSearch = new FaceSearchWrapper.FaceSearch();
             motionDetector = new MotionDetectWrapper.MotionDetector();
             ImageSampleCount = System.IO.Directory.GetFiles(Properties.Settings.Default.FaceSampleLib, "*.jpg").Length;
-
-            SVMWrapper.InitSvmData(ImageLen, 20);
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
@@ -56,20 +60,26 @@ namespace RemoteImaging
                 directory = argv[0];
             }
 
-            string baseAddress = string.Format("net.tcp://{0}:8000", System.Net.IPAddress.Any);
-
-            Uri netTcpBaseAddress = new Uri(baseAddress);
-            ServiceHost host = new ServiceHost(typeof(Service.Service), netTcpBaseAddress);
-
-            NetTcpBinding tcpBinding = BindingFactory.CreateNetTcpBinding();
-
-            host.AddServiceEndpoint(typeof(RemoteControlService.IServiceFacade),
-                tcpBinding, "TcpService");
-
-            host.Open();
-
+             
             Application.Run(new MainForm());
 
+        }
+
+        static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            try
+            {
+                Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicy.HandleException(
+                   e.ExceptionObject as Exception, Constants.ExceptionHandlingLogging
+                   );
+
+            }
+            finally
+            {
+                Application.Exit();
+            }
+            
+            
         }
 
 

@@ -34,18 +34,16 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
-            this.timeEdit1 = new DevExpress.XtraEditors.TimeEdit();
-            this.timeEdit2 = new DevExpress.XtraEditors.TimeEdit();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.hostsComboBox = new System.Windows.Forms.ComboBox();
+            this.searchFromTime = new DevExpress.XtraEditors.TimeEdit();
+            this.searchToTime = new DevExpress.XtraEditors.TimeEdit();
+            this.facesList = new System.Windows.Forms.ImageList(this.components);
             this.imageList2 = new System.Windows.Forms.ImageList(this.components);
-            this.bestPicListView = new System.Windows.Forms.ListView();
+            this.facesListView = new System.Windows.Forms.ListView();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
-            this.pictureBoxFace = new System.Windows.Forms.PictureBox();
+            this.facePictureBox = new System.Windows.Forms.PictureBox();
             this.labelCaptureLoc = new System.Windows.Forms.Label();
             this.labelCaptureTime = new System.Windows.Forms.Label();
             this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
@@ -58,26 +56,28 @@
             this.axVLCPlugin21 = new AxAXVLC.AxVLCPlugin2();
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.pictureBoxWholeImg = new System.Windows.Forms.PictureBox();
+            this.wholeImage = new System.Windows.Forms.PictureBox();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonFirstPage = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonPrePage = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonNextPage = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonLastPage = new System.Windows.Forms.ToolStripButton();
             this.toolStripLabelCurPage = new System.Windows.Forms.ToolStripLabel();
-            this.toolStripComboBoxPageSize = new System.Windows.Forms.ToolStripComboBox();
+            this.pageSizeComboBox = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButtonPlayVideo = new System.Windows.Forms.ToolStripButton();
+            this.downloadVideoFile = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.saveToolStripButton = new System.Windows.Forms.ToolStripButton();
-            ((System.ComponentModel.ISupportInitialize)(this.timeEdit1.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.timeEdit2.Properties)).BeginInit();
+            this.saveVideoFileDialog = new System.Windows.Forms.SaveFileDialog();
+            ((System.ComponentModel.ISupportInitialize)(this.searchFromTime.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.searchToTime.Properties)).BeginInit();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFace)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.facePictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
@@ -91,7 +91,7 @@
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.axVLCPlugin21)).BeginInit();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxWholeImg)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.wholeImage)).BeginInit();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -133,54 +133,42 @@
             this.label3.TabIndex = 3;
             this.label3.Text = "到:";
             // 
-            // comboBox1
+            // hostsComboBox
             // 
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(85, 27);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(73, 20);
-            this.comboBox1.TabIndex = 4;
+            this.hostsComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.hostsComboBox.FormattingEnabled = true;
+            this.hostsComboBox.Location = new System.Drawing.Point(59, 27);
+            this.hostsComboBox.Name = "hostsComboBox";
+            this.hostsComboBox.Size = new System.Drawing.Size(119, 20);
+            this.hostsComboBox.TabIndex = 4;
             // 
-            // dateTimePicker1
+            // searchFromTime
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(209, 27);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(129, 21);
-            this.dateTimePicker1.TabIndex = 5;
-            // 
-            // dateTimePicker2
-            // 
-            this.dateTimePicker2.Location = new System.Drawing.Point(498, 27);
-            this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(129, 21);
-            this.dateTimePicker2.TabIndex = 6;
-            // 
-            // timeEdit1
-            // 
-            this.timeEdit1.EditValue = new System.DateTime(2009, 5, 7, 0, 0, 0, 0);
-            this.timeEdit1.Location = new System.Drawing.Point(344, 27);
-            this.timeEdit1.Name = "timeEdit1";
-            this.timeEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            this.searchFromTime.EditValue = new System.DateTime(2009, 5, 7, 0, 0, 0, 0);
+            this.searchFromTime.Location = new System.Drawing.Point(213, 27);
+            this.searchFromTime.Name = "searchFromTime";
+            this.searchFromTime.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.timeEdit1.Size = new System.Drawing.Size(75, 23);
-            this.timeEdit1.TabIndex = 7;
+            this.searchFromTime.Properties.Mask.EditMask = "f";
+            this.searchFromTime.Size = new System.Drawing.Size(206, 23);
+            this.searchFromTime.TabIndex = 7;
             // 
-            // timeEdit2
+            // searchToTime
             // 
-            this.timeEdit2.EditValue = new System.DateTime(2009, 5, 7, 0, 0, 0, 0);
-            this.timeEdit2.Location = new System.Drawing.Point(633, 27);
-            this.timeEdit2.Name = "timeEdit2";
-            this.timeEdit2.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            this.searchToTime.EditValue = new System.DateTime(2009, 5, 7, 0, 0, 0, 0);
+            this.searchToTime.Location = new System.Drawing.Point(499, 27);
+            this.searchToTime.Name = "searchToTime";
+            this.searchToTime.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.timeEdit2.Size = new System.Drawing.Size(71, 23);
-            this.timeEdit2.TabIndex = 8;
+            this.searchToTime.Properties.Mask.EditMask = "f";
+            this.searchToTime.Size = new System.Drawing.Size(205, 23);
+            this.searchToTime.TabIndex = 8;
             // 
-            // imageList1
+            // facesList
             // 
-            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
-            this.imageList1.ImageSize = new System.Drawing.Size(80, 60);
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.facesList.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
+            this.facesList.ImageSize = new System.Drawing.Size(80, 60);
+            this.facesList.TransparentColor = System.Drawing.Color.Transparent;
             // 
             // imageList2
             // 
@@ -188,32 +176,30 @@
             this.imageList2.ImageSize = new System.Drawing.Size(80, 60);
             this.imageList2.TransparentColor = System.Drawing.Color.Transparent;
             // 
-            // bestPicListView
+            // facesListView
             // 
-            this.bestPicListView.Activation = System.Windows.Forms.ItemActivation.OneClick;
-            this.bestPicListView.AutoArrange = false;
-            this.bestPicListView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.bestPicListView.HideSelection = false;
-            this.bestPicListView.Location = new System.Drawing.Point(0, 27);
-            this.bestPicListView.MultiSelect = false;
-            this.bestPicListView.Name = "bestPicListView";
-            this.bestPicListView.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.bestPicListView.Size = new System.Drawing.Size(840, 256);
-            this.bestPicListView.TabIndex = 10;
-            this.bestPicListView.UseCompatibleStateImageBehavior = false;
-            this.bestPicListView.ItemActivate += new System.EventHandler(this.bestPicListView_ItemActivate);
+            this.facesListView.Activation = System.Windows.Forms.ItemActivation.OneClick;
+            this.facesListView.AutoArrange = false;
+            this.facesListView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.facesListView.HideSelection = false;
+            this.facesListView.Location = new System.Drawing.Point(0, 27);
+            this.facesListView.MultiSelect = false;
+            this.facesListView.Name = "facesListView";
+            this.facesListView.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.facesListView.Size = new System.Drawing.Size(840, 256);
+            this.facesListView.TabIndex = 10;
+            this.facesListView.UseCompatibleStateImageBehavior = false;
+            this.facesListView.ItemActivate += new System.EventHandler(this.bestPicListView_ItemActivate);
             // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.label2);
             this.groupBox3.Controls.Add(this.label1);
             this.groupBox3.Controls.Add(this.label3);
-            this.groupBox3.Controls.Add(this.comboBox1);
+            this.groupBox3.Controls.Add(this.hostsComboBox);
             this.groupBox3.Controls.Add(this.queryBtn);
-            this.groupBox3.Controls.Add(this.dateTimePicker1);
-            this.groupBox3.Controls.Add(this.dateTimePicker2);
-            this.groupBox3.Controls.Add(this.timeEdit1);
-            this.groupBox3.Controls.Add(this.timeEdit2);
+            this.groupBox3.Controls.Add(this.searchFromTime);
+            this.groupBox3.Controls.Add(this.searchToTime);
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox3.Location = new System.Drawing.Point(0, 0);
             this.groupBox3.Name = "groupBox3";
@@ -235,7 +221,7 @@
             // 
             // layoutControl1
             // 
-            this.layoutControl1.Controls.Add(this.pictureBoxFace);
+            this.layoutControl1.Controls.Add(this.facePictureBox);
             this.layoutControl1.Controls.Add(this.labelCaptureLoc);
             this.layoutControl1.Controls.Add(this.labelCaptureTime);
             this.layoutControl1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -246,14 +232,14 @@
             this.layoutControl1.TabIndex = 0;
             this.layoutControl1.Text = "layoutControl1";
             // 
-            // pictureBoxFace
+            // facePictureBox
             // 
-            this.pictureBoxFace.Location = new System.Drawing.Point(7, 7);
-            this.pictureBoxFace.Name = "pictureBoxFace";
-            this.pictureBoxFace.Size = new System.Drawing.Size(164, 86);
-            this.pictureBoxFace.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pictureBoxFace.TabIndex = 19;
-            this.pictureBoxFace.TabStop = false;
+            this.facePictureBox.Location = new System.Drawing.Point(7, 7);
+            this.facePictureBox.Name = "facePictureBox";
+            this.facePictureBox.Size = new System.Drawing.Size(164, 86);
+            this.facePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.facePictureBox.TabIndex = 19;
+            this.facePictureBox.TabStop = false;
             // 
             // labelCaptureLoc
             // 
@@ -319,7 +305,7 @@
             // 
             // layoutControlItem3
             // 
-            this.layoutControlItem3.Control = this.pictureBoxFace;
+            this.layoutControlItem3.Control = this.facePictureBox;
             this.layoutControlItem3.CustomizationFormText = "layoutControlItem3";
             this.layoutControlItem3.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem3.Name = "layoutControlItem3";
@@ -342,7 +328,7 @@
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.bestPicListView);
+            this.splitContainer1.Panel2.Controls.Add(this.facesListView);
             this.splitContainer1.Panel2.Controls.Add(this.toolStrip1);
             this.splitContainer1.Size = new System.Drawing.Size(840, 472);
             this.splitContainer1.SplitterDistance = 185;
@@ -398,7 +384,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.pictureBoxWholeImg);
+            this.groupBox1.Controls.Add(this.wholeImage);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Left;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
@@ -407,15 +393,15 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "全身像";
             // 
-            // pictureBoxWholeImg
+            // wholeImage
             // 
-            this.pictureBoxWholeImg.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBoxWholeImg.Location = new System.Drawing.Point(3, 17);
-            this.pictureBoxWholeImg.Name = "pictureBoxWholeImg";
-            this.pictureBoxWholeImg.Size = new System.Drawing.Size(433, 165);
-            this.pictureBoxWholeImg.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBoxWholeImg.TabIndex = 16;
-            this.pictureBoxWholeImg.TabStop = false;
+            this.wholeImage.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.wholeImage.Location = new System.Drawing.Point(3, 17);
+            this.wholeImage.Name = "wholeImage";
+            this.wholeImage.Size = new System.Drawing.Size(433, 165);
+            this.wholeImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.wholeImage.TabIndex = 16;
+            this.wholeImage.TabStop = false;
             // 
             // toolStrip1
             // 
@@ -425,10 +411,11 @@
             this.toolStripButtonNextPage,
             this.toolStripButtonLastPage,
             this.toolStripLabelCurPage,
-            this.toolStripComboBoxPageSize,
+            this.pageSizeComboBox,
             this.toolStripLabel1,
             this.toolStripSeparator2,
             this.toolStripButtonPlayVideo,
+            this.downloadVideoFile,
             this.toolStripSeparator1,
             this.saveToolStripButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
@@ -479,17 +466,17 @@
             this.toolStripLabelCurPage.Size = new System.Drawing.Size(57, 24);
             this.toolStripLabelCurPage.Text = "第1/1页";
             // 
-            // toolStripComboBoxPageSize
+            // pageSizeComboBox
             // 
-            this.toolStripComboBoxPageSize.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.toolStripComboBoxPageSize.Items.AddRange(new object[] {
+            this.pageSizeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.pageSizeComboBox.Items.AddRange(new object[] {
             "20",
             "30",
             "40",
             "50"});
-            this.toolStripComboBoxPageSize.Name = "toolStripComboBoxPageSize";
-            this.toolStripComboBoxPageSize.Size = new System.Drawing.Size(121, 27);
-            this.toolStripComboBoxPageSize.SelectedIndexChanged += new System.EventHandler(this.toolStripComboBoxPageSize_SelectedIndexChanged);
+            this.pageSizeComboBox.Name = "pageSizeComboBox";
+            this.pageSizeComboBox.Size = new System.Drawing.Size(121, 27);
+            this.pageSizeComboBox.SelectedIndexChanged += new System.EventHandler(this.toolStripComboBoxPageSize_SelectedIndexChanged);
             // 
             // toolStripLabel1
             // 
@@ -508,8 +495,17 @@
             this.toolStripButtonPlayVideo.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonPlayVideo.Name = "toolStripButtonPlayVideo";
             this.toolStripButtonPlayVideo.Size = new System.Drawing.Size(81, 24);
-            this.toolStripButtonPlayVideo.Text = "相关视频";
+            this.toolStripButtonPlayVideo.Text = "播放视频";
             this.toolStripButtonPlayVideo.Click += new System.EventHandler(this.toolStripButtonPlayVideo_Click);
+            // 
+            // downloadVideoFile
+            // 
+            this.downloadVideoFile.Image = ((System.Drawing.Image)(resources.GetObject("downloadVideoFile.Image")));
+            this.downloadVideoFile.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.downloadVideoFile.Name = "downloadVideoFile";
+            this.downloadVideoFile.Size = new System.Drawing.Size(81, 24);
+            this.downloadVideoFile.Text = "保存视频";
+            this.downloadVideoFile.Click += new System.EventHandler(this.downloadVideoFile_Click);
             // 
             // toolStripSeparator1
             // 
@@ -525,6 +521,12 @@
             this.saveToolStripButton.Text = "保存图片(&S)";
             this.saveToolStripButton.Click += new System.EventHandler(this.saveToolStripButton_Click);
             // 
+            // saveVideoFileDialog
+            // 
+            this.saveVideoFileDialog.DefaultExt = "m4v";
+            this.saveVideoFileDialog.Filter = "视频文件 (*.m4v)|*.m4v";
+            this.saveVideoFileDialog.RestoreDirectory = true;
+            // 
             // PicQueryForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -539,15 +541,16 @@
             this.Text = "搜索图片";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.PicQueryForm_Load);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.PicQueryForm_FormClosed);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PicQueryForm_FormClosing);
-            ((System.ComponentModel.ISupportInitialize)(this.timeEdit1.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.timeEdit2.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.searchFromTime.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.searchToTime.Properties)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFace)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.facePictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
@@ -562,7 +565,7 @@
             this.groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.axVLCPlugin21)).EndInit();
             this.groupBox1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxWholeImg)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.wholeImage)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -575,14 +578,12 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
-        private System.Windows.Forms.DateTimePicker dateTimePicker2;
-        private DevExpress.XtraEditors.TimeEdit timeEdit1;
-        private DevExpress.XtraEditors.TimeEdit timeEdit2;
-        private System.Windows.Forms.ImageList imageList1;
+        private System.Windows.Forms.ComboBox hostsComboBox;
+        private DevExpress.XtraEditors.TimeEdit searchFromTime;
+        private DevExpress.XtraEditors.TimeEdit searchToTime;
+        private System.Windows.Forms.ImageList facesList;
         private System.Windows.Forms.ImageList imageList2;
-        private System.Windows.Forms.ListView bestPicListView;
+        private System.Windows.Forms.ListView facesListView;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Label labelCaptureTime;
@@ -590,7 +591,7 @@
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.SplitContainer splitContainer2;
         private DevExpress.XtraLayout.LayoutControl layoutControl1;
-        private System.Windows.Forms.PictureBox pictureBoxFace;
+        private System.Windows.Forms.PictureBox facePictureBox;
         private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup1;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem2;
@@ -602,15 +603,17 @@
         private System.Windows.Forms.ToolStripButton toolStripButtonLastPage;
         private System.Windows.Forms.ToolStripLabel toolStripLabelCurPage;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
-        private System.Windows.Forms.ToolStripComboBox toolStripComboBoxPageSize;
+        private System.Windows.Forms.ToolStripComboBox pageSizeComboBox;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripButton toolStripButtonPlayVideo;
-        private System.Windows.Forms.PictureBox pictureBoxWholeImg;
+        private System.Windows.Forms.PictureBox wholeImage;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton saveToolStripButton;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Splitter splitter1;
         private AxAXVLC.AxVLCPlugin2 axVLCPlugin21;
+        private System.Windows.Forms.ToolStripButton downloadVideoFile;
+        private System.Windows.Forms.SaveFileDialog saveVideoFileDialog;
     }
 }

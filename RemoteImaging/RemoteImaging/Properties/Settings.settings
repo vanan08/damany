@@ -125,7 +125,7 @@
     <Setting Name="SimilarityLevel" Type="System.String" Scope="User">
       <Value Profile="(Default)">0.5,0.58|0.58,0.68|0.68,1</Value>
     </Setting>
-    <Setting Name="DiskQuota" Type="System.String" Scope="User">
+    <Setting Name="ReservedDiskSpaceMB" Type="System.String" Scope="User">
       <Value Profile="(Default)">300</Value>
     </Setting>
     <Setting Name="FaceSampleLib" Type="System.String" Scope="User">
@@ -138,13 +138,34 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="KeepMotionLessVideo" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="FreeDiskspaceCheckIntervalMs" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">60000</Value>
     </Setting>
     <Setting Name="MaxFrameQueueLength" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">40</Value>
+    </Setting>
+    <Setting Name="HostId" Type="System.String" Scope="User">
+      <Value Profile="(Default)">-1</Value>
+    </Setting>
+    <Setting Name="HostName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">未命名监控点</Value>
+    </Setting>
+    <Setting Name="Live" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="SearchFace" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="SearchSuspecious" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="ImageRepositoryDirectory" Type="System.String" Scope="User">
+      <Value Profile="(Default)">c:\facerecognition</Value>
+    </Setting>
+    <Setting Name="SVMDirectoryName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">SVM</Value>
     </Setting>
   </Settings>
 </SettingsFile>

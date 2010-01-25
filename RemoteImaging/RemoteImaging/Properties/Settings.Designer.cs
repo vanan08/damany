@@ -518,12 +518,12 @@ namespace RemoteImaging.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("300")]
-        public string DiskQuota {
+        public string ReservedDiskSpaceMB {
             get {
-                return ((string)(this["DiskQuota"]));
+                return ((string)(this["ReservedDiskSpaceMB"]));
             }
             set {
-                this["DiskQuota"] = value;
+                this["ReservedDiskSpaceMB"] = value;
             }
         }
         
@@ -565,7 +565,7 @@ namespace RemoteImaging.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool KeepMotionLessVideo {
             get {
                 return ((bool)(this["KeepMotionLessVideo"]));
@@ -596,6 +596,90 @@ namespace RemoteImaging.Properties {
             }
             set {
                 this["MaxFrameQueueLength"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
+        public string HostId {
+            get {
+                return ((string)(this["HostId"]));
+            }
+            set {
+                this["HostId"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("未命名监控点")]
+        public string HostName {
+            get {
+                return ((string)(this["HostName"]));
+            }
+            set {
+                this["HostName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Live {
+            get {
+                return ((bool)(this["Live"]));
+            }
+            set {
+                this["Live"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool SearchFace {
+            get {
+                return ((bool)(this["SearchFace"]));
+            }
+            set {
+                this["SearchFace"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SearchSuspecious {
+            get {
+                return ((bool)(this["SearchSuspecious"]));
+            }
+            set {
+                this["SearchSuspecious"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("c:\\facerecognition")]
+        public string ImageRepositoryDirectory {
+            get {
+                return ((string)(this["ImageRepositoryDirectory"]));
+            }
+            set {
+                this["ImageRepositoryDirectory"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("SVM")]
+        public string SVMDirectoryName {
+            get {
+                return ((string)(this["SVMDirectoryName"]));
+            }
+            set {
+                this["SVMDirectoryName"] = value;
             }
         }
     }

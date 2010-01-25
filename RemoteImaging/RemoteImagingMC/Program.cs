@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using System.ServiceModel;
+using Damany.RemoteImaging.Common.Forms;
+using Damany.Security.UsersAdmin;
+using System.IO;
+using System.Security.Principal;
+using Microsoft.Practices.EnterpriseLibrary.ExceptionHandling;
 
 
 namespace RemoteImaging
@@ -12,18 +17,29 @@ namespace RemoteImaging
 
     static class Program
     {
+        private static UsersManager usersManager;
         public static string directory;
 
+        public static void ShowErrorMessage(string msg)
+        {
+            MessageBox.Show(msg, RemoteImaging.Properties.Resources.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
         static void Main(string[] argv)
         {
+            AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
+            Application.SetUnhandledExceptionMode(UnhandledExceptionMode.ThrowException);
+
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-#if !DEBUG
+
+            string fullQualifiedName = typeof(string).AssemblyQualifiedName;
+
 
             if (!Util.VerifyKey())
             {
@@ -33,31 +49,93 @@ namespace RemoteImaging
                 {
                     Application.Restart();
                 }
-                
+
                 return;
             }
 
 
             Login log = null;
+            usersManager = UsersManager.LoadUsers();
 
-            do
-	        {
-                 log = new Login();
-                 if (log.ShowDialog() != DialogResult.OK)
-                     return;
+            User currentUser = null;
 
-	        } while ( log.UserName != Properties.Settings.Default.UserName
-                || log.Password != Properties.Settings.Default.PassWord ); 
+#if !DEBUG
+            while (true)
+            {
+                log = new Login();
+                log.LabelClicked += new EventHandler(log_LabelClicked);
+                if (log.ShowDialog() != DialogResult.OK)
+                    return;
+
+                currentUser = usersManager.GetUser(log.UserName, log.Password);
+                if (currentUser != null)
+                    break;
+                else
+                    ShowErrorMessage(Properties.Resources.ErrorUserNameOrPassword);
+            }
 #endif
-  
+
+#if DEBUG
+            currentUser = usersManager.GetUser("admin", "admin");
+#endif
+
+
+            System.Threading.Thread.CurrentPrincipal = currentUser.ToPrincipal();
 
             if (argv.Length > 0)
             {
                 directory = argv[0];
             }
 
-            Application.Run(new MainForm());
+            var mainForm = new MainForm();
+            mainForm.UsersManager = usersManager;
 
+            Application.Run(mainForm);
+
+        }
+
+        static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            try
+            {
+                ExceptionPolicy.HandleException((Exception)e.ExceptionObject, Constants.ExceptionPolicyLogging);
+            }
+            finally
+            {
+                Application.Exit();
+            }
+            
+        }
+
+        static void log_LabelClicked(object sender, EventArgs e)
+        {
+            while (true)
+            {
+                using (var form = new ChangePasswordForm())
+                {
+                    DialogResult result = form.ShowDialog();
+                    if (result == DialogResult.Cancel)
+                    {
+                        break;
+                    }
+                    else if (result == DialogResult.OK)
+                    {
+                        bool succeed = 
+                            usersManager.ChangePassword(form.UserName, form.OldPassword, form.NewPassword);
+                        if (succeed)
+                        {
+                            usersManager.Save();
+                            break;
+                        }
+                        else
+                        {
+                            ShowErrorMessage(Properties.Resources.ErrorUserNameOrPassword);
+                        }
+                    }
+                    
+                }
+            }
+            
         }
 
         static void watcher_ImagesUploaded(object Sender, ImageUploadEventArgs args)

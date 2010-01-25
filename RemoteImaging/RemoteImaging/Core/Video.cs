@@ -9,5 +9,7 @@ namespace RemoteImaging.Core
     {
         public string Path { get; set; }
         public bool HasFaceCaptured { get; set; }
+        public bool IsMotionWithoutFace { get; set; }
+        public bool IsMotionLess { get; set; }
     }
 }

@@ -8,46 +8,27 @@ using System.Xml.Linq;
 
 using System.Timers;
 using System.Runtime.InteropServices;
+using Damany.Security.UsersAdmin;
+using Damany.RemoteImaging.Common.Forms;
 
 namespace RemoteImaging
 {
     public partial class OptionsForm : Form
     {
         private static OptionsForm instance = null;
+        private UsersManager userManager;
 
-        public static OptionsForm Instance
+        public OptionsForm(UsersManager mnger)
         {
-            get
-            {
-                if (instance == null)
-                {
-                    instance = new OptionsForm();
-                }
-                return instance;
-            }
-        }
+            if (mnger == null)
+                throw new ArgumentNullException("mnger", "mnger is null.");
 
-        private OptionsForm()
-        {
             InitializeComponent();
-            InitCamDatagridView();
 
-        }
-
-        private void InitCamDatagridView()
-        {
-            InitCamList();
-
-            this.dataGridCameras.AutoGenerateColumns = false;
-            this.dataGridCameras.Columns[0].DataPropertyName = "Name";
-            this.dataGridCameras.Columns[1].DataPropertyName = "ID";
-            this.dataGridCameras.Columns[2].DataPropertyName = "IpAddress";
+            this.userManager = mnger;
         }
 
 
-        private void InitCamList()
-        {
-        }
         private void browseForUploadFolder_Click(object sender, EventArgs e)
         {
             using (FolderBrowserDialog dlg = new FolderBrowserDialog())
@@ -92,11 +73,6 @@ namespace RemoteImaging
                 {
                     camList.Add(item);
                 }
-
-                bs = new BindingSource();
-                bs.DataSource = camList;
-
-                this.dataGridCameras.DataSource = bs;
             }
         }
 
@@ -140,16 +116,18 @@ namespace RemoteImaging
 
         private void buttonOK_Click(object sender, EventArgs e)
         {
-
+            if (usersIsDirty)
+            {
+                userManager.Save();
+            }
         }
-
-
 
         private void OptionsForm_Load(object sender, EventArgs e)
         {
+            this.usesList.DataSource = this.userManager.Users;
+            this.usesList.DisplayMember = "Name";
 
         }
-
 
 
         #region 弹出窗口的操作
@@ -174,8 +152,43 @@ namespace RemoteImaging
         {
         }
 
-        private void ckbDiskSet_CheckedChanged(object sender, EventArgs e)
+        bool usersIsDirty = false;
+        private void addNewUserButton_Click(object sender, EventArgs e)
         {
+            using (var form = new AddNewUserForm())
+            {
+                DialogResult result = form.ShowDialog(this);
+                if (result != DialogResult.OK)
+                    return;
+
+                if (userManager.UserNameExists(form.UserName))
+                {
+                    Program.ShowErrorMessage("该用户名已经存在！");
+                    return;
+                }
+
+                var user = new User(form.UserName, form.PassWord);
+                user.Roles.Add("Users");
+
+                this.userManager.AddUser(user);
+                this.usersIsDirty = true;
+                
+            }
         }
+
+        private void deleteSelectedUser_Click(object sender, EventArgs e)
+        {
+            if ((this.usesList.SelectedItem as User).Roles.Contains("admin"))
+            {
+                Program.ShowErrorMessage("不能删除'管理员'用户!");
+                return;
+            }
+
+            userManager.DeleteUser((this.usesList.SelectedItem as User).Name);
+            this.usersIsDirty = true;
+
+        }
+
+
     }
 }

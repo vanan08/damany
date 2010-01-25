@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using RemoteImaging.Core;
+using Microsoft.Practices.EnterpriseLibrary.ExceptionHandling;
 
 namespace RemoteImaging.Query
 {
@@ -29,6 +30,15 @@ namespace RemoteImaging.Query
             }
 
             this.PageSize = 20;
+        }
+
+        private void ShowUserError(string msg)
+        {
+            MessageBox.Show(this,
+                                msg,
+                                this.Text,
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
         }
 
         private void UpdatePagesLabel()
@@ -54,7 +64,23 @@ namespace RemoteImaging.Query
                 (i < currentPage * PageSize) && (i < imagesFound.Length);
                 ++i)
             {
-                this.imageList1.Images.Add(Image.FromFile(imagesFound[i]));
+                Image img = null;
+                try
+                {
+                    img = Image.FromFile(imagesFound[i]);
+                }
+                catch (System.IO.IOException ex)
+                {
+                    bool rethrow = ExceptionPolicy.HandleException(ex, Constants.ExceptionHandlingLogging);
+                    if (rethrow)
+                    {
+                        throw;
+                    }
+
+                    continue;
+                }
+
+                this.imageList1.Images.Add(img);
                 string text = System.IO.Path.GetFileName(imagesFound[i]);
                 ListViewItem item = new ListViewItem()
                 {
@@ -160,24 +186,27 @@ namespace RemoteImaging.Query
         {
             string filePath = this.bestPicListView.FocusedItem.Tag as string;
 
-            //show modify icon
-            if (File.Exists(filePath))
+            try
             {
                 this.pictureBox1.Image = Image.FromFile(filePath);
+
+                //detail infomation
+                ImageDetail imgInfo = ImageDetail.FromPath(filePath);
+
+                string captureLoc = string.Format("抓拍地点: {0}", imgInfo.FromCamera);
+                this.labelCaptureLoc.Text = captureLoc;
+
+                string captureTime = string.Format("抓拍时间: {0}", imgInfo.CaptureTime);
+                this.labelCaptureTime.Text = captureTime;
+
+                string bigImgPath = FileSystemStorage.BigImgPathForFace(imgInfo);
+
+                this.pictureBoxWholeImg.Image = Image.FromFile(bigImgPath);
             }
-
-            //detail infomation
-            ImageDetail imgInfo = ImageDetail.FromPath(filePath);
-
-            string captureLoc = string.Format("抓拍地点: {0}", imgInfo.FromCamera);
-            this.labelCaptureLoc.Text = captureLoc;
-
-            string captureTime = string.Format("抓拍时间: {0}", imgInfo.CaptureTime);
-            this.labelCaptureTime.Text = captureTime;
-
-            string bigImgPath = FileSystemStorage.BigImgPathForFace(imgInfo);
-
-            this.pictureBoxWholeImg.Image = Image.FromFile(bigImgPath);
+            catch (System.IO.IOException ex)
+            {
+                ShowUserError(ex.Message);
+            }
 
         }
 

@@ -7,40 +7,51 @@ using Emcaster.Topics;
 
 namespace Damany.RemoteImaging.Net.Discovery
 {
-    class Subscriber
+    public class Subscriber : IDisposable
     {
 
+        private MessageParser parser;
         private MessageParserFactory factory;
         private UdpReceiver receiveSocket;
-        private Dictionary<Type, object> handlers;
 
 
         public string ListenToIp { get; set; }
         public int ListeToPort { get; set; }
 
-        public void Start()
+        public Subscriber(string listenToIp, int listenToPort)
         {
+            this.ListenToIp = listenToIp;
+            this.ListeToPort = listenToPort;
+
             factory = new MessageParserFactory();
-            MessageParser parser = factory.Create();
+            parser = factory.Create();
+
             receiveSocket = new UdpReceiver(ListenToIp, ListeToPort);
             receiveSocket.ReceiveEvent += parser.OnBytes;
 
+        }
+
+        public void Start()
+        {
             receiveSocket.Start();
         }
 
-        public void Subscribe<T>(string topic, Action<T> handler)
+        public void Subscribe(string topic, EventHandler<TopicArgs> handler)
         {
-            
-
             TopicSubscriber topicSubscriber = new TopicSubscriber(topic, factory);
             topicSubscriber.Start();
 
-            topicSubscriber.TopicMessageEvent += delegate(IMessageParser msgParser)
-            {
-               // msgsReceived.Add(msgParser.ParseObject());
-            };
-
-
+            topicSubscriber.TopicMessageEvent += msgParser => handler( msgParser.EndPoint, new TopicArgs(msgParser) );
+            
         }
+
+        #region IDisposable Members
+
+        public void Dispose()
+        {
+            if (this.receiveSocket != null) this.receiveSocket.Dispose();
+        }
+
+        #endregion
     }
 }

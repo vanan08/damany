@@ -224,8 +224,16 @@ namespace RemoteImaging
                 {
                     bool hasFaceCaptured =
                         FaceImagesCapturedWhen(cameraID, startUTC.ToLocalTime());
+                    bool isMotionLess =
+                        !MotionImagesCapturedWhen(cameraID, startUTC.ToLocalTime());
+                    bool isMotionWithoutFace = !isMotionLess && !hasFaceCaptured;
 
-                    videos.Add(new RemoteImaging.Core.Video { HasFaceCaptured = hasFaceCaptured, Path = path });
+                    videos.Add(new RemoteImaging.Core.Video { 
+                                                            HasFaceCaptured = hasFaceCaptured, 
+                                                            Path = path, 
+                                                            IsMotionWithoutFace = isMotionWithoutFace,
+                                                            IsMotionLess = isMotionLess,
+                                                            });
                 }
 
                 startUTC = startUTC.AddMinutes(1);
@@ -358,6 +366,13 @@ namespace RemoteImaging
             Directory.Delete(day, true);
 
             DeleteVideoForDay(y, m, d);
+
+        }
+
+        public static int GetTotalStorageMB()
+        {
+            int mb = (int) new System.IO.DriveInfo(Properties.Settings.Default.OutputPath).TotalSize / (1024 * 1024);
+            return mb;
 
         }
 

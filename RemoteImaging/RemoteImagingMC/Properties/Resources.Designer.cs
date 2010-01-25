@@ -88,6 +88,24 @@ namespace RemoteImaging.Properties {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to 错误.
+        /// </summary>
+        internal static string Error {
+            get {
+                return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 无效的用户名或密码！请检查你的大小写输入是否正确。.
+        /// </summary>
+        internal static string ErrorUserNameOrPassword {
+            get {
+                return ResourceManager.GetString("ErrorUserNameOrPassword", resourceCulture);
+            }
+        }
+        
         internal static System.Drawing.Bitmap logo {
             get {
                 object obj = ResourceManager.GetObject("logo", resourceCulture);
@@ -126,6 +144,13 @@ namespace RemoteImaging.Properties {
         internal static System.Drawing.Bitmap Peoples32 {
             get {
                 object obj = ResourceManager.GetObject("Peoples32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap property {
+            get {
+                object obj = ResourceManager.GetObject("property", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

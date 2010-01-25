@@ -11,230 +11,294 @@ using RemoteImaging.Core;
 using RemoteControlService;
 using System.ServiceModel.Channels;
 using System.ServiceModel;
-using Damany.RemoteImaging.Net.Discovery;
+using System.Reflection;
 
 namespace RemoteImaging.Query
 {
     public partial class PicQueryForm : Form
     {
-        private string[] imagesFound = new string[0];
-        private int currentPage;
-        private int totalPage;
-        public int PageSize { get; set; }
 
-        int lastSpotID = 0;
-        DateTime lastBeginTime = DateTime.Now;
-        DateTime lastEndTime = DateTime.Now;
-        RemoteControlService.IServiceFacade SearchProxy;
-        RemoteControlService.IStreamPlayer StreamProxy;
-
+        private HostsPool hosts;
 
         public PicQueryForm()
         {
             InitializeComponent();
 
-            this.comboBox1.DataSource = Configuration.Instance.Hosts;
-            this.comboBox1.DisplayMember = "Name";
+            this.facesListView.Scrollable = true;
+            this.facesListView.MultiSelect = false;
+            this.facesListView.View = View.LargeIcon;
+            this.facesListView.LargeImageList = facesList;
 
-            
-            this.PageSize = 20;
+            Damany.RemoteImaging.Common.ControlHelper.SetControlProperty(this.facesListView, "DoubleBuffered", true);
+
+
+            this.pageSizeComboBox.SelectedIndex = 0;
+
+            DateTime now = DateTime.Now;
+
+            this.searchToTime.EditValue = now;
+            this.searchFromTime.EditValue = now.AddDays(-1);
+
         }
 
-        private void UpdatePagesLabel()
+        public event EventHandler PageSizeChanged;
+        public event EventHandler DownLoadVideoFileClick;
+        public event EventHandler QueryClick;
+        public event EventHandler PlayVideoClick
+        {
+            add
+            {
+                this.toolStripButtonPlayVideo.Click += value;
+            }
+            remove
+            {
+                this.toolStripButtonPlayVideo.Click -= value;
+            }
+        }
+
+        public event EventHandler NextPageClick;
+
+        public event EventHandler PreviousPageClick;
+
+        public event EventHandler LastPageClick;
+
+        public event EventHandler FirstPageClick;
+
+
+        public Damany.RemoteImaging.Common.IProgress ProgressIndicator
+        {
+            get
+            {
+                Damany.RemoteImaging.Common.Forms.ProgressForm progress =
+                    new Damany.RemoteImaging.Common.Forms.ProgressForm();
+
+                if (this.InvokeRequired)
+                {
+                    Action<System.Windows.Forms.Form> show = progress.Show;
+
+                    show.Invoke(this);
+                }
+                else
+                {
+                    progress.Show(this);
+
+                }
+
+                return progress;
+            }
+        }
+
+        public event EventHandler<SaveEventArgs> SaveImageClick;
+
+        public HostsPool Hosts
+        {
+            get
+            {
+                return hosts;
+            }
+            set
+            {
+                hosts = value;
+
+                this.hostsComboBox.DataSource = value.Hosts;
+                this.hostsComboBox.DisplayMember = "Name";
+            }
+        }
+
+        public DateTime SearchFrom
+        {
+            get
+            {
+                return (DateTime)this.searchFromTime.EditValue;
+            }
+        }
+
+        public DateTime SearchTo
+        {
+            get
+            {
+                return (DateTime)this.searchToTime.EditValue;
+            }
+        }
+
+        private int GetPageSize()
+        {
+            return int.Parse(this.pageSizeComboBox.SelectedItem as string);
+        }
+
+        public int PageSize
+        {
+            get
+            {
+                if (this.InvokeRequired)
+                {
+                    Func<int> getPgSz = () => GetPageSize();
+
+                    return (int)this.Invoke(getPgSz);
+                }
+                else
+                    return GetPageSize();
+            }
+        }
+
+        int currentPage;
+        public int CurrentPage
+        {
+            set
+            {
+                this.currentPage = value;
+                this.UpdatePagesLabel(value, this.totalPage);
+            }
+        }
+
+
+        int totalPage;
+        public int TotalPage
+        {
+            set
+            {
+                this.totalPage = value;
+                this.UpdatePagesLabel(this.currentPage, value);
+            }
+        }
+
+        public Image Face
+        {
+            set
+            {
+                var oldImage = this.facePictureBox.Image;
+                this.facePictureBox.Image = value;
+
+                if (oldImage != null)
+                {
+                    oldImage.Dispose();
+                }
+            }
+        }
+
+
+        public Image WholeImage
+        {
+            set
+            {
+                var oldImge = this.wholeImage.Image;
+
+                this.wholeImage.Image = value;
+
+                if (oldImge != null)
+                {
+                    oldImge.Dispose();
+                }
+            }
+        }
+
+        public DateTime SelectedTime
+        {
+            get
+            {
+                if (this.facesListView.FocusedItem == null) return default(DateTime);
+
+                ImagePair ip = this.facesListView.FocusedItem.Tag as ImagePair;
+
+                ImageDetail imgInfo = ImageDetail.FromPath(ip.FacePath);
+
+                return imgInfo.CaptureTime;
+
+            }
+
+        }
+
+
+        public void AddFace(ImagePair pair)
+        {
+            this.facesList.Images.Add(pair.Face);
+            string text = System.IO.Path.GetFileName(pair.FacePath as string);
+            ListViewItem item = new ListViewItem()
+            {
+                Tag = pair,
+                Text = text,
+                ImageIndex = this.facesList.Images.Count - 1,
+            };
+            this.facesListView.Items.Add(item);
+        }
+
+
+        private void UpdatePagesLabel(int currentPage, int totalPage)
         {
             this.toolStripLabelCurPage.Text = string.Format("第{0}/{1}页", currentPage, totalPage);
         }
 
-        private int CalcPagesCount()
+
+        public void ClearCurPageList()
         {
+            this.facesListView.Clear();
 
-            totalPage = (imagesFound.Length + PageSize - 1) / PageSize;
-
-            return totalPage;
-        }
-
-        void ShowCurrentPage()
-        {
-            bestPicListView.BeginUpdate();
-
-            ClearCurPageList();
-
-            for (int i = (currentPage - 1) * PageSize;
-                (i < currentPage * PageSize) && (i < imagesFound.Length);
-                ++i)
+            foreach (Image image in this.facesList.Images)
             {
-                ImagePair ip = null;
-
-                try
-                {
-                    ip = SearchProxy.GetFace(imagesFound[i]);
-                }
-                catch (System.ServiceModel.CommunicationException)
-                {
-                    MessageBox.Show("通讯错误, 请重试");
-                    IChannel ch = SearchProxy as IChannel;
-                    if (ch.State == CommunicationState.Faulted)
-                    {
-                        this.CreateProxy();
-                    }
-                    break;
-                }
-                
-
-                this.imageList1.Images.Add(ip.Face);
-                string text = System.IO.Path.GetFileName(ip.FacePath as string);
-                ListViewItem item = new ListViewItem()
-                {
-                    Tag = ip,
-                    Text = text,
-                    ImageIndex = i % PageSize
-                };
-                this.bestPicListView.Items.Add(item);
+                image.Dispose();
             }
 
-            bestPicListView.EndUpdate();
-
+            this.facesList.Images.Clear();
         }
 
-        private void ClearCurPageList()
-        {
-            this.bestPicListView.Clear();
-            this.imageList1.Images.Clear();
-        }
-
-        private void ClearLists()
+        public void ClearLists()
         {
             ClearCurPageList();
             this.imageList2.Images.Clear();
-            this.pictureBoxFace.Image = null;
-            this.pictureBoxWholeImg.Image = null;
+            this.facePictureBox.Image = null;
+            this.wholeImage.Image = null;
         }
 
-        private DateTime CreateDateTime(
-            DateTimePicker picker,
-            DevExpress.XtraEditors.TimeEdit time)
+        private System.Net.IPAddress InternalGetSelectedIP()
         {
-            DateTime date = picker.Value;
-            DateTime t = time.Time;
-
-            DateTime dt = new DateTime(date.Year, date.Month, date.Day, t.Hour, t.Minute, t.Second);
-
-            return dt;
-        }
-
-        private string GetSelectedIP()
-        {
-            Camera selected = this.comboBox1.SelectedItem as Camera;
-            if (selected == null)
-            {
-                throw new Exception("No camera selected");
-            }
-            return selected.IpAddress;
-        }
-
-        private void CreateProxy()
-        {
-            HostConfiguration selected = this.comboBox1.SelectedItem as HostConfiguration;
-
-            selected = Configuration.Instance[selected.ID];
-
+            Host selected = this.hostsComboBox.SelectedItem as Host;
             if (selected == null)
             {
                 throw new Exception("No camera selected");
             }
 
-            string searchAddress = string.Format("net.tcp://{0}:8000/TcpService", GetSelectedIP());
-            string playerAddress = string.Format("net.tcp://{0}:4567/TcpService", GetSelectedIP());
+            return selected.Ip;
 
-            this.SearchProxy = ServiceProxy.ProxyFactory.CreateProxy<IServiceFacade>(searchAddress);
-            this.StreamProxy = ServiceProxy.ProxyFactory.CreateProxy<IStreamPlayer>(playerAddress);
         }
 
+        public System.Net.IPAddress SelectedIP
+        {
+            get
+            {
+                if (this.InvokeRequired)
+                {
+                    Func<System.Net.IPAddress> getIp = () => InternalGetSelectedIP();
 
+                    return (System.Net.IPAddress)this.Invoke(getIp);
+                }
+                else
+                    return InternalGetSelectedIP();
+
+            }
+
+        }
+
+        private bool IsHostSelected()
+        {
+            if (this.hostsComboBox.SelectedValue == null)
+            {
+                this.ShowErrorMessage("请选择要查询的监控点");
+                return false;
+            }
+
+            return true;
+        }
         private void queryBtn_Click(object sender, EventArgs e)
         {
-            Cursor.Current = Cursors.WaitCursor;
+            if (!IsHostSelected()) return;
 
-            if (this.comboBox1.Text == "" || this.comboBox1.Text == null)
+            if (this.QueryClick != null)
             {
-                MessageBox.Show("请选择要查询的摄像头ID", "警告");
-                return;
+                this.QueryClick(this, EventArgs.Empty);
             }
-
-            Camera selectedCamera = this.comboBox1.SelectedItem as Camera;
-
-            //judge the input validation
-            DateTime dateTime1 = CreateDateTime(this.dateTimePicker1, timeEdit1);
-            DateTime dateTime2 = CreateDateTime(this.dateTimePicker2, timeEdit2);
-
-            if (dateTime1 >= dateTime2)
-            {
-                MessageBox.Show("时间起点不应该大于或者等于时间终点，请重新输入！", "警告");
-                return;
-            }
-
-            if (StreamProxy != null && isPlaying)
-            {
-                try
-                {
-                    StreamProxy.Stop();
-                    isPlaying = false;
-                }
-                catch (System.ServiceModel.EndpointNotFoundException)
-                {
-                    
-                }
-                
-            }
-
-            CreateProxy();
-            try
-            {
-                imagesFound = SearchProxy.SearchFaces(2, dateTime1, dateTime2);
-            }
-            catch (System.ServiceModel.CommunicationException)
-            {
-                MessageBox.Show("通讯错误, 请重试");
-                IChannel ch = SearchProxy as IChannel;
-                if (ch.State == CommunicationState.Faulted)
-                {
-                    this.CreateProxy();
-                }
-                return;
-            }
-
-            
-
-            if (imagesFound.Length == 0)
-            {
-                MessageBox.Show(this, "未找到图片");
-                return;
-            }
-
-
-            CalcPagesCount();
-            currentPage = 1;
-            UpdatePagesLabel();
-
-
-            if (imagesFound == null)
-            {
-                MessageBox.Show("没有搜索到满足条件的图片！", "警告");
-                return;
-            }
-
-            this.bestPicListView.Scrollable = true;
-            this.bestPicListView.MultiSelect = false;
-            this.bestPicListView.View = View.LargeIcon;
-            this.bestPicListView.LargeImageList = imageList1;
-
-
-            ShowCurrentPage();
-
-            Cursor.Current = Cursors.Default;
-
-
         }
+
+
         //以前
         //02_090702150918-0001.jpg -->大图片
         //02_090702152518-0006-0000.jpg--> 小图片
@@ -244,9 +308,9 @@ namespace RemoteImaging.Query
         //02_090807144104343-0000.jpg-->小图片
         private void bestPicListView_ItemActivate(object sender, System.EventArgs e)
         {
-            ImagePair ip = this.bestPicListView.FocusedItem.Tag as ImagePair;
+            ImagePair ip = this.facesListView.FocusedItem.Tag as ImagePair;
 
-            this.pictureBoxFace.Image = ip.Face;
+            this.facePictureBox.Image = ip.Face;
 
             //detail infomation
             ImageDetail imgInfo = ImageDetail.FromPath(ip.FacePath);
@@ -258,7 +322,7 @@ namespace RemoteImaging.Query
             this.labelCaptureTime.Text = captureTime;
 
 
-            this.pictureBoxWholeImg.Image = ip.BigImage;
+            this.wholeImage.Image = ip.BigImage;
 
         }
 
@@ -287,16 +351,11 @@ namespace RemoteImaging.Query
             }
         }
 
-        private void secPicListView_ItemActive(object sender, System.EventArgs e)
-        {
-
-
-        }
 
         private void cancelBtn_Click(object sender, EventArgs e)
         {
-            this.bestPicListView.Clear();
-            this.imageList1.Images.Clear();
+            this.facesListView.Clear();
+            this.facesList.Images.Clear();
             this.imageList2.Images.Clear();
 
 
@@ -310,70 +369,61 @@ namespace RemoteImaging.Query
 
         private void PicQueryForm_Load(object sender, EventArgs e)
         {
-            this.toolStripComboBoxPageSize.Text = this.PageSize.ToString();
+
         }
 
         private void toolStripButtonFirstPage_Click(object sender, EventArgs e)
         {
-            currentPage = 1;
-            ShowCurrentPage();
-            UpdatePagesLabel();
+            if (!IsHostSelected()) return;
+
+            if (FirstPageClick != null)
+            {
+                FirstPageClick(sender, e);
+            }
 
         }
 
         private void toolStripButtonPrePage_Click(object sender, EventArgs e)
         {
-            --currentPage;
+            if (!IsHostSelected()) return;
 
-            if (currentPage <= 0)
+            if (PreviousPageClick != null)
             {
-                currentPage = 1;
-                return;
+                PreviousPageClick(sender, e);
             }
 
-            ShowCurrentPage();
-            UpdatePagesLabel();
 
         }
 
         private void toolStripButtonNextPage_Click(object sender, EventArgs e)
         {
-            ++currentPage;
+            if (!IsHostSelected()) return;
 
-            if (currentPage > totalPage)
+            if (NextPageClick != null)
             {
-                currentPage = totalPage;
-                return;
+                NextPageClick(sender, e);
             }
 
-            ShowCurrentPage();
-            UpdatePagesLabel();
         }
 
         private void toolStripButtonLastPage_Click(object sender, EventArgs e)
         {
-            currentPage = totalPage;
+            if (!IsHostSelected()) return;
 
-            ShowCurrentPage();
-            UpdatePagesLabel();
+            if (LastPageClick != null)
+            {
+                LastPageClick(sender, e);
+            }
+
 
         }
 
         private void toolStripComboBoxPageSize_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string pageSize = (string)this.toolStripComboBoxPageSize.SelectedItem;
-
-            // if (string.IsNullOrEmpty(pageSize)) return;
-
-            int sz = int.Parse(pageSize);
-
-            this.PageSize = sz;
-
-            CalcPagesCount();
-            currentPage = 1;
-            UpdatePagesLabel();
-
-            ShowCurrentPage();
+            if (this.PageSizeChanged != null)
+            {
+                this.PageSizeChanged(this, EventArgs.Empty);
+            }
 
         }
 
@@ -397,14 +447,30 @@ namespace RemoteImaging.Query
             this.axVLCPlugin21.playlist.playItem(idx);
         }
 
-        bool isPlaying = false;
+
+        public void ShowErrorMessage(object state)
+        {
+            this.ShowMessage(state as string, MessageBoxIcon.Error);
+        }
+
+        public void ShowInfoMessage(object state)
+        {
+            this.ShowMessage(state as string, MessageBoxIcon.Information);
+        }
+
+
+        public void ShowMessage(string msg, MessageBoxIcon icon)
+        {
+            MessageBox.Show(this, msg, this.Text,
+                MessageBoxButtons.OK, icon);
+        }
+
 
         private void toolStripButtonPlayVideo_Click(object sender, EventArgs e)
         {
-            if (SearchProxy == null) return;
-            if (this.bestPicListView.SelectedItems.Count != 1) return;
+            if (this.facesListView.SelectedItems.Count != 1) return;
 
-            ImagePair ip = this.bestPicListView.SelectedItems[0].Tag as ImagePair;
+            ImagePair ip = this.facesListView.SelectedItems[0].Tag as ImagePair;
 
             ImageDetail imgInfo = ImageDetail.FromPath(ip.FacePath);
 
@@ -412,40 +478,38 @@ namespace RemoteImaging.Query
 
             try
             {
-                video  = SearchProxy.VideoFilePathRecordedAt(imgInfo.CaptureTime, imgInfo.FromCamera);
+                video = Gateways.Search.Instance.VideoFilePathRecordedAt(SelectedIP, imgInfo.CaptureTime, imgInfo.FromCamera);
             }
             catch (System.ServiceModel.CommunicationException)
             {
-                MessageBox.Show("通讯错误, 请重试");
-                IChannel ch = SearchProxy as IChannel;
-                if (ch.State == CommunicationState.Faulted)
-                {
-                    this.CreateProxy();
-                }
+                ShowErrorMessage("通讯错误，请重试！");
                 return;
             }
 
-            
-
             if (string.IsNullOrEmpty(video))
             {
-                MessageBox.Show("未找到相关视频");
+                ShowInfoMessage("未找到相关视频");
                 return;
             }
 
             this.ReceiveVideoStream();
 
-            StreamProxy.StreamVideo(video);
-            isPlaying = true;
+            try
+            {
+                Gateways.StreamPlayer.Instance.StreamVideo(SelectedIP, video);
+            }
+            catch (System.ServiceModel.CommunicationException)
+            {
+                this.ShowErrorMessage("未找到相关视频");
 
-            
+            }
 
         }
 
         private void SaveSelectedImage()
         {
-            if ((this.bestPicListView.Items.Count <= 0) || (this.bestPicListView.FocusedItem == null)) return;
-            ImagePair ip = this.bestPicListView.FocusedItem.Tag as ImagePair;
+            if ((this.facesListView.Items.Count <= 0) || (this.facesListView.FocusedItem == null)) return;
+            ImagePair ip = this.facesListView.FocusedItem.Tag as ImagePair;
 
 
             ImageDetail imgInfo = ImageDetail.FromPath(ip.FacePath);
@@ -460,12 +524,12 @@ namespace RemoteImaging.Query
                 saveDialog.FileName = fileName;
                 if (saveDialog.ShowDialog() == DialogResult.OK)
                 {
-                    if (pictureBoxFace.Image != null)
+                    if (facePictureBox.Image != null)
                     {
                         string path = saveDialog.FileName;
-                        pictureBoxFace.Image.Save(path);
+                        facePictureBox.Image.Save(path);
                         path = path.Replace(fileName, Path.GetFileName(bigImgPath));
-                        pictureBoxWholeImg.Image.Save(path);
+                        wholeImage.Image.Save(path);
                     }
                 }
             }
@@ -484,18 +548,40 @@ namespace RemoteImaging.Query
                 this.axVLCPlugin21.playlist.stop();
                 System.Threading.Thread.Sleep(1000);
             }
-
-            if (StreamProxy != null && isPlaying)
-            {
-                StreamProxy.Stop();
-            }
-
         }
 
 
         private void PicQueryForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            EnsureClosePlayer();
+        }
+
+
+        public System.IO.Stream DestinationStream { get { return saveVideoFileDialog.OpenFile(); } }
+
+        private void downloadVideoFile_Click(object sender, EventArgs e)
+        {
+            if (this.SelectedTime == default(DateTime))
+            {
+                ShowErrorMessage("请选择一幅图片！");
+                return;
+            }
+
+            if (saveVideoFileDialog.ShowDialog(this) == DialogResult.Cancel) return;
+
+            if (this.DownLoadVideoFileClick != null)
+            {
+                this.DownLoadVideoFileClick(this, EventArgs.Empty);
+            }
+
+        }
+
+        private void PicQueryForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (this.axVLCPlugin21.playlist.isPlaying)
+            {
+                this.axVLCPlugin21.playlist.stop();
+                System.Threading.Thread.Sleep(1000);
+            }
         }
     }
 }

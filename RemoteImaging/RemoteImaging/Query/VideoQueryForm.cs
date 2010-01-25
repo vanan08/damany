@@ -9,6 +9,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using RemoteImaging.Core;
+using Microsoft.Practices.EnterpriseLibrary.ExceptionHandling;
 
 namespace RemoteImaging.Query
 {
@@ -21,8 +22,24 @@ namespace RemoteImaging.Query
             {
                 this.comboBox1.Items.Add(camera.ID.ToString());
             }
+
+            PopulateSearchScope();
             setListViewColumns();
         }
+
+        private void PopulateSearchScope()
+        {
+            var searchTypes = new List<SearchCategory>();
+            searchTypes.Add( new SearchCategory{ Name = "全部",  Scope= SearchScope.All }  );
+            searchTypes.Add(new SearchCategory { Name = "有人像视频", Scope = SearchScope.FaceCapturedVideo });
+            searchTypes.Add( new SearchCategory{ Name = "有动态无人像视频",  Scope= SearchScope.MotionWithoutFaceVideo } );
+            searchTypes.Add( new SearchCategory{ Name = "无动态视频",  Scope= SearchScope.MotionLessVideo } );
+
+            this.searchType.DataSource = searchTypes;
+            this.searchType.DisplayMember = "Name";
+            this.searchType.ValueMember = "Scope";
+        }
+
 
         private void queryBtn_Click(object sender, EventArgs e)
         {
@@ -72,7 +89,8 @@ namespace RemoteImaging.Query
                 lvl.SubItems.Add(videoPath);
                 lvl.Tag = videoPath;
 
-                if (faceCapturedVideoRadioButton.Checked == true)
+                if ( ((SearchScope) this.searchType.SelectedValue & SearchScope.FaceCapturedVideo) 
+                      == SearchScope.FaceCapturedVideo )
                 {
                     if (v.HasFaceCaptured)
                     {
@@ -80,15 +98,29 @@ namespace RemoteImaging.Query
                         videoList.Items.Add(lvl);
                     }
                 }
-
-                if (AllVideoTypeRadioButton.Checked == true)
+                
+                if (((SearchScope)this.searchType.SelectedValue & SearchScope.MotionWithoutFaceVideo)
+                     == SearchScope.MotionWithoutFaceVideo)
                 {
-                    if (v.HasFaceCaptured)
-                        lvl.ImageIndex = 0;
-                    else
+                    if (v.IsMotionWithoutFace)
+                    {
                         lvl.ImageIndex = 1;
-                    videoList.Items.Add(lvl);
+                        videoList.Items.Add(lvl);
+                    }
                 }
+                
+                if ( ((SearchScope) this.searchType.SelectedValue & SearchScope.MotionLessVideo) 
+                      == SearchScope.MotionLessVideo)
+                {
+                    if (v.IsMotionLess)
+                    {
+                        lvl.ImageIndex = 2;
+                        videoList.Items.Add(lvl);
+                    }
+                }
+
+               
+
 
 
             }
@@ -98,13 +130,12 @@ namespace RemoteImaging.Query
         {
             videoList.Columns.Add("抓拍时间", 150);
             videoList.Columns.Add("视频文件", 150);
-            faceCapturedVideoRadioButton.Checked = true;
         }
 
         private void cancelBtn_Click(object sender, EventArgs e)
         {
             this.picList.Clear();
-            this.imageList1.Images.Clear();
+            this.imageListFace.Images.Clear();
             this.Close();
         }
 
@@ -134,7 +165,7 @@ namespace RemoteImaging.Query
         void bindPiclist()
         {
             this.picList.Clear();
-            this.imageList1.Images.Clear();
+            this.imageListFace.Images.Clear();
 
             DateTime time = ImageSearch.getDateTimeStr(videoList.FocusedItem.Tag as string);
             int cameID = int.Parse(this.comboBox1.Text);
@@ -144,7 +175,23 @@ namespace RemoteImaging.Query
 
             for (int i = 0; i < fileArr.Length; ++i)
             {
-                this.imageList1.Images.Add(Image.FromFile(fileArr[i]));
+                Image img = null;
+                try
+                {
+                    img = Image.FromFile(fileArr[i]);
+                }
+                catch (System.Exception ex)
+                {
+                    bool rethrow = ExceptionPolicy.HandleException(ex, Constants.ExceptionHandlingLogging);
+                    if (rethrow)
+                    {
+                        throw;
+                    }
+
+                    continue;
+                }
+
+                this.imageListFace.Images.Add(img);
                 string text = System.IO.Path.GetFileName(fileArr[i]);
                 ListViewItem item = new ListViewItem()
                 {
@@ -157,7 +204,7 @@ namespace RemoteImaging.Query
             this.picList.Scrollable = true;
             this.picList.MultiSelect = false;
             this.picList.View = View.LargeIcon;
-            this.picList.LargeImageList = imageList1;
+            this.picList.LargeImageList = imageListFace;
         }
 
         #endregion
@@ -184,6 +231,21 @@ namespace RemoteImaging.Query
             detail.Img = img;
             detail.ShowDialog(this);
             detail.Dispose();
+        }
+
+        [Flags]
+        internal enum SearchScope : byte
+        {
+            FaceCapturedVideo = 1,
+            MotionWithoutFaceVideo = 2,
+            MotionLessVideo = 4,
+            All = byte.MaxValue,
+        }
+
+        internal class SearchCategory
+        {
+            public string Name { get; set; }
+            public SearchScope Scope { get; set; }
         }
     }
 }

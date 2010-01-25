@@ -6,6 +6,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Net.Sockets;
 using System.Drawing;
 using System.Threading;
+using Damany.RemoteImaging.Common;
 
 namespace RemoteImaging.RealtimeDisplay
 {
@@ -13,6 +14,7 @@ namespace RemoteImaging.RealtimeDisplay
     {
         TcpClient client;
         BinaryFormatter formatter;
+        Host peer;
 
         public event EventHandler<ImageCapturedEventArgs> ImageReceived;
         public event EventHandler ConnectAborted;
@@ -21,22 +23,23 @@ namespace RemoteImaging.RealtimeDisplay
 
         public object Tag { get; set; }
 
-        public LiveClient(TcpClient client)
+        public LiveClient(TcpClient client, Host peer)
         {
             context = SynchronizationContext.Current;
+            this.peer = peer;
 
             this.client = client;
             formatter = new BinaryFormatter();
         }
 
 
-        void FireImageReceivedEvent(Image img)
+        void FireImageReceivedEvent(Frame frame)
         {
             if (this.ImageReceived != null)
             {
                 ImageCapturedEventArgs args = new ImageCapturedEventArgs
                 {
-                    ImageCaptured = img,
+                    FrameCaptured = frame,
                 };
 
                 this.ImageReceived(this, args);
@@ -55,7 +58,6 @@ namespace RemoteImaging.RealtimeDisplay
         }
 
         bool exit = false;
-        Size imgSize = Size.Empty;
 
         private void OnConnectAborted()
         {
@@ -73,37 +75,14 @@ namespace RemoteImaging.RealtimeDisplay
                 {
                     client.GetStream().WriteByte(0);
                     client.GetStream().Flush();
-                    Image img = (Image)formatter.Deserialize(client.GetStream());
-                    imgSize = img.Size;
-                    this.FireImageReceivedEvent(img);
+                    Frame frame = (Frame)formatter.Deserialize(client.GetStream());
+                    this.FireImageReceivedEvent(frame);
                 }
 
             }
             catch
             {
-                Bitmap bmp = new Bitmap(imgSize.Width, imgSize.Height);
-                int fontSize = imgSize.Height / 10;
-
-                using (Graphics g = Graphics.FromImage(bmp))
-                using (Font font = new Font(FontFamily.GenericSansSerif, fontSize, GraphicsUnit.Pixel))
-                {
-                    g.FillRectangle(Brushes.Black, new Rectangle(0, 0, imgSize.Width, imgSize.Height));
-                    StringFormat fmt = new StringFormat();
-                    fmt.Alignment = StringAlignment.Center;
-                    fmt.LineAlignment = StringAlignment.Center;
-                    g.DrawString("连接错误",
-                        font,
-                        Brushes.White,
-                        new RectangleF(0, 0, imgSize.Width, imgSize.Height),
-                        fmt
-                        );
-
-                    this.FireImageReceivedEvent(bmp);
-
-                    context.Post(o => OnConnectAborted(), null);
-
-                }
-
+                context.Post(o => OnConnectAborted(), null);
             }
             finally
             {

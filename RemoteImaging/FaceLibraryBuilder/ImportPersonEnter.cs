@@ -197,8 +197,6 @@ namespace FaceLibraryBuilder
             FormProgress form = new FormProgress();
             form.ShowDialog(this);
 
-            this.Close();
-
 
         }
 

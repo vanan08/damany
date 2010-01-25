@@ -88,6 +88,13 @@ namespace RemoteImaging.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap FaceIcon32 {
+            get {
+                object obj = ResourceManager.GetObject("FaceIcon32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap logo {
             get {
                 object obj = ResourceManager.GetObject("logo", resourceCulture);

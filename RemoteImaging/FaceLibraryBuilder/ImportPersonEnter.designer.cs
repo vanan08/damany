@@ -206,7 +206,7 @@
             this.addFinished.Name = "addFinished";
             this.addFinished.Size = new System.Drawing.Size(75, 23);
             this.addFinished.TabIndex = 30;
-            this.addFinished.Text = "完成";
+            this.addFinished.Text = "更新特征库";
             this.addFinished.UseVisualStyleBackColor = true;
             this.addFinished.Click += new System.EventHandler(this.addFinished_Click);
             // 

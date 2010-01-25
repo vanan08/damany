@@ -7,11 +7,13 @@ using Emcaster.Topics;
 
 namespace Damany.RemoteImaging.Net.Discovery
 {
-    class Publisher
+    public class Publisher : IDisposable
     {
         UdpSource sendSocket;
         BatchWriter writer;
         TopicPublisher publisher;
+
+        bool started;
 
         public Publisher(string announceIp, int port)
         {
@@ -30,13 +32,37 @@ namespace Damany.RemoteImaging.Net.Discovery
         {
             sendSocket.Start();
             publisher.Start();
+            this.started = true;
         }
 
         public void Publish(string topic, object data, int timeout)
         {
+            if (!this.started) throw new InvalidOperationException("Has not started");
+
             publisher.PublishObject(topic, data, timeout);
         }
 
-        
+
+
+        public bool Started
+        {
+            get
+            {
+                return started;
+            }
+            set
+            {
+                started = value;
+            }
+        }
+
+        #region IDisposable Members
+
+        public void Dispose()
+        {
+            if (this.sendSocket != null) this.sendSocket.Dispose();
+        }
+
+        #endregion
     }
 }

@@ -13,6 +13,7 @@ using Damany.Component;
 using System.Threading;
 using RemoteImaging.ImportPersonCompare;
 using RemoteImaging.Query;
+using Microsoft.Practices.EnterpriseLibrary.ExceptionHandling;
 
 namespace RemoteImaging.RealtimeDisplay
 {
@@ -298,6 +299,19 @@ namespace RemoteImaging.RealtimeDisplay
 
         public IImageScreenObserver Observer { get; set; }
 
+        private void ShowLiveFace(ImageDetail[] images)
+        {
+            if (images.Length == 0) return;
+
+            Image oldFace = this.liveFace.Image;
+
+            this.liveFace.Image = Image.FromFile(images.Last().Path);
+
+            if (oldFace != null)
+            {
+                oldFace.Dispose();
+            }
+        }
         public void ShowImages(ImageDetail[] images)
         {
             ImageCell[] cells = new ImageCell[images.Length];
@@ -309,6 +323,7 @@ namespace RemoteImaging.RealtimeDisplay
                 cells[i] = newCell;
             }
 
+            ShowLiveFace(images);
 
             this.squareListView1.ShowImages(cells);
 
@@ -316,15 +331,24 @@ namespace RemoteImaging.RealtimeDisplay
 
         #endregion
 
+        Communication commucation;
+
+        private Camera GetLastSelectedCamera()
+        {
+            Camera c = config.FindCameraByID(Properties.Settings.Default.LastSelCamID);
+            return c;
+        }
 
         private void MainForm_Shown(object sender, EventArgs e)
         {
             diskSpaceCheckTimer.Enabled = true;
 
+            commucation = new Communication("224.0.0.23", 40001);
+            commucation.Start();
+
             FaceRecognition.FaceRecognizer.InitData(Program.ImageSampleCount, Program.ImageLen, Program.EigenNum);
 
-            Camera c = config.FindCameraByID(Properties.Settings.Default.LastSelCamID);
-
+            Camera c = GetLastSelectedCamera();
             if (c == null) return;
 
             if (FileSystemStorage.DriveRemoveable(Properties.Settings.Default.OutputPath))
@@ -623,7 +647,7 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void realTimer_Tick(object sender, EventArgs e)
         {
-            var reservedDiskSpaceBytes = (long)int.Parse(Properties.Settings.Default.DiskQuota) * (1024 * 1024);
+            var reservedDiskSpaceBytes = (long)int.Parse(Properties.Settings.Default.ReservedDiskSpaceMB) * (1024 * 1024);
             var totalFreeDiskSpaceBytes = FreeDiskSpaceBytes();
 
             var availableBytes = totalFreeDiskSpaceBytes - reservedDiskSpaceBytes;
@@ -640,7 +664,7 @@ namespace RemoteImaging.RealtimeDisplay
 
             statusTime.Text = DateTime.Now.ToString();
 
-        }
+         }
 
         private void statusOutputFolder_Click(object sender, EventArgs e)
         {
@@ -789,14 +813,13 @@ namespace RemoteImaging.RealtimeDisplay
             this.axCamImgCtrl1.UnicastPort = 3939;
             this.axCamImgCtrl1.ComType = 0;
 
-#if !DEBUG
-            this.axCamImgCtrl1.CamImgCtrlStart();
+            if (Properties.Settings.Default.Live)
+            {
+                this.axCamImgCtrl1.CamImgCtrlStart();
+                this.axCamImgCtrl1.CamImgRecStart();
 
-            this.axCamImgCtrl1.CamImgRecStart();
-#endif
+            }
 
-
-            //Properties.Settings.Default.CurIp = cam.IpAddress;
         }
 
         private void OnConnectionFinished(object ex)
@@ -816,6 +839,8 @@ namespace RemoteImaging.RealtimeDisplay
         }
 
 
+        int? lastSelCamID = null;
+
         private void StartCamera(Camera cam)
         {
             SynchronizationContext context = SynchronizationContext.Current;
@@ -824,13 +849,13 @@ namespace RemoteImaging.RealtimeDisplay
 
             if (string.IsNullOrEmpty(Program.directory))
             {
-                var camera = new SanyoNetCamera();
+                var camera = new Damany.Component.SanyoNetCamera();
                 camera.IPAddress = cam.IpAddress;
                 camera.UserName = "guest";
                 camera.Password = "guest";
 
                 Icam = camera;
-                this.StartRecord(cam);
+                
             }
             else
             {
@@ -863,7 +888,8 @@ namespace RemoteImaging.RealtimeDisplay
 
                     if (error == null)
                     {
-                        Properties.Settings.Default.LastSelCamID = cam.ID;
+                        lastSelCamID = cam.ID;
+                        this.StartRecord(cam);
                     }
 
                 });
@@ -929,6 +955,12 @@ namespace RemoteImaging.RealtimeDisplay
             {
                 thread.Abort();
             }
+
+            if (lastSelCamID != null)
+            {
+                Properties.Settings.Default.LastSelCamID = (int) this.lastSelCamID;
+            }
+
             Properties.Settings.Default.Save();
 
         }
@@ -969,7 +1001,7 @@ namespace RemoteImaging.RealtimeDisplay
 
             var space = FileSystemStorage.GetFreeDiskSpaceBytes(drive);
 
-            long diskQuota = long.Parse(Properties.Settings.Default.DiskQuota) * (1024*1024);
+            long diskQuota = long.Parse(Properties.Settings.Default.ReservedDiskSpaceMB) * (1024*1024);
 
             if (space <= diskQuota && !isDeleting)
             {
@@ -980,9 +1012,13 @@ namespace RemoteImaging.RealtimeDisplay
                         {
                             FileSystemStorage.DeleteMostOutDatedDataForDay(1);
                         }
-                        catch (System.IO.IOException)
+                        catch (System.IO.IOException ex)
                         {
-                        	
+                        	bool rethrow = ExceptionPolicy.HandleException(ex, Constants.ExceptionHandlingLogging);
+                            if (rethrow)
+                            {
+                                throw;
+                            }
                         }
                         finally
                         {

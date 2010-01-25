@@ -39,18 +39,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AForge.Imaging, Version=1.1.0.0, Culture=neutral, PublicKeyToken=d604c8342bbdeba9, processorArchitecture=MSIL" />
-    <Reference Include="CommonLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\OutPut\CommonLibrary.dll</HintPath>
-    </Reference>
-    <Reference Include="Damany.Component, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Damany.Library\OutPut\Damany.Component.dll</HintPath>
-    </Reference>
-    <Reference Include="Damany.Windows.Form, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Damany.Library\OutPut\Damany.Windows.Form.dll</HintPath>
-    </Reference>
     <Reference Include="DevExpress.BonusSkins.v9.2, Version=9.2.9.0, Culture=neutral, PublicKeyToken=95fc6c5621878f0a" />
     <Reference Include="DevExpress.Data.v9.2, Version=9.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.OfficeSkins.v9.2, Version=9.2.9.0, Culture=neutral, PublicKeyToken=95fc6c5621878f0a" />
@@ -68,42 +56,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Library\Emcaster.0.1.5\Emcaster.dll</HintPath>
     </Reference>
-    <Reference Include="Encryptor, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\OutPut\Encryptor.dll</HintPath>
-    </Reference>
     <Reference Include="EnvDTE, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-    <Reference Include="FaceRecognition, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\OutPut\FaceRecognition.dll</HintPath>
-    </Reference>
-    <Reference Include="FaceSearchWrapper, Version=1.0.3603.31485, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\OutPut\FaceSearchWrapper.dll</HintPath>
-    </Reference>
-    <Reference Include="IconExtractor, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\OutPut\IconExtractor.dll</HintPath>
-    </Reference>
-    <Reference Include="Messages, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\OutPut\Messages.dll</HintPath>
-    </Reference>
-    <Reference Include="MotionDetectWrapper, Version=1.0.3604.21378, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\OutPut\MotionDetectWrapper.dll</HintPath>
-    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Logging, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="OpenCvSharp, Version=2.0.3497.28493, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Library\OpenCvSharp\OpenCvSharp.dll</HintPath>
-    </Reference>
-    <Reference Include="RemoteControlService, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\OutPut\RemoteControlService.dll</HintPath>
-    </Reference>
-    <Reference Include="SuspectsRepository, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\OutPut\SuspectsRepository.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -149,7 +109,9 @@
     <Compile Include="AnalysePersons.cs" />
     <Compile Include="BackGroundComparer.cs" />
     <Compile Include="CheckLiveCamera.cs" />
+    <Compile Include="Communication.cs" />
     <Compile Include="Configuration.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="Converter.cs" />
     <Compile Include="Core\IplBitmapComposite.cs" />
     <Compile Include="Core\Video.cs" />
@@ -342,9 +304,11 @@
     <Compile Include="RegisterForm.Designer.cs">
       <DependentUpon>RegisterForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Service\Service.cs" />
+    <Compile Include="Service\ConfigCameraProvider.cs" />
+    <Compile Include="Service\ConfigHostProvider.cs" />
+    <Compile Include="Service\SearchProvider.cs" />
+    <Compile Include="Service\ServiceProvider.cs" />
     <Compile Include="Settings.cs" />
-    <Compile Include="SVMWrapper.cs" />
     <Compile Include="Util.cs" />
     <Compile Include="VideoPlayer.cs" />
   </ItemGroup>
@@ -385,11 +349,15 @@
     <Content Include="CamSettingsConfig.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="EL.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Library\Back.dll" />
     <Content Include="ImpPersonConfigure.xml" />
     <Content Include="Library\JSZN.Component.dll" />
     <Content Include="MainIcon.ico" />
     <None Include="Resources\logo1.png" />
+    <None Include="Resources\FaceIcon32.gif" />
     <Content Include="Resources\MainIcon.ico" />
     <Content Include="SetVal.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -439,6 +407,64 @@
       <WrapperTool>primary</WrapperTool>
       <Isolated>False</Isolated>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Damany.Library\Damany.Component\Damany.Component.csproj">
+      <Project>{80DC56F4-DB48-4AF2-B1BE-6B944A81B293}</Project>
+      <Name>Damany.Component</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Damany.Library\Damany.Windows.Form\Damany.Windows.Form.csproj">
+      <Project>{8AA0E208-9EC2-477B-BE96-00E4C7B7F827}</Project>
+      <Name>Damany.Windows.Form</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CommonLibrary\RemoteImaging.Common.csproj">
+      <Project>{683B173B-831E-494D-A6FE-965934D3D315}</Project>
+      <Name>RemoteImaging.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Discovery\Discovery.csproj">
+      <Project>{105AB30D-A893-4E2C-B149-764A80C1FDCE}</Project>
+      <Name>Discovery</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Encryptor\Encryptor.csproj">
+      <Project>{B377F693-4975-4BB6-A6DC-C0C3844517B1}</Project>
+      <Name>Encryptor</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FaceRecognition\FaceRecognition.csproj">
+      <Project>{21CE9F9A-5A38-437A-96C3-F1D7B7846734}</Project>
+      <Name>FaceRecognition</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FaceSearchWrapper\FaceSearchWrapper.vcproj">
+      <Project>{F6F410AA-5D72-49BE-9FFE-6EBECF718EAA}</Project>
+      <Name>FaceSearchWrapper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FaceSVMWrapper\FaceSVMWrapper.vcproj">
+      <Project>{02B00EA5-D734-429C-BF58-44769501B940}</Project>
+      <Name>FaceSVMWrapper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IconExtractor\ImageProcessing.csproj">
+      <Project>{C917EC7F-9A59-4845-9108-87056AC61D4F}</Project>
+      <Name>ImageProcessing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Messages\Messages.csproj">
+      <Project>{80A13967-C4D2-4B5A-909D-FA595F57F88D}</Project>
+      <Name>Messages</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MotionDetectWrapper\MotionDetectWrapper.vcproj">
+      <Project>{135CB419-42DC-468F-A6A5-C368AE5D7E8D}</Project>
+      <Name>MotionDetectWrapper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RemoteControlService\RemoteControlService.csproj">
+      <Project>{3F01A85F-C1C4-4060-AA37-57AB6F0C90AB}</Project>
+      <Name>RemoteControlService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SuspectsRepository\SuspectsRepository.csproj">
+      <Project>{B942C0AF-0BE0-4655-A1DE-B63782D67F2F}</Project>
+      <Name>SuspectsRepository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UsersAdmin\Damany.Security.csproj">
+      <Project>{7C6269E8-3954-4451-8F33-67F3916231AF}</Project>
+      <Name>Damany.Security</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

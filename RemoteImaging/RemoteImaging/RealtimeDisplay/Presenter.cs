@@ -14,17 +14,21 @@ using System.Linq;
 using SuspectsRepository;
 using System.Net.Sockets;
 using System.Windows.Forms;
+using Microsoft.Practices.EnterpriseLibrary.ExceptionHandling;
 
 
 namespace RemoteImaging.RealtimeDisplay
 {
     public class Presenter : IImageScreenObserver
     {
+        private const string strTip = "提示信息";
         private TcpListener liveServer;
         IImageScreen screen;
         ICamera camera;
         System.ComponentModel.BackgroundWorker worker;
+
         System.Timers.Timer timer = new System.Timers.Timer();
+        System.Timers.Timer reconnectTimer = new System.Timers.Timer();
         System.Timers.Timer videoFileCheckTimer = new System.Timers.Timer();
 
         Queue<Frame[]> framesArrayQueue = new Queue<Frame[]>();
@@ -34,13 +38,13 @@ namespace RemoteImaging.RealtimeDisplay
         object framesArrayQueueLocker = new object();
         object rawFrameLocker = new object();
         object bgLocker = new object();
-        object camLocker = new object();
 
         AutoResetEvent goSearch = new AutoResetEvent(false);
         AutoResetEvent goDetectMotion = new AutoResetEvent(false);
 
         Thread motionDetectThread = null;
 
+        FaceSVMWrapper.SVM svm;
 
         private IplImage _BackGround;
         public IplImage BackGround
@@ -56,18 +60,25 @@ namespace RemoteImaging.RealtimeDisplay
             }
         }
 
-        public void UpdateBG()
+        private void UpdateBGInternal(object sender, ImageCapturedEventArgs args)
         {
-            byte[] imgData = null;
-            lock (this.camLocker)
-                imgData = this.camera.CaptureImageBytes();
+            this.ImageCaptured -= this.UpdateBGInternal;
 
-            Image img = Image.FromStream(new MemoryStream(imgData));
+            IplImage oldIpl = this.BackGround;
 
             lock (this.bgLocker)
-                this.BackGround = BitmapConverter.ToIplImage((Bitmap)img);
+                this.BackGround = BitmapConverter.ToIplImage((Bitmap) args.ImageCaptured);
 
-            img.Save("BG.jpg");
+            args.ImageCaptured.Save("BG.jpg");
+
+            oldIpl.IsEnabledDispose = true;
+            oldIpl.Dispose();
+        }
+
+        public void UpdateBG()
+        {
+            this.ImageCaptured += this.UpdateBGInternal;
+            
         }
 
 
@@ -92,9 +103,14 @@ namespace RemoteImaging.RealtimeDisplay
             this.screen = screen;
             this.camera = camera;
 
-#if DEBUG
-            this.FaceRecognize = true;
-#endif
+            if (Properties.Settings.Default.SearchSuspecious)
+            {
+                this.svm = FaceSVMWrapper.SVM.LoadFrom(Properties.Settings.Default.ImageRepositoryDirectory);
+            }
+
+
+            this.InitializeTrayIcon();
+
 
             motionDetectThread =
                 Properties.Settings.Default.DetectMotion ?
@@ -106,26 +122,69 @@ namespace RemoteImaging.RealtimeDisplay
             this.screen.Observer = this;
             this.worker = new System.ComponentModel.BackgroundWorker();
             worker.WorkerReportsProgress = true;
-            worker.RunWorkerCompleted += worker_RunWorkerCompleted;
             worker.DoWork += worker_DoWork;
 
             this.timer.Interval = 1000 / int.Parse(Properties.Settings.Default.FPs);
             this.timer.Elapsed += new System.Timers.ElapsedEventHandler(timer_Elapsed);
+
+            this.reconnectTimer.Interval = 5000;
+            this.reconnectTimer.Elapsed += new System.Timers.ElapsedEventHandler(reconnectTimer_Elapsed);
 
             videoFileCheckTimer.Interval = 1000 * 60;
             videoFileCheckTimer.Elapsed += new System.Timers.ElapsedEventHandler(videoFileCheckTimer_Elapsed);
 
             if (File.Exists("bg.jpg"))
                 BackGround = OpenCvSharp.IplImage.FromFile(@"bg.jpg");
+
+            new Service.ServiceProvider(Program.motionDetector, Program.faceSearch, this, camera).OpenServices();
         }
 
 
+        private void NotifyUserError(string msg, string title)
+        {
+            NotifyUser(msg, title, ToolTipIcon.Error);
+        }
 
+        private void NotifyUserInfo(string msg, string title)
+        {
+            NotifyUser(msg, title, ToolTipIcon.Info);
+        }
+
+        private void NotifyUser(string msg, string title, ToolTipIcon icon)
+        {
+            this.notifyIcon.Visible = true;
+            this.notifyIcon.ShowBalloonTip(3000,
+                title, msg,
+                icon);
+        }
+
+        void reconnectTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            this.reconnectTimer.Enabled = false;
+            try
+            {
+                this.camera.Connect();
+                NotifyUserInfo("重新连接摄像头成功！", strTip);
+                System.Threading.Thread.Sleep(3000);
+                this.notifyIcon.Visible = false;
+                this.timer.Enabled = true;
+
+            }
+            catch (System.Net.WebException)
+            {
+                NotifyUserError("重新连接摄像头失败！系统将继续尝试。", strTip);
+                System.Diagnostics.Debug.WriteLine("重连失败");
+                this.reconnectTimer.Enabled = true;
+                this.timer.Enabled = false;
+            }
+
+        }
 
         void videoFileCheckTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
-            DateTime time = DateTime.Now.AddMinutes(-2);
             if (Properties.Settings.Default.KeepMotionLessVideo) return;
+
+            DateTime time = DateTime.Now.AddMinutes(-2);
 
             if (!FileSystemStorage.MotionImagesCapturedWhen(2, time))
                 FileSystemStorage.DeleteVideoFileAt(time);
@@ -153,42 +212,48 @@ namespace RemoteImaging.RealtimeDisplay
             }
         }
 
+        System.Windows.Forms.NotifyIcon notifyIcon;
+
+        private void InitializeTrayIcon()
+        {
+            notifyIcon = new System.Windows.Forms.NotifyIcon();
+            notifyIcon.Icon = new System.Drawing.Icon("mainicon.ico");
+        }
+
         void timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
-            this.QueryRawFrame();
+            try
+            {
+                System.Diagnostics.Debug.WriteLine("capture frame begin");
+                this.timer.Enabled = false;
+                this.QueryRawFrame();
+                System.Diagnostics.Debug.WriteLine("capture frame after");
+                this.timer.Enabled = true;
+
+            }
+            catch (System.Net.WebException)
+            {
+                this.timer.Enabled = false;
+
+                NotifyUserError("连接中断, 系统将自动重新连接摄像头。", strTip);
+                System.Diagnostics.Debug.WriteLine("连接中断");
+
+                this.reconnectTimer.Enabled = true;
+            }
+
         }
 
 
         void worker_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
-            this.SearchFace();
+            if (Properties.Settings.Default.SearchFace)
+            {
+                this.SearchFace();
+            }
+
 
         }
 
-        void worker_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
-        {
-            ImageDetail[] iconImgs = e.Result as ImageDetail[];
-
-            if (iconImgs.Length > 0)
-            {
-                if (screen.SelectedCamera.ID == -1
-                || screen.SelectedCamera.ID == iconImgs[0].FromCamera)
-                {
-                    screen.ShowImages(iconImgs);
-                }
-            }
-
-
-            if (framesArrayQueue.Count > 0)
-            {
-                screen.ShowProgress = true;
-                worker.RunWorkerAsync(framesArrayQueue.Dequeue());
-            }
-            else
-            {
-                screen.ShowProgress = false;
-            }
-        }
 
 
         public event EventHandler<ImageCapturedEventArgs> ImageCaptured;
@@ -199,48 +264,50 @@ namespace RemoteImaging.RealtimeDisplay
         {
             lock (this.framesArrayQueueLocker)
             {
-                
+
                 bool result = this.framesArrayQueue.Count >= historyFramesQueueLength
                         && this.framesArrayQueue.Count >= Properties.Settings.Default.MaxFrameQueueLength;
                 historyFramesQueueLength = this.framesArrayQueue.Count;
-
-
 
                 return result;
             }
 
         }
 
+        private void FireImageCapturedEvent(Bitmap bmp)
+        {
+            if (ImageCaptured != null)
+            {
+                ImageCapturedEventArgs args = new ImageCapturedEventArgs() { ImageCaptured = bmp };
+                System.Diagnostics.Debug.WriteLine("fire ImageCaptured event");
+                ImageCaptured(this, args);
+            }
+        }
+
         private void QueryRawFrame()
         {
-            if (this.cpuOverLoaded()) return;
 
-            byte[] image = null;
-            lock (this.camLocker)
-            {
-                image = camera.CaptureImageBytes();
-            }
+            byte[] image = camera.CaptureImageBytes();
 
-
-            
             Bitmap bmp = null;
             try
             {
                 MemoryStream memStream = new MemoryStream(image);
                 bmp = (Bitmap)Image.FromStream(memStream);
             }
-            catch (System.ArgumentException)//图片格式出错
+            catch (System.ArgumentException ex)//图片格式出错
             {
-                MessageBox.Show("获取摄像头图片错误");
-                return;
+                bool rethrow = ExceptionPolicy.HandleException(ex, Constants.ExceptionHandlingWrap);
+                if (rethrow)
+                {
+                    throw;
+                }
             }
 
 
-            if (ImageCaptured != null)
-            {
-                ImageCapturedEventArgs args = new ImageCapturedEventArgs() { ImageCaptured = bmp };
-                ImageCaptured(this, args);
-            }
+            FireImageCapturedEvent(bmp);
+
+            if (this.cpuOverLoaded()) return;
 
             Frame f = new Frame();
             f.timeStamp = DateTime.Now.Ticks;
@@ -302,7 +369,19 @@ namespace RemoteImaging.RealtimeDisplay
                     }
                     else
                     {
-                        FileSystemStorage.SaveFrame(lastFrame);
+                        try
+                        {
+                            FileSystemStorage.SaveFrame(lastFrame);
+                        }
+                        catch (System.IO.IOException ex)
+                        {
+                            bool rethrow = ExceptionPolicy.HandleException(ex, Constants.ExceptionHandlingLogging);
+                            if (rethrow)
+                            {
+                                throw;
+                            }
+                        }
+                        
                         motionFrames.Enqueue(lastFrame);
                     }
 
@@ -332,7 +411,7 @@ namespace RemoteImaging.RealtimeDisplay
             {
                 Frame f = this.GetNewFrame();
 
-                if (f.image != null)
+                if (f != null && f.image != null)
                 {
                     IplImage ipl = f.image;
                     ipl.IsEnabledDispose = false;
@@ -378,6 +457,9 @@ namespace RemoteImaging.RealtimeDisplay
 
             if (this.liveServer == null)
                 ThreadPool.QueueUserWorkItem(this.StartServer, 20000);
+
+
+
         }
 
         private string PrepareDestFolder(ImageDetail imgToProcess)
@@ -403,7 +485,19 @@ namespace RemoteImaging.RealtimeDisplay
                 for (int j = 0; j < t.Faces.Length; ++j)
                 {
                     string facePath = FileSystemStorage.PathForFaceImage(frame, j);
-                    t.Faces[j].SaveImage(facePath);
+                    try
+                    {
+                        t.Faces[j].SaveImage(facePath);
+                    }
+                    catch (System.IO.IOException ex)
+                    {
+                        bool rethrow = ExceptionPolicy.HandleException(ex, Constants.ExceptionHandlingLogging);
+                        if (rethrow)
+                        {
+                            throw;
+                        }
+                    }
+                    
                     imgs.Add(ImageDetail.FromPath(facePath));
                 }
 
@@ -423,7 +517,7 @@ namespace RemoteImaging.RealtimeDisplay
             {
                 try
                 {
-                    
+
                     Frame[] frames = null;
                     lock (framesArrayQueueLocker)
                     {
@@ -440,13 +534,12 @@ namespace RemoteImaging.RealtimeDisplay
                             Program.faceSearch.AddInFrame(f);
                         }
 
-
                         ImageProcess.Target[] targets = Program.faceSearch.SearchFaces();
 
                         ImageDetail[] imgs = this.SaveImage(targets);
                         this.screen.ShowImages(imgs);
 
-                        if (this.FaceRecognize) DetectSuspecious(targets);
+                        if (Properties.Settings.Default.SearchSuspecious) DetectSuspecious(targets);
 
                         Array.ForEach(frames, f => { IntPtr cvPtr = f.image.CvPtr; OpenCvSharp.Cv.Release(ref cvPtr); f.image.Dispose(); });
                         Array.ForEach(targets, t =>
@@ -467,12 +560,12 @@ namespace RemoteImaging.RealtimeDisplay
         }
 
 
-        private static bool IsGoodGuy(float[] imgData)
+        private bool IsGoodGuy(float[] imgData)
         {
-            double verdict = SVMWrapper.SvmPredict(imgData);
+            double verdict = this.svm.Predict(imgData);
 
             System.Diagnostics.Debug.WriteLine(string.Format("=======verdict: {0}=======", verdict));
-            
+
             return verdict == -1;
         }
         private void DetectSuspecious(Target[] targets)
@@ -484,7 +577,7 @@ namespace RemoteImaging.RealtimeDisplay
 
                     IplImage normalized = Program.faceSearch.NormalizeImage(t.BaseFrame.image, t.FacesRectsForCompare[i]);
 
-                    float[] imgData = NativeIconExtractor.ResizeIplTo(normalized, 100, 100, BitDepth.U8, 1);
+                    float[] imgData = NativeIconExtractor.ResizeIplTo(normalized, 100, 100);
 
                     if (IsGoodGuy(imgData)) return;
 

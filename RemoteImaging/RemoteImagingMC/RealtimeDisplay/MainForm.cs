@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -19,12 +20,15 @@ using System.Threading;
 using MotionDetectWrapper;
 using RemoteImaging.Query;
 using System.Net.Sockets;
-using Damany.RemoteImaging.Net.Discovery;
+using Damany.RemoteImaging.Common;
+using Microsoft.Practices.EnterpriseLibrary.Security;
+using Microsoft.Practices.EnterpriseLibrary.ExceptionHandling;
 
 namespace RemoteImaging.RealtimeDisplay
 {
-    public partial class MainForm : Form
+    public partial class MainForm : Form, IHostsPoolObserver
     {
+        private OptionsForm optionsForm;
         Configuration config = Configuration.Instance;
         System.Windows.Forms.Timer time = null;
         System.Collections.Generic.Dictionary<Cell, LiveClient> CellCameraMap =
@@ -45,8 +49,16 @@ namespace RemoteImaging.RealtimeDisplay
             //config.GetLineCameras();
             Properties.Settings setting = Properties.Settings.Default;
 
+
             InitStatusBar();
 
+        }
+
+
+        public Damany.Security.UsersAdmin.UsersManager UsersManager
+        {
+            get;
+            set;
         }
 
 
@@ -66,12 +78,12 @@ namespace RemoteImaging.RealtimeDisplay
 
         delegate void DataCallBack();
         Camera[] cams = null;
-        
+
 
         //动态 更新 Tree的方法
         private void SetTreeNode()
         {
-            this.cameraTree.Nodes.Clear();
+            this.hostsTree.Nodes.Clear();
 
             TreeNode rootNode = new TreeNode()
             {
@@ -139,55 +151,53 @@ namespace RemoteImaging.RealtimeDisplay
 
             });
 
-            this.cameraTree.Nodes.Add(rootNode);
+            this.hostsTree.Nodes.Add(rootNode);
 
-            this.cameraTree.ExpandAll();
+            this.hostsTree.ExpandAll();
         }
 
 
 
         Camera allCamera = new Camera() { ID = -1 };
 
-        private TreeNode getTopCamera(TreeNode node)
+        private TreeNode GetTopLevelNode(TreeNode childNode)
         {
-            if (node.Parent == null) return node;
+            if (childNode == null)
+                throw new ArgumentNullException("childNode", "childNode is null.");
 
-            while (node.Tag == null || !(node.Tag is Camera))
+            if (childNode.Parent == null) return childNode;
+
+            TreeNode node = childNode;
+            while (true)
             {
+                if (node.Parent == null)
+                {
+                    return node.Parent;
+                }
                 node = node.Parent;
             }
-            return node;
+
         }
 
-        private Camera getSelCamera()
+        private Host GetSelectedHost()
         {
-            if (this.cameraTree.SelectedNode == null
-                || this.cameraTree.SelectedNode.Level == 0)
+            if (this.hostsTree.SelectedNode == null)
             {
-                return allCamera;
+                return null;
             }
 
-            TreeNode nd = getTopCamera(this.cameraTree.SelectedNode);
-            return nd.Tag as Camera;
+            TreeNode nd = GetTopLevelNode(this.hostsTree.SelectedNode);
+            return nd.Tag as Host;
         }
 
 
         #region IImageScreen Members
 
-        public Camera SelectedCamera
+        public Host SelectedHost
         {
             get
             {
-                if (this.InvokeRequired)
-                {
-                    System.Func<Camera> func = this.getSelCamera;
-                    return this.Invoke(func) as Camera;
-                }
-                else
-                {
-                    return getSelCamera();
-                }
-
+                return this.GetSelectedHost();
             }
 
         }
@@ -246,7 +256,7 @@ namespace RemoteImaging.RealtimeDisplay
         {
             set
             {
-                this.cameraTree.Nodes.Clear();
+                this.hostsTree.Nodes.Clear();
 
                 TreeNode rootNode = new TreeNode()
                 {
@@ -313,9 +323,9 @@ namespace RemoteImaging.RealtimeDisplay
 
                 });
 
-                this.cameraTree.Nodes.Add(rootNode);
+                this.hostsTree.Nodes.Add(rootNode);
 
-                this.cameraTree.ExpandAll();
+                this.hostsTree.ExpandAll();
             }
         }
 
@@ -347,7 +357,10 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void searchPic_Click(object sender, EventArgs e)
         {
-            new RemoteImaging.Query.PicQueryForm().ShowDialog(this);
+            var form = new RemoteImaging.Query.PicQueryForm();
+            form.Hosts = this.hostsPool;
+            var presenter = new PicQueryPresenter(form);
+            form.ShowDialog(this);
         }
 
 
@@ -389,30 +402,55 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void videoSearch_Click(object sender, EventArgs e)
         {
-            new RemoteImaging.Query.VideoQueryForm().ShowDialog(this);
+            var videoQueryForm = new RemoteImaging.Query.VideoQueryForm();
+            videoQueryForm.Hosts = this.hostsPool;
+
+            var presenter = new VideoQueryPresenter(videoQueryForm);
+
+            videoQueryForm.ShowDialog(this);
         }
 
         Thread thread = null;
         string tempComName = "";
         int tempModel = 0;
+        private bool AuthorizeCurrentUser()
+        {
+            bool canProceed = AuthorizationManager.IsCurrentUserAuthorized();
+
+            if (!canProceed)
+            {
+                MessageBox.Show(this,
+                    "对不起，你没有权限执行本次操作！",
+                    this.Text,
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Stop);
+            }
+
+            return canProceed;
+        }
+
         private void options_Click(object sender, EventArgs e)
         {
-            OptionsForm frm = OptionsForm.Instance;
+            if (!AuthorizeCurrentUser()) return;
+
+
+            if (this.optionsForm == null)
+            {
+                this.optionsForm = new OptionsForm(this.UsersManager);
+            }
+
+
             IList<Camera> camCopy = new List<Camera>();
 
-
-
-            frm.Cameras = camCopy;
-            if (frm.ShowDialog(this) == DialogResult.OK)
+            optionsForm.Cameras = camCopy;
+            if (optionsForm.ShowDialog(this) == DialogResult.OK)
             {
-
-                Properties.Settings setting = Properties.Settings.Default;
-
 
                 InitStatusBar();
 
-                this.Cameras = frm.Cameras.ToArray<Camera>();
+                this.Cameras = optionsForm.Cameras.ToArray<Camera>();
 
+                Properties.Settings setting = Properties.Settings.Default;
                 var minFaceWidth = int.Parse(setting.MinFaceWidth);
                 float ratio = float.Parse(setting.MaxFaceWidth) / minFaceWidth;
             }
@@ -446,7 +484,6 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void InitStatusBar()
         {
-            statusOutputFolder.Text = "输出目录：" + Properties.Settings.Default.OutputPath;
         }
 
         private void aboutButton_Click(object sender, EventArgs e)
@@ -458,9 +495,7 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void realTimer_Tick(object sender, EventArgs e)
         {
-
             statusTime.Text = DateTime.Now.ToString();
-            this.StepProgress();
         }
 
         private void statusOutputFolder_Click(object sender, EventArgs e)
@@ -479,49 +514,6 @@ namespace RemoteImaging.RealtimeDisplay
         {
 
         }
-
-
-
-
-
-        #region IImageScreen Members
-
-
-        public bool ShowProgress
-        {
-            set
-            {
-                if (this.InvokeRequired)
-                {
-                    Action ac = () => this.statusProgressBar.Visible = value;
-                    //this.Invoke(ac);
-                }
-                else
-                {
-                    //this.statusProgressBar.Visible = value;
-                }
-
-            }
-        }
-
-        public void StepProgress()
-        {
-            if (InvokeRequired)
-            {
-                Action ac = () => this.statusProgressBar.PerformStep();
-
-                this.Invoke(ac);
-            }
-            else
-            {
-                this.statusProgressBar.PerformStep();
-
-            }
-
-        }
-
-        #endregion
-
 
 
         private void ShowDetailPic(ImageDetail img)
@@ -615,14 +607,7 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if ((config.thread != null) && (config.thread.IsAlive))
-            {
-                config.thread.Abort();
-            }
-            if ((thread != null) && (thread.IsAlive))
-            {
-                thread.Abort();
-            }
+
             Properties.Settings.Default.Save();
 
         }
@@ -635,12 +620,12 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void SetupCameraToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (this.cameraTree.SelectedNode == null) return;
+            if (this.hostsTree.SelectedNode == null) return;
 
-            Action<string> setupCamera = this.cameraTree.SelectedNode.Tag as Action<string>;
+            Action<string> setupCamera = this.hostsTree.SelectedNode.Tag as Action<string>;
             if (setupCamera == null) return;
 
-            Camera cam = this.getTopCamera(this.cameraTree.SelectedNode).Tag as Camera;
+            Camera cam = this.GetTopLevelNode(this.hostsTree.SelectedNode).Tag as Camera;
             setupCamera(cam.IpAddress);
         }
 
@@ -665,20 +650,33 @@ namespace RemoteImaging.RealtimeDisplay
         }
 
 
+        private void AddLayoutMenuItem(string text, int i)
+        {
+            var layoutMode = new ToolStripMenuItem(text);
+            layoutMode.Click += new EventHandler(layoutMode_Click);
+
+            layoutMode.Checked = this.squareListView1.NumberOfColumns == i;
+            layoutMode.Tag = i;
+            layoutMode.Image = this.menuItemImageList.Images[i- 1];
+
+            this.squareViewContextMenu.Items.Add(layoutMode);
+        }
         private void squareViewContextMenu_Opening(object sender, CancelEventArgs e)
         {
             this.squareViewContextMenu.Items.Clear();
             Cell c = this.squareListView1.SelectedCell;
 
-            foreach (var h in config.Hosts)
+            foreach (TreeNode node in this.hostsTree.Nodes)
             {
-                ToolStripMenuItem mi = new ToolStripMenuItem(h.Name);
-                mi.Tag = h;
+                var host = node.Tag as Host;
+
+                ToolStripMenuItem mi = new ToolStripMenuItem(host.Config.Name);
+                mi.Tag = host;
                 mi.Click += new EventHandler(mi_Click);
 
                 if (CellCameraMap.ContainsKey(c))
                 {
-                    if ((CellCameraMap[c].Tag as ConnectInfo).Source == h)
+                    if ((CellCameraMap[c].Tag as ConnectInfo).Source == host)
                     {
                         mi.Enabled = false;
                     }
@@ -688,6 +686,25 @@ namespace RemoteImaging.RealtimeDisplay
                 this.squareViewContextMenu.Items.Add(mi);
             }
 
+            if (this.squareViewContextMenu.Items.Count > 0)
+            {
+                this.squareViewContextMenu.Items.Add(new ToolStripSeparator());
+            }
+
+            AddLayoutMenuItem("单屏", 1);
+            AddLayoutMenuItem("四分屏", 2);
+            AddLayoutMenuItem("九分屏", 3);
+
+        }
+
+        void layoutMode_Click(object sender, EventArgs e)
+        {
+            ToolStripMenuItem mi = sender as ToolStripMenuItem;
+
+            int i = (int) mi.Tag;
+
+            this.squareListView1.NumberOfColumns = i;
+            this.squareListView1.NumberofRows = i;
         }
 
         private void ConnectCallback(IAsyncResult ar)
@@ -701,9 +718,9 @@ namespace RemoteImaging.RealtimeDisplay
             }
             catch (System.Net.Sockets.SocketException)
             {
-                string msg = string.Format("无法连接 {0}, 请检查设备", info.Source.Name);
-                
-                Action showMsg = ()=> MessageBox.Show(this, msg, "连接错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                string msg = string.Format("无法连接 {0}, 请检查设备", info.Source.Config.Name);
+
+                Action showMsg = () => MessageBox.Show(this, msg, "连接错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 this.BeginInvoke(showMsg);
 
@@ -719,7 +736,7 @@ namespace RemoteImaging.RealtimeDisplay
                 CellCameraMap.Remove(info.Target);
             }
 
-            
+
             lc.ImageReceived += new EventHandler<ImageCapturedEventArgs>(lc_ImageReceived);
             lc.ConnectAborted += new EventHandler(lc_ConnectAborted);
             lc.Start();
@@ -736,30 +753,27 @@ namespace RemoteImaging.RealtimeDisplay
 
             ToolStripMenuItem menuItem = sender as ToolStripMenuItem;
 
-            HostConfiguration host = menuItem.Tag as HostConfiguration;
+            Host host = menuItem.Tag as Host;
 
             TcpClient tcp = new TcpClient();
-            System.Net.IPAddress ip = System.Net.IPAddress.Parse(host.ip);
+            System.Net.IPAddress ip = host.Ip;
             System.Net.IPEndPoint ep = new System.Net.IPEndPoint(ip, 20000);
             try
             {
                 ConnectInfo info = new ConnectInfo() { Socket = tcp, Target = c, Source = host };
 
-                LiveClient lc = new LiveClient(tcp);
+                LiveClient lc = new LiveClient(tcp, host);
                 lc.Tag = info;
 
                 tcp.BeginConnect(ip, 20000, this.ConnectCallback, lc);
 
-               
+
             }
             catch (System.Net.Sockets.SocketException)
             {
-                MessageBox.Show(this, "无法连接, 请检查设备", "连接错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(this, "无法连接, 请检查设备", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            
-
-
 
         }
 
@@ -770,18 +784,30 @@ namespace RemoteImaging.RealtimeDisplay
             this.CellCameraMap.Remove((lc.Tag as ConnectInfo).Target);
         }
 
+        private static void UpdateCellProperty(Damany.RemoteImaging.Common.Frame frame, ConnectInfo connect)
+        {
+            connect.Target.Image = frame.image;
+            connect.Target.OverlayText = connect.Source.Config.Name + " " + frame.timeStamp.ToString();
+            connect.Target.EnableOverlayText = true;
+
+        }
+
         void lc_ImageReceived(object sender, ImageCapturedEventArgs e)
         {
             ConnectInfo c = (sender as LiveClient).Tag as ConnectInfo;
 
             if (this.InvokeRequired)
             {
-                Action<Image> updateImage = img => c.Target.Image = img;
-                this.BeginInvoke(updateImage, e.ImageCaptured);
+                Action<Damany.RemoteImaging.Common.Frame> updateImage = frame =>
+                    {
+                        UpdateCellProperty(frame, c);
+                    };
+
+                this.BeginInvoke(updateImage, e.FrameCaptured);
             }
             else
             {
-                c.Target.Image = e.ImageCaptured;
+                UpdateCellProperty(e.FrameCaptured, c);
             }
 
             this.squareListView1.Invalidate(c.Target.Rec);
@@ -796,8 +822,171 @@ namespace RemoteImaging.RealtimeDisplay
             }
         }
 
+        public void AddHost(Host h)
+        {
+            var item = new TreeNode();
+            item.Tag = h;
 
-        public void AddOrUpdateHost(HostConfiguration hostInfo)
+            UpdateNodeProperty(item, h);
+
+            item.ExpandAll();
+
+            this.hostsTree.Nodes.Add(item);
+
+        }
+
+
+        private static void UpdateNodeProperty(TreeNode node, Host h)
+        {
+            node.Text = h.Config.Name;
+            node.ImageIndex = h.Status == HostStatus.OnLine ? 0 : 1;
+            node.SelectedImageIndex = node.ImageIndex;
+
+            //child nodes
+            node.Nodes.Clear();
+            node.Nodes.Add(
+                new TreeNode(string.Format("摄像头编号: {0}", h.Config.CameraID), 2, 2));
+        }
+
+        public void UpdateHost(Host h)
+        {
+            var nodes = from TreeNode n in this.hostsTree.Nodes
+                        where n.Tag == h
+                        select n;
+
+            TreeNode node = nodes.First();
+
+            UpdateNodeProperty(node, h);
+
+        }
+
+        private void testButton_Click(object sender, EventArgs e)
+        {
+            throw new Exception("abc");
+
+        }
+
+        HostsPool hostsPool;
+
+        private void MainForm_Shown(object sender, EventArgs e)
+        {
+            hostsPool = new HostsPool("224.0.0.23", 40001);
+            hostsPool.Observer = this;
+
+            hostsPool.Start();
+
+        }
+
+        private void HidePropertyForm(bool hide)
+        {
+            this.splitContainer1.Panel2Collapsed = hide;
+
+
+        }
+
+        private void propertyToolBar_Click(object sender, EventArgs e)
+        {
+            if (!AuthorizeCurrentUser()) return;
+
+            this.HidePropertyForm(!this.splitContainer1.Panel2Collapsed);
+        }
+
+        private void hostConfig1_ApplyClick(object sender, EventArgs e)
+        {
+            bool shouldReturn = MakeSureHostIsSelected();
+            if (shouldReturn) return;
+
+
+            try
+            {
+                Gateways.HostConfig.Instance.SetHostName( this.SelectedHost.Ip , hostConfig1.HostName);
+            }
+            catch (System.ServiceModel.CommunicationException)
+            {
+                this.ShowInformationBox("通讯错误，请重试！");
+            }
+
+
+        }
+
+        private void ShowInformationBox(string msg)
+        {
+            MessageBox.Show(this, msg, this.Text,
+                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+
+        private bool MakeSureHostIsSelected()
+        {
+            if (this.SelectedHost == null)
+            {
+                ShowInformationBox("请选择一台主机");
+                return true;
+            }
+
+            return false;
+        }
+
+
+        private void sanyoNetCamera1_ApplyIrisClick(object sender, EventArgs e)
+        {
+            bool shouldReturn = MakeSureHostIsSelected();
+            if (shouldReturn) return;
+
+            try
+            {
+                Gateways.CameraConfig.Instance.SetIris(this.SelectedHost.Ip,
+                    this.sanyoNetCamera1.IrisMode,
+                    this.sanyoNetCamera1.IrisLevel);
+
+            }
+            catch (System.ServiceModel.CommunicationException)
+            {
+                this.ShowInformationBox("通讯错误，请重试！");
+            	
+            }
+
+
+        }
+
+        private void sanyoNetCamera1_ApplyAgcClick(object sender, EventArgs e)
+        {
+            bool shouldReturn = MakeSureHostIsSelected();
+            if (shouldReturn) return;
+
+            try
+            {
+                Gateways.CameraConfig.Instance.SetAgc(this.SelectedHost.Ip,
+                   this.sanyoNetCamera1.AgcEnabled,
+                   this.sanyoNetCamera1.DigitalGainEnabled);
+            }
+            catch (System.ServiceModel.CommunicationException)
+            {
+                this.ShowInformationBox("通讯错误，请重试！");
+            }
+            
+        }
+
+        private void sanyoNetCamera1_ApplyShutterClick(object sender, EventArgs e)
+        {
+            bool shouldReturn = MakeSureHostIsSelected();
+            if (shouldReturn) return;
+
+            try
+            {
+                Gateways.CameraConfig.Instance.SetShutter(this.SelectedHost.Ip,
+                    this.sanyoNetCamera1.ShutterMode,
+                    this.sanyoNetCamera1.ShutterLevel);
+
+            }
+            catch (System.ServiceModel.CommunicationException)
+            {
+                this.ShowInformationBox("通讯错误，请重试！");
+            }
+
+        }
+
+        private void toolStripButton2_Click(object sender, EventArgs e)
         {
 
         }
@@ -807,7 +996,7 @@ namespace RemoteImaging.RealtimeDisplay
     internal class ConnectInfo
     {
         public Cell Target { get; set; }
-        public HostConfiguration Source { get; set; }
+        public Host Source { get; set; }
         public TcpClient Socket { get; set; }
     }
 

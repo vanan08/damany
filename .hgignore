@@ -14,3 +14,5 @@ Disk
 *.aps
 *.ncb
 *.suo
+*.db
+*.Cache
