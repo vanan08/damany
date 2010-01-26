@@ -75,6 +75,8 @@ int FacePCA::GetTrainSampleCount()
 
 void FacePCA::FaceTraining(int imgWidth, int imgHeight, int eigenNum)
 {
+	DelPCADataFile();
+
 	CFileFind imageFile;
 	CString fileName;
 	CString imgFileAdd;  
@@ -221,7 +223,7 @@ void FacePCA::Load()
 
 void FacePCA::FaceRecognition(float currentFace[], similarityMat*& similarity, int& count)
 {
-	ASSERT(currentFace != NULL && similarity != NULL);
+	ASSERT(currentFace != NULL);
 
 	CvMat *targetMat = cvCreateMat(imgLen, 1, CV_32FC1);
 	CvMat *targetResult = cvCreateMat(1, eigenNum, CV_32FC1);
