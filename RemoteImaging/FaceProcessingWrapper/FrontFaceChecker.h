@@ -1,6 +1,6 @@
 #pragma once
 
-#include "..\..\FaceSvm\FaceSvm\FrontFaceChecker.h"
+#include "..\..\FaceProcessing\FaceProcessing\FrontFaceChecker.h"
 
 namespace FaceProcessingWrapper
 {

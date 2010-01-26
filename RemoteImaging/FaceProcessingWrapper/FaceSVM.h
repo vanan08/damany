@@ -1,7 +1,7 @@
 // FaceSVMWrapper.h
 
 #pragma once
-#include "../../FaceSvm/FaceSvm/faceSVM.h"
+#include "../../FaceProcessing/FaceProcessing/faceSVM.h"
 
 
 using namespace System;
