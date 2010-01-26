@@ -59,10 +59,11 @@
             this.ControlBox = false;
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.label1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "FormProgress";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Text = "生成特征库";
             this.UseWaitCursor = true;
             this.Load += new System.EventHandler(this.FormProgress_Load);
             this.ResumeLayout(false);
