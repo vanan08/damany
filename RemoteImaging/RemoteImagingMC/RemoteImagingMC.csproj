@@ -1,0 +1,459 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0C349962-22C7-4880-8D91-AFF6DADD0173}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RemoteImaging</RootNamespace>
+    <AssemblyName>RemoteImagingMC</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ApplicationIcon>MainIcon.ico</ApplicationIcon>
+    <SccProjectName>&lt;Project Location In Database&gt;</SccProjectName>
+    <SccLocalPath>&lt;Local Binding Root of Project&gt;</SccLocalPath>
+    <SccAuxPath>&lt;Source Control Database&gt;</SccAuxPath>
+    <SccProvider>Mercurial Source Control Package</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AForge.Imaging, Version=1.1.0.0, Culture=neutral, PublicKeyToken=d604c8342bbdeba9, processorArchitecture=MSIL" />
+    <Reference Include="Damany.Drawing, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+    <Reference Include="DevExpress.BonusSkins.v9.2, Version=9.2.9.0, Culture=neutral, PublicKeyToken=95fc6c5621878f0a" />
+    <Reference Include="DevExpress.Data.v9.2, Version=9.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.OfficeSkins.v9.2, Version=9.2.9.0, Culture=neutral, PublicKeyToken=95fc6c5621878f0a" />
+    <Reference Include="DevExpress.Utils.v9.2, Version=9.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Xpo.v9.2, Version=9.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraBars.v9.2, Version=9.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraEditors.v9.2, Version=9.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraGrid.v9.2, Version=9.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraLayout.v9.2, Version=9.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraNavBar.v9.2, Version=9.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraRichEdit.v9.2, Version=9.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraTreeList.v9.2, Version=9.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraVerticalGrid.v9.2, Version=9.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="Emcaster, Version=0.1.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Library\Emcaster.0.1.5\Emcaster.dll</HintPath>
+    </Reference>
+    <Reference Include="EnvDTE, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Logging, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Security, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Validation, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Validation.Integration.WinForms, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Practices.ObjectBuilder2, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="OpenCvSharp, Version=2.0.3497.28493, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Library\OpenCvSharp\OpenCvSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Design" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Runtime.Serialization">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.ServiceModel">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AboutBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AboutBox.Designer.cs">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AlertSettingRes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AlertSettingRes.Designer.cs">
+      <DependentUpon>AlertSettingRes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AuthorizationManager.cs" />
+    <Compile Include="BackGroundComparer.cs" />
+    <Compile Include="Configuration.cs" />
+    <Compile Include="Constants.cs" />
+    <Compile Include="Converter.cs" />
+    <Compile Include="DateTimeInString.cs" />
+    <Compile Include="FaceDetector.cs" />
+    <Compile Include="FileSystemStorage.cs" />
+    <Compile Include="FormConfigCamera.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormConfigCamera.Designer.cs">
+      <DependentUpon>FormConfigCamera.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormDetailedPic.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormDetailedPic.Designer.cs">
+      <DependentUpon>FormDetailedPic.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\HostConfig.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\HostConfig.Designer.cs">
+      <DependentUpon>HostConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrameHandler.cs" />
+    <Compile Include="Gateways\CameraConfig.cs" />
+    <Compile Include="Gateways\CreateProxy.cs" />
+    <Compile Include="Gateways\GateWayBase.cs" />
+    <Compile Include="Gateways\HostConfig.cs" />
+    <Compile Include="Gateways\IProxyFactory.cs" />
+    <Compile Include="Gateways\Search.cs" />
+    <Compile Include="Gateways\StreamPlayer.cs" />
+    <Compile Include="HostsPool.cs" />
+    <Compile Include="HostStatus.cs" />
+    <Compile Include="IHostsPoolObserver.cs" />
+    <Compile Include="ImageCapturedEventArgs.cs" />
+    <Compile Include="ImageProcess\Controls\FilterPreview.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ImageProcess\FilterForms\BrightnessForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ImageProcess\FilterForms\ContrastForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ManagedFrame.cs" />
+    <Compile Include="Host.cs" />
+    <Compile Include="NullHostsPoolObserver.cs" />
+    <Compile Include="OptionsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OptionsForm.Designer.cs">
+      <DependentUpon>OptionsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Query\ImageDirSys.cs" />
+    <Compile Include="Query\ImageSearch.cs" />
+    <Compile Include="Query\ListViewEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Query\PicQueryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Query\PicQueryForm.designer.cs">
+      <DependentUpon>PicQueryForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Query\PicQueryPresenter.cs" />
+    <Compile Include="Query\SaveEventArgs.cs" />
+    <Compile Include="Query\VideoQueryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Query\VideoQueryForm.Designer.cs">
+      <DependentUpon>VideoQueryForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Query\VideoQueryPresenter.cs" />
+    <Compile Include="RealtimeDisplay\Camera.cs" />
+    <Compile Include="RealtimeDisplay\CameraUpdateSettings.cs" />
+    <Compile Include="RealtimeDisplay\IImageScreenObserver.cs" />
+    <Compile Include="Core\ImageDetail.cs" />
+    <Compile Include="RealtimeDisplay\ImageUploadEventArgs.cs" />
+    <Compile Include="RealtimeDisplay\ImageUploadHandler.cs" />
+    <Compile Include="RealtimeDisplay\ImageUploadWatcher.cs" />
+    <Compile Include="RealtimeDisplay\InvalidFileNameFormat.cs" />
+    <Compile Include="RealtimeDisplay\IImageScreen.cs" />
+    <Compile Include="RealtimeDisplay\LiveClient.cs" />
+    <Compile Include="RealtimeDisplay\MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RealtimeDisplay\MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="AboutBox.resx">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AlertSettingRes.resx">
+      <DependentUpon>AlertSettingRes.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormConfigCamera.resx">
+      <DependentUpon>FormConfigCamera.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormDetailedPic.resx">
+      <DependentUpon>FormDetailedPic.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\HostConfig.resx">
+      <DependentUpon>HostConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImageProcess\Controls\FilterPreview.resx">
+      <DependentUpon>FilterPreview.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImageProcess\FilterForms\BrightnessForm.resx">
+      <DependentUpon>BrightnessForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImageProcess\FilterForms\ContrastForm.resx">
+      <DependentUpon>ContrastForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OptionsForm.resx">
+      <DependentUpon>OptionsForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Query\PicQueryForm.resx">
+      <DependentUpon>PicQueryForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Query\VideoQueryForm.resx">
+      <DependentUpon>VideoQueryForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RealtimeDisplay\MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RealtimeDisplay\Monitoring.resx">
+      <DependentUpon>Monitoring.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RegisterForm.resx">
+      <DependentUpon>RegisterForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="RealtimeDisplay\ClassDiagram1.cd" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="RealtimeDisplay\Monitoring.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RealtimeDisplay\Monitoring.Designer.cs">
+      <DependentUpon>Monitoring.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RegisterForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RegisterForm.Designer.cs">
+      <DependentUpon>RegisterForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceProxy\ProxyFactory.cs" />
+    <Compile Include="Settings.cs" />
+    <Compile Include="Util.cs" />
+    <Compile Include="VideoPlayer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Camera.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CamWithPic.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Camera32.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Peoples32.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Camera16.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SearchPic.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SearchVideo.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Square.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Options.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Options.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="CamConfig.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CamSettingsConfig.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="EL.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Library\Back.dll" />
+    <Content Include="Library\JSZN.Component.dll" />
+    <Content Include="MainIcon.ico" />
+    <None Include="Resources\logo1.png" />
+    <Content Include="Resources\1x1.ico" />
+    <Content Include="Resources\2x2.ico" />
+    <Content Include="Resources\3x3.ico" />
+    <Content Include="Resources\MainIcon.ico" />
+    <None Include="Resources\NetHost.gif" />
+    <None Include="Resources\NetHosts.gif" />
+    <None Include="Resources\property.gif" />
+    <Content Include="SetVal.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="ThirdParty\Libs\AForge.dll" />
+    <None Include="ThirdParty\Libs\AForge.Imaging.dll" />
+    <None Include="ThirdParty\Libs\AForge.Math.dll" />
+    <None Include="users">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="AxAXVLC">
+      <Guid>{DF2BBE39-40A8-433B-A279-073F48DA94B6}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>aximp</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
+    <COMReference Include="AxIMGCTRLLib">
+      <Guid>{B78DD544-ED28-49C2-8EB3-ABE3D001E30A}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>aximp</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
+    <COMReference Include="AXVLC">
+      <Guid>{DF2BBE39-40A8-433B-A279-073F48DA94B6}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
+    <COMReference Include="IMGCTRLLib">
+      <Guid>{B78DD544-ED28-49C2-8EB3-ABE3D001E30A}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
+    <COMReference Include="stdole">
+      <Guid>{00020430-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Damany.Library\Damany.Component\Damany.Component.csproj">
+      <Project>{80DC56F4-DB48-4AF2-B1BE-6B944A81B293}</Project>
+      <Name>Damany.Component</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Damany.Library\Damany.Windows.Form\Damany.Windows.Form.csproj">
+      <Project>{8AA0E208-9EC2-477B-BE96-00E4C7B7F827}</Project>
+      <Name>Damany.Windows.Form</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CommonLibrary\RemoteImaging.Common.csproj">
+      <Project>{683B173B-831E-494D-A6FE-965934D3D315}</Project>
+      <Name>RemoteImaging.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Discovery\Discovery.csproj">
+      <Project>{105AB30D-A893-4E2C-B149-764A80C1FDCE}</Project>
+      <Name>Discovery</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Encryptor\Encryptor.csproj">
+      <Project>{B377F693-4975-4BB6-A6DC-C0C3844517B1}</Project>
+      <Name>Encryptor</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IconExtractor\ImageProcessing.csproj">
+      <Project>{C917EC7F-9A59-4845-9108-87056AC61D4F}</Project>
+      <Name>ImageProcessing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Messages\Messages.csproj">
+      <Project>{80A13967-C4D2-4B5A-909D-FA595F57F88D}</Project>
+      <Name>Messages</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MotionDetectWrapper\MotionDetectWrapper.vcproj">
+      <Project>{135CB419-42DC-468F-A6A5-C368AE5D7E8D}</Project>
+      <Name>MotionDetectWrapper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RemoteControlService\RemoteControlService.csproj">
+      <Project>{3F01A85F-C1C4-4060-AA37-57AB6F0C90AB}</Project>
+      <Name>RemoteControlService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UsersAdmin\Damany.Security.csproj">
+      <Project>{7C6269E8-3954-4451-8F33-67F3916231AF}</Project>
+      <Name>Damany.Security</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties Reactor_Output="[main_assembly_dir]RemoteImagingMC_Secure\RemoteImagingMC.exe" Reactor_Project="" Reactor_Commands="" Reactor_Automatic="1" Reactor_Lib="0" Reactor_Enabled="1" BuildVersion_BuildVersioningStyle="None.None.Increment.None" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_UpdateFileVersion="True" BuildVersion_ConfigurationName="Release" BuildVersion_BuildAction="ReBuild" />
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>
