@@ -67,6 +67,8 @@ namespace FaceProcessingWrapper {
 
 		array<RecognizeResult^>^ Recognize(array<float>^ faceBitmap)
 		{
+			this->pPCA->FaceRecognition()
+
 			return gcnew array<RecognizeResult^>(30);
 
 		}
