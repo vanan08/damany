@@ -219,7 +219,7 @@ void FacePCA::Load()
 	ReadFileName(sampleFileName, sampleCount);
 }
 
-void FacePCA::FaceRecognition(float *currentFace, similarityMat *similarity)
+void FacePCA::FaceRecognition(float currentFace[], similarityMat similarity[], int& count)
 {
 	assert(currentFace != NULL && similarity != NULL);
 
