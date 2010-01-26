@@ -5,6 +5,10 @@
 	Name="FaceProcessingWrapper"
 	ProjectGUID="{02B00EA5-D734-429C-BF58-44769501B940}"
 	RootNamespace="FaceSVMWrapper"
+	SccProjectName="&lt;Project Location In Database&gt;"
+	SccAuxPath="&lt;Source Control Database&gt;"
+	SccLocalPath="&lt;Local Binding Root of Project&gt;"
+	SccProvider="Mercurial Source Control Package"
 	Keyword="ManagedCProj"
 	TargetFrameworkVersion="196613"
 	>
@@ -178,7 +182,7 @@
 		/>
 		<ProjectReference
 			ReferencedProjectIdentifier="{62BA9C03-0951-40C4-B2B9-EDABC8815177}"
-			RelativePathToProject="..\FaceSvm\FaceSvm\FaceSvm.vcproj"
+			RelativePathToProject="..\FaceProcessing\FaceProcessing\FaceProcessing.vcproj"
 		/>
 		<AssemblyReference
 			RelativePath="..\..\Library\OpenCvSharp\OpenCvSharp.dll"
@@ -194,6 +198,10 @@
 			>
 			<File
 				RelativePath=".\AssemblyInfo.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\FacePCA.cpp"
 				>
 			</File>
 			<File
