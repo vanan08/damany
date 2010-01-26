@@ -1,20 +1,20 @@
 // This is the main DLL file.
 
 #include "stdafx.h"
-#include "FaceSVMWrapper.h"
+#include "FaceSVM.h"
 
 using namespace System::Runtime::InteropServices;
 
-FaceSVMWrapper::SVM^ FaceSVMWrapper::SVM::LoadFrom(System::String^ directory)
+FaceProcessingWrapper::SVM^ FaceProcessingWrapper::SVM::LoadFrom(System::String^ directory)
 {
-	SVM^ svm = gcnew FaceSVMWrapper::SVM(directory);
+	SVM^ svm = gcnew FaceProcessingWrapper::SVM(directory);
 	svm->Load();
 
 	return svm;
 }
 
 
-FaceSVMWrapper::SVM::SVM(System::String^ imgRepositoryRoot)
+FaceProcessingWrapper::SVM::SVM(System::String^ imgRepositoryRoot)
 {
 	IntPtr rootDirPtr = Marshal::StringToHGlobalAnsi(imgRepositoryRoot);
 	const char *pRoot = static_cast<const char*>(rootDirPtr.ToPointer());
@@ -24,12 +24,12 @@ FaceSVMWrapper::SVM::SVM(System::String^ imgRepositoryRoot)
 	Marshal::FreeHGlobal(rootDirPtr);
 }
 
-void FaceSVMWrapper::SVM::Load()
+void FaceProcessingWrapper::SVM::Load()
 {
 	this->pSVM->Load();
 }
 
-FaceSVMWrapper::SVM::~SVM(void)
+FaceProcessingWrapper::SVM::~SVM(void)
 {
 	if (this->pSVM != NULL)
 	{
@@ -39,12 +39,12 @@ FaceSVMWrapper::SVM::~SVM(void)
 }
 
 
-void FaceSVMWrapper::SVM::Train()
+void FaceProcessingWrapper::SVM::Train()
 {
 	this->pSVM->SvmTrain();
 }
 
-double FaceSVMWrapper::SVM::Predict(array<float>^ faceBitMapData)
+double FaceProcessingWrapper::SVM::Predict(array<float>^ faceBitMapData)
 {
 	int floatArraySize = sizeof(float) * faceBitMapData->Length;
 	IntPtr floatArrayPtr = Marshal::AllocHGlobal(floatArraySize);

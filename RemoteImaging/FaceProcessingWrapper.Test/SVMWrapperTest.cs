@@ -6,9 +6,9 @@ using Gallio.Framework;
 using MbUnit.Framework;
 using MbUnit.Framework.ContractVerifiers;
 
-namespace FaceSVMWrapper.Test
+namespace FaceProcessingWrapper.Test
 {
-    using FaceSVMWrapper;
+    using FaceProcessingWrapper;
 
     [TestFixture]
     public class SVMWrapperTest

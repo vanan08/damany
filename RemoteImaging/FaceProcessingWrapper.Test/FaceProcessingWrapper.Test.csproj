@@ -54,9 +54,9 @@
     <Compile Include="SVMWrapperTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FaceSVMWrapper\FaceSVMWrapper.vcproj">
+    <ProjectReference Include="..\FaceProcessingWrapper\FaceProcessingWrapper.vcproj">
       <Project>{02B00EA5-D734-429C-BF58-44769501B940}</Project>
-      <Name>FaceSVMWrapper</Name>
+      <Name>FaceProcessingWrapper</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
