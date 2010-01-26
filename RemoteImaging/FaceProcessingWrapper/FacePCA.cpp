@@ -67,15 +67,40 @@ namespace FaceProcessingWrapper {
 
 		array<RecognizeResult^>^ Recognize(array<float>^ faceBitmap)
 		{
-			this->pPCA->FaceRecognition()
+			similarityMat *pResult = NULL;
+			int resultCount = 0;
+			pin_ptr<float> pFace = &faceBitmap[0];
 
-			return gcnew array<RecognizeResult^>(30);
+			try
+			{
+				this->pPCA->FaceRecognition(pFace, pResult, resultCount);
+
+				array<RecognizeResult^>^ result = gcnew array<RecognizeResult^>(resultCount);
+
+				for (int i=0;i<resultCount;++i)
+				{
+					result[i] = gcnew RecognizeResult();
+					result[i]->FileIndex = pResult[i].index;
+					result[i]->Similarity = pResult[i].similarity;
+				}
+
+				return result;
+			}
+			finally
+			{
+				if (pResult != NULL)
+				{
+					Marshal::FreeCoTaskMem( (IntPtr) pResult  );
+				}
+			}
 
 		}
 
 		String^ GetFileName(int index)
 		{
-			return "";
+			CString str = this->pPCA->GetFileName(index);
+
+			return gcnew String( str );
 		}
 
 	private:
@@ -95,9 +120,7 @@ namespace FaceProcessingWrapper {
 			
 		}
 
-
 		FacePCA *pPCA;
-
 	};
 
 }
