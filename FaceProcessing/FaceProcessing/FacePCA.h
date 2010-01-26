@@ -34,7 +34,7 @@ public:
 	~FacePCA();
 	void FaceTraining(int imgWidth=100, int imgHeight=100, int eigenNum=40);
 	void Load();
-	void FaceRecognition(float currentFace[], similarityMat similarity[], int& count);
+	void FaceRecognition(float currentFace[], similarityMat*& similarity, int& count);
 	CString GetFileName(int index); 
 
 

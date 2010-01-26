@@ -219,9 +219,9 @@ void FacePCA::Load()
 	ReadFileName(sampleFileName, sampleCount);
 }
 
-void FacePCA::FaceRecognition(float currentFace[], similarityMat similarity[], int& count)
+void FacePCA::FaceRecognition(float currentFace[], similarityMat*& similarity, int& count)
 {
-	assert(currentFace != NULL && similarity != NULL);
+	ASSERT(currentFace != NULL && similarity != NULL);
 
 	CvMat *targetMat = cvCreateMat(imgLen, 1, CV_32FC1);
 	CvMat *targetResult = cvCreateMat(1, eigenNum, CV_32FC1);
@@ -241,6 +241,9 @@ void FacePCA::FaceRecognition(float currentFace[], similarityMat similarity[], i
 
 	float coeff = 0.0;
 	float coeffSum = 0.0;
+
+	count = this->sampleCount;
+	similarity = (similarityMat*) ::CoTaskMemAlloc( sizeof(similarityMat) * count );
 
 	for (int i=0; i<sampleCount; i++)//计算得到待识别图片与训练样本之间的差
 	{
@@ -266,6 +269,8 @@ void FacePCA::FaceRecognition(float currentFace[], similarityMat similarity[], i
 			maxNum = similarity[i].similarity;
 		}
 	}
+
+
 
 	/////////////////////////////////////加入距离判定后的相似度表示方法////////////////////////////////////////////////
 	if (minNum < 140000000)
