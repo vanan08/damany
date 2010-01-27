@@ -35,7 +35,6 @@ namespace RemoteImaging
 
             faceSearch = new FaceSearchWrapper.FaceSearch();
             motionDetector = new MotionDetectWrapper.MotionDetector();
-            ImageSampleCount = System.IO.Directory.GetFiles(Properties.Settings.Default.FaceSampleLib, "*.jpg").Length;
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

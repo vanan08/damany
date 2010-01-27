@@ -346,8 +346,6 @@ namespace RemoteImaging.RealtimeDisplay
             commucation = new Communication("224.0.0.23", 40001);
             commucation.Start();
 
-            FaceRecognition.FaceRecognizer.InitData(Program.ImageSampleCount, Program.ImageLen, Program.EigenNum);
-
             Camera c = GetLastSelectedCamera();
             if (c == null) return;
 
