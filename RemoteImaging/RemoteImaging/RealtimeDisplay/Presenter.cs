@@ -587,6 +587,10 @@ namespace RemoteImaging.RealtimeDisplay
                 { 
                     IplImage normalized = Program.faceSearch.NormalizeImage(t.BaseFrame.image, t.FacesRectsForCompare[i]);
 
+#if DEBUG
+                    var bmp = BitmapConverter.ToBitmap(normalized);
+#endif
+
                     if (!this.frontChecker.IsFront(normalized))
                     {
                         Debug.WriteLine("is not front face");
