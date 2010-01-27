@@ -682,5 +682,17 @@ namespace RemoteImaging.Properties {
                 this["SVMDirectoryName"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\faceRecognition\\FrontalFace\\eyeTemplate.jpg")]
+        public string FrontFaceTemplateFile {
+            get {
+                return ((string)(this["FrontFaceTemplateFile"]));
+            }
+            set {
+                this["FrontFaceTemplateFile"] = value;
+            }
+        }
     }
 }

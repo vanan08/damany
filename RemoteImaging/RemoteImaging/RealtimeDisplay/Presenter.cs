@@ -15,6 +15,7 @@ using SuspectsRepository;
 using System.Net.Sockets;
 using System.Windows.Forms;
 using Microsoft.Practices.EnterpriseLibrary.ExceptionHandling;
+using FaceProcessingWrapper;
 
 
 namespace RemoteImaging.RealtimeDisplay
@@ -44,7 +45,9 @@ namespace RemoteImaging.RealtimeDisplay
 
         Thread motionDetectThread = null;
 
-        FaceProcessingWrapper.SVM svm;
+        SVM svm;
+        PCA pca;
+        FrontFaceChecker frontChecker;
 
         private IplImage _BackGround;
         public IplImage BackGround
@@ -105,7 +108,12 @@ namespace RemoteImaging.RealtimeDisplay
 
             if (Properties.Settings.Default.SearchSuspecious)
             {
-                this.svm = FaceProcessingWrapper.SVM.LoadFrom(Properties.Settings.Default.ImageRepositoryDirectory);
+                this.svm = 
+                    SVM.LoadFrom(Properties.Settings.Default.ImageRepositoryDirectory);
+                this.pca = 
+                    PCA.LoadFrom(Properties.Settings.Default.ImageRepositoryDirectory);
+                this.frontChecker =
+                    FrontFaceChecker.FromFile(Properties.Settings.Default.FrontFaceTemplateFile);
             }
 
 
@@ -562,41 +570,45 @@ namespace RemoteImaging.RealtimeDisplay
 
         private bool IsGoodGuy(float[] imgData)
         {
+
             double verdict = this.svm.Predict(imgData);
 
             System.Diagnostics.Debug.WriteLine(string.Format("=======verdict: {0}=======", verdict));
 
             return verdict == -1;
         }
+
+
         private void DetectSuspecious(Target[] targets)
         {
             foreach (var t in targets)
             {
                 for (int i = 0; i < t.Faces.Length; ++i)
-                {
-
+                { 
                     IplImage normalized = Program.faceSearch.NormalizeImage(t.BaseFrame.image, t.FacesRectsForCompare[i]);
+
+                    if (!this.frontChecker.IsFront(normalized))
+                    {
+                        Debug.WriteLine("is not front face");
+
+                        continue;
+                    }
+
 
                     float[] imgData = NativeIconExtractor.ResizeIplTo(normalized, 100, 100);
 
-                    if (IsGoodGuy(imgData)) return;
+                    if (IsGoodGuy(imgData))
+                    {
+                        Debug.WriteLine("is good guy");
+                        continue;
+                    }
 
-                    FaceRecognition.RecognizeResult[] results = new
-                         FaceRecognition.RecognizeResult[Program.ImageSampleCount];
+                    var pcaRecognizeResult = this.pca.Recognize(imgData);
 
+                    var filtered =
+                        Array.FindAll(pcaRecognizeResult, r => r.Similarity > 0.85);
 
-                    FaceRecognition.FaceRecognizer.Recognize(
-                                                            imgData,
-                                                            Program.ImageSampleCount,
-                                                            results,
-                                                            Program.ImageLen, Program.EigenNum);
-
-
-                    FaceRecognition.RecognizeResult[] filtered =
-                        Array.FindAll(results, r => r.similarity > 0.85);
-
-
-                    if (filtered.Length == 0) return;
+                    if (filtered.Length == 0) continue;
 
                     int j = 0;
 
@@ -605,23 +617,24 @@ namespace RemoteImaging.RealtimeDisplay
 
                     foreach (PersonInfo p in SuspectsRepositoryManager.Instance.Peoples)
                     {
-                        foreach (FaceRecognition.RecognizeResult result in filtered)
+                        foreach (var result in filtered)
                         {
-                            string fileName = System.IO.Path.GetFileName(result.fileName);
+                            string fileName = System.IO.Path.GetFileName( this.pca.GetFileName (result.FileIndex) );
 
                             int idx = fileName.IndexOf('_');
                             fileName = fileName.Remove(idx, 5);
 
                             if (string.Compare(fileName, p.FileName, true) == 0)
                             {
-                                details.Add(new ImportantPersonDetail(p, result));
+                                details.Add(new ImportantPersonDetail(p, 
+                                    new FaceRecognition.RecognizeResult{ FileName = fileName, Similarity = result.Similarity } ));
                             }
                         }
                     }
 
                     ImportantPersonDetail[] distinct = details.Distinct(new ImportantPersonComparer()).ToArray();
 
-                    if (distinct.Length == 0) return;
+                    if (distinct.Length == 0) continue;
 
                     screen.ShowSuspects(distinct, t.Faces[i].ToBitmap());
 

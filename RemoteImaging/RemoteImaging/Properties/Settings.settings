@@ -167,5 +167,8 @@
     <Setting Name="SVMDirectoryName" Type="System.String" Scope="User">
       <Value Profile="(Default)">SVM</Value>
     </Setting>
+    <Setting Name="FrontFaceTemplateFile" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\faceRecognition\FrontalFace\eyeTemplate.jpg</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
