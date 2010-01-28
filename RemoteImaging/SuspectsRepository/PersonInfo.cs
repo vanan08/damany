@@ -7,13 +7,18 @@ using System.Xml;
 
 namespace SuspectsRepository
 {
-    //重要 50-58
-    //一般 58-68
-    //普通 68-100
 
     public class PersonInfo
     {
-        public PersonInfo() { }
+        public PersonInfo()
+        {
+            this.ID = string.Empty;
+            this.Name = string.Empty;
+            this.Sex = string.Empty;
+            this.CardId = string.Empty;
+            this.FileName = string.Empty;
+        }
+
         /// <summary>
         /// 编号
         /// </summary>
