@@ -73,6 +73,15 @@ int FacePCA::GetTrainSampleCount()
 	return sampleCount;
 }
 
+void FacePCA::FaceTraining()
+{
+	int width = GetPCAProfileInt(_T("imgWidth"));
+	int height = GetPCAProfileInt(_T("imgHeight"));
+	int eigenNum = GetPCAProfileInt(_T("eigenNum"));
+
+	FaceTraining(width, height, eigenNum);
+}
+
 void FacePCA::FaceTraining(int imgWidth, int imgHeight, int eigenNum)
 {
 	DelPCADataFile();
