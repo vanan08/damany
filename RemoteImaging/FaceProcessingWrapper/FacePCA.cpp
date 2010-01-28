@@ -57,13 +57,18 @@ namespace FaceProcessingWrapper {
 
 		static PCA^ LoadFrom(String^ path)
 		{
-			return gcnew PCA(path);
+			PCA^ pca = gcnew PCA(path);
+			pca->Load();
+			
+			return pca;
 		}
 
-		void Train(int imgWidth, int imgHeight, int eigenNum)
+		static void Train(String^ path)
 		{
-			this->pPCA->FaceTraining(imgWidth, imgHeight, eigenNum);
+			PCA^ pca = gcnew PCA(path);
+			pca->InternalTrain();
 		}
+
 
 		array<RecognizeResult^>^ Recognize(array<float>^ faceBitmap)
 		{
@@ -111,14 +116,24 @@ namespace FaceProcessingWrapper {
 			try
 			{
 				this->pPCA = new FacePCA(pPath);
-				this->pPCA->Load();
 			}
 			finally
 			{
 				Marshal::FreeHGlobal(pathPtr);
 			}
-			
 		}
+
+		void InternalTrain()
+		{
+			this->pPCA->FaceTraining();
+		}
+
+
+		void Load()
+		{
+			this->pPCA->Load();
+		}
+
 
 		FacePCA *pPCA;
 	};

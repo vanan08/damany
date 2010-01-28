@@ -39,12 +39,16 @@
             this.txtName = new System.Windows.Forms.TextBox();
             this.txtAge = new System.Windows.Forms.TextBox();
             this.txtCard = new System.Windows.Forms.TextBox();
-            this.btnOk = new System.Windows.Forms.Button();
+            this.btnAdd = new System.Windows.Forms.Button();
             this.rabMan = new System.Windows.Forms.RadioButton();
             this.rabWoman = new System.Windows.Forms.RadioButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.addFinished = new System.Windows.Forms.Button();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.label1 = new System.Windows.Forms.Label();
+            this.directoryForImageRepository = new System.Windows.Forms.TextBox();
+            this.browseForDirectory = new System.Windows.Forms.Button();
+            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             ((System.ComponentModel.ISupportInitialize)(this.picTargetPerson)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
@@ -151,16 +155,17 @@
             this.txtCard.TabIndex = 21;
             this.txtCard.Text = "12345678910111213";
             // 
-            // btnOk
+            // btnAdd
             // 
-            this.btnOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnOk.Location = new System.Drawing.Point(434, 406);
-            this.btnOk.Name = "btnOk";
-            this.btnOk.Size = new System.Drawing.Size(75, 23);
-            this.btnOk.TabIndex = 22;
-            this.btnOk.Text = "添加";
-            this.btnOk.UseVisualStyleBackColor = true;
-            this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
+            this.btnAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAdd.Enabled = false;
+            this.btnAdd.Location = new System.Drawing.Point(434, 406);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(75, 23);
+            this.btnAdd.TabIndex = 22;
+            this.btnAdd.Text = "添加";
+            this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnOk_Click);
             // 
             // rabMan
             // 
@@ -202,6 +207,7 @@
             // addFinished
             // 
             this.addFinished.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.addFinished.Enabled = false;
             this.addFinished.Location = new System.Drawing.Point(541, 406);
             this.addFinished.Name = "addFinished";
             this.addFinished.Size = new System.Drawing.Size(75, 23);
@@ -214,17 +220,46 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(373, 316);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(101, 12);
+            this.label1.TabIndex = 31;
+            this.label1.Text = "特征库保存路径：";
+            // 
+            // directoryForImageRepository
+            // 
+            this.directoryForImageRepository.Location = new System.Drawing.Point(375, 331);
+            this.directoryForImageRepository.Name = "directoryForImageRepository";
+            this.directoryForImageRepository.Size = new System.Drawing.Size(241, 21);
+            this.directoryForImageRepository.TabIndex = 32;
+            // 
+            // browseForDirectory
+            // 
+            this.browseForDirectory.Location = new System.Drawing.Point(541, 358);
+            this.browseForDirectory.Name = "browseForDirectory";
+            this.browseForDirectory.Size = new System.Drawing.Size(75, 23);
+            this.browseForDirectory.TabIndex = 33;
+            this.browseForDirectory.Text = "浏览";
+            this.browseForDirectory.UseVisualStyleBackColor = true;
+            this.browseForDirectory.Click += new System.EventHandler(this.browseForDirectory_Click);
+            // 
             // ImportPersonEnter
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(642, 441);
+            this.Controls.Add(this.browseForDirectory);
+            this.Controls.Add(this.directoryForImageRepository);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.addFinished);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.rabWoman);
             this.Controls.Add(this.rabMan);
-            this.Controls.Add(this.btnOk);
+            this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.txtCard);
             this.Controls.Add(this.txtAge);
             this.Controls.Add(this.txtName);
@@ -263,11 +298,15 @@
         private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.TextBox txtAge;
         private System.Windows.Forms.TextBox txtCard;
-        private System.Windows.Forms.Button btnOk;
+        private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.RadioButton rabMan;
         private System.Windows.Forms.RadioButton rabWoman;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button addFinished;
         private System.Windows.Forms.ErrorProvider errorProvider1;
+        private System.Windows.Forms.Button browseForDirectory;
+        private System.Windows.Forms.TextBox directoryForImageRepository;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
     }
 }

@@ -17,12 +17,16 @@ namespace FaceLibraryBuilder
     public partial class ImportPersonEnter : Form
     {
 
+        SuspectsRepositoryManager mnger = new SuspectsRepositoryManager();
+
         public ImportPersonEnter()
         {
             InitializeComponent();
             InitCotrol(false);
         }
-        PersonInfoHandleXml perinfo = PersonInfoHandleXml.GetInstance();
+
+
+
         string FileSavePath = @"c:\facerecognition\selectedface";
         string faceFeatureImagePath = @"c:\facerecognition\facesample";
         protected void InitCotrol(bool statu)
@@ -75,6 +79,14 @@ namespace FaceLibraryBuilder
             }
         }
 
+        private string ImageRepositoryDirectory
+        {
+            get
+            {
+                return this.directoryForImageRepository.Text;
+            }
+        }
+
         private void btnOk_Click(object sender, EventArgs e)
         {
             if (this.picTargetPerson.Image == null)
@@ -97,8 +109,16 @@ namespace FaceLibraryBuilder
             //搜索人脸
             OpenCvSharp.IplImage iplFace = BitmapConverter.ToIplImage((Bitmap)this.picTargetPerson.Image);
 
-            string savePath = Path.Combine(FileSavePath, fileName);
-            iplFace.SaveImage(savePath);
+            const string ImageDirectory = "ImageRepository";
+
+            string badGuyColorDirectory = Path.Combine(ImageRepositoryDirectory, ImageDirectory + @"\Bad\Color");
+            if (!Directory.Exists(badGuyColorDirectory))
+            {
+                Directory.CreateDirectory(badGuyColorDirectory);
+            }
+
+            string badGuyColorFilePath = Path.Combine(badGuyColorDirectory, fileName);
+            iplFace.SaveImage(badGuyColorFilePath);
 
             //归一化
             OpenCvSharp.CvRect rect = new OpenCvSharp.CvRect(
@@ -115,10 +135,15 @@ namespace FaceLibraryBuilder
                 string normalizedFaceName = string.Format("{0}_{1:d4}.jpg",
                     System.IO.Path.GetFileNameWithoutExtension(fileName), i);
 
-                string fullPath = System.IO.Path.Combine(faceFeatureImagePath,
-                    normalizedFaceName);
+                string badGuyGrayDirectory = System.IO.Path.Combine(ImageRepositoryDirectory,  ImageDirectory + @"\Bad\Gray");
+                if (!Directory.Exists(badGuyGrayDirectory))
+                {
+                    Directory.CreateDirectory(badGuyGrayDirectory);
+                }
 
-                normalizedImages[i].SaveImage(fullPath);
+                string grayFilePath = System.IO.Path.Combine(badGuyGrayDirectory, normalizedFaceName);
+
+                normalizedImages[i].SaveImage(grayFilePath);
             }
 
             string id = txtId.Text.ToString();
@@ -136,10 +161,10 @@ namespace FaceLibraryBuilder
             info.Sex = sex;
             info.Age = age;
             info.CardId = card;
-            info.FileName = fileName;
+            info.FileName = badGuyColorFilePath;
             info.Similarity = 0;
 
-            perinfo.WriteInfo(info);
+            mnger.Suspects.Add(info.FileName, info);
 
             MessageBox.Show("添加成功");
 
@@ -194,8 +219,10 @@ namespace FaceLibraryBuilder
                 return;
             }
 
-            FormProgress form = new FormProgress();
-            form.ShowDialog(this);
+            this.mnger.SaveTo( System.IO.Path.Combine( ImageRepositoryDirectory, "wanted.xml" ) );
+
+//             FormProgress form = new FormProgress();
+//             form.ShowDialog(this);
 
 
         }
@@ -341,6 +368,19 @@ namespace FaceLibraryBuilder
                 e.Graphics.DrawRectangle(Pens.Black, drawRectangle);
             }
 
+        }
+
+        private void browseForDirectory_Click(object sender, EventArgs e)
+        {
+            DialogResult result = this.folderBrowserDialog1.ShowDialog();
+            if (result != DialogResult.OK)
+            {
+                return;
+            }
+
+            this.directoryForImageRepository.Text = this.folderBrowserDialog1.SelectedPath;
+            this.btnAdd.Enabled = true;
+            this.addFinished.Enabled = true;
         }
 
 

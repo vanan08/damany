@@ -48,6 +48,7 @@ namespace RemoteImaging.RealtimeDisplay
         SVM svm;
         PCA pca;
         FrontFaceChecker frontChecker;
+        SuspectsRepository.SuspectsRepositoryManager suspectsMnger;
 
         private IplImage _BackGround;
         public IplImage BackGround
@@ -114,6 +115,11 @@ namespace RemoteImaging.RealtimeDisplay
                     PCA.LoadFrom(Properties.Settings.Default.ImageRepositoryDirectory);
                 this.frontChecker =
                     FrontFaceChecker.FromFile(Properties.Settings.Default.FrontFaceTemplateFile);
+
+                var suspectsXml = 
+                    System.IO.Path.Combine(Properties.Settings.Default.ImageRepositoryDirectory, "PeoplesWanted.xml");
+
+                this.suspectsMnger = SuspectsRepository.SuspectsRepositoryManager.LoadFrom(suspectsXml);
             }
 
 
@@ -258,15 +264,10 @@ namespace RemoteImaging.RealtimeDisplay
             {
                 this.SearchFace();
             }
-
-
         }
-
-
 
         public event EventHandler<ImageCapturedEventArgs> ImageCaptured;
         int historyFramesQueueLength = 0;
-
 
         private bool cpuOverLoaded()
         {
@@ -619,7 +620,7 @@ namespace RemoteImaging.RealtimeDisplay
                     IList<ImportantPersonDetail> details =
                         new List<ImportantPersonDetail>();
 
-                    foreach (PersonInfo p in SuspectsRepositoryManager.Instance.Peoples)
+                    foreach (PersonInfo p in this.suspectsMnger.Peoples)
                     {
                         foreach (var result in filtered)
                         {
