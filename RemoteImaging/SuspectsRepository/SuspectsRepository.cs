@@ -244,6 +244,8 @@ namespace SuspectsRepository
                                                                 faceRect.Width,
                                                                 faceRect.Height);
 
+            IplImage faceFound = faceSearcher.NormalizeImage(iplFace, new CvRect(0, 0, iplFace.Width, iplFace.Height));
+
             OpenCvSharp.IplImage[] normalizedImages =
                 faceSearcher.NormalizeImageForTraining(iplFace, rect);
 

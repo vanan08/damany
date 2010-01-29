@@ -108,6 +108,11 @@ namespace RemoteImaging.RealtimeDisplay
             this.screen = screen;
             this.camera = camera;
 
+#if DEBUG
+            Properties.Settings.Default.SearchSuspecious = true;
+#endif
+
+
             if (Properties.Settings.Default.SearchSuspecious)
             {
                 this.svm =

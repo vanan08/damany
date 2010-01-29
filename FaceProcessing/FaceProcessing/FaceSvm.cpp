@@ -203,6 +203,7 @@ void FaceSvm::WriteSvmAvgTxt(CvMat *AvgVector)
 	{
 		cvSetErrMode(CV_ErrModeParent);
 		cvGuiBoxReport(CV_StsBadArg, __FUNCTION__, "file(AverageValue.txt) write error!!", __FILE__, __LINE__, NULL);
+		return;
 	}
 	for (int i=0; i<AvgVector->rows; i++)
 	{
@@ -218,6 +219,7 @@ void FaceSvm::WriteSvmEigenVectorTxt(CvMat *EigenVectorFinal)
 	{
 		cvSetErrMode(CV_ErrModeParent);
 		cvGuiBoxReport(CV_StsBadArg, __FUNCTION__, "file(EigenVector.txt) write error!!!", __FILE__, __LINE__, NULL);
+		return;
 	}
 	for (int i=0; i<EigenVectorFinal->height; i++)
 	{
@@ -237,6 +239,7 @@ void FaceSvm::WriteSvmSamCoeffTxt(CvMat *resCoeff)
 	{
 		cvSetErrMode(CV_ErrModeParent);
 		cvGuiBoxReport(CV_StsBadArg, __FUNCTION__, "file(SampleCoefficient.txt) write error!!!", __FILE__, __LINE__, NULL);
+		return;
 	}
 	for (int i=0; i<resCoeff->height; i++)
 	{
@@ -276,6 +279,7 @@ void FaceSvm::WriteBallNormResCoeff(CvMat *resCoeff)
 	{
 		cvSetErrMode(CV_ErrModeParent);
 		cvGuiBoxReport(CV_StsBadArg, __FUNCTION__, "file(BallNorm.txt) write error!!!", __FILE__, __LINE__, NULL);
+		return;
 	}
 	for (int i=0; i<resCoeff->height; i++)
 	{
@@ -295,6 +299,7 @@ void FaceSvm::WriteLabel(int *label, int sampleCount)
 	{
 		cvSetErrMode(CV_ErrModeParent);
 		cvGuiBoxReport(CV_StsBadArg, __FUNCTION__, "file(Label.txt) write error!!!", __FILE__, __LINE__, NULL);
+		return;
 	}
 	for (int i=0; i<sampleCount; i++)
 	{

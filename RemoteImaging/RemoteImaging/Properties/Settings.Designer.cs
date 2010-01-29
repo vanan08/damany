@@ -661,7 +661,7 @@ namespace RemoteImaging.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("c:\\facerecognition")]
+        [global::System.Configuration.DefaultSettingValueAttribute(".\\ImgLib")]
         public string ImageRepositoryDirectory {
             get {
                 return ((string)(this["ImageRepositoryDirectory"]));
@@ -685,7 +685,7 @@ namespace RemoteImaging.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\faceRecognition\\FrontalFace\\eyeTemplate.jpg")]
+        [global::System.Configuration.DefaultSettingValueAttribute(".\\ImgLib\\eyeTemplate.jpg")]
         public string FrontFaceTemplateFile {
             get {
                 return ((string)(this["FrontFaceTemplateFile"]));
