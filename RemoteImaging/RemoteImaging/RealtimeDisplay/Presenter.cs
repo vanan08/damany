@@ -591,6 +591,10 @@ namespace RemoteImaging.RealtimeDisplay
 
                         continue;
                     }
+                    else
+                    {
+                        Debug.WriteLine("is front");
+                    }
 
 
                     float[] imgData = NativeIconExtractor.ResizeIplTo(normalized, 100, 100);
@@ -622,7 +626,7 @@ namespace RemoteImaging.RealtimeDisplay
                             int idx = fileName.IndexOf('_');
                             fileName = fileName.Remove(idx, 5);
 
-                            if (string.Compare(fileName, p.FileName, true) == 0)
+                            if (p.FileName.Contains(fileName))
                             {
                                 details.Add(new ImportantPersonDetail(p,
                                     new FaceRecognition.RecognizeResult { FileName = fileName, Similarity = result.Similarity }));
