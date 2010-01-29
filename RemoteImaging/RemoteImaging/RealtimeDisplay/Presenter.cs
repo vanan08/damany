@@ -20,6 +20,7 @@ using FaceProcessingWrapper;
 
 namespace RemoteImaging.RealtimeDisplay
 {
+
     public class Presenter : IImageScreenObserver
     {
         private const string strTip = "提示信息";
@@ -71,7 +72,7 @@ namespace RemoteImaging.RealtimeDisplay
             IplImage oldIpl = this.BackGround;
 
             lock (this.bgLocker)
-                this.BackGround = BitmapConverter.ToIplImage((Bitmap) args.ImageCaptured);
+                this.BackGround = BitmapConverter.ToIplImage((Bitmap)args.ImageCaptured);
 
             args.ImageCaptured.Save("BG.jpg");
 
@@ -82,7 +83,7 @@ namespace RemoteImaging.RealtimeDisplay
         public void UpdateBG()
         {
             this.ImageCaptured += this.UpdateBGInternal;
-            
+
         }
 
 
@@ -109,17 +110,14 @@ namespace RemoteImaging.RealtimeDisplay
 
             if (Properties.Settings.Default.SearchSuspecious)
             {
-                this.svm = 
+                this.svm =
                     SVM.LoadFrom(Properties.Settings.Default.ImageRepositoryDirectory);
-                this.pca = 
+                this.pca =
                     PCA.LoadFrom(Properties.Settings.Default.ImageRepositoryDirectory);
                 this.frontChecker =
                     FrontFaceChecker.FromFile(Properties.Settings.Default.FrontFaceTemplateFile);
 
-                var suspectsXml = 
-                    System.IO.Path.Combine(Properties.Settings.Default.ImageRepositoryDirectory, "PeoplesWanted.xml");
-
-                this.suspectsMnger = SuspectsRepository.SuspectsRepositoryManager.LoadFrom(suspectsXml);
+                this.suspectsMnger = SuspectsRepository.SuspectsRepositoryManager.LoadFrom( Properties.Settings.Default.ImageRepositoryDirectory );
             }
 
 
@@ -238,10 +236,8 @@ namespace RemoteImaging.RealtimeDisplay
         {
             try
             {
-                System.Diagnostics.Debug.WriteLine("capture frame begin");
                 this.timer.Enabled = false;
                 this.QueryRawFrame();
-                System.Diagnostics.Debug.WriteLine("capture frame after");
                 this.timer.Enabled = true;
 
             }
@@ -390,7 +386,7 @@ namespace RemoteImaging.RealtimeDisplay
                                 throw;
                             }
                         }
-                        
+
                         motionFrames.Enqueue(lastFrame);
                     }
 
@@ -506,7 +502,7 @@ namespace RemoteImaging.RealtimeDisplay
                             throw;
                         }
                     }
-                    
+
                     imgs.Add(ImageDetail.FromPath(facePath));
                 }
 
@@ -524,47 +520,39 @@ namespace RemoteImaging.RealtimeDisplay
         {
             while (true)
             {
-                try
+                Frame[] frames = null;
+                lock (framesArrayQueueLocker)
                 {
-
-                    Frame[] frames = null;
-                    lock (framesArrayQueueLocker)
+                    if (framesArrayQueue.Count > 0)
                     {
-                        if (framesArrayQueue.Count > 0)
-                        {
-                            frames = framesArrayQueue.Dequeue();
-                        }
+                        frames = framesArrayQueue.Dequeue();
                     }
-
-                    if (frames != null && frames.Length > 0)
-                    {
-                        foreach (var f in frames)
-                        {
-                            Program.faceSearch.AddInFrame(f);
-                        }
-
-                        ImageProcess.Target[] targets = Program.faceSearch.SearchFaces();
-
-                        ImageDetail[] imgs = this.SaveImage(targets);
-                        this.screen.ShowImages(imgs);
-
-                        if (Properties.Settings.Default.SearchSuspecious) DetectSuspecious(targets);
-
-                        Array.ForEach(frames, f => { IntPtr cvPtr = f.image.CvPtr; OpenCvSharp.Cv.Release(ref cvPtr); f.image.Dispose(); });
-                        Array.ForEach(targets, t =>
-                        {
-                            Array.ForEach(t.Faces, ipl => { ipl.IsEnabledDispose = true; ipl.Dispose(); });
-                            t.BaseFrame.image.Dispose();
-                        });
-                    }
-                    else
-                        goSearch.WaitOne();
                 }
 
-                catch (System.Exception ex)
+                if (frames != null && frames.Length > 0)
                 {
-                    System.Diagnostics.Debug.WriteLine("exception");
+                    foreach (var f in frames)
+                    {
+                        Program.faceSearch.AddInFrame(f);
+                    }
+
+                    ImageProcess.Target[] targets = Program.faceSearch.SearchFaces();
+
+                    ImageDetail[] imgs = this.SaveImage(targets);
+                    this.screen.ShowImages(imgs);
+
+                    if (Properties.Settings.Default.SearchSuspecious) DetectSuspecious(targets);
+
+                    Array.ForEach(frames, f => { IntPtr cvPtr = f.image.CvPtr; OpenCvSharp.Cv.Release(ref cvPtr); f.image.Dispose(); });
+                    Array.ForEach(targets, t =>
+                    {
+                        Array.ForEach(t.Faces, ipl => { ipl.IsEnabledDispose = true; ipl.Dispose(); });
+                        t.BaseFrame.image.Dispose();
+                    });
                 }
+                else
+                    goSearch.WaitOne();
+
             }
         }
 
@@ -585,7 +573,7 @@ namespace RemoteImaging.RealtimeDisplay
             foreach (var t in targets)
             {
                 for (int i = 0; i < t.Faces.Length; ++i)
-                { 
+                {
                     IplImage normalized = Program.faceSearch.NormalizeImage(t.BaseFrame.image, t.FacesRectsForCompare[i]);
 
 #if DEBUG
@@ -624,15 +612,15 @@ namespace RemoteImaging.RealtimeDisplay
                     {
                         foreach (var result in filtered)
                         {
-                            string fileName = System.IO.Path.GetFileName( this.pca.GetFileName (result.FileIndex) );
+                            string fileName = System.IO.Path.GetFileName(this.pca.GetFileName(result.FileIndex));
 
                             int idx = fileName.IndexOf('_');
                             fileName = fileName.Remove(idx, 5);
 
                             if (string.Compare(fileName, p.FileName, true) == 0)
                             {
-                                details.Add(new ImportantPersonDetail(p, 
-                                    new FaceRecognition.RecognizeResult{ FileName = fileName, Similarity = result.Similarity } ));
+                                details.Add(new ImportantPersonDetail(p,
+                                    new FaceRecognition.RecognizeResult { FileName = fileName, Similarity = result.Similarity }));
                             }
                         }
                     }

@@ -16,6 +16,7 @@ namespace FaceLibraryBuilder
             InitializeComponent();
         }
 
+        public SuspectsRepository.SuspectsRepositoryManager Manager { get; set; }
        
 
         private void FormProgress_Load(object sender, EventArgs e)
@@ -49,8 +50,7 @@ namespace FaceLibraryBuilder
 
         private void UpdateFaceSample(object sender, DoWorkEventArgs args)
         {
-            //训练 重新生成人脸库
-            FaceProcessingWrapper.PCA.Train(string.Empty);
+            this.Manager.UpdateRepository();
         }
 
     }
