@@ -17,18 +17,20 @@ namespace FaceLibraryBuilder
     public partial class ImportPersonEnter : Form
     {
 
-        SuspectsRepositoryManager mnger = new SuspectsRepositoryManager();
+        SuspectsRepositoryManager mnger;
+        string formText;
 
         public ImportPersonEnter()
         {
             InitializeComponent();
             InitCotrol(false);
+
+            this.formText = this.Text;
         }
 
+        public string RootDirectoryForImageRepository { get; set; }
 
 
-        string FileSavePath = @"c:\facerecognition\selectedface";
-        string faceFeatureImagePath = @"c:\facerecognition\facesample";
         protected void InitCotrol(bool statu)
         {
             if (!statu)
@@ -79,13 +81,6 @@ namespace FaceLibraryBuilder
             }
         }
 
-        private string ImageRepositoryDirectory
-        {
-            get
-            {
-                return this.directoryForImageRepository.Text;
-            }
-        }
 
         private void btnOk_Click(object sender, EventArgs e)
         {
@@ -102,49 +97,8 @@ namespace FaceLibraryBuilder
             }
 
 
-            String oldFileName = this.picTargetPerson.Image.Tag as string;
+            String imageFilePathAbsolute = this.picTargetPerson.Image.Tag as string;
 
-            String fileName = System.Guid.NewGuid().ToString().ToUpper() + System.IO.Path.GetExtension(oldFileName);
-
-            //搜索人脸
-            OpenCvSharp.IplImage iplFace = BitmapConverter.ToIplImage((Bitmap)this.picTargetPerson.Image);
-
-            const string ImageDirectory = "ImageRepository";
-
-            string badGuyColorDirectory = Path.Combine(ImageRepositoryDirectory, ImageDirectory + @"\Bad\Color");
-            if (!Directory.Exists(badGuyColorDirectory))
-            {
-                Directory.CreateDirectory(badGuyColorDirectory);
-            }
-
-            string badGuyColorFilePath = Path.Combine(badGuyColorDirectory, fileName);
-            iplFace.SaveImage(badGuyColorFilePath);
-
-            //归一化
-            OpenCvSharp.CvRect rect = new OpenCvSharp.CvRect(
-                this.drawRectangle.X,
-                this.drawRectangle.Y,
-                this.drawRectangle.Width,
-                this.drawRectangle.Height);
-
-            OpenCvSharp.IplImage[] normalizedImages =
-                Program.searcher.NormalizeImageForTraining(iplFace, rect);
-
-            for (int i = 0; i < normalizedImages.Length; ++i)
-            {
-                string normalizedFaceName = string.Format("{0}_{1:d4}.jpg",
-                    System.IO.Path.GetFileNameWithoutExtension(fileName), i);
-
-                string badGuyGrayDirectory = System.IO.Path.Combine(ImageRepositoryDirectory,  ImageDirectory + @"\Bad\Gray");
-                if (!Directory.Exists(badGuyGrayDirectory))
-                {
-                    Directory.CreateDirectory(badGuyGrayDirectory);
-                }
-
-                string grayFilePath = System.IO.Path.Combine(badGuyGrayDirectory, normalizedFaceName);
-
-                normalizedImages[i].SaveImage(grayFilePath);
-            }
 
             string id = txtId.Text.ToString();
             string name = txtName.Text.ToString();
@@ -161,14 +115,12 @@ namespace FaceLibraryBuilder
             info.Sex = sex;
             info.Age = age;
             info.CardId = card;
-            info.FileName = badGuyColorFilePath;
             info.Similarity = 0;
 
-            mnger.Suspects.Add(info.FileName, info);
+            mnger.AddNewPerson(info, imageFilePathAbsolute, this.drawRectangle);
 
             MessageBox.Show("添加成功");
 
-            Array.ForEach(normalizedImages, ipl => ipl.Dispose());
 
         }
 
@@ -197,32 +149,21 @@ namespace FaceLibraryBuilder
 
         }
 
-        private int GetFaceSamplesCount()
-        {
-            string[] faceSamples = System.IO.Directory.GetFiles(faceFeatureImagePath, "*.jpg");
-            return faceSamples.Length;
-        }
-
 
         private void addFinished_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show(
-                this, 
-                "确定生成人脸特征库？", 
-                "请确认", 
+                this,
+                "确定生成人脸特征库？",
+                "请确认",
                 MessageBoxButtons.YesNo) != DialogResult.Yes) return;
 
 
-            if (GetFaceSamplesCount() < 40)
-            {
-                MessageBox.Show(this, "样本数量不足, 请继续添加", "错误", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                return;
-            }
+            this.mnger.Save();
 
-            this.mnger.SaveTo( System.IO.Path.Combine( ImageRepositoryDirectory, "wanted.xml" ) );
-
-//             FormProgress form = new FormProgress();
-//             form.ShowDialog(this);
+            FormProgress form = new FormProgress();
+            form.Manager = this.mnger;
+            form.ShowDialog(this);
 
 
         }
@@ -304,7 +245,7 @@ namespace FaceLibraryBuilder
 
             Control ctrl = (Control)sender;
 
-            drawRectangle = ctrl.RectangleToClient(NormalizeRectangle( theRectangle ));
+            drawRectangle = ctrl.RectangleToClient(NormalizeRectangle(theRectangle));
             ctrl.Invalidate();
 
             theRectangle = new Rectangle(0, 0, 0, 0);
@@ -361,6 +302,8 @@ namespace FaceLibraryBuilder
 
             return new Rectangle(x, y, width, height);
         }
+
+
         private void picTargetPerson_Paint(object sender, PaintEventArgs e)
         {
             if (this.drawRectangle.Size != Size.Empty)
@@ -370,17 +313,62 @@ namespace FaceLibraryBuilder
 
         }
 
-        private void browseForDirectory_Click(object sender, EventArgs e)
+        private void EnableButtons()
         {
+            this.btnAdd.Enabled = true;
+            this.addFinished.Enabled = true;
+        }
+
+        private void UpdateFormText()
+        {
+            this.Text = formText + "-[" + this.RootDirectoryForImageRepository + "]";
+        }
+
+        private void RequestDirectory(out bool shouldReturn)
+        {
+            shouldReturn = false;
             DialogResult result = this.folderBrowserDialog1.ShowDialog();
             if (result != DialogResult.OK)
             {
+                shouldReturn = true;
                 return;
             }
 
-            this.directoryForImageRepository.Text = this.folderBrowserDialog1.SelectedPath;
-            this.btnAdd.Enabled = true;
-            this.addFinished.Enabled = true;
+            this.RootDirectoryForImageRepository = this.folderBrowserDialog1.SelectedPath;
+            UpdateFormText();
+            EnableButtons();
+        }
+
+        private void OpenExisted()
+        {
+            bool shouldReturn;
+            RequestDirectory(out shouldReturn);
+            if (shouldReturn)
+                return;
+
+            this.mnger = SuspectsRepositoryManager.LoadFrom(this.RootDirectoryForImageRepository);
+
+
+        }
+
+        private void CreateNew()
+        {
+            bool shouldReturn;
+            RequestDirectory(out shouldReturn);
+            if (shouldReturn)
+                return;
+
+            this.mnger = SuspectsRepositoryManager.CreateNewIn(this.RootDirectoryForImageRepository);
+        }
+
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.OpenExisted();
+        }
+
+        private void newToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.CreateNew();
         }
 
 

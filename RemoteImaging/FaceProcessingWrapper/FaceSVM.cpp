@@ -30,9 +30,10 @@ namespace FaceProcessingWrapper {
 			return svm;
 		}
 
-		void Train()
+		static void Train(System::String^ directory)
 		{
-			this->pSVM->SvmTrain();
+			SVM^ svm = gcnew SVM(directory);
+			svm->TrainInternal();
 		}
 
 		double Predict(array<float>^ faceBitMapData)
@@ -73,6 +74,11 @@ namespace FaceProcessingWrapper {
 		void Load()
 		{
 			this->pSVM->Load();
+		}
+
+		void TrainInternal()
+		{
+			this->pSVM->SvmTrain();
 		}
 
 		FaceSvm *pSVM;

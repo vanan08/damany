@@ -5,22 +5,34 @@ using System.Text;
 using System.Xml;
 using System.Xml.Linq;
 using NDepend.Helpers.FileDirectoryPath;
+using System.Drawing;
+using OpenCvSharp;
+using System.IO;
 
 namespace SuspectsRepository
 {
     public class SuspectsRepositoryManager
     {
         private Dictionary<string, PersonInfo> storage;
+        FaceSearchWrapper.FaceSearch faceSearcher;
 
-        public Dictionary<string, PersonInfo> Storage
-        {
-            get { return storage; }
-            private set { storage = value; }
-        }
+        const string imageDirectory = "ImageRepository";
+        const string badGuyGrayDirectory = imageDirectory + @"\Bad\Gray";
+        const string badGuyColorDirectory = imageDirectory + @"\Bad\Color";
+        const string goodGuyGrayDirectory = imageDirectory + @"\Good\Gray";
+        const string goodGuyColorDirectory = imageDirectory + @"\Good\Color";
+        const string svmDirectory = @"SVM";
+        const string pcaDirectory = @"PCA";
+        const string configIniName = "config.ini";
+        const string wantedXml = "wanted.xml";
 
-        public SuspectsRepositoryManager()
+        public string RootDirectoryPathAbsolute { get; set; }
+
+        private SuspectsRepositoryManager(string rootDirectorPathAbsolute)
         {
-            this.Storage = new Dictionary<string, PersonInfo>();
+            this.RootDirectoryPathAbsolute = rootDirectorPathAbsolute;
+            this.storage = new Dictionary<string, PersonInfo>();
+            this.faceSearcher = new FaceSearchWrapper.FaceSearch();
         }
 
         public static SuspectsRepositoryManager LoadFrom(string filePath)
@@ -35,40 +47,20 @@ namespace SuspectsRepository
                 absoluteFilePath = System.IO.Path.Combine(System.IO.Directory.GetCurrentDirectory(), filePath);
             }
 
-
-            var mnger = new SuspectsRepositoryManager();
-            mnger.FileName = filePath;
-
-            XmlDocument doc = new XmlDocument();
-            doc.Load(filePath);
-
-            XmlNodeList nodes = doc.SelectNodes("//person");
-
-            foreach (XmlNode n in nodes)
-            {
-                PersonInfo p = new PersonInfo();
-                p.ID = n.Attributes["id"].Value.ToString();
-                p.Name = n.Attributes["name"].Value.ToString();
-                p.Sex = n.Attributes["sex"].Value.ToString();
-                p.Age = Convert.ToInt32(n.Attributes["age"].Value.ToString());
-                p.CardId = n.Attributes["card"].Value.ToString();
-                p.FileName = GetFilePathAbsoluteFrom( absoluteFilePath, n.Attributes["filename"].Value.ToString());
-                p.Similarity = Convert.ToInt32(n.Attributes["similarity"].Value);
-
-                mnger.Suspects[p.FileName] = p;
-            }
+            var mnger = new SuspectsRepositoryManager(absoluteFilePath);
+            mnger.Load();
 
             return mnger;
         }
 
         public void Save()
         {
-            if (string.IsNullOrEmpty(this.FileName))
+            if (string.IsNullOrEmpty(this.GetWantedXMlPathAbsolute()))
             {
                 throw new InvalidOperationException("Can't save, please call SaveTo instead.");
             }
 
-            this.SaveTo(this.FileName);
+            this.SaveTo(this.GetWantedXMlPathAbsolute());
 
         }
 
@@ -91,6 +83,96 @@ namespace SuspectsRepository
             var relativeFilePath = new FilePathRelative(relativePath);
 
             return relativeFilePath.GetAbsolutePathFrom(absoluteBase).Path;
+        }
+
+        private string GetImageDirectoryAbsolute()
+        {
+            return System.IO.Path.Combine(this.RootDirectoryPathAbsolute, "ImageRepository");
+        }
+        private string GetBadGuyGrayDirectoryAbsolute()
+        {
+            return System.IO.Path.Combine(this.RootDirectoryPathAbsolute, badGuyGrayDirectory);
+        }
+        private string GetBadGuyColorDirectoryAbsolute()
+        {
+            return System.IO.Path.Combine(this.RootDirectoryPathAbsolute, badGuyColorDirectory);
+        }
+        private string GetGoodGuyGrayDirectoryAbsolute()
+        {
+            return System.IO.Path.Combine(this.RootDirectoryPathAbsolute, goodGuyGrayDirectory);
+        }
+        private string GetGoodGuyColorDirectoryAbsolute()
+        {
+            return System.IO.Path.Combine(this.RootDirectoryPathAbsolute, goodGuyColorDirectory);
+        }
+        private string GetSvmDirectoryAbsolute()
+        {
+            return System.IO.Path.Combine(this.RootDirectoryPathAbsolute, svmDirectory);
+        }
+        private string GetPcaDirectoryAbsolute()
+        {
+            return System.IO.Path.Combine(this.RootDirectoryPathAbsolute, pcaDirectory);
+        }
+
+        private static string GetConfigIniPathAbsolute(string directoryPath)
+        {
+            return System.IO.Path.Combine(directoryPath, "config.ini");
+        }
+        private string GetWantedXMlPathAbsolute()
+        {
+             return System.IO.Path.Combine(this.RootDirectoryPathAbsolute, wantedXml);
+        }
+
+        public static SuspectsRepositoryManager CreateNewIn(string directoryPath)
+        {
+            SuspectsRepositoryManager mnger = new SuspectsRepositoryManager(directoryPath);
+
+            string[] directories = new string[] 
+            { 
+                mnger.GetImageDirectoryAbsolute(),
+                mnger.GetBadGuyGrayDirectoryAbsolute(),
+                mnger.GetBadGuyColorDirectoryAbsolute(), 
+                mnger.GetGoodGuyGrayDirectoryAbsolute(), 
+                mnger.GetGoodGuyColorDirectoryAbsolute(),
+                mnger.GetSvmDirectoryAbsolute(),
+                mnger.GetPcaDirectoryAbsolute(),
+            };
+
+
+            foreach (string dir in directories)
+            {
+                if (!System.IO.Directory.Exists(dir))
+                {
+                    System.IO.Directory.CreateDirectory(dir);
+                }
+            }
+
+            System.IO.File.WriteAllText(GetConfigIniPathAbsolute(directoryPath), Properties.Resource.config);
+            return mnger;
+        }
+
+        public void Load()
+        {
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load( this.GetWantedXMlPathAbsolute() );
+
+            XmlNodeList nodes = doc.SelectNodes("//person");
+
+            foreach (XmlNode n in nodes)
+            {
+                PersonInfo p = new PersonInfo();
+                p.ID = n.Attributes["id"].Value.ToString();
+                p.Name = n.Attributes["name"].Value.ToString();
+                p.Sex = n.Attributes["sex"].Value.ToString();
+                p.Age = Convert.ToInt32(n.Attributes["age"].Value.ToString());
+                p.CardId = n.Attributes["card"].Value.ToString();
+                p.FileName = GetFilePathAbsoluteFrom( GetWantedXMlPathAbsolute(), n.Attributes["filename"].Value.ToString());
+                p.Similarity = Convert.ToInt32(n.Attributes["similarity"].Value);
+
+                AddPerson(p);
+            }
+
         }
 
 
@@ -126,38 +208,81 @@ namespace SuspectsRepository
 
         public bool Contains(string id)
         {
-            return Suspects.ContainsKey(id);
+            return this.storage.ContainsKey(id);
 
-        }
-
-        public string FileName
-        {
-            get;
-            set;
         }
 
         public IEnumerable<PersonInfo> Peoples
         {
             get
             {
-                return Suspects.Values.ToArray();
+                return this.storage.Values.AsEnumerable();
+            }
+        }
+
+        private void AddPerson(PersonInfo p)
+        {
+            this.storage[p.FileName] = p;
+        }
+
+        public void AddNewPerson(PersonInfo p, string imageFilePathAbsolute, Rectangle faceRect)
+        {
+            String newImageFileName = 
+                System.Guid.NewGuid().ToString().ToUpper() + System.IO.Path.GetExtension(imageFilePathAbsolute);
+
+            //搜索人脸
+            var iplFace = 
+                BitmapConverter.ToIplImage( (Bitmap) Bitmap.FromFile(imageFilePathAbsolute) );
+
+            string badGuyColorFilePath = Path.Combine(GetBadGuyColorDirectoryAbsolute(), newImageFileName);
+            iplFace.SaveImage(badGuyColorFilePath);
+
+            //归一化
+            OpenCvSharp.CvRect rect = new OpenCvSharp.CvRect(
+                                                                faceRect.X,
+                                                                faceRect.Y,
+                                                                faceRect.Width,
+                                                                faceRect.Height);
+
+            OpenCvSharp.IplImage[] normalizedImages =
+                faceSearcher.NormalizeImageForTraining(iplFace, rect);
+
+            for (int i = 0; i < normalizedImages.Length; ++i)
+            {
+                string normalizedFaceName = string.Format("{0}_{1:d4}.jpg",
+                    System.IO.Path.GetFileNameWithoutExtension(badGuyColorFilePath), i);
+
+                string grayFilePath = System.IO.Path.Combine(GetBadGuyGrayDirectoryAbsolute(), normalizedFaceName);
+
+                normalizedImages[i].SaveImage(grayFilePath);
+            }
+
+            p.FileName = badGuyColorFilePath;
+
+            this.storage[p.FileName] = p;
+        }
+
+        public void UpdateRepository()
+        {
+            FaceProcessingWrapper.SVM.Train(this.RootDirectoryPathAbsolute);
+
+            FaceProcessingWrapper.PCA.Train(this.RootDirectoryPathAbsolute);
+
+        }
+
+        public int Count
+        {
+            get
+            {
+                return this.storage.Count;
             }
         }
 
 
         public PersonInfo this[string idx]
         {
-            get { return Suspects[idx]; }
+            get { return this.storage[idx]; }
         }
-
-        public IDictionary<string, PersonInfo> Suspects
-        {
-            get
-            {
-                return storage;
-            }
-        }
-
 
     }
 }

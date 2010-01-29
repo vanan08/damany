@@ -14,20 +14,19 @@ namespace SuspectsRepository.Test
         [Test]
         public void SaveToTest()
         {
-            SuspectsRepositoryManager mnger = new SuspectsRepositoryManager();
+            SuspectsRepositoryManager mnger = SuspectsRepositoryManager.CreateNewIn("lib");
 
             var p1 = new PersonInfo();
             p1.FileName = RelativePathToAbsolute("abc");
 
             var p2 = new PersonInfo() { FileName = RelativePathToAbsolute("def"), };
 
-            mnger.Suspects.Add(p1.FileName, p1);
-            mnger.Suspects.Add(p2.FileName, p2);
 
             mnger.SaveTo("wanted.xml");
 
             SuspectsRepositoryManager saved = SuspectsRepositoryManager.LoadFrom("wanted.xml");
-            Assert.IsTrue( saved.Suspects.Count == 2);
+            Assert.IsTrue( saved.Count == 2);
+
         }
 
 

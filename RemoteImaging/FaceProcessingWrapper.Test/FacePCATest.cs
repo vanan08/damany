@@ -11,20 +11,13 @@ namespace FaceProcessingWrapper.Test
     using FaceProcessingWrapper;
 
     [TestFixture]
-    public class SVMWrapperTest
+    public class FacePCATest
     {
-        SVM svm;
-
-        [SetUp]
-        public void Setup()
-        {
-            svm = SVM.LoadFrom(@"C:\faceRecognition");
-        }
-
-
         [Test]
-        public void TrainTest()
+        public void Test()
         {
+            FaceProcessingWrapper.PCA pca = FaceProcessingWrapper.PCA.LoadFrom(@"c:\facerecognition");
+            string s = pca.GetFileName(1);
         }
     }
 }
