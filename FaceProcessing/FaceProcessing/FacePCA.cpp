@@ -346,7 +346,7 @@ CString FacePCA::GetFileName(int index)
 
 CString FacePCA::GetConfigFile()
 {
-	return Combine(this->rootPath, "config.ini");
+	return Combine(this->rootPath, _T("config.ini"));
 }
 
 CString FacePCA::GetTrainPath()
