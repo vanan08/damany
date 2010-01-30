@@ -356,8 +356,14 @@ int frontalFaceDetect::Threshold(IplImage* Tresult, int* T)
 bool frontalFaceDetect::IsFrontFace(IplImage* targetNormFace)
 {
 	cvCopy(targetNormFace, img);
-	Tresult=cvCreateImage(cvSize(targetNormFace->width, targetNormFace->height),IPL_DEPTH_8U,1);//检查到的眼部区域图像
-	eye=cvCreateImage(cvSize(targetNormFace->width, targetNormFace->height),IPL_DEPTH_8U,1); 
+	if (Tresult == NULL)
+	{
+		Tresult=cvCreateImage(cvSize(targetNormFace->width, targetNormFace->height),IPL_DEPTH_8U,1);//检查到的眼部区域图像	
+	}
+	if (eye = NULL)
+	{
+		eye=cvCreateImage(cvSize(targetNormFace->width, targetNormFace->height),IPL_DEPTH_8U,1); 
+	}
 
 	tmp(eyeTemplate, img, Tresult);//模板与目标图像做相关运算的函数
 	Threshold(Tresult, &T);//对检测到的眼部区域求出阈值T，为二值化检测眼睛做准备
