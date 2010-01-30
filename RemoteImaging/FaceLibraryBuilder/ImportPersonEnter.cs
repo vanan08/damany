@@ -198,6 +198,10 @@ namespace FaceLibraryBuilder
                     drawRectangle = Rectangle.Empty;
 
                 }
+                else if (System.IO.Directory.Exists(files[0]))
+                {
+                    this.OpenExisted(files[0]);
+                }
 
 
             }
@@ -324,51 +328,62 @@ namespace FaceLibraryBuilder
             this.Text = formText + "-[" + this.RootDirectoryForImageRepository + "]";
         }
 
-        private void RequestDirectory(out bool shouldReturn)
+        private string RequestDirectory(out bool shouldReturn)
         {
             shouldReturn = false;
             DialogResult result = this.folderBrowserDialog1.ShowDialog();
             if (result != DialogResult.OK)
             {
                 shouldReturn = true;
-                return;
+                return string.Empty ;
             }
 
-            this.RootDirectoryForImageRepository = this.folderBrowserDialog1.SelectedPath;
+            return this.folderBrowserDialog1.SelectedPath;
+        }
+
+        private void OpenExisted(string directory)
+        {
+
+            this.RootDirectoryForImageRepository = directory;
+            this.mnger = SuspectsRepositoryManager.LoadFrom(this.RootDirectoryForImageRepository);
             UpdateFormText();
             EnableButtons();
-        }
 
-        private void OpenExisted()
-        {
-            bool shouldReturn;
-            RequestDirectory(out shouldReturn);
-            if (shouldReturn)
-                return;
 
-            this.mnger = SuspectsRepositoryManager.LoadFrom(this.RootDirectoryForImageRepository);
 
 
         }
 
-        private void CreateNew()
+        private void CreateNew(string directory)
         {
-            bool shouldReturn;
-            RequestDirectory(out shouldReturn);
-            if (shouldReturn)
-                return;
 
+            this.RootDirectoryForImageRepository = directory;
             this.mnger = SuspectsRepositoryManager.CreateNewIn(this.RootDirectoryForImageRepository);
+            UpdateFormText();
+            EnableButtons();
+
+
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.OpenExisted();
+            bool shouldReturn;
+            string dir = RequestDirectory(out shouldReturn);
+            if (shouldReturn)
+                return;
+
+            this.OpenExisted(dir);
         }
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.CreateNew();
+            bool shouldReturn;
+            string dir = RequestDirectory(out shouldReturn);
+            if (shouldReturn)
+                return;
+
+
+            this.CreateNew(dir);
         }
 
 
