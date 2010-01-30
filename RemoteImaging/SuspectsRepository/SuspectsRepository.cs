@@ -251,6 +251,8 @@ namespace SuspectsRepository
 
             for (int i = 0; i < normalizedImages.Length; ++i)
             {
+                if (i != 2) continue;
+
                 string normalizedFaceName = string.Format("{0}_{1:d4}.jpg",
                     System.IO.Path.GetFileNameWithoutExtension(badGuyColorFilePath), i);
 

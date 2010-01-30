@@ -20,9 +20,9 @@ frontalFaceDetect::frontalFaceDetect()
 	eyeTemplate = NULL;
 	img = cvCreateImage(cvSize(200, 200), 8, 1);
 	Front=0; 
-	t1=4.0;
-	t2=3.5;//=5.0;
-	t3=3.5;//4.1;
+	t1=4.0;//≈–∂œ «∑ÒÕ·–±
+	t2=3.5;//=5.0;//≈–∂œ «∑Ò≤‡¡≥
+	t3=3.0;//4.1;//≈–∂œ «∑ÒµÕÃßÕ∑
 	Tresult = NULL;
 	eye = NULL;
 }
