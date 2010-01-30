@@ -21,8 +21,8 @@ frontalFaceDetect::frontalFaceDetect()
 	img = cvCreateImage(cvSize(200, 200), 8, 1);
 	Front=0; 
 	t1=4.0;
-	t2=5.0;
-	t3=4.1;
+	t2=3.5;//=5.0;
+	t3=3.5;//4.1;
 	Tresult = NULL;
 	eye = NULL;
 }
