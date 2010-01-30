@@ -15,6 +15,7 @@
 #include "svm.h"
 #include "iostream" 
 #include "fstream"
+#include "FaceSVMParameters.h"
 
 using namespace std;
 
@@ -25,11 +26,11 @@ public:
 	FaceSvm(const char* path);
 	void Load();//SVM数据初始化
 	void SvmTrain();
-	void SvmTrain(int imgWidth, int imgHeight, int eigenNum, const char *option);//SVM训练函数
+	void SvmTrain(FaceSVMParameters parameters);//SVM训练函数
 	double SvmPredict(float *currentFace);//SVM预测函数
 
 private:
-	void ReadConfigInfo();
+	FaceSVMParameters ReadConfigInfo();
 	CString GetSVMProfileString(const CString& name);
 	void WriteSVMProfileString(const CString& name, const CString& val);
 	int GetSVMProfileInt(const CString& name);
@@ -59,7 +60,8 @@ private:
 	void WriteLabel(int *label, int sampleCount);
 	void WriteSvmInfo(int imgWidth, int imgHeight, int eigenNum, int sampleCount);
 	void PCAforSVM(int imgWidth, int imgHeight, int eigenNum);
-	void ReadInfoTxt(int &imgWidth, int &imgHeight, int &eigenNum, int &sampleCount);
+	int GetSampleCount();
+
 	void GetLabel(struct svm_problem *prob, int labelNum);
 	void GetProbX(struct svm_problem *prob, struct svm_node *x_space, int eigenNum);
 	void GetSvmTrainData(struct svm_problem *prob, struct svm_node *x_space);
@@ -74,11 +76,6 @@ private:
 	CvMat *svmAvgVector;
 	CvMat *svmEigenVector;  
 	svm_model* testModel;
-	int svmImgWidth;
-	int svmImgHeight;
-	int svmImgLen;
-	int svmEigenNum;
-	int svmSampleCount;
 	CString rootPath;
-	CString options;
+	FaceSVMParameters parameters;
 };

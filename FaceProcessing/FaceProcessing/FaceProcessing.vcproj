@@ -251,6 +251,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\FaceSVMParameters.h"
+				>
+			</File>
+			<File
 				RelativePath=".\FrontFaceChecker.h"
 				>
 			</File>
