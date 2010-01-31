@@ -63,7 +63,7 @@ namespace FaceProcessingWrapper {
 			}
 			finally
 			{
-				if (rootDirPtr != IntPtr.Zero)
+				if (rootDirPtr != IntPtr::Zero)
 				{
 					Marshal::FreeHGlobal(rootDirPtr);
 				}
