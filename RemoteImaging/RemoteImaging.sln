@@ -57,6 +57,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FaceLibraryBuilder", "FaceL
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuspectsRepository.Test", "SuspectsRepository.Test\SuspectsRepository.Test.csproj", "{2133EAC9-2A41-48DA-9120-866AAA1776FB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Damany.Util", "Damany.Util\Damany.Util.csproj", "{FA6DEBE0-D78D-437E-B05D-0923896290C9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -327,6 +329,16 @@ Global
 		{2133EAC9-2A41-48DA-9120-866AAA1776FB}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{2133EAC9-2A41-48DA-9120-866AAA1776FB}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{2133EAC9-2A41-48DA-9120-866AAA1776FB}.Release|Win32.ActiveCfg = Release|Any CPU
+		{FA6DEBE0-D78D-437E-B05D-0923896290C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA6DEBE0-D78D-437E-B05D-0923896290C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA6DEBE0-D78D-437E-B05D-0923896290C9}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{FA6DEBE0-D78D-437E-B05D-0923896290C9}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{FA6DEBE0-D78D-437E-B05D-0923896290C9}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{FA6DEBE0-D78D-437E-B05D-0923896290C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA6DEBE0-D78D-437E-B05D-0923896290C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA6DEBE0-D78D-437E-B05D-0923896290C9}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{FA6DEBE0-D78D-437E-B05D-0923896290C9}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{FA6DEBE0-D78D-437E-B05D-0923896290C9}.Release|Win32.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -349,6 +361,7 @@ Global
 		{1355FF2A-A389-4A36-8A72-883BBAA1D548} = {DB64F93D-6884-43E8-8EB8-0E02D50F4F8C}
 		{8AA0E208-9EC2-477B-BE96-00E4C7B7F827} = {DB64F93D-6884-43E8-8EB8-0E02D50F4F8C}
 		{B377F693-4975-4BB6-A6DC-C0C3844517B1} = {DB64F93D-6884-43E8-8EB8-0E02D50F4F8C}
+		{FA6DEBE0-D78D-437E-B05D-0923896290C9} = {DB64F93D-6884-43E8-8EB8-0E02D50F4F8C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		VisualSVNWorkingCopyRoot = .
