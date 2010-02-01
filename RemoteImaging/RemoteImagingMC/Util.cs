@@ -186,5 +186,12 @@ namespace RemoteImaging
 
             return uuid.ToUpper();
         }
+
+
+        public static void ShowErrorMessage(string msg)
+        {
+            MessageBox.Show(msg, RemoteImaging.Properties.Resources.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
     }
 }

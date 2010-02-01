@@ -29,38 +29,19 @@ namespace RemoteImaging
         [STAThread]
         static void Main(string[] argv)
         {
+
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
             Application.SetUnhandledExceptionMode(UnhandledExceptionMode.ThrowException);
 
 
-            faceSearch = new FaceSearchWrapper.FaceSearch();
-            motionDetector = new MotionDetectWrapper.MotionDetector();
-
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-#if !DEBUG
 
-            if (!Util.VerifyKey())
-            {
-                RegisterForm form = new RegisterForm();
-                DialogResult res = form.ShowDialog();
-                if (res == DialogResult.OK)
-                {
-                    Application.Restart();
-                }
-                
-                return;
-            }
-#endif
+            var controller
+                = new SingleInstanceController();
 
-            if (argv.Length > 0)
-            {
-                directory = argv[0];
-            }
-
-             
-            Application.Run(new MainForm());
+            controller.Run(argv);
 
         }
 
