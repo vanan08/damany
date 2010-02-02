@@ -53,7 +53,6 @@
             this.bLogin.Size = new System.Drawing.Size(75, 23);
             this.bLogin.TabIndex = 15;
             this.bLogin.Text = "登录";
-            this.bLogin.Click += new System.EventHandler(this.bLogin_Click);
             // 
             // lHeader
             // 

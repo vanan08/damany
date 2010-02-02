@@ -55,7 +55,7 @@ namespace RemoteImaging
             sw.Close();
         }
 
-        public static bool VerifyKey()
+        public static bool IsKeyValid()
         {
             string uuid = "";
             string key = "";

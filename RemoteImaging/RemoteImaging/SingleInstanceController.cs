@@ -15,34 +15,57 @@ namespace RemoteImaging
             this.Startup += new Microsoft.VisualBasic.ApplicationServices.StartupEventHandler(SingleInstanceController_Startup);
         }
 
-        void SingleInstanceController_Startup(object sender, Microsoft.VisualBasic.ApplicationServices.StartupEventArgs e)
+        private static DialogResult RequestRegistrationKey()
         {
-
-#if !DEBUG
-
-            if (!Util.VerifyKey())
+            using (var form = new RegisterForm())
             {
-                RegisterForm form = new RegisterForm();
-                DialogResult res = form.ShowDialog();
-                if (res == DialogResult.OK)
+                return form.ShowDialog();
+            }
+        }
+
+
+
+        private static void RequestRegistrationIfInvalidKey(out bool shouldReturn)
+        {
+            shouldReturn = false;
+            if (!Util.IsKeyValid())
+            {
+                var result = RequestRegistrationKey();
+                if (result == DialogResult.OK)
                 {
                     Application.Restart();
                 }
-                
-                e.Cancel = true;
+                shouldReturn = true;
                 return;
             }
-#endif
-
-            if (e.CommandLine.Count  > 0)
-            {
-                Program.directory = e.CommandLine[0];
-            }
+        }
 
 
+        private static void InitProgram(string directory)
+        {
+            Program.directory = directory;
             Program.faceSearch = new FaceSearchWrapper.FaceSearch();
             Program.motionDetector = new MotionDetectWrapper.MotionDetector();
+        }
 
+
+        void SingleInstanceController_Startup(object sender, Microsoft.VisualBasic.ApplicationServices.StartupEventArgs e)
+        {
+            bool shouldReturn;
+            RequestRegistrationIfInvalidKey(out shouldReturn);
+            if (shouldReturn)
+            {
+                e.Cancel = shouldReturn;
+                return;
+            }
+
+            var directory = string.Empty;
+            if (e.CommandLine.Count > 0)
+            {
+                directory = e.CommandLine[0];
+            }
+
+            InitProgram(directory);
         }
 
 
