@@ -9,6 +9,8 @@ namespace Damany.Windows.Form
 
     public partial class SquareListView : UserControl
     {
+        private object imgQueueLocker = new object();
+
         public SquareListView()
         {
             InitializeComponent();
@@ -119,17 +121,24 @@ namespace Damany.Windows.Form
         {
             try
             {
-                if (imgQueue.Count <= 0)
+                ImageCell imgToShow = null;
+                lock (this.imgQueueLocker)
                 {
-                    this.refreshTimer.Enabled = false;
-                    return;
+                    if (imgQueue.Count <= 0)
+                    {
+                        this.refreshTimer.Enabled = false;
+                        return;
+                    }
+                    else
+                    {
+                        imgToShow = imgQueue.Dequeue();
+                    }
                 }
 
                 RepositionCursor();
 
                 ClearPrevCell();
                 Cell dstCell = this.cells[cursor];
-                ImageCell imgToShow = this.imgQueue.Dequeue();
 
                 if (this.AutoDisposeImage && dstCell.Image != null)
                 {
@@ -159,13 +168,17 @@ namespace Damany.Windows.Form
 
         public void ShowImages(ImageCell[] imgs)
         {
-            Array.ForEach(imgs, imgQueue.Enqueue);
-
-            if (imgQueue.Count > 0 && this.Visible)
+            lock (this.imgQueueLocker)
             {
-                refreshTimer.Enabled = true;
-                System.Diagnostics.Debug.WriteLine("tick");
+                Array.ForEach(imgs, imgQueue.Enqueue);
+
+                if (imgQueue.Count > 0 && this.Visible)
+                {
+                    refreshTimer.Enabled = true;
+                    System.Diagnostics.Debug.WriteLine("tick");
+                }
             }
+
         }
 
 
