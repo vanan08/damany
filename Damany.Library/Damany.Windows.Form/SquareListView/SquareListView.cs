@@ -17,10 +17,9 @@ namespace Damany.Windows.Form
 
             this.DoubleBuffered = true;
 
+            refreshTimer = new Timer();
             refreshTimer.Interval = 1000;
-            refreshTimer.Enabled = false;
-            refreshTimer.AutoReset = true;
-            refreshTimer.Elapsed += refreshTimer_Elapsed;
+            refreshTimer.Tick += refreshTimer_Tick;
 
             this.AutoDisposeImage = true;
 
@@ -117,7 +116,7 @@ namespace Damany.Windows.Form
             this.Invalidate(c.Bound);
         }
 
-        void refreshTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        void refreshTimer_Tick(object sender, EventArgs e)
         {
             try
             {
@@ -166,6 +165,21 @@ namespace Damany.Windows.Form
         public bool AutoDisposeImage { get; set; }
 
 
+        private void EnableTimer(bool enable)
+        {
+            Action<bool> ac = e => refreshTimer.Enabled = e;
+
+            if (this.InvokeRequired)
+            {
+                this.BeginInvoke(ac, enable);
+            }
+            else
+            {
+                refreshTimer.Enabled = true;
+
+            }
+
+        }
         public void ShowImages(ImageCell[] imgs)
         {
             lock (this.imgQueueLocker)
@@ -174,7 +188,7 @@ namespace Damany.Windows.Form
 
                 if (imgQueue.Count > 0 && this.Visible)
                 {
-                    refreshTimer.Enabled = true;
+                    EnableTimer(true);
                     System.Diagnostics.Debug.WriteLine("tick");
                 }
             }
@@ -398,7 +412,7 @@ namespace Damany.Windows.Form
 
         int cursor = 0;
         IList<Cell> cells;
-        System.Timers.Timer refreshTimer = new System.Timers.Timer();
+        Timer refreshTimer;
         Queue<ImageCell> imgQueue = new Queue<ImageCell>();
         private int numOfColumns;
         private int numOfRows;
