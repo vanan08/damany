@@ -854,6 +854,11 @@ namespace RemoteImaging.RealtimeDisplay
                         where n.Tag == h
                         select n;
 
+            if (nodes.Count <= 0)
+            {
+                return;
+            }
+
             TreeNode node = nodes.First();
 
             UpdateNodeProperty(node, h);
