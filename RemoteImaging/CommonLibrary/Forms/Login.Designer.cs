@@ -46,6 +46,7 @@
             // 
             // bLogin
             // 
+            this.bLogin.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.bLogin.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.bLogin.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bLogin.Location = new System.Drawing.Point(197, 194);
