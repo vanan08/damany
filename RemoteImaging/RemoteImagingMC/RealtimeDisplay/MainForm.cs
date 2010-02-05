@@ -854,7 +854,7 @@ namespace RemoteImaging.RealtimeDisplay
                         where n.Tag == h
                         select n;
 
-            if (nodes.Count <= 0)
+            if (nodes.Count() <= 0)
             {
                 return;
             }
