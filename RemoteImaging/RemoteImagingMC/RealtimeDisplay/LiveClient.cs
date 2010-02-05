@@ -7,6 +7,7 @@ using System.Net.Sockets;
 using System.Drawing;
 using System.Threading;
 using Damany.RemoteImaging.Common;
+using Microsoft.Practices.EnterpriseLibrary.ExceptionHandling;
 
 namespace RemoteImaging.RealtimeDisplay
 {
@@ -80,8 +81,10 @@ namespace RemoteImaging.RealtimeDisplay
                 }
 
             }
-            catch
+            catch(Exception ex)
             {
+                bool reThrow = ExceptionPolicy.HandleException(ex, Constants.ExceptionPolicyLogging);
+
                 context.Post(o => OnConnectAborted(), null);
             }
             finally
