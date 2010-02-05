@@ -42,6 +42,7 @@ namespace RemoteImaging
             {
                 log = new Login();
                 log.LabelClicked += new EventHandler(log_LabelClicked);
+                log.LoginButtonClick += new EventHandler(log_LoginButtonClick);
                 if (log.ShowDialog() != DialogResult.OK)
                 {
                     e.Cancel = true;
@@ -68,6 +69,12 @@ namespace RemoteImaging
                 Program.directory = e.CommandLine[0];
             }
 
+        }
+
+        void log_LoginButtonClick(object sender, EventArgs e)
+        {
+            Login login = (Login) (sender as Button).Parent;
+            login.Close();
         }
 
         protected override void OnCreateMainForm()
