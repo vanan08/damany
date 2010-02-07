@@ -663,9 +663,16 @@ namespace RemoteImaging.RealtimeDisplay
         }
         private void squareViewContextMenu_Opening(object sender, CancelEventArgs e)
         {
-            this.squareViewContextMenu.Items.Clear();
             Cell c = this.squareListView1.SelectedCell;
+            if (c == null) 
+            {
+                e.Cancel = true;
+                return;
+            }
 
+
+            this.squareViewContextMenu.Items.Clear();
+            
             foreach (TreeNode node in this.hostsTree.Nodes)
             {
                 var host = node.Tag as Host;
