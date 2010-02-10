@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{8FF1A4E7-12EB-4FA5-B527-AEDF8B249CD8}</ProjectGuid>
+    <ProjectGuid>{869E77C3-7619-489B-BA8C-3AAD68F94CFE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>E_Police.BusinessLogic</RootNamespace>
-    <AssemblyName>E-Police.BusinessLogic</AssemblyName>
+    <RootNamespace>Damany.EPolice.Common</RootNamespace>
+    <AssemblyName>Damany.EPolice.Common</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -35,7 +36,6 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
-    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -46,22 +46,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LicensePlateCategory.cs" />
+    <Compile Include="LicensePlate.cs" />
+    <Compile Include="Location.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TrafficLawViolationEvent.cs" />
-    <Compile Include="TrafficMonitorSpot.cs" />
-    <Compile Include="TrafficPoliceDepartment.cs" />
-    <Compile Include="Vehicle.cs" />
-    <Compile Include="VehicleCategory.cs" />
-    <Compile Include="VehicleOwner.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Damany.EPolice.Common\Damany.EPolice.Common.csproj">
-      <Project>{869E77C3-7619-489B-BA8C-3AAD68F94CFE}</Project>
-      <Name>Damany.EPolice.Common</Name>
-    </ProjectReference>
+    <Compile Include="Util\Extensions.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
