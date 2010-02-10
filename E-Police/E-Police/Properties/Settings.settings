@@ -1,0 +1,15 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="E_Police.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="MySettings" Type="System.String" Scope="User">
+      <Value Profile="(Default)">abc</Value>
+    </Setting>
+    <Setting Name="DataInputWidth" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">296</Value>
+    </Setting>
+    <Setting Name="LastViewedFolder" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Program Files\Microsoft Visual Studio 9.0\Common7\IDE</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
