@@ -5,9 +5,15 @@ using System.Text;
 
 namespace Damany.EPolice.Networking.Packets
 {
-    struct Raw
+    public class BinaryPacket
     {
-        public uint Type { get; set; }
-        public byte[] Buffer { get; set; }
+        public BinaryPacket()
+        {
+            this.Header = new Dictionary<string, object>();
+        }
+
+        public IDictionary<string, object> Header { get; set; }
+        public byte[] PayLoadBuffer { get; set; }
+        public object Tag { get; set; }
     }
 }

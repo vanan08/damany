@@ -31,7 +31,7 @@ namespace Damany.EPolice.Networking.Test
             var buffer = Simulator.PacketGenerator.BuildPacket(plateExpected);
 
             var parser = new Networking.Parsers.LicensePlateParser();
-            var plateActual = parser.Parse(buffer, 0, buffer.Length) as Packets.LicensePlatePacket;
+            var plateActual = MbUnit.Framework.Reflection.Reflector.InvokeMethod(parser, "Parse", buffer, 0, buffer.Length) as Packets.LicensePlatePacket;
 
             Assert.AreEqual(plateActual.CaptureLocation.Id, plateExpected.CaptureLocation.Id);
             Assert.AreEqual(plateExpected.LicensePlate.LicenseNumber, plateActual.LicensePlate.LicenseNumber);

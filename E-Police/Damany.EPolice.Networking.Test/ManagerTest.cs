@@ -17,7 +17,6 @@ namespace Damany.EPolice.Networking.Test
             Configuration.Encoding = System.Text.Encoding.Unicode;
             Configuration.RemoteIp = "127.0.0.1";
             Configuration.RemotePort = 10000;
-
         }
 
 
@@ -26,20 +25,17 @@ namespace Damany.EPolice.Networking.Test
         {
             System.Threading.AutoResetEvent evt = new System.Threading.AutoResetEvent(false);
 
-            Manager mnger = new Manager();
-            mnger.SubscribeLicensePlate(licensePlate =>
-                {
-                    System.Diagnostics.Debug.WriteLine(licensePlate.LicensePlate.LicenseNumber);
-                    evt.Set();
-                    
-                });
+            Manager mnger = new Manager(new PacketSplitter());
+            var parser = new Parsers.LicensePlateParser();
+            parser.Handler += licensePlate =>
+            {
+                System.Diagnostics.Debug.WriteLine(licensePlate.LicensePlate.LicenseNumber);
+                evt.Set();
+            };
+            mnger.Parsers.Add(parser);
 
             mnger.Start();
-
-
             evt.WaitOne(5000);
-            
-            
         }
     }
 }
