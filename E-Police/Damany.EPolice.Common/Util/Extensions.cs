@@ -56,5 +56,21 @@ namespace Damany.EPolice.Common.Util
             }
 
         }
+
+        public static void Notify<T>(this Action<T> actionHandler, T t)
+        {
+            if (actionHandler == null) return;
+
+            if (actionHandler.Target is System.Windows.Forms.Control)
+            {
+                var control = actionHandler.Target as System.Windows.Forms.Control;
+                control.BeginInvoke(actionHandler, t);
+            }
+            else
+            {
+                actionHandler(t);
+            }
+
+        }
     }
 }

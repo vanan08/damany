@@ -10,16 +10,29 @@ namespace Damany.EPolice.Networking.Parsers
 
     public class LicensePlateParser : ParserBase, IParser
     {
-        public static event EventHandler<MiscUtil.EventArgs<Packets.LicensePlatePacket>> handlers;
+        public Action<Packets.LicensePlatePacket> Handler;
 
         #region IParser Members
 
-        public bool CanParse(uint type)
+        public bool CanParse(Damany.EPolice.Networking.Packets.BinaryPacket binaryPacket)
         {
-            return type == Settings.Default.LicensePlateType;
+            return ((uint)binaryPacket.Tag) == (uint)Packets.PacketType.LicensePlate;
         }
 
-        public object Parse(byte[] buffer, int offset, int length)
+        public void Parse(Damany.EPolice.Networking.Packets.BinaryPacket binaryPacket)
+        {
+            this.packet = this.Parse(binaryPacket.PayLoadBuffer);
+        }
+
+        #endregion
+
+
+        private Packets.LicensePlatePacket Parse(byte[] buffer)
+        {
+            return Parse(buffer, 0, buffer.Length);
+        }
+
+        private Packets.LicensePlatePacket Parse(byte[] buffer, int offset, int length)
         {
             int cursor = offset;
 
@@ -106,7 +119,11 @@ namespace Damany.EPolice.Networking.Parsers
             return locationId;
         }
 
+        public void NotifyListener()
+        {
+            this.Handler.Notify(this.packet);
+        }
 
-        #endregion
+        private Packets.LicensePlatePacket packet;
     }
 }

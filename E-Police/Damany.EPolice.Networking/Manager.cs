@@ -2,38 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Damany.EPolice.Networking.Parsers;
 
 namespace Damany.EPolice.Networking
 {
 
     public class Manager
     {
-        static Manager()
+
+        public Manager(ISplitter splitter)
         {
-            InitParsers();
-
-            fiber = new Retlang.Fibers.ThreadFiber();
-            fiber.Start();
-        }
-
-
-        private static void InitParsers()
-        {
-            parsers = new Parsers.IParser[]
-		            {
-		                new Parsers.LicensePlateParser(),
-		            };
-        }
-
-
-        public void SubscribeLicensePlate(Action<Packets.LicensePlatePacket> handler)
-        {
-            if (licensePlateChannel == null)
-            {
-                licensePlateChannel = new Retlang.Channels.Channel<Packets.LicensePlatePacket>();
-            }
-
-            licensePlateChannel.Subscribe(fiber, handler);
+            this.splitter = splitter;
+            this.parsers = new List<IParser>();
 
         }
 
@@ -42,37 +22,44 @@ namespace Damany.EPolice.Networking
             var client = new System.Net.Sockets.TcpClient();
             client.Connect(System.Net.IPAddress.Parse(Configuration.RemoteIp), Configuration.RemotePort);
 
-            var splitter = new PacketSplitter(client.GetStream());
-            splitter.PacketCaptured += new EventHandler<MiscUtil.EventArgs<Damany.EPolice.Networking.Packets.Raw>>(splitter_PacketCaptured);
-            splitter.Start();
+            System.Threading.Thread thread = new System.Threading.Thread(this.StartInternal);
+            thread.IsBackground = true;
+            thread.Start(client.GetStream());
         }
 
-        void splitter_PacketCaptured(object sender, MiscUtil.EventArgs<Damany.EPolice.Networking.Packets.Raw> e)
+        public IList<IParser> Parsers
         {
-            foreach (var parser in parsers)
+            get
             {
-                var buffer = e.Value.Buffer;
-                if (parser.CanParse(e.Value.Type))
+                return parsers;
+            }
+        }
+
+        private void StartInternal(object userData)
+        {
+            System.IO.Stream stream = (System.IO.Stream) userData;
+            while (true)
+            {
+                var packetBuffer = this.splitter.ReadNext(stream);
+                HandlePacket(packetBuffer);
+            }
+        }
+
+        private void HandlePacket(Damany.EPolice.Networking.Packets.BinaryPacket packetBuffer)
+        {
+            foreach (var parser in this.Parsers)
+            {
+                if (parser.CanParse(packetBuffer))
                 {
-                    var packet = parser.Parse(buffer, 0, buffer.Length);
-
-                    if (packet is Packets.LicensePlatePacket)
-                    {
-                        licensePlateChannel.Publish( (Packets.LicensePlatePacket) packet);
-                    }
-
-                    break;
+                    parser.Parse(packetBuffer);
+                    parser.NotifyListener();
+                    return;
                 }
             }
-            
         }
+     
+        private IList<IParser> parsers;
+        private ISplitter splitter;
 
-
-
-
-        private static Retlang.Fibers.IFiber fiber;
-        private static Retlang.Channels.Channel<Packets.LicensePlatePacket> licensePlateChannel;
-        private static Parsers.IParser[] parsers;
-        
     }
 }

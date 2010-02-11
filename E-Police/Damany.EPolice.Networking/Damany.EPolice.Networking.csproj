@@ -58,6 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ISplitter.cs" />
     <Compile Include="Manager.cs" />
     <Compile Include="PacketSplitter.cs" />
     <Compile Include="Packets\LicensePlate.cs" />
