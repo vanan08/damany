@@ -8,17 +8,18 @@ namespace Damany.EPolice.Networking.Parsers
     using Common.Util;
     using Damany.EPolice.Common;
 
-    public class LicensePlateParser : ParserBase, IParser<Packets.LicensePlatePacket>
+    public class LicensePlateParser : ParserBase, IParser
     {
+        public static event EventHandler<MiscUtil.EventArgs<Packets.LicensePlatePacket>> handlers;
+
         #region IParser Members
 
-        public bool CanParse(byte[] buffer, int offset, int length)
+        public bool CanParse(uint type)
         {
-            uint type = BitConverter.ToUInt32(buffer, 0);
             return type == Settings.Default.LicensePlateType;
         }
 
-        public Packets.LicensePlatePacket Parse(byte[] buffer, int offset, int length)
+        public object Parse(byte[] buffer, int offset, int length)
         {
             int cursor = offset;
 
@@ -30,7 +31,7 @@ namespace Damany.EPolice.Networking.Parsers
             uint imgCount = BitConverter.ToUInt32(buffer, cursor);
             cursor += 4;
             uint[] imgLen = ParseImageArrayLength(buffer, ref cursor, imgCount);
-            IList<byte[]> images = ParseImgArray(buffer, cursor, imgCount, imgLen);
+            IList<byte[]> images = ParseImgArray(buffer, ref cursor, imgCount, imgLen);
 
             var packet = new Packets.LicensePlatePacket();
             packet.CaptureLocation = new Location(location);
@@ -55,7 +56,7 @@ namespace Damany.EPolice.Networking.Parsers
         }
 
 
-        private static IList<byte[]> ParseImgArray(byte[] buffer, int cursor, uint imgCount, uint[] imgLen)
+        private static IList<byte[]> ParseImgArray(byte[] buffer, ref int cursor, uint imgCount, uint[] imgLen)
         {
             IList<byte[]> imgData = new List<byte[]>();
             for (int i = 0; i < imgCount; ++i)
@@ -76,7 +77,7 @@ namespace Damany.EPolice.Networking.Parsers
         private static string ParsePlateString(byte[] buffer, ref int cursor)
         {
             int plateLen = 16;
-            string plate = GlobalConfiguration.Encoding.GetString(buffer, cursor, plateLen);
+            string plate = Configuration.Encoding.GetString(buffer, cursor, plateLen);
             cursor += plateLen;
 
             return plate;

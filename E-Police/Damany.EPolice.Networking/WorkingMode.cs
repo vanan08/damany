@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Damany.EPolice.Networking.Parsers
+namespace Damany.EPolice.Networking
 {
-    public enum Endian
+    public enum WorkingMode
     {
-        Big, Little
+        Server, Client
     }
 }
