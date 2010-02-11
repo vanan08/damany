@@ -5,9 +5,9 @@ using System.Text;
 
 namespace Damany.EPolice.Networking.Parsers
 {
-    public interface IParser<T>
+    public interface IParser
     {
-        bool CanParse(byte[] bufer, int offset, int length);
-        T Parse(byte[] bufer, int offset, int length);
+        bool CanParse(uint type);
+        object Parse(byte[] bufer, int offset, int length);
     }
 }

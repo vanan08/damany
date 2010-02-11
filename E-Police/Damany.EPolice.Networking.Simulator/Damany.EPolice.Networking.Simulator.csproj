@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{8FF1A4E7-12EB-4FA5-B527-AEDF8B249CD8}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{9DB8DB5C-48FC-41DB-B6B9-8169D28A761C}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>E_Police.BusinessLogic</RootNamespace>
-    <AssemblyName>E-Police.BusinessLogic</AssemblyName>
+    <RootNamespace>Damany.EPolice.Networking.Simulator</RootNamespace>
+    <AssemblyName>Damany.EPolice.Networking.Simulator</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>&lt;Project Location In Database&gt;</SccProjectName>
@@ -35,11 +35,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MiscUtil, Version=1.0.0.0, Culture=neutral, PublicKeyToken=d3c42c4bfacf7596, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Library\MiscUtil\MiscUtil.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
-    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -50,21 +53,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PacketGenerator.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TrafficLawViolationEvent.cs" />
-    <Compile Include="TrafficMonitorSpot.cs" />
-    <Compile Include="TrafficPoliceDepartment.cs" />
-    <Compile Include="Vehicle.cs" />
-    <Compile Include="VehicleCategory.cs" />
-    <Compile Include="VehicleOwner.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Damany.EPolice.Common\Damany.EPolice.Common.csproj">
       <Project>{869E77C3-7619-489B-BA8C-3AAD68F94CFE}</Project>
       <Name>Damany.EPolice.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Damany.EPolice.Networking\Damany.EPolice.Networking.csproj">
+      <Project>{CFE36B05-846C-4439-8C93-DE704FA76C6E}</Project>
+      <Name>Damany.EPolice.Networking</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

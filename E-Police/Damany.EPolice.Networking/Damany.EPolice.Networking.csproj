@@ -12,6 +12,10 @@
     <AssemblyName>Damany.EPolice.Networking</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <SccProjectName>&lt;Project Location In Database&gt;</SccProjectName>
+    <SccLocalPath>&lt;Local Binding Root of Project&gt;</SccLocalPath>
+    <SccAuxPath>&lt;Source Control Database&gt;</SccAuxPath>
+    <SccProvider>Mercurial Source Control Package</SccProvider>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -36,6 +40,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Library\MiscUtil\MiscUtil.dll</HintPath>
     </Reference>
+    <Reference Include="Retlang, Version=0.4.4.0, Culture=neutral, PublicKeyToken=a99b3bce1dc72e93, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Library\Retlang\Retlang.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -50,10 +58,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Manager.cs" />
+    <Compile Include="PacketSplitter.cs" />
     <Compile Include="Packets\LicensePlate.cs" />
     <Compile Include="Packets\PacketType.cs" />
-    <Compile Include="Parsers\Endian.cs" />
-    <Compile Include="Parsers\GlobalConfiguration.cs" />
+    <Compile Include="Packets\Raw.cs" />
+    <Compile Include="Configuration.cs" />
     <Compile Include="Parsers\InvalidPacketFormatException.cs" />
     <Compile Include="Parsers\IParser.cs" />
     <Compile Include="Parsers\LicensePlateParser.cs" />
@@ -64,6 +74,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="WorkingMode.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Damany.EPolice.Common\Damany.EPolice.Common.csproj">

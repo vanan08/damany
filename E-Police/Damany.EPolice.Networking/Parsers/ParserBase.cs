@@ -9,16 +9,11 @@ namespace Damany.EPolice.Networking.Parsers
     {
         public ParserBase()
         {
-            if (GlobalConfiguration.Endian == Endian.Big)
-            {
-                BitConverter = new MiscUtil.Conversion.BigEndianBitConverter();
-            }
-            else
-            {
-                BitConverter = new MiscUtil.Conversion.LittleEndianBitConverter();
-            }
-
+            BitConverter = Configuration.EndianBitConverter;
+            this.Encoding = Configuration.Encoding;
         }
+
+        protected System.Text.Encoding Encoding;
 
         protected readonly MiscUtil.Conversion.EndianBitConverter BitConverter;
     }

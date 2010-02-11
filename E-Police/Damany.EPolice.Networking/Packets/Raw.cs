@@ -5,8 +5,9 @@ using System.Text;
 
 namespace Damany.EPolice.Networking.Packets
 {
-    public enum PacketType : uint
+    struct Raw
     {
-        LicensePlate = 1,
+        public uint Type { get; set; }
+        public byte[] Buffer { get; set; }
     }
 }
