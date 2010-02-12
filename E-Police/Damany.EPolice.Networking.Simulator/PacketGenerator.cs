@@ -46,10 +46,12 @@ namespace Damany.EPolice.Networking.Simulator
 
             plateExpected.LicensePlate = new LicensePlate("cd", "12345678", LicensePlateCategory.Car);
             plateExpected.CaptureLocation = new Location(2);
+
+
             IList<byte[]> imgData = new List<byte[]>();
-            imgData.Add(new byte[] { 0, 1 });
-            imgData.Add(new byte[] { 0, 1, 2 });
-            imgData.Add(new byte[] { 0, 1, 2, 3 });
+            imgData.Add( Resource.Winter );
+            imgData.Add( Resource.Winter );
+            imgData.Add( Resource.Winter );
 
             plateExpected.EvidenceImageData = imgData;
 
