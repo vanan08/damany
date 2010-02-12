@@ -24,6 +24,15 @@ namespace Damany.EPolice.Networking.Test
             worker.Start();
         }
 
+        [FixtureTearDown]
+        public void TearDown()
+        {
+            if (worker != null)
+            {
+                worker.Stop();
+            }
+        }
+
 
         [Test]
         public void Test()
@@ -49,6 +58,7 @@ namespace Damany.EPolice.Networking.Test
 
             mnger.Start();
             evt.WaitOne(10000);
+            mnger.Stop();
 
             Assert.IsNotNull(p);
         }
