@@ -14,20 +14,17 @@ namespace Damany.EPolice.Networking
 
         public BinaryPacket ReadNext(System.IO.Stream stream)
         {
-            using (var reader = new MiscUtil.IO.EndianBinaryReader(Configuration.EndianBitConverter, stream, Configuration.Encoding))
-            {
-                var type = reader.ReadInt32();
+            var reader = new MiscUtil.IO.EndianBinaryReader(Configuration.EndianBitConverter, stream, Configuration.Encoding);
+            var type = reader.ReadInt32();
 
-                var bufferLen = reader.ReadInt32();
-                var buffer = reader.ReadBytes(bufferLen);
+            var bufferLen = reader.ReadInt32();
+            var buffer = reader.ReadBytes(bufferLen);
 
-                var packet = new Packets.BinaryPacket();
-                packet.Tag = (uint)type;
-                packet.PayLoadBuffer = buffer;
+            var packet = new Packets.BinaryPacket();
+            packet.Tag = (uint)type;
+            packet.PayLoadBuffer = buffer;
 
-                return packet;
-            }
-
+            return packet;
         }
 
         #endregion
