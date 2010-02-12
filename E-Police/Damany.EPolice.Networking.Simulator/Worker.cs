@@ -8,28 +8,45 @@ namespace Damany.EPolice.Networking.Simulator
 {
     public class Worker
     {
+        private TcpListener tcpListener;
+        private TcpClient tcpClient;
+        System.Threading.Thread workerThread;
+        bool exit;
+
         public void Start()
         {
-            Action start = DoStart;
-            start.BeginInvoke(null, null);
+            exit = false;
+            workerThread = new System.Threading.Thread(DoStart);
+            workerThread.IsBackground = true;
+            workerThread.Start();
+        }
+
+        public void Stop()
+        {
+            if (workerThread == null) return;
+            if (!workerThread.IsAlive) return;
+
+            exit = true;
+            workerThread.Abort();
         }
 
         private void DoStart()
         {
 
-            TcpListener listener = new TcpListener(Configuration.RemotePort);
-            listener.Start();
+            tcpListener = new TcpListener(Configuration.RemotePort);
+            tcpListener.Start();
 
-            while (true)
+            while (!exit)
             {
-                var client = listener.AcceptTcpClient();
-                var stream = client.GetStream();
+                tcpClient = tcpListener.AcceptTcpClient();
+                tcpListener.BeginAcceptTcpClient()
+                var stream = tcpClient.GetStream();
                 var endianStream = new MiscUtil.IO.EndianBinaryWriter(Configuration.EndianBitConverter,
                                                                         stream,
                                                                         Configuration.Encoding);
                 try
                 {
-                    while (true)
+                    while (!exit)
                     {
                         var pack = PacketGenerator.GetDefaultPacket();
 
