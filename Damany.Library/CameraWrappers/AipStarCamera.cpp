@@ -26,6 +26,9 @@ namespace Damany
 					this->userName = userName;
 					this->password = password;
 					this->hClient = NULL;
+
+					this->tmpFile = System::IO::Path::GetTempFileName();
+
 				}
 
 				~AipStarCamera(void)
@@ -40,13 +43,12 @@ namespace Damany
 
 				virtual array<Byte>^ CaptureImageBytes(void)
 				{
-					System::String^ tempFile = System::IO::Path::GetTempFileName();
-					System::IntPtr ptrFile = Marshal::StringToHGlobalAnsi(tempFile);
-					LPCTSTR pTempFile = static_cast<LPCTSTR>(ptrFile.ToPointer());
-					MP4_ClientCapturePicturefile(this->hClient, pTempFile);
+					System::IntPtr ptrFile = Marshal::StringToHGlobalAnsi(this->tmpFile);
+					LPCTSTR pSzTmpFile = static_cast<LPCTSTR>(ptrFile.ToPointer());
+					MP4_ClientCapturePicturefile(this->hClient, pSzTmpFile);
 					Marshal::FreeHGlobal(ptrFile);
 
-					return System::IO::File::ReadAllBytes(tempFile);
+					return System::IO::File::ReadAllBytes(this->tmpFile);
 				}
 
 				virtual property bool Record 
@@ -132,6 +134,7 @@ namespace Damany
 				String^ userName;
 				String^ password;
 				HANDLE hClient;
+				String^ tmpFile;
 			};
 
 

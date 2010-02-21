@@ -14,26 +14,32 @@ namespace CameraWrappers.Test
         [Test]
         public void Test()
         {
-            Damany.Component.CameraWrappers.AipStarCamera cam =
-                new Damany.Component.CameraWrappers.AipStarCamera("192.168.1.204", 6002, "system", "system");
-            cam.Connect();
-
-            int count = 0;
-
-            while (true)
+            using (Damany.Component.CameraWrappers.AipStarCamera cam =
+                new Damany.Component.CameraWrappers.AipStarCamera("192.168.1.204", 6002, "system", "system"))
             {
-                ++count;
-                var bytes = cam.CaptureImageBytes();
+                cam.Connect();
 
-                if (bytes.Length > 0)
+                System.Threading.Thread.Sleep(3000);
+
+                int count = 0;
+
+                while (count < 500)
                 {
-                    System.Diagnostics.Debug.WriteLine("captured: " + count.ToString());
-                    System.IO.File.WriteAllBytes("img.jpg", bytes);
-                    break;
-                }
-            }
+                    ++count;
+                    var bytes = cam.CaptureImageBytes();
 
-            cam.Dispose();
+                    if (bytes.Length > 0)
+                    {
+                        System.Diagnostics.Debug.WriteLine("captured: " + count.ToString());
+                        System.IO.File.WriteAllBytes("img.jpg", bytes);
+                    }
+                    else
+                    {
+                        System.Diagnostics.Debug.WriteLine("failed: " + count.ToString());
+                    }
+                }
+
+            }
         }
     }
 }
