@@ -99,6 +99,8 @@ namespace Damany
 
 					MP4_ClientSetTranstType(this->hClient, 1);
 					result = MP4_ClientSetTranstPackSize(this->hClient, 4096);
+
+					System::Threading::Thread::Sleep(3000);
 				}
 
 				virtual void Start(void)
