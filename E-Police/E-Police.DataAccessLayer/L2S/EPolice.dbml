@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database Name="TrafficPolice" Class="EPoliceDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=.\sqlexpress;Initial Catalog=TrafficPolice;Integrated Security=True" SettingsObjectName="E_Police.DataAccessLayer.Properties.Settings" SettingsPropertyName="TrafficPoliceConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.MonitorSpots" Member="MonitorSpots">
+    <Type Name="MonitorSpot">
+      <Column Name="ConnectionString" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="MonitorSpotID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="MonitoredBy" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="MonitorSpot_TrafficViolentionEvent" Member="TrafficViolentionEvents" ThisKey="MonitorSpotID" OtherKey="CapturedAt" Type="TrafficViolentionEvent" />
+      <Association Name="TrafficPoliceDepartment_MonitorSpot" Member="TrafficPoliceDepartment" ThisKey="MonitoredBy" OtherKey="DepartmentID" Type="TrafficPoliceDepartment" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TrafficPoliceDepartments" Member="TrafficPoliceDepartments">
+    <Type Name="TrafficPoliceDepartment">
+      <Column Name="Address" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="DepartmentID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="OfficeReportTo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="OfficeAddress" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="TrafficPoliceDepartment_MonitorSpot" Member="MonitorSpots" ThisKey="DepartmentID" OtherKey="MonitoredBy" Type="MonitorSpot" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Owners" Member="Owners">
+    <Type Name="Owner">
+      <Column Name="Addr" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="OwnerID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Phone" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Association Name="Owner_Vehicle" Member="Vehicles" ThisKey="OwnerID" OtherKey="OwnerID" Type="Vehicle" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TrafficViolentionEvents" Member="TrafficViolentionEvents">
+    <Type Name="TrafficViolentionEvent">
+      <Column Name="Description" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="EvidencePicture" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Time" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="VehicleID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CapturedAt" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="EventID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Association Name="MonitorSpot_TrafficViolentionEvent" Member="MonitorSpot" ThisKey="CapturedAt" OtherKey="MonitorSpotID" Type="MonitorSpot" IsForeignKey="true" />
+      <Association Name="Vehicle_TrafficViolentionEvent" Member="Vehicle" ThisKey="VehicleID" OtherKey="VehicleID" Type="Vehicle" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Vehicles" Member="Vehicles">
+    <Type Name="Vehicle">
+      <Column Name="Category" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="VehicleID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="LicenseNumber" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="LicenseAreaCode" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="OwnerID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Vehicle_TrafficViolentionEvent" Member="TrafficViolentionEvents" ThisKey="VehicleID" OtherKey="VehicleID" Type="TrafficViolentionEvent" />
+      <Association Name="Owner_Vehicle" Member="Owner" ThisKey="OwnerID" OtherKey="OwnerID" Type="Owner" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>

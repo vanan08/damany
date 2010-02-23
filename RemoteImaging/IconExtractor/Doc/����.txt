@@ -1,0 +1,11 @@
+FaceSelect中是处理函数，其中有三个接口函数：
+void AddInImage(const char* strFileName);
+void SelectBestImage();
+对应主程序对话框中的“打开文件夹”按钮，前者将指定文件读入内存，后者从读入的图片中选择最优的一张输出到所在文件夹下，命名为“best.bmp”；
+
+void DebugTest(const char *cFileName);
+对应主程序对话框中的“Debug”按钮，读入指定的图片，判断后将检测到得人身（红色）和噪声（蓝色）画框后输出到所在文件夹下，命名为“Result_ImageXX.jpg”；
+
+
+
+运行时将data文件夹复制到C盘根目录下。
