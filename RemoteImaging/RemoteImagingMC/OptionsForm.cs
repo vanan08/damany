@@ -163,7 +163,7 @@ namespace RemoteImaging
 
                 if (userManager.UserNameExists(form.UserName))
                 {
-                    Program.ShowErrorMessage("该用户名已经存在！");
+                    Util.ShowErrorMessage("该用户名已经存在！");
                     return;
                 }
 
@@ -180,7 +180,7 @@ namespace RemoteImaging
         {
             if ((this.usesList.SelectedItem as User).Roles.Contains("admin"))
             {
-                Program.ShowErrorMessage("不能删除'管理员'用户!");
+                Util.ShowErrorMessage("不能删除'管理员'用户!");
                 return;
             }
 

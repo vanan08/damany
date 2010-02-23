@@ -162,14 +162,14 @@ namespace RemoteImaging.ImportPersonCompare
                 ListViewItem lvi = v.FocusedItem;
                 RecognizeResult sm = (RecognizeResult)lvi.SubItems[0].Tag;
                 string range = lvi.SubItems[5].Text;
-                lblTextSim.Text = string.Format("预计范围: {0}  检测结果: {1}", range, sm.similarity);
+                lblTextSim.Text = string.Format("预计范围: {0}  检测结果: {1}", range, sm.Similarity);
                 //犯罪分子图片显示
                 if (picStandard.Image != null)
                 {
                     picStandard.Image.Dispose();
                     picStandard.Image = null;
                 }
-                picStandard.Image = Image.FromFile(Path.Combine(Properties.Settings.Default.FaceSampleLib, sm.fileName));
+                picStandard.Image = Image.FromFile(Path.Combine(Properties.Settings.Default.FaceSampleLib, sm.FileName));
                 btnOK.Enabled = true;
             }
         }

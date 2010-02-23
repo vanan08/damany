@@ -94,7 +94,7 @@ namespace RemoteImaging.ImportPersonCompare
         private static int CompareTarget(ImportantPersonDetail x, ImportantPersonDetail y)
         {
             //similarity is in percent float.
-            return (int) (y.Similarity.similarity*1000 - x.Similarity.similarity*1000);
+            return (int)(y.Similarity.Similarity * 1000 - x.Similarity.Similarity * 1000);
         }
 
         protected void InitControl(List<ImportantPersonDetail> listpersons)
@@ -180,7 +180,7 @@ namespace RemoteImaging.ImportPersonCompare
                 ListViewItem lvi = v.SelectedItems[0];
                 RecognizeResult sm = (RecognizeResult)lvi.SubItems[0].Tag;
                 string range = lvi.SubItems[5].Text;
-                lblTextSim.Text = string.Format("相似度: {0:F0}%", sm.similarity*100);
+                lblTextSim.Text = string.Format("相似度: {0:F0}%", sm.Similarity * 100);
                 //犯罪分子图片显示
                 if (picStandard.Image != null)
                 {

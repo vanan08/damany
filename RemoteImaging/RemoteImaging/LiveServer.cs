@@ -29,11 +29,11 @@ namespace RemoteImaging
 
         void host_ImageCaptured(object sender, ImageCapturedEventArgs e)
         {
-            this.SendLiveImage(e.ImageCaptured);
+            this.EnQueueImage(e.ImageCaptured);
         }
 
 
-        public void SendLiveImage(Image img)
+        public void EnQueueImage(Image img)
         {
             lock (this.locker)
             {
@@ -64,16 +64,20 @@ namespace RemoteImaging
             {
                 while (true)
                 {
-                    if (images.Count > 0)
-                    {
-                        //wait for the client to be ready
-                        client.GetStream().ReadByte();
+                    Image img = null;
 
-                        Image img = null;
-                        lock (this.locker)
+                    lock (this.locker)
+                    {
+                        if (images.Count > 0)
                         {
                             img = images.Dequeue();
                         }
+                    }
+
+                    if (img != null)
+                    {
+                        //wait for the client to be ready
+                        client.GetStream().ReadByte();
 
                         Frame frame = new Frame();
                         frame.image = img;

@@ -25,7 +25,6 @@ namespace FaceProcessingWrapper.Test
         [Test]
         public void TrainTest()
         {
-            svm.Train();
         }
     }
 }

@@ -9,16 +9,17 @@ namespace Damany.Windows.Form
 
     public partial class SquareListView : UserControl
     {
+        private object imgQueueLocker = new object();
+
         public SquareListView()
         {
             InitializeComponent();
 
             this.DoubleBuffered = true;
 
+            refreshTimer = new Timer();
             refreshTimer.Interval = 1000;
-            refreshTimer.Enabled = false;
-            refreshTimer.AutoReset = true;
-            refreshTimer.Elapsed += refreshTimer_Elapsed;
+            refreshTimer.Tick += refreshTimer_Tick;
 
             this.AutoDisposeImage = true;
 
@@ -115,21 +116,28 @@ namespace Damany.Windows.Form
             this.Invalidate(c.Bound);
         }
 
-        void refreshTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        void refreshTimer_Tick(object sender, EventArgs e)
         {
             try
             {
-                if (imgQueue.Count <= 0)
+                ImageCell imgToShow = null;
+                lock (this.imgQueueLocker)
                 {
-                    this.refreshTimer.Enabled = false;
-                    return;
+                    if (imgQueue.Count <= 0)
+                    {
+                        this.refreshTimer.Enabled = false;
+                        return;
+                    }
+                    else
+                    {
+                        imgToShow = imgQueue.Dequeue();
+                    }
                 }
 
                 RepositionCursor();
 
                 ClearPrevCell();
                 Cell dstCell = this.cells[cursor];
-                ImageCell imgToShow = this.imgQueue.Dequeue();
 
                 if (this.AutoDisposeImage && dstCell.Image != null)
                 {
@@ -157,15 +165,34 @@ namespace Damany.Windows.Form
         public bool AutoDisposeImage { get; set; }
 
 
-        public void ShowImages(ImageCell[] imgs)
+        private void EnableTimer(bool enable)
         {
-            Array.ForEach(imgs, imgQueue.Enqueue);
+            Action<bool> ac = e => refreshTimer.Enabled = e;
 
-            if (imgQueue.Count > 0 && this.Visible)
+            if (this.InvokeRequired)
+            {
+                this.BeginInvoke(ac, enable);
+            }
+            else
             {
                 refreshTimer.Enabled = true;
-                System.Diagnostics.Debug.WriteLine("tick");
+
             }
+
+        }
+        public void ShowImages(ImageCell[] imgs)
+        {
+            lock (this.imgQueueLocker)
+            {
+                Array.ForEach(imgs, imgQueue.Enqueue);
+
+                if (imgQueue.Count > 0 && this.Visible)
+                {
+                    EnableTimer(true);
+                    System.Diagnostics.Debug.WriteLine("tick");
+                }
+            }
+
         }
 
 
@@ -385,7 +412,7 @@ namespace Damany.Windows.Form
 
         int cursor = 0;
         IList<Cell> cells;
-        System.Timers.Timer refreshTimer = new System.Timers.Timer();
+        Timer refreshTimer;
         Queue<ImageCell> imgQueue = new Queue<ImageCell>();
         private int numOfColumns;
         private int numOfRows;

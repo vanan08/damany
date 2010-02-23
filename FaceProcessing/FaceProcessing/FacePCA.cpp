@@ -73,8 +73,19 @@ int FacePCA::GetTrainSampleCount()
 	return sampleCount;
 }
 
+void FacePCA::FaceTraining()
+{
+	int width = GetPCAProfileInt(_T("imgWidth"));
+	int height = GetPCAProfileInt(_T("imgHeight"));
+	int eigenNum = GetPCAProfileInt(_T("eigenNum"));
+
+	FaceTraining(width, height, eigenNum);
+}
+
 void FacePCA::FaceTraining(int imgWidth, int imgHeight, int eigenNum)
 {
+	DelPCADataFile();
+
 	CFileFind imageFile;
 	CString fileName;
 	CString imgFileAdd;  
@@ -219,9 +230,9 @@ void FacePCA::Load()
 	ReadFileName(sampleFileName, sampleCount);
 }
 
-void FacePCA::FaceRecognition(float *currentFace, similarityMat *similarity)
+void FacePCA::FaceRecognition(float currentFace[], similarityMat*& similarity, int& count)
 {
-	assert(currentFace != NULL && similarity != NULL);
+	ASSERT(currentFace != NULL);
 
 	CvMat *targetMat = cvCreateMat(imgLen, 1, CV_32FC1);
 	CvMat *targetResult = cvCreateMat(1, eigenNum, CV_32FC1);
@@ -241,6 +252,9 @@ void FacePCA::FaceRecognition(float *currentFace, similarityMat *similarity)
 
 	float coeff = 0.0;
 	float coeffSum = 0.0;
+
+	count = this->sampleCount;
+	similarity = (similarityMat*) ::CoTaskMemAlloc( sizeof(similarityMat) * count );
 
 	for (int i=0; i<sampleCount; i++)//计算得到待识别图片与训练样本之间的差
 	{
@@ -266,6 +280,8 @@ void FacePCA::FaceRecognition(float *currentFace, similarityMat *similarity)
 			maxNum = similarity[i].similarity;
 		}
 	}
+
+
 
 	/////////////////////////////////////加入距离判定后的相似度表示方法////////////////////////////////////////////////
 	if (minNum < 140000000)
@@ -330,7 +346,7 @@ CString FacePCA::GetFileName(int index)
 
 CString FacePCA::GetConfigFile()
 {
-	return Combine(this->rootPath, "config.ini");
+	return Combine(this->rootPath, _T("config.ini"));
 }
 
 CString FacePCA::GetTrainPath()

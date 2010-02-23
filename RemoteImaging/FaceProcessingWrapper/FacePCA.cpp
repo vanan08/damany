@@ -57,25 +57,55 @@ namespace FaceProcessingWrapper {
 
 		static PCA^ LoadFrom(String^ path)
 		{
-			return gcnew PCA(path);
+			PCA^ pca = gcnew PCA(path);
+			pca->Load();
+			
+			return pca;
 		}
 
-		void Train(int imgWidth, int imgHeight, int eigenNum)
+		static void Train(String^ path)
 		{
-			this->pPCA->FaceTraining(imgWidth, imgHeight, eigenNum);
+			PCA^ pca = gcnew PCA(path);
+			pca->InternalTrain();
 		}
+
 
 		array<RecognizeResult^>^ Recognize(array<float>^ faceBitmap)
 		{
-			this->pPCA->FaceRecognition()
+			similarityMat *pResult = NULL;
+			int resultCount = 0;
+			pin_ptr<float> pFace = &faceBitmap[0];
 
-			return gcnew array<RecognizeResult^>(30);
+			try
+			{
+				this->pPCA->FaceRecognition(pFace, pResult, resultCount);
+
+				array<RecognizeResult^>^ result = gcnew array<RecognizeResult^>(resultCount);
+
+				for (int i=0;i<resultCount;++i)
+				{
+					result[i] = gcnew RecognizeResult();
+					result[i]->FileIndex = pResult[i].index;
+					result[i]->Similarity = pResult[i].similarity;
+				}
+
+				return result;
+			}
+			finally
+			{
+				if (pResult != NULL)
+				{
+					Marshal::FreeCoTaskMem( (IntPtr) pResult  );
+				}
+			}
 
 		}
 
 		String^ GetFileName(int index)
 		{
-			return "";
+			CString str = this->pPCA->GetFileName(index);
+
+			return gcnew String( str );
 		}
 
 	private:
@@ -86,18 +116,26 @@ namespace FaceProcessingWrapper {
 			try
 			{
 				this->pPCA = new FacePCA(pPath);
-				this->pPCA->Load();
 			}
 			finally
 			{
 				Marshal::FreeHGlobal(pathPtr);
 			}
-			
+		}
+
+		void InternalTrain()
+		{
+			this->pPCA->FaceTraining();
+		}
+
+
+		void Load()
+		{
+			this->pPCA->Load();
 		}
 
 
 		FacePCA *pPCA;
-
 	};
 
 }

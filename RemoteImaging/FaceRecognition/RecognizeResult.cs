@@ -6,16 +6,24 @@ using System.Runtime.InteropServices;
 
 namespace FaceRecognition
 {
-    [StructLayout(LayoutKind.Sequential)]
     public struct RecognizeResult
     {
 
         /// float
-        public float similarity;
+        private float similarity;
+        public float Similarity
+        {
+            get { return similarity;}
+            set { similarity = value; }
+        }
 
-        /// char*
-        [MarshalAs(UnmanagedType.LPStr)]
-        public String fileName;
+
+        private String fileName;
+        public System.String FileName
+        {
+            get { return fileName; }
+            set { fileName = value; }
+        }
  
     }
 

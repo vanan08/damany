@@ -2,6 +2,7 @@
 //
 
 #include "stdafx.h"
+#include <xlocale>
 #include "FaceSvmApp.h"
 
 #ifdef _DEBUG
@@ -58,6 +59,8 @@ CFaceSvmApp theApp;
 BOOL CFaceSvmApp::InitInstance()
 {
 	CWinApp::InitInstance();
+
+	std::locale::global(std::locale(""));
 
 	return TRUE;
 }

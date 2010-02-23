@@ -46,6 +46,7 @@
             // 
             // bLogin
             // 
+            this.bLogin.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.bLogin.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.bLogin.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bLogin.Location = new System.Drawing.Point(197, 194);
@@ -53,7 +54,6 @@
             this.bLogin.Size = new System.Drawing.Size(75, 23);
             this.bLogin.TabIndex = 15;
             this.bLogin.Text = "登录";
-            this.bLogin.Click += new System.EventHandler(this.bLogin_Click);
             // 
             // lHeader
             // 

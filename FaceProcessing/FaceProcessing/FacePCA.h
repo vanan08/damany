@@ -32,9 +32,10 @@ class DLL_API FacePCA
 public:
 	FacePCA(const char* path); 
 	~FacePCA();
-	void FaceTraining(int imgWidth=100, int imgHeight=100, int eigenNum=40);
+	void FaceTraining();
+	void FaceTraining(int imgWidth, int imgHeight, int eigenNum);
 	void Load();
-	void FaceRecognition(float *currentFace, similarityMat *similarity);
+	void FaceRecognition(float currentFace[], similarityMat*& similarity, int& count);
 	CString GetFileName(int index); 
 
 

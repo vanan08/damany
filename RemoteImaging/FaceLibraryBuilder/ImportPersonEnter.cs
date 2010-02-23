@@ -17,14 +17,20 @@ namespace FaceLibraryBuilder
     public partial class ImportPersonEnter : Form
     {
 
+        SuspectsRepositoryManager mnger;
+        string formText;
+
         public ImportPersonEnter()
         {
             InitializeComponent();
             InitCotrol(false);
+
+            this.formText = this.Text;
         }
-        PersonInfoHandleXml perinfo = PersonInfoHandleXml.GetInstance();
-        string FileSavePath = @"c:\facerecognition\selectedface";
-        string faceFeatureImagePath = @"c:\facerecognition\facesample";
+
+        public string RootDirectoryForImageRepository { get; set; }
+
+
         protected void InitCotrol(bool statu)
         {
             if (!statu)
@@ -75,6 +81,7 @@ namespace FaceLibraryBuilder
             }
         }
 
+
         private void btnOk_Click(object sender, EventArgs e)
         {
             if (this.picTargetPerson.Image == null)
@@ -90,36 +97,8 @@ namespace FaceLibraryBuilder
             }
 
 
-            String oldFileName = this.picTargetPerson.Image.Tag as string;
+            String imageFilePathAbsolute = this.picTargetPerson.Image.Tag as string;
 
-            String fileName = System.Guid.NewGuid().ToString().ToUpper() + System.IO.Path.GetExtension(oldFileName);
-
-            //搜索人脸
-            OpenCvSharp.IplImage iplFace = BitmapConverter.ToIplImage((Bitmap)this.picTargetPerson.Image);
-
-            string savePath = Path.Combine(FileSavePath, fileName);
-            iplFace.SaveImage(savePath);
-
-            //归一化
-            OpenCvSharp.CvRect rect = new OpenCvSharp.CvRect(
-                this.drawRectangle.X,
-                this.drawRectangle.Y,
-                this.drawRectangle.Width,
-                this.drawRectangle.Height);
-
-            OpenCvSharp.IplImage[] normalizedImages =
-                Program.searcher.NormalizeImageForTraining(iplFace, rect);
-
-            for (int i = 0; i < normalizedImages.Length; ++i)
-            {
-                string normalizedFaceName = string.Format("{0}_{1:d4}.jpg",
-                    System.IO.Path.GetFileNameWithoutExtension(fileName), i);
-
-                string fullPath = System.IO.Path.Combine(faceFeatureImagePath,
-                    normalizedFaceName);
-
-                normalizedImages[i].SaveImage(fullPath);
-            }
 
             string id = txtId.Text.ToString();
             string name = txtName.Text.ToString();
@@ -136,14 +115,12 @@ namespace FaceLibraryBuilder
             info.Sex = sex;
             info.Age = age;
             info.CardId = card;
-            info.FileName = fileName;
             info.Similarity = 0;
 
-            perinfo.WriteInfo(info);
+            mnger.AddNewPerson(info, imageFilePathAbsolute, this.drawRectangle);
 
             MessageBox.Show("添加成功");
 
-            Array.ForEach(normalizedImages, ipl => ipl.Dispose());
 
         }
 
@@ -172,29 +149,20 @@ namespace FaceLibraryBuilder
 
         }
 
-        private int GetFaceSamplesCount()
-        {
-            string[] faceSamples = System.IO.Directory.GetFiles(faceFeatureImagePath, "*.jpg");
-            return faceSamples.Length;
-        }
-
 
         private void addFinished_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show(
-                this, 
-                "确定生成人脸特征库？", 
-                "请确认", 
+                this,
+                "确定生成人脸特征库？",
+                "请确认",
                 MessageBoxButtons.YesNo) != DialogResult.Yes) return;
 
 
-            if (GetFaceSamplesCount() < 40)
-            {
-                MessageBox.Show(this, "样本数量不足, 请继续添加", "错误", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                return;
-            }
+            this.mnger.Save();
 
             FormProgress form = new FormProgress();
+            form.Manager = this.mnger;
             form.ShowDialog(this);
 
 
@@ -229,6 +197,10 @@ namespace FaceLibraryBuilder
                     this.InitCotrol(true);
                     drawRectangle = Rectangle.Empty;
 
+                }
+                else if (System.IO.Directory.Exists(files[0]))
+                {
+                    this.OpenExisted(files[0]);
                 }
 
 
@@ -277,7 +249,7 @@ namespace FaceLibraryBuilder
 
             Control ctrl = (Control)sender;
 
-            drawRectangle = ctrl.RectangleToClient(NormalizeRectangle( theRectangle ));
+            drawRectangle = ctrl.RectangleToClient(NormalizeRectangle(theRectangle));
             ctrl.Invalidate();
 
             theRectangle = new Rectangle(0, 0, 0, 0);
@@ -334,6 +306,8 @@ namespace FaceLibraryBuilder
 
             return new Rectangle(x, y, width, height);
         }
+
+
         private void picTargetPerson_Paint(object sender, PaintEventArgs e)
         {
             if (this.drawRectangle.Size != Size.Empty)
@@ -341,6 +315,75 @@ namespace FaceLibraryBuilder
                 e.Graphics.DrawRectangle(Pens.Black, drawRectangle);
             }
 
+        }
+
+        private void EnableButtons()
+        {
+            this.btnAdd.Enabled = true;
+            this.addFinished.Enabled = true;
+        }
+
+        private void UpdateFormText()
+        {
+            this.Text = formText + "-[" + this.RootDirectoryForImageRepository + "]";
+        }
+
+        private string RequestDirectory(out bool shouldReturn)
+        {
+            shouldReturn = false;
+            DialogResult result = this.folderBrowserDialog1.ShowDialog();
+            if (result != DialogResult.OK)
+            {
+                shouldReturn = true;
+                return string.Empty ;
+            }
+
+            return this.folderBrowserDialog1.SelectedPath;
+        }
+
+        private void OpenExisted(string directory)
+        {
+
+            this.RootDirectoryForImageRepository = directory;
+            this.mnger = SuspectsRepositoryManager.LoadFrom(this.RootDirectoryForImageRepository);
+            UpdateFormText();
+            EnableButtons();
+
+
+
+
+        }
+
+        private void CreateNew(string directory)
+        {
+
+            this.RootDirectoryForImageRepository = directory;
+            this.mnger = SuspectsRepositoryManager.CreateNewIn(this.RootDirectoryForImageRepository);
+            UpdateFormText();
+            EnableButtons();
+
+
+        }
+
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            bool shouldReturn;
+            string dir = RequestDirectory(out shouldReturn);
+            if (shouldReturn)
+                return;
+
+            this.OpenExisted(dir);
+        }
+
+        private void newToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            bool shouldReturn;
+            string dir = RequestDirectory(out shouldReturn);
+            if (shouldReturn)
+                return;
+
+
+            this.CreateNew(dir);
         }
 
 
