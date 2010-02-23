@@ -15,40 +15,16 @@ All right reserved!
 #include "stdafx.h"
 #include "PreProcess.h"   
 
-Frame prevFrame ;//存储上一帧的frame    
 
-bool firstFrmRec = false;//第一帧是否收到
-bool secondFrmRec = false;//第二帧是否收到
-
-IplImage *currImg;//当前帧的图片
-IplImage *lastGrayImg;//上一帧灰度图
-IplImage *lastDiffImg;//上一帧差分图的二值化图 
-
-int xLeftAlarm = 100; //定义并初始化警戒区域的两个坐标点位置
-int yTopAlarm = 400;
-int xRightAlarm = 600;
-int yBottomAlarm = 500;  
-
-int minLeftX = 3000;//定义并初始化框框的两个坐标点位置
-int minLeftY = 3000; 
-int maxRightX = 0;
-int maxRightY = 0;
-
-int faceCount = 500; //画框的阈值
-int groupCount = 5;//分组图片个数
-int signelCount = 0;//记录当前分组中的图片数量
-
-bool drawAlarmArea = false;//标志是否画出警戒区域
-bool drawRect = false; //标志是否画框
 
 //标识是否画出红色的框框,通过UI来设定
-void SetDrawRect(bool draw)
+void CMotionDetector::SetDrawRect(bool draw)
 {
 	drawRect = draw;
 }
 
 //设置布控的警戒区域，通过UI来调用该函数;
-void SetAlarmArea(const int leftX, const int leftY, const int rightX, const int rightY, bool draw)
+void CMotionDetector::SetAlarmArea(const int leftX, const int leftY, const int rightX, const int rightY, bool draw)
 {
 	xLeftAlarm = leftX;
 	yTopAlarm = leftY;
@@ -58,14 +34,14 @@ void SetAlarmArea(const int leftX, const int leftY, const int rightX, const int 
 }
 
 //设置运动检测的框框内阈值和分组个数，通过UI来调用该函数
-void SetRectThr(const int fCount, const int gCount)
+void CMotionDetector::SetRectThr(const int fCount, const int gCount)
 {
 	faceCount = fCount;
 	groupCount = gCount;
 }
 
 //计算选定区域内像素点的数值之和,并将数值返回,该函数由PreProcessFrame函数调用 
-int RegionSum(const int left_x, const int left_y, const int right_x, const int right_y, IplImage *img)
+static int RegionSum(const int left_x, const int left_y, const int right_x, const int right_y, IplImage *img)
 {
 	uchar *data = (uchar*)img->imageData;
 	int step = img->widthStep;
@@ -81,7 +57,7 @@ int RegionSum(const int left_x, const int left_y, const int right_x, const int r
 }
 
 //判断警戒区域内是否有运动目标,有运动目标返回true,否则，返回false,该函数由PreProcessFrame函数调用
-bool AlarmArea(const int x_left, const int y_top, const int x_right, const int y_bottom, IplImage *lastDiffImg) 
+static bool AlarmArea(const int x_left, const int y_top, const int x_right, const int y_bottom, IplImage *lastDiffImg) 
 {
 	int step = lastDiffImg->widthStep;
 	uchar *lastDiffData = (uchar*)lastDiffImg->imageData;
@@ -109,7 +85,7 @@ bool AlarmArea(const int x_left, const int y_top, const int x_right, const int y
 } 
 
 //找到框框的两个横坐标位置,该函数由PreProcessFrame函数调用 
-void FindRectX(IplImage *img, const int leftY, const int rightY)
+void CMotionDetector::FindRectX(IplImage *img, const int leftY, const int rightY)
 {
 	int count = (img->width - 100)/20 + 1;
 
@@ -143,7 +119,7 @@ void FindRectX(IplImage *img, const int leftY, const int rightY)
 }
 
 //找到框框的两个纵坐标位置,该函数由PreProcessFrame函数调用  
-void FindRectY(IplImage *img, const int leftX, const int rightX)
+void CMotionDetector::FindRectY(IplImage *img, const int leftX, const int rightX)
 {
 	int count = (img->height - 100)/20 + 1;
 
@@ -179,7 +155,7 @@ void FindRectY(IplImage *img, const int leftX, const int rightX)
 /*每次从摄像头获得一张图片后调用，进行运动目标检测，并画框，
   当完成一个分组后返回true, 分组没结束，则返回false,
   该函数由UI来调用*/
-PREPROCESS_API bool PreProcessFrame(Frame frame, Frame &lastFrame)
+bool CMotionDetector::PreProcessFrame(Frame frame, Frame &lastFrame)
 {
 	Frame tempFrame; 
 	tempFrame = prevFrame; 
