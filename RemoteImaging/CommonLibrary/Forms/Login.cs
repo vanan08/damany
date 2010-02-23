@@ -24,6 +24,31 @@ namespace Damany.RemoteImaging.Common.Forms
             }
         }
 
+        public event EventHandler LoginButtonClick
+        {
+            add
+            {
+                this.bLogin.Click += value;
+            }
+            remove
+            {
+                this.bLogin.Click -= value;
+            }
+        }
+
+        public event EventHandler CancelButtonClick
+        {
+            add
+            {
+                this.cancelButton.Click += value;
+
+            }
+            remove
+            {
+                this.cancelButton.Click -= value;
+            }
+        }
+
         public Login()
         {
             InitializeComponent();
@@ -44,16 +69,6 @@ namespace Damany.RemoteImaging.Common.Forms
             {
                 return this.tbPassword.Text;
             }
-        }
-
-        private void bLogin_Click(object sender, EventArgs e)
-        {
-            if (string.IsNullOrEmpty(this.Password) || string.IsNullOrEmpty(this.UserName))
-                return;
-
-            this.DialogResult = DialogResult.OK;
-
-            this.Close();
         }
     }
 }

@@ -162,10 +162,13 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="ImageRepositoryDirectory" Type="System.String" Scope="User">
-      <Value Profile="(Default)">c:\facerecognition</Value>
+      <Value Profile="(Default)">.\ImgLib</Value>
     </Setting>
     <Setting Name="SVMDirectoryName" Type="System.String" Scope="User">
       <Value Profile="(Default)">SVM</Value>
+    </Setting>
+    <Setting Name="FrontFaceTemplateFile" Type="System.String" Scope="User">
+      <Value Profile="(Default)">.\ImgLib\eyeTemplate.jpg</Value>
     </Setting>
   </Settings>
 </SettingsFile>
