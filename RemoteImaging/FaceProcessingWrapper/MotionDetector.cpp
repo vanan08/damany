@@ -26,7 +26,7 @@ namespace FaceProcessingWrapper
 				}
 			}
 
-			bool PreProcessFrame(ImageProcess::Frame^ frame, [Out] ImageProcess::Frame^ lastFrame)
+			bool PreProcessFrame(ImageProcess::Frame^ frame, [Out] ImageProcess::Frame^ % lastFrame)
 			{
 				Frame f = FaceProcessingWrapper::FrameConverter::ToUnManaged(frame);
 				Frame frameToDispose;
