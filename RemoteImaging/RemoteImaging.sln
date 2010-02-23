@@ -59,6 +59,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuspectsRepository.Test", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Damany.Util", "Damany.Util\Damany.Util.csproj", "{FA6DEBE0-D78D-437E-B05D-0923896290C9}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CameraWrappers", "..\Damany.Library\CameraWrappers\CameraWrappers.vcproj", "{477A59D8-2EC6-4C25-B111-A38B1C9856A6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CameraWrappers.Test", "..\Damany.Library\CameraWrappers.Test\CameraWrappers.Test.csproj", "{6FA66571-1E49-42D8-83B8-6A38B75A85DC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -339,6 +343,26 @@ Global
 		{FA6DEBE0-D78D-437E-B05D-0923896290C9}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{FA6DEBE0-D78D-437E-B05D-0923896290C9}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{FA6DEBE0-D78D-437E-B05D-0923896290C9}.Release|Win32.ActiveCfg = Release|Any CPU
+		{477A59D8-2EC6-4C25-B111-A38B1C9856A6}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{477A59D8-2EC6-4C25-B111-A38B1C9856A6}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{477A59D8-2EC6-4C25-B111-A38B1C9856A6}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{477A59D8-2EC6-4C25-B111-A38B1C9856A6}.Debug|Win32.ActiveCfg = Debug|Win32
+		{477A59D8-2EC6-4C25-B111-A38B1C9856A6}.Debug|Win32.Build.0 = Debug|Win32
+		{477A59D8-2EC6-4C25-B111-A38B1C9856A6}.Release|Any CPU.ActiveCfg = Release|Win32
+		{477A59D8-2EC6-4C25-B111-A38B1C9856A6}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{477A59D8-2EC6-4C25-B111-A38B1C9856A6}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{477A59D8-2EC6-4C25-B111-A38B1C9856A6}.Release|Win32.ActiveCfg = Release|Win32
+		{477A59D8-2EC6-4C25-B111-A38B1C9856A6}.Release|Win32.Build.0 = Release|Win32
+		{6FA66571-1E49-42D8-83B8-6A38B75A85DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FA66571-1E49-42D8-83B8-6A38B75A85DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FA66571-1E49-42D8-83B8-6A38B75A85DC}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{6FA66571-1E49-42D8-83B8-6A38B75A85DC}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{6FA66571-1E49-42D8-83B8-6A38B75A85DC}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{6FA66571-1E49-42D8-83B8-6A38B75A85DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FA66571-1E49-42D8-83B8-6A38B75A85DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6FA66571-1E49-42D8-83B8-6A38B75A85DC}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{6FA66571-1E49-42D8-83B8-6A38B75A85DC}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{6FA66571-1E49-42D8-83B8-6A38B75A85DC}.Release|Win32.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -362,6 +386,8 @@ Global
 		{8AA0E208-9EC2-477B-BE96-00E4C7B7F827} = {DB64F93D-6884-43E8-8EB8-0E02D50F4F8C}
 		{B377F693-4975-4BB6-A6DC-C0C3844517B1} = {DB64F93D-6884-43E8-8EB8-0E02D50F4F8C}
 		{FA6DEBE0-D78D-437E-B05D-0923896290C9} = {DB64F93D-6884-43E8-8EB8-0E02D50F4F8C}
+		{477A59D8-2EC6-4C25-B111-A38B1C9856A6} = {DB64F93D-6884-43E8-8EB8-0E02D50F4F8C}
+		{6FA66571-1E49-42D8-83B8-6A38B75A85DC} = {DB64F93D-6884-43E8-8EB8-0E02D50F4F8C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		VisualSVNWorkingCopyRoot = .
