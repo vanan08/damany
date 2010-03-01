@@ -54,6 +54,9 @@ namespace RemoteImaging.RealtimeDisplay
         FaceSearchWrapper.FaceSearch faceSearcher;
 
 
+        System.Diagnostics.PerformanceCounter memCounter =
+            Damany.Util.PerformanceCounterFactory.CreateMemoryCounter();
+
         private IplImage _BackGround;
         public IplImage BackGround
         {
@@ -298,16 +301,8 @@ namespace RemoteImaging.RealtimeDisplay
 
         private bool cpuOverLoaded()
         {
-            lock (this.framesArrayQueueLocker)
-            {
-
-                bool result = this.framesArrayQueue.Count >= historyFramesQueueLength
-                        && this.framesArrayQueue.Count >= Properties.Settings.Default.MaxFrameQueueLength;
-                historyFramesQueueLength = this.framesArrayQueue.Count;
-
-                return result;
-            }
-
+            var memMB = memCounter.NextValue();
+            return memMB <= 200.0f;
         }
 
         private void FireImageCapturedEvent(Bitmap bmp)
