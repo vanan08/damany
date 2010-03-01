@@ -17,7 +17,6 @@ using RemoteImaging.Core;
 using Microsoft.Win32;
 using Damany.Component;
 using System.Threading;
-using MotionDetectWrapper;
 using RemoteImaging.Query;
 using System.Net.Sockets;
 using Damany.RemoteImaging.Common;
@@ -948,6 +947,7 @@ namespace RemoteImaging.RealtimeDisplay
             try
             {
                 Gateways.CameraConfig.Instance.SetIris(this.SelectedHost.Ip,
+                    0,
                     this.sanyoNetCamera1.IrisMode,
                     this.sanyoNetCamera1.IrisLevel);
 
@@ -969,6 +969,7 @@ namespace RemoteImaging.RealtimeDisplay
             try
             {
                 Gateways.CameraConfig.Instance.SetAgc(this.SelectedHost.Ip,
+                    0,
                    this.sanyoNetCamera1.AgcEnabled,
                    this.sanyoNetCamera1.DigitalGainEnabled);
             }
@@ -987,6 +988,7 @@ namespace RemoteImaging.RealtimeDisplay
             try
             {
                 Gateways.CameraConfig.Instance.SetShutter(this.SelectedHost.Ip,
+                    0,
                     this.sanyoNetCamera1.ShutterMode,
                     this.sanyoNetCamera1.ShutterLevel);
 

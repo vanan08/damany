@@ -32,12 +32,11 @@ namespace RemoteImaging
             InitializeComponent();
             InitCamDatagridView();
 
-            this.envModes.SelectedIndex = Properties.Settings.Default.EnvMode;
             this.rgBrightMode.SelectedIndex = Properties.Settings.Default.BrightMode;
             this.cmbComPort.SelectedText = Properties.Settings.Default.ComName;
             this.textBox4.Text = Properties.Settings.Default.CurIp;
-            this.cbImageArr.Text = Properties.Settings.Default.ImageArr.ToString();
-            this.cbThresholding.Text = Properties.Settings.Default.Thresholding.ToString();
+//             this.cameraSetting1.ImageGroupLength = Properties.Settings.Default.ImageArr;
+//             this.cameraSetting1.MotionRegionAreaLimit = Properties.Settings.Default.Thresholding;
         }
 
         private void InitCamDatagridView()
@@ -153,17 +152,14 @@ namespace RemoteImaging
 
         private void buttonOK_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.EnvMode = this.envModes.SelectedIndex;
             Properties.Settings.Default.BrightMode = this.rgBrightMode.SelectedIndex;
             Properties.Settings.Default.CurIp = this.textBox4.Text;
             Properties.Settings.Default.ComName = this.cmbComPort.Text;
 
 
             //调用的薛晓莉的接口
-            Properties.Settings.Default.ImageArr = Convert.ToInt32(cbImageArr.Text.Trim());
-            Properties.Settings.Default.Thresholding = Convert.ToInt32(cbThresholding.Text.Trim());
-
-            Program.motionDetector.SetRectThr(Properties.Settings.Default.Thresholding, Properties.Settings.Default.ImageArr);
+//             Properties.Settings.Default.ImageArr = this.cameraSetting1.ImageGroupLength;
+//             Properties.Settings.Default.Thresholding = this.cameraSetting1.MotionRegionAreaLimit;
             
         }
 

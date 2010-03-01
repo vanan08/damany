@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Xml.Linq;
 using System.Threading;
+using Db4objects.Db4o;
+using Db4objects.Db4o.Query;
 
 namespace RemoteImaging
 {
@@ -45,6 +47,29 @@ namespace RemoteImaging
             }
 
             doc.Save(Properties.Settings.Default.CamConfigFile);
+
+
+        }
+
+
+        private FaceSearchWrapper.FaceSearchConfiguration faceSearchConfig;
+
+        public FaceSearchWrapper.FaceSearchConfiguration FaceSearchConfig
+        {
+            get
+            {
+                if (this.faceSearchConfig == null)
+                {
+                    using (IObjectContainer db = OpenDb())
+                    {
+                        this.faceSearchConfig =
+                            db.Query<FaceSearchWrapper.FaceSearchConfiguration>().FirstOrDefault();
+                    }
+                }
+
+                return this.faceSearchConfig;
+            }
+
         }
 
 
@@ -83,28 +108,6 @@ namespace RemoteImaging
         public string fileName = Properties.Settings.Default.CamConfigFile;
 
         private static Configuration instance;
-        public Thread thread = null;
-        //获得在线摄像机 
-        public void GetLineCameras()
-        {
-            List<Camera> lineCam = new List<Camera>();
-            List<Camera> trueLineCamera = new List<Camera>();
-            XDocument camXMLDoc = XDocument.Load(fileName);
-            var camsElements = camXMLDoc.Root.Descendants("cam");
-
-            foreach (XElement camElement in camsElements)
-            {
-                int id = int.Parse((string)camElement.Attribute("id"));
-                lineCam.Add(new Camera()
-                {
-                    ID = id,
-                    IpAddress = camElement.Attribute("ip").Value,
-                    Name = camElement.Attribute("name").Value,
-
-                });
-            }
-
-        }
 
         public object GetStationID()
         {
@@ -114,6 +117,11 @@ namespace RemoteImaging
         public int GetReservedSpaceinMB()
         {
             return int.Parse(Properties.Settings.Default.ReservedDiskSpaceMB);
+        }
+
+        private Db4objects.Db4o.IObjectContainer OpenDb()
+        {
+            return Db4objects.Db4o.Db4oFactory.OpenFile("config.db4o");
         }
 
     }

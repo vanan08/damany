@@ -12,12 +12,12 @@ namespace RemoteControlService
     {
 
         [OperationContract]
-        void SetShutter(ShutterMode mode, int level);
+        void SetShutter(int cameraId, ShutterMode mode, int level);
 
         [OperationContract]
-        void SetIris(IrisMode mode, int level);
+        void SetIris(int cameraId, IrisMode mode, int level);
 
         [OperationContract]
-        void SetAGCMode(bool enableAGC, bool enableDigitalGain);
+        void SetAGCMode(int cameraId, bool enableAGC, bool enableDigitalGain);
     }
 }

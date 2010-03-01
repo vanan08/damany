@@ -29,27 +29,27 @@ namespace RemoteImaging.Gateways
         }
 
 
-        public void SetIris(System.Net.IPAddress ip, Damany.Component.IrisMode mode, int level)
+        public void SetIris(System.Net.IPAddress ip, int cameraId, Damany.Component.IrisMode mode, int level)
         {
             EnsureProxyCreated(ip);
 
-            proxies[ip].SetIris(mode, level);
+            proxies[ip].SetIris(cameraId, mode, level);
 
         }
 
-        public void SetShutter(System.Net.IPAddress ip, Damany.Component.ShutterMode mode, int level)
+        public void SetShutter(System.Net.IPAddress ip, int cameraId, Damany.Component.ShutterMode mode, int level)
         {
             EnsureProxyCreated(ip);
 
-            proxies[ip].SetShutter(mode, level);
+            proxies[ip].SetShutter(cameraId, mode, level);
 
         }
 
-        public void SetAgc(System.Net.IPAddress ip, bool agcEnable, bool digitalGainEnable)
+        public void SetAgc(System.Net.IPAddress ip, int cameraId, bool agcEnable, bool digitalGainEnable)
         {
             EnsureProxyCreated(ip);
 
-            proxies[ip].SetAGCMode(agcEnable, digitalGainEnable);
+            proxies[ip].SetAGCMode(cameraId, agcEnable, digitalGainEnable);
 
         }
 

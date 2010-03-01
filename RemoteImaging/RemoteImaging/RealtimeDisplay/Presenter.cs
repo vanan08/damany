@@ -49,7 +49,10 @@ namespace RemoteImaging.RealtimeDisplay
         SVM svm;
         PCA pca;
         FrontFaceChecker frontChecker;
+        MotionDetector motionDetector;
         SuspectsRepository.SuspectsRepositoryManager suspectsMnger;
+        FaceSearchWrapper.FaceSearch faceSearcher;
+
 
         private IplImage _BackGround;
         public IplImage BackGround
@@ -64,6 +67,8 @@ namespace RemoteImaging.RealtimeDisplay
                 value.IsEnabledDispose = false;
             }
         }
+
+        public object Tag { get; set; }
 
         private void UpdateBGInternal(object sender, ImageCapturedEventArgs args)
         {
@@ -109,9 +114,12 @@ namespace RemoteImaging.RealtimeDisplay
             this.camera = camera;
 
 #if DEBUG
-            Properties.Settings.Default.SearchSuspecious = true;
+            Properties.Settings.Default.SearchSuspecious = false;
 #endif
 
+            this.faceSearcher = new FaceSearchWrapper.FaceSearch();
+
+            LoadMotionDetector();
 
             if (Properties.Settings.Default.SearchSuspecious)
             {
@@ -122,7 +130,7 @@ namespace RemoteImaging.RealtimeDisplay
                 this.frontChecker =
                     FrontFaceChecker.FromFile(Properties.Settings.Default.FrontFaceTemplateFile);
 
-                this.suspectsMnger = SuspectsRepository.SuspectsRepositoryManager.LoadFrom( Properties.Settings.Default.ImageRepositoryDirectory );
+                this.suspectsMnger = SuspectsRepository.SuspectsRepositoryManager.LoadFrom(Properties.Settings.Default.ImageRepositoryDirectory);
             }
 
 
@@ -141,7 +149,7 @@ namespace RemoteImaging.RealtimeDisplay
             worker.WorkerReportsProgress = true;
             worker.DoWork += worker_DoWork;
 
-            this.timer.Interval = 1000 / int.Parse(Properties.Settings.Default.FPs);
+            this.timer.Interval = 1000 / float.Parse(Properties.Settings.Default.FPs);
             this.timer.Elapsed += new System.Timers.ElapsedEventHandler(timer_Elapsed);
 
             this.reconnectTimer.Interval = 5000;
@@ -153,9 +161,27 @@ namespace RemoteImaging.RealtimeDisplay
             if (File.Exists("bg.jpg"))
                 BackGround = OpenCvSharp.IplImage.FromFile(@"bg.jpg");
 
-            new Service.ServiceProvider(Program.motionDetector, Program.faceSearch, this, camera).OpenServices();
+            //new Service.ServiceProvider(Program.faceSearch, this, camera).OpenServices();
         }
 
+        private void LoadMotionDetector()
+        {
+            this.motionDetector = new MotionDetector();
+
+            string point = Properties.Settings.Default.Point;
+            if (point != "")
+            {
+                string[] strPoints = point.Split(' ');
+                int oPointx = Convert.ToInt32(strPoints[0]);
+                int oPointy = Convert.ToInt32(strPoints[1]);
+                int tPointx = Convert.ToInt32(strPoints[2]);
+                int tPointy = Convert.ToInt32(strPoints[3]);
+                var rect = new Rectangle(oPointx, oPointy, oPointy + tPointx, oPointy + tPointy);
+                this.motionDetector.ForbiddenRegion = rect;
+            }
+
+            this.motionDetector.SetRectThr(Properties.Settings.Default.Thresholding, Properties.Settings.Default.ImageArr);
+        }
 
         private void NotifyUserError(string msg, string title)
         {
@@ -304,6 +330,7 @@ namespace RemoteImaging.RealtimeDisplay
             {
                 MemoryStream memStream = new MemoryStream(image);
                 bmp = (Bitmap)Image.FromStream(memStream);
+                System.Diagnostics.Debug.WriteLine("captured frame in " + this.Tag.ToString());
             }
             catch (System.ArgumentException ex)//图片格式出错
             {
@@ -365,8 +392,7 @@ namespace RemoteImaging.RealtimeDisplay
                 {
                     Frame lastFrame = new Frame();
 
-                    bool groupCaptured = Program.motionDetector.DetectFrame(nextFrame, lastFrame);
-
+                    bool groupCaptured = this.motionDetector.PreProcessFrame(nextFrame, out lastFrame);
 
                     if (IsStaticFrame(lastFrame))
                     {
@@ -465,8 +491,8 @@ namespace RemoteImaging.RealtimeDisplay
                 this.worker.RunWorkerAsync();
             }
 
-            if (this.liveServer == null)
-                ThreadPool.QueueUserWorkItem(this.StartServer, 20000);
+//             if (this.liveServer == null)
+//                 ThreadPool.QueueUserWorkItem(this.StartServer, 20000);
 
 
 
@@ -538,10 +564,10 @@ namespace RemoteImaging.RealtimeDisplay
                 {
                     foreach (var f in frames)
                     {
-                        Program.faceSearch.AddInFrame(f);
+                        this.faceSearcher.AddInFrame(f);
                     }
 
-                    ImageProcess.Target[] targets = Program.faceSearch.SearchFaces();
+                    ImageProcess.Target[] targets = this.faceSearcher.SearchFaces();
 
                     ImageDetail[] imgs = this.SaveImage(targets);
                     this.screen.ShowImages(imgs);
@@ -579,7 +605,7 @@ namespace RemoteImaging.RealtimeDisplay
             {
                 for (int i = 0; i < t.Faces.Length; ++i)
                 {
-                    IplImage normalized = Program.faceSearch.NormalizeImage(t.BaseFrame.image, t.FacesRectsForCompare[i]);
+                    IplImage normalized = this.faceSearcher.NormalizeImage(t.BaseFrame.image, t.FacesRectsForCompare[i]);
 
 #if DEBUG
                     var bmp = BitmapConverter.ToBitmap(normalized);
