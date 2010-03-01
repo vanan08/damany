@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PerformanceCounterFactory.cs" />
     <Compile Include="SingleInstanceController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
