@@ -51,6 +51,9 @@ namespace RemoteImaging.RealtimeDisplay
         FrontFaceChecker frontChecker;
         SuspectsRepository.SuspectsRepositoryManager suspectsMnger;
 
+        System.Diagnostics.PerformanceCounter memCounter =
+            Damany.Util.PerformanceCounterFactory.CreateMemoryCounter();
+
         private IplImage _BackGround;
         public IplImage BackGround
         {
@@ -141,7 +144,7 @@ namespace RemoteImaging.RealtimeDisplay
             worker.WorkerReportsProgress = true;
             worker.DoWork += worker_DoWork;
 
-            this.timer.Interval = 1000 / int.Parse(Properties.Settings.Default.FPs);
+            this.timer.Interval = 1000 / float.Parse(Properties.Settings.Default.FPs);
             this.timer.Elapsed += new System.Timers.ElapsedEventHandler(timer_Elapsed);
 
             this.reconnectTimer.Interval = 5000;
@@ -272,16 +275,8 @@ namespace RemoteImaging.RealtimeDisplay
 
         private bool cpuOverLoaded()
         {
-            lock (this.framesArrayQueueLocker)
-            {
-
-                bool result = this.framesArrayQueue.Count >= historyFramesQueueLength
-                        && this.framesArrayQueue.Count >= Properties.Settings.Default.MaxFrameQueueLength;
-                historyFramesQueueLength = this.framesArrayQueue.Count;
-
-                return result;
-            }
-
+            var memMB = memCounter.NextValue();
+            return memMB <= 200.0f;
         }
 
         private void FireImageCapturedEvent(Bitmap bmp)
