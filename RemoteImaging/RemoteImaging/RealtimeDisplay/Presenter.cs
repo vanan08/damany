@@ -594,6 +594,19 @@ namespace RemoteImaging.RealtimeDisplay
         }
 
 
+        public PersonInfo FindWanted(string fileName)
+        {
+            var wantedQuery = suspectsMnger.Peoples.Where(p =>
+                {
+                    int idx = fileName.IndexOf('_');
+                    fileName = fileName.Remove(idx, 5);
+                    return p.FileName.Contains(fileName);
+                });
+
+            return wantedQuery.FirstOrDefault();
+        }
+
+
         private void DetectSuspecious(Target[] targets)
         {
             foreach (var t in targets)
@@ -628,34 +641,15 @@ namespace RemoteImaging.RealtimeDisplay
 
                     var pcaRecognizeResult = this.pca.Recognize(imgData);
 
-                    var filtered =
-                        Array.FindAll(pcaRecognizeResult, r => r.Similarity > 0.85);
+                    var query = from result in pcaRecognizeResult
+                                let fileName = this.pca.GetFileName(result.FileIndex)
+                                let wanted = this.FindWanted(fileName)
+                                where result.Similarity > 0.85 && wanted != null
+                                select new ImportantPersonDetail(
+                                    wanted,
+                                    new FaceRecognition.RecognizeResult { FileName = fileName, Similarity = result.Similarity });
 
-                    if (filtered.Length == 0) continue;
-
-                    int j = 0;
-
-                    IList<ImportantPersonDetail> details =
-                        new List<ImportantPersonDetail>();
-
-                    foreach (PersonInfo p in this.suspectsMnger.Peoples)
-                    {
-                        foreach (var result in filtered)
-                        {
-                            string fileName = System.IO.Path.GetFileName(this.pca.GetFileName(result.FileIndex));
-
-                            int idx = fileName.IndexOf('_');
-                            fileName = fileName.Remove(idx, 5);
-
-                            if (p.FileName.Contains(fileName))
-                            {
-                                details.Add(new ImportantPersonDetail(p,
-                                    new FaceRecognition.RecognizeResult { FileName = fileName, Similarity = result.Similarity }));
-                            }
-                        }
-                    }
-
-                    ImportantPersonDetail[] distinct = details.Distinct(new ImportantPersonComparer()).ToArray();
+                    ImportantPersonDetail[] distinct = query.Distinct(new ImportantPersonComparer()).ToArray();
 
                     if (distinct.Length == 0) continue;
 
