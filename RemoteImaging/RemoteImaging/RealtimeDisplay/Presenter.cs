@@ -49,7 +49,10 @@ namespace RemoteImaging.RealtimeDisplay
         SVM svm;
         PCA pca;
         FrontFaceChecker frontChecker;
+        MotionDetector motionDetector;
         SuspectsRepository.SuspectsRepositoryManager suspectsMnger;
+        FaceSearchWrapper.FaceSearch faceSearcher;
+
 
         System.Diagnostics.PerformanceCounter memCounter =
             Damany.Util.PerformanceCounterFactory.CreateMemoryCounter();
@@ -67,6 +70,8 @@ namespace RemoteImaging.RealtimeDisplay
                 value.IsEnabledDispose = false;
             }
         }
+
+        public object Tag { get; set; }
 
         private void UpdateBGInternal(object sender, ImageCapturedEventArgs args)
         {
@@ -112,9 +117,12 @@ namespace RemoteImaging.RealtimeDisplay
             this.camera = camera;
 
 #if DEBUG
-            Properties.Settings.Default.SearchSuspecious = true;
+            Properties.Settings.Default.SearchSuspecious = false;
 #endif
 
+            this.faceSearcher = new FaceSearchWrapper.FaceSearch();
+
+            LoadMotionDetector();
 
             if (Properties.Settings.Default.SearchSuspecious)
             {
@@ -125,7 +133,7 @@ namespace RemoteImaging.RealtimeDisplay
                 this.frontChecker =
                     FrontFaceChecker.FromFile(Properties.Settings.Default.FrontFaceTemplateFile);
 
-                this.suspectsMnger = SuspectsRepository.SuspectsRepositoryManager.LoadFrom( Properties.Settings.Default.ImageRepositoryDirectory );
+                this.suspectsMnger = SuspectsRepository.SuspectsRepositoryManager.LoadFrom(Properties.Settings.Default.ImageRepositoryDirectory);
             }
 
 
@@ -156,9 +164,27 @@ namespace RemoteImaging.RealtimeDisplay
             if (File.Exists("bg.jpg"))
                 BackGround = OpenCvSharp.IplImage.FromFile(@"bg.jpg");
 
-            new Service.ServiceProvider(Program.motionDetector, Program.faceSearch, this, camera).OpenServices();
+            //new Service.ServiceProvider(Program.faceSearch, this, camera).OpenServices();
         }
 
+        private void LoadMotionDetector()
+        {
+            this.motionDetector = new MotionDetector();
+
+            string point = Properties.Settings.Default.Point;
+            if (point != "")
+            {
+                string[] strPoints = point.Split(' ');
+                int oPointx = Convert.ToInt32(strPoints[0]);
+                int oPointy = Convert.ToInt32(strPoints[1]);
+                int tPointx = Convert.ToInt32(strPoints[2]);
+                int tPointy = Convert.ToInt32(strPoints[3]);
+                var rect = new Rectangle(oPointx, oPointy, oPointy + tPointx, oPointy + tPointy);
+                this.motionDetector.ForbiddenRegion = rect;
+            }
+
+            this.motionDetector.SetRectThr(Properties.Settings.Default.Thresholding, Properties.Settings.Default.ImageArr);
+        }
 
         private void NotifyUserError(string msg, string title)
         {
@@ -360,8 +386,7 @@ namespace RemoteImaging.RealtimeDisplay
                 {
                     Frame lastFrame = new Frame();
 
-                    bool groupCaptured = Program.motionDetector.DetectFrame(nextFrame, lastFrame);
-
+                    bool groupCaptured = this.motionDetector.PreProcessFrame(nextFrame, out lastFrame);
 
                     if (IsStaticFrame(lastFrame))
                     {
@@ -460,8 +485,8 @@ namespace RemoteImaging.RealtimeDisplay
                 this.worker.RunWorkerAsync();
             }
 
-            if (this.liveServer == null)
-                ThreadPool.QueueUserWorkItem(this.StartServer, 20000);
+//             if (this.liveServer == null)
+//                 ThreadPool.QueueUserWorkItem(this.StartServer, 20000);
 
 
 
@@ -490,18 +515,7 @@ namespace RemoteImaging.RealtimeDisplay
                 for (int j = 0; j < t.Faces.Length; ++j)
                 {
                     string facePath = FileSystemStorage.PathForFaceImage(frame, j);
-                    try
-                    {
-                        t.Faces[j].SaveImage(facePath);
-                    }
-                    catch (System.IO.IOException ex)
-                    {
-                        bool rethrow = ExceptionPolicy.HandleException(ex, Constants.ExceptionHandlingLogging);
-                        if (rethrow)
-                        {
-                            throw;
-                        }
-                    }
+                    t.Faces[j].SaveImage(facePath);
 
                     imgs.Add(ImageDetail.FromPath(facePath));
                 }
@@ -520,38 +534,50 @@ namespace RemoteImaging.RealtimeDisplay
         {
             while (true)
             {
-                Frame[] frames = null;
-                lock (framesArrayQueueLocker)
+                try
                 {
-                    if (framesArrayQueue.Count > 0)
+                    Frame[] frames = null;
+                    lock (framesArrayQueueLocker)
                     {
-                        frames = framesArrayQueue.Dequeue();
-                    }
-                }
-
-                if (frames != null && frames.Length > 0)
-                {
-                    foreach (var f in frames)
-                    {
-                        Program.faceSearch.AddInFrame(f);
+                        if (framesArrayQueue.Count > 0)
+                        {
+                            frames = framesArrayQueue.Dequeue();
+                        }
                     }
 
-                    ImageProcess.Target[] targets = Program.faceSearch.SearchFaces();
-
-                    ImageDetail[] imgs = this.SaveImage(targets);
-                    this.screen.ShowImages(imgs);
-
-                    if (Properties.Settings.Default.SearchSuspecious) DetectSuspecious(targets);
-
-                    Array.ForEach(frames, f => { IntPtr cvPtr = f.image.CvPtr; OpenCvSharp.Cv.Release(ref cvPtr); f.image.Dispose(); });
-                    Array.ForEach(targets, t =>
+                    if (frames != null && frames.Length > 0)
                     {
-                        Array.ForEach(t.Faces, ipl => { ipl.IsEnabledDispose = true; ipl.Dispose(); });
-                        t.BaseFrame.image.Dispose();
-                    });
+                        foreach (var f in frames)
+                        {
+                            this.faceSearcher.AddInFrame(f);
+                        }
+
+                        ImageProcess.Target[] targets = this.faceSearcher.SearchFaces();
+
+                        ImageDetail[] imgs = this.SaveImage(targets);
+                        this.screen.ShowImages(imgs);
+
+                        if (Properties.Settings.Default.SearchSuspecious) DetectSuspecious(targets);
+
+                        Array.ForEach(frames, f => { IntPtr cvPtr = f.image.CvPtr; OpenCvSharp.Cv.Release(ref cvPtr); f.image.Dispose(); });
+                        Array.ForEach(targets, t =>
+                        {
+                            Array.ForEach(t.Faces, ipl => { ipl.IsEnabledDispose = true; ipl.Dispose(); });
+                            t.BaseFrame.image.Dispose();
+                        });
+                    }
+                    else
+                        goSearch.WaitOne();
+
                 }
-                else
-                    goSearch.WaitOne();
+                catch (System.Exception ex)
+                {
+                    bool reThrow = ExceptionPolicy.HandleException(ex, Constants.ExceptionHandlingLogging);
+                    if (reThrow)
+                    {
+                        throw;
+                    }
+                }
 
             }
         }
@@ -568,13 +594,26 @@ namespace RemoteImaging.RealtimeDisplay
         }
 
 
+        public PersonInfo FindWanted(string fileName)
+        {
+            var wantedQuery = suspectsMnger.Peoples.Where(p =>
+                {
+                    int idx = fileName.IndexOf('_');
+                    fileName = fileName.Remove(idx, 5);
+                    return p.FileName.Contains(fileName);
+                });
+
+            return wantedQuery.FirstOrDefault();
+        }
+
+
         private void DetectSuspecious(Target[] targets)
         {
             foreach (var t in targets)
             {
                 for (int i = 0; i < t.Faces.Length; ++i)
                 {
-                    IplImage normalized = Program.faceSearch.NormalizeImage(t.BaseFrame.image, t.FacesRectsForCompare[i]);
+                    IplImage normalized = this.faceSearcher.NormalizeImage(t.BaseFrame.image, t.FacesRectsForCompare[i]);
 
 #if DEBUG
                     var bmp = BitmapConverter.ToBitmap(normalized);
@@ -602,34 +641,20 @@ namespace RemoteImaging.RealtimeDisplay
 
                     var pcaRecognizeResult = this.pca.Recognize(imgData);
 
-                    var filtered =
-                        Array.FindAll(pcaRecognizeResult, r => r.Similarity > 0.85);
+                    var bigSimilarityQuery = from result in pcaRecognizeResult
+                                             where result.Similarity > 0.85
+                                             select result;
+                    
+                    var wantedQuery = from sim in bigSimilarityQuery
+                                      join wanted in this.suspectsMnger.Peoples
+                                        on pca.GetFileName(sim.FileIndex) equals wanted.FileName.Substring(0, 5)
+                                      select new ImportantPersonDetail(
+                                                    wanted,
+                                                    new FaceRecognition.RecognizeResult {
+                                                                    FileName = wanted.FileName, 
+                                                                    Similarity = sim.Similarity });
 
-                    if (filtered.Length == 0) continue;
-
-                    int j = 0;
-
-                    IList<ImportantPersonDetail> details =
-                        new List<ImportantPersonDetail>();
-
-                    foreach (PersonInfo p in this.suspectsMnger.Peoples)
-                    {
-                        foreach (var result in filtered)
-                        {
-                            string fileName = System.IO.Path.GetFileName(this.pca.GetFileName(result.FileIndex));
-
-                            int idx = fileName.IndexOf('_');
-                            fileName = fileName.Remove(idx, 5);
-
-                            if (p.FileName.Contains(fileName))
-                            {
-                                details.Add(new ImportantPersonDetail(p,
-                                    new FaceRecognition.RecognizeResult { FileName = fileName, Similarity = result.Similarity }));
-                            }
-                        }
-                    }
-
-                    ImportantPersonDetail[] distinct = details.Distinct(new ImportantPersonComparer()).ToArray();
+                    ImportantPersonDetail[] distinct = wantedQuery.Distinct(new ImportantPersonComparer()).ToArray();
 
                     if (distinct.Length == 0) continue;
 

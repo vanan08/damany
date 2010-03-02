@@ -39,6 +39,14 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AForge.Imaging, Version=1.1.0.0, Culture=neutral, PublicKeyToken=d604c8342bbdeba9, processorArchitecture=MSIL" />
+    <Reference Include="Db4objects.Db4o, Version=7.4.132.14220, Culture=neutral, PublicKeyToken=6199cd4f203aa8eb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files\Db4objects\db4o-7.4\bin\net-3.5\Db4objects.Db4o.dll</HintPath>
+    </Reference>
+    <Reference Include="Db4objects.Db4o.Linq, Version=7.4.132.14220, Culture=neutral, PublicKeyToken=6199cd4f203aa8eb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files\Db4objects\db4o-7.4\bin\net-3.5\Db4objects.Db4o.Linq.dll</HintPath>
+    </Reference>
     <Reference Include="DevExpress.BonusSkins.v9.2, Version=9.2.9.0, Culture=neutral, PublicKeyToken=95fc6c5621878f0a" />
     <Reference Include="DevExpress.Data.v9.2, Version=9.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.OfficeSkins.v9.2, Version=9.2.9.0, Culture=neutral, PublicKeyToken=95fc6c5621878f0a" />
@@ -462,10 +470,6 @@
     <ProjectReference Include="..\Messages\Messages.csproj">
       <Project>{80A13967-C4D2-4B5A-909D-FA595F57F88D}</Project>
       <Name>Messages</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MotionDetectWrapper\MotionDetectWrapper.vcproj">
-      <Project>{135CB419-42DC-468F-A6A5-C368AE5D7E8D}</Project>
-      <Name>MotionDetectWrapper</Name>
     </ProjectReference>
     <ProjectReference Include="..\RemoteControlService\RemoteControlService.csproj">
       <Project>{3F01A85F-C1C4-4060-AA37-57AB6F0C90AB}</Project>
