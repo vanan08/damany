@@ -282,7 +282,7 @@ namespace RemoteImaging.RealtimeDisplay
             {
                 try
                 {
-                    Image img = Image.FromFile(value.Path);
+                    Image img = Damany.Util.Extensions.MiscHelper.FromFileBuffered(value.Path);
                     this.pictureEdit1.Image = img;
                     this.pictureEdit1.Tag = value;
                 }
@@ -305,7 +305,7 @@ namespace RemoteImaging.RealtimeDisplay
 
             Image oldFace = this.liveFace.Image;
 
-            this.liveFace.Image = Image.FromFile(images.Last().Path);
+            this.liveFace.Image = Damany.Util.Extensions.MiscHelper.FromFileBuffered(images.Last().Path);
 
             if (oldFace != null)
             {
@@ -317,7 +317,7 @@ namespace RemoteImaging.RealtimeDisplay
             ImageCell[] cells = new ImageCell[images.Length];
             for (int i = 0; i < cells.Length; i++)
             {
-                Image img = Image.FromFile(images[i].Path);
+                Image img = Damany.Util.Extensions.MiscHelper.FromFileBuffered(images[i].Path);
                 string text = images[i].CaptureTime.ToString();
                 ImageCell newCell = new ImageCell() { Image = img, Path = images[i].Path, Text = text, Tag = null };
                 cells[i] = newCell;

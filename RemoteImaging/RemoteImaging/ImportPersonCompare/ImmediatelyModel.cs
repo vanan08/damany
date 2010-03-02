@@ -66,7 +66,7 @@ namespace RemoteImaging.ImportPersonCompare
         //public string PicCheckFilePath
         //{
         //    private get { return picCheckFilePath; }
-        //    set { picCheck.Image = Image.FromFile(value.ToString()); }
+        //    set { picCheck.Image = Damany.Util.Extensions.MiscHelper.FromFileBuffered(value.ToString()); }
         //}
 
         /// <summary>
@@ -191,7 +191,7 @@ namespace RemoteImaging.ImportPersonCompare
                 string path = Path.Combine(Properties.Settings.Default.ImpSelectPersonPath, lvi.SubItems[1].Tag as string);
 
 
-                picStandard.Image = Image.FromFile(path);
+                picStandard.Image = Damany.Util.Extensions.MiscHelper.FromFileBuffered(path);
                 btnOK.Enabled = true;
             }
         }

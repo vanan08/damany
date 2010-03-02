@@ -69,7 +69,7 @@ namespace FaceLibraryBuilder
                     if (temp.EndsWith(".jpg") || temp.EndsWith(".bmp"))
                     {
                         string name = ofd.SafeFileName;
-                        picTargetPerson.Image = Image.FromFile(temp);
+                        picTargetPerson.Image = Damany.Util.Extensions.MiscHelper.FromFileBuffered(temp);
                         picTargetPerson.Image.Tag = name;
                         InitCotrol(true);
                     }
@@ -191,7 +191,7 @@ namespace FaceLibraryBuilder
                 {
                     InitCotrol(true);
 
-                    Image img = Image.FromFile(files[0]);
+                    Image img = Damany.Util.Extensions.MiscHelper.FromFileBuffered(files[0]);
                     img.Tag = files[0];
                     this.picTargetPerson.Image = img;
                     this.InitCotrol(true);

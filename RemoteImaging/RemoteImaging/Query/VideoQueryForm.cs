@@ -178,7 +178,7 @@ namespace RemoteImaging.Query
                 Image img = null;
                 try
                 {
-                    img = Image.FromFile(fileArr[i]);
+                    img = Damany.Util.Extensions.MiscHelper.FromFileBuffered(fileArr[i]);
                 }
                 catch (System.Exception ex)
                 {

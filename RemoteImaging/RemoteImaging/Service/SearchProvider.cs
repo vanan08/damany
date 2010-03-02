@@ -33,11 +33,11 @@ namespace RemoteImaging.Service
 
         public ImagePair GetFace(string path)
         {
-            Bitmap face = (Bitmap)Image.FromFile(path);
+            Bitmap face = (Bitmap)Damany.Util.Extensions.MiscHelper.FromFileBuffered(path);
 
             string bigImgPath = FileSystemStorage.BigImgPathForFace(Core.ImageDetail.FromPath(path));
 
-            Bitmap big = (Bitmap)Image.FromFile(bigImgPath);
+            Bitmap big = (Bitmap)Damany.Util.Extensions.MiscHelper.FromFileBuffered(bigImgPath);
 
             ImagePair ip = new ImagePair();
             ip.Face = face;

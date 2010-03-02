@@ -84,6 +84,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Damany.Util\Damany.Util.csproj">
+      <Project>{FA6DEBE0-D78D-437E-B05D-0923896290C9}</Project>
+      <Name>Damany.Util</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FaceProcessingWrapper\FaceProcessingWrapper.vcproj">
       <Project>{02B00EA5-D734-429C-BF58-44769501B940}</Project>
       <Name>FaceProcessingWrapper</Name>
@@ -115,7 +119,7 @@
   -->
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_BuildAction="ReBuild" BuildVersion_ConfigurationName="Release" BuildVersion_BuildVersioningStyle="None.None.Increment.None" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_UpdateFileVersion="True" />
+      <UserProperties BuildVersion_UpdateFileVersion="True" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_BuildVersioningStyle="None.None.Increment.None" BuildVersion_ConfigurationName="Release" BuildVersion_BuildAction="ReBuild" />
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>
