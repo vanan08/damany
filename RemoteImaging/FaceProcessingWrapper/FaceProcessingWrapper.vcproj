@@ -189,6 +189,15 @@
 			AssemblyName="OpenCvSharp, Version=2.0.3497.28493, processorArchitecture=MSIL"
 			MinFrameworkVersion="131072"
 		/>
+		<ProjectReference
+			ReferencedProjectIdentifier="{C917EC7F-9A59-4845-9108-87056AC61D4F}"
+			RelativePathToProject=".\IconExtractor\ImageProcessing.csproj"
+		/>
+		<AssemblyReference
+			RelativePath="System.Drawing.dll"
+			AssemblyName="System.Drawing, Version=2.0.0.0, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL"
+			MinFrameworkVersion="131072"
+		/>
 	</References>
 	<Files>
 		<Filter
@@ -201,6 +210,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Converter.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\FacePCA.cpp"
 				>
 			</File>
@@ -210,6 +223,10 @@
 			</File>
 			<File
 				RelativePath=".\FrontFaceChecker.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\MotionDetector.cpp"
 				>
 			</File>
 			<File
@@ -238,6 +255,10 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
+			<File
+				RelativePath=".\Converter.h"
+				>
+			</File>
 			<File
 				RelativePath=".\resource.h"
 				>

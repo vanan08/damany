@@ -205,7 +205,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Frame.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\FrontFaceChecker.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\MotionDetector.cpp"
 				>
 			</File>
 			<File
@@ -255,7 +263,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Frame.h"
+				>
+			</File>
+			<File
 				RelativePath=".\FrontFaceChecker.h"
+				>
+			</File>
+			<File
+				RelativePath=".\MotionDetector.h"
 				>
 			</File>
 			<File

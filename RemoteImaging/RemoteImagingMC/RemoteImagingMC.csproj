@@ -436,10 +436,6 @@
       <Project>{80A13967-C4D2-4B5A-909D-FA595F57F88D}</Project>
       <Name>Messages</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MotionDetectWrapper\MotionDetectWrapper.vcproj">
-      <Project>{135CB419-42DC-468F-A6A5-C368AE5D7E8D}</Project>
-      <Name>MotionDetectWrapper</Name>
-    </ProjectReference>
     <ProjectReference Include="..\RemoteControlService\RemoteControlService.csproj">
       <Project>{3F01A85F-C1C4-4060-AA37-57AB6F0C90AB}</Project>
       <Name>RemoteControlService</Name>

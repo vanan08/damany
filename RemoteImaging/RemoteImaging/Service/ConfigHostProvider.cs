@@ -10,24 +10,24 @@ namespace RemoteImaging.Service
     public class ConfigHostProvider : RemoteControlService.IConfigHost
     {
         object locker = new object();
-        MotionDetectWrapper.MotionDetector motionDetector;
+        //MotionDetectWrapper.MotionDetector motionDetector;
         FaceSearchWrapper.FaceSearch faceSearcher;
         RealtimeDisplay.Presenter presenter;
 
         public ConfigHostProvider(
-            MotionDetectWrapper.MotionDetector detector,
+            //MotionDetectWrapper.MotionDetector detector,
             FaceSearchWrapper.FaceSearch searcher,
             RealtimeDisplay.Presenter presenter)
         {
             if (presenter == null)
                 throw new ArgumentNullException("presenter", "presenter is null.");
-            if (detector == null)
-                throw new ArgumentNullException("detector", "detector is null.");
+//             if (detector == null)
+//                 throw new ArgumentNullException("detector", "detector is null.");
             if (searcher == null)
                 throw new ArgumentNullException("searcher", "searcher is null.");
 
 
-            this.motionDetector = detector;
+            //this.motionDetector = detector;
             this.faceSearcher = searcher;
             this.presenter = presenter;
         }
@@ -41,11 +41,11 @@ namespace RemoteImaging.Service
 
         public void SetForbiddenRegion(System.Drawing.Rectangle rect)
         {
-            motionDetector.SetAlarmArea(
-                rect.Left, 
-                rect.Y, 
-                rect.Left + rect.Width, 
-                rect.Y + rect.Height, false);
+//             motionDetector.SetAlarmArea(
+//                 rect.Left, 
+//                 rect.Y, 
+//                 rect.Left + rect.Width, 
+//                 rect.Y + rect.Height, false);
         }
 
         public void UpdateBackgroundImage()
