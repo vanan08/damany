@@ -641,15 +641,20 @@ namespace RemoteImaging.RealtimeDisplay
 
                     var pcaRecognizeResult = this.pca.Recognize(imgData);
 
-                    var query = from result in pcaRecognizeResult
-                                let fileName = this.pca.GetFileName(result.FileIndex)
-                                let wanted = this.FindWanted(fileName)
-                                where result.Similarity > 0.85 && wanted != null
-                                select new ImportantPersonDetail(
-                                    wanted,
-                                    new FaceRecognition.RecognizeResult { FileName = fileName, Similarity = result.Similarity });
+                    var bigSimilarityQuery = from result in pcaRecognizeResult
+                                             where result.Similarity > 0.85
+                                             select result;
+                    
+                    var wantedQuery = from sim in bigSimilarityQuery
+                                      join wanted in this.suspectsMnger.Peoples
+                                        on pca.GetFileName(sim.FileIndex) equals wanted.FileName.Substring(0, 5)
+                                      select new ImportantPersonDetail(
+                                                    wanted,
+                                                    new FaceRecognition.RecognizeResult {
+                                                                    FileName = wanted.FileName, 
+                                                                    Similarity = sim.Similarity });
 
-                    ImportantPersonDetail[] distinct = query.Distinct(new ImportantPersonComparer()).ToArray();
+                    ImportantPersonDetail[] distinct = wantedQuery.Distinct(new ImportantPersonComparer()).ToArray();
 
                     if (distinct.Length == 0) continue;
 
