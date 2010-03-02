@@ -325,7 +325,6 @@ namespace RemoteImaging.RealtimeDisplay
             {
                 MemoryStream memStream = new MemoryStream(image);
                 bmp = (Bitmap)Image.FromStream(memStream);
-                System.Diagnostics.Debug.WriteLine("captured frame in " + this.Tag.ToString());
             }
             catch (System.ArgumentException ex)//图片格式出错
             {
@@ -516,18 +515,7 @@ namespace RemoteImaging.RealtimeDisplay
                 for (int j = 0; j < t.Faces.Length; ++j)
                 {
                     string facePath = FileSystemStorage.PathForFaceImage(frame, j);
-                    try
-                    {
-                        t.Faces[j].SaveImage(facePath);
-                    }
-                    catch (System.IO.IOException ex)
-                    {
-                        bool rethrow = ExceptionPolicy.HandleException(ex, Constants.ExceptionHandlingLogging);
-                        if (rethrow)
-                        {
-                            throw;
-                        }
-                    }
+                    t.Faces[j].SaveImage(facePath);
 
                     imgs.Add(ImageDetail.FromPath(facePath));
                 }
@@ -546,38 +534,50 @@ namespace RemoteImaging.RealtimeDisplay
         {
             while (true)
             {
-                Frame[] frames = null;
-                lock (framesArrayQueueLocker)
+                try
                 {
-                    if (framesArrayQueue.Count > 0)
+                    Frame[] frames = null;
+                    lock (framesArrayQueueLocker)
                     {
-                        frames = framesArrayQueue.Dequeue();
-                    }
-                }
-
-                if (frames != null && frames.Length > 0)
-                {
-                    foreach (var f in frames)
-                    {
-                        this.faceSearcher.AddInFrame(f);
+                        if (framesArrayQueue.Count > 0)
+                        {
+                            frames = framesArrayQueue.Dequeue();
+                        }
                     }
 
-                    ImageProcess.Target[] targets = this.faceSearcher.SearchFaces();
-
-                    ImageDetail[] imgs = this.SaveImage(targets);
-                    this.screen.ShowImages(imgs);
-
-                    if (Properties.Settings.Default.SearchSuspecious) DetectSuspecious(targets);
-
-                    Array.ForEach(frames, f => { IntPtr cvPtr = f.image.CvPtr; OpenCvSharp.Cv.Release(ref cvPtr); f.image.Dispose(); });
-                    Array.ForEach(targets, t =>
+                    if (frames != null && frames.Length > 0)
                     {
-                        Array.ForEach(t.Faces, ipl => { ipl.IsEnabledDispose = true; ipl.Dispose(); });
-                        t.BaseFrame.image.Dispose();
-                    });
+                        foreach (var f in frames)
+                        {
+                            this.faceSearcher.AddInFrame(f);
+                        }
+
+                        ImageProcess.Target[] targets = this.faceSearcher.SearchFaces();
+
+                        ImageDetail[] imgs = this.SaveImage(targets);
+                        this.screen.ShowImages(imgs);
+
+                        if (Properties.Settings.Default.SearchSuspecious) DetectSuspecious(targets);
+
+                        Array.ForEach(frames, f => { IntPtr cvPtr = f.image.CvPtr; OpenCvSharp.Cv.Release(ref cvPtr); f.image.Dispose(); });
+                        Array.ForEach(targets, t =>
+                        {
+                            Array.ForEach(t.Faces, ipl => { ipl.IsEnabledDispose = true; ipl.Dispose(); });
+                            t.BaseFrame.image.Dispose();
+                        });
+                    }
+                    else
+                        goSearch.WaitOne();
+
                 }
-                else
-                    goSearch.WaitOne();
+                catch (System.Exception ex)
+                {
+                    bool reThrow = ExceptionPolicy.HandleException(ex, Constants.ExceptionHandlingLogging);
+                    if (reThrow)
+                    {
+                        throw;
+                    }
+                }
 
             }
         }
