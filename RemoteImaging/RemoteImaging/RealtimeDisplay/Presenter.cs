@@ -276,7 +276,7 @@ namespace RemoteImaging.RealtimeDisplay
         private bool cpuOverLoaded()
         {
             var memMB = memCounter.NextValue();
-            return memMB <= 200.0f;
+            return memMB <= 500.0f;
         }
 
         private void FireImageCapturedEvent(Bitmap bmp)
