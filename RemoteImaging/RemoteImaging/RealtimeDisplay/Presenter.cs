@@ -321,10 +321,10 @@ namespace RemoteImaging.RealtimeDisplay
                     this.rawFrames.Clear();
                 }
 
-                Array.ForEach(framesToDispose, f =>
+                Array.ForEach(framesToDispose, fr =>
                 {
-                    f.image.IsEnabledDispose = true;
-                    f.image.Dispose();
+                    fr.image.IsEnabledDispose = true;
+                    fr.image.Dispose();
                 });
 
                 return;
