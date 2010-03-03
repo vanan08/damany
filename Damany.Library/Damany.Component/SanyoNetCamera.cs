@@ -484,6 +484,9 @@ namespace Damany.Component
             throw new NotImplementedException();
         }
 
+        public Uri Location { get; set; }
+        public int ID { get; set; }
+
         #endregion
 
 
