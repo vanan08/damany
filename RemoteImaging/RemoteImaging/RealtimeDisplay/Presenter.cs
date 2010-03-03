@@ -312,7 +312,23 @@ namespace RemoteImaging.RealtimeDisplay
 
             FireImageCapturedEvent(bmp);
 
-            if (this.cpuOverLoaded()) return;
+            if (this.cpuOverLoaded())
+            {
+                Frame[] framesToDispose = null;
+                lock (this.rawFrameLocker)
+                {
+                    framesToDispose = this.rawFrames.ToArray();
+                    this.rawFrames.Clear();
+                }
+
+                Array.ForEach(framesToDispose, f =>
+                {
+                    f.image.IsEnabledDispose = true;
+                    f.image.Dispose();
+                });
+
+                return;
+            }
 
             Frame f = new Frame();
             f.timeStamp = DateTime.Now.Ticks;
