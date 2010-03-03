@@ -34,7 +34,6 @@ namespace RemoteImaging.RealtimeDisplay
             diskSpaceCheckTimer.Interval = Properties.Settings.Default.FreeDiskspaceCheckIntervalMs;
 
 
-            config.GetLineCameras();
             Properties.Settings setting = Properties.Settings.Default;
 
             cpuCounter = new PerformanceCounter();
@@ -59,11 +58,11 @@ namespace RemoteImaging.RealtimeDisplay
             //StartSetCam(setting);//根据光亮值设置相机
 
             SetMonitor();//启动布控
-            Program.motionDetector.SetRectThr(setting.Thresholding, setting.ImageArr);//调用分组设置值
+            //Program.motionDetector.SetRectThr(setting.Thresholding, setting.ImageArr);//调用分组设置值
 
             InitStatusBar();
 
-            Program.motionDetector.DrawMotionRect = setting.DrawMotionRect;
+            //Program.motionDetector.DrawMotionRect = setting.DrawMotionRect;
 
             var faceSearchConfig = new FaceSearchWrapper.FaceSearchConfiguration();
 
@@ -84,7 +83,7 @@ namespace RemoteImaging.RealtimeDisplay
                               int.Parse(setting.SrchRegionWidth),
                               int.Parse(setting.SrchRegionHeight));
 
-            Program.faceSearch.Configuration = faceSearchConfig;
+            
         }
 
 
@@ -98,7 +97,7 @@ namespace RemoteImaging.RealtimeDisplay
                 int oPointy = Convert.ToInt32(strPoints[1]);
                 int tPointx = Convert.ToInt32(strPoints[2]);
                 int tPointy = Convert.ToInt32(strPoints[3]);
-                Program.motionDetector.SetAlarmArea(oPointx, oPointy, tPointx, tPointy, false);
+                //Program.motionDetector.SetAlarmArea(oPointx, oPointy, tPointx, tPointy, false);
             }
         }
 
@@ -473,23 +472,9 @@ namespace RemoteImaging.RealtimeDisplay
             float maxFaceWidthRatio,
             Rectangle SearchRectangle)
         {
-            Program.faceSearch.SetExRatio(topRatio,
-                                    bottomRatio,
-                                    leftRatio,
-                                    rightRatio);
+            
 
-
-            Program.faceSearch.SetROI(SearchRectangle.Left,
-                SearchRectangle.Top,
-                SearchRectangle.Width - 1,
-                SearchRectangle.Height - 1
-                );
-
-
-            Program.faceSearch.SetFaceParas(minFaceWidth, maxFaceWidthRatio);
-
-
-            Program.faceSearch.SetLightMode(envMode);
+           
         }
 
 
@@ -839,8 +824,30 @@ namespace RemoteImaging.RealtimeDisplay
 
         int? lastSelCamID = null;
 
+        private Presenter CreatePresenter(string ip, string userName, string passWord, int port)
+        {
+            var cam1 = new Damany.Component.CameraWrappers.AipStarCamera(ip, port, userName, passWord);
+            cam1.Connect();
+            var presenter = new Presenter(this, cam1);
+            presenter.Start();
+            presenter.Tag = ip;
+            return presenter;
+        }
         private void StartCamera(Camera cam)
         {
+            var userName = "system";
+            var passWord = "system";
+            var port = 6002;
+
+            var presenter = CreatePresenter("192.168.1.204", userName, passWord, port);
+            CreatePresenter("192.168.1.205", userName, passWord, port);
+            CreatePresenter("192.168.1.206", userName, passWord, port);
+            CreatePresenter("192.168.1.207", userName, passWord, port);
+
+            return;
+
+
+
             SynchronizationContext context = SynchronizationContext.Current;
 
             ICamera Icam = null;
@@ -923,6 +930,8 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+
+
 #if DEBUG
             testButton.Visible = true;
             testButton.Click += new EventHandler(testButton_Click);
@@ -945,10 +954,6 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if ((config.thread != null) && (config.thread.IsAlive))
-            {
-                config.thread.Abort();
-            }
             if ((thread != null) && (thread.IsAlive))
             {
                 thread.Abort();

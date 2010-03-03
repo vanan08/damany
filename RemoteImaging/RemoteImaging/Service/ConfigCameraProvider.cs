@@ -23,18 +23,18 @@ namespace RemoteImaging.Service
 
         #region IConfigCamera Members
 
-        public void SetAGCMode(bool enableAGC, bool enableDigitalGain)
+        public void SetAGCMode(int cameraId, bool enableAGC, bool enableDigitalGain)
         {
             this.camera.SetAGCMode(enableAGC, enableDigitalGain);
         }
 
 
-        public void SetShutter(ShutterMode mode, int level)
+        public void SetShutter(int cameraId, ShutterMode mode, int level)
         {
             this.camera.SetShutter(mode, level);
         }
 
-        public void SetIris(IrisMode mode, int level)
+        public void SetIris(int cameraId, IrisMode mode, int level)
         {
             this.camera.SetIris(mode, level);
         }
