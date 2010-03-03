@@ -314,17 +314,20 @@ namespace RemoteImaging.RealtimeDisplay
 
             if (this.cpuOverLoaded())
             {
-                Frame[] framesToDispose = null;
-                lock (this.rawFrameLocker)
+                Frame[][] frameArrayToDispose = null;
+                lock (this.framesArrayQueueLocker)
                 {
-                    framesToDispose = this.rawFrames.ToArray();
-                    this.rawFrames.Clear();
+                    frameArrayToDispose = this.framesArrayQueue.ToArray();
+                    this.framesArrayQueue.Clear();
                 }
 
-                Array.ForEach(framesToDispose, fr =>
+                Array.ForEach(frameArrayToDispose, ar =>
                 {
-                    fr.image.IsEnabledDispose = true;
-                    fr.image.Dispose();
+                    Array.ForEach(ar, fr =>
+                    {
+                        fr.image.IsEnabledDispose = true;
+                        fr.image.Dispose();
+                    });
                 });
 
                 return;
