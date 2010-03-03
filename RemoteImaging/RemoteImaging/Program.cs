@@ -18,9 +18,12 @@ namespace RemoteImaging
         public static int ImageLen = 100*100;
         public static int EigenNum = 40;
 
-        public static FaceSearchWrapper.FaceSearch faceSearch;
-        public static MotionDetectWrapper.MotionDetector motionDetector;
-
+        [STAThread]
+        public static bool Run()
+        {
+            Main(new string[0]);
+            return true;
+        }
   
 
         /// <summary>

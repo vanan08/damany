@@ -44,8 +44,7 @@ namespace RemoteImaging
         private static void InitProgram(string directory)
         {
             Program.directory = directory;
-            Program.faceSearch = new FaceSearchWrapper.FaceSearch();
-            Program.motionDetector = new MotionDetectWrapper.MotionDetector();
+            
         }
 
 

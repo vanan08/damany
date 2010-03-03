@@ -15,7 +15,6 @@ namespace Damany.Component.Test
     {
         SanyoNetCamera camera = null;
 
-
         [FixtureSetUp]
         public void init()
         {

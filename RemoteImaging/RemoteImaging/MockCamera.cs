@@ -10,16 +10,20 @@ namespace RemoteImaging
     {
         int idx;
         string[] files;
+        string directoryPath;
 
         public MockCamera(string path)
+        {
+            this.directoryPath = path;
+        }
+
+        private void LoadFolder(string path)
         {
             files = System.IO.Directory.GetFiles(path, "*.jpg");
             Array.Sort(files);
 
             this.Repeat = true;
-
         }
-
         public bool Repeat { get; set; }
 
 
@@ -32,22 +36,27 @@ namespace RemoteImaging
 
         public byte[] CaptureImageBytes()
         {
+            try
+            {
+                string file = files[idx];
 
-            string file = files[idx];
+                byte[] data = System.IO.File.ReadAllBytes(file);
 
-            System.Diagnostics.Debug.WriteLine(idx);
+                idx = (idx + 1) % this.files.Length;
 
-            byte[] data = System.IO.File.ReadAllBytes(file);
-
-            idx = (idx + 1) % this.files.Length;
-
-            return data;
+                return data;
+            }
+            catch (System.IO.IOException ex)
+            {
+                throw new System.Net.WebException("can't load file", ex);
+            }
         }
 
 
 
         public void Connect()
         {
+            LoadFolder(this.directoryPath);
         }
 
         #endregion
