@@ -128,6 +128,32 @@ namespace Damany
 
 				}
 
+				virtual property System::Uri^ Location 
+				{ 
+					System::Uri^ get()
+					{
+						return this->location;
+
+					}
+					void set(System::Uri^ value)
+					{
+						this->location = value;
+					}
+				}
+
+				virtual property int ID
+				{ 
+					int get()
+					{
+						return this->id;
+					}
+					void set(int id)
+					{
+						this->id = id;
+					}
+				}
+
+
 				
 
 			private:
@@ -137,6 +163,8 @@ namespace Damany
 				String^ password;
 				HANDLE hClient;
 				String^ tmpFile;
+				System::Uri^ location;
+				int id;
 			};
 
 

@@ -19,5 +19,9 @@ namespace Damany.Component
         void SetAGCMode(bool enableAGC, bool enableDigitalGain);
         void SetShutter(ShutterMode mode, int level);
         void SetIris(IrisMode mode, int level);
+
+        Uri Location { get; set; }
+        int ID { get; set; }
+
     }
 }

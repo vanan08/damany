@@ -99,5 +99,9 @@ namespace RemoteImaging
         }
 
         #endregion
+
+        public Uri Location { get; set; }
+        public int ID { get; set; }
+
     }
 }
