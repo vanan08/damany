@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" ?>
+<Root>
+  <WarnDisk>
+    <Type>WarnDisk</Type>
+    <Value>400MB</Value>
+    <SettedTime>2009-8-4 11:23:29</SettedTime>
+  </WarnDisk>
+  <Video>
+    <Type>Video</Type>
+    <Value>3</Value>
+    <SettedTime>2009-8-4 11:23:29</SettedTime>
+  </Video>
+</Root>

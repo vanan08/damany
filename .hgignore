@@ -1,0 +1,18 @@
+syntax: glob
+*.obj
+*.pdb
+*.lib
+bin
+obj
+.svn
+Debug
+Release
+Disk
+*.user
+*.exe
+*.msi
+*.aps
+*.ncb
+*.suo
+*.db
+*.Cache

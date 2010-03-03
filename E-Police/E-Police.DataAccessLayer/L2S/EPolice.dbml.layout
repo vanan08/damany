@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="EPolice">
+  <DataContextMoniker Name="/EPoliceDataContext" />
+  <nestedChildShapes>
+    <classShape Id="35c49865-9307-4a19-863f-6291505d317a" absoluteBounds="6.75, 3.625, 2, 1.5631534830729166">
+      <DataClassMoniker Name="/EPoliceDataContext/MonitorSpot" />
+      <nestedChildShapes>
+        <elementListCompartment Id="17084efc-77dd-494a-b628-2d9760888888" absoluteBounds="6.7650000000000006, 4.085, 1.9700000000000002, 1.0031534830729165" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="85067ae3-aec0-4c0c-b031-185107550c80" absoluteBounds="6.625, 0.625, 2, 1.7526472981770831">
+      <DataClassMoniker Name="/EPoliceDataContext/TrafficPoliceDepartment" />
+      <nestedChildShapes>
+        <elementListCompartment Id="99441021-8bf2-4472-ab2e-f59ea61e04a9" absoluteBounds="6.64, 1.085, 1.9700000000000002, 1.1926472981770833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(7.90625 : 2.37764729817708); (7.90625 : 3.625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/EPoliceDataContext/TrafficPoliceDepartment/TrafficPoliceDepartment_MonitorSpot" />
+      <nodes>
+        <classShapeMoniker Id="85067ae3-aec0-4c0c-b031-185107550c80" />
+        <classShapeMoniker Id="35c49865-9307-4a19-863f-6291505d317a" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="d56398b4-9a79-4788-aa8f-90f0425f250b" absoluteBounds="0.5, 0.75, 2, 1.5631534830729166">
+      <DataClassMoniker Name="/EPoliceDataContext/Owner" />
+      <nestedChildShapes>
+        <elementListCompartment Id="ab96f9d5-c783-42e9-96e6-77721437c09b" absoluteBounds="0.51500000000000012, 1.21, 1.9700000000000002, 1.0031534830729165" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="5a29ff89-8244-4155-adb5-46d445e51b12" absoluteBounds="0.625, 3.375, 2, 1.94214111328125">
+      <DataClassMoniker Name="/EPoliceDataContext/TrafficViolentionEvent" />
+      <nestedChildShapes>
+        <elementListCompartment Id="16b69ebf-8189-43d0-8fe1-152c9c01f76b" absoluteBounds="0.64000000000000012, 3.835, 1.9700000000000002, 1.38214111328125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(6.75 : 4.40657674153646); (2.625 : 4.40657674153646)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/EPoliceDataContext/MonitorSpot/MonitorSpot_TrafficViolentionEvent" />
+      <nodes>
+        <classShapeMoniker Id="35c49865-9307-4a19-863f-6291505d317a" />
+        <classShapeMoniker Id="5a29ff89-8244-4155-adb5-46d445e51b12" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="d363a877-ff10-4c88-9c43-cd092a1be557" absoluteBounds="3.875, 0.875, 2, 1.7526472981770831">
+      <DataClassMoniker Name="/EPoliceDataContext/Vehicle" />
+      <nestedChildShapes>
+        <elementListCompartment Id="092c17d9-3b06-496b-b92c-c113d589798f" absoluteBounds="3.8899999999999997, 1.335, 1.9700000000000002, 1.1926472981770833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(4.875 : 2.62764729817708); (4.875 : 3.85953587076823); (2.625 : 3.85953587076823)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/EPoliceDataContext/Vehicle/Vehicle_TrafficViolentionEvent" />
+      <nodes>
+        <classShapeMoniker Id="d363a877-ff10-4c88-9c43-cd092a1be557" />
+        <classShapeMoniker Id="5a29ff89-8244-4155-adb5-46d445e51b12" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.5 : 1.59407674153646); (3.875 : 1.59407674153646)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/EPoliceDataContext/Owner/Owner_Vehicle" />
+      <nodes>
+        <classShapeMoniker Id="d56398b4-9a79-4788-aa8f-90f0425f250b" />
+        <classShapeMoniker Id="d363a877-ff10-4c88-9c43-cd092a1be557" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

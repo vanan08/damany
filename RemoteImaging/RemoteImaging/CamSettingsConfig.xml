@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SettingItem>
+   <Indoor_Front><!--室内顺光-->
+    <illumination value="10" iris="100" shutter="2" agc="1"></illumination>
+    <illumination value="20" iris="100" shutter="2" agc="1"></illumination>
+    <illumination value="30" iris="90" shutter="2" agc="1"></illumination>
+    <illumination value="40" iris="80" shutter="2" agc="1"></illumination>
+    <illumination value="50" iris="75" shutter="2" agc="1"></illumination>
+    <illumination value="60" iris="70" shutter="2" agc="1"></illumination>
+    <illumination value="70" iris="65" shutter="2" agc="1"></illumination>
+    <illumination value="80" iris="60" shutter="2" agc="1"></illumination>
+    <illumination value="90" iris="55" shutter="2" agc="1"></illumination>
+    <illumination value="100" iris="55" shutter="2" agc="1"></illumination>
+    <illumination value="110" iris="50" shutter="2" agc="1"></illumination>
+    <illumination value="120" iris="50" shutter="2" agc="1"></illumination>
+    <illumination value="130" iris="50" shutter="2" agc="1"></illumination>
+    <illumination value="140" iris="45" shutter="2" agc="1"></illumination>
+    <illumination value="150" iris="70" shutter="2" agc="0"></illumination>
+    <illumination value="160" iris="65" shutter="2" agc="0"></illumination>
+    <illumination value="170" iris="60" shutter="2" agc="0"></illumination>
+    <illumination value="180" iris="60" shutter="2" agc="0"></illumination>
+    <illumination value="190" iris="60" shutter="2" agc="0"></illumination>
+    <illumination value="200" iris="60" shutter="2" agc="0"></illumination>
+    <illumination value="210" iris="65" shutter="2" agc="0"></illumination>
+    <illumination value="220" iris="60" shutter="2" agc="0"></illumination>
+    <illumination value="230" iris="50" shutter="2" agc="0"></illumination>
+    <illumination value="240" iris="42" shutter="2" agc="0"></illumination>
+    <illumination value="250" iris="40" shutter="2" agc="0"></illumination>
+    <illumination value="260" iris="40" shutter="2" agc="0"></illumination>
+   </Indoor_Front>
+
+   <Indoor_Back><!--室内逆光-->
+   </Indoor_Back>
+
+   <Outdoor><!--室外-->
+   </Outdoor>
+
+   <Infrared><!--红外-->
+   </Infrared>
+
+</SettingItem>
