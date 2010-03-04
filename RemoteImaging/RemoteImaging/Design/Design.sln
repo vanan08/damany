@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{F088123C-0E9E-452A-89E6-6BA2F21D5CAC}") = "Design", "Design\Design.modelproj", "{CD1731E9-964E-4B94-B667-36B965DE7AA8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CD1731E9-964E-4B94-B667-36B965DE7AA8}.Debug|x86.ActiveCfg = Debug|x86
+		{CD1731E9-964E-4B94-B667-36B965DE7AA8}.Debug|x86.Build.0 = Debug|x86
+		{CD1731E9-964E-4B94-B667-36B965DE7AA8}.Release|x86.ActiveCfg = Release|x86
+		{CD1731E9-964E-4B94-B667-36B965DE7AA8}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
