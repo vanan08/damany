@@ -10,7 +10,107 @@
         name="MotionDetector"
         isAbstract="false"
         isLeaf="false"
-        isActiveClass="false" />
+        isActiveClass="false">
+        <targetEnds>
+          <association
+            Id="763da8d8-8cf4-4657-9bbf-2ad64e1ae065"
+            isDerived="false"
+            sourceEndRoleName="MotionDetector"
+            targetEndRoleName="IFrameGroupListener"
+            isLeaf="false"
+            isAbstract="false">
+            <interfaceMoniker
+              Id="2bb251fe-0b4c-43c3-a67c-a34242dbdf6b"
+              LastKnownName="IFrameGroupListener"
+              LastKnownLocation="Package_2338.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="2bc55d9f-686e-42ac-afa2-9c75f8cf81b3"
+                  name="MotionDetector"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="d5b2fcd7-abb5-4a78-8d81-78fc398f6602"
+                  name="IFrameGroupListener"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+        <ownedAttributesInternal>
+          <property
+            Id="8eb46c74-6e57-4c33-b285-50148734d65d"
+            name="GroupCaptured"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <undefinedTypeMoniker
+                Id="b649883b-f017-48e8-82b4-9bc95a765363"
+                LastKnownName="Event"
+                LastKnownLocation="Package_2338.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="22000f83-d99a-4de1-9d90-21138c990a00"
+            name="StaticFrameDected"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <undefinedTypeMoniker
+                Id="b649883b-f017-48e8-82b4-9bc95a765363"
+                LastKnownName="Event"
+                LastKnownLocation="Package_2338.uml" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
+        <ownedOperationsInternal>
+          <operation
+            Id="dbbd5f62-e547-4c4b-bc2a-583f26744c23"
+            name="NewFrame"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="4dcc3c20-cab2-4ac1-a668-9c14b5694a3e"
+                  name="Frame in"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
     </packageHasNamedElement>
     <packageHasNamedElement>
       <class
@@ -18,12 +118,316 @@
         name="FaceFinder"
         isAbstract="false"
         isLeaf="false"
-        isActiveClass="false" />
+        isActiveClass="false">
+        <suppliersInternal>
+          <interfaceRealization
+            Id="5cd47ecf-244f-4033-95f8-8321380272e8">
+            <interfaceMoniker
+              Id="edc7f183-78d4-41c5-a63c-446023136df1"
+              LastKnownName="IFaceFinder"
+              LastKnownLocation="Package_2338.uml" />
+          </interfaceRealization>
+        </suppliersInternal>
+        <targetEnds>
+          <association
+            Id="c7e66f8e-c1b6-4508-b61e-e34585794b0c"
+            isDerived="false"
+            sourceEndRoleName="FaceFinder"
+            targetEndRoleName="IFaceListener"
+            isLeaf="false"
+            isAbstract="false">
+            <interfaceMoniker
+              Id="9e182aa3-5ce2-4ff0-8eb0-dbeb29e79773"
+              LastKnownName="IFaceListener"
+              LastKnownLocation="Package_2338.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="cc4f623d-a88c-4312-95ec-e8ccc5b3096a"
+                  name="FaceFinder"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="01f2e8f6-8379-437e-8700-761882484e9b"
+                  name="IFaceListener"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+      </class>
     </packageHasNamedElement>
     <packageHasNamedElement>
       <class
         Id="0724bc15-6727-49b8-8525-f3cdb06c78e3"
         name="FaceComparer"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <suppliersInternal>
+          <interfaceRealization
+            Id="d3b4bf53-68e4-419f-98a4-0792d7848e78">
+            <interfaceMoniker
+              Id="d6a05b59-ce99-4a57-85cc-48d23477cf4d"
+              LastKnownName="IFaceComparer"
+              LastKnownLocation="Package_2338.uml" />
+          </interfaceRealization>
+        </suppliersInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <Interface
+        Id="d6a05b59-ce99-4a57-85cc-48d23477cf4d"
+        name="IFaceComparer"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="49237a81-eb28-4672-a092-6d7aeba3c00c"
+        name="Class1"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="c4103967-acb9-4b18-8282-e9449510f674"
+        name="MotionFrame"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <ownedAttributesInternal>
+          <property
+            Id="40ddc3e8-0e10-4207-8d29-76b876997ea0"
+            name="Frame"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <undefinedTypeMoniker
+                Id="ce216bca-badf-4e46-ab88-232771a93008"
+                LastKnownName="Frame"
+                LastKnownLocation="Package_2338.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="8e73f6f9-d5d5-47a1-a4c5-f7c0feb727db"
+            name="MotionRectangles"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <undefinedTypeMoniker
+                Id="3acf790f-77f7-4d87-9c91-a5fa80a14950"
+                LastKnownName="IEnumerable&lt;Rectangle&gt;"
+                LastKnownLocation="Package_2338.uml" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="ce216bca-badf-4e46-ab88-232771a93008"
+        name="Frame" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="3acf790f-77f7-4d87-9c91-a5fa80a14950"
+        name="IEnumerable&lt;Rectangle&gt;" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="14518434-e50a-4d19-a9ca-0892b0b7a63f"
+        name="bool" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="b649883b-f017-48e8-82b4-9bc95a765363"
+        name="Event" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <Interface
+        Id="2bb251fe-0b4c-43c3-a67c-a34242dbdf6b"
+        name="IFrameGroupListener"
+        isAbstract="false"
+        isLeaf="false">
+        <ownedOperations>
+          <operation
+            Id="dc545065-0db1-4172-9e77-1ce7ba59101f"
+            name="ReceiveFrameGroup"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="true"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="9be37971-1da8-42e1-9203-c641c6cc1bde"
+                  name="frameGroup"
+                  direction="In"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <undefinedTypeMoniker
+                      Id="be7be843-d34c-4065-84ac-5ca7ee589b08"
+                      LastKnownName="IList&lt;MotionFrame&gt;"
+                      LastKnownLocation="Package_2338.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperations>
+      </Interface>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="be7be843-d34c-4065-84ac-5ca7ee589b08"
+        name="IList&lt;MotionFrame&gt;" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="782de726-4653-477d-b866-df8fd3cb962f"
+        name="FramePumper"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <targetEnds>
+          <association
+            Id="35a773bc-3f5f-4a39-9624-7c3dc504357e"
+            isDerived="false"
+            sourceEndRoleName="FramePump"
+            targetEndRoleName="IFrameSource"
+            isLeaf="false"
+            isAbstract="false">
+            <interfaceMoniker
+              Id="c4c6b029-e876-40b4-baa7-2eb998f4d96e"
+              LastKnownName="IFrameSource"
+              LastKnownLocation="Package_2334.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="1ce6382b-ee42-43cd-b469-97683586272f"
+                  name="FramePump"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="82416537-b80c-47a0-84b4-d2416fd3c93a"
+                  name="IFrameSource"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="a6a863b5-1d1c-4dce-b50a-49ac33a4304b"
+            isDerived="false"
+            sourceEndRoleName="FramePump"
+            targetEndRoleName="MotionDetector"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="a516bd33-8075-4e73-8919-c03b07b073da"
+              LastKnownName="MotionDetector"
+              LastKnownLocation="Package_2338.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="7ccec31e-07a9-4571-9e43-8d634dda8ca1"
+                  name="FramePump"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="61ecb739-4dd7-4213-adf2-7e5cb044482d"
+                  name="MotionDetector"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+        <ownedOperationsInternal>
+          <operation
+            Id="39711aeb-e7f9-4d13-9f43-d31e45949e62"
+            name="Pump"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+        </ownedOperationsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <Interface
+        Id="edc7f183-78d4-41c5-a63c-446023136df1"
+        name="IFaceFinder"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <Interface
+        Id="9e182aa3-5ce2-4ff0-8eb0-dbeb29e79773"
+        name="IFaceListener"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="9997a5c9-984a-4401-9b33-ac3aa52bab26"
+        name="Class2"
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false" />

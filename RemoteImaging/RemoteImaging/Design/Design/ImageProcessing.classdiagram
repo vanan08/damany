@@ -1,19 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm5="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ComponentDesigner" dslVersion="0.3.0.0" Id="59557666-c07d-4c3e-a0d8-b7ec36ec4711" name="ImageProcessing" linkedPackageId="60da3278-331b-4200-a093-49aaeec8d87a" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
-  <profileInstances>
-    <packageHasProfileInstances Id="42a694d8-691e-4a49-a91a-106e9ab3ed0f">
-      <profileInstance Id="51306fdf-7575-4219-8a9d-ced623ea4558" name="StandardProfileL2">
-        <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
-      </profileInstance>
-      <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
-    </packageHasProfileInstances>
-    <packageHasProfileInstances Id="7751074c-1411-40c5-a258-90cf1d0fb867">
-      <profileInstance Id="3d14edb3-469f-4a39-88c2-de50ede4a455" name="StandardProfileL3">
-        <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
-      </profileInstance>
-      <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
-    </packageHasProfileInstances>
-  </profileInstances>
   <packagedElements>
     <logicalClassDesignerModelHasPackages>
       <package Id="562261d6-d560-462b-8f08-f9f59928c3cf" name="Cameras">
@@ -24,17 +10,17 @@
               <elementDefinition Id="1293986f-d2ac-4221-a99c-38a372973bee" />
               <suppliersInternal>
                 <interfaceRealization Id="87d8e95d-af7e-4a25-837b-faebb4d05dd7">
-                  <interfaceMoniker Id="686f0bc9-3937-4313-9d75-9b1e275b659b" LastKnownName="ICamera" />
+                  <interfaceMoniker Id="686f0bc9-3937-4313-9d75-9b1e275b659b" LastKnownName="IIpCamera" />
                   <elementDefinition Id="ff948250-e86d-4bd8-84ab-154c23aa0025" />
                 </interfaceRealization>
               </suppliersInternal>
               <ownedOperationsInternal>
-                <operation Id="bc7b8b50-2429-43b2-9927-0eb2979d67c7" name="CaptureFrame" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-                  <elementDefinition Id="c7865e74-9114-4c22-b05e-3c03859c1020" />
+                <operation Id="03c5b045-f9f6-453e-a665-98b32d5d0347" name="RetrieveFrame" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                  <elementDefinition Id="c9ebb481-95a2-48de-b6ba-8635824bad6a" />
                   <ownedParameters>
                     <operationHasOwnedParameters>
-                      <parameter Id="8958f20a-d2fd-4563-8207-5b87a6fdb118" direction="Return" isUnique="false">
-                        <elementDefinition Id="760cb74b-0065-4424-a802-d9f096193f71" />
+                      <parameter Id="b0d56358-31a9-413e-8821-0b6ce858e353" direction="Return" isUnique="false">
+                        <elementDefinition Id="877761f7-b2e8-4f0c-8f3d-a8fddee0f130" />
                         <type_NamedElement>
                           <referencedTypeMoniker Id="9f5e53f5-5fee-4edb-bae8-dbda741912d0" LastKnownName="Frame" />
                         </type_NamedElement>
@@ -46,8 +32,14 @@
             </class>
           </packageHasNamedElement>
           <packageHasNamedElement>
-            <Interface Id="686f0bc9-3937-4313-9d75-9b1e275b659b" name="ICamera" isAbstract="false" isLeaf="false">
+            <Interface Id="686f0bc9-3937-4313-9d75-9b1e275b659b" name="IIpCamera" isAbstract="false" isLeaf="false">
               <elementDefinition Id="50e4cf0c-9850-4d35-8934-19d24105fb46" />
+              <generalsInternal>
+                <generalization Id="c065583e-34d5-4cb6-b429-6e82fd1bda20" isSubstitutable="false">
+                  <interfaceMoniker Id="590e2bcf-c78e-4181-bbee-94eaa2111430" LastKnownName="IFrameSource" />
+                  <elementDefinition Id="19a9986f-87aa-460a-9e08-d6ccf35fb5c0" />
+                </generalization>
+              </generalsInternal>
               <ownedAttributes>
                 <property Id="3eb05c7c-b047-49ad-abfe-c91c98cf00ec" name="ID" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
                   <elementDefinition Id="c0b43dd9-f3aa-4cf7-b5d0-a768b555ed46" />
@@ -68,21 +60,6 @@
                   </type_NamedElement>
                 </property>
               </ownedAttributes>
-              <ownedOperations>
-                <operation Id="f37c3a28-ec72-480a-ab60-38e371cc91b6" name="CaptureFrame" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
-                  <elementDefinition Id="389be665-1811-424f-a5de-d5f723daf4cb" />
-                  <ownedParameters>
-                    <operationHasOwnedParameters>
-                      <parameter Id="d14b415f-191c-44fc-97f3-c0f154bc3e47" direction="Return" isUnique="false">
-                        <elementDefinition Id="af052c3a-1e46-4025-93cd-c9963f03d489" />
-                        <type_NamedElement>
-                          <referencedTypeMoniker Id="9f5e53f5-5fee-4edb-bae8-dbda741912d0" LastKnownName="Frame" />
-                        </type_NamedElement>
-                      </parameter>
-                    </operationHasOwnedParameters>
-                  </ownedParameters>
-                </operation>
-              </ownedOperations>
             </Interface>
           </packageHasNamedElement>
           <packageHasNamedElement>
@@ -90,17 +67,17 @@
               <elementDefinition Id="5a8cad64-c848-4252-8e06-962a46ce5473" />
               <suppliersInternal>
                 <interfaceRealization Id="0aa33b18-10b2-4c2d-9c9e-54071370b728">
-                  <interfaceMoniker Id="686f0bc9-3937-4313-9d75-9b1e275b659b" LastKnownName="ICamera" />
+                  <interfaceMoniker Id="686f0bc9-3937-4313-9d75-9b1e275b659b" LastKnownName="IIpCamera" />
                   <elementDefinition Id="9a5f0e7f-597c-41a2-a8f8-9d9fe190d123" />
                 </interfaceRealization>
               </suppliersInternal>
               <ownedOperationsInternal>
-                <operation Id="314bbfde-b006-4a6c-9845-a5a471f6dfd6" name="CaptureFrame" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-                  <elementDefinition Id="84cab6d7-582c-4310-bf5e-b02f6d9b9351" />
+                <operation Id="80debbf7-6a66-4f08-9ff6-2488ecba046b" name="RetrieveFrame" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                  <elementDefinition Id="4a56c9e8-e4e9-4cdd-b6ad-115b466056ca" />
                   <ownedParameters>
                     <operationHasOwnedParameters>
-                      <parameter Id="bd89eb66-b070-48aa-a403-b3a65d6444c1" direction="Return" isUnique="false">
-                        <elementDefinition Id="0789ebd2-1f76-4c60-b31c-8352df18cd69" />
+                      <parameter Id="c4abc5a6-81a1-4047-ba61-22357e4551ce" direction="Return" isUnique="false">
+                        <elementDefinition Id="2e93795f-7835-464c-862c-2533858f8df8" />
                         <type_NamedElement>
                           <referencedTypeMoniker Id="9f5e53f5-5fee-4edb-bae8-dbda741912d0" LastKnownName="Frame" />
                         </type_NamedElement>
@@ -118,7 +95,7 @@
                 <property Id="a83629a5-e159-41e1-9c99-7107398ae7f2" name="CapturedBy" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
                   <elementDefinition Id="27401b8a-6679-418d-9273-1c0d3b543bb8" />
                   <type_NamedElement>
-                    <referencedTypeMoniker Id="883cd805-94b2-411c-92d1-8805821e8cbf" LastKnownName="ICamera" />
+                    <referencedTypeMoniker Id="883cd805-94b2-411c-92d1-8805821e8cbf" LastKnownName="IIpCamera" />
                   </type_NamedElement>
                 </property>
                 <property Id="87a02973-df64-47f7-9fef-c4bbf4b28db4" name="CapturedAt" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
@@ -136,6 +113,26 @@
               </ownedAttributesInternal>
             </class>
           </packageHasNamedElement>
+          <packageHasNamedElement>
+            <Interface Id="590e2bcf-c78e-4181-bbee-94eaa2111430" name="IFrameSource" isAbstract="false" isLeaf="false">
+              <elementDefinition Id="c4c6b029-e876-40b4-baa7-2eb998f4d96e" />
+              <ownedOperations>
+                <operation Id="f310b366-055c-4da4-9808-638efb05ff65" name="RetrieveFrame" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+                  <elementDefinition Id="3130aa00-8651-45ca-9dd5-404646f05e3d" />
+                  <ownedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="4563c611-edc1-44a2-95bd-41d76bb49cbe" direction="Return" isUnique="false">
+                        <elementDefinition Id="36571afc-7d65-44c8-a377-5c5b58335b46" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="9f5e53f5-5fee-4edb-bae8-dbda741912d0" LastKnownName="Frame" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                  </ownedParameters>
+                </operation>
+              </ownedOperations>
+            </Interface>
+          </packageHasNamedElement>
         </packagedElements>
       </package>
     </logicalClassDesignerModelHasPackages>
@@ -146,16 +143,193 @@
           <packageHasNamedElement>
             <class Id="dac81a34-0f90-453b-bf93-3e7457d84679" name="MotionDetector" isAbstract="false" isLeaf="false" isActiveClass="false">
               <elementDefinition Id="a516bd33-8075-4e73-8919-c03b07b073da" />
+              <targetEnds>
+                <association Id="ad05385b-84cf-4856-b0b1-55fa4c456259" isDerived="false" sourceEndRoleName="MotionDetector" targetEndRoleName="IFrameGroupListener" isLeaf="false" isAbstract="false">
+                  <interfaceMoniker Id="7ccc66f8-fccc-40bd-aefa-7d2341abe195" LastKnownName="IFrameGroupListener" />
+                  <relationshipOwnedElementsInternal>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="040cd259-11bf-483e-938b-645f9c75bda9" name="MotionDetector" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                        <elementDefinition Id="2bc55d9f-686e-42ac-afa2-9c75f8cf81b3" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="ecf81c88-4544-42cf-8b9a-440403117132" name="IFrameGroupListener" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                        <elementDefinition Id="d5b2fcd7-abb5-4a78-8d81-78fc398f6602" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                  </relationshipOwnedElementsInternal>
+                  <elementDefinition Id="763da8d8-8cf4-4657-9bbf-2ad64e1ae065" />
+                </association>
+              </targetEnds>
+              <ownedAttributesInternal>
+                <property Id="a93bbf34-87e9-4441-8e27-5c8bce0b8990" name="GroupCaptured" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="8eb46c74-6e57-4c33-b285-50148734d65d" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="30b59a2a-4b30-4211-825e-e1f5ae6848dd" LastKnownName="Event" />
+                  </type_NamedElement>
+                </property>
+                <property Id="0dec1d1c-3e0d-48c6-b20c-f6204192a2e8" name="StaticFrameDected" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="22000f83-d99a-4de1-9d90-21138c990a00" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="30b59a2a-4b30-4211-825e-e1f5ae6848dd" LastKnownName="Event" />
+                  </type_NamedElement>
+                </property>
+              </ownedAttributesInternal>
+              <ownedOperationsInternal>
+                <operation Id="6e15e805-5381-4347-a383-cd9535cf54eb" name="NewFrame" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                  <elementDefinition Id="dbbd5f62-e547-4c4b-bc2a-583f26744c23" />
+                  <ownedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="103250f3-ff6d-4b7a-a956-9d0a4508f8b7" name="Frame in" direction="In" isUnique="false">
+                        <elementDefinition Id="4dcc3c20-cab2-4ac1-a668-9c14b5694a3e" />
+                      </parameter>
+                    </operationHasOwnedParameters>
+                  </ownedParameters>
+                </operation>
+              </ownedOperationsInternal>
             </class>
           </packageHasNamedElement>
           <packageHasNamedElement>
             <class Id="731430e7-bac9-46c4-b9a0-cb3f5890e512" name="FaceFinder" isAbstract="false" isLeaf="false" isActiveClass="false">
               <elementDefinition Id="4f70db8f-e878-43cc-81b2-ae5a7237c19f" />
+              <suppliersInternal>
+                <interfaceRealization Id="dfcc81a0-fd8f-4a99-8229-63b951157eed">
+                  <interfaceMoniker Id="41a3885b-fc5c-4378-8d42-5de82da5b679" LastKnownName="IFaceFinder" />
+                  <elementDefinition Id="5cd47ecf-244f-4033-95f8-8321380272e8" />
+                </interfaceRealization>
+              </suppliersInternal>
+              <targetEnds>
+                <association Id="ed2a22b8-0ba9-4e97-89b1-f7e9f6a8876f" isDerived="false" sourceEndRoleName="FaceFinder" targetEndRoleName="IFaceListener" isLeaf="false" isAbstract="false">
+                  <interfaceMoniker Id="afe6da38-12e3-435d-b195-ace76c8dca32" LastKnownName="IFaceListener" />
+                  <relationshipOwnedElementsInternal>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="a4fce082-9ea5-452a-8bdb-e6bdc192932d" name="FaceFinder" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                        <elementDefinition Id="cc4f623d-a88c-4312-95ec-e8ccc5b3096a" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="3a21b7d6-49b2-45a9-9b23-79fc4cda719b" name="IFaceListener" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                        <elementDefinition Id="01f2e8f6-8379-437e-8700-761882484e9b" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                  </relationshipOwnedElementsInternal>
+                  <elementDefinition Id="c7e66f8e-c1b6-4508-b61e-e34585794b0c" />
+                </association>
+              </targetEnds>
             </class>
           </packageHasNamedElement>
           <packageHasNamedElement>
             <class Id="4bdd33fa-ce62-4da9-98bd-9645400fbec6" name="FaceComparer" isAbstract="false" isLeaf="false" isActiveClass="false">
               <elementDefinition Id="0724bc15-6727-49b8-8525-f3cdb06c78e3" />
+              <suppliersInternal>
+                <interfaceRealization Id="98a68ace-d8f3-430b-8d9d-c7cf1b288d82">
+                  <interfaceMoniker Id="87adebc0-3d56-4d42-bf9e-70f91991ca6f" LastKnownName="IFaceComparer" />
+                  <elementDefinition Id="d3b4bf53-68e4-419f-98a4-0792d7848e78" />
+                </interfaceRealization>
+              </suppliersInternal>
+            </class>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <Interface Id="87adebc0-3d56-4d42-bf9e-70f91991ca6f" name="IFaceComparer" isAbstract="false" isLeaf="false">
+              <elementDefinition Id="d6a05b59-ce99-4a57-85cc-48d23477cf4d" />
+            </Interface>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="abbddaee-405d-4dae-a0fa-5fb8f2e5665c" name="MotionFrame" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="c4103967-acb9-4b18-8282-e9449510f674" />
+              <ownedAttributesInternal>
+                <property Id="95fa7ced-c9ea-4c2a-917c-2220014474ea" name="Frame" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="40ddc3e8-0e10-4207-8d29-76b876997ea0" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="04a199fe-1a86-4ecf-806a-548fc7a484bc" LastKnownName="Frame" />
+                  </type_NamedElement>
+                </property>
+                <property Id="f46c2373-3350-4e86-88de-8a18b06b3c1e" name="MotionRectangles" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="8e73f6f9-d5d5-47a1-a4c5-f7c0feb727db" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="7e6eb177-b3b2-4577-9869-b5a82af2af58" LastKnownName="IEnumerable&lt;Rectangle&gt;" />
+                  </type_NamedElement>
+                </property>
+              </ownedAttributesInternal>
+            </class>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <Interface Id="7ccc66f8-fccc-40bd-aefa-7d2341abe195" name="IFrameGroupListener" isAbstract="false" isLeaf="false">
+              <elementDefinition Id="2bb251fe-0b4c-43c3-a67c-a34242dbdf6b" />
+              <ownedOperations>
+                <operation Id="f306b9b7-ac0c-4648-8641-9eeff6f155c7" name="ReceiveFrameGroup" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+                  <elementDefinition Id="dc545065-0db1-4172-9e77-1ce7ba59101f" />
+                  <ownedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="2f86ff2a-67bc-47f4-b192-c7c1503d2d88" name="frameGroup" direction="In" isUnique="false">
+                        <elementDefinition Id="9be37971-1da8-42e1-9203-c641c6cc1bde" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="920f5008-c70b-487c-8c7e-3f5f087f01d1" LastKnownName="IList&lt;MotionFrame&gt;" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                  </ownedParameters>
+                </operation>
+              </ownedOperations>
+            </Interface>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="5026dbbe-85ea-4fc1-9bb3-860ed67dbfa3" name="FramePumper" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="782de726-4653-477d-b866-df8fd3cb962f" />
+              <targetEnds>
+                <association Id="00ff7e56-0682-4e79-9483-86ed3393635d" isDerived="false" sourceEndRoleName="FramePump" targetEndRoleName="IFrameSource" isLeaf="false" isAbstract="false">
+                  <interfaceMoniker Id="590e2bcf-c78e-4181-bbee-94eaa2111430" LastKnownName="IFrameSource" />
+                  <relationshipOwnedElementsInternal>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="747e94e0-7306-468f-8904-28f7cb916649" name="FramePump" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                        <elementDefinition Id="1ce6382b-ee42-43cd-b469-97683586272f" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="f8bd48fc-908a-40e6-b989-6ad9d47000df" name="IFrameSource" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                        <elementDefinition Id="82416537-b80c-47a0-84b4-d2416fd3c93a" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                  </relationshipOwnedElementsInternal>
+                  <elementDefinition Id="35a773bc-3f5f-4a39-9624-7c3dc504357e" />
+                </association>
+                <association Id="e906f2ac-4342-4532-8680-ffc02fef2720" isDerived="false" sourceEndRoleName="FramePump" targetEndRoleName="MotionDetector" isLeaf="false" isAbstract="false">
+                  <classMoniker Id="dac81a34-0f90-453b-bf93-3e7457d84679" LastKnownName="MotionDetector" />
+                  <relationshipOwnedElementsInternal>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="079cf41e-9a6b-404c-9240-86cbccdcf87e" name="FramePump" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                        <elementDefinition Id="7ccec31e-07a9-4571-9e43-8d634dda8ca1" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="5ed5bddb-26db-4d77-9948-af21b7a7bff5" name="MotionDetector" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                        <elementDefinition Id="61ecb739-4dd7-4213-adf2-7e5cb044482d" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                  </relationshipOwnedElementsInternal>
+                  <elementDefinition Id="a6a863b5-1d1c-4dce-b50a-49ac33a4304b" />
+                </association>
+              </targetEnds>
+              <ownedOperationsInternal>
+                <operation Id="fcac22e7-5121-4b3e-a8e2-d2e836ea94b5" name="Pump" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                  <elementDefinition Id="39711aeb-e7f9-4d13-9f43-d31e45949e62" />
+                </operation>
+              </ownedOperationsInternal>
+            </class>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <Interface Id="41a3885b-fc5c-4378-8d42-5de82da5b679" name="IFaceFinder" isAbstract="false" isLeaf="false">
+              <elementDefinition Id="edc7f183-78d4-41c5-a63c-446023136df1" />
+            </Interface>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <Interface Id="afe6da38-12e3-435d-b195-ace76c8dca32" name="IFaceListener" isAbstract="false" isLeaf="false">
+              <elementDefinition Id="9e182aa3-5ce2-4ff0-8eb0-dbeb29e79773" />
+            </Interface>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="88193236-0964-4620-96f3-bc13fb164f1a" name="Class2" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="9997a5c9-984a-4401-9b33-ac3aa52bab26" />
             </class>
           </packageHasNamedElement>
         </packagedElements>
@@ -177,7 +351,7 @@
       </referencedType>
     </packageHasNamedElement>
     <packageHasNamedElement>
-      <referencedType Id="883cd805-94b2-411c-92d1-8805821e8cbf" name="ICamera" isAbstract="false" isLeaf="false" cachedFullName="Design::Cameras::ICamera">
+      <referencedType Id="883cd805-94b2-411c-92d1-8805821e8cbf" name="IIpCamera" isAbstract="false" isLeaf="false" cachedFullName="Design::Cameras::IIpCamera">
         <elementDefinition Id="50e4cf0c-9850-4d35-8934-19d24105fb46" />
       </referencedType>
     </packageHasNamedElement>
@@ -196,8 +370,118 @@
         <elementDefinition Id="78fe4a7d-b745-45b0-b618-071bc1d5fa15" />
       </referencedType>
     </packageHasNamedElement>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="3c4a3dfe-8670-44ae-9edf-e1f514a26068" name="Controller" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="67fb6dac-2b04-4f25-b2ff-3daf854660d2" />
+        <suppliersInternal>
+          <interfaceRealization Id="6ff98b8c-3b17-411c-9878-73843c9d5d77">
+            <interfaceMoniker Id="7ccc66f8-fccc-40bd-aefa-7d2341abe195" LastKnownName="IFrameGroupListener" />
+            <elementDefinition Id="4dcafe03-ed3d-42b3-9e38-7455786def79" />
+          </interfaceRealization>
+        </suppliersInternal>
+        <targetEnds>
+          <association Id="8593e5fc-81c6-4eb7-a65c-81d9d3b6fe65" isDerived="false" sourceEndRoleName="Controller" targetEndRoleName="ICamera" isLeaf="false" isAbstract="false">
+            <interfaceMoniker Id="686f0bc9-3937-4313-9d75-9b1e275b659b" LastKnownName="IIpCamera" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="5aa1210a-5a8d-4ec1-86be-d3f22e53652a" name="Controller" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="1a43ab0b-7882-4435-b46f-04c429ece975" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="d842c142-6aee-4720-adaa-2bfeda61ac55" name="ICamera" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="08ceb0b4-416f-45c1-b489-558dec2e5b4c" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="be458939-4ee3-4687-914f-66414b85e294" />
+          </association>
+          <association Id="682f5dfa-3980-4222-80fa-e87dda7edeba" isDerived="false" sourceEndRoleName="Controller" targetEndRoleName="IFaceComparer" isLeaf="false" isAbstract="false">
+            <interfaceMoniker Id="87adebc0-3d56-4d42-bf9e-70f91991ca6f" LastKnownName="IFaceComparer" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="43116e17-6827-48be-85f1-ff63e9b2a237" name="Controller" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="93016685-9258-4081-a555-d467b53c38d0" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="67683f00-30b9-455f-a57f-2746cfd66f14" name="IFaceComparer" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="fa23fddf-72c9-4692-aee7-0b01b18a53fa" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="16c44c40-654d-494d-9b25-fddda661b9c8" />
+          </association>
+          <association Id="e96bc7b6-6a14-4b7b-85cb-c6b50dfbec4e" isDerived="false" sourceEndRoleName="Controller" targetEndRoleName="IFaceFinder" isLeaf="false" isAbstract="false">
+            <interfaceMoniker Id="41a3885b-fc5c-4378-8d42-5de82da5b679" LastKnownName="IFaceFinder" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="6672e08c-df12-48ed-8c0d-8f3706ed69d3" name="Controller" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="b4576441-4cdb-4eb8-bc0e-57655f2ff697" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="afb9df42-ea71-4a1d-be67-995227a72118" name="IFaceFinder" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="ca4499d1-b91c-48d0-95b8-4910234cee09" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="3abea9eb-a89e-48b2-980d-6d43cefbac9f" />
+          </association>
+        </targetEnds>
+        <ownedOperationsInternal>
+          <operation Id="ec53bb28-78b3-4d17-adfa-e94e4f414b3b" name="ReceiveFrameGroup" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="ec65f15d-33ea-4383-95ae-9c12474615c1" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="4966d44a-73b8-459b-a99f-fbb5af86f79a" name="frameGroup" direction="In" isUnique="false">
+                  <elementDefinition Id="aba5e37c-f99c-4d6a-b98f-2a774228cfa7" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="920f5008-c70b-487c-8c7e-3f5f087f01d1" LastKnownName="IList&lt;MotionFrame&gt;" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <packageHasNamedElement>
+      <referencedType Id="04a199fe-1a86-4ecf-806a-548fc7a484bc" name="Frame" isAbstract="false" isLeaf="false" cachedFullName="Frame">
+        <elementDefinition Id="ce216bca-badf-4e46-ab88-232771a93008" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="7e6eb177-b3b2-4577-9869-b5a82af2af58" name="IEnumerable&lt;Rectangle&gt;" isAbstract="false" isLeaf="false" cachedFullName="IEnumerable&lt;Rectangle&gt;">
+        <elementDefinition Id="3acf790f-77f7-4d87-9c91-a5fa80a14950" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="30b59a2a-4b30-4211-825e-e1f5ae6848dd" name="Event" isAbstract="false" isLeaf="false" cachedFullName="Event">
+        <elementDefinition Id="b649883b-f017-48e8-82b4-9bc95a765363" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="920f5008-c70b-487c-8c7e-3f5f087f01d1" name="IList&lt;MotionFrame&gt;" isAbstract="false" isLeaf="false" cachedFullName="IList&lt;MotionFrame&gt;">
+        <elementDefinition Id="be7be843-d34c-4065-84ac-5ca7ee589b08" />
+      </referencedType>
+    </packageHasNamedElement>
   </packagedElements>
   <package Id="60da3278-331b-4200-a093-49aaeec8d87a" name="Design">
     <elementDefinition Id="08018057-a7d5-4664-b9f0-08ebae6580b2" />
+    <profileInstances>
+      <packageHasProfileInstances Id="42a694d8-691e-4a49-a91a-106e9ab3ed0f">
+        <profileInstance Id="51306fdf-7575-4219-8a9d-ced623ea4558" name="StandardProfileL2">
+          <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+        </profileInstance>
+        <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+      </packageHasProfileInstances>
+      <packageHasProfileInstances Id="7751074c-1411-40c5-a258-90cf1d0fb867">
+        <profileInstance Id="3d14edb3-469f-4a39-88c2-de50ede4a455" name="StandardProfileL3">
+          <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+        </profileInstance>
+        <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+      </packageHasProfileInstances>
+    </profileInstances>
   </package>
 </logicalClassDesignerModel>
