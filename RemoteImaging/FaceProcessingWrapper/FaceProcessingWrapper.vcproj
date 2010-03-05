@@ -190,8 +190,8 @@
 			MinFrameworkVersion="131072"
 		/>
 		<ProjectReference
-			ReferencedProjectIdentifier="{C917EC7F-9A59-4845-9108-87056AC61D4F}"
-			RelativePathToProject=".\IconExtractor\ImageProcessing.csproj"
+			ReferencedProjectIdentifier="{B8F7A553-6295-4F0B-B48A-7C85DA5118BB}"
+			RelativePathToProject="..\Damany.ImageProcessing.Contracts\Damany.ImageProcessing.Contracts.csproj"
 		/>
 		<AssemblyReference
 			RelativePath="System.Drawing.dll"

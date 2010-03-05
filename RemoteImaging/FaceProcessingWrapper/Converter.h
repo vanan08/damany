@@ -12,9 +12,7 @@ namespace FaceProcessingWrapper
 	static public ref class FrameConverter
 	{
 		public:
-		static Frame ToUnManaged(ImageProcess::Frame^ managed);
-		static ImageProcess::Frame^ ToManaged(Frame unmanaged);
-		static ImageProcess::Frame^ foo(Frame f);
+			static Frame ToUnManaged(Damany::ImageProcessing::Contracts::Frame^ managed);
 	};
 }
 

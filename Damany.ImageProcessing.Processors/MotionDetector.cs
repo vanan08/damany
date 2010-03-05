@@ -7,13 +7,15 @@ namespace Damany.ImageProcessing.Processors
 {
     using Contracts;
 
+
     public class MotionDetector
     {
         public void DetectMotion(Frame frame)
-        { 
-            ImageProcess.Frame f = new ImageProcess.Frame();
+        {
+            System.Guid guidOfFrameToDispose = new System.Guid();
+            OpenCvSharp.CvRect rect = new OpenCvSharp.CvRect();
             
-            this.detector.PreProcessFrame(
+            this.detector.PreProcessFrame(frame, out guidOfFrameToDispose, out rect);
 
 
         }
