@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BitmapIplUnion.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="Frame.cs" />
     <Compile Include="GuidObject.cs" />
     <Compile Include="IFrameStream.cs" />

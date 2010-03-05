@@ -28,15 +28,13 @@ namespace FaceProcessingWrapper.Test
             OpenCvSharp.CvRect rectOut = new OpenCvSharp.CvRect();
 
             detector.PreProcessFrame(f, out guidOut, out rectOut);
-
-            Assert.IsTrue(rectOut.Width == 0 && rectOut.Height == 0);
+            Assert.IsTrue(Guid.Empty.Equals(guidOut));
 
             bytes = System.IO.File.OpenRead(@"D:\ImageOutput\02\2010\01\27\BigPic\201001271121\02_100127112121953.jpg");
             f = new Damany.ImageProcessing.Contracts.Frame(bytes);
             detector.PreProcessFrame(f, out guidOut, out rectOut);
 
             Assert.IsTrue(guidOut.Equals(guidFram1));
-            Assert.IsTrue(rectOut.Width != 0 && rectOut.Height != 0);
 
 
 

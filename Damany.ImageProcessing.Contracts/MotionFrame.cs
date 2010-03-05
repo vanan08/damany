@@ -6,7 +6,7 @@ using OpenCvSharp;
 
 namespace Damany.ImageProcessing.Contracts
 {
-    public class MotionFrame
+    public class MotionFrame : IDisposable
     {
         public MotionFrame(Frame frame, IList<CvRect> rects)
         {
@@ -16,5 +16,17 @@ namespace Damany.ImageProcessing.Contracts
 
         public IList<CvRect> MotionRectangles { get; set; }
         public Frame Frame { get; set; }
+
+        #region IDisposable Members
+
+        public void Dispose()
+        {
+            if (this.Frame != null)
+            {
+                this.Frame.Dispose();
+            }
+        }
+
+        #endregion
     }
 }

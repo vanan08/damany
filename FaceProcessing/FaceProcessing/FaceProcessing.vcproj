@@ -306,6 +306,10 @@
 			</File>
 		</Filter>
 		<File
+			RelativePath="..\..\Damany.ImageProcessing.Processors\MotionDetector.cs"
+			>
+		</File>
+		<File
 			RelativePath=".\ReadMe.txt"
 			>
 		</File>

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Damany.ImageProcessing.Contracts
 {
-    public class Frame : GuidObject, IComparable<Frame>, IEquatable<Frame>
+    public class Frame : GuidObject, IComparable<Frame>, IEquatable<Frame>, IDisposable
     {
         public Frame(System.IO.Stream stream)
         {
@@ -51,5 +51,17 @@ namespace Damany.ImageProcessing.Contracts
         #endregion
 
         BitmapIplUnion image;
+
+        #region IDisposable Members
+
+        public void Dispose()
+        {
+            if (image != null)
+            {
+                image.Dispose();
+            }
+        }
+
+        #endregion
     }
 }
