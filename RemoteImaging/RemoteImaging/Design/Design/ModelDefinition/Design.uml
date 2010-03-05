@@ -212,45 +212,6 @@
               </associationHasOwnedEnds>
             </relationshipOwnedElementsInternal>
           </association>
-          <association
-            Id="41b4dd8c-3537-4693-8d0e-73fdc26f8e21"
-            isDerived="false"
-            sourceEndRoleName="Controller"
-            targetEndRoleName="IFaceListener"
-            isLeaf="false"
-            isAbstract="false">
-            <interfaceMoniker
-              Id="9e182aa3-5ce2-4ff0-8eb0-dbeb29e79773"
-              LastKnownName="IFaceListener"
-              LastKnownLocation="Package_2338.uml" />
-            <relationshipOwnedElementsInternal>
-              <associationHasOwnedEnds>
-                <memberEnd
-                  Id="3ade7d80-cf2e-4dae-820f-b0a30be6f2f7"
-                  name="Controller"
-                  isLeaf="false"
-                  isStatic="false"
-                  isReadOnly="false"
-                  isDerived="false"
-                  isDerivedUnion="false"
-                  aggregation="None"
-                  isComposite="false"
-                  isNavigableOwned="false" />
-              </associationHasOwnedEnds>
-              <associationHasOwnedEnds>
-                <memberEnd
-                  Id="67ff02d1-d21b-49b8-b83d-4e56ffd75ce8"
-                  name="IFaceListener"
-                  isLeaf="false"
-                  isStatic="false"
-                  isReadOnly="false"
-                  isDerived="false"
-                  isDerivedUnion="false"
-                  aggregation="None"
-                  isComposite="false" />
-              </associationHasOwnedEnds>
-            </relationshipOwnedElementsInternal>
-          </association>
         </targetEnds>
       </class>
     </packageHasNamedElement>
@@ -362,6 +323,12 @@
       <undefinedType
         Id="157dae6a-a7d5-463c-beab-990cee6cf5c5"
         name="IplImage" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="2e95597d-0d81-405a-8637-ec1c394a1697"
+        LastKnownName="Contracts"
+        LastKnownLocation="Package_1227.uml" />
     </packageHasNamedElement>
   </packagedElements>
   <primitiveType
