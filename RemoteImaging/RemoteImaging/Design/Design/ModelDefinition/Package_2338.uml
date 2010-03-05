@@ -22,7 +22,7 @@
             <interfaceMoniker
               Id="2bb251fe-0b4c-43c3-a67c-a34242dbdf6b"
               LastKnownName="IFrameGroupListener"
-              LastKnownLocation="Package_2338.uml" />
+              LastKnownLocation="Package_1227.uml" />
             <relationshipOwnedElementsInternal>
               <associationHasOwnedEnds>
                 <memberEnd
@@ -52,44 +52,6 @@
             </relationshipOwnedElementsInternal>
           </association>
         </targetEnds>
-        <ownedAttributesInternal>
-          <property
-            Id="8eb46c74-6e57-4c33-b285-50148734d65d"
-            name="GroupCaptured"
-            isLeaf="false"
-            isStatic="false"
-            isReadOnly="false"
-            isUnique="false"
-            isDerived="false"
-            isDerivedUnion="false"
-            aggregation="None"
-            isComposite="false">
-            <type_NamedElement>
-              <undefinedTypeMoniker
-                Id="b649883b-f017-48e8-82b4-9bc95a765363"
-                LastKnownName="Event"
-                LastKnownLocation="Package_2338.uml" />
-            </type_NamedElement>
-          </property>
-          <property
-            Id="22000f83-d99a-4de1-9d90-21138c990a00"
-            name="StaticFrameDected"
-            isLeaf="false"
-            isStatic="false"
-            isReadOnly="false"
-            isUnique="false"
-            isDerived="false"
-            isDerivedUnion="false"
-            aggregation="None"
-            isComposite="false">
-            <type_NamedElement>
-              <undefinedTypeMoniker
-                Id="b649883b-f017-48e8-82b4-9bc95a765363"
-                LastKnownName="Event"
-                LastKnownLocation="Package_2338.uml" />
-            </type_NamedElement>
-          </property>
-        </ownedAttributesInternal>
         <ownedOperationsInternal>
           <operation
             Id="dbbd5f62-e547-4c4b-bc2a-583f26744c23"
@@ -125,14 +87,14 @@
             <interfaceMoniker
               Id="edc7f183-78d4-41c5-a63c-446023136df1"
               LastKnownName="IFaceFinder"
-              LastKnownLocation="Package_2338.uml" />
+              LastKnownLocation="Package_1227.uml" />
           </interfaceRealization>
           <interfaceRealization
             Id="288efaac-355f-4dc0-b858-bed52c882307">
             <interfaceMoniker
               Id="2bb251fe-0b4c-43c3-a67c-a34242dbdf6b"
               LastKnownName="IFrameGroupListener"
-              LastKnownLocation="Package_2338.uml" />
+              LastKnownLocation="Package_1227.uml" />
           </interfaceRealization>
         </suppliersInternal>
         <targetEnds>
@@ -146,7 +108,7 @@
             <interfaceMoniker
               Id="9e182aa3-5ce2-4ff0-8eb0-dbeb29e79773"
               LastKnownName="IFaceListener"
-              LastKnownLocation="Package_2338.uml" />
+              LastKnownLocation="Package_1227.uml" />
             <relationshipOwnedElementsInternal>
               <associationHasOwnedEnds>
                 <memberEnd
@@ -239,16 +201,16 @@
         isActiveClass="false">
         <suppliersInternal>
           <interfaceRealization
-            Id="639fae8d-1a21-420f-92a0-a0bc6b5f9839">
+            Id="7cb86778-6b9f-45fe-bc8c-21fd95c63b1d">
             <interfaceMoniker
               Id="d6a05b59-ce99-4a57-85cc-48d23477cf4d"
               LastKnownName="IFaceComparer"
-              LastKnownLocation="Package_2338.uml" />
+              LastKnownLocation="Package_1227.uml" />
           </interfaceRealization>
         </suppliersInternal>
         <ownedOperationsInternal>
           <operation
-            Id="95d8384b-6fa9-4b3c-9854-64f3f11e7542"
+            Id="dbe430e5-5cd8-45c4-b741-e768cd970f7a"
             name="Compare"
             isLeaf="false"
             isStatic="false"
@@ -258,21 +220,35 @@
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="a35dc632-ede4-465c-9c4d-974d9bcd9293"
-                  name="Portrait one"
+                  Id="5a613dc7-b61e-42c7-a8e5-4a53cca5a989"
+                  name="one"
                   direction="In"
-                  isUnique="false" />
+                  isUnique="false">
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="9997a5c9-984a-4401-9b33-ac3aa52bab26"
+                      LastKnownName="Portrait"
+                      LastKnownLocation="Package_1227.uml" />
+                  </type_NamedElement>
+                </parameter>
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="5a5ec6bd-1af3-4ff0-9f16-1fb0f242ac0d"
-                  name="Portrait another"
+                  Id="dafc2c7c-9e6f-4d22-a998-4ce561c338d9"
+                  name="another"
                   direction="In"
-                  isUnique="false" />
+                  isUnique="false">
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="9997a5c9-984a-4401-9b33-ac3aa52bab26"
+                      LastKnownName="Portrait"
+                      LastKnownLocation="Package_1227.uml" />
+                  </type_NamedElement>
+                </parameter>
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="9d9a2ae8-884a-4ce0-94fb-002b30d4bd40"
+                  Id="4f43f16a-995a-4f7d-b4ba-21a039407150"
                   direction="Return"
                   isUnique="false">
                   <type_NamedElement>
@@ -289,107 +265,12 @@
       </class>
     </packageHasNamedElement>
     <packageHasNamedElement>
-      <Interface
-        Id="d6a05b59-ce99-4a57-85cc-48d23477cf4d"
-        name="IFaceComparer"
-        isAbstract="false"
-        isLeaf="false">
-        <ownedOperations>
-          <operation
-            Id="e10e5d6d-2898-4d8b-8107-e083bdcca7e3"
-            name="Compare"
-            isLeaf="false"
-            isStatic="false"
-            isAbstract="true"
-            concurrency="Sequential"
-            isQuery="false">
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter
-                  Id="b1844a8d-6d0d-49a6-bc5d-3c2e0f80c677"
-                  direction="Return"
-                  isUnique="false">
-                  <type_NamedElement>
-                    <undefinedTypeMoniker
-                      Id="7d4cbcdb-48f6-4018-bb16-df976aa31094"
-                      LastKnownName="float"
-                      LastKnownLocation="Package_2338.uml" />
-                  </type_NamedElement>
-                </parameter>
-              </operationHasOwnedParameters>
-              <operationHasOwnedParameters>
-                <parameter
-                  Id="6dfa67e5-044c-4915-a51b-d3d0d2054b3c"
-                  name="Portrait one"
-                  direction="In"
-                  isUnique="false" />
-              </operationHasOwnedParameters>
-              <operationHasOwnedParameters>
-                <parameter
-                  Id="d73748e9-68e0-4eca-a878-af27626acd58"
-                  name="Portrait another"
-                  direction="In"
-                  isUnique="false" />
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-        </ownedOperations>
-      </Interface>
-    </packageHasNamedElement>
-    <packageHasNamedElement>
       <class
         Id="49237a81-eb28-4672-a092-6d7aeba3c00c"
         name="Class1"
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false" />
-    </packageHasNamedElement>
-    <packageHasNamedElement>
-      <class
-        Id="c4103967-acb9-4b18-8282-e9449510f674"
-        name="MotionFrame"
-        isAbstract="false"
-        isLeaf="false"
-        isActiveClass="false">
-        <ownedAttributesInternal>
-          <property
-            Id="40ddc3e8-0e10-4207-8d29-76b876997ea0"
-            name="Frame"
-            isLeaf="false"
-            isStatic="false"
-            isReadOnly="false"
-            isUnique="false"
-            isDerived="false"
-            isDerivedUnion="false"
-            aggregation="None"
-            isComposite="false">
-            <type_NamedElement>
-              <undefinedTypeMoniker
-                Id="ce216bca-badf-4e46-ab88-232771a93008"
-                LastKnownName="Frame"
-                LastKnownLocation="Package_2338.uml" />
-            </type_NamedElement>
-          </property>
-          <property
-            Id="8e73f6f9-d5d5-47a1-a4c5-f7c0feb727db"
-            name="MotionRectangles"
-            isLeaf="false"
-            isStatic="false"
-            isReadOnly="false"
-            isUnique="false"
-            isDerived="false"
-            isDerivedUnion="false"
-            aggregation="None"
-            isComposite="false">
-            <type_NamedElement>
-              <undefinedTypeMoniker
-                Id="3acf790f-77f7-4d87-9c91-a5fa80a14950"
-                LastKnownName="IEnumerable&lt;Rectangle&gt;"
-                LastKnownLocation="Package_2338.uml" />
-            </type_NamedElement>
-          </property>
-        </ownedAttributesInternal>
-      </class>
     </packageHasNamedElement>
     <packageHasNamedElement>
       <undefinedType
@@ -410,41 +291,6 @@
       <undefinedType
         Id="b649883b-f017-48e8-82b4-9bc95a765363"
         name="Event" />
-    </packageHasNamedElement>
-    <packageHasNamedElement>
-      <Interface
-        Id="2bb251fe-0b4c-43c3-a67c-a34242dbdf6b"
-        name="IFrameGroupListener"
-        isAbstract="false"
-        isLeaf="false">
-        <ownedOperations>
-          <operation
-            Id="dc545065-0db1-4172-9e77-1ce7ba59101f"
-            name="ReceiveFrameGroup"
-            isLeaf="false"
-            isStatic="false"
-            isAbstract="true"
-            concurrency="Sequential"
-            isQuery="false">
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter
-                  Id="9be37971-1da8-42e1-9203-c641c6cc1bde"
-                  name="frameGroup"
-                  direction="In"
-                  isUnique="false">
-                  <type_NamedElement>
-                    <undefinedTypeMoniker
-                      Id="be7be843-d34c-4065-84ac-5ca7ee589b08"
-                      LastKnownName="IList&lt;MotionFrame&gt;"
-                      LastKnownLocation="Package_2338.uml" />
-                  </type_NamedElement>
-                </parameter>
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-        </ownedOperations>
-      </Interface>
     </packageHasNamedElement>
     <packageHasNamedElement>
       <undefinedType
@@ -469,7 +315,7 @@
             <interfaceMoniker
               Id="c4c6b029-e876-40b4-baa7-2eb998f4d96e"
               LastKnownName="IFrameSource"
-              LastKnownLocation="Package_2334.uml" />
+              LastKnownLocation="Package_1227.uml" />
             <relationshipOwnedElementsInternal>
               <associationHasOwnedEnds>
                 <memberEnd
@@ -548,124 +394,6 @@
             concurrency="Sequential"
             isQuery="false" />
         </ownedOperationsInternal>
-      </class>
-    </packageHasNamedElement>
-    <packageHasNamedElement>
-      <Interface
-        Id="edc7f183-78d4-41c5-a63c-446023136df1"
-        name="IFaceFinder"
-        isAbstract="false"
-        isLeaf="false" />
-    </packageHasNamedElement>
-    <packageHasNamedElement>
-      <Interface
-        Id="9e182aa3-5ce2-4ff0-8eb0-dbeb29e79773"
-        name="IFaceListener"
-        isAbstract="false"
-        isLeaf="false">
-        <ownedOperations>
-          <operation
-            Id="b459601a-b183-4c26-8cef-54aea8878a2f"
-            name="void ReceiveFaces"
-            isLeaf="false"
-            isStatic="false"
-            isAbstract="true"
-            concurrency="Sequential"
-            isQuery="false">
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter
-                  Id="ae415a0c-303a-4a46-a7a4-d031913b394d"
-                  name="IList&lt;Portrait&gt; faces"
-                  direction="In"
-                  isUnique="false" />
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-        </ownedOperations>
-      </Interface>
-    </packageHasNamedElement>
-    <packageHasNamedElement>
-      <class
-        Id="9997a5c9-984a-4401-9b33-ac3aa52bab26"
-        name="Portrait"
-        isAbstract="false"
-        isLeaf="false"
-        isActiveClass="false">
-        <ownedAttributesInternal>
-          <property
-            Id="5b1d20ff-11b1-4b93-8c62-860901ee7180"
-            name="FaceImage"
-            isLeaf="false"
-            isStatic="false"
-            isReadOnly="false"
-            isUnique="false"
-            isDerived="false"
-            isDerivedUnion="false"
-            aggregation="None"
-            isComposite="false">
-            <type_NamedElement>
-              <undefinedTypeMoniker
-                Id="2e1395fd-7803-4188-8fee-4b1160293b9c"
-                LastKnownName="Image"
-                LastKnownLocation="Package_2338.uml" />
-            </type_NamedElement>
-          </property>
-          <property
-            Id="0de369d5-82b5-4756-8b2d-779b606d6a49"
-            name="ContainedIn"
-            isLeaf="false"
-            isStatic="false"
-            isReadOnly="false"
-            isUnique="false"
-            isDerived="false"
-            isDerivedUnion="false"
-            aggregation="None"
-            isComposite="false">
-            <type_NamedElement>
-              <classMoniker
-                Id="c4103967-acb9-4b18-8282-e9449510f674"
-                LastKnownName="MotionFrame"
-                LastKnownLocation="Package_2338.uml" />
-            </type_NamedElement>
-          </property>
-          <property
-            Id="24a2ee67-95d2-4724-8805-3f853c0496fb"
-            name="RectInFrame"
-            isLeaf="false"
-            isStatic="false"
-            isReadOnly="false"
-            isUnique="false"
-            isDerived="false"
-            isDerivedUnion="false"
-            aggregation="None"
-            isComposite="false">
-            <type_NamedElement>
-              <undefinedTypeMoniker
-                Id="4bb6d15b-a99a-4385-bf7a-68af2cfe70b8"
-                LastKnownName="Rectangle"
-                LastKnownLocation="Package_2338.uml" />
-            </type_NamedElement>
-          </property>
-          <property
-            Id="c9db3b79-88aa-467b-8733-fef60444f8d9"
-            name="FaceRect"
-            isLeaf="false"
-            isStatic="false"
-            isReadOnly="false"
-            isUnique="false"
-            isDerived="false"
-            isDerivedUnion="false"
-            aggregation="None"
-            isComposite="false">
-            <type_NamedElement>
-              <undefinedTypeMoniker
-                Id="4bb6d15b-a99a-4385-bf7a-68af2cfe70b8"
-                LastKnownName="Rectangle"
-                LastKnownLocation="Package_2338.uml" />
-            </type_NamedElement>
-          </property>
-        </ownedAttributesInternal>
       </class>
     </packageHasNamedElement>
     <packageHasNamedElement>

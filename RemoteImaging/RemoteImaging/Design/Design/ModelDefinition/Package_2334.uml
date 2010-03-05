@@ -17,7 +17,7 @@
             <interfaceMoniker
               Id="50e4cf0c-9850-4d35-8934-19d24105fb46"
               LastKnownName="IIpCamera"
-              LastKnownLocation="Package_2334.uml" />
+              LastKnownLocation="Package_1227.uml" />
           </interfaceRealization>
         </suppliersInternal>
         <ownedOperationsInternal>
@@ -39,7 +39,7 @@
                     <classMoniker
                       Id="4833a9aa-efe6-4dd3-8deb-d0ad5be4319f"
                       LastKnownName="Frame"
-                      LastKnownLocation="Package_2334.uml" />
+                      LastKnownLocation="Package_1227.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -47,80 +47,6 @@
           </operation>
         </ownedOperationsInternal>
       </class>
-    </packageHasNamedElement>
-    <packageHasNamedElement>
-      <Interface
-        Id="50e4cf0c-9850-4d35-8934-19d24105fb46"
-        name="IIpCamera"
-        isAbstract="false"
-        isLeaf="false">
-        <generalsInternal>
-          <generalization
-            Id="19a9986f-87aa-460a-9e08-d6ccf35fb5c0"
-            isSubstitutable="false">
-            <interfaceMoniker
-              Id="c4c6b029-e876-40b4-baa7-2eb998f4d96e"
-              LastKnownName="IFrameSource"
-              LastKnownLocation="Package_2334.uml" />
-          </generalization>
-        </generalsInternal>
-        <ownedAttributes>
-          <property
-            Id="c0b43dd9-f3aa-4cf7-b5d0-a768b555ed46"
-            name="ID"
-            isLeaf="false"
-            isStatic="false"
-            isReadOnly="false"
-            isUnique="false"
-            isDerived="false"
-            isDerivedUnion="false"
-            aggregation="None"
-            isComposite="false">
-            <type_NamedElement>
-              <undefinedTypeMoniker
-                Id="70ed6375-4f13-41d8-8c82-84a08fd62900"
-                LastKnownName="int"
-                LastKnownLocation="Package_2334.uml" />
-            </type_NamedElement>
-          </property>
-          <property
-            Id="19911b97-b5f9-4214-904f-5078eabe639a"
-            name="Location"
-            isLeaf="false"
-            isStatic="false"
-            isReadOnly="false"
-            isUnique="false"
-            isDerived="false"
-            isDerivedUnion="false"
-            aggregation="None"
-            isComposite="false">
-            <type_NamedElement>
-              <undefinedTypeMoniker
-                Id="78fe4a7d-b745-45b0-b618-071bc1d5fa15"
-                LastKnownName="System::Uri"
-                LastKnownLocation="Package_2334.uml" />
-            </type_NamedElement>
-          </property>
-          <property
-            Id="7342eb01-ea62-4089-8f47-179163cab9f3"
-            name="Description"
-            isLeaf="false"
-            isStatic="false"
-            isReadOnly="false"
-            isUnique="false"
-            isDerived="false"
-            isDerivedUnion="false"
-            aggregation="None"
-            isComposite="false">
-            <type_NamedElement>
-              <undefinedTypeMoniker
-                Id="073902d8-a305-4d53-9ba8-c00a1a6f363a"
-                LastKnownName="string"
-                LastKnownLocation="Package_2334.uml" />
-            </type_NamedElement>
-          </property>
-        </ownedAttributes>
-      </Interface>
     </packageHasNamedElement>
     <packageHasNamedElement>
       <class
@@ -135,7 +61,7 @@
             <interfaceMoniker
               Id="50e4cf0c-9850-4d35-8934-19d24105fb46"
               LastKnownName="IIpCamera"
-              LastKnownLocation="Package_2334.uml" />
+              LastKnownLocation="Package_1227.uml" />
           </interfaceRealization>
         </suppliersInternal>
         <ownedOperationsInternal>
@@ -157,7 +83,7 @@
                     <classMoniker
                       Id="4833a9aa-efe6-4dd3-8deb-d0ad5be4319f"
                       LastKnownName="Frame"
-                      LastKnownLocation="Package_2334.uml" />
+                      LastKnownLocation="Package_1227.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -178,71 +104,6 @@
       <undefinedType
         Id="14dffa7b-f134-454a-a43e-3f797a77917d"
         name="byte[]" />
-    </packageHasNamedElement>
-    <packageHasNamedElement>
-      <class
-        Id="4833a9aa-efe6-4dd3-8deb-d0ad5be4319f"
-        name="Frame"
-        isAbstract="false"
-        isLeaf="false"
-        isActiveClass="false">
-        <ownedAttributesInternal>
-          <property
-            Id="27401b8a-6679-418d-9273-1c0d3b543bb8"
-            name="CapturedBy"
-            isLeaf="false"
-            isStatic="false"
-            isReadOnly="false"
-            isUnique="false"
-            isDerived="false"
-            isDerivedUnion="false"
-            aggregation="None"
-            isComposite="false">
-            <type_NamedElement>
-              <interfaceMoniker
-                Id="50e4cf0c-9850-4d35-8934-19d24105fb46"
-                LastKnownName="IIpCamera"
-                LastKnownLocation="Package_2334.uml" />
-            </type_NamedElement>
-          </property>
-          <property
-            Id="a04fcbd6-caa2-4689-a20b-75d679613502"
-            name="CapturedAt"
-            isLeaf="false"
-            isStatic="false"
-            isReadOnly="false"
-            isUnique="false"
-            isDerived="false"
-            isDerivedUnion="false"
-            aggregation="None"
-            isComposite="false">
-            <type_NamedElement>
-              <undefinedTypeMoniker
-                Id="5119adbd-e889-4b8e-99f4-833225ac0f6f"
-                LastKnownName="DateTime"
-                LastKnownLocation="Package_2334.uml" />
-            </type_NamedElement>
-          </property>
-          <property
-            Id="6d4323c2-b28b-4ca0-b114-f3f932a24eb4"
-            name="BitmapData"
-            isLeaf="false"
-            isStatic="false"
-            isReadOnly="false"
-            isUnique="false"
-            isDerived="false"
-            isDerivedUnion="false"
-            aggregation="None"
-            isComposite="false">
-            <type_NamedElement>
-              <undefinedTypeMoniker
-                Id="14dffa7b-f134-454a-a43e-3f797a77917d"
-                LastKnownName="byte[]"
-                LastKnownLocation="Package_2334.uml" />
-            </type_NamedElement>
-          </property>
-        </ownedAttributesInternal>
-      </class>
     </packageHasNamedElement>
     <packageHasNamedElement>
       <undefinedType
@@ -268,40 +129,6 @@
       <undefinedType
         Id="78fe4a7d-b745-45b0-b618-071bc1d5fa15"
         name="System::Uri" />
-    </packageHasNamedElement>
-    <packageHasNamedElement>
-      <Interface
-        Id="c4c6b029-e876-40b4-baa7-2eb998f4d96e"
-        name="IFrameSource"
-        isAbstract="false"
-        isLeaf="false">
-        <ownedOperations>
-          <operation
-            Id="3130aa00-8651-45ca-9dd5-404646f05e3d"
-            name="RetrieveFrame"
-            isLeaf="false"
-            isStatic="false"
-            isAbstract="true"
-            concurrency="Sequential"
-            isQuery="false">
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter
-                  Id="36571afc-7d65-44c8-a377-5c5b58335b46"
-                  direction="Return"
-                  isUnique="false">
-                  <type_NamedElement>
-                    <classMoniker
-                      Id="4833a9aa-efe6-4dd3-8deb-d0ad5be4319f"
-                      LastKnownName="Frame"
-                      LastKnownLocation="Package_2334.uml" />
-                  </type_NamedElement>
-                </parameter>
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-        </ownedOperations>
-      </Interface>
     </packageHasNamedElement>
   </packagedElements>
 </package>
