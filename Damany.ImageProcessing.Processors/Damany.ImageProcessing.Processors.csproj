@@ -34,6 +34,9 @@
     <Reference Include="FaceProcessingWrapper">
       <HintPath>..\RemoteImaging\Debug\FaceProcessingWrapper.dll</HintPath>
     </Reference>
+    <Reference Include="IconExtractor">
+      <HintPath>..\RemoteImaging\Debug\IconExtractor.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
