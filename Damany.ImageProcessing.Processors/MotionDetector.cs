@@ -11,6 +11,8 @@ namespace Damany.ImageProcessing.Processors
     {
         public void DetectMotion(Frame frame)
         { 
+            ImageProcess.Frame f = new ImageProcess.Frame();
+            
             this.detector.PreProcessFrame(
 
 
