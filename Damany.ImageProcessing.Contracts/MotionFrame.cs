@@ -6,8 +6,15 @@ using OpenCvSharp;
 
 namespace Damany.ImageProcessing.Contracts
 {
-    public class MotionFrame : Frame
+    public class MotionFrame
     {
+        public MotionFrame(Frame frame, IList<CvRect> rects)
+        {
+            this.Frame = frame;
+            this.MotionRectangles = rects;
+        }
+
         public IList<CvRect> MotionRectangles { get; set; }
+        public Frame Frame { get; set; }
     }
 }

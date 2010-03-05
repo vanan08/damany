@@ -405,7 +405,7 @@ namespace RemoteImaging.RealtimeDisplay
                 {
                     Frame lastFrame = new Frame();
 
-                    bool groupCaptured = this.motionDetector.PreProcessFrame(nextFrame, out lastFrame);
+                    bool groupCaptured = false;// this.motionDetector.PreProcessFrame(nextFrame, out lastFrame);
 
                     if (IsStaticFrame(lastFrame))
                     {

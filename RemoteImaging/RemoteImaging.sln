@@ -59,7 +59,15 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CameraWrappers", "..\Damany
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CameraWrappers.Test", "..\Damany.Library\CameraWrappers.Test\CameraWrappers.Test.csproj", "{6FA66571-1E49-42D8-83B8-6A38B75A85DC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Damany.ImageProcessing.Contracts", "..\Damany.ImageProcessing.Contracts\Damany.ImageProcessing.Contracts.csproj", "{B8F7A553-6295-4F0B-B48A-7C85DA5118BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Damany.ImageProcessing.Processors", "..\Damany.ImageProcessing.Processors\Damany.ImageProcessing.Processors.csproj", "{39CB311A-8E36-4302-8B62-136FA2EC39EC}"
+EndProject
 Global
+	GlobalSection(MercurialSourceControlSolutionProperties) = preSolution
+		SolutionIsControlled = True
+		SolutionBindings = <Solution Location In Database>
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|Mixed Platforms = Debug|Mixed Platforms
@@ -339,6 +347,26 @@ Global
 		{6FA66571-1E49-42D8-83B8-6A38B75A85DC}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{6FA66571-1E49-42D8-83B8-6A38B75A85DC}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{6FA66571-1E49-42D8-83B8-6A38B75A85DC}.Release|Win32.ActiveCfg = Release|Any CPU
+		{B8F7A553-6295-4F0B-B48A-7C85DA5118BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8F7A553-6295-4F0B-B48A-7C85DA5118BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8F7A553-6295-4F0B-B48A-7C85DA5118BB}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{B8F7A553-6295-4F0B-B48A-7C85DA5118BB}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{B8F7A553-6295-4F0B-B48A-7C85DA5118BB}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{B8F7A553-6295-4F0B-B48A-7C85DA5118BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8F7A553-6295-4F0B-B48A-7C85DA5118BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8F7A553-6295-4F0B-B48A-7C85DA5118BB}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{B8F7A553-6295-4F0B-B48A-7C85DA5118BB}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{B8F7A553-6295-4F0B-B48A-7C85DA5118BB}.Release|Win32.ActiveCfg = Release|Any CPU
+		{39CB311A-8E36-4302-8B62-136FA2EC39EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39CB311A-8E36-4302-8B62-136FA2EC39EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39CB311A-8E36-4302-8B62-136FA2EC39EC}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{39CB311A-8E36-4302-8B62-136FA2EC39EC}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{39CB311A-8E36-4302-8B62-136FA2EC39EC}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{39CB311A-8E36-4302-8B62-136FA2EC39EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39CB311A-8E36-4302-8B62-136FA2EC39EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39CB311A-8E36-4302-8B62-136FA2EC39EC}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{39CB311A-8E36-4302-8B62-136FA2EC39EC}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{39CB311A-8E36-4302-8B62-136FA2EC39EC}.Release|Win32.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -352,6 +380,8 @@ Global
 		{02B00EA5-D734-429C-BF58-44769501B940} = {36D5637F-B991-4E43-BE44-6D0D4E3928A9}
 		{7F738107-2BE8-474F-B375-BAFD537018EA} = {36D5637F-B991-4E43-BE44-6D0D4E3928A9}
 		{62BA9C03-0951-40C4-B2B9-EDABC8815177} = {36D5637F-B991-4E43-BE44-6D0D4E3928A9}
+		{B8F7A553-6295-4F0B-B48A-7C85DA5118BB} = {36D5637F-B991-4E43-BE44-6D0D4E3928A9}
+		{39CB311A-8E36-4302-8B62-136FA2EC39EC} = {36D5637F-B991-4E43-BE44-6D0D4E3928A9}
 		{7C6269E8-3954-4451-8F33-67F3916231AF} = {DB64F93D-6884-43E8-8EB8-0E02D50F4F8C}
 		{105AB30D-A893-4E2C-B149-764A80C1FDCE} = {DB64F93D-6884-43E8-8EB8-0E02D50F4F8C}
 		{80DC56F4-DB48-4AF2-B1BE-6B944A81B293} = {DB64F93D-6884-43E8-8EB8-0E02D50F4F8C}
