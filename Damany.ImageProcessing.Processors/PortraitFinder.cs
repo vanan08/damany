@@ -38,13 +38,14 @@ namespace Damany.ImageProcessing.Processors
 
             var portraits = this.searcher.SearchFaces();
 
-            var noPortraitFrameQuery
-                                = from m in motionFrames
-                                  where !portraits.Any( t => t.BaseFrame.guid.Equals(m.Frame.Guid) )
-                                  select m;
+            DisposeFacelessFrames(motionFrames, portraits);
+            var portraitList = ExpandPortraitsList(motionFrames, portraits);
+            this.successor.HandlePortraits(portraitList);
 
-            Array.ForEach(noPortraitFrameQuery.ToArray(), mf => { motionFrames.Remove(mf); mf.Dispose(); });
+        }
 
+        private static IList<Portrait> ExpandPortraitsList(IList<MotionFrame> motionFrames, ImageProcess.Target[] portraits)
+        {
             var portraitFoundFrameQuery = from m in motionFrames
                                           join p in portraits
                                             on m.Frame.Guid equals p.BaseFrame.guid
@@ -55,7 +56,7 @@ namespace Damany.ImageProcessing.Processors
                                           };
 
             var expanded = from item in portraitFoundFrameQuery
-                           from  p in item.P.Portraits
+                           from p in item.P.Portraits
                            select new Portrait
                            {
                                ContainedIn = item.F,
@@ -65,10 +66,18 @@ namespace Damany.ImageProcessing.Processors
                            };
 
             var portraitList = expanded.ToList();
-
-            this.successor.HandlePortraits(portraitList);
-            
+            return portraitList;
         }
+
+        private static void DisposeFacelessFrames(IList<MotionFrame> motionFrames, ImageProcess.Target[] portraits)
+        {
+            var noPortraitFrameQuery  = from m in motionFrames
+                                        where !portraits.Any(t => t.BaseFrame.guid.Equals(m.Frame.Guid))
+                                        select m;
+
+            Array.ForEach(noPortraitFrameQuery.ToArray(), mf => { motionFrames.Remove(mf); mf.Dispose(); });
+        }
+
 
         IPortraitHandler successor;
         FaceSearchWrapper.FaceSearch searcher;
