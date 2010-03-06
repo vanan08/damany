@@ -12,7 +12,7 @@ namespace Damany.ImageProcessing.Contracts
             this.image = new BitmapIplUnion(stream);
         }
 
-        public System.IO.Stream BitmapData { get; set; }
+       
         public DateTime CapturedAt { get; set; }
         public IFrameStream CapturedFrom { get; set; }
 
@@ -64,5 +64,20 @@ namespace Damany.ImageProcessing.Contracts
         }
 
         #endregion
+
+
+        public Frame Clone()
+        {
+            var clone = new Frame();
+
+            clone.image = this.image == null ? null : this.image.Clone();
+            clone.CapturedAt = this.CapturedAt;
+            clone.CapturedFrom = this.CapturedFrom;
+
+            return clone;
+        }
+
+
+        private Frame() {}
     }
 }

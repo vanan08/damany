@@ -20,7 +20,7 @@ namespace Damany.ImageProcessing.Processors
             this.frameHistory[f.Guid] = f;
         }
 
-        public IList<MotionFrame> RetrieveMotionFrames()
+        public List<MotionFrame> RetrieveMotionFrames()
         {
             var toReturn = this.motionFrames;
             this.motionFrames = null;
@@ -84,7 +84,7 @@ namespace Damany.ImageProcessing.Processors
         }
 
         Dictionary<Guid, Frame> frameHistory;
-        IList<MotionFrame> motionFrames;
+        List<MotionFrame> motionFrames;
 
     }
 }
