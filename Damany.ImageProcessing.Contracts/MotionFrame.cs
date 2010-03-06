@@ -24,6 +24,7 @@ namespace Damany.ImageProcessing.Contracts
             if (this.Frame != null)
             {
                 this.Frame.Dispose();
+                this.Frame = null;
             }
         }
 

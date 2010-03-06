@@ -53,20 +53,21 @@ void FaceSearchWrapper::FaceSearch::SetLightMode(int iMode)
 	pFaceSearch->SetLightMode(iMode);
 }
 
-void FaceSearchWrapper::FaceSearch::AddInFrame(ImageProcess::Frame^ frame)
+void FaceSearchWrapper::FaceSearch::AddInFrame(Damany::ImageProcessing::Contracts::MotionFrame^ frame)
 {
 
 	Frame frm;
 
-	frm.cameraID = frame->cameraID;
-	frm.image = (::IplImage *) frame->image->CvPtr.ToPointer();
+	frm.image = (::IplImage *) frame->Frame->Ipl->CvPtr.ToPointer();
 
-	frm.searchRect.x = frame->searchRect.X;
-	frm.searchRect.y = frame->searchRect.Y;
-	frm.searchRect.width = frame->searchRect.Width;
-	frm.searchRect.height = frame->searchRect.Height;
+	frm.searchRect.x = frame->MotionRectangles[0].X;// .get_Item [0].X;// [0] ->searchRect.X;
+	frm.searchRect.y = frame->MotionRectangles[0].Y;
+	frm.searchRect.width = frame->MotionRectangles[0].Width;
+	frm.searchRect.height = frame->MotionRectangles[0].Height;
 
-	frm.timeStamp = frame->timeStamp;
+
+	pin_ptr<Byte> pByte =  &frame->Frame->Guid.ToByteArray()[0];
+	::memcpy_s(frm.guid, GUI_LEN, pByte, GUI_LEN);
 
 	pFaceSearch->AddInFrame(frm);
 
@@ -74,7 +75,7 @@ void FaceSearchWrapper::FaceSearch::AddInFrame(ImageProcess::Frame^ frame)
 
 
 array<ImageProcess::Target^>^ 
-FaceSearchWrapper::FaceSearch::SearchFacesFastMode(ImageProcess::Frame^ frame)
+FaceSearchWrapper::FaceSearch::SearchFacesFastMode(Damany::ImageProcessing::Contracts::MotionFrame^ frame)
 {
 	AddInFrame(frame);
 	return SearchFaces();
@@ -97,9 +98,7 @@ array<ImageProcess::Target^>^ FaceSearchWrapper::FaceSearch::SearchFaces()
 		mtArray[i]->BaseFrame = gcnew ImageProcess::Frame;
 		Frame unmanagedBaseFrame = pFacesFound[i].BaseFrame;
 
-		mtArray[i]->BaseFrame->cameraID = pFacesFound[i].BaseFrame.cameraID;
 		mtArray[i]->BaseFrame->image = gcnew OpenCvSharp::IplImage( (IntPtr) unmanagedBaseFrame.image  );
-
 		mtArray[i]->BaseFrame->image->IsEnabledDispose = false;
 
 		mtArray[i]->BaseFrame->searchRect.X = unmanagedBaseFrame.searchRect.x;
@@ -107,27 +106,25 @@ array<ImageProcess::Target^>^ FaceSearchWrapper::FaceSearch::SearchFaces()
 		mtArray[i]->BaseFrame->searchRect.Width = unmanagedBaseFrame.searchRect.width;
 		mtArray[i]->BaseFrame->searchRect.Height = unmanagedBaseFrame.searchRect.height;
 
-		mtArray[i]->BaseFrame->timeStamp = unmanagedBaseFrame.timeStamp;
-
+		array<System::Byte>^ guidBytes = gcnew array<System::Byte>(16);
+		pin_ptr<Byte> pBytes = &guidBytes[0];
+		::memcpy_s(pBytes, 16, unmanagedBaseFrame.guid, 16);
+		mtArray[i]->BaseFrame->guid = System::Guid(guidBytes);
 
 		int facesCount = pFacesFound[i].FaceCount;
 
-
-		mtArray[i]->Faces = gcnew array<OpenCvSharp::IplImage^>(facesCount);
-		mtArray[i]->FacesRects  = gcnew array<OpenCvSharp::CvRect>(facesCount);
-		mtArray[i]->FacesRectsForCompare = gcnew array<OpenCvSharp::CvRect>(facesCount);
+		mtArray[i]->Portraits = gcnew array<ImageProcess::PortraitInfo^>(facesCount);
 
 		for (int j=0; j<facesCount; ++j)
 		{
+			ImageProcess::PortraitInfo^ pinfo = gcnew ImageProcess::PortraitInfo();
+			pinfo->Face = gcnew OpenCvSharp::IplImage( (IntPtr) pFacesFound[i].FaceData[j] );
+			pinfo->Face->IsEnabledDispose = false;
+			pinfo->FacesRect = UnmanagedRectToManaged(pFacesFound[i].FaceRects[j]);
+			pinfo->FacesRectForCompare = UnmanagedRectToManaged(pFacesFound[i].FaceOrgRects[j]);
 
-			mtArray[i]->Faces[j] = gcnew OpenCvSharp::IplImage( (IntPtr) pFacesFound[i].FaceData[j] );
-			mtArray[i]->Faces[j]->IsEnabledDispose = false;
 
-			mtArray[i]->FacesRects[j] = 
-				UnmanagedRectToManaged(pFacesFound[i].FaceRects[j]);
-			mtArray[i]->FacesRectsForCompare[j] = 
-				UnmanagedRectToManaged(pFacesFound[i].FaceOrgRects[j]);
-
+			mtArray[i]->Portraits[j] = pinfo;
 		}
 
 	}

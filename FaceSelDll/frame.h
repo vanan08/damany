@@ -3,12 +3,13 @@
 
 #include <windows.h>
 
+#define GUI_LEN 16
+
 struct Frame
 {
-	BYTE cameraID;
 	IplImage *image;//cv ×ª»»ºóµÄÍ¼Æ¬
 	CvRect searchRect;//ËÑË÷Á³µÄ·¶Î§
-	LONGLONG timeStamp;
+	BYTE guid[GUI_LEN];
 };
 
 

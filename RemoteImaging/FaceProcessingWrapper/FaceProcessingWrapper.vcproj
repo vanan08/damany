@@ -198,6 +198,10 @@
 			AssemblyName="System.Drawing, Version=2.0.0.0, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL"
 			MinFrameworkVersion="131072"
 		/>
+		<ProjectReference
+			ReferencedProjectIdentifier="{C917EC7F-9A59-4845-9108-87056AC61D4F}"
+			RelativePathToProject=".\IconExtractor\ImageProcessing.csproj"
+		/>
 	</References>
 	<Files>
 		<Filter
@@ -223,6 +227,10 @@
 			</File>
 			<File
 				RelativePath=".\FrontFaceChecker.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\MotionDetectionResult.cpp"
 				>
 			</File>
 			<File

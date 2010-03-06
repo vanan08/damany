@@ -59,6 +59,7 @@ namespace Damany.ImageProcessing.Contracts
             if (image != null)
             {
                 image.Dispose();
+                this.image = null;
             }
         }
 

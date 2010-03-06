@@ -100,7 +100,7 @@
             </class>
           </packageHasNamedElement>
           <packageHasNamedElement>
-            <class Id="731430e7-bac9-46c4-b9a0-cb3f5890e512" name="FaceFinder" isAbstract="false" isLeaf="false" isActiveClass="false">
+            <class Id="731430e7-bac9-46c4-b9a0-cb3f5890e512" name="PortraitFinder" isAbstract="false" isLeaf="false" isActiveClass="false">
               <elementDefinition Id="4f70db8f-e878-43cc-81b2-ae5a7237c19f" />
               <suppliersInternal>
                 <interfaceRealization Id="dfcc81a0-fd8f-4a99-8229-63b951157eed">

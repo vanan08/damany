@@ -27,8 +27,8 @@ namespace FaceSearchWrapper {
 		//如果人脸框大小保持不变，4个值都应该为0.0f
 		void SetExRatio( double topExRatio, double bottomExRatio, double leftExRatio, double rightExRatio );
 		void SetLightMode(int iMode);
-		void AddInFrame(ImageProcess::Frame^ frame);
-		array<ImageProcess::Target^>^ SearchFacesFastMode(ImageProcess::Frame^ frame);
+		void AddInFrame(Damany::ImageProcessing::Contracts::MotionFrame^ frame);
+		array<ImageProcess::Target^>^ SearchFacesFastMode(Damany::ImageProcessing::Contracts::MotionFrame^ frame);
 		array<ImageProcess::Target^>^ SearchFaces();
 		OpenCvSharp::IplImage^ NormalizeImage(OpenCvSharp::IplImage^ imgIn, OpenCvSharp::CvRect roi);
 		array<OpenCvSharp::IplImage^>^ NormalizeImageForTraining(OpenCvSharp::IplImage^ imgIn, OpenCvSharp::CvRect roi);

@@ -24,20 +24,16 @@ namespace FaceProcessingWrapper.Test
 
             Guid guidFram1 = f.Guid;
 
-            Guid guidOut = new Guid();
-            OpenCvSharp.CvRect rectOut = new OpenCvSharp.CvRect();
+            MotionDetectionResult result = new MotionDetectionResult();
 
-            detector.PreProcessFrame(f, out guidOut, out rectOut);
-            Assert.IsTrue(Guid.Empty.Equals(guidOut));
+            detector.PreProcessFrame(f, result);
+            Assert.IsTrue(Guid.Empty.Equals(result.FrameGuid));
 
             bytes = System.IO.File.OpenRead(@"D:\ImageOutput\02\2010\01\27\BigPic\201001271121\02_100127112121953.jpg");
             f = new Damany.ImageProcessing.Contracts.Frame(bytes);
-            detector.PreProcessFrame(f, out guidOut, out rectOut);
+            detector.PreProcessFrame(f, result);
 
-            Assert.IsTrue(guidOut.Equals(guidFram1));
-
-
-
+            Assert.IsTrue(result.FrameGuid.Equals(guidFram1));
         }
     }
 }

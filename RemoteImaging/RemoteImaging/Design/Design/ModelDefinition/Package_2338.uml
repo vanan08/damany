@@ -21,7 +21,7 @@
             isAbstract="false">
             <interfaceMoniker
               Id="2bb251fe-0b4c-43c3-a67c-a34242dbdf6b"
-              LastKnownName="IFrameGroupListener"
+              LastKnownName="IFrameGroupHandler"
               LastKnownLocation="Package_1227.uml" />
             <relationshipOwnedElementsInternal>
               <associationHasOwnedEnds>
@@ -77,7 +77,7 @@
     <packageHasNamedElement>
       <class
         Id="4f70db8f-e878-43cc-81b2-ae5a7237c19f"
-        name="FaceFinder"
+        name="PortraitFinder"
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">
@@ -93,7 +93,7 @@
             Id="288efaac-355f-4dc0-b858-bed52c882307">
             <interfaceMoniker
               Id="2bb251fe-0b4c-43c3-a67c-a34242dbdf6b"
-              LastKnownName="IFrameGroupListener"
+              LastKnownName="IFrameGroupHandler"
               LastKnownLocation="Package_1227.uml" />
           </interfaceRealization>
         </suppliersInternal>
@@ -107,7 +107,7 @@
             isAbstract="false">
             <interfaceMoniker
               Id="9e182aa3-5ce2-4ff0-8eb0-dbeb29e79773"
-              LastKnownName="IFaceListener"
+              LastKnownName="IPortraitHandler"
               LastKnownLocation="Package_1227.uml" />
             <relationshipOwnedElementsInternal>
               <associationHasOwnedEnds>
@@ -314,7 +314,7 @@
             isAbstract="false">
             <interfaceMoniker
               Id="c4c6b029-e876-40b4-baa7-2eb998f4d96e"
-              LastKnownName="IFrameSource"
+              LastKnownName="IFrameStream"
               LastKnownLocation="Package_1227.uml" />
             <relationshipOwnedElementsInternal>
               <associationHasOwnedEnds>
