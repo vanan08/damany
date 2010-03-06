@@ -29,5 +29,15 @@ namespace Damany.ImageProcessing.Contracts
         }
 
         #endregion
+
+        public MotionFrame Clone()
+        {
+            var frameClone = this.Frame == null ? null : this.Frame.Clone();
+            var rectsClone =
+                this.MotionRectangles == null ?
+                null : new List<CvRect>(this.MotionRectangles);
+
+            return new MotionFrame(frameClone, rectsClone);
+        }
     }
 }

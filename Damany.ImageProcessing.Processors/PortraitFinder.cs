@@ -23,7 +23,8 @@ namespace Damany.ImageProcessing.Processors
 
         public void HandleMotionFrame(IList<MotionFrame> motionFrames)
         {
-            this.SearchIn(motionFrames);
+            var cloned = motionFrames.ToList().ConvertAll(f => f.Clone());
+            this.SearchIn(cloned);
         }
 
         #endregion
@@ -40,11 +41,10 @@ namespace Damany.ImageProcessing.Processors
 
             DisposeFacelessFrames(motionFrames, portraits);
             var portraitList = ExpandPortraitsList(motionFrames, portraits);
-            this.successor.HandlePortraits(portraitList);
-
+            PassOnPortraits(portraitList);
         }
 
-        private static IList<Portrait> ExpandPortraitsList(IList<MotionFrame> motionFrames, ImageProcess.Target[] portraits)
+        private static List<Portrait> ExpandPortraitsList(IList<MotionFrame> motionFrames, ImageProcess.Target[] portraits)
         {
             var portraitFoundFrameQuery = from m in motionFrames
                                           join p in portraits
@@ -76,6 +76,13 @@ namespace Damany.ImageProcessing.Processors
                                         select m;
 
             Array.ForEach(noPortraitFrameQuery.ToArray(), mf => { motionFrames.Remove(mf); mf.Dispose(); });
+        }
+
+
+        private void PassOnPortraits(List<Portrait> portraitList)
+        {
+            this.successor.HandlePortraits(portraitList);
+            portraitList.ForEach(p => p.Dispose());
         }
 
 

@@ -62,7 +62,7 @@ namespace Damany.ImageProcessing.Processors
         {
             var frames = this.manager.RetrieveMotionFrames();
             this.handler.HandleMotionFrame(frames);
-            frames.Dispose();
+            frames.ForEach(f => f.Dispose());
         }
 
         FaceProcessingWrapper.MotionDetector detector;

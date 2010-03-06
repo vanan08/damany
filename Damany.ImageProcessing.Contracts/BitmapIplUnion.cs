@@ -86,5 +86,25 @@ namespace Damany.ImageProcessing.Contracts
         }
 
         #endregion
+
+
+        public BitmapIplUnion Clone()
+        {
+            var clone = new BitmapIplUnion();
+
+            if (this.stream != null)
+            {
+                var stream = new System.IO.MemoryStream();
+                MiscUtil.IO.StreamUtil.Copy(this.stream, stream);
+                clone.stream = stream;
+            }
+
+            clone.ipl = this.ipl == null ? null : this.ipl.Clone();
+            clone.bitmap = this.bitmap == null ? null : (System.Drawing.Bitmap) this.bitmap.Clone();
+
+            return clone;
+        }
+
+        private BitmapIplUnion() {}
     }
 }
