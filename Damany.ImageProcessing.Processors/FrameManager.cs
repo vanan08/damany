@@ -20,19 +20,16 @@ namespace Damany.ImageProcessing.Processors
             this.frameHistory[f.Guid] = f;
         }
 
-        public IList<MotionFrame> MotionFrames
+        public IList<MotionFrame> RetrieveMotionFrames()
         {
-            get
-            {
-                var toReturn = this.motionFrames;
-                this.motionFrames = null;
-                return toReturn;
-            }
+            var toReturn = this.motionFrames;
+            this.motionFrames = null;
+            return toReturn;
         }
 
-        public void MoveToMotionFrames(System.Guid guidOfFrameToDispose, OpenCvSharp.CvRect rect)
+        public void MoveToMotionFrames( FaceProcessingWrapper.MotionDetectionResult frameResult )
         {
-            var f = RetrieveFrame(guidOfFrameToDispose);
+            var f = RetrieveFrame(frameResult.FrameGuid);
             if (f != null)
             {
                 if (this.motionFrames == null)
@@ -40,10 +37,7 @@ namespace Damany.ImageProcessing.Processors
                     this.motionFrames = new List<MotionFrame>();
                 }
 
-                var motionRects = new List<OpenCvSharp.CvRect>();
-                motionRects.Add(rect);
-
-                var motionFrame = new MotionFrame(f, motionRects);
+                Damany.ImageProcessing.Contracts.MotionFrame motionFrame = CreateMotionFrame(frameResult.MotionRect, f);
                 motionFrames.Add(motionFrame);
             }
         }
@@ -55,6 +49,15 @@ namespace Damany.ImageProcessing.Processors
             {
                 f.Dispose();
             }
+        }
+
+        private static Damany.ImageProcessing.Contracts.MotionFrame CreateMotionFrame(OpenCvSharp.CvRect rect, Damany.ImageProcessing.Contracts.Frame f)
+        {
+            var motionRects = new List<OpenCvSharp.CvRect>();
+            motionRects.Add(rect);
+
+            var motionFrame = new MotionFrame(f, motionRects);
+            return motionFrame;
         }
 
         private Frame RetrieveFrame(Guid id)

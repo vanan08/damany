@@ -20,27 +20,23 @@ namespace Damany.ImageProcessing.Processors
         {
             this.manager.AddNewFrame(frame);
 
-            System.Guid guidOfFrameToBeHandled = new System.Guid();
-            OpenCvSharp.CvRect rect = new OpenCvSharp.CvRect();
-            
-            bool groupCaptured = this.detector.PreProcessFrame(frame, out guidOfFrameToBeHandled, out rect);
+            FaceProcessingWrapper.MotionDetectionResult oldFrameMotionResult;
+            bool groupCaptured = ProcessNewFrame(frame, out oldFrameMotionResult);
 
-            if (IsStaticFrame(rect))
-            {
-                this.manager.DisposeFrame(guidOfFrameToBeHandled);
-            }
-            else
-            {
-                this.manager.MoveToMotionFrames(guidOfFrameToBeHandled, rect);
-            }
-
+            ProcessOldFrame(oldFrameMotionResult);
 
             if (groupCaptured)
             {
-                var frames = this.manager.MotionFrames;
-                this.handler.HandleMotionFrame(frames);
-                frames.Dispose();
+                NotifyListener();
             }
+        }
+
+
+        private bool ProcessNewFrame(Frame frame, out FaceProcessingWrapper.MotionDetectionResult detectionResult)
+        {
+            detectionResult = new FaceProcessingWrapper.MotionDetectionResult();
+
+            return this.detector.PreProcessFrame(frame, detectionResult);
         }
 
 
@@ -50,7 +46,25 @@ namespace Damany.ImageProcessing.Processors
         }
 
 
-        
+        private void ProcessOldFrame(FaceProcessingWrapper.MotionDetectionResult result)
+        {
+            if (IsStaticFrame(result.MotionRect))
+            {
+                this.manager.DisposeFrame(result.FrameGuid);
+            }
+            else
+            {
+                this.manager.MoveToMotionFrames(result);
+            }
+        }
+
+        private void NotifyListener()
+        {
+            var frames = this.manager.RetrieveMotionFrames();
+            this.handler.HandleMotionFrame(frames);
+            frames.Dispose();
+        }
+
         FaceProcessingWrapper.MotionDetector detector;
         IMotionFrameHandler handler;
 

@@ -12,13 +12,32 @@ namespace Damany.ImageProcessing.Contracts
             this.stream = bytesStream;
         }
 
+        public BitmapIplUnion(System.Drawing.Bitmap bmp)
+        {
+            this.bitmap = bmp;
+        }
+
+        public BitmapIplUnion(OpenCvSharp.IplImage ipl)
+        {
+            this.ipl = ipl;
+        }
+
         public System.Drawing.Bitmap Bitmap
         {
             get
             {
                 if (this.bitmap == null)
                 {
-                    this.bitmap = (System.Drawing.Bitmap) System.Drawing.Bitmap.FromStream(this.stream);
+                    if (this.stream != null)
+                    {
+                        this.bitmap = (System.Drawing.Bitmap)System.Drawing.Bitmap.FromStream(this.stream);
+                    }
+                    else if (this.ipl != null)
+                    {
+                        this.bitmap = OpenCvSharp.BitmapConverter.ToBitmap(this.ipl);
+                    }
+                    else
+                        throw new InvalidOperationException("Object is not initialized correctly");
                 }
 
                 return this.bitmap;
@@ -50,16 +69,19 @@ namespace Damany.ImageProcessing.Contracts
             if (this.ipl != null)
             {
                 this.ipl.Dispose();
+                this.ipl = null;
             }
 
             if (this.bitmap != null)
             {
                 this.bitmap.Dispose();
+                this.bitmap = null;
             }
 
             if (this.stream != null)
             {
                 this.stream.Dispose();
+                this.stream = null;
             }
         }
 

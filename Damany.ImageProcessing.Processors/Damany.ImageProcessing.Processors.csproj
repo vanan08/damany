@@ -34,9 +34,6 @@
     <Reference Include="FaceProcessingWrapper">
       <HintPath>..\RemoteImaging\Debug\FaceProcessingWrapper.dll</HintPath>
     </Reference>
-    <Reference Include="IconExtractor">
-      <HintPath>..\RemoteImaging\Debug\IconExtractor.dll</HintPath>
-    </Reference>
     <Reference Include="OpenCvSharp, Version=2.0.3497.28493, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Library\OpenCvSharp\OpenCvSharp.dll</HintPath>
@@ -45,6 +42,7 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -54,12 +52,21 @@
   <ItemGroup>
     <Compile Include="FrameManager.cs" />
     <Compile Include="MotionDetector.cs" />
+    <Compile Include="PortraitFinder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Damany.ImageProcessing.Contracts\Damany.ImageProcessing.Contracts.csproj">
       <Project>{B8F7A553-6295-4F0B-B48A-7C85DA5118BB}</Project>
       <Name>Damany.ImageProcessing.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RemoteImaging\FaceSearchWrapper\FaceSearchWrapper.vcproj">
+      <Project>{F6F410AA-5D72-49BE-9FFE-6EBECF718EAA}</Project>
+      <Name>FaceSearchWrapper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RemoteImaging\IconExtractor\ImageProcessing.csproj">
+      <Project>{C917EC7F-9A59-4845-9108-87056AC61D4F}</Project>
+      <Name>ImageProcessing</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

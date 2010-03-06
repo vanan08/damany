@@ -9,13 +9,8 @@ namespace ImageProcess
 {
     public class Frame
     {
-        public byte cameraID;
-        /// IplImage*
         public OpenCvSharp.IplImage image;
-
         public CvRect searchRect;
-
-        /// int
-        public long timeStamp;
+        public System.Guid guid;
     }
 }
