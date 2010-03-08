@@ -58,7 +58,7 @@ void FaceSearchWrapper::FaceSearch::AddInFrame(Damany::ImageProcessing::Contract
 
 	Frame frm;
 
-	frm.image = (::IplImage *) frame->Frame->Ipl->CvPtr.ToPointer();
+	frm.image = (::IplImage *) frame->Ipl->CvPtr.ToPointer();
 
 	frm.searchRect.x = frame->MotionRectangles[0].X;// .get_Item [0].X;// [0] ->searchRect.X;
 	frm.searchRect.y = frame->MotionRectangles[0].Y;
@@ -66,7 +66,7 @@ void FaceSearchWrapper::FaceSearch::AddInFrame(Damany::ImageProcessing::Contract
 	frm.searchRect.height = frame->MotionRectangles[0].Height;
 
 
-	pin_ptr<Byte> pByte =  &frame->Frame->Guid.ToByteArray()[0];
+	pin_ptr<Byte> pByte =  &frame->Guid.ToByteArray()[0];
 	::memcpy_s(frm.guid, GUI_LEN, pByte, GUI_LEN);
 
 	pFaceSearch->AddInFrame(frm);

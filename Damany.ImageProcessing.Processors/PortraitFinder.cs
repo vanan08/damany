@@ -48,7 +48,7 @@ namespace Damany.ImageProcessing.Processors
         {
             var portraitFoundFrameQuery = from m in motionFrames
                                           join p in portraits
-                                            on m.Frame.Guid equals p.BaseFrame.guid
+                                            on m.Guid equals p.BaseFrame.guid
                                           select new
                                           {
                                               F = m,
@@ -57,12 +57,13 @@ namespace Damany.ImageProcessing.Processors
 
             var expanded = from item in portraitFoundFrameQuery
                            from p in item.P.Portraits
-                           select new Portrait
+                           select new Portrait (item.F.Clone())
                            {
-                               ContainedIn = item.F,
-                               FaceImage = new BitmapIplUnion(p.Face),
-                               FaceRect = p.FacesRect,
-                               RectInMotionFrame = p.FacesRectForCompare,
+                                BoundsInParent = new PortraitBounds
+                                {
+                                     Bounds = p.FacesRect,
+                                     FaceBounds = p.FacesRectForCompare,
+                                }
                            };
 
             var portraitList = expanded.ToList();
@@ -72,7 +73,7 @@ namespace Damany.ImageProcessing.Processors
         private static void DisposeFacelessFrames(IList<MotionFrame> motionFrames, ImageProcess.Target[] portraits)
         {
             var noPortraitFrameQuery  = from m in motionFrames
-                                        where !portraits.Any(t => t.BaseFrame.guid.Equals(m.Frame.Guid))
+                                        where !portraits.Any(t => t.BaseFrame.guid.Equals(m.Guid))
                                         select m;
 
             Array.ForEach(noPortraitFrameQuery.ToArray(), mf => { motionFrames.Remove(mf); mf.Dispose(); });

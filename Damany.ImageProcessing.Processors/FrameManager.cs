@@ -53,10 +53,8 @@ namespace Damany.ImageProcessing.Processors
 
         private static Damany.ImageProcessing.Contracts.MotionFrame CreateMotionFrame(OpenCvSharp.CvRect rect, Damany.ImageProcessing.Contracts.Frame f)
         {
-            var motionRects = new List<OpenCvSharp.CvRect>();
-            motionRects.Add(rect);
-
-            var motionFrame = new MotionFrame(f, motionRects);
+            var motionFrame = new MotionFrame(f.Ipl.Clone());
+            motionFrame.MotionRectangles.Add(rect);
             return motionFrame;
         }
 

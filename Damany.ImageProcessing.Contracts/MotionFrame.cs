@@ -6,38 +6,47 @@ using OpenCvSharp;
 
 namespace Damany.ImageProcessing.Contracts
 {
-    public class MotionFrame : IDisposable
+    public class MotionFrame : Frame
     {
-        public MotionFrame(Frame frame, IList<CvRect> rects)
+        public MotionFrame(IplImage image)
+            : base(image)
         {
-            this.Frame = frame;
-            this.MotionRectangles = rects;
+            
         }
 
-        public IList<CvRect> MotionRectangles { get; set; }
-        public Frame Frame { get; set; }
-
-        #region IDisposable Members
-
-        public void Dispose()
+        public MotionFrame(System.IO.Stream stream)
+            : base(stream)
         {
-            if (this.Frame != null)
-            {
-                this.Frame.Dispose();
-                this.Frame = null;
-            }
         }
-
-        #endregion
 
         public MotionFrame Clone()
         {
-            var frameClone = this.Frame == null ? null : this.Frame.Clone();
+            var clone = new MotionFrame(base.Clone().Ipl);
+
             var rectsClone =
                 this.MotionRectangles == null ?
                 null : new List<CvRect>(this.MotionRectangles);
 
-            return new MotionFrame(frameClone, rectsClone);
+            clone.MotionRectangles = rectsClone;
+
+            return clone;
         }
+
+        protected override void Dispose(bool IsDisposing)
+        {
+            if (disposed) return;
+
+            base.Dispose(IsDisposing);
+            disposed = true;
+        }
+
+        private void InitializeFields()
+        {
+            this.MotionRectangles = new List<OpenCvSharp.CvRect>();
+        }
+
+        public List<CvRect> MotionRectangles { get; private set; }
+
+        bool disposed;
     }
 }
