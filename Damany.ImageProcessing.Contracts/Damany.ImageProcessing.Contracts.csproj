@@ -56,16 +56,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BitmapIplUnion.cs" />
+    <Compile Include="LazyIplImage.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Frame.cs" />
-    <Compile Include="GuidObject.cs" />
     <Compile Include="IFrameStream.cs" />
     <Compile Include="IIpCamera.cs" />
     <Compile Include="IMotionFrameHandler.cs" />
     <Compile Include="IPortraitHandler.cs" />
     <Compile Include="MotionFrame.cs" />
     <Compile Include="Portrait.cs" />
+    <Compile Include="PortraitBounds.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
