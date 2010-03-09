@@ -59,9 +59,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CameraWrappers", "..\Damany
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CameraWrappers.Test", "..\Damany.Library\CameraWrappers.Test\CameraWrappers.Test.csproj", "{6FA66571-1E49-42D8-83B8-6A38B75A85DC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Damany.ImageProcessing.Contracts", "..\Damany.ImageProcessing.Contracts\Damany.ImageProcessing.Contracts.csproj", "{B8F7A553-6295-4F0B-B48A-7C85DA5118BB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Damany.Imaging.Contracts", "..\Damany.ImageProcessing.Contracts\Damany.Imaging.Contracts.csproj", "{B8F7A553-6295-4F0B-B48A-7C85DA5118BB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Damany.ImageProcessing.Processors", "..\Damany.ImageProcessing.Processors\Damany.ImageProcessing.Processors.csproj", "{39CB311A-8E36-4302-8B62-136FA2EC39EC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Damany.Imaging.Processors", "..\Damany.ImageProcessing.Processors\Damany.Imaging.Processors.csproj", "{39CB311A-8E36-4302-8B62-136FA2EC39EC}"
 EndProject
 Global
 	GlobalSection(MercurialSourceControlSolutionProperties) = preSolution

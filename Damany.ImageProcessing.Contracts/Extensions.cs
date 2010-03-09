@@ -4,15 +4,15 @@ using System.Linq;
 using System.Text;
 using OpenCvSharp;
 
-namespace Damany.ImageProcessing.Contracts
+namespace Damany.Imaging.Contracts
 {
     public static class Extensions
     {
-        public static void Dispose(this IList<MotionFrame> motionFrames)
+        public static void Dispose(this IList<Frame> frames)
         {
-            if (motionFrames != null)
+            if (frames != null)
             {
-                foreach (var item in motionFrames)
+                foreach (var item in frames)
                 {
                     item.Dispose();
                 }

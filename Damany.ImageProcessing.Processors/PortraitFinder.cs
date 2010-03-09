@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Damany.ImageProcessing.Processors
+namespace Damany.Imaging.Processors
 {
-    using Damany.ImageProcessing.Contracts;
+    using Damany.Imaging.Contracts;
 
     public class PortraitFinder : IMotionFrameHandler
     {
@@ -21,7 +21,7 @@ namespace Damany.ImageProcessing.Processors
 
         #region IMotionFrameHandler Members
 
-        public void HandleMotionFrame(IList<MotionFrame> motionFrames)
+        public void HandleMotionFrame(IList<Frame> motionFrames)
         {
             var cloned = motionFrames.ToList().ConvertAll(f => f.Clone());
             this.SearchIn(cloned);
@@ -30,7 +30,7 @@ namespace Damany.ImageProcessing.Processors
         #endregion
 
 
-        private void SearchIn(IList<MotionFrame> motionFrames)
+        private void SearchIn(IList<Frame> motionFrames)
         {
             foreach (var item in motionFrames)
             {
@@ -40,41 +40,38 @@ namespace Damany.ImageProcessing.Processors
             var portraits = this.searcher.SearchFaces();
 
             DisposeFacelessFrames(motionFrames, portraits);
-            var portraitList = ExpandPortraitsList(motionFrames, portraits);
+            var portraitList = ExpandPortraitsList(portraits);
             PassOnPortraits(portraitList);
         }
 
-        private static List<Portrait> ExpandPortraitsList(IList<MotionFrame> motionFrames, ImageProcess.Target[] portraits)
+        private static PortraitBounds CreateBounds(OpenCvSharp.CvRect bounds, OpenCvSharp.CvRect faceBounds)
         {
-            var portraitFoundFrameQuery = from m in motionFrames
-                                          join p in portraits
-                                            on m.Guid equals p.BaseFrame.guid
-                                          select new
-                                          {
-                                              F = m,
-                                              P = p,
-                                          };
+            var pb = new PortraitBounds();
+            return pb;
 
-            var expanded = from item in portraitFoundFrameQuery
-                           from p in item.P.Portraits
-                           select new Portrait (item.F.Clone())
-                           {
-                                BoundsInParent = new PortraitBounds
-                                {
-                                     Bounds = p.FacesRect,
-                                     FaceBounds = p.FacesRectForCompare,
-                                }
-                           };
-
-            var portraitList = expanded.ToList();
-            return portraitList;
         }
 
-        private static void DisposeFacelessFrames(IList<MotionFrame> motionFrames, ImageProcess.Target[] portraits)
+        private static List<Portrait> ExpandPortraitsList(ImageProcess.Target[] portraits)
         {
-            var noPortraitFrameQuery  = from m in motionFrames
-                                        where !portraits.Any(t => t.BaseFrame.guid.Equals(m.Guid))
-                                        select m;
+            var portraitFoundFrameQuery = from m in portraits
+                                          from p in m.Portraits
+                                          let bounds = CreateBounds(p.FacesRect, p.FacesRectForCompare)
+                                          select new Portrait(p.Face)
+                                          {
+                                              
+                                              Bounds = bounds,
+                                              FrameId = m.BaseFrame.guid,
+                                          };
+
+
+            return portraitFoundFrameQuery.ToList();
+        }
+
+        private static void DisposeFacelessFrames(IList<Frame> motionFrames, ImageProcess.Target[] portraits)
+        {
+            var noPortraitFrameQuery = from m in motionFrames
+                                       where !portraits.Any(t => t.BaseFrame.guid.Equals(m.Guid))
+                                       select m;
 
             Array.ForEach(noPortraitFrameQuery.ToArray(), mf => { motionFrames.Remove(mf); mf.Dispose(); });
         }

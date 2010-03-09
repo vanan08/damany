@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Damany.ImageProcessing.Processors
+namespace Damany.Imaging.Processors
 {
     using Contracts;
 
