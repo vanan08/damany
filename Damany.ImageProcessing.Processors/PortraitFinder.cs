@@ -30,7 +30,7 @@ namespace Damany.Imaging.Processors
         #endregion
 
 
-        private void SearchIn(IList<Frame> motionFrames)
+        private void SearchIn(List<Frame> motionFrames)
         {
             foreach (var item in motionFrames)
             {
@@ -40,7 +40,7 @@ namespace Damany.Imaging.Processors
             var portraits = this.searcher.SearchFaces();
 
             DisposeFacelessFrames(motionFrames, portraits);
-            var portraitList = ExpandPortraitsList(portraits);
+            var portraitList = ExpandPortraitsList(motionFrames, portraits);
             PassOnPortraits(portraitList);
         }
 
@@ -51,20 +51,26 @@ namespace Damany.Imaging.Processors
 
         }
 
-        private static List<Portrait> ExpandPortraitsList(ImageProcess.Target[] portraits)
+        private static List<Portrait> ExpandPortraitsList(List<Frame> motionFrames, ImageProcess.Target[] portraits)
         {
-            var portraitFoundFrameQuery = from m in portraits
-                                          from p in m.Portraits
-                                          let bounds = CreateBounds(p.FacesRect, p.FacesRectForCompare)
-                                          select new Portrait(p.Face)
-                                          {
-                                              
-                                              Bounds = bounds,
-                                              FrameId = m.BaseFrame.guid,
-                                          };
+            var portraitFoundFrameQuery = from m in motionFrames
+                                          join p in portraits
+                                            on m.Guid equals p.BaseFrame.guid
+                                          select new { Frame = m, Portraits = p, };
+
+            var expanedPortraits = from frame in portraitFoundFrameQuery
+                                   from p in frame.Portraits.Portraits
+                                   let bounds = CreateBounds(p.FacesRect, p.FacesRectForCompare)
+                                   select new Portrait(p.Face)
+                                   {
+                                       Bounds = bounds,
+                                       FrameId = frame.Frame.Guid,
+                                       CapturedAt = frame.Frame.CapturedAt,
+                                       CapturedFrom = frame.Frame.CapturedFrom,
+                                   };
 
 
-            return portraitFoundFrameQuery.ToList();
+            return expanedPortraits.ToList();
         }
 
         private static void DisposeFacelessFrames(IList<Frame> motionFrames, ImageProcess.Target[] portraits)
