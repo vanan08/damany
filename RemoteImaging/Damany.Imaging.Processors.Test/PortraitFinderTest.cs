@@ -15,6 +15,7 @@ namespace Damany.Imaging.Processors.Test
     public class PortraitFinderTest
     {
         [Test]
+        [Timeout(1*60*60)]
         public void Test()
         {
             var source = new DirectoryFilesCamera(@"z:\", "*.jpg");
@@ -29,7 +30,7 @@ namespace Damany.Imaging.Processors.Test
 
             
 
-            for (int i = 0; i < 110;++i )
+            for (int i = 0; i < 1100;++i )
             {
                 var frame = source.RetrieveFrame();
                 motionDetector.DetectMotion(frame);
