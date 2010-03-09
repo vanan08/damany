@@ -45,7 +45,7 @@ namespace Damany.Cameras
 
             if (this.Repeat)
             {
-                this.current = this.current % this.directory.Length;
+                this.current = this.current % this.imageFiles.Length;
             }
 
 
