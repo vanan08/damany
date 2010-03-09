@@ -44,8 +44,6 @@ namespace Damany.Imaging.Contracts
             
             if (IsDisposing)
             {
-
-
                 if (this.portraitImage != null)
                 {
                     this.portraitImage.Dispose();
@@ -53,9 +51,7 @@ namespace Damany.Imaging.Contracts
             }
 
             this.portraitImage = null;
-
             this.disposed = true;
-
         }
 
         #endregion

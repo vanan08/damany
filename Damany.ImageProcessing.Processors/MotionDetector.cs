@@ -14,6 +14,7 @@ namespace Damany.Imaging.Processors
         {
             this.handler = handler;
             this.manager = new FrameManager();
+            this.detector = new FaceProcessingWrapper.MotionDetector();
         }
 
         public void DetectMotion(Frame frame)
@@ -62,7 +63,6 @@ namespace Damany.Imaging.Processors
         {
             var frames = this.manager.RetrieveMotionFrames();
             this.handler.HandleMotionFrame(frames);
-            frames.ForEach(f => f.Dispose());
         }
 
         FaceProcessingWrapper.MotionDetector detector;

@@ -7,7 +7,10 @@ namespace Damany.Imaging.Contracts
 {
     public interface IFrameStream
     {
+        void Initialize();
+        void Close();
+
         Frame RetrieveFrame();
-        int Id { get; }
+        int Id { get; set; }
     }
 }
