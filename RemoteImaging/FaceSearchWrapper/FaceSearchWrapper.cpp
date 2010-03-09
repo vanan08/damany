@@ -98,8 +98,7 @@ array<ImageProcess::Target^>^ FaceSearchWrapper::FaceSearch::SearchFaces()
 		mtArray[i]->BaseFrame = gcnew ImageProcess::Frame;
 		Frame unmanagedBaseFrame = pFacesFound[i].BaseFrame;
 
-		mtArray[i]->BaseFrame->image = gcnew OpenCvSharp::IplImage( (IntPtr) unmanagedBaseFrame.image  );
-		mtArray[i]->BaseFrame->image->IsEnabledDispose = false;
+		mtArray[i]->BaseFrame->image = nullptr;
 
 		mtArray[i]->BaseFrame->searchRect.X = unmanagedBaseFrame.searchRect.x;
 		mtArray[i]->BaseFrame->searchRect.Y = unmanagedBaseFrame.searchRect.y;
@@ -119,7 +118,6 @@ array<ImageProcess::Target^>^ FaceSearchWrapper::FaceSearch::SearchFaces()
 		{
 			ImageProcess::PortraitInfo^ pinfo = gcnew ImageProcess::PortraitInfo();
 			pinfo->Face = gcnew OpenCvSharp::IplImage( (IntPtr) pFacesFound[i].FaceData[j] );
-			pinfo->Face->IsEnabledDispose = false;
 			pinfo->FacesRect = UnmanagedRectToManaged(pFacesFound[i].FaceRects[j]);
 			pinfo->FacesRectForCompare = UnmanagedRectToManaged(pFacesFound[i].FaceOrgRects[j]);
 
@@ -145,7 +143,6 @@ OpenCvSharp::IplImage^ FaceSearchWrapper::FaceSearch::NormalizeImage(OpenCvSharp
 	assert(unmanagedNormalized != NULL);
 
 	OpenCvSharp::IplImage^ normalized = gcnew OpenCvSharp::IplImage((IntPtr) unmanagedNormalized);
-	normalized->IsEnabledDispose = false;
 
 
 	return normalized;
