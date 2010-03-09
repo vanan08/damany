@@ -43,6 +43,7 @@ namespace Damany.Imaging.Handlers
         {
             base.Initialize();
             worker = new System.Threading.Thread(this.WriteThread);
+            worker.IsBackground = true;
             worker.Start();
         }
 
