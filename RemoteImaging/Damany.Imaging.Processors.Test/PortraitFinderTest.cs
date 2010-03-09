@@ -23,12 +23,18 @@ namespace Damany.Imaging.Processors.Test
 
             var motionFrameLogger = new MotionFrameLogger();
 
-            var portraitHandler = new PortraitsLogger(@".\Portrait");
-            var portraitFinder = new PortraitFinder(portraitHandler);
+            var portraitWriter = new PortraitsLogger(@".\Portrait");
+            portraitWriter.Initialize();
+            
+            var asyncPortraitWriter = new AsyncPortraitLogger(@".\AsyncPortrait");
+            asyncPortraitWriter.Initialize();
+
+            var portraitFinder = new PortraitFinder();
+            portraitFinder.AddListener(asyncPortraitWriter);
+            portraitFinder.AddListener(portraitWriter);
 
             var motionDetector = new MotionDetector(portraitFinder);
 
-            
 
             for (int i = 0; i < 1100;++i )
             {
