@@ -37,6 +37,7 @@ namespace Damany.Imaging.Processors
                     this.motionFrames = new List<Frame>();
                 }
 
+                f.MotionRectangles.Add(frameResult.MotionRect);
                 motionFrames.Add(f);
             }
         }

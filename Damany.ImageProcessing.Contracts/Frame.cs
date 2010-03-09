@@ -111,8 +111,9 @@ namespace Damany.Imaging.Contracts
         private void InitializeFields()
         {
             CheckForDisposed();
-            this.CapturedAt = DateTime.Now;
-            this.Guid = System.Guid.NewGuid();
+
+            this.MotionRectangles = new List<CvRect>();
+            this.Portraits = new List<PortraitBounds>();
         }
 
 

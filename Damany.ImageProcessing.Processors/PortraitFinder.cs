@@ -23,14 +23,13 @@ namespace Damany.Imaging.Processors
 
         public void HandleMotionFrame(IList<Frame> motionFrames)
         {
-            var cloned = motionFrames.ToList().ConvertAll(f => f.Clone());
-            this.SearchIn(cloned);
+            this.SearchIn(motionFrames);
         }
 
         #endregion
 
 
-        private void SearchIn(List<Frame> motionFrames)
+        private void SearchIn(IList<Frame> motionFrames)
         {
             foreach (var item in motionFrames)
             {
@@ -41,17 +40,23 @@ namespace Damany.Imaging.Processors
 
             DisposeFacelessFrames(motionFrames, portraits);
             var portraitList = ExpandPortraitsList(motionFrames, portraits);
-            PassOnPortraits(portraitList);
+            PassOnPortraits(motionFrames, portraitList);
         }
 
         private static PortraitBounds CreateBounds(OpenCvSharp.CvRect bounds, OpenCvSharp.CvRect faceBounds)
         {
             var pb = new PortraitBounds();
-            return pb;
 
+            faceBounds.X -= bounds.X;
+            faceBounds.Y -= bounds.Y;
+
+            pb.Bounds = bounds;
+            pb.FaceBoundsInPortrait = faceBounds;
+
+            return pb;
         }
 
-        private static List<Portrait> ExpandPortraitsList(List<Frame> motionFrames, ImageProcess.Target[] portraits)
+        private static List<Portrait> ExpandPortraitsList(IList<Frame> motionFrames, ImageProcess.Target[] portraits)
         {
             var portraitFoundFrameQuery = from m in motionFrames
                                           join p in portraits
@@ -83,10 +88,9 @@ namespace Damany.Imaging.Processors
         }
 
 
-        private void PassOnPortraits(List<Portrait> portraitList)
+        private void PassOnPortraits(IList<Frame> motionFrames, IList<Portrait> portraitList)
         {
-            this.successor.HandlePortraits(portraitList);
-            portraitList.ForEach(p => p.Dispose());
+            this.successor.HandlePortraits(motionFrames, portraitList);
         }
 
 

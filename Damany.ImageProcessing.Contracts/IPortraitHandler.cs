@@ -7,6 +7,6 @@ namespace Damany.Imaging.Contracts
 {
     public interface IPortraitHandler
     {
-        void HandlePortraits(IList<Portrait> portraits);
+        void HandlePortraits(IList<Frame> motionFrames, IList<Portrait> portraits);
     }
 }
