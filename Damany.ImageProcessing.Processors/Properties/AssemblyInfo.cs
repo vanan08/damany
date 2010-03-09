@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Damany.ImageProcessing.Processors")]
+[assembly: AssemblyTitle("Damany.Imaging.Processors")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Damany")]
-[assembly: AssemblyProduct("Damany.ImageProcessing.Processors")]
+[assembly: AssemblyProduct("Damany.Imaging.Processors")]
 [assembly: AssemblyCopyright("Copyright © Damany 2010")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

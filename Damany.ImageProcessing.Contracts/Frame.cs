@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using OpenCvSharp;
 
-namespace Damany.ImageProcessing.Contracts
+namespace Damany.Imaging.Contracts
 {
-    public class Frame : IComparable<Frame>, IEquatable<Frame>, IDisposable
+    public class Frame : CapturedObject, IComparable<Frame>, IEquatable<Frame>, IDisposable
     {
         public Frame(System.IO.Stream stream)
         {
@@ -91,8 +92,6 @@ namespace Damany.ImageProcessing.Contracts
         }
 
 
-       
-
         public OpenCvSharp.IplImage Ipl
         {
             get
@@ -125,9 +124,9 @@ namespace Damany.ImageProcessing.Contracts
             }
         }
 
-        public DateTime CapturedAt { get; set; }
-        public IFrameStream CapturedFrom { get; set; }
-        public System.Guid Guid { get; set; }
+
+        public List<CvRect> MotionRectangles { get; private set; }
+        public List<PortraitBounds> Portraits { get; private set; }
 
         LazyIplImage lazyIpl;
         OpenCvSharp.IplImage iplImage;

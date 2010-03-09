@@ -4,31 +4,18 @@ using System.Linq;
 using System.Text;
 using OpenCvSharp;
 
-namespace Damany.ImageProcessing.Contracts
+namespace Damany.Imaging.Contracts
 {
-    public class Portrait : IDisposable
+    public class Portrait : CapturedObject, IDisposable
     {
-        public Portrait(MotionFrame from)
+        public Portrait(IplImage portraitImage)
         {
-            this.From = from;
+            this.portraitImage = portraitImage;
+
+            this.Guid = System.Guid.NewGuid();
+            this.Bounds = new PortraitBounds();
         }
 
-        public IplImage FaceImage
-        {
-            get
-            {
-                CheckForDisposed();
-
-                if (faceImage == null)
-                {
-
-                    faceImage = this.From.Ipl.GetSub(this.BoundsInParent.FaceBounds);
-                }
-
-                return this.faceImage;
-
-            }
-        }
 
         public IplImage PortraitImage
         {
@@ -36,15 +23,7 @@ namespace Damany.ImageProcessing.Contracts
             {
                 CheckForDisposed();
 
-                if (portraitImage == null)
-                {
-
-                    portraitImage = this.From.Ipl.GetSub(this.BoundsInParent.FaceBounds);
-                }
-
                 return this.portraitImage;
-
-
             }
         }
 
@@ -65,15 +44,7 @@ namespace Damany.ImageProcessing.Contracts
             
             if (IsDisposing)
             {
-                if (this.From != null)
-                {
-                    this.From.Dispose();
-                }
 
-                if (this.faceImage != null)
-                {
-                    this.faceImage.Dispose();
-                }
 
                 if (this.portraitImage != null)
                 {
@@ -81,8 +52,6 @@ namespace Damany.ImageProcessing.Contracts
                 }
             }
 
-            this.From = null;
-            this.faceImage = null;
             this.portraitImage = null;
 
             this.disposed = true;
@@ -101,9 +70,9 @@ namespace Damany.ImageProcessing.Contracts
         }
 
 
-        public PortraitBounds BoundsInParent { get; set; }
-        public MotionFrame From { get; private set; }
-        IplImage faceImage;
+        public PortraitBounds Bounds { get; set; }
+        public Guid FrameId { get; set; }
+
         IplImage portraitImage;
 
         bool disposed;

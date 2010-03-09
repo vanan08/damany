@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Damany.ImageProcessing.Processors
+namespace Damany.Imaging.Processors
 {
     using Contracts;
 
@@ -11,7 +11,7 @@ namespace Damany.ImageProcessing.Processors
     {
         public FrameManager()
         {
-            this.motionFrames = new List<MotionFrame>();
+            this.motionFrames = new List<Frame>();
             this.frameHistory = new Dictionary<Guid, Frame>();
         }
 
@@ -20,7 +20,7 @@ namespace Damany.ImageProcessing.Processors
             this.frameHistory[f.Guid] = f;
         }
 
-        public List<MotionFrame> RetrieveMotionFrames()
+        public List<Frame> RetrieveMotionFrames()
         {
             var toReturn = this.motionFrames;
             this.motionFrames = null;
@@ -34,11 +34,10 @@ namespace Damany.ImageProcessing.Processors
             {
                 if (this.motionFrames == null)
                 {
-                    this.motionFrames = new List<MotionFrame>();
+                    this.motionFrames = new List<Frame>();
                 }
 
-                Damany.ImageProcessing.Contracts.MotionFrame motionFrame = CreateMotionFrame(frameResult.MotionRect, f);
-                motionFrames.Add(motionFrame);
+                motionFrames.Add(f);
             }
         }
 
@@ -51,12 +50,6 @@ namespace Damany.ImageProcessing.Processors
             }
         }
 
-        private static Damany.ImageProcessing.Contracts.MotionFrame CreateMotionFrame(OpenCvSharp.CvRect rect, Damany.ImageProcessing.Contracts.Frame f)
-        {
-            var motionFrame = new MotionFrame(f.Ipl.Clone());
-            motionFrame.MotionRectangles.Add(rect);
-            return motionFrame;
-        }
 
         private Frame RetrieveFrame(Guid id)
         {
@@ -82,7 +75,7 @@ namespace Damany.ImageProcessing.Processors
         }
 
         Dictionary<Guid, Frame> frameHistory;
-        List<MotionFrame> motionFrames;
+        List<Frame> motionFrames;
 
     }
 }

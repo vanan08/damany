@@ -12,7 +12,7 @@ namespace FaceProcessingWrapper
 	static public ref class FrameConverter
 	{
 		public:
-			static Frame ToUnManaged(Damany::ImageProcessing::Contracts::Frame^ managed);
+			static Frame ToUnManaged(Damany::Imaging::Contracts::Frame^ managed);
 	};
 }
 
