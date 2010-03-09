@@ -8,16 +8,6 @@ namespace Damany.Imaging.Contracts
 {
     public static class Extensions
     {
-        public static void Dispose(this IList<Frame> frames)
-        {
-            if (frames != null)
-            {
-                foreach (var item in frames)
-                {
-                    item.Dispose();
-                }
-            }
-        }
 
         public static System.Drawing.Rectangle ToRectangle(this OpenCvSharp.CvRect rect)
         {

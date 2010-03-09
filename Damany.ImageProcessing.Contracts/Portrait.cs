@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using OpenCvSharp;
+using Damany.Util.Extensions;
 
 namespace Damany.Imaging.Contracts
 {
@@ -14,6 +15,15 @@ namespace Damany.Imaging.Contracts
 
             this.Guid = System.Guid.NewGuid();
             this.Bounds = new PortraitBounds();
+        }
+
+        public Portrait Clone()
+        {
+            var clone = new Portrait(this.portraitImage.Clone());
+
+            this.CopyPropertiesTo(clone);
+
+            return clone;
         }
 
 

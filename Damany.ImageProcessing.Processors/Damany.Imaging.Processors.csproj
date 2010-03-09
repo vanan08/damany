@@ -60,6 +60,10 @@
       <Project>{B8F7A553-6295-4F0B-B48A-7C85DA5118BB}</Project>
       <Name>Damany.Imaging.Contracts</Name>
     </ProjectReference>
+    <ProjectReference Include="..\RemoteImaging\Damany.Util\Damany.Util.csproj">
+      <Project>{FA6DEBE0-D78D-437E-B05D-0923896290C9}</Project>
+      <Name>Damany.Util</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RemoteImaging\FaceSearchWrapper\FaceSearchWrapper.vcproj">
       <Project>{F6F410AA-5D72-49BE-9FFE-6EBECF718EAA}</Project>
       <Name>FaceSearchWrapper</Name>

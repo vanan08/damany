@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Damany.Util.Extensions;
 
 namespace Damany.Imaging.Processors
 {
@@ -9,13 +10,20 @@ namespace Damany.Imaging.Processors
 
     public class PortraitFinder : IMotionFrameHandler
     {
-        public PortraitFinder(IPortraitHandler successorHandler)
+        public PortraitFinder()
         {
-            if (successorHandler == null)
-                throw new ArgumentNullException("successorHandler", "successorHandler is null.");
-
-            this.successor = successorHandler;
+            this.listeners = new List<IPortraitHandler>();
             this.searcher = new FaceSearchWrapper.FaceSearch();
+        }
+
+        public void AddListener(IPortraitHandler l)
+        {
+            this.listeners.Add(l);
+        }
+
+        public void RemoveListener(IPortraitHandler l)
+        {
+            this.listeners.Remove(l);
         }
 
 
@@ -40,7 +48,7 @@ namespace Damany.Imaging.Processors
 
             DisposeFacelessFrames(motionFrames, portraits);
             var portraitList = ExpandPortraitsList(motionFrames, portraits);
-            PassOnPortraits(motionFrames, portraitList);
+            NotifyListeners(motionFrames, portraitList);
         }
 
         private static PortraitBounds CreateBounds(OpenCvSharp.CvRect bounds, OpenCvSharp.CvRect faceBounds)
@@ -88,13 +96,31 @@ namespace Damany.Imaging.Processors
         }
 
 
-        private void PassOnPortraits(IList<Frame> motionFrames, IList<Portrait> portraitList)
+        private void NotifyListeners(IList<Frame> motionFrames, IList<Portrait> portraitList)
         {
-            this.successor.HandlePortraits(motionFrames, portraitList);
+            foreach (var listener in this.listeners)
+            {
+                if (listener.WantCopy)
+                {
+                    listener.HandlePortraits(
+                        motionFrames.ToList().ConvertAll(m => m.Clone()),
+                        portraitList.ToList().ConvertAll(p => p.Clone())
+                        );
+                }
+                else
+                {
+                    listener.HandlePortraits(motionFrames, portraitList);
+
+                }
+            }
+
+
+            portraitList.ToList().ForEach(p => p.Dispose());
+            motionFrames.ToList().ForEach(f => f.Dispose());
         }
 
 
-        IPortraitHandler successor;
+        List<IPortraitHandler> listeners;
         FaceSearchWrapper.FaceSearch searcher;
     }
 }

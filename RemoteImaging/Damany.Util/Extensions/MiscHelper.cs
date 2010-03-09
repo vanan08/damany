@@ -28,5 +28,17 @@ namespace Damany.Util.Extensions
             }
         }
 
+        public static void Dispose(this IList<IDisposable> disposables)
+        {
+            if (disposables != null)
+            {
+                foreach (var item in disposables)
+                {
+                    item.Dispose();
+                }
+            }
+        }
+
+
     }
 }
