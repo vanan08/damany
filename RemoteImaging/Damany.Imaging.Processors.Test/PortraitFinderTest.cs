@@ -20,13 +20,16 @@ namespace Damany.Imaging.Processors.Test
             var source = new DirectoryFilesCamera(@"z:\", "*.jpg");
             source.Initialize();
 
-            var portraitHandler = new PortraitsHandler();
+            var motionFrameLogger = new MotionFrameHandler();
+
+            var portraitHandler = new PortraitsLogger(@".\Portrait");
             var portraitFinder = new PortraitFinder(portraitHandler);
+
             var motionDetector = new MotionDetector(portraitFinder);
 
             
 
-            for (int i = 0; i < 20;++i )
+            for (int i = 0; i < 110;++i )
             {
                 var frame = source.RetrieveFrame();
                 motionDetector.DetectMotion(frame);
@@ -35,5 +38,23 @@ namespace Damany.Imaging.Processors.Test
             
             
         }
+    }
+
+    public class MotionFrameHandler : Imaging.Contracts.IMotionFrameHandler
+    {
+
+        #region IMotionFrameHandler Members
+
+        public void HandleMotionFrame(IList<Damany.Imaging.Contracts.Frame> motionFrames)
+        {
+            motionFrames.ToList().ForEach(frame =>
+            {
+                frame.Ipl.SaveImage(frame.Guid.ToString() + ".jpg");
+                frame.Dispose();
+            });
+            
+        }
+
+        #endregion
     }
 }
