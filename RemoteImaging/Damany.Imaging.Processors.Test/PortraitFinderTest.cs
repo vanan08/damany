@@ -20,7 +20,7 @@ namespace Damany.Imaging.Processors.Test
             var source = new DirectoryFilesCamera(@"z:\", "*.jpg");
             source.Initialize();
 
-            var motionFrameLogger = new MotionFrameHandler();
+            var motionFrameLogger = new MotionFrameLogger();
 
             var portraitHandler = new PortraitsLogger(@".\Portrait");
             var portraitFinder = new PortraitFinder(portraitHandler);
@@ -40,7 +40,7 @@ namespace Damany.Imaging.Processors.Test
         }
     }
 
-    public class MotionFrameHandler : Imaging.Contracts.IMotionFrameHandler
+    public class MotionFrameLogger : Imaging.Contracts.IMotionFrameHandler
     {
 
         #region IMotionFrameHandler Members
