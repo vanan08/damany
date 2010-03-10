@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9.00"
-	Name="CameraWrappers"
+	Name="Damany.Cameras.Wrappers"
 	ProjectGUID="{477A59D8-2EC6-4C25-B111-A38B1C9856A6}"
 	RootNamespace="CameraWrappers"
 	Keyword="ManagedCProj"

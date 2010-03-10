@@ -37,6 +37,12 @@ namespace Damany.Imaging.Contracts
             }
         }
 
+        public override string ToString()
+        {
+            var str = string.Format("Size:{0}x{1}", this.portraitImage.Width, this.portraitImage.Height);
+            return str;
+        }
+
 
 
         #region IDisposable Members

@@ -35,6 +35,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MiscUtil, Version=1.0.0.0, Culture=neutral, PublicKeyToken=d3c42c4bfacf7596, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Library\MiscUtil\MiscUtil.dll</HintPath>
+    </Reference>
     <Reference Include="OpenCvSharp, Version=2.0.3497.28493, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Library\OpenCvSharp\OpenCvSharp.dll</HintPath>
@@ -54,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AsyncPortraitLogger.cs" />
+    <Compile Include="FrameWritter.cs" />
     <Compile Include="PortraitsLogger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -7,74 +7,141 @@ namespace Damany.Imaging.Handlers
 {
     public class AsyncPortraitLogger : PortraitsLogger
     {
+
         public AsyncPortraitLogger(string directory)
             :base(directory)
         {
-           
+            this.wantCopy = true;
+            this.wantFrame = false;
+            this.name = "Async Portrait Saver";
+            this.autoRemove = false;
         }
 
         public override void HandlePortraits(IList<Damany.Imaging.Contracts.Frame> motionFrames, 
             IList<Damany.Imaging.Contracts.Portrait> portraits)
         {
-            motionFrames.ToList().ForEach(frame => frame.Dispose());
+            if (!this.running)
+            {
+                throw new InvalidOperationException("not started");
+            }
 
-            lock (this.queueLock)
+            System.Diagnostics.Debug.Assert(motionFrames == null);
+
+            if (this.faulted)
+            {
+                portraits.ToList().ForEach(p => p.Dispose());
+                return;
+            }
+
+            lock (this.locker)
             {
                 this.portraitQueue.Enqueue(portraits);
-                this.waitForPortraits.Set();
+                this.signal.Set();
+            }
+            
+        }
+      
+        public override void Start()
+        {
+            lock (this.locker)
+            {
+                if (!this.running)
+                {
+                    worker = new System.Threading.Thread(this.WriteThread);
+                    worker.IsBackground = true;
+
+                    this.signal.Reset();
+                    this.faulted = false;
+                    this.running = true;
+                    this.worker.Start();
+
+                    System.Diagnostics.Debug.WriteLine("started");
+                }
             }
             
         }
 
-        public override bool WantCopy
-        {
-            get
-            {
-                return true;
-            }
-        }
-
         public override void Stop()
         {
-            base.Stop();
+            lock (this.locker)
+            {
+                if (this.running)
+                {
+                    this.running = false;
+                    signal.Set();
+                    System.Diagnostics.Debug.WriteLine("stopped");
+                }
+
+                
+            }
         }
 
         public override void Initialize()
         {
             base.Initialize();
-            worker = new System.Threading.Thread(this.WriteThread);
-            worker.IsBackground = true;
-            worker.Start();
         }
 
 
         private void WriteThread()
         {
-            while (true)
+            System.Exception error = null;
+
+            try
             {
-                waitForPortraits.WaitOne();
-
-
-                IList<Damany.Imaging.Contracts.Portrait> portraits = null;
-                lock (this.queueLock)
+                while (running)
                 {
-                    portraits = this.portraitQueue.Dequeue();
+                    signal.WaitOne();
+
+                    IList<Damany.Imaging.Contracts.Portrait> portraits = null;
+                    lock (this.locker)
+                    {
+                        if (this.portraitQueue.Count > 0)
+                        {
+                            portraits = this.portraitQueue.Dequeue();
+                        }
+                    }
+
+                    if (portraits != null)
+                    {
+                        base.SavePortraits(portraits);
+                        portraits.ToList().ForEach(p => p.Dispose());
+                    }
+
+                    System.Threading.Thread.Sleep(1000);
                 }
+            }
+            catch (System.Exception ex)
+            {
+                this.faulted = true;
+                error = ex;
+            }
+            finally
+            {
+                OnStopped( new MiscUtil.EventArgs<Exception>(error) );
+                this.running = false;
+            }
+            
+        }
 
-                base.SavePortraits(portraits);
-
-                portraits.ToList().ForEach(p => p.Dispose());
-
-                System.Threading.Thread.Sleep(1000);
+        private void CleanUp()
+        {
+            lock (this.locker)
+            {
+                while (this.portraitQueue.Count > 0)
+                {
+                    this.portraitQueue.Dequeue().ToList().ForEach(p => p.Dispose());
+                }
             }
         }
 
 
         private Queue<IList<Damany.Imaging.Contracts.Portrait>> portraitQueue
             = new Queue<IList<Damany.Imaging.Contracts.Portrait>>();
-        private object queueLock = new object();
-        private System.Threading.AutoResetEvent waitForPortraits = 
+        private object locker = new object();
+        private System.Threading.AutoResetEvent signal = 
             new System.Threading.AutoResetEvent(false);
         protected System.Threading.Thread worker;
+        protected bool running;
+        private bool faulted;
     }
 }

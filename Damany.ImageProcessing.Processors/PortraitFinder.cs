@@ -10,6 +10,8 @@ namespace Damany.Imaging.Processors
 
     public class PortraitFinder : IMotionFrameHandler
     {
+        public event Action< IList<Portrait> > PortraitCaptured;
+
         public PortraitFinder()
         {
             this.listeners = new List<IPortraitHandler>();
@@ -18,12 +20,39 @@ namespace Damany.Imaging.Processors
 
         public void AddListener(IPortraitHandler l)
         {
-            this.listeners.Add(l);
+            if (l == null)
+                throw new ArgumentNullException("l", "l is null.");
+
+            l.Stopped += l_Stopped;
+
+            lock (this.locker)
+            {
+                this.listeners.Add(l);
+                System.Diagnostics.Debug.WriteLine("listener: " + l.Name + " added");
+            }
+
+        }
+
+        void l_Stopped(object sender, MiscUtil.EventArgs<Exception> e)
+        {
+            IPortraitHandler handler = sender as IPortraitHandler;
+
+            this.RemoveListener(handler);
+
+            if (e.Value != null)
+            {
+                System.Diagnostics.Debug.WriteLine(handler.Name + " Exception:" + e.Value.Message);
+            }
         }
 
         public void RemoveListener(IPortraitHandler l)
         {
-            this.listeners.Remove(l);
+            lock (this.locker)
+            {
+                this.listeners.Remove(l);
+                System.Diagnostics.Debug.WriteLine("listener: " + l.Name + " removed");
+            }
+            
         }
 
 
@@ -102,17 +131,30 @@ namespace Damany.Imaging.Processors
             {
                 if (listener.WantCopy)
                 {
+                    var motionFramesCopy = default(IList<Frame>);
+
+                    if (listener.WantFrame)
+                    {
+                        motionFramesCopy = motionFrames.ToList().ConvertAll(m => m.Clone());
+                    }
+
                     listener.HandlePortraits(
-                        motionFrames.ToList().ConvertAll(m => m.Clone()),
+                        motionFramesCopy,
                         portraitList.ToList().ConvertAll(p => p.Clone())
                         );
                 }
                 else
                 {
                     listener.HandlePortraits(motionFrames, portraitList);
-
                 }
             }
+
+            if (this.PortraitCaptured != null)
+            {
+                this.PortraitCaptured(portraitList);
+            }
+
+
 
 
             portraitList.ToList().ForEach(p => p.Dispose());
@@ -122,5 +164,6 @@ namespace Damany.Imaging.Processors
 
         List<IPortraitHandler> listeners;
         FaceSearchWrapper.FaceSearch searcher;
+        object locker = new object();
     }
 }
