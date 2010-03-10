@@ -19,17 +19,36 @@ namespace Damany.PortraitCapturer.Shell.CmdLine
 
         }
 
-        private static void Run(string uri)
+        private static void Run(string uriString)
         {
             try
             {
-                var source = new SanyoNetCamera();
-                source.UserName = "guest";
-                source.Password = "guest";
-                source.Uri = new Uri(uri);
+                System.Uri uri = new System.Uri(uriString);
 
-                source.Initialize();
-                source.Connect();
+                IFrameStream source = null;
+
+                switch (uri.Scheme)
+                {
+                    case "file":
+                        var directory = new Damany.Cameras.DirectoryFilesCamera(uri.AbsolutePath, "*.jpg");
+                        directory.Initialize();
+                        source = directory;
+                        break;
+                    case "http":
+                        var sanyo  = new Damany.Cameras.SanyoNetCamera();
+                        sanyo.UserName = "guest";
+                        sanyo.Password = "guest";
+                        sanyo.Uri = uri;
+                        sanyo.Initialize();
+                        sanyo.Connect();
+                        source = sanyo;
+                        break;
+
+                    default:
+                        break;
+                }
+
+
 
                 var frameWritter = new FrameWritter();
 
@@ -42,11 +61,12 @@ namespace Damany.PortraitCapturer.Shell.CmdLine
 
                 var asyncWriter1 = new AsyncPortraitLogger(@".\asyncport2");
                 asyncWriter1.Initialize();
+                asyncWriter1.Start();
 
                 var portraitFinder = new PortraitFinder();
                 portraitFinder.AddListener(asyncPortraitWriter);
                 //             portraitFinder.AddListener(portraitWriter);
-                //             portraitFinder.AddListener(asyncWriter1);
+                             portraitFinder.AddListener(asyncWriter1);
 
                 asyncPortraitWriter.Start();
 
@@ -63,9 +83,7 @@ namespace Damany.PortraitCapturer.Shell.CmdLine
                 while(true)
                 {
                     var frame = source.RetrieveFrame();
-
-                    //Console.WriteLine(frame.ToString());
-
+                    Console.WriteLine(frame.ToString());
                     motionDetector.DetectMotion(frame);
 
                 }

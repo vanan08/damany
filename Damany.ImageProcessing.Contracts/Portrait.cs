@@ -39,7 +39,7 @@ namespace Damany.Imaging.Contracts
 
         public override string ToString()
         {
-            var str = string.Format("Size:{0}x{1}", this.portraitImage.Width, this.portraitImage.Height);
+            var str = string.Format("{0}x{1} : {2}", this.portraitImage.Width, this.portraitImage.Height, this.CapturedAt);
             return str;
         }
 
