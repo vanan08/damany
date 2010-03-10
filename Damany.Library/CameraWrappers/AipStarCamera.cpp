@@ -11,9 +11,9 @@ using namespace Damany::Component;
 
 namespace Damany
 {
-	namespace Component
+	namespace Cameras
 	{
-		namespace CameraWrappers
+		namespace Wrappers
 		{
 			public ref class  AipStarCamera : ICamera
 			{

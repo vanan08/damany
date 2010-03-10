@@ -14,8 +14,8 @@ namespace CameraWrappers.Test
         [Test]
         public void Test()
         {
-            using (Damany.Component.CameraWrappers.AipStarCamera cam =
-                new Damany.Component.CameraWrappers.AipStarCamera("192.168.1.204", 6002, "system", "system"))
+            using (Damany.Cameras.Wrappers.AipStarCamera cam =
+                new Damany.Cameras.Wrappers.AipStarCamera("192.168.1.204", 6002, "system", "system"))
             {
                 cam.Connect();
 

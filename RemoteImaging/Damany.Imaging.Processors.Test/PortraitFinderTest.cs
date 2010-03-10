@@ -21,47 +21,43 @@ namespace Damany.Imaging.Processors.Test
             var source = new DirectoryFilesCamera(@"z:\", "*.jpg");
             source.Initialize();
 
-            var motionFrameLogger = new MotionFrameLogger();
+            var motionFrameLogger = new FrameWritter();
 
             var portraitWriter = new PortraitsLogger(@".\Portrait");
             portraitWriter.Initialize();
             
-            var asyncPortraitWriter = new AsyncPortraitLogger(@".\AsyncPortrait");
+            var asyncPortraitWriter = new AsyncPortraitLogger(@".\AsyncPortrait1");
+            asyncPortraitWriter.Stopped += (o, e) => System.Diagnostics.Debug.WriteLine(e.Value.Message);
             asyncPortraitWriter.Initialize();
+
+            var asyncWriter1 = new AsyncPortraitLogger(@".\asyncport2");
+            asyncWriter1.Initialize();
 
             var portraitFinder = new PortraitFinder();
             portraitFinder.AddListener(asyncPortraitWriter);
-            portraitFinder.AddListener(portraitWriter);
+//             portraitFinder.AddListener(portraitWriter);
+//             portraitFinder.AddListener(asyncWriter1);
+
+            asyncPortraitWriter.Start();
 
             var motionDetector = new MotionDetector(portraitFinder);
 
-
-            for (int i = 0; i < 1100;++i )
+            bool running = true;
+            for (int i = 0; i < 25 && running;++i )
             {
                 var frame = source.RetrieveFrame();
                 motionDetector.DetectMotion(frame);
+
+                if (i %10 ==0 )
+                {
+                    asyncPortraitWriter.Stop();
+                    portraitFinder.AddListener(asyncPortraitWriter);
+                    asyncPortraitWriter.Start();
+                }
             }
-
-            
             
         }
     }
 
-    public class MotionFrameLogger : Imaging.Contracts.IMotionFrameHandler
-    {
-
-        #region IMotionFrameHandler Members
-
-        public void HandleMotionFrame(IList<Damany.Imaging.Contracts.Frame> motionFrames)
-        {
-            motionFrames.ToList().ForEach(frame =>
-            {
-                frame.Ipl.SaveImage(frame.Guid.ToString() + ".jpg");
-                frame.Dispose();
-            });
-            
-        }
-
-        #endregion
-    }
+    
 }

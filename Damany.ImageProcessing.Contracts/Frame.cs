@@ -20,7 +20,6 @@ namespace Damany.Imaging.Contracts
             this.InitializeFields();
         }
 
-
         #region IComparable<Frame> Members
 
         public int CompareTo(Frame other)
@@ -123,6 +122,15 @@ namespace Damany.Imaging.Contracts
             {
                 throw new ObjectDisposedException("Frame");
             }
+        }
+
+        public override string ToString()
+        {
+            var str = string.Format("{0}x{1}, From:{2}, At:{3}",
+                this.Ipl.Width, this.Ipl.Height,
+                this.CapturedFrom.Id, this.CapturedAt);
+
+            return str;
         }
 
 

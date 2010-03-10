@@ -9,6 +9,6 @@ namespace Damany.Imaging.Contracts
     {
         void Connect();
 
-        Uri Location { get; set; }
+        Uri Uri { get; set; }
     }
 }

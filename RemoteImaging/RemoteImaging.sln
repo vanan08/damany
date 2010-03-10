@@ -55,7 +55,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuspectsRepository.Test", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Damany.Util", "Damany.Util\Damany.Util.csproj", "{FA6DEBE0-D78D-437E-B05D-0923896290C9}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CameraWrappers", "..\Damany.Library\CameraWrappers\CameraWrappers.vcproj", "{477A59D8-2EC6-4C25-B111-A38B1C9856A6}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Damany.Cameras.Wrappers", "..\Damany.Library\CameraWrappers\CameraWrappers.vcproj", "{477A59D8-2EC6-4C25-B111-A38B1C9856A6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CameraWrappers.Test", "..\Damany.Library\CameraWrappers.Test\CameraWrappers.Test.csproj", "{6FA66571-1E49-42D8-83B8-6A38B75A85DC}"
 EndProject
@@ -68,6 +68,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Damany.Imaging.Handlers", "Damany.Imaging.Handlers\Damany.Imaging.Handlers.csproj", "{BA6756CA-C611-48AA-A53A-913C00E1066E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Damany.Imaging.Processors.Test", "Damany.Imaging.Processors.Test\Damany.Imaging.Processors.Test.csproj", "{C75F2058-53D5-4623-902B-44E8E3C3287E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Damany.PortraitCapturer.Shell.CmdLine", "Damany.PortraitCapturer.Shell.Console\Damany.PortraitCapturer.Shell.CmdLine.csproj", "{8E1A64E7-2CA6-4F72-B2B2-C8B24657FEB5}"
 EndProject
 Global
 	GlobalSection(MercurialSourceControlSolutionProperties) = preSolution
@@ -403,6 +405,16 @@ Global
 		{C75F2058-53D5-4623-902B-44E8E3C3287E}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{C75F2058-53D5-4623-902B-44E8E3C3287E}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{C75F2058-53D5-4623-902B-44E8E3C3287E}.Release|Win32.ActiveCfg = Release|Any CPU
+		{8E1A64E7-2CA6-4F72-B2B2-C8B24657FEB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E1A64E7-2CA6-4F72-B2B2-C8B24657FEB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E1A64E7-2CA6-4F72-B2B2-C8B24657FEB5}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{8E1A64E7-2CA6-4F72-B2B2-C8B24657FEB5}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{8E1A64E7-2CA6-4F72-B2B2-C8B24657FEB5}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{8E1A64E7-2CA6-4F72-B2B2-C8B24657FEB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E1A64E7-2CA6-4F72-B2B2-C8B24657FEB5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E1A64E7-2CA6-4F72-B2B2-C8B24657FEB5}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{8E1A64E7-2CA6-4F72-B2B2-C8B24657FEB5}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{8E1A64E7-2CA6-4F72-B2B2-C8B24657FEB5}.Release|Win32.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

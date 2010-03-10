@@ -10,6 +10,8 @@ namespace Damany.Imaging.Handlers
 
     public class PortraitsLogger : IPortraitHandler
     {
+        public event EventHandler<MiscUtil.EventArgs<Exception>> Stopped;
+
         public PortraitsLogger(string outputDirectory)
         {
             this.outputDirectory = outputDirectory;
@@ -18,6 +20,10 @@ namespace Damany.Imaging.Handlers
             {
                 System.IO.Directory.CreateDirectory(this.outputDirectory);
             }
+
+            this.wantFrame = false;
+            this.wantCopy = false;
+            this.name = "Sync Portrait Logger";
 
         }
 
@@ -28,13 +34,25 @@ namespace Damany.Imaging.Handlers
         }
 
 
-        public virtual bool WantCopy
+        public bool WantCopy
         {
-            get { return false; }
+            get { return this.wantCopy; }
         }
 
-        public virtual void Stop(){}
+        public  bool WantFrame
+        {
+            get { return this.wantFrame; }
+        }
+
+        public bool UnloadOnError
+        {
+            get { return this.autoRemove; }
+        }
+
+        public virtual void Start(){}
         public virtual void Initialize(){}
+        public virtual void Stop() { }
+
 
         protected void SavePortraits(IList<Portrait> portraits)
         {
@@ -53,7 +71,49 @@ namespace Damany.Imaging.Handlers
             });
         }
 
+        protected virtual void OnStopped( MiscUtil.EventArgs<Exception> args)
+        {
+            if (this.Stopped!=null)
+            {
+                this.Stopped(this, args);
+            }
+        }
+
+
+
+        #region IPortraitHandler Members
+
+
+        public string Name
+        {
+            get { return this.name; }
+        }
+
+        public string Description
+        {
+            get { return this.desc; }
+        }
+
+        public string Author
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public Version Version
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        #endregion
+
         private string outputDirectory;
+
+        protected bool wantCopy;
+        protected bool wantFrame;
+        protected string name;
+        protected string desc;
+        protected bool autoRemove;
+
 
     }
 }

@@ -43,6 +43,10 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -54,12 +58,24 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DirectoryFilesCamera.cs" />
+    <Compile Include="IrisMode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SanyoNetCamera.cs">
+    </Compile>
+    <Compile Include="ShutterMode.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Damany.ImageProcessing.Contracts\Damany.Imaging.Contracts.csproj">
       <Project>{B8F7A553-6295-4F0B-B48A-7C85DA5118BB}</Project>
       <Name>Damany.Imaging.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Damany.Library\Damany.Drawing\Damany.Drawing.csproj">
+      <Project>{1355FF2A-A389-4A36-8A72-883BBAA1D548}</Project>
+      <Name>Damany.Drawing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Damany.Library\Damany.Net\Damany.Net.csproj">
+      <Project>{DE24702E-0C81-477E-B7EF-FD8DCFF46A04}</Project>
+      <Name>Damany.Net</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
