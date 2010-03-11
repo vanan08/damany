@@ -10,7 +10,7 @@ namespace Damany.Imaging.Processors
 
     public class PortraitFinder : IMotionFrameHandler
     {
-        public event Action< IList<Portrait> > PortraitCaptured;
+        public event Action<IList<Portrait>> PortraitCaptured;
 
         public PortraitFinder()
         {
@@ -23,14 +23,20 @@ namespace Damany.Imaging.Processors
             if (l == null)
                 throw new ArgumentNullException("l", "l is null.");
 
-            l.Stopped += l_Stopped;
-
             lock (this.locker)
             {
                 this.listeners.Add(l);
                 System.Diagnostics.Debug.WriteLine("listener: " + l.Name + " added");
             }
 
+        }
+
+        IList<IPortraitHandler> GetListenersCopy()
+        {
+            lock (this.locker)
+            {
+                return this.listeners.ToList();
+            }
         }
 
         void l_Stopped(object sender, MiscUtil.EventArgs<Exception> e)
@@ -52,7 +58,7 @@ namespace Damany.Imaging.Processors
                 this.listeners.Remove(l);
                 System.Diagnostics.Debug.WriteLine("listener: " + l.Name + " removed");
             }
-            
+
         }
 
 
@@ -77,7 +83,7 @@ namespace Damany.Imaging.Processors
 
             DisposeFacelessFrames(motionFrames, portraits);
             var portraitList = ExpandPortraitsList(motionFrames, portraits);
-            NotifyListeners(motionFrames, portraitList);
+            Dispatch(motionFrames, portraitList);
         }
 
         private static PortraitBounds CreateBounds(OpenCvSharp.CvRect bounds, OpenCvSharp.CvRect faceBounds)
@@ -125,42 +131,65 @@ namespace Damany.Imaging.Processors
         }
 
 
-        private void NotifyListeners(IList<Frame> motionFrames, IList<Portrait> portraitList)
+        private static void NotifyAListenerWithCopy(
+            IList<Frame> motionFrames,
+            IList<Portrait> portraitList,
+            IPortraitHandler listener)
         {
-            foreach (var listener in this.listeners)
-            {
-                if (listener.WantCopy)
-                {
-                    var motionFramesCopy = default(IList<Frame>);
-
-                    if (listener.WantFrame)
-                    {
-                        motionFramesCopy = motionFrames.ToList().ConvertAll(m => m.Clone());
-                    }
-
-                    listener.HandlePortraits(
-                        motionFramesCopy,
-                        portraitList.ToList().ConvertAll(p => p.Clone())
-                        );
-                }
-                else
-                {
-                    listener.HandlePortraits(motionFrames, portraitList);
-                }
-            }
-
-            if (this.PortraitCaptured != null)
-            {
-                this.PortraitCaptured(portraitList);
-            }
-
-
-
-
-            portraitList.ToList().ForEach(p => p.Dispose());
-            motionFrames.ToList().ForEach(f => f.Dispose());
+            var frameCpy = listener.WantFrame ? null : motionFrames.ToList().ConvertAll(m => m.Clone());
+            var portraitCpy = portraitList.ToList().ConvertAll(p => p.Clone());
+            listener.HandlePortraits(frameCpy, portraitCpy);
         }
 
+
+        private void FirePortraitCapturedEvent(IList<Portrait> portraitList)
+        {
+            //event listener
+            if (this.PortraitCaptured != null)
+            {
+                try
+                {
+                    this.PortraitCaptured(portraitList);
+                }
+                catch (System.Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine(ex);
+                }
+            }
+        }
+
+        private void NotifyListeners(IList<Frame> motionFrames, IList<Portrait> portraitList)
+        {
+            foreach (var listener in this.GetListenersCopy())
+            {
+                try
+                {
+                    if (listener.WantCopy)
+                        NotifyAListenerWithCopy(motionFrames, portraitList, listener);
+                    else
+                        listener.HandlePortraits(motionFrames, portraitList);
+                }
+                catch (System.Exception ex)//exception occurred, remove listener
+                {
+                    this.RemoveListener(listener);
+                    System.Diagnostics.Debug.WriteLine(ex);
+                }
+            }
+        }
+
+        private void Dispatch(IList<Frame> motionFrames, IList<Portrait> portraitList)
+        {
+            try
+            {
+                FirePortraitCapturedEvent(portraitList);
+                NotifyListeners(motionFrames, portraitList);
+            }
+            finally
+            {
+                portraitList.ToList().ForEach(p => p.Dispose());
+                motionFrames.ToList().ForEach(f => f.Dispose());
+            }
+        }
 
         List<IPortraitHandler> listeners;
         FaceSearchWrapper.FaceSearch searcher;

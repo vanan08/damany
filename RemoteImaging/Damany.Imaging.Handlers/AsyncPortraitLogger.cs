@@ -9,7 +9,7 @@ namespace Damany.Imaging.Handlers
     {
 
         public AsyncPortraitLogger(string directory)
-            :base(directory)
+            : base(directory)
         {
             this.wantCopy = true;
             this.wantFrame = false;
@@ -17,17 +17,10 @@ namespace Damany.Imaging.Handlers
             this.autoRemove = false;
         }
 
-        public override void HandlePortraits(IList<Damany.Imaging.Contracts.Frame> motionFrames, 
+        public override void HandlePortraits(IList<Damany.Imaging.Contracts.Frame> motionFrames,
             IList<Damany.Imaging.Contracts.Portrait> portraits)
         {
-            if (!this.running)
-            {
-                throw new InvalidOperationException("not started");
-            }
-
-            System.Diagnostics.Debug.Assert(motionFrames == null);
-
-            if (this.faulted)
+            if (!this.running || this.faulted)
             {
                 portraits.ToList().ForEach(p => p.Dispose());
                 return;
@@ -38,9 +31,9 @@ namespace Damany.Imaging.Handlers
                 this.portraitQueue.Enqueue(portraits);
                 this.signal.Set();
             }
-            
+
         }
-      
+
         public override void Start()
         {
             lock (this.locker)
@@ -58,7 +51,7 @@ namespace Damany.Imaging.Handlers
                     System.Diagnostics.Debug.WriteLine("started");
                 }
             }
-            
+
         }
 
         public override void Stop()
@@ -72,7 +65,7 @@ namespace Damany.Imaging.Handlers
                     System.Diagnostics.Debug.WriteLine("stopped");
                 }
 
-                
+
             }
         }
 
@@ -104,7 +97,15 @@ namespace Damany.Imaging.Handlers
                     if (portraits != null)
                     {
                         base.SavePortraits(portraits);
-                        portraits.ToList().ForEach(p => p.Dispose());
+                        portraits.ToList().ForEach(p =>
+                        {
+//                             using (var w = new OpenCvSharp.CvWindow("portrait", p.PortraitImage.Clone()))
+//                             {
+//                                 OpenCvSharp.CvWindow.WaitKey(1000);
+//                             }
+                            p.Dispose();
+
+                        });
                     }
 
                     System.Threading.Thread.Sleep(1000);
@@ -117,10 +118,10 @@ namespace Damany.Imaging.Handlers
             }
             finally
             {
-                OnStopped( new MiscUtil.EventArgs<Exception>(error) );
+                OnStopped(new MiscUtil.EventArgs<Exception>(error));
                 this.running = false;
             }
-            
+
         }
 
         private void CleanUp()
@@ -138,7 +139,7 @@ namespace Damany.Imaging.Handlers
         private Queue<IList<Damany.Imaging.Contracts.Portrait>> portraitQueue
             = new Queue<IList<Damany.Imaging.Contracts.Portrait>>();
         private object locker = new object();
-        private System.Threading.AutoResetEvent signal = 
+        private System.Threading.AutoResetEvent signal =
             new System.Threading.AutoResetEvent(false);
         protected System.Threading.Thread worker;
         protected bool running;
