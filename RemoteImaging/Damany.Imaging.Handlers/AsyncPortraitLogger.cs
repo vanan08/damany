@@ -99,15 +99,14 @@ namespace Damany.Imaging.Handlers
                         base.SavePortraits(portraits);
                         portraits.ToList().ForEach(p =>
                         {
-                            using (var w = new OpenCvSharp.CvWindow("portrait", p.PortraitImage))
+                            using (var w = new OpenCvSharp.CvWindow(p.CapturedAt.ToShortTimeString(), p.PortraitImage))
                             {
-                                OpenCvSharp.CvWindow.WaitKey(1000);
+                                OpenCvSharp.CvWindow.WaitKey(500);
                             }
                             p.Dispose();
                         });
                     }
 
-                    System.Threading.Thread.Sleep(1000);
                 }
             }
             catch (System.Exception ex)
