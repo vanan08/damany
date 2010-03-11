@@ -65,8 +65,8 @@ namespace Damany.PortraitCapturer.Shell.CmdLine
 
                 var portraitFinder = new PortraitFinder();
                 portraitFinder.AddListener(asyncPortraitWriter);
-                //             portraitFinder.AddListener(portraitWriter);
-                             portraitFinder.AddListener(asyncWriter1);
+//              portraitFinder.AddListener(portraitWriter);
+//              portraitFinder.AddListener(asyncWriter1);
 
                 asyncPortraitWriter.Start();
 
@@ -83,7 +83,10 @@ namespace Damany.PortraitCapturer.Shell.CmdLine
                 while(true)
                 {
                     var frame = source.RetrieveFrame();
-                    Console.WriteLine(frame.ToString());
+
+                    System.Diagnostics.Debug.WriteLine("main thread id: " + System.Threading.Thread.CurrentThread.ManagedThreadId);
+
+                    //Console.WriteLine(frame.ToString());
                     motionDetector.DetectMotion(frame);
 
                 }
