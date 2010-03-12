@@ -357,6 +357,7 @@ namespace Damany.Cameras
         public string UserName { get; set; }
         public string Password { get; set; }
         public Uri Uri { get; set; }
+        public string Description { get { return "Sanyo Ip Camera"; } }
 
         bool connected = false;
 
@@ -646,10 +647,19 @@ namespace Damany.Cameras
 
         public Frame RetrieveFrame()
         {
-            var stream = new MemoryStream(this.CaptureImageBytes());
-            var frame = new Frame(stream);
-            frame.CapturedFrom = this;
-            return frame;
+            try
+            {
+                var stream = new MemoryStream(this.CaptureImageBytes());
+                var frame = new Frame(stream);
+                frame.CapturedFrom = this;
+                return frame;
+            }
+            catch (System.Exception ex)
+            {
+                this.connected = false;
+                throw;
+            }
+            
         }
 
         public int Id { get; set; }

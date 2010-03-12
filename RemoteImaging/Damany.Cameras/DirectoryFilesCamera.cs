@@ -38,6 +38,7 @@ namespace Damany.Cameras
         }
 
         public void Close() { }
+        public void Connect() {}
 
         public Frame RetrieveFrame()
         {
@@ -56,6 +57,8 @@ namespace Damany.Cameras
         }
 
         public int Id { get; set; }
+
+        public string Description { get { return "Directory File Camera Simulator"; } }
 
         #endregion
 

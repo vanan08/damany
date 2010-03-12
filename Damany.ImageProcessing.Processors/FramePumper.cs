@@ -9,27 +9,82 @@ namespace Damany.Imaging.Processors
 
     public class FramePumper
     {
-        public FramePumper(IFrameStream source)
+        public FramePumper()
         {
-            if (source == null)
-                throw new ArgumentNullException("source", "source is null.");
 
-            this.frameSource = source;
         }
 
-        public void Pump()
+
+        public void Start()
         {
-            if (this.MotionDetector == null)
+            if (this.worker == null)
+            {
+                this.worker = new System.Threading.Thread(this.Pump);
+                this.worker.IsBackground = true;
+                this.worker.Start();
+            }
+        }
+
+        public void Stop()
+        {
+            this.done = true;
+            this.signal.Set();
+            this.worker.Join();
+        }
+
+        private void Pump()
+        {
+
+            if (this.DoFrame == null)
             {
                 throw new InvalidOperationException("MotionDetector is null");
             }
 
-            var frame = this.frameSource.RetrieveFrame();
-            this.MotionDetector.DetectMotion(frame);
+
+            while (!this.done)
+            {
+                this.signal.WaitOne();
+
+                var frame = this.GetFrameFromQueue();
+                if (frame == null) continue;
+
+                this.DoFrame(frame);
+            }
         }
 
-        public MotionDetector MotionDetector { get; set; }
+        public void EnqueueFrame(Frame f)
+        {
+            lock (this.locker)
+            {
+                this.frameQueue.Enqueue(f);
+                this.signal.Set();
+            }
+        }
 
-        IFrameStream frameSource;
+        private Frame GetFrameFromQueue()
+        {
+            var f = default(Frame);
+
+            lock (this.locker)
+            {
+                if (this.frameQueue.Count > 0)
+                {
+                    f = this.frameQueue.Dequeue();
+                }
+            }
+
+            return f;
+        }
+
+        
+        public Action<Frame> DoFrame { get; set; }
+        
+
+        System.Threading.AutoResetEvent signal = new System.Threading.AutoResetEvent(false);
+        System.Threading.Thread worker;
+        bool done;
+
+        object locker = new object();
+        Queue<Frame> frameQueue = new Queue<Frame>();
     }
 }
