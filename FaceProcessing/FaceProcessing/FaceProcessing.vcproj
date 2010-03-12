@@ -193,6 +193,10 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\cvgabor.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\FacePCA.cpp"
 				>
 			</File>
@@ -213,7 +217,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ImageRotate.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\LightCorrect.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\MotionDetector.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\similay.cpp"
 				>
 			</File>
 			<File
@@ -247,6 +263,10 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
+				RelativePath=".\cvgabor.h"
+				>
+			</File>
+			<File
 				RelativePath=".\FacePCA.h"
 				>
 			</File>
@@ -271,11 +291,23 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ImageRotate.h"
+				>
+			</File>
+			<File
+				RelativePath=".\LightCorrect.h"
+				>
+			</File>
+			<File
 				RelativePath=".\MotionDetector.h"
 				>
 			</File>
 			<File
 				RelativePath=".\Resource.h"
+				>
+			</File>
+			<File
+				RelativePath=".\similay.h"
 				>
 			</File>
 			<File
