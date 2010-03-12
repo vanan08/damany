@@ -39,16 +39,20 @@ namespace Damany.PortraitCapturer.Shell.CmdLine
             source.Connect();
 
             var pumper = new FramePumper();
-            pumper.DoFrame = f =>
+            pumper.ActionOnFrame = f =>
             {
-                Console.WriteLine(f.CapturedFrom.Description +" " + f.ToString());
+                using (var window = new OpenCvSharp.CvWindow(f.CapturedAt.ToShortTimeString(), f.Ipl))
+                {
+                    OpenCvSharp.CvWindow.WaitKey(1000);
+                }
+                
                 f.Dispose();
             };
             pumper.Start();
 
-            var retriever = new FrameRetriever();
-            retriever.FrameSource = source;
-            retriever.DoFrame = pumper.EnqueueFrame;
+            var retriever = new Damany.Util.PersistentWorker();
+            retriever.DoWork = delegate { var frame = source.RetrieveFrame(); pumper.ActionOnFrame(frame); };
+            retriever.OnExceptionRetry = delegate { source.Connect(); };
             retriever.Start();
 
 
@@ -58,10 +62,10 @@ namespace Damany.PortraitCapturer.Shell.CmdLine
                 switch (key.Key)
                 {
                     case ConsoleKey.UpArrow:
-                        retriever.FrameRetrieveFrequency *= 2;
+                        retriever.WorkFrequency *= 2;
                         break;
                     case ConsoleKey.DownArrow:
-                        retriever.FrameRetrieveFrequency /= 2;
+                        retriever.WorkFrequency /= 2;
                         break;
                     default:
                         exit.Set();

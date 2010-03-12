@@ -35,7 +35,7 @@ namespace Damany.Imaging.Processors
         private void Pump()
         {
 
-            if (this.DoFrame == null)
+            if (this.ActionOnFrame == null)
             {
                 throw new InvalidOperationException("MotionDetector is null");
             }
@@ -48,7 +48,7 @@ namespace Damany.Imaging.Processors
                 var frame = this.GetFrameFromQueue();
                 if (frame == null) continue;
 
-                this.DoFrame(frame);
+                this.ActionOnFrame(frame);
             }
         }
 
@@ -77,7 +77,7 @@ namespace Damany.Imaging.Processors
         }
 
         
-        public Action<Frame> DoFrame { get; set; }
+        public Action<Frame> ActionOnFrame { get; set; }
         
 
         System.Threading.AutoResetEvent signal = new System.Threading.AutoResetEvent(false);

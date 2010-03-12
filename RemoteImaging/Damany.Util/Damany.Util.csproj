@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="Extensions\MiscHelper.cs" />
     <Compile Include="PerformanceCounterFactory.cs" />
+    <Compile Include="PersistentWorker.cs" />
     <Compile Include="SingleInstanceController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
