@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="FrameManager.cs" />
     <Compile Include="FramePumper.cs" />
+    <Compile Include="FrameRetriever.cs" />
     <Compile Include="MotionDetector.cs" />
     <Compile Include="PortraitFinder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

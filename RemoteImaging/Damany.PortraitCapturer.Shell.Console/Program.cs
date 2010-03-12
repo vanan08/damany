@@ -11,43 +11,100 @@ namespace Damany.PortraitCapturer.Shell.CmdLine
 {
     class Program
     {
+        static FramePumper pumper;
+        static System.Threading.AutoResetEvent exit = new System.Threading.AutoResetEvent(false);
+
         static void Main(string[] args)
         {
-            System.Threading.ThreadPool.QueueUserWorkItem(delegate { Run(args[0]); });
+            try
+            {
+                System.Threading.ThreadPool.QueueUserWorkItem(uri => RunPumper(uri), args[0]);
 
-            Console.ReadKey();
+                exit.WaitOne();
+
+                pumper.Stop();
+
+            }
+            catch (System.Exception ex)
+            {
+            	
+            }
 
         }
 
+        private static void RunPumper(object uri)
+        {
+            var source = FrameStreamFromUri(uri as string);
+
+            source.Connect();
+
+            var pumper = new FramePumper();
+            pumper.DoFrame = f =>
+            {
+                Console.WriteLine(f.CapturedFrom.Description +" " + f.ToString());
+                f.Dispose();
+            };
+            pumper.Start();
+
+            var retriever = new FrameRetriever();
+            retriever.FrameSource = source;
+            retriever.DoFrame = pumper.EnqueueFrame;
+            retriever.Start();
+
+
+            while (true)
+            {
+                var key = Console.ReadKey();
+                switch (key.Key)
+                {
+                    case ConsoleKey.UpArrow:
+                        retriever.FrameRetrieveFrequency *= 2;
+                        break;
+                    case ConsoleKey.DownArrow:
+                        retriever.FrameRetrieveFrequency /= 2;
+                        break;
+                    default:
+                        exit.Set();
+                        return;
+                        break;
+                }
+            }
+        }
+       
+
+        private static IFrameStream FrameStreamFromUri(string uriString)
+        {
+            System.Uri uri = new System.Uri(uriString);
+
+            IFrameStream source = null;
+
+            switch (uri.Scheme)
+            {
+                case "file":
+                    var directory = new Damany.Cameras.DirectoryFilesCamera(uri.AbsolutePath, "*.jpg");
+                    directory.Initialize();
+                    source = directory;
+                    break;
+                case "http":
+                    var sanyo = new Damany.Cameras.SanyoNetCamera();
+                    sanyo.UserName = "guest";
+                    sanyo.Password = "guest";
+                    sanyo.Uri = uri;
+                    sanyo.Initialize();
+                    sanyo.Connect();
+                    source = sanyo;
+                    break;
+
+                default:
+                    break;
+            }
+            return source;
+        }
         private static void Run(string uriString)
         {
             try
             {
-                System.Uri uri = new System.Uri(uriString);
-
-                IFrameStream source = null;
-
-                switch (uri.Scheme)
-                {
-                    case "file":
-                        var directory = new Damany.Cameras.DirectoryFilesCamera(uri.AbsolutePath, "*.jpg");
-                        directory.Initialize();
-                        source = directory;
-                        break;
-                    case "http":
-                        var sanyo  = new Damany.Cameras.SanyoNetCamera();
-                        sanyo.UserName = "guest";
-                        sanyo.Password = "guest";
-                        sanyo.Uri = uri;
-                        sanyo.Initialize();
-                        sanyo.Connect();
-                        source = sanyo;
-                        break;
-
-                    default:
-                        break;
-                }
-
+                IFrameStream source = FrameStreamFromUri(uriString);
 
 
                 var frameWritter = new FrameWritter();
@@ -86,7 +143,7 @@ namespace Damany.PortraitCapturer.Shell.CmdLine
 
                     System.Diagnostics.Debug.WriteLine("main thread id: " + System.Threading.Thread.CurrentThread.ManagedThreadId);
 
-                    //Console.WriteLine(frame.ToString());
+                    Console.WriteLine(frame.ToString());
                     motionDetector.DetectMotion(frame);
 
                 }

@@ -12,14 +12,16 @@ namespace FaceProcessingWrapper
 	static public ref class StaticFunctions
 	{
 		public:
-			static bool CompareFace(OpenCvSharp::IplImage^ one, CvRect oneRect, 
-									OpenCvSharp::IplImage^ another, CvRect anotherRect, 
+			static bool CompareFace(OpenCvSharp::IplImage^ one, OpenCvSharp::CvRect oneRect, 
+									OpenCvSharp::IplImage^ another, OpenCvSharp::CvRect anotherRect, 
 								    float% cmpResult, bool noRotate)
 			{
 				pin_ptr<float> pResult = &cmpResult;
 
-				bool result = ::CompareFace( (IplImage*)  one->CvPtr.ToPointer(), oneRect,
-											 (IplImage*) another->CvPtr.ToPointer(), anotherRect,
+				bool result = ::CompareFace( (IplImage*)  one->CvPtr.ToPointer(), 
+											::cvRect(oneRect.X, oneRect.Y, oneRect.Width, oneRect.Height),
+											(IplImage*) another->CvPtr.ToPointer(), 
+											::cvRect(anotherRect.X, anotherRect.Y, anotherRect.Width, anotherRect.Height),
 											 pResult , noRotate );
 				return result;
 			}

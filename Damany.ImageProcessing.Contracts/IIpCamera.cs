@@ -7,8 +7,6 @@ namespace Damany.Imaging.Contracts
 {
     public interface IIpCamera : IFrameStream
     {
-        void Connect();
-
         Uri Uri { get; set; }
     }
 }

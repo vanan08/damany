@@ -99,10 +99,14 @@ namespace Damany.Imaging.Handlers
                         base.SavePortraits(portraits);
                         portraits.ToList().ForEach(p =>
                         {
-                            using (var w = new OpenCvSharp.CvWindow(p.CapturedAt.ToShortTimeString(), p.PortraitImage))
+                            if (win != null)
                             {
-                                OpenCvSharp.CvWindow.WaitKey(500);
+                                win.Dispose();
+                                win = null;
                             }
+
+                            win = new OpenCvSharp.CvWindow(p.CapturedAt.ToShortTimeString(), p.PortraitImage.Clone());
+                            OpenCvSharp.CvWindow.WaitKey(500);
                             p.Dispose();
                         });
                     }
@@ -142,5 +146,6 @@ namespace Damany.Imaging.Handlers
         protected System.Threading.Thread worker;
         protected bool running;
         private bool faulted;
+        private OpenCvSharp.CvWindow win;
     }
 }

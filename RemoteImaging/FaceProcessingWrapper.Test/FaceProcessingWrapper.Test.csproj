@@ -64,6 +64,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
+    <Compile Include="StaticFunctionTest.cs" />
     <Compile Include="SVMWrapperTest.cs" />
   </ItemGroup>
   <ItemGroup>
