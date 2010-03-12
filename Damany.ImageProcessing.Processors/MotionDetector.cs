@@ -10,9 +10,8 @@ namespace Damany.Imaging.Processors
 
     public class MotionDetector
     {
-        public MotionDetector(IMotionFrameHandler handler)
+        public MotionDetector()
         {
-            this.handler = handler;
             this.manager = new FrameManager();
             this.detector = new FaceProcessingWrapper.MotionDetector();
         }
@@ -62,11 +61,18 @@ namespace Damany.Imaging.Processors
         private void NotifyListener()
         {
             var frames = this.manager.RetrieveMotionFrames();
-            this.handler.HandleMotionFrame(frames);
+
+            if (this.MotionFrameCaptured != null)
+            {
+                this.MotionFrameCaptured(frames);
+            }
+
+            
         }
 
+        public event Action<IList<Contracts.Frame>> MotionFrameCaptured;
+
         FaceProcessingWrapper.MotionDetector detector;
-        IMotionFrameHandler handler;
 
         FrameManager manager;
     }

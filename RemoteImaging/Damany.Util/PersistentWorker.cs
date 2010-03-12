@@ -22,6 +22,9 @@ namespace Damany.Util
         public Action OnExceptionRetry { get; set; }
         public Action OnRetrySucceedDo { get; set; }
 
+        public event Action<object> OnWorkItemIsDone;
+        public event Action<Exception> OnException;
+
         public void Start()
         {
             this.timer.Enabled = true;
@@ -30,6 +33,15 @@ namespace Damany.Util
         public void Stop()
         {
             this.done = true;
+
+        }
+
+        public void ReportWorkItem(object item)
+        {
+            if (this.OnWorkItemIsDone != null)
+            {
+                this.OnWorkItemIsDone(item);
+            }
 
         }
 

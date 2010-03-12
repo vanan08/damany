@@ -27,7 +27,7 @@ namespace Damany.PortraitCapturer.Shell.CmdLine
             }
             catch (System.Exception ex)
             {
-            	
+
             }
 
         }
@@ -35,23 +35,30 @@ namespace Damany.PortraitCapturer.Shell.CmdLine
         private static void RunPumper(object uri)
         {
             var source = FrameStreamFromUri(uri as string);
-
             source.Connect();
 
-            var pumper = new FramePumper();
-            pumper.ActionOnFrame = f =>
-            {
-                using (var window = new OpenCvSharp.CvWindow(f.CapturedAt.ToShortTimeString(), f.Ipl))
-                {
-                    OpenCvSharp.CvWindow.WaitKey(1000);
-                }
-                
-                f.Dispose();
-            };
-            pumper.Start();
+            AsyncPortraitLogger writer = new AsyncPortraitLogger("portraits captured");
+            writer.Initialize();
+            writer.Start();
+
+            PortraitFinder finder = new PortraitFinder();
+            finder.AddListener(writer);
+
+            MotionDetector motionDetector = new MotionDetector();
+            motionDetector.MotionFrameCaptured += finder.HandleMotionFrame;
 
             var retriever = new Damany.Util.PersistentWorker();
-            retriever.DoWork = delegate { var frame = source.RetrieveFrame(); pumper.ActionOnFrame(frame); };
+            retriever.OnWorkItemIsDone += item =>
+            {
+                Frame f = item as Frame;
+                Console.WriteLine(f.Ipl.Size.ToString() +" " + f.CapturedAt.ToString() + " " + f.CapturedFrom.Description);
+            };
+
+            retriever.DoWork = delegate { 
+                var frame = source.RetrieveFrame();
+                retriever.ReportWorkItem(frame);
+                motionDetector.DetectMotion(frame); 
+            };
             retriever.OnExceptionRetry = delegate { source.Connect(); };
             retriever.Start();
 
@@ -74,7 +81,7 @@ namespace Damany.PortraitCapturer.Shell.CmdLine
                 }
             }
         }
-       
+
 
         private static IFrameStream FrameStreamFromUri(string uriString)
         {
@@ -104,6 +111,8 @@ namespace Damany.PortraitCapturer.Shell.CmdLine
             }
             return source;
         }
+
+
         private static void Run(string uriString)
         {
             try
@@ -126,8 +135,8 @@ namespace Damany.PortraitCapturer.Shell.CmdLine
 
                 var portraitFinder = new PortraitFinder();
                 portraitFinder.AddListener(asyncPortraitWriter);
-//              portraitFinder.AddListener(portraitWriter);
-//              portraitFinder.AddListener(asyncWriter1);
+                //              portraitFinder.AddListener(portraitWriter);
+                //              portraitFinder.AddListener(asyncWriter1);
 
                 asyncPortraitWriter.Start();
 
@@ -135,13 +144,14 @@ namespace Damany.PortraitCapturer.Shell.CmdLine
                 portraitFinder.PortraitCaptured += list =>
                 {
                     Console.Write("[");
-                    list.ToList().ForEach( p => Console.Write(p.ToString() + ","));
+                    list.ToList().ForEach(p => Console.Write(p.ToString() + ","));
                     Console.WriteLine("]");
                 };
 
-                var motionDetector = new MotionDetector(portraitFinder);
+                var motionDetector = new MotionDetector();
+                motionDetector.MotionFrameCaptured += portraitFinder.HandleMotionFrame;
 
-                while(true)
+                while (true)
                 {
                     var frame = source.RetrieveFrame();
 
@@ -156,7 +166,7 @@ namespace Damany.PortraitCapturer.Shell.CmdLine
             {
                 System.Console.WriteLine(ex);
             }
-            
+
         }
     }
 }
