@@ -40,7 +40,8 @@ namespace Damany.Imaging.Processors.Test
 
             asyncPortraitWriter.Start();
 
-            var motionDetector = new MotionDetector(portraitFinder);
+            var motionDetector = new MotionDetector();
+            motionDetector.MotionFrameCaptured += portraitFinder.HandleMotionFrame;
 
             bool running = true;
             for (int i = 0; i < 25 && running;++i )
