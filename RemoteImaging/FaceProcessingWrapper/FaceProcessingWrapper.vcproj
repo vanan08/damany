@@ -191,7 +191,7 @@
 		/>
 		<ProjectReference
 			ReferencedProjectIdentifier="{B8F7A553-6295-4F0B-B48A-7C85DA5118BB}"
-			RelativePathToProject="..\Damany.ImageProcessing.Contracts\Damany.ImageProcessing.Contracts.csproj"
+			RelativePathToProject="..\Damany.ImageProcessing.Contracts\Damany.Imaging.Contracts.csproj"
 		/>
 		<AssemblyReference
 			RelativePath="System.Drawing.dll"
@@ -235,6 +235,10 @@
 			</File>
 			<File
 				RelativePath=".\MotionDetector.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\StaticFunctions.cpp"
 				>
 			</File>
 			<File
