@@ -7,7 +7,7 @@ Frame FaceProcessingWrapper::FrameConverter::ToUnManaged(Damany::Imaging::Contra
 {
 	Frame unmanaged;
 
-	unmanaged.image = (::IplImage*) managed->Ipl->CvPtr.ToPointer();
+	unmanaged.image = (::IplImage*) managed->GetImage()->CvPtr.ToPointer();
 
 	pin_ptr<byte> pByte = & managed->Guid.ToByteArray()[0];
 	::memcpy_s(unmanaged.guid, 16, pByte, 16);

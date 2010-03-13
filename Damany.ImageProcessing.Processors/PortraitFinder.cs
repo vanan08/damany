@@ -110,10 +110,9 @@ namespace Damany.Imaging.Processors
 
             var expanedPortraits = from frame in portraitFoundFrameQuery
                                    from p in frame.Portraits.Portraits
-                                   let bounds = CreateBounds(p.FacesRect, p.FacesRectForCompare)
                                    select new Portrait(p.Face)
                                    {
-                                       Bounds = bounds,
+                                       FaceBounds = p.FacesRectForCompare,
                                        FrameId = frame.Frame.Guid,
                                        CapturedAt = frame.Frame.CapturedAt,
                                        CapturedFrom = frame.Frame.CapturedFrom,

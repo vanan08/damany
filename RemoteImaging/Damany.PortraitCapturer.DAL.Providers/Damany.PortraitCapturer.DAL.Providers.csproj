@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{8E1A64E7-2CA6-4F72-B2B2-C8B24657FEB5}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{A76CE8C9-5B90-4C67-9CDB-1D4D3AD0809E}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Damany.PortraitCapturer.Shell.CmdLine</RootNamespace>
-    <AssemblyName>Shell</AssemblyName>
+    <RootNamespace>Damany.PortraitCapturer.DAL.Providers</RootNamespace>
+    <AssemblyName>Damany.PortraitCapturer.DAL.Providers</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>&lt;Project Location In Database&gt;</SccProjectName>
@@ -35,24 +35,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MiscUtil, Version=1.0.0.0, Culture=neutral, PublicKeyToken=d3c42c4bfacf7596, processorArchitecture=MSIL">
+    <Reference Include="Db4objects.Db4o, Version=7.12.132.14217, Culture=neutral, PublicKeyToken=6199cd4f203aa8eb, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Library\MiscUtil\MiscUtil.dll</HintPath>
+      <HintPath>C:\Program Files\db4o\db4o-7.12\bin\net-3.5\Db4objects.Db4o.dll</HintPath>
     </Reference>
-    <Reference Include="OpenCvSharp, Version=2.0.3497.28493, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Db4objects.Db4o.Linq, Version=7.12.132.14217, Culture=neutral, PublicKeyToken=6199cd4f203aa8eb, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Library\OpenCvSharp\OpenCvSharp.dll</HintPath>
-    </Reference>
-    <Reference Include="OpenCvSharp.UserInterface, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Library\OpenCvSharp\OpenCvSharp.UserInterface.dll</HintPath>
+      <HintPath>C:\Program Files\db4o\db4o-7.12\bin\net-3.5\Db4objects.Db4o.Linq.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -63,7 +57,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="Db4oProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -75,30 +69,6 @@
     <ProjectReference Include="..\..\Damany.ImageProcessing.Contracts\Damany.Imaging.Contracts.csproj">
       <Project>{B8F7A553-6295-4F0B-B48A-7C85DA5118BB}</Project>
       <Name>Damany.Imaging.Contracts</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Damany.ImageProcessing.Processors\Damany.Imaging.Processors.csproj">
-      <Project>{39CB311A-8E36-4302-8B62-136FA2EC39EC}</Project>
-      <Name>Damany.Imaging.Processors</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Damany.Library\CameraWrappers.Test\CameraWrappers.Test.csproj">
-      <Project>{6FA66571-1E49-42D8-83B8-6A38B75A85DC}</Project>
-      <Name>CameraWrappers.Test</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Damany.Library\CameraWrappers\CameraWrappers.vcproj">
-      <Project>{477A59D8-2EC6-4C25-B111-A38B1C9856A6}</Project>
-      <Name>Damany.Cameras.Wrappers</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Damany.Cameras\Damany.Cameras.csproj">
-      <Project>{BCB72517-49DF-4EDE-B84A-55E870B069EF}</Project>
-      <Name>Damany.Cameras</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Damany.Imaging.Handlers\Damany.Imaging.Handlers.csproj">
-      <Project>{BA6756CA-C611-48AA-A53A-913C00E1066E}</Project>
-      <Name>Damany.Imaging.Handlers</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Damany.PortraitCapturer.DAL.Providers\Damany.PortraitCapturer.DAL.Providers.csproj">
-      <Project>{A76CE8C9-5B90-4C67-9CDB-1D4D3AD0809E}</Project>
-      <Name>Damany.PortraitCapturer.DAL.Providers</Name>
     </ProjectReference>
     <ProjectReference Include="..\Damany.PortraitCapturer.DAL\Damany.PortraitCapturer.DAL.csproj">
       <Project>{85DF7A03-E0AF-4A50-B257-0DB136AED335}</Project>
@@ -124,8 +94,4 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <PropertyGroup>
-    <PostBuildEvent>copy "$(SolutionDir)$(ConfigurationName)\*.dll"   "$(TargetDir)"
-copy "$(SolutionDir)$(ConfigurationName)\*.pdb"   "$(TargetDir)"</PostBuildEvent>
-  </PropertyGroup>
 </Project>

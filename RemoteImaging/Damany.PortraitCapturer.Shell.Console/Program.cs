@@ -7,6 +7,7 @@ using Damany.Imaging.Contracts;
 using Damany.Imaging.Processors;
 using Damany.Imaging.Handlers;
 using Damany.Cameras.Wrappers;
+using Damany.PortraitCapturer.DAL.Providers;
 
 namespace Damany.PortraitCapturer.Shell.CmdLine
 {
@@ -17,6 +18,10 @@ namespace Damany.PortraitCapturer.Shell.CmdLine
 
         static void Main(string[] args)
         {
+            testDAL();
+
+            return;
+
             try
             {
                 System.Threading.ThreadPool.QueueUserWorkItem(uri => RunPumper(uri), args);
@@ -29,6 +34,13 @@ namespace Damany.PortraitCapturer.Shell.CmdLine
             {
                 Console.WriteLine(ex.ToString());
             }
+
+        }
+
+        private static void testDAL()
+        {
+
+            ProviderFactory.CreateProvider();
 
         }
 

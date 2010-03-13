@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using RemoteImaging.Core;
 using System.IO;
-using ImageProcess;
+using Damany.Imaging.Contracts;
 using OpenCvSharp;
 
 namespace RemoteImaging
@@ -48,13 +48,12 @@ namespace RemoteImaging
 
         public static void SaveFrame(Frame frame)
         {
-            IplImage ipl = frame.image;
-            ipl.IsEnabledDispose = false;
+            IplImage ipl = frame.GetImage();
 
             string path = frame.GetFileName();
-            DateTime dt = DateTime.FromBinary(frame.timeStamp);
+            DateTime dt = frame.CapturedAt;
 
-            string root = StorageRootPathForCamera(frame.cameraID);
+            string root = StorageRootPathForCamera(frame.CapturedFrom.Id);
             string folder = BuildBigImgPath(root, dt);
             if (!Directory.Exists(folder))
             {
@@ -69,9 +68,9 @@ namespace RemoteImaging
 
         public static string PathForFaceImage(Frame frame, int sequence)
         {
-            DateTime dt = DateTime.FromBinary(frame.timeStamp);
+            DateTime dt = frame.CapturedAt;
 
-            string folderFace = FileSystemStorage.EnsureFolderForFacesAt(frame.cameraID, dt);
+            string folderFace = FileSystemStorage.EnsureFolderForFacesAt(frame.CapturedFrom.Id, dt);
 
             string faceFileName = FileSystemStorage.FaceImageFileNameOf(frame.GetFileName(), sequence);
 

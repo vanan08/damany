@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using ImageProcess;
+using Damany.Imaging.Contracts;
 
 namespace RemoteImaging
 {
@@ -23,8 +23,8 @@ namespace RemoteImaging
 
         public static string GetFileName(this Frame f)
         {
-            DateTime dt = DateTime.FromBinary(f.timeStamp);
-            string name = string.Format(@"{0:d2}_{1}.jpg", f.cameraID, dt.ToFileName());
+            DateTime dt = f.CapturedAt;
+            string name = string.Format(@"{0:d2}_{1}.jpg", f.CapturedFrom.Id, dt.ToFileName());
             return name;
         }
     }
