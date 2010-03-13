@@ -46,7 +46,8 @@ namespace Damany
 				{
 					System::IntPtr ptrFile = Marshal::StringToHGlobalAnsi(this->tmpFile);
 					LPCTSTR pSzTmpFile = static_cast<LPCTSTR>(ptrFile.ToPointer());
-					MP4_ClientCapturePicturefile(this->hClient, pSzTmpFile);
+					int result = MP4_ClientCapturePicturefile(this->hClient, pSzTmpFile);
+					CheckResult(result);
 					Marshal::FreeHGlobal(ptrFile);
 
 					array<System::Byte>^ bytes = System::IO::File::ReadAllBytes(this->tmpFile);
@@ -86,26 +87,31 @@ namespace Damany
 
 					int result = 0;
 					result = MP4_ClientSetStreamType(this->hClient, STREAM_TYPE_AVSYNC);
+					CheckResult(result);
 					
 					result = MP4_ClientSetWaitTime(this->hClient, 3000);
+					CheckResult(result);
 
 					System::IntPtr ptrUser = Marshal::StringToHGlobalAnsi(this->userName);
 					LPCTSTR pUser = static_cast<LPCTSTR>(ptrUser.ToPointer());
 					System::IntPtr ptrPwd = Marshal::StringToHGlobalAnsi(this->password);
 					LPCTSTR pPwd = static_cast<LPCTSTR>(ptrPwd.ToPointer());
 					result = MP4_ClientSetConnectUser(this->hClient, pUser, pPwd);
+					CheckResult(result);
 					Marshal::FreeHGlobal(ptrUser);
 					Marshal::FreeHGlobal(ptrPwd);
 
 					result = MP4_ClientStartCapture(this->hClient);
-
+					CheckResult(result);
 					IntPtr ptrIp = Marshal::StringToHGlobalAnsi(this->ip);
 					LPCTSTR pIp = static_cast<LPCTSTR>(ptrIp.ToPointer());
 					result = MP4_ClientConnectEx(this->hClient, pIp, this->port, 0, 0, 0);
+					CheckResult(result);
 					Marshal::FreeHGlobal(ptrIp);
 
 					MP4_ClientSetTranstType(this->hClient, 1);
 					result = MP4_ClientSetTranstPackSize(this->hClient, 4096);
+					CheckResult(result);
 
 					System::Threading::Thread::Sleep(3000);
 				}
@@ -197,6 +203,15 @@ namespace Damany
 
 
 			private:
+				static void CheckResult(int result)
+				{
+					if (result != 0)
+					{
+						throw gcnew System::Exception("Camera Initialize Error");
+					}
+				}
+
+
 				String^ ip;
 				DWORD port;
 				String^ userName;
