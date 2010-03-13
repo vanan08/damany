@@ -10,14 +10,6 @@ namespace Damany.PortraitCapturer.DAL.Providers
     {
         public Db4oProvider(string dataBaseFile)
         {
-            if (String.IsNullOrEmpty(dataBaseFile))
-                throw new ArgumentException("dataBaseFile is null or empty.", "dataBaseFile");
-
-            if (!System.IO.File.Exists(dataBaseFile))
-            {
-                throw new System.IO.FileNotFoundException();
-            }
-
             this.uriOfDb = dataBaseFile;
         }
 

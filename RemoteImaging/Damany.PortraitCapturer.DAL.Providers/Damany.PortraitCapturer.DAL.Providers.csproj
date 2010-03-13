@@ -74,6 +74,10 @@
       <Project>{85DF7A03-E0AF-4A50-B257-0DB136AED335}</Project>
       <Name>Damany.PortraitCapturer.DAL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Damany.PortraitCapturer.Repository\Damany.PortraitCapturer.Repository.csproj">
+      <Project>{B1F44368-57BA-4C8A-BAE0-D2E05C7EBEEE}</Project>
+      <Name>Damany.PortraitCapturer.Repository</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Damany.Util\Damany.Util.csproj">
       <Project>{FA6DEBE0-D78D-437E-B05D-0923896290C9}</Project>
       <Name>Damany.Util</Name>

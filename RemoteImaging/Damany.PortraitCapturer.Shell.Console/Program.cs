@@ -18,9 +18,6 @@ namespace Damany.PortraitCapturer.Shell.CmdLine
 
         static void Main(string[] args)
         {
-            testDAL();
-
-            return;
 
             try
             {
@@ -28,7 +25,6 @@ namespace Damany.PortraitCapturer.Shell.CmdLine
 
                 exit.WaitOne();
 
-                pumper.Stop();
             }
             catch (System.Exception ex)
             {
@@ -39,8 +35,6 @@ namespace Damany.PortraitCapturer.Shell.CmdLine
 
         private static void testDAL()
         {
-
-            ProviderFactory.CreateProvider();
 
         }
 
@@ -61,11 +55,18 @@ namespace Damany.PortraitCapturer.Shell.CmdLine
                 }
                 else if (args[1].ToUpper().Contains("SANYO"))
                 {
-                    var sanyo  = (SanyoNetCamera)Damany.Cameras.Factory.NewSanyoCamera(uri);
+                    var sanyo = (SanyoNetCamera)Damany.Cameras.Factory.NewSanyoCamera(uri);
                     sanyo.UserName = "guest";
                     sanyo.PassWord = "guest";
                     source = sanyo;
                 }
+                else if (args[1].ToUpper().Contains("DIR"))
+                {
+                    var dir = new Damany.Cameras.DirectoryFilesCamera(uri.AbsolutePath, "*.jpg");
+                    source = dir;
+                }
+                else
+                    throw new NotSupportedException("camera type not supported");
                 
                 source.Initialize();
                 source.Connect();
@@ -74,8 +75,11 @@ namespace Damany.PortraitCapturer.Shell.CmdLine
                 writer.Initialize();
                 writer.Start();
 
+                PortraitPersister portraitFileSystemWriter = new PortraitPersister();
+                portraitFileSystemWriter.Initialize();
+
                 PortraitFinder finder = new PortraitFinder();
-                finder.AddListener(writer);
+                finder.AddListener(portraitFileSystemWriter);
 
                 MotionDetector motionDetector = new MotionDetector();
                 motionDetector.MotionFrameCaptured += finder.HandleMotionFrame;
