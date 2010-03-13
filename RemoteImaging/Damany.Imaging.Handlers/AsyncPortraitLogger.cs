@@ -105,7 +105,7 @@ namespace Damany.Imaging.Handlers
                                 win = null;
                             }
 
-                            win = new OpenCvSharp.CvWindow(p.CapturedAt.ToShortTimeString(), p.PortraitImage.Clone());
+                            win = new OpenCvSharp.CvWindow(p.CapturedAt.ToShortTimeString(), p.GetImage().Clone());
                             OpenCvSharp.CvWindow.WaitKey(500);
                             p.Dispose();
                         });

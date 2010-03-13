@@ -8,7 +8,7 @@ using System.Management;
 using System.Security.Cryptography;
 using Encryptor;
 using Microsoft.Win32;
-using ImageProcess;
+using Damany.Imaging.Contracts;
 
 namespace RemoteImaging
 {

@@ -14,7 +14,7 @@ namespace Damany.Imaging.Handlers
         {
             motionFrames.ToList().ForEach(frame =>
             {
-                frame.Ipl.SaveImage(frame.Guid.ToString() + ".jpg");
+                frame.GetImage().SaveImage(frame.Guid.ToString() + ".jpg");
                 frame.Dispose();
             });
 

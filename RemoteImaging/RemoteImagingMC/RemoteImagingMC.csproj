@@ -409,6 +409,10 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Damany.ImageProcessing.Contracts\Damany.Imaging.Contracts.csproj">
+      <Project>{B8F7A553-6295-4F0B-B48A-7C85DA5118BB}</Project>
+      <Name>Damany.Imaging.Contracts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Damany.Library\Damany.Component\Damany.Component.csproj">
       <Project>{80DC56F4-DB48-4AF2-B1BE-6B944A81B293}</Project>
       <Name>Damany.Component</Name>
@@ -433,10 +437,6 @@
       <Project>{B377F693-4975-4BB6-A6DC-C0C3844517B1}</Project>
       <Name>Encryptor</Name>
     </ProjectReference>
-    <ProjectReference Include="..\IconExtractor\ImageProcessing.csproj">
-      <Project>{C917EC7F-9A59-4845-9108-87056AC61D4F}</Project>
-      <Name>ImageProcessing</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Messages\Messages.csproj">
       <Project>{80A13967-C4D2-4B5A-909D-FA595F57F88D}</Project>
       <Name>Messages</Name>
@@ -460,7 +460,7 @@
   -->
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties Reactor_Output="[main_assembly_dir]RemoteImagingMC_Secure\RemoteImagingMC.exe" Reactor_Project="" Reactor_Commands="" Reactor_Automatic="1" Reactor_Lib="0" Reactor_Enabled="1" BuildVersion_BuildVersioningStyle="None.None.Increment.None" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_UpdateFileVersion="True" BuildVersion_ConfigurationName="Release" BuildVersion_BuildAction="ReBuild" />
+      <UserProperties BuildVersion_BuildAction="ReBuild" BuildVersion_ConfigurationName="Release" BuildVersion_UpdateFileVersion="True" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_BuildVersioningStyle="None.None.Increment.None" Reactor_Enabled="1" Reactor_Lib="0" Reactor_Automatic="1" Reactor_Commands="" Reactor_Project="" Reactor_Output="[main_assembly_dir]RemoteImagingMC_Secure\RemoteImagingMC.exe" />
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>

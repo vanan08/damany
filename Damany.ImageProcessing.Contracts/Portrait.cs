@@ -9,12 +9,16 @@ namespace Damany.Imaging.Contracts
 {
     public class Portrait : CapturedObject, IDisposable
     {
+        public Portrait(string path)
+        {
+            this.path = path;
+        }
+
         public Portrait(IplImage portraitImage)
         {
             this.portraitImage = portraitImage;
 
             this.Guid = System.Guid.NewGuid();
-            this.Bounds = new PortraitBounds();
         }
 
         public Portrait Clone()
@@ -27,14 +31,16 @@ namespace Damany.Imaging.Contracts
         }
 
 
-        public IplImage PortraitImage
+        public IplImage GetImage()
         {
-            get
-            {
-                CheckForDisposed();
+            CheckForDisposed();
 
-                return this.portraitImage;
+            if (this.portraitImage == null)
+            {
+                this.portraitImage = OpenCvSharp.IplImage.FromFile(this.path);
             }
+
+            return this.portraitImage;
         }
 
         public override string ToString()
@@ -57,7 +63,7 @@ namespace Damany.Imaging.Contracts
         protected virtual void Dispose(bool IsDisposing)
         {
             if (disposed) return;
-            
+
             if (IsDisposing)
             {
                 if (this.portraitImage != null)
@@ -82,10 +88,11 @@ namespace Damany.Imaging.Contracts
         }
 
 
-        public PortraitBounds Bounds { get; set; }
+        public OpenCvSharp.CvRect FaceBounds { get; set; }
         public Guid FrameId { get; set; }
 
         IplImage portraitImage;
+        string path;
 
         bool disposed;
     }

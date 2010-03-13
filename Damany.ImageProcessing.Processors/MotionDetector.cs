@@ -31,7 +31,7 @@ namespace Damany.Imaging.Processors
                 NotifyListener();
             }
 
-            lastImageSize = frame.Ipl.Size;
+            lastImageSize = frame.GetImage().Size;
         }
 
 
@@ -76,7 +76,7 @@ namespace Damany.Imaging.Processors
 
         private bool ImageResolutionChanged(Frame currentFrame)
         {
-            return currentFrame.Ipl.Size != lastImageSize;
+            return currentFrame.GetImage().Size != lastImageSize;
         }
 
         public event Action<IList<Contracts.Frame>> MotionFrameCaptured;

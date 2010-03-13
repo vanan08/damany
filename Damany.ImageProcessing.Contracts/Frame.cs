@@ -3,11 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using OpenCvSharp;
+using System.IO;
 
 namespace Damany.Imaging.Contracts
 {
     public class Frame : CapturedObject, IComparable<Frame>, IEquatable<Frame>, IDisposable
     {
+        public Frame(string path)
+            : this(new System.IO.FileStream(path, FileMode.Open, FileAccess.Read))
+        {
+            
+        }
+
         public Frame(System.IO.Stream stream)
         {
             this.lazyIpl = new LazyIplImage(stream);
@@ -53,7 +60,7 @@ namespace Damany.Imaging.Contracts
         protected virtual void Dispose(bool IsDisposing)
         {
             if (disposed) return;
-            
+
             if (IsDisposing)
             {
                 if (lazyIpl != null)
@@ -91,21 +98,18 @@ namespace Damany.Imaging.Contracts
         }
 
 
-        public OpenCvSharp.IplImage Ipl
+        public OpenCvSharp.IplImage GetImage()
         {
-            get
+            CheckForDisposed();
+            if (this.iplImage == null)
             {
-                CheckForDisposed();
-                if (this.iplImage == null)
-                {
-                    this.iplImage = this.lazyIpl.Ipl;
-                }
-
-                return this.iplImage;
+                this.iplImage = this.lazyIpl.Ipl;
             }
+
+            return this.iplImage;
         }
 
-        private Frame() {}
+        private Frame() { }
 
         private void InitializeFields()
         {
@@ -127,8 +131,8 @@ namespace Damany.Imaging.Contracts
         public override string ToString()
         {
             var str = string.Format("{0}x{1}, Id:{2}, At:{3}, From:{4}",
-                this.Ipl.Width, this.Ipl.Height,
-                this.CapturedFrom.Id, 
+                this.GetImage().Width, this.GetImage().Height,
+                this.CapturedFrom.Id,
                 this.CapturedAt,
                 this.CapturedFrom.Description);
 
@@ -136,11 +140,12 @@ namespace Damany.Imaging.Contracts
         }
 
 
-        public List<CvRect> MotionRectangles { get; private set; }
-        public List<PortraitBounds> Portraits { get; private set; }
+        public List<CvRect> MotionRectangles { get; set; }
+        public List<PortraitBounds> Portraits { get; set; }
 
         LazyIplImage lazyIpl;
         OpenCvSharp.IplImage iplImage;
+        string path;
 
         bool disposed;
 

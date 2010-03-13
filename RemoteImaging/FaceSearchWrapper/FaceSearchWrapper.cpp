@@ -58,7 +58,7 @@ void FaceSearchWrapper::FaceSearch::AddInFrame(Damany::Imaging::Contracts::Frame
 
 	Frame frm;
 
-	frm.image = (::IplImage *) frame->Ipl->CvPtr.ToPointer();
+	frm.image = (::IplImage *) frame->GetImage()->CvPtr.ToPointer();
 
 	frm.searchRect.x = frame->MotionRectangles[0].X;// .get_Item [0].X;// [0] ->searchRect.X;
 	frm.searchRect.y = frame->MotionRectangles[0].Y;
