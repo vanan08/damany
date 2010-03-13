@@ -6,6 +6,7 @@ using Damany.Cameras;
 using Damany.Imaging.Contracts;
 using Damany.Imaging.Processors;
 using Damany.Imaging.Handlers;
+using Damany.Cameras.Wrappers;
 
 namespace Damany.PortraitCapturer.Shell.CmdLine
 {
@@ -32,54 +33,69 @@ namespace Damany.PortraitCapturer.Shell.CmdLine
 
         }
 
-        private static void RunPumper(object uri)
+        private static void RunPumper(object uriString)
         {
-            var source = FrameStreamFromUri(uri as string);
-            source.Connect();
-
-            AsyncPortraitLogger writer = new AsyncPortraitLogger("portraits captured");
-            writer.Initialize();
-            writer.Start();
-
-            PortraitFinder finder = new PortraitFinder();
-            finder.AddListener(writer);
-
-            MotionDetector motionDetector = new MotionDetector();
-            motionDetector.MotionFrameCaptured += finder.HandleMotionFrame;
-
-            var retriever = new Damany.Util.PersistentWorker();
-            retriever.OnWorkItemIsDone += item =>
+            try
             {
-                Frame f = item as Frame;
-                Console.WriteLine(f.Ipl.Size.ToString() +" " + f.CapturedAt.ToString() + " " + f.CapturedFrom.Description);
-            };
+                Uri uri = new Uri(uriString as string);
 
-            retriever.DoWork = delegate { 
-                var frame = source.RetrieveFrame();
-                retriever.ReportWorkItem(frame);
-                motionDetector.DetectMotion(frame); 
-            };
-            retriever.OnExceptionRetry = delegate { source.Connect(); };
-            retriever.Start();
+                var source = (AipStarCamera)Damany.Cameras.Factory.NewAipStarCamera(uri);
+                source.UserName = "system";
+                source.PassWord = "system";
 
+                source.Initialize();
+                source.Connect();
 
-            while (true)
-            {
-                var key = Console.ReadKey();
-                switch (key.Key)
+                AsyncPortraitLogger writer = new AsyncPortraitLogger("portraits captured");
+                writer.Initialize();
+                writer.Start();
+
+                PortraitFinder finder = new PortraitFinder();
+                finder.AddListener(writer);
+
+                MotionDetector motionDetector = new MotionDetector();
+                motionDetector.MotionFrameCaptured += finder.HandleMotionFrame;
+
+                var retriever = new Damany.Util.PersistentWorker();
+                retriever.OnWorkItemIsDone += item =>
                 {
-                    case ConsoleKey.UpArrow:
-                        retriever.WorkFrequency *= 2;
-                        break;
-                    case ConsoleKey.DownArrow:
-                        retriever.WorkFrequency /= 2;
-                        break;
-                    default:
-                        exit.Set();
-                        return;
-                        break;
+                    Frame f = item as Frame;
+                    Console.WriteLine(f.Ipl.Size.ToString() + " " + f.CapturedAt.ToString() + " " + f.CapturedFrom.Description);
+                };
+
+                retriever.DoWork = delegate
+                {
+                    var frame = source.RetrieveFrame();
+                    retriever.ReportWorkItem(frame);
+                    motionDetector.DetectMotion(frame);
+                };
+                retriever.OnExceptionRetry = delegate { source.Connect(); };
+                retriever.Start();
+
+
+                while (true)
+                {
+                    var key = Console.ReadKey();
+                    switch (key.Key)
+                    {
+                        case ConsoleKey.UpArrow:
+                            retriever.WorkFrequency *= 2;
+                            break;
+                        case ConsoleKey.DownArrow:
+                            retriever.WorkFrequency /= 2;
+                            break;
+                        default:
+                            exit.Set();
+                            return;
+                            break;
+                    }
                 }
             }
+            catch (System.Exception ex)
+            {
+                System.Console.WriteLine(ex.ToString());
+            }
+
         }
 
 

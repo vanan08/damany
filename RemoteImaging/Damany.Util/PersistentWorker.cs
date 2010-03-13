@@ -42,7 +42,6 @@ namespace Damany.Util
             {
                 this.OnWorkItemIsDone(item);
             }
-
         }
 
         public float WorkFrequency

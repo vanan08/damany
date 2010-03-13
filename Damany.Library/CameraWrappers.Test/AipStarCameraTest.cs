@@ -26,17 +26,8 @@ namespace CameraWrappers.Test
                 while (count < 500)
                 {
                     ++count;
-                    var bytes = cam.CaptureImageBytes();
-
-                    if (bytes.Length > 0)
-                    {
-                        System.Diagnostics.Debug.WriteLine("captured: " + count.ToString());
-                        System.IO.File.WriteAllBytes("img.jpg", bytes);
-                    }
-                    else
-                    {
-                        System.Diagnostics.Debug.WriteLine("failed: " + count.ToString());
-                    }
+                    var frame = cam.RetrieveFrame();
+                    System.Diagnostics.Debug.WriteLine(frame.ToString());
                 }
 
             }
