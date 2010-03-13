@@ -57,10 +57,10 @@ void CFaceSelect::InitClass()//Michael Add 20090507
 	m_outputDir[0] = 0;
 	m_resString[0] = 0;
 
-	m_ExRatio_t = 1.0f;
-	m_ExRatio_b = 3.0f;
-	m_ExRatio_l = 1.0f;
-	m_ExRatio_r = 1.0f;
+	m_ExRatio_t = 0.5f;
+	m_ExRatio_b = 0.5f;
+	m_ExRatio_l = 0.5f;
+	m_ExRatio_r = 0.5f;
 
 	m_nTotalValidImages = 0;
 	m_targets = 0;
