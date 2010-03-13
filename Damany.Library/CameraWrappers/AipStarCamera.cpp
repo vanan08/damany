@@ -7,6 +7,7 @@ using namespace System;
 using namespace System::Runtime::InteropServices;
 using namespace System::Drawing;
 using namespace Damany::Component;
+using namespace Damany::Imaging::Contracts;
 
 
 namespace Damany
@@ -15,7 +16,7 @@ namespace Damany
 	{
 		namespace Wrappers
 		{
-			public ref class  AipStarCamera : ICamera
+			public ref class  AipStarCamera : IIpCamera
 			{
 
 			public:
@@ -41,14 +42,20 @@ namespace Damany
 					}
 				}
 
-				virtual array<Byte>^ CaptureImageBytes(void)
+				virtual Damany::Imaging::Contracts::Frame^ RetrieveFrame(void)
 				{
 					System::IntPtr ptrFile = Marshal::StringToHGlobalAnsi(this->tmpFile);
 					LPCTSTR pSzTmpFile = static_cast<LPCTSTR>(ptrFile.ToPointer());
 					MP4_ClientCapturePicturefile(this->hClient, pSzTmpFile);
 					Marshal::FreeHGlobal(ptrFile);
 
-					return System::IO::File::ReadAllBytes(this->tmpFile);
+					array<System::Byte>^ bytes = System::IO::File::ReadAllBytes(this->tmpFile);
+					System::IO::Stream^ stream = gcnew System::IO::MemoryStream(bytes);
+					Damany::Imaging::Contracts::Frame^ frame =
+						gcnew Damany::Imaging::Contracts::Frame(stream);
+					frame->CapturedFrom = this;
+
+					return frame;
 				}
 
 				virtual property bool Record 
@@ -103,15 +110,16 @@ namespace Damany
 					System::Threading::Thread::Sleep(3000);
 				}
 
+				virtual void Initialize(){}
+
+
 				virtual void Start(void)
 				{
 
 				}
 
-				virtual Image^ CaptureImage()
-				{
-					throw gcnew System::NotImplementedException();
-				}
+				virtual void Close(){}
+
 
 				virtual void SetAGCMode(bool enableAGC, bool enableDigitalGain)
 				{
@@ -128,7 +136,7 @@ namespace Damany
 
 				}
 
-				virtual property System::Uri^ Location 
+				virtual property System::Uri^ Uri 
 				{ 
 					System::Uri^ get()
 					{
@@ -141,7 +149,7 @@ namespace Damany
 					}
 				}
 
-				virtual property int ID
+				virtual property int Id
 				{ 
 					int get()
 					{
@@ -153,8 +161,40 @@ namespace Damany
 					}
 				}
 
+				virtual property System::String^ Description
+				{
+					System::String^ get()
+					{
+						return gcnew System::String("AipStar IP Camera");
+					}
+				}
 
-				
+				property System::String^ UserName
+				{
+					System::String^ get()
+					{
+						return this->userName;
+					}
+					void set(System::String^ value)
+					{
+						this->userName = value;
+
+					}
+				}
+
+				property System::String^ PassWord
+				{
+					System::String^ get()
+					{
+						return this->password;
+					}
+					void set(System::String^ value)
+					{
+						this->password = value;
+
+					}
+				}
+
 
 			private:
 				String^ ip;

@@ -126,9 +126,11 @@ namespace Damany.Imaging.Contracts
 
         public override string ToString()
         {
-            var str = string.Format("{0}x{1}, From:{2}, At:{3}",
+            var str = string.Format("{0}x{1}, Id:{2}, At:{3}, From:{4}",
                 this.Ipl.Width, this.Ipl.Height,
-                this.CapturedFrom.Id, this.CapturedAt);
+                this.CapturedFrom.Id, 
+                this.CapturedAt,
+                this.CapturedFrom.Description);
 
             return str;
         }

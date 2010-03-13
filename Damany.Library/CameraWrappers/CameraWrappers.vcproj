@@ -186,6 +186,10 @@
 			AssemblyName="System.Drawing, Version=2.0.0.0, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL"
 			MinFrameworkVersion="131072"
 		/>
+		<ProjectReference
+			ReferencedProjectIdentifier="{B8F7A553-6295-4F0B-B48A-7C85DA5118BB}"
+			RelativePathToProject="..\Damany.ImageProcessing.Contracts\Damany.Imaging.Contracts.csproj"
+		/>
 	</References>
 	<Files>
 		<Filter
