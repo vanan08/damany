@@ -51,7 +51,7 @@ namespace Damany.PortraitCapturer.Shell.CmdLine
                 {
                     var sanyo  = (SanyoNetCamera)Damany.Cameras.Factory.NewSanyoCamera(uri);
                     sanyo.UserName = "guest";
-                    sanyo.Password = "guest";
+                    sanyo.PassWord = "guest";
                     source = sanyo;
                 }
                 
@@ -128,7 +128,7 @@ namespace Damany.PortraitCapturer.Shell.CmdLine
                 case "http":
                     var sanyo = new Damany.Cameras.SanyoNetCamera();
                     sanyo.UserName = "guest";
-                    sanyo.Password = "guest";
+                    sanyo.PassWord = "guest";
                     sanyo.Uri = uri;
                     sanyo.Initialize();
                     sanyo.Connect();
