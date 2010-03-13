@@ -355,7 +355,7 @@ namespace Damany.Cameras
 
 
         public string UserName { get; set; }
-        public string Password { get; set; }
+        public string PassWord { get; set; }
         public Uri Uri { get; set; }
         public string Description { get { return "Sanyo Ip Camera"; } }
 
@@ -493,7 +493,7 @@ namespace Damany.Cameras
             }
             else
             {
-                req.Credentials = new NetworkCredential(UserName, Password);
+                req.Credentials = new NetworkCredential(UserName, PassWord);
             }
 
             req.ProtocolVersion = new Version(1, 1);
