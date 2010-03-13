@@ -66,6 +66,8 @@ namespace Damany.Imaging.Processors
 
         public void HandleMotionFrame(IList<Frame> motionFrames)
         {
+            if (motionFrames.Count == 0) return;
+
             this.SearchIn(motionFrames);
         }
 

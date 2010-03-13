@@ -21,7 +21,8 @@ namespace Damany.Imaging.Processors
             this.manager.AddNewFrame(frame);
 
             FaceProcessingWrapper.MotionDetectionResult oldFrameMotionResult;
-            bool groupCaptured = ProcessNewFrame(frame, out oldFrameMotionResult);
+            bool groupCaptured = 
+                ProcessNewFrame(frame, out oldFrameMotionResult);
 
             ProcessOldFrame(oldFrameMotionResult);
 
@@ -29,6 +30,8 @@ namespace Damany.Imaging.Processors
             {
                 NotifyListener();
             }
+
+            lastImageSize = frame.Ipl.Size;
         }
 
 
@@ -61,6 +64,7 @@ namespace Damany.Imaging.Processors
         private void NotifyListener()
         {
             var frames = this.manager.RetrieveMotionFrames();
+            if (frames.Count == 0) return;
 
             if (this.MotionFrameCaptured != null)
             {
@@ -70,9 +74,15 @@ namespace Damany.Imaging.Processors
             
         }
 
+        private bool ImageResolutionChanged(Frame currentFrame)
+        {
+            return currentFrame.Ipl.Size != lastImageSize;
+        }
+
         public event Action<IList<Contracts.Frame>> MotionFrameCaptured;
 
         FaceProcessingWrapper.MotionDetector detector;
+        OpenCvSharp.CvSize lastImageSize;
 
         FrameManager manager;
     }
