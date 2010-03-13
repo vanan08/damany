@@ -19,30 +19,42 @@ namespace Damany.PortraitCapturer.Shell.CmdLine
         {
             try
             {
-                System.Threading.ThreadPool.QueueUserWorkItem(uri => RunPumper(uri), args[0]);
+                System.Threading.ThreadPool.QueueUserWorkItem(uri => RunPumper(uri), args);
 
                 exit.WaitOne();
 
                 pumper.Stop();
-
             }
             catch (System.Exception ex)
             {
-
+                Console.WriteLine(ex.ToString());
             }
 
         }
 
-        private static void RunPumper(object uriString)
+        private static void RunPumper(object state)
         {
             try
             {
-                Uri uri = new Uri(uriString as string);
+                string[] args = state as string[];
+                Uri uri = new Uri(args[0]);
 
-                var source = (AipStarCamera)Damany.Cameras.Factory.NewAipStarCamera(uri);
-                source.UserName = "system";
-                source.PassWord = "system";
-
+                IFrameStream source = null;
+                if (args[1].ToUpper().Contains("AIP"))
+                {
+                    var aip = (AipStarCamera)Damany.Cameras.Factory.NewAipStarCamera(uri);
+                    aip.UserName = "system";
+                    aip.PassWord = "system";
+                    source = aip;
+                }
+                else if (args[1].ToUpper().Contains("SANYO"))
+                {
+                    var sanyo  = (SanyoNetCamera)Damany.Cameras.Factory.NewSanyoCamera(uri);
+                    sanyo.UserName = "guest";
+                    sanyo.Password = "guest";
+                    source = sanyo;
+                }
+                
                 source.Initialize();
                 source.Connect();
 
@@ -60,7 +72,7 @@ namespace Damany.PortraitCapturer.Shell.CmdLine
                 retriever.OnWorkItemIsDone += item =>
                 {
                     Frame f = item as Frame;
-                    Console.WriteLine(f.Ipl.Size.ToString() + " " + f.CapturedAt.ToString() + " " + f.CapturedFrom.Description);
+                    Console.WriteLine(f.ToString());
                 };
 
                 retriever.DoWork = delegate
@@ -69,6 +81,7 @@ namespace Damany.PortraitCapturer.Shell.CmdLine
                     retriever.ReportWorkItem(frame);
                     motionDetector.DetectMotion(frame);
                 };
+
                 retriever.OnExceptionRetry = delegate { source.Connect(); };
                 retriever.Start();
 
