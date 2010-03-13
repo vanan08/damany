@@ -116,7 +116,7 @@ namespace Damany.Imaging.Contracts
             CheckForDisposed();
 
             this.MotionRectangles = new List<CvRect>();
-            this.Portraits = new List<PortraitBounds>();
+            this.FacesBounds = new List<CvRect>();
         }
 
 
@@ -140,8 +140,8 @@ namespace Damany.Imaging.Contracts
         }
 
 
-        public List<CvRect> MotionRectangles { get; set; }
-        public List<PortraitBounds> Portraits { get; set; }
+        public List<CvRect> MotionRectangles { get; private set; }
+        public List<CvRect> FacesBounds { get; set; }
 
         LazyIplImage lazyIpl;
         OpenCvSharp.IplImage iplImage;
