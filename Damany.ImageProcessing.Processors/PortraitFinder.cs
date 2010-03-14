@@ -137,7 +137,7 @@ namespace Damany.Imaging.Processors
             IList<Portrait> portraitList,
             IPortraitHandler listener)
         {
-            var frameCpy = listener.WantFrame ? null : motionFrames.ToList().ConvertAll(m => m.Clone());
+            var frameCpy = listener.WantFrame ? motionFrames.ToList().ConvertAll(m => m.Clone()) : null ;
             var portraitCpy = portraitList.ToList().ConvertAll(p => p.Clone());
             listener.HandlePortraits(frameCpy, portraitCpy);
         }
