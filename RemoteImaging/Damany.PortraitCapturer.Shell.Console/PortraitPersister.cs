@@ -32,8 +32,8 @@ namespace Damany.PortraitCapturer.Shell.CmdLine
 
         public void HandlePortraits(IList<Damany.Imaging.Contracts.Frame> motionFrames, IList<Damany.Imaging.Contracts.Portrait> portraits)
         {
-            motionFrames.ToList().ForEach(f => repository.SaveFrame(f));
-            portraits.ToList().ForEach(p => repository.SavePortrait(p));
+            motionFrames.ToList().ForEach(f =>{ repository.SaveFrame(f); repository.GetFrame(f.Guid);});
+            portraits.ToList().ForEach(p => { repository.SavePortrait(p); repository.GetPortrait(p.Guid); });
             
         }
 
