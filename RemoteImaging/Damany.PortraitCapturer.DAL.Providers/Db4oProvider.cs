@@ -13,6 +13,14 @@ namespace Damany.PortraitCapturer.DAL.Providers
             this.uriOfDb = dataBaseFile;
         }
 
+        public void StartServer()
+        {
+            if (this.server == null)
+            {
+                this.server = Db4objects.Db4o.CS.Db4oClientServer.OpenServer(this.uriOfDb, 0);
+            }
+        }
+
         #region IDataProvider Members
 
         public void SavePortrait(DTO.Portrait portrait)
@@ -109,8 +117,9 @@ namespace Damany.PortraitCapturer.DAL.Providers
 
         private Db4objects.Db4o.IObjectContainer OpenContainer()
         {
-            return Db4objects.Db4o.Db4oFactory.OpenFile(this.uriOfDb);
+            return this.server.OpenClient();
         }
         private string uriOfDb;
+        private Db4objects.Db4o.IObjectServer server;
     }
 }

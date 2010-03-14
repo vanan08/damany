@@ -15,6 +15,8 @@ namespace Damany.PortraitCapturer.Shell.CmdLine
     {
         static FramePumper pumper;
         static System.Threading.AutoResetEvent exit = new System.Threading.AutoResetEvent(false);
+        private const string root_dir = @".\Data";
+        private const string image_dir = @".\Data\Images";
 
         static void Main(string[] args)
         {
@@ -75,8 +77,10 @@ namespace Damany.PortraitCapturer.Shell.CmdLine
                 writer.Initialize();
                 writer.Start();
 
-                PortraitPersister portraitFileSystemWriter = new PortraitPersister();
+                Damany.PortraitCapturer.Repository.PersistenceService persistenceService = GetPersistenceService();
+                PortraitPersister portraitFileSystemWriter = new PortraitPersister(persistenceService);
                 portraitFileSystemWriter.Initialize();
+
 
                 PortraitFinder finder = new PortraitFinder();
                 finder.AddListener(portraitFileSystemWriter);
@@ -87,8 +91,9 @@ namespace Damany.PortraitCapturer.Shell.CmdLine
                 var retriever = new Damany.Util.PersistentWorker();
                 retriever.OnWorkItemIsDone += item =>
                 {
+                    Console.Write("\r");
                     Frame f = item as Frame;
-                    Console.WriteLine(f.ToString());
+                    Console.Write(f.ToString());
                 };
 
                 retriever.DoWork = delegate
@@ -100,6 +105,8 @@ namespace Damany.PortraitCapturer.Shell.CmdLine
 
                 retriever.OnExceptionRetry = delegate { source.Connect(); };
                 retriever.Start();
+
+               
 
 
                 while (true)
@@ -113,7 +120,16 @@ namespace Damany.PortraitCapturer.Shell.CmdLine
                         case ConsoleKey.DownArrow:
                             retriever.WorkFrequency /= 2;
                             break;
+                        case ConsoleKey.F:
+                            var query =
+                                persistenceService.GetPortraits(new Damany.Util.DateTimeRange(DateTime.Now.AddHours(-1), DateTime.Now));
+
+                            Console.WriteLine("query hit: " + query.Count);
+
+                            break;
                         default:
+                            retriever.Stop();
+                            portraitFileSystemWriter.Stop();
                             exit.Set();
                             return;
                             break;
@@ -125,6 +141,12 @@ namespace Damany.PortraitCapturer.Shell.CmdLine
                 System.Console.WriteLine(ex.ToString());
             }
 
+        }
+
+
+        private static string ObjToPathMapper(Damany.Imaging.Contracts.CapturedObject obj)
+        {
+            return System.IO.Path.Combine(image_dir, obj.Guid.ToString() + ".jpg");
         }
 
 
@@ -157,6 +179,26 @@ namespace Damany.PortraitCapturer.Shell.CmdLine
             return source;
         }
 
+
+        private static Damany.PortraitCapturer.Repository.PersistenceService GetPersistenceService()
+        {
+            var dataProvider = InitializeDatabase();
+            var persistenceService =
+                new Damany.PortraitCapturer.Repository.PersistenceService(dataProvider, ObjToPathMapper, ObjToPathMapper);
+            return persistenceService;
+        }
+
+        private static Damany.PortraitCapturer.DAL.IDataProvider InitializeDatabase()
+        {
+            System.IO.Directory.CreateDirectory(root_dir);
+            System.IO.Directory.CreateDirectory(image_dir);
+
+            var storePath = System.IO.Path.Combine(root_dir, "images.db4o");
+            var store = new Damany.PortraitCapturer.DAL.Providers.Db4oProvider(storePath);
+            store.StartServer();
+
+            return store;
+        }
 
         private static void Run(string uriString)
         {
