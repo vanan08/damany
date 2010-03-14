@@ -40,6 +40,89 @@ namespace Damany.PortraitCapturer.Shell.CmdLine
 
         }
 
+        private static IFrameStream NewCamera(string cameraType, Uri uri)
+        {
+            IFrameStream source = null;
+
+            if (cameraType.ToUpper().Contains("AIP"))
+            {
+                var aip = (AipStarCamera)Damany.Cameras.Factory.NewAipStarCamera(uri);
+                aip.UserName = "system";
+                aip.PassWord = "system";
+                source = aip;
+            }
+            else if (cameraType.ToUpper().Contains("SANYO"))
+            {
+                var sanyo = (SanyoNetCamera)Damany.Cameras.Factory.NewSanyoCamera(uri);
+                sanyo.UserName = "guest";
+                sanyo.PassWord = "guest";
+                source = sanyo;
+            }
+            else if (cameraType.ToUpper().Contains("DIR"))
+            {
+                var dir = new Damany.Cameras.DirectoryFilesCamera(uri.AbsolutePath, "*.jpg");
+                source = dir;
+            }
+            else
+                throw new NotSupportedException("camera type not supported");
+
+            return source;
+        }
+
+
+        private static Damany.Util.PersistentWorker InitDriver(IFrameStream source, MotionDetector motionDetector)
+        {
+            var retriever = new Damany.Util.PersistentWorker();
+            retriever.OnWorkItemIsDone += item =>
+            {
+                Console.Write("\r");
+                Frame f = item as Frame;
+                Console.Write(f.ToString());
+            };
+
+            retriever.DoWork = delegate
+            {
+                var frame = source.RetrieveFrame();
+                retriever.ReportWorkItem(frame);
+                motionDetector.DetectMotion(frame);
+            };
+
+            retriever.OnExceptionRetry = delegate { source.Connect(); };
+            retriever.Start();
+            return retriever;
+        }
+
+
+        private static void HandleInput(Damany.PortraitCapturer.Repository.PersistenceService persistenceService, PortraitPersister portraitFileSystemWriter, Damany.Util.PersistentWorker retriever)
+        {
+            while (true)
+            {
+                var key = Console.ReadKey();
+                switch (key.Key)
+                {
+                    case ConsoleKey.UpArrow:
+                        retriever.WorkFrequency *= 2;
+                        break;
+                    case ConsoleKey.DownArrow:
+                        retriever.WorkFrequency /= 2;
+                        break;
+                    case ConsoleKey.F:
+                        var query =
+                            persistenceService.GetPortraits(new Damany.Util.DateTimeRange(DateTime.Now.AddHours(-1), DateTime.Now));
+
+                        Console.WriteLine("query hit: " + query.Count);
+
+                        break;
+                    default:
+                        retriever.Stop();
+                        portraitFileSystemWriter.Stop();
+                        exit.Set();
+                        return;
+                        break;
+                }
+            }
+        }
+
         private static void RunPumper(object state)
         {
             try
@@ -47,35 +130,9 @@ namespace Damany.PortraitCapturer.Shell.CmdLine
                 string[] args = state as string[];
                 Uri uri = new Uri(args[0]);
 
-                IFrameStream source = null;
-                if (args[1].ToUpper().Contains("AIP"))
-                {
-                    var aip = (AipStarCamera)Damany.Cameras.Factory.NewAipStarCamera(uri);
-                    aip.UserName = "system";
-                    aip.PassWord = "system";
-                    source = aip;
-                }
-                else if (args[1].ToUpper().Contains("SANYO"))
-                {
-                    var sanyo = (SanyoNetCamera)Damany.Cameras.Factory.NewSanyoCamera(uri);
-                    sanyo.UserName = "guest";
-                    sanyo.PassWord = "guest";
-                    source = sanyo;
-                }
-                else if (args[1].ToUpper().Contains("DIR"))
-                {
-                    var dir = new Damany.Cameras.DirectoryFilesCamera(uri.AbsolutePath, "*.jpg");
-                    source = dir;
-                }
-                else
-                    throw new NotSupportedException("camera type not supported");
-                
+                IFrameStream source = NewCamera(args[1], uri);
                 source.Initialize();
                 source.Connect();
-
-                AsyncPortraitLogger writer = new AsyncPortraitLogger("portraits captured");
-                writer.Initialize();
-                writer.Start();
 
                 Damany.PortraitCapturer.Repository.PersistenceService persistenceService = GetPersistenceService();
                 PortraitPersister portraitFileSystemWriter = new PortraitPersister(persistenceService);
@@ -88,53 +145,9 @@ namespace Damany.PortraitCapturer.Shell.CmdLine
                 MotionDetector motionDetector = new MotionDetector();
                 motionDetector.MotionFrameCaptured += finder.HandleMotionFrame;
 
-                var retriever = new Damany.Util.PersistentWorker();
-                retriever.OnWorkItemIsDone += item =>
-                {
-                    Console.Write("\r");
-                    Frame f = item as Frame;
-                    Console.Write(f.ToString());
-                };
+                Damany.Util.PersistentWorker retriever = InitDriver(source, motionDetector);
 
-                retriever.DoWork = delegate
-                {
-                    var frame = source.RetrieveFrame();
-                    retriever.ReportWorkItem(frame);
-                    motionDetector.DetectMotion(frame);
-                };
-
-                retriever.OnExceptionRetry = delegate { source.Connect(); };
-                retriever.Start();
-
-               
-
-
-                while (true)
-                {
-                    var key = Console.ReadKey();
-                    switch (key.Key)
-                    {
-                        case ConsoleKey.UpArrow:
-                            retriever.WorkFrequency *= 2;
-                            break;
-                        case ConsoleKey.DownArrow:
-                            retriever.WorkFrequency /= 2;
-                            break;
-                        case ConsoleKey.F:
-                            var query =
-                                persistenceService.GetPortraits(new Damany.Util.DateTimeRange(DateTime.Now.AddHours(-1), DateTime.Now));
-
-                            Console.WriteLine("query hit: " + query.Count);
-
-                            break;
-                        default:
-                            retriever.Stop();
-                            portraitFileSystemWriter.Stop();
-                            exit.Set();
-                            return;
-                            break;
-                    }
-                }
+                HandleInput(persistenceService, portraitFileSystemWriter, retriever);
             }
             catch (System.Exception ex)
             {
