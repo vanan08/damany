@@ -33,6 +33,7 @@ namespace Damany.Util
         public void Stop()
         {
             this.done = true;
+            this.stopped.WaitOne();
 
         }
 
@@ -62,6 +63,10 @@ namespace Damany.Util
             {
                 this.DoWork();
                 this.timer.Enabled = !this.done;
+                if (!this.done)
+                {
+                    this.stopped.Set();
+                }
             }
             catch (System.Exception ex)
             {
@@ -95,6 +100,7 @@ namespace Damany.Util
 
         System.Timers.Timer timer = new System.Timers.Timer();
         bool done;
+        System.Threading.AutoResetEvent stopped = new System.Threading.AutoResetEvent(false);
 
     }
 }

@@ -9,38 +9,26 @@ namespace Damany.PortraitCapturer.Shell.CmdLine
 {
     class PortraitPersister : Damany.Imaging.Contracts.IPortraitHandler
     {
-        private Repository.PersistenceService repository;
-        private const string root_dir = @".\Data";
-        private const string image_dir = @".\Data\Images";
+        private Repository.PersistenceService service;
         #region IPortraitHandler Members
 
-        public void Initialize()
+        public PortraitPersister(Repository.PersistenceService service)
         {
-            System.IO.Directory.CreateDirectory(root_dir);
-            System.IO.Directory.CreateDirectory(image_dir);
-
-            var store = new Db4oProvider(System.IO.Path.Combine(root_dir, "images.db4o"));
-
-            repository = new Damany.PortraitCapturer.Repository.PersistenceService(
-                                    store, GuidToPath, GuidToPath);
+            this.service = service;
         }
 
-        public void Start()
-        {
-            
-        }
+        public void Initialize() {}
+
+        public void Start() {}
 
         public void HandlePortraits(IList<Damany.Imaging.Contracts.Frame> motionFrames, IList<Damany.Imaging.Contracts.Portrait> portraits)
         {
-            motionFrames.ToList().ForEach(f =>{ repository.SaveFrame(f); repository.GetFrame(f.Guid);});
-            portraits.ToList().ForEach(p => { repository.SavePortrait(p); repository.GetPortrait(p.Guid); });
+            motionFrames.ToList().ForEach(f =>{ service.SaveFrame(f); service.GetFrame(f.Guid);});
+            portraits.ToList().ForEach(p => { service.SavePortrait(p); service.GetPortrait(p.Guid); });
             
         }
 
-        public void Stop()
-        {
-            
-        }
+        public void Stop()  { }
 
         public string Name
         {
@@ -76,10 +64,5 @@ namespace Damany.PortraitCapturer.Shell.CmdLine
 
         #endregion
 
-        private string GuidToPath(Damany.Imaging.Contracts.CapturedObject obj)
-        {
-            var path = System.IO.Path.Combine(image_dir, obj.Guid.ToString() + ".jpg");
-            return path;
-        }
     }
 }
