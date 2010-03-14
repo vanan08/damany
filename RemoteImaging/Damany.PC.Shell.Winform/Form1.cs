@@ -78,6 +78,9 @@ namespace Damany.PC.Shell.Winform
                 portraits.ToList().ForEach(p =>
                 {
                     var portrait = portraits.Last().GetImage().ToBitmap();
+                    var g = Graphics.FromImage(portrait);
+                    g.DrawRectangle(Pens.Black, p.FaceBounds.ToRectangle());
+                    g.Dispose();
                     this.SetPortrait(portrait);
                     p.Dispose();
                 });
@@ -129,5 +132,54 @@ namespace Damany.PC.Shell.Winform
         }
 
         public Damany.Util.PersistentWorker driver { get; set; }
+        public Damany.PortraitCapturer.Repository.PersistenceService repository { get; set; }
+
+        public void ShowMessage(string msg)
+        {
+            if (this.InvokeRequired)
+            {
+                this.BeginInvoke( new Action<string>(this.ShowMessage), msg);
+                return;
+            }
+            else
+            {
+                MessageBox.Show(msg);
+            }
+        }
+
+        private void newToolStripButton_Click(object sender, EventArgs e)
+        {
+            this.newToolStripButton.Enabled = false;
+
+            System.Threading.ThreadPool.QueueUserWorkItem(delegate
+            {
+                try
+                {
+                    var query = this.repository.GetPortraits(new Damany.Util.DateTimeRange(DateTime.Now.AddDays(-1), DateTime.Now));
+                    this.ShowMessage("query found: " + query.Count);
+                }
+                finally
+                {
+                    this.EnableButton(true);
+                }
+                
+            });
+        }
+
+        public void EnableButton(bool enable)
+        {
+            if (this.InvokeRequired)
+            {
+                BeginInvoke( (Action<bool>)( b => this.newToolStripButton.Enabled =b), enable );
+                return;
+            }
+
+            this.newToolStripButton.Enabled = enable;
+        }
+
+        private void saveToolStripButton_Click(object sender, EventArgs e)
+        {
+            this.ShowMessage("hello");
+        }
     }
 }
