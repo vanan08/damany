@@ -88,17 +88,12 @@ namespace Damany.Imaging.Processors
             Dispatch(motionFrames, portraitList);
         }
 
-        private static PortraitBounds CreateBounds(OpenCvSharp.CvRect bounds, OpenCvSharp.CvRect faceBounds)
+        private static OpenCvSharp.CvRect FrameToPortrait(OpenCvSharp.CvRect bounds, OpenCvSharp.CvRect faceBounds)
         {
-            var pb = new PortraitBounds();
-
             faceBounds.X -= bounds.X;
             faceBounds.Y -= bounds.Y;
 
-            pb.Bounds = bounds;
-            pb.FaceBoundsInPortrait = faceBounds;
-
-            return pb;
+            return faceBounds;
         }
 
         private static List<Portrait> ExpandPortraitsList(IList<Frame> motionFrames, ImageProcess.Target[] portraits)
@@ -112,7 +107,7 @@ namespace Damany.Imaging.Processors
                                    from p in frame.Portraits.Portraits
                                    select new Portrait(p.Face)
                                    {
-                                       FaceBounds = p.FacesRectForCompare,
+                                       FaceBounds = FrameToPortrait(p.FacesRect, p.FacesRectForCompare),
                                        FrameId = frame.Frame.Guid,
                                        CapturedAt = frame.Frame.CapturedAt,
                                        CapturedFrom = frame.Frame.CapturedFrom,

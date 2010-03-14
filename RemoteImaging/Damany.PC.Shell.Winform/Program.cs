@@ -25,6 +25,7 @@ namespace Damany.PC.Shell.Winform
             Application.SetCompatibleTextRenderingDefault(false);
             var mainForm = new Form1();
             mainForm.driver = driver;
+            mainForm.repository = BootStrapper.persistenceService;
             Application.Run(mainForm);
         }
     }
@@ -189,10 +190,11 @@ namespace Damany.PC.Shell.Winform
         }
 
 
+        public static PersistenceService persistenceService;
         private static PersistenceService GetPersistenceService()
         {
             var dataProvider = InitializeDatabase();
-            var persistenceService =
+            persistenceService =
                 new PersistenceService(dataProvider, ObjToPathMapper, ObjToPathMapper);
             return persistenceService;
         }
