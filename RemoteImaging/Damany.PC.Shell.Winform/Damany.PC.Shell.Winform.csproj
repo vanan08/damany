@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{BA6756CA-C611-48AA-A53A-913C00E1066E}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{2F70FEB3-05D2-45A7-BD0D-4A852B2F3F66}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Damany.Imaging.Handlers</RootNamespace>
-    <AssemblyName>Damany.Imaging.Handlers</AssemblyName>
+    <RootNamespace>Damany.PC.Shell.Winform</RootNamespace>
+    <AssemblyName>Damany.PC.Shell.Winform</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>&lt;Project Location In Database&gt;</SccProjectName>
@@ -43,16 +43,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Library\OpenCvSharp\OpenCvSharp.dll</HintPath>
     </Reference>
-    <Reference Include="OpenCvSharp.UserInterface, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Library\OpenCvSharp\OpenCvSharp.UserInterface.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -60,24 +54,66 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AsyncPortraitLogger.cs" />
-    <Compile Include="FrameWritter.cs" />
-    <Compile Include="GUIUpdater.cs" />
-    <Compile Include="PersistenceWriter.cs" />
-    <Compile Include="PortraitsLogger.cs" />
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Damany.ImageProcessing.Contracts\Damany.Imaging.Contracts.csproj">
       <Project>{B8F7A553-6295-4F0B-B48A-7C85DA5118BB}</Project>
       <Name>Damany.Imaging.Contracts</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Damany.Library\CameraWrappers.Test\CameraWrappers.Test.csproj">
-      <Project>{6FA66571-1E49-42D8-83B8-6A38B75A85DC}</Project>
-      <Name>CameraWrappers.Test</Name>
+    <ProjectReference Include="..\..\Damany.ImageProcessing.Processors\Damany.Imaging.Processors.csproj">
+      <Project>{39CB311A-8E36-4302-8B62-136FA2EC39EC}</Project>
+      <Name>Damany.Imaging.Processors</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Damany.Library\CameraWrappers\CameraWrappers.vcproj">
+      <Project>{477A59D8-2EC6-4C25-B111-A38B1C9856A6}</Project>
+      <Name>Damany.Cameras.Wrappers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Damany.Cameras\Damany.Cameras.csproj">
+      <Project>{BCB72517-49DF-4EDE-B84A-55E870B069EF}</Project>
+      <Name>Damany.Cameras</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Damany.Imaging.Handlers\Damany.Imaging.Handlers.csproj">
+      <Project>{BA6756CA-C611-48AA-A53A-913C00E1066E}</Project>
+      <Name>Damany.Imaging.Handlers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Damany.PortraitCapturer.DAL.Providers\Damany.PortraitCapturer.DAL.Providers.csproj">
+      <Project>{A76CE8C9-5B90-4C67-9CDB-1D4D3AD0809E}</Project>
+      <Name>Damany.PortraitCapturer.DAL.Providers</Name>
     </ProjectReference>
     <ProjectReference Include="..\Damany.PortraitCapturer.DAL\Damany.PortraitCapturer.DAL.csproj">
       <Project>{85DF7A03-E0AF-4A50-B257-0DB136AED335}</Project>
@@ -86,6 +122,14 @@
     <ProjectReference Include="..\Damany.PortraitCapturer.Repository\Damany.PortraitCapturer.Repository.csproj">
       <Project>{B1F44368-57BA-4C8A-BAE0-D2E05C7EBEEE}</Project>
       <Name>Damany.PortraitCapturer.Repository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Damany.PortraitCapturer.Shell.Console\Damany.PC.Shell.CmdLine.csproj">
+      <Project>{8E1A64E7-2CA6-4F72-B2B2-C8B24657FEB5}</Project>
+      <Name>Damany.PC.Shell.CmdLine</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Damany.Util\Damany.Util.csproj">
+      <Project>{FA6DEBE0-D78D-437E-B05D-0923896290C9}</Project>
+      <Name>Damany.Util</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

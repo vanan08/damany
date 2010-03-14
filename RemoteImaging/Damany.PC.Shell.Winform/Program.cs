@@ -1,46 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Damany.Cameras;
+using System.Windows.Forms;
 using Damany.Imaging.Contracts;
 using Damany.Imaging.Processors;
-using Damany.Imaging.Handlers;
-using Damany.Cameras.Wrappers;
-using Damany.PortraitCapturer.DAL.Providers;
 using Damany.PortraitCapturer.Repository;
 using Damany.Imaging.Handlers;
+using Damany.Cameras.Wrappers;
+using Damany.Cameras;
 
-namespace Damany.PortraitCapturer.Shell.CmdLine
+namespace Damany.PC.Shell.Winform
 {
-    class Program
+    static class Program
     {
-        static FramePumper pumper;
+        /// <summary>
+        /// The main entry point for the application.
+        /// </summary>
+        [STAThread]
+        static void Main()
+        {
+            var driver = BootStrapper.BootStrap(@"D:\20090505", "dir");
+
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            var mainForm = new Form1();
+            mainForm.driver = driver;
+            Application.Run(mainForm);
+        }
+    }
+
+    static class BootStrapper
+    {
         static System.Threading.AutoResetEvent exit = new System.Threading.AutoResetEvent(false);
         private const string root_dir = @".\DataNew";
         private const string image_dir = @".\DataNew\Images";
 
-        static void Main(string[] args)
-        {
-
-            try
-            {
-                System.Threading.ThreadPool.QueueUserWorkItem(uri => RunPumper(uri), args);
-
-                exit.WaitOne();
-
-            }
-            catch (System.Exception ex)
-            {
-                Console.WriteLine(ex.ToString());
-            }
-
-        }
-
-        private static void testDAL()
-        {
-
-        }
 
         private static IFrameStream NewCamera(string cameraType, Uri uri)
         {
@@ -90,13 +84,12 @@ namespace Damany.PortraitCapturer.Shell.CmdLine
             };
 
             retriever.OnExceptionRetry = delegate { source.Connect(); };
-            retriever.Start();
             return retriever;
         }
 
 
-        private static void HandleInput(PersistenceService persistenceService, 
-            PersistenceWriter portraitFileSystemWriter, 
+        private static void HandleInput(PersistenceService persistenceService,
+            PersistenceWriter portraitFileSystemWriter,
             Damany.Util.PersistentWorker retriever)
         {
             while (true)
@@ -127,14 +120,11 @@ namespace Damany.PortraitCapturer.Shell.CmdLine
             }
         }
 
-        private static void RunPumper(object state)
+        public static Damany.Util.PersistentWorker BootStrap( string url, string cameraType )
         {
-            try
-            {
-                string[] args = state as string[];
-                Uri uri = new Uri(args[0]);
+                Uri uri = new Uri(url);
 
-                IFrameStream source = NewCamera(args[1], uri);
+                IFrameStream source = NewCamera(cameraType, uri);
                 source.Initialize();
                 source.Connect();
 
@@ -143,28 +133,23 @@ namespace Damany.PortraitCapturer.Shell.CmdLine
                 writer.Initialize();
 
 
-                PortraitFinder finder = new PortraitFinder();
+                finder = new PortraitFinder();
                 finder.AddListener(writer);
 
                 MotionDetector motionDetector = new MotionDetector();
                 motionDetector.MotionFrameCaptured += finder.HandleMotionFrame;
 
-                Damany.Util.PersistentWorker retriever = InitDriver(source, motionDetector);
-
-                HandleInput(persistenceService, writer, retriever);
-            }
-            catch (System.Exception ex)
-            {
-                System.Console.WriteLine(ex.ToString());
-            }
+                return InitDriver(source, motionDetector);
+           
 
         }
 
+        public static PortraitFinder finder { get; set; }
 
         private static string ObjToPathMapper(Damany.Imaging.Contracts.CapturedObject obj)
         {
             var relativePath = string.Format("{0}\\{1}\\{2}\\{3}\\{4}.jpg",
-                obj.CapturedAt.Year, 
+                obj.CapturedAt.Year,
                 obj.CapturedAt.Month,
                 obj.CapturedAt.Day,
                 obj.CapturedAt.Hour,

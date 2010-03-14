@@ -45,6 +45,7 @@ namespace Damany.PortraitCapturer.Repository
         {
             var dto = Mapper.Map<Portrait, DAL.DTO.Portrait>(portrait);
             dataProvider.SavePortrait(dto);
+            CreateDirectory(dto.Path);
             portrait.GetImage().SaveImage(dto.Path);
 
         }
@@ -53,6 +54,8 @@ namespace Damany.PortraitCapturer.Repository
         {
             var dto = Mapper.Map<Frame, DAL.DTO.Frame>(frame);
             dataProvider.SaveFrame(dto);
+
+            CreateDirectory(dto.Path);
             frame.GetImage().SaveImage(dto.Path);
         }
 
@@ -97,8 +100,14 @@ namespace Damany.PortraitCapturer.Repository
             dataProvider.DeleteFrame(frameId);
         }
 
-
-
+        private static void CreateDirectory(string path)
+        {
+            var directory = System.IO.Path.GetDirectoryName(path);
+            if (!System.IO.Directory.Exists(directory))
+            {
+                System.IO.Directory.CreateDirectory(directory);
+            }
+        }
         IDataProvider dataProvider;
     }
 }

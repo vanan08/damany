@@ -3,16 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Damany.PortraitCapturer.DAL;
-using Damany.PortraitCapturer.DAL.Providers;
 
-namespace Damany.PortraitCapturer.Shell.CmdLine
+namespace Damany.Imaging.Handlers
 {
-    class PortraitPersister : Damany.Imaging.Contracts.IPortraitHandler
+    public class PersistenceWriter : Damany.Imaging.Contracts.IPortraitHandler
     {
-        private Repository.PersistenceService service;
+        private Damany.PortraitCapturer.Repository.PersistenceService service;
         #region IPortraitHandler Members
 
-        public PortraitPersister(Repository.PersistenceService service)
+        public PersistenceWriter(Damany.PortraitCapturer.Repository.PersistenceService service)
         {
             this.service = service;
         }
@@ -23,8 +22,8 @@ namespace Damany.PortraitCapturer.Shell.CmdLine
 
         public void HandlePortraits(IList<Damany.Imaging.Contracts.Frame> motionFrames, IList<Damany.Imaging.Contracts.Portrait> portraits)
         {
-            motionFrames.ToList().ForEach(f =>{ service.SaveFrame(f); service.GetFrame(f.Guid);});
-            portraits.ToList().ForEach(p => { service.SavePortrait(p); service.GetPortrait(p.Guid); });
+            motionFrames.ToList().ForEach(f =>{ service.SaveFrame(f); });
+            portraits.ToList().ForEach(p => { service.SavePortrait(p); });
             
         }
 
