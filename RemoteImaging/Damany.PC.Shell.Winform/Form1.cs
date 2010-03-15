@@ -126,15 +126,7 @@ namespace Damany.PC.Shell.Winform
 
         private void Form1_Shown(object sender, EventArgs e)
         {
-            ProgressForm form = new ProgressForm();
-            form.Text = this.Text;
-
-            form.DoWork += new DoWorkEventHandler(form_DoWork);
-            form.WorkIsDone += new RunWorkerCompletedEventHandler(form_WorkIsDone);
-            form.ShowDialog(this);
-
-
-
+            
         }
 
         public Damany.Imaging.Processors.FaceSearchController controller { get; set; }
@@ -155,32 +147,7 @@ namespace Damany.PC.Shell.Winform
 
         private void newToolStripButton_Click(object sender, EventArgs e)
         {
-            this.newToolStripButton.Enabled = false;
-
-            System.Threading.ThreadPool.QueueUserWorkItem(delegate
-            {
-                try
-                {
-                    var query = this.repository.GetPortraits(new Damany.Util.DateTimeRange(DateTime.Now.AddDays(-1), DateTime.Now));
-                    this.ShowMessage("query found: " + query.Count);
-                }
-                finally
-                {
-                    this.EnableButton(true);
-                }
-                
-            });
-        }
-
-        public void EnableButton(bool enable)
-        {
-            if (this.InvokeRequired)
-            {
-                BeginInvoke( (Action<bool>)( b => this.newToolStripButton.Enabled =b), enable );
-                return;
-            }
-
-            this.newToolStripButton.Enabled = enable;
+            
         }
 
         private void saveToolStripButton_Click(object sender, EventArgs e)
@@ -188,8 +155,14 @@ namespace Damany.PC.Shell.Winform
             this.ShowMessage("hello");
         }
 
-        private void openToolStripButton_Click(object sender, EventArgs e)
+        private void StartLoader()
         {
+            ProgressForm form = new ProgressForm();
+            form.Text = this.Text;
+
+            form.DoWork += new DoWorkEventHandler(form_DoWork);
+            form.WorkIsDone += new RunWorkerCompletedEventHandler(form_WorkIsDone);
+            form.ShowDialog(this);
         }
 
         void form_WorkIsDone(object sender, RunWorkerCompletedEventArgs e)
@@ -209,27 +182,84 @@ namespace Damany.PC.Shell.Winform
 
         void form_DoWork(object sender, DoWorkEventArgs e)
         {
-            BackgroundWorker worker = sender as BackgroundWorker;
+            Damany.RemoteImaging.Common.BootLoader loader = new Damany.RemoteImaging.Common.BootLoader();
 
-            worker.ReportProgress(0, "初始化数据库");
-            SearchLineBuilder.GetDefaultPersistenceService();
-            this.repository = SearchLineBuilder.GetDefaultPersistenceService();
-            worker.ReportProgress(50, "数据库初始化成功");
+            BackgroundWorker worker = (BackgroundWorker) sender;
+            loader.ReportProgress = worker.ReportProgress;
 
-            string url = @"D:\20090505";
-            worker.ReportProgress(0, "初始化摄像头: " + url );
-            var controller = SearchLineBuilder.BuildNewSearchLine(url, "dir");
-            this.controllers.Add(controller);
-            worker.ReportProgress(100, "初始化摄像头: " + url +"成功");
+            loader.Load();
 
-            worker.ReportProgress(0, "启动摄像头: " + url);
-            controller.RegisterPortraitHandler(this);
-            controller.Start();
-            worker.ReportProgress(100, "启动摄像头: " + url + "成功");
+            foreach (var c in loader.controllers)
+            {
+                c.RegisterPortraitHandler(this);
+                c.Start();
+                this.controllers.Add(c);
+            }
 
         }
 
         private IList<Damany.Imaging.Processors.FaceSearchController> controllers
             = new List<Damany.Imaging.Processors.FaceSearchController>();
+
+        private void helpToolStripButton_Click(object sender, EventArgs e)
+        {
+            ShowOptions();
+        }
+
+       
+
+        private void startButton_Click(object sender, EventArgs e)
+        {
+            this.StartLoader();
+        }
+
+        private void options_Click(object sender, EventArgs e)
+        {
+            this.ShowOptions();
+
+
+        }
+        private void ShowOptions()
+        {
+            OptionsForm options = new OptionsForm();
+            options.Presenter = new OptionPresenter(ConfigurationManager.GetDefault(), options);
+            options.ShowDialog(this);
+        }
+
+        private void slowDown_Click(object sender, EventArgs e)
+        {
+            foreach (var c in this.controllers)
+            {
+                c.SlowDown();
+            }
+
+            Frequency /= 2;
+
+        }
+
+        private void speedUp_Click(object sender, EventArgs e)
+        {
+            foreach (var c in this.controllers)
+            {
+                c.SpeedUp();
+            }
+
+            Frequency *= 2;
+
+        }
+
+        public float Frequency
+        {
+            get
+            {
+                return frequency;
+            }
+            set
+            {
+                frequency = value;
+                this.Text = string.Format("{0}帧/s", value);
+            }
+        }
+        float frequency = 2;
     }
 }

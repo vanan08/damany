@@ -8,32 +8,37 @@ namespace Damany.Cameras
 {
     public static class Factory
     {
-        public static Damany.Imaging.Contracts.IFrameStream NewFrameStream(Uri uri, string cameraType)
+        public static Damany.Imaging.Contracts.IFrameStream NewFrameStream(Damany.PC.Domain.CameraInfo cameraInfo)
         {
             IFrameStream source = null;
 
-            if (cameraType.ToUpper().Contains("AIP"))
+            switch (cameraInfo.Provider)
             {
-                var aip = new Damany.Cameras.Wrappers.AipStarCamera(uri.Host, uri.Port, "", "");
-                aip.UserName = "system";
-                aip.PassWord = "system";
-                source = aip;
+                case Damany.PC.Domain.CameraProvider.LocalDirectory:
+                    var dir = new Damany.Cameras.DirectoryFilesCamera(cameraInfo.Location.LocalPath, "*.jpg");
+                    source = dir;
+                    break;
+                case Damany.PC.Domain.CameraProvider.Sanyo:
+                    var sanyo = new SanyoNetCamera();
+                    sanyo.Uri = cameraInfo.Location;
+                    sanyo.UserName = "guest";
+                    sanyo.PassWord = "guest";
+                    source = sanyo;
+                    break;
+                case Damany.PC.Domain.CameraProvider.AipStar:
+                    var aip = new Damany.Cameras.Wrappers.AipStarCamera(cameraInfo.Location.Host, cameraInfo.Location.Port, "", "");
+                    aip.UserName = "system";
+                    aip.PassWord = "system";
+                    source = aip;
+                    break;
+                default:
+                    throw new NotSupportedException("camera type not supported");
+
+                    break;
             }
-            else if (cameraType.ToUpper().Contains("SANYO"))
-            {
-                var sanyo = new SanyoNetCamera ();
-                sanyo.Uri = uri;
-                sanyo.UserName = "guest";
-                sanyo.PassWord = "guest";
-                source = sanyo;
-            }
-            else if (cameraType.ToUpper().Contains("DIR"))
-            {
-                var dir = new Damany.Cameras.DirectoryFilesCamera(uri.LocalPath, "*.jpg");
-                source = dir;
-            }
-            else
-                throw new NotSupportedException("camera type not supported");
+
+
+            source.Id = cameraInfo.Id;
 
             return source;
         }

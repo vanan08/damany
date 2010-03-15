@@ -35,6 +35,22 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Db4objects.Db4o, Version=7.12.132.14217, Culture=neutral, PublicKeyToken=6199cd4f203aa8eb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files\db4o\db4o-7.12\bin\net-3.5\Db4objects.Db4o.dll</HintPath>
+    </Reference>
+    <Reference Include="Db4objects.Db4o.Instrumentation, Version=7.12.132.14217, Culture=neutral, PublicKeyToken=6199cd4f203aa8eb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files\db4o\db4o-7.12\bin\net-3.5\Db4objects.Db4o.Instrumentation.dll</HintPath>
+    </Reference>
+    <Reference Include="Db4objects.Db4o.Linq, Version=7.12.132.14217, Culture=neutral, PublicKeyToken=6199cd4f203aa8eb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files\db4o\db4o-7.12\bin\net-3.5\Db4objects.Db4o.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="Db4objects.Db4o.NativeQueries, Version=7.12.132.14217, Culture=neutral, PublicKeyToken=6199cd4f203aa8eb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files\db4o\db4o-7.12\bin\net-3.5\Db4objects.Db4o.NativeQueries.dll</HintPath>
+    </Reference>
     <Reference Include="DevExpress.Data.v9.2, Version=9.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Utils.v9.2, Version=9.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.XtraEditors.v9.2, Version=9.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
@@ -63,7 +79,15 @@
     <Compile Include="..\VersionAssemblyInfo.cs">
       <Link>Properties\VersionAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="BootLoader.cs" />
+    <Compile Include="ConfigurationManager.cs" />
     <Compile Include="ControlHelper.cs" />
+    <Compile Include="Controls\CameraConfigurer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CameraConfigurer.Designer.cs">
+      <DependentUpon>CameraConfigurer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\FaceSearchSetting.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -83,6 +107,12 @@
     <Compile Include="Forms\ChangePasswordForm.Designer.cs">
       <DependentUpon>ChangePasswordForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\EditCamera.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\EditCamera.Designer.cs">
+      <DependentUpon>EditCamera.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Login.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -101,6 +131,9 @@
     <Compile Include="SearchLineBuilder.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Controls\CameraConfigurer.resx">
+      <DependentUpon>CameraConfigurer.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\FaceSearchSetting.resx">
       <DependentUpon>FaceSearchSetting.cs</DependentUpon>
     </EmbeddedResource>
@@ -109,6 +142,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ChangePasswordForm.resx">
       <DependentUpon>ChangePasswordForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\EditCamera.resx">
+      <DependentUpon>EditCamera.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
@@ -138,6 +174,10 @@
     <ProjectReference Include="..\Damany.Imaging.Handlers\Damany.Imaging.Handlers.csproj">
       <Project>{BA6756CA-C611-48AA-A53A-913C00E1066E}</Project>
       <Name>Damany.Imaging.Handlers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Damany.PC.Domain\Damany.PC.Domain.csproj">
+      <Project>{A3D29CCA-AC43-45A0-8651-74A3C51D005D}</Project>
+      <Name>Damany.PC.Domain</Name>
     </ProjectReference>
     <ProjectReference Include="..\Damany.PortraitCapturer.DAL.Providers\Damany.PortraitCapturer.DAL.Providers.csproj">
       <Project>{A76CE8C9-5B90-4C67-9CDB-1D4D3AD0809E}</Project>
