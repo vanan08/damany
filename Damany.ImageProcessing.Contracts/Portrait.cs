@@ -17,8 +17,6 @@ namespace Damany.Imaging.Contracts
         public Portrait(IplImage portraitImage)
         {
             this.portraitImage = portraitImage;
-
-            this.Guid = System.Guid.NewGuid();
         }
 
         public Portrait Clone()
