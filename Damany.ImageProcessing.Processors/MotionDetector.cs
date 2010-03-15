@@ -47,7 +47,6 @@ namespace Damany.Imaging.Processors
                 NotifyListener();
             }
 
-            lastImageSize = frame.GetImage().Size;
         }
 
 
