@@ -19,14 +19,24 @@ namespace Damany.PC.Shell.Winform
         [STAThread]
         static void Main()
         {
-            var controller = BootStrapper.BootStrap(@"http://192.168.1.204:6002", "aip");
+            try
+            {
+                var args = Environment.GetCommandLineArgs();
 
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            var mainForm = new Form1();
-            mainForm.controller = controller;
-            mainForm.repository = BootStrapper.PersistenceService;
-            Application.Run(mainForm);
+                var controller = BootStrapper.BootStrap(args[1], args[2]);
+
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+                var mainForm = new Form1();
+                mainForm.controller = controller;
+                mainForm.repository = BootStrapper.PersistenceService;
+                Application.Run(mainForm);
+            }
+            catch (System.Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+            
         }
     }
 

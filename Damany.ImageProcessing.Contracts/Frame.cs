@@ -12,6 +12,7 @@ namespace Damany.Imaging.Contracts
         public Frame(string path)
             : this(new System.IO.FileStream(path, FileMode.Open, FileAccess.Read))
         {
+
             
         }
 
