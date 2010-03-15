@@ -6,6 +6,7 @@ using Damany.PortraitCapturer.Repository;
 using Damany.Imaging.Contracts;
 using Damany.Imaging.Processors;
 using Damany.Imaging.Handlers;
+using Damany.PC.Domain;
 
 namespace Damany.RemoteImaging.Common
 {
@@ -25,11 +26,10 @@ namespace Damany.RemoteImaging.Common
                 return persistenceService;
             }
 
-            public static Damany.Imaging.Processors.FaceSearchController BuildNewSearchLine(string url, string cameraType)
+            public static Damany.Imaging.Processors.FaceSearchController BuildNewSearchLine(CameraInfo cam)
             {
-                Uri uri = new Uri(url);
 
-                var source = Damany.Cameras.Factory.NewFrameStream(uri, cameraType);
+                var source = Damany.Cameras.Factory.NewFrameStream(cam);
                 source.Initialize();
                 source.Connect();
 
