@@ -21,6 +21,14 @@ namespace Damany.PortraitCapturer.DAL.Providers
             }
         }
 
+        public void StopServer()
+        {
+            if (this.server != null)
+            {
+                this.server.Close();
+            }
+        }
+
         #region IDataProvider Members
 
         public void SavePortrait(DTO.Portrait portrait)
