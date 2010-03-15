@@ -39,8 +39,8 @@ namespace Damany.Imaging.Processors
             this.Worker.WorkFrequency /= 2;
         }
 
-        internal MotionDetector MotionDetector { get; set; }
-        internal PortraitFinder PortraitFinder { get; set; }
+        public MotionDetector MotionDetector { get; internal set; }
+        public PortraitFinder PortraitFinder { get; internal set; }
         internal Damany.Util.PersistentWorker Worker { get; set; }
 
     }
