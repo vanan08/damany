@@ -132,9 +132,19 @@ namespace Damany.Imaging.Processors
             IList<Portrait> portraitList,
             IPortraitHandler listener)
         {
-            var frameCpy = listener.WantFrame ? motionFrames.ToList().ConvertAll(m => m.Clone()) : null ;
+            var frameCpy = listener.WantFrame ? motionFrames.ToList().ConvertAll(m => m.Clone()) : null;
             var portraitCpy = portraitList.ToList().ConvertAll(p => p.Clone());
-            listener.HandlePortraits(frameCpy, portraitCpy);
+
+            try
+            {
+                listener.HandlePortraits(frameCpy, portraitCpy);
+            }
+            catch (System.Exception ex)
+            {
+                frameCpy.ToList().ForEach(f => f.Dispose());
+                portraitCpy.ToList().ForEach(p => p.Dispose());
+                throw;
+            }
         }
 
 
@@ -169,6 +179,7 @@ namespace Damany.Imaging.Processors
                 {
                     this.RemoveListener(listener);
                     System.Diagnostics.Debug.WriteLine(ex);
+                    throw;
                 }
             }
         }
