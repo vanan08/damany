@@ -30,7 +30,6 @@ namespace Damany.RemoteImaging.Common
             
         }
 
-
         public IList<CameraInfo> GetCameras()
         {
             return objContainer.Query<CameraInfo>();

@@ -66,9 +66,17 @@ namespace Damany.PC.Shell.Winform
         {
             if (motionFrames.Count > 0)
             {
-                
-                motionFrames.ToList().ForEach(p => {
+
+                motionFrames.ToList().ForEach(p =>
+                {
                     var frame = motionFrames.Last().GetImage().ToBitmap();
+
+                    using (Graphics g = Graphics.FromImage(frame))
+                    using (Font font = new Font(FontFamily.GenericSansSerif, 150))
+                    {
+                        g.DrawString(p.CapturedFrom.Id.ToString(), font, Brushes.Black, 0, 0);
+                    }
+
                     this.SetFrame(frame);
                     p.Dispose();
                 });
@@ -126,7 +134,7 @@ namespace Damany.PC.Shell.Winform
 
         private void Form1_Shown(object sender, EventArgs e)
         {
-            
+
         }
 
         public Damany.Imaging.Processors.FaceSearchController controller { get; set; }
@@ -136,7 +144,7 @@ namespace Damany.PC.Shell.Winform
         {
             if (this.InvokeRequired)
             {
-                this.BeginInvoke( new Action<string>(this.ShowMessage), msg);
+                this.BeginInvoke(new Action<string>(this.ShowMessage), msg);
                 return;
             }
             else
@@ -147,7 +155,7 @@ namespace Damany.PC.Shell.Winform
 
         private void newToolStripButton_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void saveToolStripButton_Click(object sender, EventArgs e)
@@ -170,21 +178,21 @@ namespace Damany.PC.Shell.Winform
             BackgroundWorker worker = sender as BackgroundWorker;
             if (e.Error != null)
             {
-                this.BeginInvoke(new MethodInvoker(() => MessageBox.Show(this, 
+                this.BeginInvoke(new MethodInvoker(() => MessageBox.Show(this,
                     e.Error.ToString(),
-                    this.Text, 
+                    this.Text,
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error
                     )));
             }
-            
+
         }
 
         void form_DoWork(object sender, DoWorkEventArgs e)
         {
             Damany.RemoteImaging.Common.BootLoader loader = new Damany.RemoteImaging.Common.BootLoader();
 
-            BackgroundWorker worker = (BackgroundWorker) sender;
+            BackgroundWorker worker = (BackgroundWorker)sender;
             loader.ReportProgress = worker.ReportProgress;
 
             loader.Load();
@@ -192,6 +200,11 @@ namespace Damany.PC.Shell.Winform
             foreach (var c in loader.controllers)
             {
                 c.RegisterPortraitHandler(this);
+                c.MotionDetector.DetectMethod = delegate( Damany.Imaging.Contracts.Frame frame, FaceProcessingWrapper.MotionDetectionResult result){
+                    result.FrameGuid = frame.Guid;
+                    result.MotionRect = new OpenCvSharp.CvRect(0, 0, frame.GetImage().Width, frame.GetImage().Height);
+                    return true;
+                    };
                 c.Start();
                 this.controllers.Add(c);
             }
@@ -206,7 +219,7 @@ namespace Damany.PC.Shell.Winform
             ShowOptions();
         }
 
-       
+
 
         private void startButton_Click(object sender, EventArgs e)
         {

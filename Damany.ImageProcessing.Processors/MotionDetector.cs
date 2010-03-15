@@ -11,6 +11,7 @@ namespace Damany.Imaging.Processors
 
     public class MotionDetector
     {
+
         public MotionDetector()
         {
             this.manager = new FrameManager();
@@ -18,7 +19,9 @@ namespace Damany.Imaging.Processors
             this.DetectMethod = this.detector.PreProcessFrame;
         }
 
-        public Func<Frame, MotionDetectionResult, bool> DetectMethod;
+
+        public Func<Contracts.Frame, FaceProcessingWrapper.MotionDetectionResult, bool> DetectMethod { get; set; }
+       
 
         public void DetectMotion(Frame frame)
         {
