@@ -29,7 +29,7 @@ namespace Damany.Cameras
             }
             else if (cameraType.ToUpper().Contains("DIR"))
             {
-                var dir = new Damany.Cameras.DirectoryFilesCamera(uri.AbsolutePath, "*.jpg");
+                var dir = new Damany.Cameras.DirectoryFilesCamera(uri.LocalPath, "*.jpg");
                 source = dir;
             }
             else

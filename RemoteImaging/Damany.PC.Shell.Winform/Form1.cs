@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Damany.Imaging.Contracts;
+using Damany.RemoteImaging.Common.Forms;
+using Damany.RemoteImaging.Common;
 
 
 namespace Damany.PC.Shell.Winform
@@ -60,7 +62,7 @@ namespace Damany.PC.Shell.Winform
 
         }
 
-        public void HandlePortraits(IList<Frame> motionFrames, IList<Portrait> portraits)
+        public void HandlePortraits(IList<Damany.Imaging.Contracts.Frame> motionFrames, IList<Portrait> portraits)
         {
             if (motionFrames.Count > 0)
             {
@@ -74,7 +76,6 @@ namespace Damany.PC.Shell.Winform
 
             if (portraits.Count > 0)
             {
-
                 portraits.ToList().ForEach(p =>
                 {
                     var portrait = portraits.Last().GetImage().ToBitmap();
@@ -125,9 +126,14 @@ namespace Damany.PC.Shell.Winform
 
         private void Form1_Shown(object sender, EventArgs e)
         {
-            controller.RegisterPortraitHandler(this);
+            ProgressForm form = new ProgressForm();
+            form.Text = this.Text;
 
-            controller.Start();
+            form.DoWork += new DoWorkEventHandler(form_DoWork);
+            form.WorkIsDone += new RunWorkerCompletedEventHandler(form_WorkIsDone);
+            form.ShowDialog(this);
+
+
 
         }
 
@@ -181,5 +187,49 @@ namespace Damany.PC.Shell.Winform
         {
             this.ShowMessage("hello");
         }
+
+        private void openToolStripButton_Click(object sender, EventArgs e)
+        {
+        }
+
+        void form_WorkIsDone(object sender, RunWorkerCompletedEventArgs e)
+        {
+            BackgroundWorker worker = sender as BackgroundWorker;
+            if (e.Error != null)
+            {
+                this.BeginInvoke(new MethodInvoker(() => MessageBox.Show(this, 
+                    e.Error.ToString(),
+                    this.Text, 
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                    )));
+            }
+            
+        }
+
+        void form_DoWork(object sender, DoWorkEventArgs e)
+        {
+            BackgroundWorker worker = sender as BackgroundWorker;
+
+            worker.ReportProgress(0, "初始化数据库");
+            SearchLineBuilder.GetDefaultPersistenceService();
+            this.repository = SearchLineBuilder.GetDefaultPersistenceService();
+            worker.ReportProgress(50, "数据库初始化成功");
+
+            string url = @"D:\20090505";
+            worker.ReportProgress(0, "初始化摄像头: " + url );
+            var controller = SearchLineBuilder.BuildNewSearchLine(url, "dir");
+            this.controllers.Add(controller);
+            worker.ReportProgress(100, "初始化摄像头: " + url +"成功");
+
+            worker.ReportProgress(0, "启动摄像头: " + url);
+            controller.RegisterPortraitHandler(this);
+            controller.Start();
+            worker.ReportProgress(100, "启动摄像头: " + url + "成功");
+
+        }
+
+        private IList<Damany.Imaging.Processors.FaceSearchController> controllers
+            = new List<Damany.Imaging.Processors.FaceSearchController>();
     }
 }

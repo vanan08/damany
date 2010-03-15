@@ -9,6 +9,7 @@ using Damany.PortraitCapturer.DAL;
 namespace Damany.PortraitCapturer.Repository
 {
     using DAL;
+    using Damany.PortraitCapturer.DAL.Providers;
 
     public class PersistenceService
     {
@@ -106,6 +107,19 @@ namespace Damany.PortraitCapturer.Repository
             dataProvider.DeleteFrame(frameId);
         }
 
+        void Stop()
+        {
+            if (storageProvider != null)
+            {
+                Damany.PortraitCapturer.DAL.Providers.Db4oProvider db4o
+                    = storageProvider as Damany.PortraitCapturer.DAL.Providers.Db4oProvider;
+                if (db4o != null)
+                {
+                    db4o.StopServer();
+                }
+            }
+        }
+
         private static void CreateDirectory(string path)
         {
             var directory = System.IO.Path.GetDirectoryName(path);
@@ -129,10 +143,10 @@ namespace Damany.PortraitCapturer.Repository
             System.IO.Directory.CreateDirectory(image_dir);
 
             var storePath = System.IO.Path.Combine(root_dir, "images.db4o");
-            var store = new Damany.PortraitCapturer.DAL.Providers.Db4oProvider(storePath);
-            store.StartServer();
+            storageProvider = new Damany.PortraitCapturer.DAL.Providers.Db4oProvider(storePath);
+            storageProvider.StartServer();
 
-            return store;
+            return storageProvider;
         }
 
         private static string ObjToPathMapper(Damany.Imaging.Contracts.CapturedObject obj)
@@ -147,6 +161,7 @@ namespace Damany.PortraitCapturer.Repository
             return System.IO.Path.Combine(image_dir, relativePath);
         }
 
+        private static Db4oProvider storageProvider;
         static string root_dir = @".\Data";
         static string image_dir = @".\Data\Images";
 

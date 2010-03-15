@@ -18,6 +18,15 @@ namespace Damany.Imaging.Processors
 
         public void DetectMotion(Frame frame)
         {
+            try
+            {
+                frame.GetImage();
+            }
+            catch (System.ArgumentException ex)
+            {
+                return;
+            }
+             
             this.manager.AddNewFrame(frame);
 
             FaceProcessingWrapper.MotionDetectionResult oldFrameMotionResult;
