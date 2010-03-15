@@ -153,14 +153,7 @@ namespace Damany.Imaging.Processors
             //event listener
             if (this.PortraitCaptured != null)
             {
-                try
-                {
-                    this.PortraitCaptured(portraitList);
-                }
-                catch (System.Exception ex)
-                {
-                    System.Diagnostics.Debug.WriteLine(ex);
-                }
+                this.PortraitCaptured(portraitList);
             }
         }
 
