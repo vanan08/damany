@@ -65,7 +65,6 @@ namespace Damany.Util
 
                 this.IsBusy = true;
                 this.DoWork();
-                this.IsBusy = false;
                 this.timer.Enabled = !this.done;
                 if (!this.done)
                 {
@@ -74,7 +73,12 @@ namespace Damany.Util
             }
             catch (System.Exception ex)
             {
+                this.IsBusy = false;
                 Recover();
+            }
+            finally
+            {
+                this.IsBusy = false;
             }
 
         }
