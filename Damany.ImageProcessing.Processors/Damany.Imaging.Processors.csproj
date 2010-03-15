@@ -53,6 +53,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FaceSearchController.cs" />
+    <Compile Include="FaceSearchFactory.cs" />
     <Compile Include="FrameManager.cs" />
     <Compile Include="FramePumper.cs" />
     <Compile Include="MotionDetector.cs" />
@@ -63,6 +65,10 @@
     <ProjectReference Include="..\Damany.ImageProcessing.Contracts\Damany.Imaging.Contracts.csproj">
       <Project>{B8F7A553-6295-4F0B-B48A-7C85DA5118BB}</Project>
       <Name>Damany.Imaging.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RemoteImaging\Damany.Imaging.Handlers\Damany.Imaging.Handlers.csproj">
+      <Project>{BA6756CA-C611-48AA-A53A-913C00E1066E}</Project>
+      <Name>Damany.Imaging.Handlers</Name>
     </ProjectReference>
     <ProjectReference Include="..\RemoteImaging\Damany.Util\Damany.Util.csproj">
       <Project>{FA6DEBE0-D78D-437E-B05D-0923896290C9}</Project>

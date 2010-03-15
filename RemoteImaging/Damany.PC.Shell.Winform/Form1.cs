@@ -125,13 +125,13 @@ namespace Damany.PC.Shell.Winform
 
         private void Form1_Shown(object sender, EventArgs e)
         {
-            BootStrapper.finder.AddListener(this);
+            controller.RegisterPortraitHandler(this);
 
-            this.driver.Start();
+            controller.Start();
 
         }
 
-        public Damany.Util.PersistentWorker driver { get; set; }
+        public Damany.Imaging.Processors.FaceSearchController controller { get; set; }
         public Damany.PortraitCapturer.Repository.PersistenceService repository { get; set; }
 
         public void ShowMessage(string msg)

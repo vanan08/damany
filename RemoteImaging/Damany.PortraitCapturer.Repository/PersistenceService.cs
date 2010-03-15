@@ -12,6 +12,12 @@ namespace Damany.PortraitCapturer.Repository
 
     public class PersistenceService
     {
+        public static PersistenceService CreateDefault(string root)
+        {
+            return GetPersistenceService();
+
+        }
+
         public PersistenceService(IDataProvider dataProvider,
                                   Func<Frame, string> frameToPathConverter,
                                   Func<Portrait, string> portraitToPathConverter )
@@ -108,6 +114,42 @@ namespace Damany.PortraitCapturer.Repository
                 System.IO.Directory.CreateDirectory(directory);
             }
         }
+
+        private static PersistenceService GetPersistenceService()
+        {
+            var dataProvider = InitializeDatabase();
+            var persistenceService =
+                new PersistenceService(dataProvider, ObjToPathMapper, ObjToPathMapper);
+            return persistenceService;
+        }
+
+        private static Damany.PortraitCapturer.DAL.IDataProvider InitializeDatabase()
+        {
+            System.IO.Directory.CreateDirectory(root_dir);
+            System.IO.Directory.CreateDirectory(image_dir);
+
+            var storePath = System.IO.Path.Combine(root_dir, "images.db4o");
+            var store = new Damany.PortraitCapturer.DAL.Providers.Db4oProvider(storePath);
+            store.StartServer();
+
+            return store;
+        }
+
+        private static string ObjToPathMapper(Damany.Imaging.Contracts.CapturedObject obj)
+        {
+            var relativePath = string.Format("{0}\\{1}\\{2}\\{3}\\{4}.jpg",
+                obj.CapturedAt.Year,
+                obj.CapturedAt.Month,
+                obj.CapturedAt.Day,
+                obj.CapturedAt.Hour,
+                obj.Guid.ToString());
+
+            return System.IO.Path.Combine(image_dir, relativePath);
+        }
+
+        static string root_dir = @".\Data";
+        static string image_dir = @".\Data\Images";
+
         IDataProvider dataProvider;
     }
 }
