@@ -71,6 +71,10 @@
       <Project>{B8F7A553-6295-4F0B-B48A-7C85DA5118BB}</Project>
       <Name>Damany.Imaging.Contracts</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Damany.PortraitCapturer.DAL.Providers\Damany.PortraitCapturer.DAL.Providers.csproj">
+      <Project>{A76CE8C9-5B90-4C67-9CDB-1D4D3AD0809E}</Project>
+      <Name>Damany.PortraitCapturer.DAL.Providers</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Damany.PortraitCapturer.DAL\Damany.PortraitCapturer.DAL.csproj">
       <Project>{85DF7A03-E0AF-4A50-B257-0DB136AED335}</Project>
       <Name>Damany.PortraitCapturer.DAL</Name>

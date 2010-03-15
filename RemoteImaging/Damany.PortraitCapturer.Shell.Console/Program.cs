@@ -42,57 +42,9 @@ namespace Damany.PortraitCapturer.Shell.CmdLine
 
         }
 
-        private static IFrameStream NewCamera(string cameraType, Uri uri)
-        {
-            IFrameStream source = null;
-
-            if (cameraType.ToUpper().Contains("AIP"))
-            {
-                var aip = (AipStarCamera)Damany.Cameras.Factory.NewAipStarCamera(uri);
-                aip.UserName = "system";
-                aip.PassWord = "system";
-                source = aip;
-            }
-            else if (cameraType.ToUpper().Contains("SANYO"))
-            {
-                var sanyo = (SanyoNetCamera)Damany.Cameras.Factory.NewSanyoCamera(uri);
-                sanyo.UserName = "guest";
-                sanyo.PassWord = "guest";
-                source = sanyo;
-            }
-            else if (cameraType.ToUpper().Contains("DIR"))
-            {
-                var dir = new Damany.Cameras.DirectoryFilesCamera(uri.AbsolutePath, "*.jpg");
-                source = dir;
-            }
-            else
-                throw new NotSupportedException("camera type not supported");
-
-            return source;
-        }
 
 
-        private static Damany.Util.PersistentWorker InitDriver(IFrameStream source, MotionDetector motionDetector)
-        {
-            var retriever = new Damany.Util.PersistentWorker();
-            retriever.OnWorkItemIsDone += item =>
-            {
-                Console.Write("\r");
-                Frame f = item as Frame;
-                Console.Write(f.ToString());
-            };
 
-            retriever.DoWork = delegate
-            {
-                var frame = source.RetrieveFrame();
-                retriever.ReportWorkItem(frame);
-                motionDetector.DetectMotion(frame);
-            };
-
-            retriever.OnExceptionRetry = delegate { source.Connect(); };
-            retriever.Start();
-            return retriever;
-        }
 
 
         private static void HandleInput(PersistenceService persistenceService, 
@@ -134,24 +86,7 @@ namespace Damany.PortraitCapturer.Shell.CmdLine
                 string[] args = state as string[];
                 Uri uri = new Uri(args[0]);
 
-                IFrameStream source = NewCamera(args[1], uri);
-                source.Initialize();
-                source.Connect();
-
-                var persistenceService = GetPersistenceService();
-                var writer = new PersistenceWriter(persistenceService);
-                writer.Initialize();
-
-
-                PortraitFinder finder = new PortraitFinder();
-                finder.AddListener(writer);
-
-                MotionDetector motionDetector = new MotionDetector();
-                motionDetector.MotionFrameCaptured += finder.HandleMotionFrame;
-
-                Damany.Util.PersistentWorker retriever = InitDriver(source, motionDetector);
-
-                HandleInput(persistenceService, writer, retriever);
+                
             }
             catch (System.Exception ex)
             {
