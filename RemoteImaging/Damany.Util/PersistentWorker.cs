@@ -61,7 +61,11 @@ namespace Damany.Util
         {
             try
             {
+                if (this.IsBusy) return;
+
+                this.IsBusy = true;
                 this.DoWork();
+                this.IsBusy = false;
                 this.timer.Enabled = !this.done;
                 if (!this.done)
                 {
@@ -97,10 +101,29 @@ namespace Damany.Util
         }
 
         public int RetryInterval { get; set; }
+        public bool IsBusy
+        {
+            get
+            {
+                lock (this.locker)
+                {
+                    return this.busy;
+                }
+            }
+            set
+            {
+                lock (this.locker)
+                {
+                    this.busy = value;
+                }
+            }
+        }
 
         System.Timers.Timer timer = new System.Timers.Timer();
         bool done;
         System.Threading.AutoResetEvent stopped = new System.Threading.AutoResetEvent(false);
+        object locker = new object();
+        bool busy;
 
     }
 }
