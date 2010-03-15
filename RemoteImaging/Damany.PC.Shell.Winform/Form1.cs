@@ -74,7 +74,7 @@ namespace Damany.PC.Shell.Winform
                     using (Graphics g = Graphics.FromImage(frame))
                     using (Font font = new Font(FontFamily.GenericSansSerif, 150))
                     {
-                        g.DrawString(p.CapturedFrom.Id.ToString(), font, Brushes.Black, 0, 0);
+                        g.DrawString(p.CapturedFrom.Id.ToString() +"-" + p.CapturedAt.ToShortTimeString() , font, Brushes.Black, 0, 0);
                     }
 
                     this.SetFrame(frame);
