@@ -73,6 +73,18 @@ namespace Damany
 
 				virtual void Connect(void)
 				{
+					IntPtr ptrIp = Marshal::StringToHGlobalAnsi(this->ip);
+					LPCTSTR pIp = static_cast<LPCTSTR>(ptrIp.ToPointer());
+					int result = MP4_ClientConnectEx(this->hClient, pIp, this->port, 0, 0, 0);
+					CheckResult(result);
+					Marshal::FreeHGlobal(ptrIp);
+
+					System::Threading::Thread::Sleep(3000);
+
+				}
+
+				virtual void Initialize()
+				{
 					DWORD flag = MPEG_CODEC_ID_BKMPEG4 | FILE_CODEC_TYPE_STREAM;
 					DWORD flag1 = VMDDS_YUVOFF|VMDDS_RGBOFF;
 
@@ -88,7 +100,7 @@ namespace Damany
 					int result = 0;
 					result = MP4_ClientSetStreamType(this->hClient, STREAM_TYPE_AVSYNC);
 					CheckResult(result);
-					
+
 					result = MP4_ClientSetWaitTime(this->hClient, 3000);
 					CheckResult(result);
 
@@ -101,22 +113,15 @@ namespace Damany
 					Marshal::FreeHGlobal(ptrUser);
 					Marshal::FreeHGlobal(ptrPwd);
 
-					result = MP4_ClientStartCapture(this->hClient);
-					CheckResult(result);
-					IntPtr ptrIp = Marshal::StringToHGlobalAnsi(this->ip);
-					LPCTSTR pIp = static_cast<LPCTSTR>(ptrIp.ToPointer());
-					result = MP4_ClientConnectEx(this->hClient, pIp, this->port, 0, 0, 0);
-					CheckResult(result);
-					Marshal::FreeHGlobal(ptrIp);
 
 					MP4_ClientSetTranstType(this->hClient, 1);
 					result = MP4_ClientSetTranstPackSize(this->hClient, 4096);
 					CheckResult(result);
 
-					System::Threading::Thread::Sleep(3000);
-				}
+					result = MP4_ClientStartCapture(this->hClient);
+					CheckResult(result);
 
-				virtual void Initialize(){}
+				}
 
 
 				virtual void Start(void)
