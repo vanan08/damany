@@ -11,5 +11,6 @@ namespace Damany.PC.Domain
         public Uri Location { get; set; }
         public string Description { get; set; }
         public CameraProvider Provider { get; set; }
+        public bool Enabled { get; set; }
     }
 }

@@ -36,8 +36,8 @@
             this.camerasList = new System.Windows.Forms.ListView();
             this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
-            this.columnHeader3 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader4 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader3 = new System.Windows.Forms.ColumnHeader();
             this.Add = new System.Windows.Forms.Button();
             this.Delete = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
@@ -70,15 +70,15 @@
             this.columnHeader2.Text = "地址";
             this.columnHeader2.Width = 150;
             // 
-            // columnHeader3
-            // 
-            this.columnHeader3.Text = "描述";
-            this.columnHeader3.Width = 99;
-            // 
             // columnHeader4
             // 
             this.columnHeader4.Text = "摄像头类型";
             this.columnHeader4.Width = 124;
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "描述";
+            this.columnHeader3.Width = 99;
             // 
             // Add
             // 

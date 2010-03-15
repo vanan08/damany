@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using FaceProcessingWrapper;
 
 namespace Damany.Imaging.Processors
 {
@@ -14,7 +15,10 @@ namespace Damany.Imaging.Processors
         {
             this.manager = new FrameManager();
             this.detector = new FaceProcessingWrapper.MotionDetector();
+            this.DetectMethod = this.detector.PreProcessFrame;
         }
+
+        public Func<Frame, MotionDetectionResult, bool> DetectMethod;
 
         public void DetectMotion(Frame frame)
         {
@@ -48,7 +52,7 @@ namespace Damany.Imaging.Processors
         {
             detectionResult = new FaceProcessingWrapper.MotionDetectionResult();
 
-            return this.detector.PreProcessFrame(frame, detectionResult);
+            return this.DetectMethod(frame, detectionResult);
         }
 
 
