@@ -7,6 +7,7 @@ using System.IO;
 
 namespace Damany.Imaging.Common
 {
+    [Serializable]
     public class Frame : CapturedObject, IComparable<Frame>, IEquatable<Frame>, IDisposable
     {
         public Frame(string path)

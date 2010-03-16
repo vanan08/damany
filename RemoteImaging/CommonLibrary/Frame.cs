@@ -10,5 +10,14 @@ namespace Damany.RemoteImaging.Common
     {
         public System.Drawing.Image image;
         public DateTime timeStamp;
+        public int CameraID;
+    }
+
+    [Serializable]
+    public class Portrait
+    {
+        public System.Drawing.Image image;
+        public DateTime timeStamp;
+        public int cameraId;
     }
 }

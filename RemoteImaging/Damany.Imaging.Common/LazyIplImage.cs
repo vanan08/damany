@@ -5,6 +5,7 @@ using System.Text;
 
 namespace Damany.Imaging.Common
 {
+    [Serializable]
     public class LazyIplImage : IDisposable
     {
 

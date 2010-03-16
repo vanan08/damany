@@ -41,7 +41,7 @@ namespace Damany.Imaging.Processors
 
         public MotionDetector MotionDetector { get; internal set; }
         public PortraitFinder PortraitFinder { get; internal set; }
-        internal Damany.Util.PersistentWorker Worker { get; set; }
+        public Damany.Util.PersistentWorker Worker { get; internal set; }
 
     }
 }

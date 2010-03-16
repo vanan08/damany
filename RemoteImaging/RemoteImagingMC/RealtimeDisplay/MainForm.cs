@@ -873,8 +873,44 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void testButton_Click(object sender, EventArgs e)
         {
-            throw new Exception("abc");
+            TcpClient client = new TcpClient();
+            client.BeginConnect("localhost", 8000, this.TcpConnected, client);
+            
 
+        }
+
+
+
+        private void TcpConnected(IAsyncResult result)
+        {
+            TcpClient socket = result.AsyncState as TcpClient;
+
+            if (socket.Connected)
+            {
+                var receiver = new ObjectReceiver(socket);
+                receiver.ObjectReceived += (sender, obj) => this.UpdateImage(obj.Value);
+                receiver.Start();
+            }
+
+        }
+
+        private void UpdateImage(object o)
+        {
+            if (InvokeRequired)
+            {
+                Action<object> ac = this.UpdateImage;
+
+                this.BeginInvoke(ac, o);
+                return;
+            }
+
+            if (o is Damany.RemoteImaging.Common.Frame)
+            {
+                Damany.RemoteImaging.Common.Frame f = o as Damany.RemoteImaging.Common.Frame;
+
+                this.squareListView1[f.CameraID] = f.image;
+                this.squareListView1.Invalidate();
+            }
         }
 
         HostsPool hostsPool;
