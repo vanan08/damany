@@ -23,7 +23,7 @@ namespace Damany.PC.DAL.Providers.Test
             Func<Frame, string> f1 = f => f.Guid.ToString() +".jpg" ;
             Func<Portrait, string> f2 = p => p.Guid.ToString() + ".jpg";
 
-            var repository = new Damany.PortraitCapturer.Repository.PersistenceService(
+            var repository = new Damany.PortraitCapturer.DAL.PersistenceService(
                                     provider, f1, f2);
 
             var frame = new Frame(Data.GetFrame());

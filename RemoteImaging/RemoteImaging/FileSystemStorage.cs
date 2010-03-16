@@ -37,38 +37,10 @@ namespace RemoteImaging
             return (di.DriveType == DriveType.Removable);
         }
 
-        public static void SaveFrame(Frame frame)
-        {
-            IplImage ipl = frame.image;
-            ipl.IsEnabledDispose = false;
-
-            string path = frame.GetFileName();
-            DateTime dt = DateTime.FromBinary(frame.timeStamp);
-
-            string root = RootStoragePathForCamera(frame.cameraID);
-            string folder = BuildBigImgPath(root, dt);
-            if (!Directory.Exists(folder))
-            {
-                Directory.CreateDirectory(folder);
-            }
-
-            path = Path.Combine(folder, path);
-            ipl.SaveImage(path);
-        }
+      
 
 
 
-        public static string PathForFaceImage(Frame frame, int sequence)
-        {
-            DateTime dt = DateTime.FromBinary(frame.timeStamp);
-
-            string folderFace = FileSystemStorage.EnsureFolderForFacesAt(frame.cameraID, dt);
-
-            string faceFileName = FileSystemStorage.FaceImageFileNameOf(frame.GetFileName(), sequence);
-
-            string facePath = Path.Combine(folderFace, faceFileName);
-            return facePath;
-        }
 
         private static string FaceImageFileNameOf(string bigImagePath, int indexOfFace)
         {

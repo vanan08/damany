@@ -124,36 +124,11 @@ namespace RemoteImaging.RealtimeDisplay
 
             LoadMotionDetector();
 
-            if (Properties.Settings.Default.SearchSuspecious)
-            {
-                this.svm =
-                    SVM.LoadFrom(Properties.Settings.Default.ImageRepositoryDirectory);
-                this.pca =
-                    PCA.LoadFrom(Properties.Settings.Default.ImageRepositoryDirectory);
-                this.frontChecker =
-                    FrontFaceChecker.FromFile(Properties.Settings.Default.FrontFaceTemplateFile);
-
-                this.suspectsMnger = SuspectsRepository.SuspectsRepositoryManager.LoadFrom(Properties.Settings.Default.ImageRepositoryDirectory);
-            }
-
 
             this.InitializeTrayIcon();
 
 
-            motionDetectThread =
-                Properties.Settings.Default.DetectMotion ?
-                new Thread(this.DetectMotion) : new Thread(this.BypassDetectMotion);
-            motionDetectThread.IsBackground = true;
-            motionDetectThread.Name = "motion detect";
-
-
             this.screen.Observer = this;
-            this.worker = new System.ComponentModel.BackgroundWorker();
-            worker.WorkerReportsProgress = true;
-            worker.DoWork += worker_DoWork;
-
-            this.timer.Interval = 1000 / float.Parse(Properties.Settings.Default.FPs);
-            this.timer.Elapsed += new System.Timers.ElapsedEventHandler(timer_Elapsed);
 
             this.reconnectTimer.Interval = 5000;
             this.reconnectTimer.Elapsed += new System.Timers.ElapsedEventHandler(reconnectTimer_Elapsed);
@@ -266,36 +241,7 @@ namespace RemoteImaging.RealtimeDisplay
             notifyIcon.Icon = new System.Drawing.Icon("mainicon.ico");
         }
 
-        void timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
-        {
-            try
-            {
-                this.timer.Enabled = false;
-                this.QueryRawFrame();
-                this.timer.Enabled = true;
-
-            }
-            catch (System.Net.WebException)
-            {
-                this.timer.Enabled = false;
-
-                NotifyUserError("连接中断, 系统将自动重新连接摄像头。", strTip);
-                System.Diagnostics.Debug.WriteLine("连接中断");
-
-                this.reconnectTimer.Enabled = true;
-            }
-
-        }
-
-
-        void worker_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
-        {
-            if (Properties.Settings.Default.SearchFace)
-            {
-                this.SearchFace();
-            }
-        }
-
+      
         public event EventHandler<ImageCapturedEventArgs> ImageCaptured;
         int historyFramesQueueLength = 0;
 
@@ -313,176 +259,6 @@ namespace RemoteImaging.RealtimeDisplay
                 System.Diagnostics.Debug.WriteLine("fire ImageCaptured event");
                 ImageCaptured(this, args);
             }
-        }
-
-        private void QueryRawFrame()
-        {
-
-            byte[] image = camera.CaptureImageBytes();
-
-            Bitmap bmp = null;
-            try
-            {
-                MemoryStream memStream = new MemoryStream(image);
-                bmp = (Bitmap)Image.FromStream(memStream);
-            }
-            catch (System.ArgumentException ex)//图片格式出错
-            {
-                bool rethrow = ExceptionPolicy.HandleException(ex, Constants.ExceptionHandlingWrap);
-                if (rethrow)
-                {
-                    throw;
-                }
-            }
-
-
-            FireImageCapturedEvent(bmp);
-
-            if (this.cpuOverLoaded())
-            {
-                Frame[][] frameArrayToDispose = null;
-                lock (this.framesArrayQueueLocker)
-                {
-                    frameArrayToDispose = this.framesArrayQueue.ToArray();
-                    this.framesArrayQueue.Clear();
-                }
-
-                Array.ForEach(frameArrayToDispose, ar =>
-                {
-                    Array.ForEach(ar, fr =>
-                    {
-                        fr.image.IsEnabledDispose = true;
-                        fr.image.Dispose();
-                    });
-                });
-
-                return;
-            }
-
-            Frame f = new Frame();
-            f.timeStamp = DateTime.Now.Ticks;
-            f.cameraID = 2;
-
-            IplImage ipl = BitmapConverter.ToIplImage(bmp);
-            ipl.IsEnabledDispose = false;
-            f.image = ipl;
-
-
-            lock (this.rawFrameLocker) rawFrames.Enqueue(f);
-
-            goDetectMotion.Set();
-        }
-
-
-        private Frame GetNewFrame()
-        {
-            Frame newFrame = null;
-
-            lock (this.rawFrameLocker)
-            {
-                if (rawFrames.Count > 0)
-                {
-                    newFrame = rawFrames.Dequeue();
-                }
-            }
-            return newFrame;
-        }
-
-
-        private static bool IsStaticFrame(Frame aFrame)
-        {
-            return aFrame.image == null ||
-                (aFrame.searchRect.Width == 0 || aFrame.searchRect.Height == 0);
-        }
-
-        private void DetectMotion()
-        {
-            int count = 0;
-            while (true)
-            {
-                Frame nextFrame = GetNewFrame();
-                if (nextFrame != null)
-                {
-                    Frame lastFrame = new Frame();
-
-                    bool groupCaptured = false;// this.motionDetector.PreProcessFrame(nextFrame, out lastFrame);
-
-                    if (IsStaticFrame(lastFrame))
-                    {
-                        if (lastFrame.image != null)
-                        {
-                            lastFrame.image.IsEnabledDispose = true;
-                            lastFrame.image.Dispose();
-                        }
-
-                    }
-                    else
-                    {
-                        try
-                        {
-                            FileSystemStorage.SaveFrame(lastFrame);
-                        }
-                        catch (System.IO.IOException ex)
-                        {
-                            bool rethrow = ExceptionPolicy.HandleException(ex, Constants.ExceptionHandlingLogging);
-                            if (rethrow)
-                            {
-                                throw;
-                            }
-                        }
-
-                        motionFrames.Enqueue(lastFrame);
-                    }
-
-                    if (groupCaptured)
-                    {
-                        Frame[] frames = motionFrames.ToArray();
-                        motionFrames.Clear();
-
-                        if (frames.Length <= 0) continue;
-
-                        lock (framesArrayQueueLocker) framesArrayQueue.Enqueue(frames);
-
-                        goSearch.Set();
-
-                    }
-
-                }
-                else
-                    goDetectMotion.WaitOne();
-
-            }
-        }
-
-        void BypassDetectMotion()
-        {
-            while (true)
-            {
-                Frame f = this.GetNewFrame();
-
-                if (f != null && f.image != null)
-                {
-                    IplImage ipl = f.image;
-                    ipl.IsEnabledDispose = false;
-                    f.searchRect.Width = ipl.Width;
-                    f.searchRect.Height = ipl.Height;
-
-                    motionFrames.Enqueue(f);
-                    FileSystemStorage.SaveFrame(f);
-
-                    if (motionFrames.Count == 6)
-                    {
-                        Frame[] frames = motionFrames.ToArray();
-                        motionFrames.Clear();
-                        lock (framesArrayQueueLocker) framesArrayQueue.Enqueue(frames);
-                        goSearch.Set();
-                    }
-                }
-                else
-                    goDetectMotion.WaitOne();
-
-            }
-
         }
 
         public void Start()
@@ -507,98 +283,6 @@ namespace RemoteImaging.RealtimeDisplay
 //             if (this.liveServer == null)
 //                 ThreadPool.QueueUserWorkItem(this.StartServer, 20000);
 
-
-
-        }
-
-        private string PrepareDestFolder(ImageDetail imgToProcess)
-        {
-            string parentOfBigPicFolder = Directory.GetParent(imgToProcess.ContainedBy).FullName;
-            string destFolder = Path.Combine(parentOfBigPicFolder, Properties.Settings.Default.IconDirectoryName);
-            if (!Directory.Exists(destFolder))
-            {
-                Directory.CreateDirectory(destFolder);
-            }
-            return destFolder;
-        }
-
-
-        ImageDetail[] SaveImage(Target[] targets)
-        {
-            IList<ImageDetail> imgs = new List<ImageDetail>();
-
-            foreach (Target t in targets)
-            {
-                Frame frame = t.BaseFrame;
-
-                for (int j = 0; j < t.Faces.Length; ++j)
-                {
-                    string facePath = FileSystemStorage.PathForFaceImage(frame, j);
-                    t.Faces[j].SaveImage(facePath);
-
-                    imgs.Add(ImageDetail.FromPath(facePath));
-                }
-
-            }
-
-            ImageDetail[] details = new ImageDetail[imgs.Count];
-            imgs.CopyTo(details, 0);
-
-            return details;
-
-        }
-
-
-        void SearchFace()
-        {
-            while (true)
-            {
-                try
-                {
-                    Frame[] frames = null;
-                    lock (framesArrayQueueLocker)
-                    {
-                        if (framesArrayQueue.Count > 0)
-                        {
-                            frames = framesArrayQueue.Dequeue();
-                        }
-                    }
-
-                    if (frames != null && frames.Length > 0)
-                    {
-                        foreach (var f in frames)
-                        {
-                            this.faceSearcher.AddInFrame(f);
-                        }
-
-                        ImageProcess.Target[] targets = this.faceSearcher.SearchFaces();
-
-                        ImageDetail[] imgs = this.SaveImage(targets);
-                        this.screen.ShowImages(imgs);
-
-                        if (Properties.Settings.Default.SearchSuspecious) DetectSuspecious(targets);
-
-                        Array.ForEach(frames, f => { IntPtr cvPtr = f.image.CvPtr; OpenCvSharp.Cv.Release(ref cvPtr); f.image.Dispose(); });
-                        Array.ForEach(targets, t =>
-                        {
-                            Array.ForEach(t.Faces, ipl => { ipl.IsEnabledDispose = true; ipl.Dispose(); });
-                            t.BaseFrame.image.Dispose();
-                        });
-                    }
-                    else
-                        goSearch.WaitOne();
-
-                }
-                catch (System.Exception ex)
-                {
-                    bool reThrow = ExceptionPolicy.HandleException(ex, Constants.ExceptionHandlingLogging);
-                    if (reThrow)
-                    {
-                        throw;
-                    }
-                }
-
-            }
         }
 
 
@@ -625,64 +309,7 @@ namespace RemoteImaging.RealtimeDisplay
             return wantedQuery.FirstOrDefault();
         }
 
-
-        private void DetectSuspecious(Target[] targets)
-        {
-            foreach (var t in targets)
-            {
-                for (int i = 0; i < t.Faces.Length; ++i)
-                {
-                    IplImage normalized = this.faceSearcher.NormalizeImage(t.BaseFrame.image, t.FacesRectsForCompare[i]);
-
-#if DEBUG
-                    var bmp = BitmapConverter.ToBitmap(normalized);
-#endif
-
-                    if (!this.frontChecker.IsFront(normalized))
-                    {
-                        Debug.WriteLine("is not front face");
-
-                        continue;
-                    }
-                    else
-                    {
-                        Debug.WriteLine("is front");
-                    }
-
-
-                    float[] imgData = NativeIconExtractor.ResizeIplTo(normalized, 100, 100);
-
-                    if (IsGoodGuy(imgData))
-                    {
-                        Debug.WriteLine("is good guy");
-                        continue;
-                    }
-
-                    var pcaRecognizeResult = this.pca.Recognize(imgData);
-
-                    var bigSimilarityQuery = from result in pcaRecognizeResult
-                                             where result.Similarity > 0.85
-                                             select result;
-                    
-                    var wantedQuery = from sim in bigSimilarityQuery
-                                      join wanted in this.suspectsMnger.Peoples
-                                        on pca.GetFileName(sim.FileIndex) equals wanted.FileName.Substring(0, 5)
-                                      select new ImportantPersonDetail(
-                                                    wanted,
-                                                    new FaceRecognition.RecognizeResult {
-                                                                    FileName = wanted.FileName, 
-                                                                    Similarity = sim.Similarity });
-
-                    ImportantPersonDetail[] distinct = wantedQuery.Distinct(new ImportantPersonComparer()).ToArray();
-
-                    if (distinct.Length == 0) continue;
-
-                    screen.ShowSuspects(distinct, t.Faces[i].ToBitmap());
-
-                }
-            }
-        }
-
+    
         public bool FaceRecognize { get; set; }
 
         #region IImageScreenObserver Members
