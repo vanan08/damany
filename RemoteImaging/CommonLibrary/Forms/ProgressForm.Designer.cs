@@ -45,9 +45,8 @@
             this.status.AutoSize = true;
             this.status.Location = new System.Drawing.Point(39, 19);
             this.status.Name = "status";
-            this.status.Size = new System.Drawing.Size(41, 12);
+            this.status.Size = new System.Drawing.Size(0, 12);
             this.status.TabIndex = 1;
-            this.status.Text = "label1";
             // 
             // worker
             // 
@@ -65,7 +64,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "ProgressForm";
             this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "进度指示器";
             this.Shown += new System.EventHandler(this.ProgressForm_Shown);
             this.ResumeLayout(false);

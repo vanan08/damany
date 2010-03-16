@@ -16,6 +16,7 @@ namespace Damany
 	{
 		namespace Wrappers
 		{
+			[Serializable]
 			public ref class  AipStarCamera : IIpCamera
 			{
 

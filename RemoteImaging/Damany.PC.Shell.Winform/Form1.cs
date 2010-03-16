@@ -62,7 +62,7 @@ namespace Damany.PC.Shell.Winform
 
         }
 
-        public void HandlePortraits(IList<Damany.Imaging.Common.Frame> motionFrames, IList<Portrait> portraits)
+        public void HandlePortraits(IList<Damany.Imaging.Common.Frame> motionFrames, IList<Damany.Imaging.Common.Portrait> portraits)
         {
             if (motionFrames.Count > 0)
             {
@@ -185,6 +185,47 @@ namespace Damany.PC.Shell.Winform
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error
                     )));
+            }
+
+            System.Net.Sockets.TcpListener listener = new System.Net.Sockets.TcpListener(8000);
+            listener.Start(1);
+            listener.BeginAcceptTcpClient(ClientConnected, listener);
+        }
+
+
+        void ClientConnected(IAsyncResult result)
+        {
+            System.Net.Sockets.TcpListener listener = result.AsyncState as System.Net.Sockets.TcpListener;
+
+            System.Net.Sockets.TcpClient socket = listener.EndAcceptTcpClient(result);
+
+            Damany.RemoteImaging.Common.ObjectSender sender = new Damany.RemoteImaging.Common.ObjectSender(socket);
+            
+            foreach (var c in this.controllers)
+            {
+                c.Worker.OnWorkItemIsDone +=  o=> { 
+                    Damany.Imaging.Common.Frame frame = o as Damany.Imaging.Common.Frame;
+                    Damany.RemoteImaging.Common.Frame f = new Damany.RemoteImaging.Common.Frame();
+                    f.CameraID = frame.CapturedFrom.Id;
+                    f.image = frame.GetImage().ToBitmap();
+                    f.timeStamp = frame.CapturedAt;
+                    sender.EnqueueObject(f);
+                };
+
+                c.PortraitFinder.PortraitCaptured += l =>
+                {
+
+                    foreach (var p in l)
+                    {
+                        Damany.RemoteImaging.Common.Portrait newP = new Damany.RemoteImaging.Common.Portrait();
+                        newP.cameraId = p.CapturedFrom.Id;
+                        newP.image = p.GetImage().ToBitmap();
+                        newP.timeStamp = p.CapturedAt;
+                        sender.EnqueueObject(newP);
+                    }
+
+
+                };
             }
 
         }

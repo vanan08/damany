@@ -7,6 +7,7 @@ namespace Damany.Imaging.Common
 {
     public interface IFrameStream
     {
+
         void Initialize();
         void Connect();
         void Close();
