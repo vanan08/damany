@@ -134,6 +134,7 @@ namespace Damany.PC.Shell.Winform
 
         private void Form1_Shown(object sender, EventArgs e)
         {
+            this.StartLoader();
 
         }
 
@@ -195,7 +196,8 @@ namespace Damany.PC.Shell.Winform
             BackgroundWorker worker = (BackgroundWorker)sender;
             loader.ReportProgress = worker.ReportProgress;
 
-            loader.Load();
+            loader.Load(@"m:\data");
+            this.repository = loader.repository;
 
             foreach (var c in loader.controllers)
             {
@@ -205,7 +207,6 @@ namespace Damany.PC.Shell.Winform
                     result.MotionRect = new OpenCvSharp.CvRect(0, 0, frame.GetImage().Width, frame.GetImage().Height);
                     return true;
                     };
-                c.Start();
                 this.controllers.Add(c);
             }
 
@@ -223,7 +224,10 @@ namespace Damany.PC.Shell.Winform
 
         private void startButton_Click(object sender, EventArgs e)
         {
-            this.StartLoader();
+            foreach (var c in this.controllers)
+            {
+                c.Start();
+            }
         }
 
         private void options_Click(object sender, EventArgs e)
@@ -274,5 +278,10 @@ namespace Damany.PC.Shell.Winform
             }
         }
         float frequency = 2;
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            this.repository.GetFrames(new Damany.Util.DateTimeRange(DateTime.Now.AddDays(-1), DateTime.Now));
+        }
     }
 }

@@ -16,19 +16,9 @@ namespace Damany.RemoteImaging.Common
             static System.Threading.AutoResetEvent exit = new System.Threading.AutoResetEvent(false);
 
 
-            public static PersistenceService GetDefaultPersistenceService()
-            {
-                if (persistenceService == null)
-                {
-                    persistenceService = PersistenceService.CreateDefault(@".\");
-                }
-
-                return persistenceService;
-            }
 
             public static Damany.Imaging.Processors.FaceSearchController BuildNewSearchLine(CameraInfo cam)
             {
-
                 var source = Damany.Cameras.Factory.NewFrameStream(cam);
                 source.Initialize();
                 source.Connect();
@@ -39,10 +29,6 @@ namespace Damany.RemoteImaging.Common
             private static Damany.Imaging.Processors.FaceSearchController CreateProcessLine(IFrameStream source)
             {
                 var controller = FaceSearchFactory.CreateNewController(source);
-
-                var writer = new PersistenceWriter(GetDefaultPersistenceService());
-
-                controller.RegisterPortraitHandler(writer);
 
                 return controller;
             }

@@ -36,6 +36,7 @@
             this.startButton = new System.Windows.Forms.ToolStripButton();
             this.slowDown = new System.Windows.Forms.ToolStripButton();
             this.speedUp = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.frame)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.portrait)).BeginInit();
             this.toolStrip1.SuspendLayout();
@@ -68,7 +69,8 @@
             this.options,
             this.startButton,
             this.slowDown,
-            this.speedUp});
+            this.speedUp,
+            this.toolStripButton1});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(618, 26);
@@ -111,6 +113,16 @@
             this.speedUp.Text = "加快速度";
             this.speedUp.Click += new System.EventHandler(this.speedUp_Click);
             // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(23, 23);
+            this.toolStripButton1.Text = "toolStripButton1";
+            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -140,6 +152,7 @@
         private System.Windows.Forms.ToolStripButton startButton;
         private System.Windows.Forms.ToolStripButton slowDown;
         private System.Windows.Forms.ToolStripButton speedUp;
+        private System.Windows.Forms.ToolStripButton toolStripButton1;
     }
 }
 

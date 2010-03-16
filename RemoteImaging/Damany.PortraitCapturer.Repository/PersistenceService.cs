@@ -5,6 +5,7 @@ using System.Text;
 using AutoMapper;
 using Damany.Imaging.Contracts;
 using Damany.PortraitCapturer.DAL;
+using NDepend.Helpers.FileDirectoryPath;
 
 namespace Damany.PortraitCapturer.Repository
 {
@@ -15,6 +16,15 @@ namespace Damany.PortraitCapturer.Repository
     {
         public static PersistenceService CreateDefault(string root)
         {
+            string reason;
+            if (PathHelper.IsValidRelativePath(root, out reason))
+            {
+                root = System.IO.Path.Combine(System.IO.Directory.GetCurrentDirectory(), root);
+            }
+
+            root_dir = root;
+            image_dir = System.IO.Path.Combine(root_dir, "Images");
+           
             return GetPersistenceService();
 
         }
@@ -35,11 +45,11 @@ namespace Damany.PortraitCapturer.Repository
 
 
             Mapper.CreateMap<Damany.PortraitCapturer.DAL.DTO.Frame, Frame>()
-                .ConstructUsing(dto => new Frame(dto.Path))
+                .ConstructUsing( dto => new Frame( System.IO.Path.Combine(image_dir, dto.Path) ) )
                 .ForMember("MotionRectangles", opt => opt.Ignore())
                 .ForMember("CapturedFrom", opt => opt.MapFrom( dto => { var source = new MockFrameSource(); source.Id = dto.SourceId; return source;} ));
             Mapper.CreateMap<Damany.PortraitCapturer.DAL.DTO.Portrait, Portrait>()
-                .ConstructUsing(dto => new Portrait(dto.Path))
+                .ConstructUsing(dto => new Portrait( System.IO.Path.Combine(image_dir, dto.Path) ) )
                 .ForMember("CapturedFrom", opt => opt.MapFrom(dto => { var source = new MockFrameSource(); source.Id = dto.SourceId; return source; }));
 
 
@@ -52,8 +62,8 @@ namespace Damany.PortraitCapturer.Repository
         {
             var dto = Mapper.Map<Portrait, DAL.DTO.Portrait>(portrait);
             dataProvider.SavePortrait(dto);
-            CreateDirectory(dto.Path);
-            portrait.GetImage().SaveImage(dto.Path);
+            var absolutePath = GetAbsolutePath(dto.Path);
+            portrait.GetImage().SaveImage(absolutePath);
 
         }
 
@@ -62,8 +72,8 @@ namespace Damany.PortraitCapturer.Repository
             var dto = Mapper.Map<Frame, DAL.DTO.Frame>(frame);
             dataProvider.SaveFrame(dto);
 
-            CreateDirectory(dto.Path);
-            frame.GetImage().SaveImage(dto.Path);
+            var absolutePath = GetAbsolutePath(dto.Path);
+            frame.GetImage().SaveImage(absolutePath);
         }
 
         public Frame GetFrame(System.Guid frameId)
@@ -120,13 +130,17 @@ namespace Damany.PortraitCapturer.Repository
             }
         }
 
-        private static void CreateDirectory(string path)
+        private static string GetAbsolutePath(string relativePathOfImage)
         {
-            var directory = System.IO.Path.GetDirectoryName(path);
+            var absoluteDirectory = System.IO.Path.Combine(image_dir, relativePathOfImage);
+
+            var directory = System.IO.Path.GetDirectoryName(absoluteDirectory);
             if (!System.IO.Directory.Exists(directory))
             {
                 System.IO.Directory.CreateDirectory(directory);
             }
+
+            return absoluteDirectory;
         }
 
         private static PersistenceService GetPersistenceService()
@@ -158,7 +172,8 @@ namespace Damany.PortraitCapturer.Repository
                 obj.CapturedAt.Hour,
                 obj.Guid.ToString());
 
-            return System.IO.Path.Combine(image_dir, relativePath);
+
+            return relativePath;
         }
 
         private static Db4oProvider storageProvider;
