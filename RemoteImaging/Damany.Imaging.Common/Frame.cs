@@ -5,7 +5,7 @@ using System.Text;
 using OpenCvSharp;
 using System.IO;
 
-namespace Damany.Imaging.Contracts
+namespace Damany.Imaging.Common
 {
     public class Frame : CapturedObject, IComparable<Frame>, IEquatable<Frame>, IDisposable
     {

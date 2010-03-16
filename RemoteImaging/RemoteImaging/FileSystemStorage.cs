@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using RemoteImaging.Core;
 using System.IO;
-using Damany.Imaging.Contracts;
+using Damany.Imaging.Common;
 using OpenCvSharp;
 using RemoteControlService;
 

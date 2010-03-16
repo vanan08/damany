@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using Damany.Imaging.Contracts;
+using Damany.Imaging.Common;
 using Damany.Imaging.Processors;
-using Damany.PortraitCapturer.Repository;
 using Damany.Imaging.Handlers;
 using Damany.Cameras.Wrappers;
 using Damany.Cameras;

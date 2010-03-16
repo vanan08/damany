@@ -3,19 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Damany.Cameras;
-using Damany.Imaging.Contracts;
+using Damany.Imaging.Common;
 using Damany.Imaging.Processors;
 using Damany.Imaging.Handlers;
 using Damany.Cameras.Wrappers;
 using Damany.PortraitCapturer.DAL.Providers;
-using Damany.PortraitCapturer.Repository;
 using Damany.Imaging.Handlers;
+using Damany.PortraitCapturer.DAL;
 
 namespace Damany.PortraitCapturer.Shell.CmdLine
 {
     class Program
     {
-        static FramePumper pumper;
         static System.Threading.AutoResetEvent exit = new System.Threading.AutoResetEvent(false);
         private const string root_dir = @".\DataNew";
         private const string image_dir = @".\DataNew\Images";

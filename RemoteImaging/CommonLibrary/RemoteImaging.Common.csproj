@@ -156,13 +156,9 @@
     <EmbeddedResource Include="Properties\licenses.licx" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Damany.ImageProcessing.Contracts\Damany.Imaging.Contracts.csproj">
+    <ProjectReference Include="..\..\Damany.ImageProcessing.Contracts\Damany.Imaging.csproj">
       <Project>{B8F7A553-6295-4F0B-B48A-7C85DA5118BB}</Project>
-      <Name>Damany.Imaging.Contracts</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Damany.ImageProcessing.Processors\Damany.Imaging.Processors.csproj">
-      <Project>{39CB311A-8E36-4302-8B62-136FA2EC39EC}</Project>
-      <Name>Damany.Imaging.Processors</Name>
+      <Name>Damany.Imaging</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Damany.Library\CameraWrappers\CameraWrappers.vcproj">
       <Project>{477A59D8-2EC6-4C25-B111-A38B1C9856A6}</Project>
@@ -172,25 +168,17 @@
       <Project>{BCB72517-49DF-4EDE-B84A-55E870B069EF}</Project>
       <Name>Damany.Cameras</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Damany.Imaging.Handlers\Damany.Imaging.Handlers.csproj">
-      <Project>{BA6756CA-C611-48AA-A53A-913C00E1066E}</Project>
-      <Name>Damany.Imaging.Handlers</Name>
+    <ProjectReference Include="..\Damany.Imaging.Common\Damany.Imaging.Common.csproj">
+      <Project>{1546E91B-1045-42BA-9CAA-D5215EF3C792}</Project>
+      <Name>Damany.Imaging.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Damany.PC.Domain\Damany.PC.Domain.csproj">
+    <ProjectReference Include="..\Damany.PC.Domain\Damany.PC.csproj">
       <Project>{A3D29CCA-AC43-45A0-8651-74A3C51D005D}</Project>
-      <Name>Damany.PC.Domain</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Damany.PortraitCapturer.DAL.Providers\Damany.PortraitCapturer.DAL.Providers.csproj">
-      <Project>{A76CE8C9-5B90-4C67-9CDB-1D4D3AD0809E}</Project>
-      <Name>Damany.PortraitCapturer.DAL.Providers</Name>
+      <Name>Damany.PC</Name>
     </ProjectReference>
     <ProjectReference Include="..\Damany.PortraitCapturer.DAL\Damany.PortraitCapturer.DAL.csproj">
       <Project>{85DF7A03-E0AF-4A50-B257-0DB136AED335}</Project>
       <Name>Damany.PortraitCapturer.DAL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Damany.PortraitCapturer.Repository\Damany.PortraitCapturer.Repository.csproj">
-      <Project>{B1F44368-57BA-4C8A-BAE0-D2E05C7EBEEE}</Project>
-      <Name>Damany.PortraitCapturer.Repository</Name>
     </ProjectReference>
     <ProjectReference Include="..\Damany.Util\Damany.Util.csproj">
       <Project>{FA6DEBE0-D78D-437E-B05D-0923896290C9}</Project>
@@ -211,7 +199,7 @@
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_UpdateFileVersion="True" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_BuildVersioningStyle="None.None.Increment.None" BuildVersion_ConfigurationName="Release" BuildVersion_BuildAction="ReBuild" />
+      <UserProperties BuildVersion_BuildAction="ReBuild" BuildVersion_ConfigurationName="Release" BuildVersion_BuildVersioningStyle="None.None.Increment.None" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_UpdateFileVersion="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

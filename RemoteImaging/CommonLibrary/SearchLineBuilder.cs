@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Damany.PortraitCapturer.Repository;
-using Damany.Imaging.Contracts;
+using Damany.PortraitCapturer.DAL;
 using Damany.Imaging.Processors;
 using Damany.Imaging.Handlers;
 using Damany.PC.Domain;
@@ -26,7 +25,7 @@ namespace Damany.RemoteImaging.Common
                 return CreateProcessLine(source);
             }
 
-            private static Damany.Imaging.Processors.FaceSearchController CreateProcessLine(IFrameStream source)
+            private static Damany.Imaging.Processors.FaceSearchController CreateProcessLine(Damany.Imaging.Common.IFrameStream source)
             {
                 var controller = FaceSearchFactory.CreateNewController(source);
 

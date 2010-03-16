@@ -6,7 +6,7 @@ using Damany.PortraitCapturer.DAL;
 
 namespace Damany.Imaging.Handlers
 {
-    public class PersistenceWriter : Damany.Imaging.Contracts.IPortraitHandler
+    public class PersistenceWriter : Damany.Imaging.Common.IPortraitHandler
     {
         private Damany.PortraitCapturer.DAL.PersistenceService service;
         #region IPortraitHandler Members
@@ -20,7 +20,7 @@ namespace Damany.Imaging.Handlers
 
         public void Start() {}
 
-        public void HandlePortraits(IList<Damany.Imaging.Contracts.Frame> motionFrames, IList<Damany.Imaging.Contracts.Portrait> portraits)
+        public void HandlePortraits(IList<Damany.Imaging.Common.Frame> motionFrames, IList<Damany.Imaging.Common.Portrait> portraits)
         {
             motionFrames.ToList().ForEach(f =>{ service.SaveFrame(f); });
             portraits.ToList().ForEach(p => { service.SavePortrait(p); });

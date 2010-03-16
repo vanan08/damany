@@ -49,8 +49,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CameraInfo.cs" />
-    <Compile Include="CameraProvider.cs" />
+    <Compile Include="Domain\CameraInfo.cs" />
+    <Compile Include="Domain\CameraProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

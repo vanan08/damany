@@ -3,7 +3,7 @@
 
 using namespace System::Runtime::InteropServices;
 
-Frame FaceProcessingWrapper::FrameConverter::ToUnManaged(Damany::Imaging::Contracts::Frame^ managed)
+Frame FaceProcessingWrapper::FrameConverter::ToUnManaged(Damany::Imaging::Common::Frame^ managed)
 {
 	Frame unmanaged;
 
