@@ -425,6 +425,10 @@
       <Project>{683B173B-831E-494D-A6FE-965934D3D315}</Project>
       <Name>RemoteImaging.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Damany.Imaging.Common\Damany.Imaging.Common.csproj">
+      <Project>{1546E91B-1045-42BA-9CAA-D5215EF3C792}</Project>
+      <Name>Damany.Imaging.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Damany.Util\Damany.Util.csproj">
       <Project>{FA6DEBE0-D78D-437E-B05D-0923896290C9}</Project>
       <Name>Damany.Util</Name>

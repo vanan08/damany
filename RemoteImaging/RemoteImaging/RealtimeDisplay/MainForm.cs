@@ -63,26 +63,6 @@ namespace RemoteImaging.RealtimeDisplay
             InitStatusBar();
 
             //Program.motionDetector.DrawMotionRect = setting.DrawMotionRect;
-
-            var faceSearchConfig = new FaceSearchWrapper.FaceSearchConfiguration();
-
-            faceSearchConfig.LeftRation = float.Parse(setting.IconLeftExtRatio);
-            faceSearchConfig.TopRation = float.Parse(setting.IconTopExtRatio);
-            faceSearchConfig.RightRation = float.Parse(setting.IconRightExtRatio);
-            faceSearchConfig.BottomRation = float.Parse(setting.IconBottomExtRatio);
-
-            faceSearchConfig.MinFaceWidth = int.Parse(setting.MinFaceWidth);
-            int maxFaceWidth = int.Parse(setting.MaxFaceWidth);
-            faceSearchConfig.FaceWidthRatio = (float)maxFaceWidth / faceSearchConfig.MinFaceWidth;
-
-            faceSearchConfig.EnvironmentMode = setting.EnvMode;
-
-            faceSearchConfig.SearchRectangle =
-                new Rectangle(int.Parse(setting.SrchRegionLeft),
-                              int.Parse(setting.SrchRegionTop),
-                              int.Parse(setting.SrchRegionWidth),
-                              int.Parse(setting.SrchRegionHeight));
-
             
         }
 
@@ -826,26 +806,12 @@ namespace RemoteImaging.RealtimeDisplay
 
         private Presenter CreatePresenter(string ip, string userName, string passWord, int port)
         {
-            var cam1 = new Damany.Component.CameraWrappers.AipStarCamera(ip, port, userName, passWord);
-            cam1.Connect();
-            var presenter = new Presenter(this, cam1);
-            presenter.Start();
-            presenter.Tag = ip;
-            return presenter;
+            return null;
         }
+
+
         private void StartCamera(Camera cam)
         {
-            var userName = "system";
-            var passWord = "system";
-            var port = 6002;
-
-            var presenter = CreatePresenter("192.168.1.204", userName, passWord, port);
-            CreatePresenter("192.168.1.205", userName, passWord, port);
-            CreatePresenter("192.168.1.206", userName, passWord, port);
-            CreatePresenter("192.168.1.207", userName, passWord, port);
-
-            return;
-
 
 
             SynchronizationContext context = SynchronizationContext.Current;
