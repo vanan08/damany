@@ -80,6 +80,7 @@
             this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
             this.splitterItem1 = new DevExpress.XtraLayout.SplitterItem();
             this.menuItemImageList = new System.Windows.Forms.ImageList(this.components);
+            this.IpAddress = new System.Windows.Forms.ToolStripTextBox();
             this.statusStrip1.SuspendLayout();
             this.squareViewContextMenu.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -280,6 +281,7 @@
             this.options,
             this.aboutButton,
             this.propertyToolBar,
+            this.IpAddress,
             this.testButton});
             this.mainToolStrip.Location = new System.Drawing.Point(0, 64);
             this.mainToolStrip.Name = "mainToolStrip";
@@ -651,6 +653,11 @@
             this.menuItemImageList.Images.SetKeyName(1, "2x2.ico");
             this.menuItemImageList.Images.SetKeyName(2, "3x3.ico");
             // 
+            // IpAddress
+            // 
+            this.IpAddress.Name = "IpAddress";
+            this.IpAddress.Size = new System.Drawing.Size(100, 29);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -757,6 +764,7 @@
         private RemoteImaging.Forms.HostConfig hostConfig1;
         private Damany.Windows.Form.SanyoNetCamera sanyoNetCamera1;
         private System.Windows.Forms.ImageList menuItemImageList;
+        private System.Windows.Forms.ToolStripTextBox IpAddress;
 
     }
 }

@@ -874,7 +874,7 @@ namespace RemoteImaging.RealtimeDisplay
         private void testButton_Click(object sender, EventArgs e)
         {
             TcpClient client = new TcpClient();
-            client.BeginConnect("localhost", 8000, this.TcpConnected, client);
+            client.BeginConnect(this.IpAddress.Text, 8000, this.TcpConnected, client);
             
 
         }
