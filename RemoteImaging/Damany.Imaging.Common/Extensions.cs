@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using OpenCvSharp;
 
-namespace Damany.Imaging.Contracts
+namespace Damany.Imaging.Common
 {
     public static class Extensions
     {

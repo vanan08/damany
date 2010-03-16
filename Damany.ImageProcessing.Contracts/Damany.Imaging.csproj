@@ -8,8 +8,8 @@
     <ProjectGuid>{B8F7A553-6295-4F0B-B48A-7C85DA5118BB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Damany.Imaging.Contracts</RootNamespace>
-    <AssemblyName>Damany.Imaging.Contracts</AssemblyName>
+    <RootNamespace>Damany.Imaging</RootNamespace>
+    <AssemblyName>Damany.Imaging</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
@@ -55,23 +55,37 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CapturedObject.cs" />
-    <Compile Include="IFrameHandler.cs" />
-    <Compile Include="LazyIplImage.cs" />
-    <Compile Include="Extensions.cs" />
-    <Compile Include="Frame.cs" />
-    <Compile Include="IFrameStream.cs" />
-    <Compile Include="IIpCamera.cs" />
-    <Compile Include="IMotionFrameHandler.cs" />
-    <Compile Include="IPortraitHandler.cs" />
-    <Compile Include="Portrait.cs" />
-    <Compile Include="PortraitBounds.cs" />
+    <Compile Include="FaceSearchController.cs" />
+    <Compile Include="FaceSearchFactory.cs" />
+    <Compile Include="Algorithms\FrameManager.cs" />
+    <Compile Include="Algorithms\MotionDetector.cs" />
+    <Compile Include="Algorithms\PortraitFinder.cs" />
+    <Compile Include="Handlers\AsyncPortraitLogger.cs" />
+    <Compile Include="Handlers\FrameWritter.cs" />
+    <Compile Include="Handlers\GUIUpdater.cs" />
+    <Compile Include="Handlers\PortraitsLogger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\RemoteImaging\Damany.Imaging.Common\Damany.Imaging.Common.csproj">
+      <Project>{1546E91B-1045-42BA-9CAA-D5215EF3C792}</Project>
+      <Name>Damany.Imaging.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RemoteImaging\Damany.Util\Damany.Util.csproj">
       <Project>{FA6DEBE0-D78D-437E-B05D-0923896290C9}</Project>
       <Name>Damany.Util</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RemoteImaging\FaceProcessingWrapper\FaceProcessingWrapper.vcproj">
+      <Project>{02B00EA5-D734-429C-BF58-44769501B940}</Project>
+      <Name>FaceProcessingWrapper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RemoteImaging\FaceSearchWrapper\FaceSearchWrapper.vcproj">
+      <Project>{F6F410AA-5D72-49BE-9FFE-6EBECF718EAA}</Project>
+      <Name>FaceSearchWrapper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RemoteImaging\IconExtractor\ImageProcessing.csproj">
+      <Project>{C917EC7F-9A59-4845-9108-87056AC61D4F}</Project>
+      <Name>ImageProcessing</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

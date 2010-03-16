@@ -27,7 +27,7 @@ namespace FaceProcessingWrapper
 				}
 			}
 
-			bool PreProcessFrame(Damany::Imaging::Contracts::Frame^ frame, 
+			bool PreProcessFrame(Damany::Imaging::Common::Frame^ frame, 
 				[Out] MotionDetectionResult^ result )
 			{
 				Frame f = FaceProcessingWrapper::FrameConverter::ToUnManaged(frame);

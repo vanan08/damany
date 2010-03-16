@@ -10,7 +10,7 @@ using System.IO;
 using Damany.Net;
 using System.Net.Sockets;
 using System.Threading;
-using Damany.Imaging.Contracts;
+using Damany.Imaging.Common;
 
 namespace Damany.Cameras
 {

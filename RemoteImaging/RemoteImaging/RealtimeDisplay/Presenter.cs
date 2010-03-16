@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using Damany.Imaging.Contracts;
+using Damany.Imaging.Common;
 using RemoteImaging.Core;
 using Damany.Component;
 using System.Drawing;

@@ -7,7 +7,7 @@ using namespace System;
 using namespace System::Runtime::InteropServices;
 using namespace System::Drawing;
 using namespace Damany::Component;
-using namespace Damany::Imaging::Contracts;
+using namespace Damany::Imaging::Common;
 
 
 namespace Damany
@@ -42,7 +42,7 @@ namespace Damany
 					}
 				}
 
-				virtual Damany::Imaging::Contracts::Frame^ RetrieveFrame(void)
+				virtual Damany::Imaging::Common::Frame^ RetrieveFrame(void)
 				{
 					System::IntPtr ptrFile = Marshal::StringToHGlobalAnsi(this->tmpFile);
 					LPCTSTR pSzTmpFile = static_cast<LPCTSTR>(ptrFile.ToPointer());
@@ -52,8 +52,8 @@ namespace Damany
 
 					array<System::Byte>^ bytes = System::IO::File::ReadAllBytes(this->tmpFile);
 					System::IO::Stream^ stream = gcnew System::IO::MemoryStream(bytes);
-					Damany::Imaging::Contracts::Frame^ frame =
-						gcnew Damany::Imaging::Contracts::Frame(stream);
+					Damany::Imaging::Common::Frame^ frame =
+						gcnew Damany::Imaging::Common::Frame(stream);
 					frame->CapturedFrom = this;
 
 					return frame;

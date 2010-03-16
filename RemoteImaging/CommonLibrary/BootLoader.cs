@@ -10,14 +10,14 @@ namespace Damany.RemoteImaging.Common
         public Action<int, object> ReportProgress { get; set; }
         public IList<Damany.Imaging.Processors.FaceSearchController> controllers
             = new List<Damany.Imaging.Processors.FaceSearchController>();
-        public Damany.PortraitCapturer.Repository.PersistenceService repository;
+        public Damany.PortraitCapturer.DAL.PersistenceService repository;
 
         public void Load(string databaseRoot)
         {
             ConfigurationManager config = ConfigurationManager.GetDefault();
 
             ReportProgress(0, "初始化数据库");
-            this.repository = Damany.PortraitCapturer.Repository.PersistenceService.CreateDefault( databaseRoot );
+            this.repository = Damany.PortraitCapturer.DAL.PersistenceService.CreateDefault( databaseRoot );
             ReportProgress(50, "数据库初始化成功");
 
             var portraitWriter = new Damany.Imaging.Handlers.PersistenceWriter(this.repository);

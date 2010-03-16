@@ -19,7 +19,7 @@ namespace FaceProcessingWrapper.Test
 
             var bytes = System.IO.File.OpenRead(@"D:\ImageOutput\02\2010\01\27\BigPic\201001271121\02_100127112121328.jpg");
 
-            var f = new Damany.Imaging.Contracts.Frame(bytes);
+            var f = new Damany.Imaging.Common.Frame(bytes);
             Debug.WriteLine("guid: " + f.Guid.ToString());
 
             Guid guidFram1 = f.Guid;
@@ -30,7 +30,7 @@ namespace FaceProcessingWrapper.Test
             Assert.IsTrue(Guid.Empty.Equals(result.FrameGuid));
 
             bytes = System.IO.File.OpenRead(@"D:\ImageOutput\02\2010\01\27\BigPic\201001271121\02_100127112121953.jpg");
-            f = new Damany.Imaging.Contracts.Frame(bytes);
+            f = new Damany.Imaging.Common.Frame(bytes);
             detector.PreProcessFrame(f, result);
 
             Assert.IsTrue(result.FrameGuid.Equals(guidFram1));

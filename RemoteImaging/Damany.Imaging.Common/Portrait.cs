@@ -5,7 +5,7 @@ using System.Text;
 using OpenCvSharp;
 using Damany.Util.Extensions;
 
-namespace Damany.Imaging.Contracts
+namespace Damany.Imaging.Common
 {
     public class Portrait : CapturedObject, IDisposable
     {

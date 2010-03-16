@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using Damany.Imaging.Contracts;
+using Damany.Imaging.Common;
 using Damany.RemoteImaging.Common.Forms;
 using Damany.RemoteImaging.Common;
 
@@ -62,7 +62,7 @@ namespace Damany.PC.Shell.Winform
 
         }
 
-        public void HandlePortraits(IList<Damany.Imaging.Contracts.Frame> motionFrames, IList<Portrait> portraits)
+        public void HandlePortraits(IList<Damany.Imaging.Common.Frame> motionFrames, IList<Portrait> portraits)
         {
             if (motionFrames.Count > 0)
             {
@@ -139,7 +139,7 @@ namespace Damany.PC.Shell.Winform
         }
 
         public Damany.Imaging.Processors.FaceSearchController controller { get; set; }
-        public Damany.PortraitCapturer.Repository.PersistenceService repository { get; set; }
+        public Damany.PortraitCapturer.DAL.PersistenceService repository { get; set; }
 
         public void ShowMessage(string msg)
         {
@@ -196,13 +196,13 @@ namespace Damany.PC.Shell.Winform
             BackgroundWorker worker = (BackgroundWorker)sender;
             loader.ReportProgress = worker.ReportProgress;
 
-            loader.Load(@"m:\data");
+            loader.Load(@".\data");
             this.repository = loader.repository;
 
             foreach (var c in loader.controllers)
             {
                 c.RegisterPortraitHandler(this);
-                c.MotionDetector.DetectMethod = delegate( Damany.Imaging.Contracts.Frame frame, FaceProcessingWrapper.MotionDetectionResult result){
+                c.MotionDetector.DetectMethod = delegate( Damany.Imaging.Common.Frame frame, FaceProcessingWrapper.MotionDetectionResult result){
                     result.FrameGuid = frame.Guid;
                     result.MotionRect = new OpenCvSharp.CvRect(0, 0, frame.GetImage().Width, frame.GetImage().Height);
                     return true;

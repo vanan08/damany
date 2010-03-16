@@ -7,7 +7,7 @@ using MbUnit.Framework;
 using MbUnit.Framework.ContractVerifiers;
 using Damany.PortraitCapturer.DAL;
 using Damany.PortraitCapturer.DAL.Providers;
-using Damany.Imaging.Contracts;
+using Damany.Imaging.Common;
 using TestDataProvider;
 
 namespace Damany.PC.DAL.Providers.Test

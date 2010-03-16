@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using FaceProcessingWrapper;
+using Damany.Imaging.Common;
 
 namespace Damany.Imaging.Processors
 {
@@ -19,7 +20,7 @@ namespace Damany.Imaging.Processors
         }
 
 
-        public Func<Contracts.Frame, FaceProcessingWrapper.MotionDetectionResult, bool> DetectMethod { get; set; }
+        public Func<Common.Frame, FaceProcessingWrapper.MotionDetectionResult, bool> DetectMethod { get; set; }
        
 
         public void DetectMotion(Frame frame)
@@ -93,7 +94,7 @@ namespace Damany.Imaging.Processors
             return currentFrame.GetImage().Size != lastImageSize;
         }
 
-        public event Action<IList<Contracts.Frame>> MotionFrameCaptured;
+        public event Action<IList<Common.Frame>> MotionFrameCaptured;
 
         FaceProcessingWrapper.MotionDetector detector;
         OpenCvSharp.CvSize lastImageSize;

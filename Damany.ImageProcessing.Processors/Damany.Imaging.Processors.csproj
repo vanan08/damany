@@ -62,9 +62,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Damany.ImageProcessing.Contracts\Damany.Imaging.Contracts.csproj">
+    <ProjectReference Include="..\Damany.ImageProcessing.Contracts\Damany.Imaging.csproj">
       <Project>{B8F7A553-6295-4F0B-B48A-7C85DA5118BB}</Project>
-      <Name>Damany.Imaging.Contracts</Name>
+      <Name>Damany.Imaging</Name>
     </ProjectReference>
     <ProjectReference Include="..\RemoteImaging\Damany.Imaging.Handlers\Damany.Imaging.Handlers.csproj">
       <Project>{BA6756CA-C611-48AA-A53A-913C00E1066E}</Project>

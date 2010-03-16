@@ -68,9 +68,13 @@
     <Compile Include="SVMWrapperTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Damany.ImageProcessing.Contracts\Damany.Imaging.Contracts.csproj">
+    <ProjectReference Include="..\..\Damany.ImageProcessing.Contracts\Damany.Imaging.csproj">
       <Project>{B8F7A553-6295-4F0B-B48A-7C85DA5118BB}</Project>
-      <Name>Damany.Imaging.Contracts</Name>
+      <Name>Damany.Imaging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Damany.Imaging.Common\Damany.Imaging.Common.csproj">
+      <Project>{1546E91B-1045-42BA-9CAA-D5215EF3C792}</Project>
+      <Name>Damany.Imaging.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\FaceProcessingWrapper\FaceProcessingWrapper.vcproj">
       <Project>{02B00EA5-D734-429C-BF58-44769501B940}</Project>

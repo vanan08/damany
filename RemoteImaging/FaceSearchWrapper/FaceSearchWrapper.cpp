@@ -53,7 +53,7 @@ void FaceSearchWrapper::FaceSearch::SetLightMode(int iMode)
 	pFaceSearch->SetLightMode(iMode);
 }
 
-void FaceSearchWrapper::FaceSearch::AddInFrame(Damany::Imaging::Contracts::Frame^ frame)
+void FaceSearchWrapper::FaceSearch::AddInFrame(Damany::Imaging::Common::Frame^ frame)
 {
 
 	Frame frm;
@@ -75,7 +75,7 @@ void FaceSearchWrapper::FaceSearch::AddInFrame(Damany::Imaging::Contracts::Frame
 
 
 array<ImageProcess::Target^>^ 
-FaceSearchWrapper::FaceSearch::SearchFacesFastMode(Damany::Imaging::Contracts::Frame^ frame)
+FaceSearchWrapper::FaceSearch::SearchFacesFastMode(Damany::Imaging::Common::Frame^ frame)
 {
 	AddInFrame(frame);
 	return SearchFaces();

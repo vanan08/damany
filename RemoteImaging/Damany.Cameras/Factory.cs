@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Damany.Imaging.Contracts;
+using Damany.Imaging.Common;
 
 namespace Damany.Cameras
 {
     public static class Factory
     {
-        public static Damany.Imaging.Contracts.IFrameStream NewFrameStream(Damany.PC.Domain.CameraInfo cameraInfo)
+        public static Damany.Imaging.Common.IFrameStream NewFrameStream(Damany.PC.Domain.CameraInfo cameraInfo)
         {
             IFrameStream source = null;
 

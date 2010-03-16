@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using Damany.Windows.Form;
 using System.IO;
 using DevExpress.XtraNavBar;
-using Damany.Imaging.Contracts;
+using Damany.Imaging.Common;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
 using RemoteImaging.Core;
