@@ -35,6 +35,15 @@ namespace Damany.RemoteImaging.Common
             return objContainer.Query<CameraInfo>();
         }
 
+        public CameraInfo GetCameraById(int camId)
+        {
+            var cam = from c in this.GetCameras()
+                      where c.Id == camId
+                      select c;
+
+            return cam.SingleOrDefault();
+        }
+
         public void AddCamera(CameraInfo camera)
         {
             UpdateCamera(camera);

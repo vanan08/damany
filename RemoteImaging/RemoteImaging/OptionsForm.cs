@@ -5,7 +5,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Linq;
-
+using Damany.PC.Domain;
 using System.Timers;
 using System.Runtime.InteropServices;
 
@@ -49,13 +49,12 @@ namespace RemoteImaging
             this.dataGridCameras.Columns[2].DataPropertyName = "IpAddress";
         }
 
-
+        Damany.RemoteImaging.Common.ConfigurationManager configManager
+            = Damany.RemoteImaging.Common.ConfigurationManager.GetDefault();
         private void InitCamList()
         {
-            Configuration config = Configuration.Instance;
-
             camList.Clear();
-            foreach (var cam in config.Cameras)
+            foreach (var cam in configManager.GetCameras())
             {
                 camList.Add(cam);
             }
@@ -83,24 +82,13 @@ namespace RemoteImaging
             }
         }
 
-        public IList<Camera> Cameras
+        public IList<CameraInfo> Cameras
         {
-            get
-            {
-                IList<Camera> cams = new List<Camera>();
-
-                foreach (Camera item in camList)
-                {
-                    cams.Add(item);
-                }
-
-                return cams;
-            }
-
+ 
             set
             {
                 camList.Clear();
-                foreach (Camera item in value)
+                foreach (var item in value)
                 {
                     camList.Add(item);
                 }
@@ -124,8 +112,8 @@ namespace RemoteImaging
                 return;
             }
 
-            Camera cam = bs.Current as Camera;
-            if (string.IsNullOrEmpty(cam.IpAddress))
+            CameraInfo cam = bs.Current as CameraInfo;
+            if (cam == null)
             {
                 return;
             }
@@ -134,10 +122,10 @@ namespace RemoteImaging
             {
                 StringBuilder sb = new StringBuilder(form.Text);
                 sb.Append("-[");
-                sb.Append(cam.IpAddress);
+                sb.Append(cam.Location.ToString());
                 sb.Append("]");
 
-                form.Navigate(cam.IpAddress);
+                form.Navigate(cam.Location.ToString());
                 form.Text = sb.ToString();
                 form.ShowDialog(this);
             }
@@ -145,8 +133,8 @@ namespace RemoteImaging
 
 
 
-        private BindingList<Camera> camList =
-            new BindingList<Camera>();
+        private BindingList<CameraInfo> camList =
+            new BindingList<CameraInfo>();
 
         private BindingSource bs;
 
