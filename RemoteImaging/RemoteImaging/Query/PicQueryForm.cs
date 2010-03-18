@@ -22,14 +22,20 @@ namespace RemoteImaging.Query
         public PicQueryForm()
         {
             InitializeComponent();
+            this.PageSize = 20;
+        }
 
+        public void SetCameras(IList<Damany.PC.Domain.CameraInfo> cameras)
+        {
 
-            foreach (Camera camera in Configuration.Instance.Cameras)
+            if (cameras == null)
+                throw new ArgumentNullException("cameras", "cameras is null.");
+
+            foreach (var camera in cameras)
             {
-                this.comboBox1.Items.Add(camera.ID.ToString());
+                this.comboBox1.Items.Add(camera.Id.ToString());
             }
 
-            this.PageSize = 20;
         }
 
         private void ShowUserError(string msg)

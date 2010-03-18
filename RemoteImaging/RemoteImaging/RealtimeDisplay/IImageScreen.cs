@@ -4,17 +4,15 @@ using System.Linq;
 using System.Text;
 using RemoteImaging.Core;
 using System.Drawing;
+using Damany.PC.Domain;
 
 namespace RemoteImaging.RealtimeDisplay
 {
     public interface IImageScreen
     {
-        Camera[] Cameras { set; }
+        CameraInfo[] CamerasInfo { set; }
 
-        Camera SelectedCamera
-        {
-            get;
-        }
+        CameraInfo GetSelectedCamera();
 
         ImageDetail SelectedImage
         {

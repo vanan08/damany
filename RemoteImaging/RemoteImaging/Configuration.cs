@@ -6,6 +6,7 @@ using System.Xml.Linq;
 using System.Threading;
 using Db4objects.Db4o;
 using Db4objects.Db4o.Query;
+using Damany.PC.Domain;
 
 namespace RemoteImaging
 {
@@ -16,41 +17,10 @@ namespace RemoteImaging
         /// </summary>
         public Configuration()
         {
-            List<Camera> lineCam = new List<Camera>();
-            XDocument camXMLDoc = XDocument.Load(fileName);
-            var camsElements = camXMLDoc.Root.Descendants("cam");
-
-            foreach (XElement camElement in camsElements)
-            {
-                int id = int.Parse((string)camElement.Attribute("id"));
-                lineCam.Add(new Camera()
-                {
-                    ID = id,
-                    IpAddress = camElement.Attribute("ip").Value,
-                    Name = camElement.Attribute("name").Value
-                });
-            }
-            Cameras = lineCam;
+           
         }
 
-        public void Save()
-        {
-            XDocument doc = XDocument.Load(fileName);
-            doc.Root.RemoveNodes();
-
-            foreach (Camera cam in Cameras)
-            {
-                doc.Root.Add(new XElement("cam",
-                    new XAttribute("ip", cam.IpAddress),
-                    new XAttribute("name", cam.Name),
-                    new XAttribute("id", cam.ID)));
-            }
-
-            doc.Save(Properties.Settings.Default.CamConfigFile);
-
-
-        }
-
+       
 
         private FaceSearchWrapper.FaceSearchConfiguration faceSearchConfig;
 
@@ -72,27 +42,7 @@ namespace RemoteImaging
 
         }
 
-
-        public Camera FindCameraByID(int ID)
-        {
-            try
-            {
-                return this.Cameras.First(c => c.ID == ID);
-            }
-            catch (System.InvalidOperationException)
-            {
-                return null;
-
-            }
-        }
-
-        public IList<Camera> Cameras
-        {
-            get;
-            set;
-
-        }
-
+       
         public static Configuration Instance
         {
             get

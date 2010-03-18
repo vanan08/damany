@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.IO;
 using RemoteImaging.Core;
 using Microsoft.Practices.EnterpriseLibrary.ExceptionHandling;
+using Damany.RemoteImaging.Common;
 
 namespace RemoteImaging.Query
 {
@@ -18,13 +19,21 @@ namespace RemoteImaging.Query
         public VideoQueryForm()
         {
             InitializeComponent();
-            foreach (Camera camera in Configuration.Instance.Cameras)
-            {
-                this.comboBox1.Items.Add(camera.ID.ToString());
-            }
 
             PopulateSearchScope();
             setListViewColumns();
+        }
+
+        public void SetCameras(IList<Damany.PC.Domain.CameraInfo> cameras)
+        {
+            if (cameras == null)
+                throw new ArgumentNullException("cameras", "cameras is null.");
+
+            foreach (var c in cameras)
+            {
+                this.comboBox1.Items.Add(c.Id.ToString());
+            }
+
         }
 
         private void PopulateSearchScope()
