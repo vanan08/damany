@@ -12,6 +12,7 @@ using RemoteControlService;
 using System.ServiceModel.Channels;
 using System.ServiceModel;
 using System.Reflection;
+using Damany.Imaging.Common;
 
 namespace RemoteImaging.Query
 {
@@ -30,6 +31,7 @@ namespace RemoteImaging.Query
             this.facesListView.LargeImageList = facesList;
 
             Damany.RemoteImaging.Common.ControlHelper.SetControlProperty(this.facesListView, "DoubleBuffered", true);
+            this.facesListView.ItemSelectionChanged += new ListViewItemSelectionChangedEventHandler(facesListView_ItemSelectionChanged);
 
 
             this.pageSizeComboBox.SelectedIndex = 0;
@@ -41,20 +43,22 @@ namespace RemoteImaging.Query
 
         }
 
+        public void Attach(PicQueryPresenter presenter)
+        {
+            this.Presenter = presenter;
+        }
+
+        public PicQueryPresenter Presenter { get; set; }
+
+        void facesListView_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
+        {
+            this.Presenter.SelectedPortraitChanged();
+        }
+
         public event EventHandler PageSizeChanged;
         public event EventHandler DownLoadVideoFileClick;
         public event EventHandler QueryClick;
-        public event EventHandler PlayVideoClick
-        {
-            add
-            {
-                this.toolStripButtonPlayVideo.Click += value;
-            }
-            remove
-            {
-                this.toolStripButtonPlayVideo.Click -= value;
-            }
-        }
+        
 
         public event EventHandler NextPageClick;
 
@@ -90,18 +94,12 @@ namespace RemoteImaging.Query
 
         public event EventHandler<SaveEventArgs> SaveImageClick;
 
-        public HostsPool Hosts
+        public IList<Damany.PC.Domain.CameraInfo> Cameras
         {
-            get
-            {
-                return hosts;
-            }
             set
             {
-                hosts = value;
-
-                this.hostsComboBox.DataSource = value.Hosts;
-                this.hostsComboBox.DisplayMember = "Name";
+                this.hostsComboBox.DataSource = value;
+                this.hostsComboBox.DisplayMember = "Id";
             }
         }
 
@@ -208,14 +206,28 @@ namespace RemoteImaging.Query
 
         }
 
-
-        public void AddFace(ImagePair pair)
+        public Portrait SelectedPortrait
         {
-            this.facesList.Images.Add(pair.Face);
-            string text = System.IO.Path.GetFileName(pair.FacePath as string);
+            get
+            {
+                if (this.facesListView.SelectedItems.Count > 0)
+                {
+                    return this.facesListView.SelectedItems[0].Tag as Portrait;
+                }
+
+                return null;
+            }
+        }
+
+
+        public void AddFace(Damany.Imaging.Common.Portrait p)
+        {
+            var bmp = p.GetImage().ToBitmap();
+            this.facesList.Images.Add(bmp);
+            string text = p.CapturedAt.ToString();
             ListViewItem item = new ListViewItem()
             {
-                Tag = pair,
+                Tag = p,
                 Text = text,
                 ImageIndex = this.facesList.Images.Count - 1,
             };
@@ -261,19 +273,13 @@ namespace RemoteImaging.Query
 
         }
 
-        public System.Net.IPAddress SelectedIP
+        public int SelectedID
         {
             get
             {
-                if (this.InvokeRequired)
-                {
-                    Func<System.Net.IPAddress> getIp = () => InternalGetSelectedIP();
+               var caminfo = this.hostsComboBox.SelectedValue as Damany.PC.Domain.CameraInfo;
 
-                    return (System.Net.IPAddress)this.Invoke(getIp);
-                }
-                else
-                    return InternalGetSelectedIP();
-
+               return caminfo.Id;
             }
 
         }
@@ -308,21 +314,19 @@ namespace RemoteImaging.Query
         //02_090807144104343-0000.jpg-->小图片
         private void bestPicListView_ItemActivate(object sender, System.EventArgs e)
         {
-            ImagePair ip = this.facesListView.FocusedItem.Tag as ImagePair;
+            var p = this.facesListView.FocusedItem.Tag as Damany.Imaging.Common.Portrait;
 
-            this.facePictureBox.Image = ip.Face;
+            this.facePictureBox.Image = p.GetImage().ToBitmap();
 
-            //detail infomation
-            ImageDetail imgInfo = ImageDetail.FromPath(ip.FacePath);
 
-            string captureLoc = string.Format("抓拍地点: {0}", imgInfo.FromCamera);
+            string captureLoc = string.Format("抓拍地点: {0}", p.CapturedFrom.Id);
             this.labelCaptureLoc.Text = captureLoc;
 
-            string captureTime = string.Format("抓拍时间: {0}", imgInfo.CaptureTime);
+            string captureTime = string.Format("抓拍时间: {0}", p.CapturedAt.ToString());
             this.labelCaptureTime.Text = captureTime;
 
 
-            this.wholeImage.Image = ip.BigImage;
+
 
         }
 
@@ -369,7 +373,6 @@ namespace RemoteImaging.Query
 
         private void PicQueryForm_Load(object sender, EventArgs e)
         {
-
         }
 
         private void toolStripButtonFirstPage_Click(object sender, EventArgs e)
@@ -447,45 +450,6 @@ namespace RemoteImaging.Query
                 MessageBoxButtons.OK, icon);
         }
 
-
-        private void toolStripButtonPlayVideo_Click(object sender, EventArgs e)
-        {
-            if (this.facesListView.SelectedItems.Count != 1) return;
-
-            ImagePair ip = this.facesListView.SelectedItems[0].Tag as ImagePair;
-
-            ImageDetail imgInfo = ImageDetail.FromPath(ip.FacePath);
-
-            string video = null;
-
-            try
-            {
-                video = Gateways.Search.Instance.VideoFilePathRecordedAt(SelectedIP, imgInfo.CaptureTime, imgInfo.FromCamera);
-            }
-            catch (System.ServiceModel.CommunicationException)
-            {
-                ShowErrorMessage("通讯错误，请重试！");
-                return;
-            }
-
-            if (string.IsNullOrEmpty(video))
-            {
-                ShowInfoMessage("未找到相关视频");
-                return;
-            }
-
-
-            try
-            {
-                Gateways.StreamPlayer.Instance.StreamVideo(SelectedIP, video);
-            }
-            catch (System.ServiceModel.CommunicationException)
-            {
-                this.ShowErrorMessage("未找到相关视频");
-
-            }
-
-        }
 
         private void SaveSelectedImage()
         {

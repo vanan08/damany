@@ -354,8 +354,9 @@ namespace RemoteImaging.RealtimeDisplay
         private void searchPic_Click(object sender, EventArgs e)
         {
             var form = new RemoteImaging.Query.PicQueryForm();
-            form.Hosts = this.hostsPool;
-            var presenter = new PicQueryPresenter(form);
+            form.Cameras = ConfigurationManager.GetDefault().GetCameras().ToArray().ToList();
+            var presenter = new PicQueryPresenter(form, loader.repository);
+            form.Presenter = presenter;
             form.ShowDialog(this);
         }
 
