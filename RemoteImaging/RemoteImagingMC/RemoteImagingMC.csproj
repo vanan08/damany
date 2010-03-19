@@ -179,6 +179,12 @@
     <Compile Include="OptionsForm.Designer.cs">
       <DependentUpon>OptionsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Query\FaceCompare.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Query\FaceCompare.Designer.cs">
+      <DependentUpon>FaceCompare.cs</DependentUpon>
+    </Compile>
     <Compile Include="Query\ImageDirSys.cs" />
     <Compile Include="Query\ImageSearch.cs" />
     <Compile Include="Query\ListViewEx.cs">
@@ -252,6 +258,9 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Query\FaceCompare.resx">
+      <DependentUpon>FaceCompare.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Query\PicQueryForm.resx">
       <DependentUpon>PicQueryForm.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -453,6 +462,14 @@
     <ProjectReference Include="..\Encryptor\Encryptor.csproj">
       <Project>{B377F693-4975-4BB6-A6DC-C0C3844517B1}</Project>
       <Name>Encryptor</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FaceProcessingWrapper\FaceProcessingWrapper.vcproj">
+      <Project>{02B00EA5-D734-429C-BF58-44769501B940}</Project>
+      <Name>FaceProcessingWrapper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FaceSearchWrapper\FaceSearchWrapper.vcproj">
+      <Project>{F6F410AA-5D72-49BE-9FFE-6EBECF718EAA}</Project>
+      <Name>FaceSearchWrapper</Name>
     </ProjectReference>
     <ProjectReference Include="..\Messages\Messages.csproj">
       <Project>{80A13967-C4D2-4B5A-909D-FA595F57F88D}</Project>

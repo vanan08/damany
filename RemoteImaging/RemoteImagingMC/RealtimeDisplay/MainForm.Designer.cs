@@ -48,7 +48,7 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.mainToolStrip = new System.Windows.Forms.ToolStrip();
             this.searchPic = new System.Windows.Forms.ToolStripButton();
-            this.videoSearch = new System.Windows.Forms.ToolStripButton();
+            this.faceCompare = new System.Windows.Forms.ToolStripButton();
             this.options = new System.Windows.Forms.ToolStripButton();
             this.aboutButton = new System.Windows.Forms.ToolStripLabel();
             this.propertyToolBar = new System.Windows.Forms.ToolStripButton();
@@ -255,7 +255,7 @@
             this.mainToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.searchPic,
             this.toolStripSeparator2,
-            this.videoSearch,
+            this.faceCompare,
             this.toolStripSeparator1,
             this.options,
             this.aboutButton,
@@ -277,14 +277,14 @@
             this.searchPic.Text = "图像检索";
             this.searchPic.Click += new System.EventHandler(this.searchPic_Click);
             // 
-            // videoSearch
+            // faceCompare
             // 
-            this.videoSearch.Image = ((System.Drawing.Image)(resources.GetObject("videoSearch.Image")));
-            this.videoSearch.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.videoSearch.Name = "videoSearch";
-            this.videoSearch.Size = new System.Drawing.Size(126, 26);
-            this.videoSearch.Text = "人像比对查询";
-            this.videoSearch.Click += new System.EventHandler(this.videoSearch_Click);
+            this.faceCompare.Image = ((System.Drawing.Image)(resources.GetObject("faceCompare.Image")));
+            this.faceCompare.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.faceCompare.Name = "faceCompare";
+            this.faceCompare.Size = new System.Drawing.Size(126, 26);
+            this.faceCompare.Text = "人像比对查询";
+            this.faceCompare.Click += new System.EventHandler(this.videoSearch_Click);
             // 
             // options
             // 
@@ -734,7 +734,7 @@
         private System.Windows.Forms.Timer realTimer;
         private System.Windows.Forms.ToolStripButton searchPic;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripButton videoSearch;
+        private System.Windows.Forms.ToolStripButton faceCompare;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton options;
         private System.Windows.Forms.ToolStripLabel aboutButton;
