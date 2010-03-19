@@ -3,19 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using RemoteControlService;
+using Damany.PortraitCapturer.DAL;
 
 namespace RemoteImaging.Query
 {
     public class PicQueryPresenter
     {
         PicQueryForm view;
-        string[] imagesFound;
+        IList<Damany.Imaging.Common.Portrait> imagesFound;
         int currentPage;
         System.Threading.SynchronizationContext syncContext;
+        PersistenceService repository;
 
-        public PicQueryPresenter(PicQueryForm view)
+
+        public PicQueryPresenter(PicQueryForm view, PersistenceService repository)
         {
             this.view = view;
+            this.repository = repository;
             this.syncContext = System.Threading.SynchronizationContext.Current;
 
             this.view.QueryClick += new EventHandler(view_QueryClick);
@@ -25,24 +29,22 @@ namespace RemoteImaging.Query
             this.view.LastPageClick += new EventHandler(view_LastPageClick);
             this.view.PageSizeChanged += new EventHandler(view_PageSizeChanged);
 
-            this.view.DownLoadVideoFileClick += new EventHandler(view_DownLoadVideoFileClick);
         }
 
-        void view_DownLoadVideoFileClick(object sender, EventArgs e)
-        {
-            var ip = this.view.SelectedIP;
-            var time = this.view.SelectedTime;
-            var progress = this.view.ProgressIndicator;
-
-            System.Threading.ThreadPool.QueueUserWorkItem( o => 
-                this.DownloadVideoFileAt(ip, 2, time, this.view.DestinationStream, progress)
-                );
-
-        }
-
+      
         void view_PageSizeChanged(object sender, EventArgs e)
         {
             this.CalcPagesCount();
+        }
+
+        public void SelectedPortraitChanged()
+        {
+            if (this.view.SelectedPortrait == null) return;
+
+            var frame = this.repository.GetFrame(this.view.SelectedPortrait.FrameId);
+
+            this.view.WholeImage = frame.GetImage().ToBitmap();
+            frame.Dispose();
         }
 
         private bool IsPagesDownloaded()
@@ -89,7 +91,7 @@ namespace RemoteImaging.Query
 
         private void ClearViewAsync()
         {
-            this.syncContext.Post(o => this.view.ClearCurPageList(), null);
+             this.view.ClearCurPageList();
         }
 
 
@@ -98,22 +100,10 @@ namespace RemoteImaging.Query
             ClearViewAsync();
 
             for (int i = (CurrentPage) * view.PageSize;
-                (i < (CurrentPage + 1) * view.PageSize) && (i < imagesFound.Length);
+                (i < (CurrentPage + 1) * view.PageSize) && (i < imagesFound.Count);
                 ++i)
             {
-                ImagePair ip = null;
-
-                try
-                {
-                    ip = Gateways.Search.Instance.GetFace(view.SelectedIP, imagesFound[i]);
-                }
-                catch (System.ServiceModel.CommunicationException)
-                {
-                    this.syncContext.Post(view.ShowErrorMessage, "通讯错误, 请重试");
-                    break;
-                }
-
-                this.syncContext.Post(o => this.view.AddFace(o as ImagePair), ip);
+                this.view.AddFace(this.imagesFound[i]);
 
             }
         }
@@ -166,25 +156,17 @@ namespace RemoteImaging.Query
 
         void ShowCurrentPageAsync()
         {
-            this.syncContext = System.Threading.SynchronizationContext.Current;
-
-            System.Threading.ThreadPool.QueueUserWorkItem(o => this.DoShowCurrent() );
+          this.DoShowCurrent();
         }
 
         void view_QueryClick(object sender, EventArgs e)
         {
-            try
-            {
-                imagesFound = Gateways.Search.Instance.SearchFaces(view.SelectedIP, 2, view.SearchFrom, view.SearchTo);
-            }
-            catch (System.ServiceModel.CommunicationException)
-            {
-                this.syncContext.Post( view.ShowErrorMessage, "通讯讯错误, 请重试");
-                return;
-            }
 
+            this.imagesFound =
+                repository.GetPortraits(
+                new Damany.Util.DateTimeRange(this.view.SearchFrom, this.view.SearchTo));
 
-            if (imagesFound.Length == 0)
+            if (imagesFound.Count == 0)
             {
                 this.view.ShowInfoMessage("未找到图片");
                 return;
@@ -229,7 +211,7 @@ namespace RemoteImaging.Query
                 return 0;
             }
 
-            totalPages = (imagesFound.Length + view.PageSize - 1) / this.view.PageSize;
+            totalPages = (imagesFound.Count + view.PageSize - 1) / this.view.PageSize;
             this.view.TotalPage = totalPages;
 
             return totalPages;

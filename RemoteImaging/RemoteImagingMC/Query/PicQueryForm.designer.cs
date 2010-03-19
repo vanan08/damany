@@ -52,9 +52,9 @@
             this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.splitter1 = new System.Windows.Forms.Splitter();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.wholeImage = new System.Windows.Forms.PictureBox();
+            this.splitter1 = new System.Windows.Forms.Splitter();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonFirstPage = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonPrePage = new System.Windows.Forms.ToolStripButton();
@@ -64,8 +64,6 @@
             this.pageSizeComboBox = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripButtonPlayVideo = new System.Windows.Forms.ToolStripButton();
-            this.downloadVideoFile = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.saveToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.saveVideoFileDialog = new System.Windows.Forms.SaveFileDialog();
@@ -348,14 +346,6 @@
             this.splitContainer2.SplitterDistance = 221;
             this.splitContainer2.TabIndex = 21;
             // 
-            // splitter1
-            // 
-            this.splitter1.Location = new System.Drawing.Point(0, 0);
-            this.splitter1.Name = "splitter1";
-            this.splitter1.Size = new System.Drawing.Size(3, 200);
-            this.splitter1.TabIndex = 18;
-            this.splitter1.TabStop = false;
-            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.wholeImage);
@@ -377,6 +367,14 @@
             this.wholeImage.TabIndex = 16;
             this.wholeImage.TabStop = false;
             // 
+            // splitter1
+            // 
+            this.splitter1.Location = new System.Drawing.Point(0, 0);
+            this.splitter1.Name = "splitter1";
+            this.splitter1.Size = new System.Drawing.Size(3, 200);
+            this.splitter1.TabIndex = 18;
+            this.splitter1.TabStop = false;
+            // 
             // toolStrip1
             // 
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -388,8 +386,6 @@
             this.pageSizeComboBox,
             this.toolStripLabel1,
             this.toolStripSeparator2,
-            this.toolStripButtonPlayVideo,
-            this.downloadVideoFile,
             this.toolStripSeparator1,
             this.saveToolStripButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
@@ -462,24 +458,6 @@
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
-            // 
-            // toolStripButtonPlayVideo
-            // 
-            this.toolStripButtonPlayVideo.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonPlayVideo.Image")));
-            this.toolStripButtonPlayVideo.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonPlayVideo.Name = "toolStripButtonPlayVideo";
-            this.toolStripButtonPlayVideo.Size = new System.Drawing.Size(88, 22);
-            this.toolStripButtonPlayVideo.Text = "播放视频";
-            this.toolStripButtonPlayVideo.Click += new System.EventHandler(this.toolStripButtonPlayVideo_Click);
-            // 
-            // downloadVideoFile
-            // 
-            this.downloadVideoFile.Image = ((System.Drawing.Image)(resources.GetObject("downloadVideoFile.Image")));
-            this.downloadVideoFile.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.downloadVideoFile.Name = "downloadVideoFile";
-            this.downloadVideoFile.Size = new System.Drawing.Size(88, 22);
-            this.downloadVideoFile.Text = "保存视频";
-            this.downloadVideoFile.Click += new System.EventHandler(this.downloadVideoFile_Click);
             // 
             // toolStripSeparator1
             // 
@@ -577,13 +555,11 @@
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private System.Windows.Forms.ToolStripComboBox pageSizeComboBox;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripButton toolStripButtonPlayVideo;
         private System.Windows.Forms.PictureBox wholeImage;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton saveToolStripButton;
         private System.Windows.Forms.Splitter splitter1;
-        private System.Windows.Forms.ToolStripButton downloadVideoFile;
         private System.Windows.Forms.SaveFileDialog saveVideoFileDialog;
     }
 }

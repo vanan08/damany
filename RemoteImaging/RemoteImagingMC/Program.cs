@@ -48,6 +48,8 @@ namespace RemoteImaging
             var mainForm = new MainForm();
             mainForm.loader = loader;
 
+            
+
             Application.Run(mainForm);
         }
 
