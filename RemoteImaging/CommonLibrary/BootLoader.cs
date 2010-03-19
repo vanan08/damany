@@ -12,6 +12,11 @@ namespace Damany.RemoteImaging.Common
             = new List<Damany.Imaging.Processors.FaceSearchController>();
         public Damany.PortraitCapturer.DAL.PersistenceService repository;
 
+        public BootLoader()
+        {
+            this.ReportProgress = delegate { };
+        }
+
         public void Load(string databaseRoot)
         {
             ConfigurationManager config = ConfigurationManager.GetDefault();

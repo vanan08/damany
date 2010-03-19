@@ -31,8 +31,6 @@ namespace Damany.PC.Shell.Winform
                 var camInfo = (CameraInfo)item.Tag;
                 this.Presenter.DeleteCamera(camInfo);
             }
-
-            
         }
 
 

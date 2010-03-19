@@ -10,6 +10,7 @@ using System.Timers;
 using System.Runtime.InteropServices;
 using Damany.Security.UsersAdmin;
 using Damany.RemoteImaging.Common.Forms;
+using Damany.PC.Domain;
 
 namespace RemoteImaging
 {
@@ -24,6 +25,11 @@ namespace RemoteImaging
                 throw new ArgumentNullException("mnger", "mnger is null.");
 
             InitializeComponent();
+
+            this.cameraConfigurer1.Add.Click += this.Add_Click;
+            this.cameraConfigurer1.Delete.Click += new EventHandler(Delete_Click);
+
+            this.Shown += this.OptionsForm_Shown;
 
             this.userManager = mnger;
         }
@@ -130,16 +136,6 @@ namespace RemoteImaging
         }
 
 
-        #region 弹出窗口的操作
-        public void ShowResDialog(int picIndex, string msg)
-        {
-            AlertSettingRes asr = new AlertSettingRes(msg, picIndex);
-            asr.HeightMax = 169;
-            asr.WidthMax = 175;
-            asr.ShowDialog(this);
-        }
-        #endregion
-
         private void textBox2_TextChanged(object sender, EventArgs e)
         {
         }
@@ -188,6 +184,53 @@ namespace RemoteImaging
             this.usersIsDirty = true;
 
         }
+
+        void Delete_Click(object sender, EventArgs e)
+        {
+            ListView camLists = this.cameraConfigurer1.camerasList;
+            if (camLists.SelectedItems.Count == 0) return;
+
+            foreach (ListViewItem item in camLists.SelectedItems)
+            {
+                var camInfo = (CameraInfo)item.Tag;
+                this.Presenter.DeleteCamera(camInfo);
+            }
+        }
+
+
+        public OptionPresenter Presenter { get; set; }
+
+        private void OptionsForm_Shown(object sender, EventArgs e)
+        {
+            this.Presenter.Start();
+        }
+
+        private void Add_Click(object sender, EventArgs e)
+        {
+            EditCamera form = new EditCamera();
+            var result = form.ShowDialog(this);
+            if (result != DialogResult.OK) return;
+
+            try
+            {
+                var cam = new CameraInfo();
+                cam.Description = "";
+                cam.Id = form.CameraId;
+                cam.Location = new Uri(form.Url);
+                cam.Provider = form.CameraType;
+
+                this.Presenter.AddCamera(cam);
+
+            }
+            catch (System.Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+
+            }
+
+
+        }
+
 
 
     }

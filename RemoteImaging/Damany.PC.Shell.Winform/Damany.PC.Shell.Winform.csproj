@@ -35,6 +35,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Damany.Component, Version=2.2.47.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Damany.Library\Damany.Component\bin\Debug\Damany.Component.dll</HintPath>
+    </Reference>
+    <Reference Include="Damany.Drawing, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Damany.Library\Damany.Drawing\bin\Debug\Damany.Drawing.dll</HintPath>
+    </Reference>
+    <Reference Include="Damany.Windows.Form, Version=1.4.50.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Damany.Library\Damany.Windows.Form\obj\Debug\Damany.Windows.Form.dll</HintPath>
+    </Reference>
     <Reference Include="MiscUtil, Version=1.0.0.0, Culture=neutral, PublicKeyToken=d3c42c4bfacf7596, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Library\MiscUtil\MiscUtil.dll</HintPath>
@@ -60,6 +72,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CameraLiveScreenPresenter.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -141,6 +154,13 @@
       <Project>{02B00EA5-D734-429C-BF58-44769501B940}</Project>
       <Name>FaceProcessingWrapper</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TestDataProvider\TestDataProvider.csproj">
+      <Project>{5783AFA7-05AD-4B52-8A0F-C120EADCCB9C}</Project>
+      <Name>TestDataProvider</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="UserControls\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

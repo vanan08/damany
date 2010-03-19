@@ -53,11 +53,14 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.textBox8 = new System.Windows.Forms.TextBox();
             this.validationProvider = new Microsoft.Practices.EnterpriseLibrary.Validation.Integration.WinForms.ValidationProvider();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.cameraConfigurer1 = new Damany.RemoteImaging.Common.Controls.CameraConfigurer();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupControl1
@@ -66,16 +69,16 @@
             this.groupControl1.Appearance.Options.UseBackColor = true;
             this.groupControl1.Controls.Add(this.label1);
             this.groupControl1.Controls.Add(this.pictureBox1);
-            this.groupControl1.Location = new System.Drawing.Point(-6, -24);
+            this.groupControl1.Location = new System.Drawing.Point(-6, -26);
             this.groupControl1.Name = "groupControl1";
-            this.groupControl1.Size = new System.Drawing.Size(574, 89);
+            this.groupControl1.Size = new System.Drawing.Size(574, 96);
             this.groupControl1.TabIndex = 0;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Tahoma", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label1.Location = new System.Drawing.Point(110, 45);
+            this.label1.Location = new System.Drawing.Point(110, 49);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(136, 24);
             this.label1.TabIndex = 1;
@@ -84,7 +87,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(44, 33);
+            this.pictureBox1.Location = new System.Drawing.Point(44, 36);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(48, 48);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -94,10 +97,11 @@
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Location = new System.Drawing.Point(5, 71);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Location = new System.Drawing.Point(5, 77);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(494, 339);
+            this.tabControl1.Size = new System.Drawing.Size(537, 414);
             this.tabControl1.TabIndex = 1;
             // 
             // tabPage1
@@ -106,19 +110,19 @@
             this.tabPage1.Controls.Add(this.addNewUserButton);
             this.tabPage1.Controls.Add(this.usesList);
             this.tabPage1.Controls.Add(this.label2);
-            this.tabPage1.Location = new System.Drawing.Point(4, 21);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(486, 314);
+            this.tabPage1.Size = new System.Drawing.Size(486, 341);
             this.tabPage1.TabIndex = 2;
             this.tabPage1.Text = "用户管理";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // deleteSelectedUser
             // 
-            this.deleteSelectedUser.Location = new System.Drawing.Point(110, 216);
+            this.deleteSelectedUser.Location = new System.Drawing.Point(110, 234);
             this.deleteSelectedUser.Name = "deleteSelectedUser";
-            this.deleteSelectedUser.Size = new System.Drawing.Size(88, 23);
+            this.deleteSelectedUser.Size = new System.Drawing.Size(88, 25);
             this.deleteSelectedUser.TabIndex = 3;
             this.deleteSelectedUser.Text = "删除选定用户";
             this.deleteSelectedUser.UseVisualStyleBackColor = true;
@@ -126,9 +130,9 @@
             // 
             // addNewUserButton
             // 
-            this.addNewUserButton.Location = new System.Drawing.Point(29, 216);
+            this.addNewUserButton.Location = new System.Drawing.Point(29, 234);
             this.addNewUserButton.Name = "addNewUserButton";
-            this.addNewUserButton.Size = new System.Drawing.Size(75, 23);
+            this.addNewUserButton.Size = new System.Drawing.Size(75, 25);
             this.addNewUserButton.TabIndex = 2;
             this.addNewUserButton.Text = "添加新用户";
             this.addNewUserButton.UseVisualStyleBackColor = true;
@@ -137,18 +141,17 @@
             // usesList
             // 
             this.usesList.FormattingEnabled = true;
-            this.usesList.ItemHeight = 12;
-            this.usesList.Location = new System.Drawing.Point(29, 50);
+            this.usesList.Location = new System.Drawing.Point(29, 54);
             this.usesList.Name = "usesList";
-            this.usesList.Size = new System.Drawing.Size(417, 160);
+            this.usesList.Size = new System.Drawing.Size(417, 173);
             this.usesList.TabIndex = 1;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(27, 26);
+            this.label2.Location = new System.Drawing.Point(27, 28);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(65, 12);
+            this.label2.Size = new System.Drawing.Size(67, 13);
             this.label2.TabIndex = 0;
             this.label2.Text = "用户列表：";
             // 
@@ -156,9 +159,9 @@
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOK.Location = new System.Drawing.Point(344, 416);
+            this.buttonOK.Location = new System.Drawing.Point(394, 497);
             this.buttonOK.Name = "buttonOK";
-            this.buttonOK.Size = new System.Drawing.Size(75, 21);
+            this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 2;
             this.buttonOK.Text = "确定";
             this.buttonOK.UseVisualStyleBackColor = true;
@@ -168,9 +171,9 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(425, 416);
+            this.buttonCancel.Location = new System.Drawing.Point(475, 497);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(75, 21);
+            this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 3;
             this.buttonCancel.Text = "取消";
             this.buttonCancel.UseVisualStyleBackColor = true;
@@ -206,7 +209,7 @@
             // 
             this.textBox5.Location = new System.Drawing.Point(400, 49);
             this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(51, 21);
+            this.textBox5.Size = new System.Drawing.Size(51, 20);
             this.textBox5.TabIndex = 8;
             // 
             // label14
@@ -222,7 +225,7 @@
             // 
             this.textBox6.Location = new System.Drawing.Point(294, 49);
             this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(51, 21);
+            this.textBox6.Size = new System.Drawing.Size(51, 20);
             this.textBox6.TabIndex = 6;
             // 
             // label15
@@ -238,7 +241,7 @@
             // 
             this.textBox7.Location = new System.Drawing.Point(180, 49);
             this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(51, 21);
+            this.textBox7.Size = new System.Drawing.Size(51, 20);
             this.textBox7.TabIndex = 4;
             // 
             // label16
@@ -271,7 +274,7 @@
             // 
             this.textBox8.Location = new System.Drawing.Point(83, 49);
             this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new System.Drawing.Size(51, 21);
+            this.textBox8.Size = new System.Drawing.Size(51, 20);
             this.textBox8.TabIndex = 0;
             // 
             // validationProvider
@@ -280,12 +283,30 @@
             this.validationProvider.RulesetName = "";
             this.validationProvider.SourceTypeName = "Damany.Security.";
             // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.cameraConfigurer1);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(529, 388);
+            this.tabPage2.TabIndex = 3;
+            this.tabPage2.Text = "摄像头管理";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // cameraConfigurer1
+            // 
+            this.cameraConfigurer1.Location = new System.Drawing.Point(15, 6);
+            this.cameraConfigurer1.Name = "cameraConfigurer1";
+            this.cameraConfigurer1.Size = new System.Drawing.Size(496, 360);
+            this.cameraConfigurer1.TabIndex = 0;
+            // 
             // OptionsForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(504, 440);
+            this.ClientSize = new System.Drawing.Size(554, 523);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonOK);
             this.Controls.Add(this.tabControl1);
@@ -305,6 +326,7 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            this.tabPage2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -335,5 +357,7 @@
         private System.Windows.Forms.Button addNewUserButton;
         private System.Windows.Forms.ListBox usesList;
         private Microsoft.Practices.EnterpriseLibrary.Validation.Integration.WinForms.ValidationProvider validationProvider;
+        private System.Windows.Forms.TabPage tabPage2;
+        public Damany.RemoteImaging.Common.Controls.CameraConfigurer cameraConfigurer1;
     }
 }
