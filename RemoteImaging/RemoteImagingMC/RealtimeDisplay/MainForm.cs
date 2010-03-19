@@ -400,6 +400,8 @@ namespace RemoteImaging.RealtimeDisplay
         private void videoSearch_Click(object sender, EventArgs e)
         {
             Query.FaceCompare form = new Query.FaceCompare();
+            var presenter = new FaceComparePresenter(form, loader.repository);
+            presenter.Start();
             form.ShowDialog(this);
         }
 

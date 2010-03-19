@@ -98,7 +98,6 @@
     <Compile Include="Controls\FaceSearchSetting.Designer.cs">
       <DependentUpon>FaceSearchSetting.cs</DependentUpon>
     </Compile>
-    <Compile Include="DateTimeRange.cs" />
     <Compile Include="Forms\AddNewUserForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -205,7 +204,7 @@
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_UpdateFileVersion="True" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_BuildVersioningStyle="None.None.Increment.None" BuildVersion_ConfigurationName="Release" BuildVersion_BuildAction="ReBuild" />
+      <UserProperties BuildVersion_BuildAction="ReBuild" BuildVersion_ConfigurationName="Release" BuildVersion_BuildVersioningStyle="None.None.Increment.None" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_UpdateFileVersion="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
