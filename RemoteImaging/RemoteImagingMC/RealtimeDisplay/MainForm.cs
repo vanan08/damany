@@ -399,12 +399,8 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void videoSearch_Click(object sender, EventArgs e)
         {
-            var videoQueryForm = new RemoteImaging.Query.VideoQueryForm();
-            videoQueryForm.Hosts = this.hostsPool;
-
-            var presenter = new VideoQueryPresenter(videoQueryForm);
-
-            videoQueryForm.ShowDialog(this);
+            Query.FaceCompare form = new Query.FaceCompare();
+            form.ShowDialog(this);
         }
 
         Thread thread = null;
