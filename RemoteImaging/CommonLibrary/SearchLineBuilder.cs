@@ -14,8 +14,6 @@ namespace Damany.RemoteImaging.Common
             private static PersistenceService persistenceService = null;
             static System.Threading.AutoResetEvent exit = new System.Threading.AutoResetEvent(false);
 
-
-
             public static Damany.Imaging.Processors.FaceSearchController BuildNewSearchLine(CameraInfo cam)
             {
                 var source = Damany.Cameras.Factory.NewFrameStream(cam);

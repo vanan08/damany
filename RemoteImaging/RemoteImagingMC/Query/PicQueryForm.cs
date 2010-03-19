@@ -428,25 +428,7 @@ namespace RemoteImaging.Query
         }
 
 
-        private void ReceiveVideoStream()
-        {
-            if (this.axVLCPlugin21.playlist.isPlaying)
-            {
-                this.axVLCPlugin21.playlist.stop();
-                System.Threading.Thread.Sleep(20);
-            }
-
-            this.axVLCPlugin21.playlist.items.clear();
-
-            this.axVLCPlugin21.playlist.items.clear();
-
-            string mrl = string.Format("udp://@{0}", "239.255.12.12");
-
-            int idx = this.axVLCPlugin21.playlist.add(mrl, null, "-vvv");
-
-            this.axVLCPlugin21.playlist.playItem(idx);
-        }
-
+      
 
         public void ShowErrorMessage(object state)
         {
@@ -492,7 +474,6 @@ namespace RemoteImaging.Query
                 return;
             }
 
-            this.ReceiveVideoStream();
 
             try
             {
@@ -541,14 +522,6 @@ namespace RemoteImaging.Query
             SaveSelectedImage();
         }
 
-        void EnsureClosePlayer()
-        {
-            if (this.axVLCPlugin21.playlist.isPlaying)
-            {
-                this.axVLCPlugin21.playlist.stop();
-                System.Threading.Thread.Sleep(1000);
-            }
-        }
 
 
         private void PicQueryForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -577,11 +550,7 @@ namespace RemoteImaging.Query
 
         private void PicQueryForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            if (this.axVLCPlugin21.playlist.isPlaying)
-            {
-                this.axVLCPlugin21.playlist.stop();
-                System.Threading.Thread.Sleep(1000);
-            }
+            
         }
     }
 }

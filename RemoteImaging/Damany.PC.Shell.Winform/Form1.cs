@@ -18,17 +18,47 @@ namespace Damany.PC.Shell.Winform
         public Form1()
         {
             InitializeComponent();
+
+
+            for (int i = 0; i < 9;++i )
+            {
+                var pip = new Damany.Windows.Form.PipPictureBox();
+                pip.Text = (i+1).ToString();
+                pip.Tag = i;
+                pip.Image = TestDataProvider.Data.GetFrame().ToBitmap();
+                pip.SmallImage = TestDataProvider.Data.GetPortrait().ToBitmap();
+
+                pip.Dock = DockStyle.Fill;
+
+                this.tableLayoutPanel1.Controls.Add(pip);
+                this.Pips.Add(pip);
+            }
         }
 
 
-        public void SetPortrait(System.Drawing.Image img)
+        public void SetPortrait(System.Drawing.Image img, int cameraId)
         {
-            this.SetImage(img, this.portrait);
+            if (this.InvokeRequired)
+            {
+                Action<Image, int> action = this.SetPortrait;
+
+                this.BeginInvoke(action, img, cameraId);
+                return;
+            }
+
+            foreach (var pip in this.Pips)
+            {
+                int id = (int) pip.Tag ;
+                if (id == cameraId)
+                {
+                    pip.SmallImage = img;
+                }
+            }
         }
 
-        public void SetFrame(System.Drawing.Image img)
+        public void SetFrame(System.Drawing.Image img, int cameraId)
         {
-            this.SetImage(img, this.frame);
+            //this.SetImage(img, this.frame);
         }
 
         private void SetImage(System.Drawing.Image img, PictureBox box)
@@ -77,7 +107,7 @@ namespace Damany.PC.Shell.Winform
                         g.DrawString(p.CapturedFrom.Id.ToString() +"-" + p.CapturedAt.ToShortTimeString() , font, Brushes.Black, 0, 0);
                     }
 
-                    this.SetFrame(frame);
+                    //this.SetFrame(frame);
                     p.Dispose();
                 });
             }
@@ -90,7 +120,7 @@ namespace Damany.PC.Shell.Winform
                     var g = Graphics.FromImage(portrait);
                     g.DrawRectangle(Pens.Black, p.FaceBounds.ToRectangle());
                     g.Dispose();
-                    this.SetPortrait(portrait);
+                   // this.SetPortrait(portrait);
                     p.Dispose();
                 });
             }
@@ -324,5 +354,9 @@ namespace Damany.PC.Shell.Winform
         {
             this.repository.GetFrames(new Damany.Util.DateTimeRange(DateTime.Now.AddDays(-1), DateTime.Now));
         }
+
+        List<Damany.Windows.Form.PipPictureBox> Pips = 
+            new List<Damany.Windows.Form.PipPictureBox>();
+
     }
 }

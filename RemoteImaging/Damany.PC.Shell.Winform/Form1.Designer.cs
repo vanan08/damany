@@ -29,39 +29,15 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            this.frame = new System.Windows.Forms.PictureBox();
-            this.portrait = new System.Windows.Forms.PictureBox();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.options = new System.Windows.Forms.ToolStripButton();
             this.startButton = new System.Windows.Forms.ToolStripButton();
             this.slowDown = new System.Windows.Forms.ToolStripButton();
             this.speedUp = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
-            ((System.ComponentModel.ISupportInitialize)(this.frame)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.portrait)).BeginInit();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // frame
-            // 
-            this.frame.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.frame.Location = new System.Drawing.Point(0, 0);
-            this.frame.Name = "frame";
-            this.frame.Size = new System.Drawing.Size(618, 383);
-            this.frame.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.frame.TabIndex = 0;
-            this.frame.TabStop = false;
-            // 
-            // portrait
-            // 
-            this.portrait.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.portrait.BackColor = System.Drawing.Color.Transparent;
-            this.portrait.Location = new System.Drawing.Point(476, 255);
-            this.portrait.Name = "portrait";
-            this.portrait.Size = new System.Drawing.Size(142, 128);
-            this.portrait.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.portrait.TabIndex = 1;
-            this.portrait.TabStop = false;
             // 
             // toolStrip1
             // 
@@ -73,7 +49,7 @@
             this.toolStripButton1});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(618, 26);
+            this.toolStrip1.Size = new System.Drawing.Size(660, 25);
             this.toolStrip1.TabIndex = 2;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -82,7 +58,7 @@
             this.options.Image = ((System.Drawing.Image)(resources.GetObject("options.Image")));
             this.options.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.options.Name = "options";
-            this.options.Size = new System.Drawing.Size(55, 23);
+            this.options.Size = new System.Drawing.Size(58, 22);
             this.options.Text = "选项";
             this.options.Click += new System.EventHandler(this.options_Click);
             // 
@@ -91,7 +67,7 @@
             this.startButton.Image = ((System.Drawing.Image)(resources.GetObject("startButton.Image")));
             this.startButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.startButton.Name = "startButton";
-            this.startButton.Size = new System.Drawing.Size(55, 23);
+            this.startButton.Size = new System.Drawing.Size(58, 22);
             this.startButton.Text = "启动";
             this.startButton.Click += new System.EventHandler(this.startButton_Click);
             // 
@@ -100,7 +76,7 @@
             this.slowDown.Image = ((System.Drawing.Image)(resources.GetObject("slowDown.Image")));
             this.slowDown.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.slowDown.Name = "slowDown";
-            this.slowDown.Size = new System.Drawing.Size(81, 23);
+            this.slowDown.Size = new System.Drawing.Size(88, 22);
             this.slowDown.Text = "降低速度";
             this.slowDown.Click += new System.EventHandler(this.slowDown_Click);
             // 
@@ -109,7 +85,7 @@
             this.speedUp.Image = ((System.Drawing.Image)(resources.GetObject("speedUp.Image")));
             this.speedUp.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.speedUp.Name = "speedUp";
-            this.speedUp.Size = new System.Drawing.Size(81, 23);
+            this.speedUp.Size = new System.Drawing.Size(88, 22);
             this.speedUp.Text = "加快速度";
             this.speedUp.Click += new System.EventHandler(this.speedUp_Click);
             // 
@@ -119,23 +95,36 @@
             this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
             this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(23, 23);
+            this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
             this.toolStripButton1.Text = "toolStripButton1";
             this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 3;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 25);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 3;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(660, 398);
+            this.tableLayoutPanel1.TabIndex = 4;
+            // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(618, 383);
+            this.ClientSize = new System.Drawing.Size(660, 423);
+            this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.toolStrip1);
-            this.Controls.Add(this.portrait);
-            this.Controls.Add(this.frame);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Shown += new System.EventHandler(this.Form1_Shown);
-            ((System.ComponentModel.ISupportInitialize)(this.frame)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.portrait)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -145,14 +134,13 @@
 
         #endregion
 
-        private System.Windows.Forms.PictureBox frame;
-        private System.Windows.Forms.PictureBox portrait;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton options;
         private System.Windows.Forms.ToolStripButton startButton;
         private System.Windows.Forms.ToolStripButton slowDown;
         private System.Windows.Forms.ToolStripButton speedUp;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
     }
 }
 

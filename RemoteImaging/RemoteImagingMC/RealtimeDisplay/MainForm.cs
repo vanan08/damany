@@ -25,13 +25,15 @@ using Microsoft.Practices.EnterpriseLibrary.ExceptionHandling;
 
 namespace RemoteImaging.RealtimeDisplay
 {
-    public partial class MainForm : Form, IHostsPoolObserver
+    public partial class MainForm : Form, IHostsPoolObserver, Damany.Imaging.Common.IPortraitHandler
     {
         private OptionsForm optionsForm;
         Configuration config = Configuration.Instance;
         System.Windows.Forms.Timer time = null;
         System.Collections.Generic.Dictionary<Cell, LiveClient> CellCameraMap =
             new System.Collections.Generic.Dictionary<Cell, LiveClient>();
+
+        public BootLoader loader;
 
 
         public MainForm()
@@ -41,6 +43,20 @@ namespace RemoteImaging.RealtimeDisplay
             if (!string.IsNullOrEmpty(Program.directory))
             {
                 this.Text += "-[" + Program.directory + "]";
+            }
+
+            for (int i = 0; i < 9; ++i)
+            {
+                var pip = new Damany.Windows.Form.PipPictureBox();
+                pip.Text = (i + 1).ToString();
+                pip.Tag = i;
+                pip.Image = TestDataProvider.Data.GetFrame().ToBitmap();
+                pip.SmallImage = TestDataProvider.Data.GetPortrait().ToBitmap();
+
+                pip.Dock = DockStyle.Fill;
+
+                this.tableLayoutPanel1.Controls.Add(pip);
+                this.Pips.Add(pip);
             }
 
 
@@ -206,16 +222,7 @@ namespace RemoteImaging.RealtimeDisplay
             get
             {
                 ImageDetail img = null;
-                if (this.squareListView1.LastSelectedCell != null)
-                {
-                    Cell c = this.squareListView1.LastSelectedCell;
-                    if (!string.IsNullOrEmpty(c.Path))
-                    {
-                        img = ImageDetail.FromPath(c.Path);
-                    }
-
-                }
-
+               
                 return img;
             }
 
@@ -231,17 +238,7 @@ namespace RemoteImaging.RealtimeDisplay
 
         public void ShowImages(ImageDetail[] images)
         {
-            ImageCell[] cells = new ImageCell[images.Length];
-            for (int i = 0; i < cells.Length; i++)
-            {
-                Image img = Damany.Util.Extensions.MiscHelper.FromFileBuffered(images[i].Path);
-                string text = images[i].CaptureTime.ToString();
-                ImageCell newCell = new ImageCell() { Image = img, Path = images[i].Path, Text = text, Tag = null };
-                cells[i] = newCell;
-            }
 
-
-            this.squareListView1.ShowImages(cells);
 
         }
 
@@ -251,7 +248,7 @@ namespace RemoteImaging.RealtimeDisplay
 
         #region IImageScreen Members
 
-        public Camera[] Cameras
+        public IList<Damany.PC.Domain.CameraInfo> Cameras
         {
             set
             {
@@ -264,7 +261,7 @@ namespace RemoteImaging.RealtimeDisplay
                     SelectedImageIndex = 0
                 };
 
-                Array.ForEach(value, camera =>
+                value.ToList().ForEach(camera =>
                 {
                     TreeNode camNode = new TreeNode()
                     {
@@ -304,13 +301,13 @@ namespace RemoteImaging.RealtimeDisplay
                     };
                     TreeNode ipNode = new TreeNode()
                     {
-                        Text = "IP地址:" + camera.IpAddress,
+                        Text = "IP地址:" + camera.Location.Host,
                         ImageIndex = 4,
                         SelectedImageIndex = 4
                     };
                     TreeNode idNode = new TreeNode()
                     {
-                        Text = "编号:" + camera.ID.ToString(),
+                        Text = "编号:" + camera.Id.ToString(),
                         ImageIndex = 5,
                         SelectedImageIndex = 5
                     };
@@ -436,6 +433,8 @@ namespace RemoteImaging.RealtimeDisplay
             if (this.optionsForm == null)
             {
                 this.optionsForm = new OptionsForm(this.UsersManager);
+                this.optionsForm.Presenter =
+                    new OptionPresenter(Damany.RemoteImaging.Common.ConfigurationManager.GetDefault(), this.optionsForm);
             }
 
 
@@ -447,7 +446,7 @@ namespace RemoteImaging.RealtimeDisplay
 
                 InitStatusBar();
 
-                this.Cameras = optionsForm.Cameras.ToArray<Camera>();
+                this.Cameras = ConfigurationManager.GetDefault().GetCameras();
 
                 Properties.Settings setting = Properties.Settings.Default;
                 var minFaceWidth = int.Parse(setting.MinFaceWidth);
@@ -458,27 +457,27 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void column1by1_Click(object sender, EventArgs e)
         {
-            this.squareListView1.NumberOfColumns = 1;
+            
         }
 
         private void column2by2_Click(object sender, EventArgs e)
         {
-            this.squareListView1.NumberOfColumns = 2;
+            
         }
 
         private void column3by3_Click(object sender, EventArgs e)
         {
-            this.squareListView1.NumberOfColumns = 3;
+            
         }
 
         private void column4by4_Click(object sender, EventArgs e)
         {
-            this.squareListView1.NumberOfColumns = 4;
+            
         }
 
         private void column5by5_Click(object sender, EventArgs e)
         {
-            this.squareListView1.NumberOfColumns = 5;
+            
         }
 
         private void InitStatusBar()
@@ -526,12 +525,7 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void ShowPic()
         {
-            if (this.squareListView1.SelectedCell == null)
-                return;
-            string p = this.squareListView1.SelectedCell.Path;
-            if (p == null) return;
-
-            this.ShowDetailPic(ImageDetail.FromPath(p));
+            
         }
 
 
@@ -545,20 +539,7 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void playRelateVideo_Click(object sender, EventArgs e)
         {
-            Cell c = this.squareListView1.SelectedCell;
-            if (c == null || c.Path == null) return;
-
-            ImageDetail imgInfo = ImageDetail.FromPath(c.Path);
-
-            string[] videos = FileSystemStorage.VideoFilesOfImage(imgInfo);
-
-            if (videos.Length == 0)
-            {
-                MessageBox.Show(this, "没有找到相关视频", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-
-            VideoPlayer.PlayVideosAsync(videos);
+            
         }
 
 
@@ -651,66 +632,17 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void AddLayoutMenuItem(string text, int i)
         {
-            var layoutMode = new ToolStripMenuItem(text);
-            layoutMode.Click += new EventHandler(layoutMode_Click);
-
-            layoutMode.Checked = this.squareListView1.NumberOfColumns == i;
-            layoutMode.Tag = i;
-            layoutMode.Image = this.menuItemImageList.Images[i- 1];
-
-            this.squareViewContextMenu.Items.Add(layoutMode);
+           
         }
         private void squareViewContextMenu_Opening(object sender, CancelEventArgs e)
         {
-            Cell c = this.squareListView1.SelectedCell;
-            if (c == null) 
-            {
-                e.Cancel = true;
-                return;
-            }
-
-
-            this.squareViewContextMenu.Items.Clear();
-            
-            foreach (TreeNode node in this.hostsTree.Nodes)
-            {
-                var host = node.Tag as Host;
-
-                ToolStripMenuItem mi = new ToolStripMenuItem(host.Config.Name);
-                mi.Tag = host;
-                mi.Click += new EventHandler(mi_Click);
-
-                if (CellCameraMap.ContainsKey(c))
-                {
-                    if ((CellCameraMap[c].Tag as ConnectInfo).Source == host)
-                    {
-                        mi.Enabled = false;
-                    }
-
-                }
-
-                this.squareViewContextMenu.Items.Add(mi);
-            }
-
-            if (this.squareViewContextMenu.Items.Count > 0)
-            {
-                this.squareViewContextMenu.Items.Add(new ToolStripSeparator());
-            }
-
-            AddLayoutMenuItem("单屏", 1);
-            AddLayoutMenuItem("四分屏", 2);
-            AddLayoutMenuItem("九分屏", 3);
+           
 
         }
 
         void layoutMode_Click(object sender, EventArgs e)
         {
-            ToolStripMenuItem mi = sender as ToolStripMenuItem;
-
-            int i = (int) mi.Tag;
-
-            this.squareListView1.NumberOfColumns = i;
-            this.squareListView1.NumberofRows = i;
+            
         }
 
         private void ConnectCallback(IAsyncResult ar)
@@ -753,33 +685,6 @@ namespace RemoteImaging.RealtimeDisplay
 
         void mi_Click(object sender, EventArgs e)
         {
-            Cell c = this.squareListView1.SelectedCell;
-
-            if (c == null) return;
-
-            ToolStripMenuItem menuItem = sender as ToolStripMenuItem;
-
-            Host host = menuItem.Tag as Host;
-
-            TcpClient tcp = new TcpClient();
-            System.Net.IPAddress ip = host.Ip;
-            System.Net.IPEndPoint ep = new System.Net.IPEndPoint(ip, 20000);
-            try
-            {
-                ConnectInfo info = new ConnectInfo() { Socket = tcp, Target = c, Source = host };
-
-                LiveClient lc = new LiveClient(tcp, host);
-                lc.Tag = info;
-
-                tcp.BeginConnect(ip, 20000, this.ConnectCallback, lc);
-
-
-            }
-            catch (System.Net.Sockets.SocketException)
-            {
-                MessageBox.Show(this, "无法连接, 请检查设备", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
 
         }
 
@@ -800,32 +705,12 @@ namespace RemoteImaging.RealtimeDisplay
 
         void lc_ImageReceived(object sender, ImageCapturedEventArgs e)
         {
-            ConnectInfo c = (sender as LiveClient).Tag as ConnectInfo;
-
-            if (this.InvokeRequired)
-            {
-                Action<Damany.RemoteImaging.Common.Frame> updateImage = frame =>
-                    {
-                        UpdateCellProperty(frame, c);
-                    };
-
-                this.BeginInvoke(updateImage, e.FrameCaptured);
-            }
-            else
-            {
-                UpdateCellProperty(e.FrameCaptured, c);
-            }
-
-            this.squareListView1.Invalidate(c.Target.Rec);
+            
         }
 
         private void squareListView1_MouseDown(object sender, MouseEventArgs e)
         {
-            var cell = this.squareListView1.HitTest(e.Location);
-            if (cell != null)
-            {
-                this.squareListView1.SelectedCell = cell;
-            }
+           
         }
 
         public void AddHost(Host h)
@@ -888,29 +773,33 @@ namespace RemoteImaging.RealtimeDisplay
             if (socket.Connected)
             {
                 var receiver = new ObjectReceiver(socket);
-                receiver.ObjectReceived += (sender, obj) => this.UpdateImage(obj.Value);
                 receiver.Start();
             }
 
         }
 
-        private void UpdateImage(object o)
+        private void UpdateLiveImage(Image img, int cameraId)
         {
-            if (InvokeRequired)
+            if (this.InvokeRequired)
             {
-                Action<object> ac = this.UpdateImage;
-
-                this.BeginInvoke(ac, o);
+                Action<Image, int> action = this.UpdateLiveImage;
+                this.BeginInvoke(action, img, cameraId);
                 return;
             }
 
-            if (o is Damany.RemoteImaging.Common.Frame)
-            {
-                Damany.RemoteImaging.Common.Frame f = o as Damany.RemoteImaging.Common.Frame;
 
-                this.squareListView1[f.CameraID] = f.image;
-                this.squareListView1.Invalidate();
+            foreach (var pip in Pips)
+            {
+                int id = (int) pip.Tag;
+
+                if (id == cameraId)
+                {
+                    pip.Image = (Image) img.Clone();
+                }
             }
+
+            img.Dispose();
+            
         }
 
         HostsPool hostsPool;
@@ -922,13 +811,33 @@ namespace RemoteImaging.RealtimeDisplay
 
             hostsPool.Start();
 
+            foreach (var c in loader.controllers)
+            {
+                c.PortraitFinder.AddListener(this);
+
+                c.Start();
+                c.Worker.OnWorkItemIsDone += obj =>
+                {
+                    var frame = obj as Damany.Imaging.Common.Frame;
+                    try
+                    {
+                        var img = frame.GetImage().ToBitmap();
+                        this.UpdateLiveImage(img, frame.CapturedFrom.Id);
+                    }
+                    catch (System.Exception ex)
+                    {
+                    	
+                    }
+                };
+            }
+
+            this.Cameras = ConfigurationManager.GetDefault().GetCameras();
+
         }
 
         private void HidePropertyForm(bool hide)
         {
             this.splitContainer1.Panel2Collapsed = hide;
-
-
         }
 
         private void propertyToolBar_Click(object sender, EventArgs e)
@@ -1040,6 +949,91 @@ namespace RemoteImaging.RealtimeDisplay
         {
 
         }
+
+        public void ShowPortrait(List<Damany.Imaging.Common.Portrait> portraits)
+        {
+            if (this.InvokeRequired)
+            {
+                Action<List<Damany.Imaging.Common.Portrait>> action = this.ShowPortrait;
+
+                this.BeginInvoke(action, portraits);
+                return;
+            }
+
+            if (portraits.Count > 0)
+            {
+                portraits.ToList().ForEach(p =>
+                {
+                    var img = p.GetImage().ToBitmap();
+                    foreach (var pip in this.Pips)
+                    {
+                        int index = (int) pip.Tag;
+                        if (index == p.CapturedFrom.Id)
+                        {
+                            pip.SmallImage = (Image) img.Clone();
+                        }
+                    }
+
+                    img.Dispose();
+                    p.Dispose();
+                });
+            }
+
+        }
+
+
+        List<Damany.Windows.Form.PipPictureBox> Pips =
+    new List<Damany.Windows.Form.PipPictureBox>();
+
+
+        #region IPortraitHandler Members
+
+        public void Initialize()
+        {
+        }
+
+        public void Start()
+        {
+        }
+
+        public void HandlePortraits(IList<Damany.Imaging.Common.Frame> motionFrames, 
+            IList<Damany.Imaging.Common.Portrait> portraits)
+        {
+            this.ShowPortrait(portraits.ToList());
+        }
+
+        public void Stop()
+        {
+        }
+
+        public string Description
+        {
+            get { return ""; }
+        }
+
+        public string Author
+        {
+            get { return ""; }
+        }
+
+        public Version Version
+        {
+            get { return new Version(); }
+        }
+
+        public bool WantCopy
+        {
+            get { return true; }
+        }
+
+        public bool WantFrame
+        {
+            get { return false; }
+        }
+
+        public event EventHandler<MiscUtil.EventArgs<Exception>> Stopped;
+
+        #endregion
     }
 
 
