@@ -49,7 +49,7 @@ namespace RemoteImaging.RealtimeDisplay
             {
                 var pip = new Damany.Windows.Form.PipPictureBox();
                 pip.Text = (i + 1).ToString();
-                pip.Tag = i;
+                pip.Tag = i+1;
                 pip.Image = TestDataProvider.Data.GetFrame().ToBitmap();
                 pip.SmallImage = TestDataProvider.Data.GetPortrait().ToBitmap();
 
@@ -757,9 +757,7 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void testButton_Click(object sender, EventArgs e)
         {
-            TcpClient client = new TcpClient();
-            client.BeginConnect(this.IpAddress.Text, 8000, this.TcpConnected, client);
-            
+           
 
         }
 

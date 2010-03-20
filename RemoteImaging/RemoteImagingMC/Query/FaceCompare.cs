@@ -22,6 +22,18 @@ namespace RemoteImaging.Query
             this.compareButton.Click += new EventHandler(compareButton_Click);
         }
 
+        public void EnableCompareButton(bool enable)
+        {
+            if (this.InvokeRequired)
+            {
+                Action<bool> action = this.EnableCompareButton;
+                this.BeginInvoke(action, enable);
+                return;
+            }
+
+            this.compareButton.Enabled = enable;
+        }
+
         void compareButton_Click(object sender, EventArgs e)
         {
             this.presenter.CompareClicked();

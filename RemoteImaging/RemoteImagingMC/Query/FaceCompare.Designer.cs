@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.compareButton = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.currentPic = new System.Windows.Forms.PictureBox();
@@ -42,11 +43,10 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.targetPic = new System.Windows.Forms.PictureBox();
             this.splitter1 = new System.Windows.Forms.Splitter();
-            this.faceList = new System.Windows.Forms.ListView();
+            this.faceList = new Damany.RemoteImaging.Common.Controls.DoubleBufferedListView();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.label4 = new System.Windows.Forms.Label();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.compareButton = new System.Windows.Forms.Button();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.panel1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.currentPic)).BeginInit();
@@ -70,6 +70,16 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(200, 782);
             this.panel1.TabIndex = 0;
+            // 
+            // compareButton
+            // 
+            this.compareButton.Location = new System.Drawing.Point(63, 476);
+            this.compareButton.Name = "compareButton";
+            this.compareButton.Size = new System.Drawing.Size(75, 23);
+            this.compareButton.TabIndex = 5;
+            this.compareButton.Text = "比对";
+            this.compareButton.UseVisualStyleBackColor = true;
+            this.compareButton.Click += new System.EventHandler(this.button1_Click);
             // 
             // label3
             // 
@@ -214,6 +224,12 @@
             this.faceList.TabIndex = 2;
             this.faceList.UseCompatibleStateImageBehavior = false;
             // 
+            // imageList1
+            // 
+            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth24Bit;
+            this.imageList1.ImageSize = new System.Drawing.Size(128, 128);
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            // 
             // label4
             // 
             this.label4.BackColor = System.Drawing.Color.SteelBlue;
@@ -232,22 +248,6 @@
             this.openFileDialog1.Filter = "Jpeg 文件|*.jpg";
             this.openFileDialog1.RestoreDirectory = true;
             // 
-            // compareButton
-            // 
-            this.compareButton.Location = new System.Drawing.Point(63, 476);
-            this.compareButton.Name = "compareButton";
-            this.compareButton.Size = new System.Drawing.Size(75, 23);
-            this.compareButton.TabIndex = 5;
-            this.compareButton.Text = "比对";
-            this.compareButton.UseVisualStyleBackColor = true;
-            this.compareButton.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // imageList1
-            // 
-            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth24Bit;
-            this.imageList1.ImageSize = new System.Drawing.Size(128, 128);
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            // 
             // FaceCompare
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -258,7 +258,9 @@
             this.Controls.Add(this.splitter1);
             this.Controls.Add(this.panel1);
             this.Name = "FaceCompare";
+            this.ShowInTaskbar = false;
             this.Text = "人脸比对查询";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.panel1.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.currentPic)).EndInit();
@@ -287,7 +289,7 @@
         private DevExpress.XtraEditors.TimeEdit searchFrom;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Splitter splitter1;
-        private System.Windows.Forms.ListView faceList;
+        private Damany.RemoteImaging.Common.Controls.DoubleBufferedListView faceList;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.Button compareButton;
