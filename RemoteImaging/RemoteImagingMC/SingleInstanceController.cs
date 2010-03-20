@@ -73,14 +73,28 @@ namespace RemoteImaging
 
         void log_LoginButtonClick(object sender, EventArgs e)
         {
-            Login login = (Login) (sender as Button).Parent;
+            Login login = (Login)(sender as Button).Parent;
             login.Close();
         }
 
         protected override void OnCreateMainForm()
         {
+            var loader =
+                     new Damany.RemoteImaging.Common.BootLoader();
+
+            try
+            {
+                loader.Load(@"d:\ImageOutput");
+            }
+            catch (System.Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+
+            }
+
             var mainForm = new RealtimeDisplay.MainForm();
             mainForm.UsersManager = Program.usersManager;
+            mainForm.loader = loader;
 
             MainForm = mainForm;
         }

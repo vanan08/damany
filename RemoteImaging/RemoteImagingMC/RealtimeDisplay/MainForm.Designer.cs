@@ -52,8 +52,6 @@
             this.options = new System.Windows.Forms.ToolStripButton();
             this.aboutButton = new System.Windows.Forms.ToolStripLabel();
             this.propertyToolBar = new System.Windows.Forms.ToolStripButton();
-            this.IpAddress = new System.Windows.Forms.ToolStripTextBox();
-            this.testButton = new System.Windows.Forms.ToolStripButton();
             this.alertControl1 = new DevExpress.XtraBars.Alerter.AlertControl(this.components);
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
@@ -64,9 +62,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.hostConfig1 = new RemoteImaging.Forms.HostConfig();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.sanyoNetCamera1 = new Damany.Windows.Form.SanyoNetCamera();
             this.panelControl3 = new DevExpress.XtraEditors.PanelControl();
             this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
@@ -77,10 +73,12 @@
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
-            this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
             this.splitterItem1 = new DevExpress.XtraLayout.SplitterItem();
             this.menuItemImageList = new System.Windows.Forms.ImageList(this.components);
+            this.hostConfig1 = new RemoteImaging.Forms.HostConfig();
+            this.sanyoNetCamera1 = new Damany.Windows.Form.SanyoNetCamera();
+            this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
             this.statusStrip1.SuspendLayout();
             this.squareViewContextMenu.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -107,9 +105,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.splitterItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.splitterItem1)).BeginInit();
             this.SuspendLayout();
             // 
             // statusStrip1
@@ -259,9 +257,7 @@
             this.toolStripSeparator1,
             this.options,
             this.aboutButton,
-            this.propertyToolBar,
-            this.IpAddress,
-            this.testButton});
+            this.propertyToolBar});
             this.mainToolStrip.Location = new System.Drawing.Point(0, 64);
             this.mainToolStrip.Name = "mainToolStrip";
             this.mainToolStrip.Size = new System.Drawing.Size(897, 29);
@@ -313,21 +309,6 @@
             this.propertyToolBar.Size = new System.Drawing.Size(62, 26);
             this.propertyToolBar.Text = "属性";
             this.propertyToolBar.Click += new System.EventHandler(this.propertyToolBar_Click);
-            // 
-            // IpAddress
-            // 
-            this.IpAddress.Name = "IpAddress";
-            this.IpAddress.Size = new System.Drawing.Size(100, 29);
-            // 
-            // testButton
-            // 
-            this.testButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.testButton.Image = ((System.Drawing.Image)(resources.GetObject("testButton.Image")));
-            this.testButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.testButton.Name = "testButton";
-            this.testButton.Size = new System.Drawing.Size(23, 26);
-            this.testButton.Text = "toolStripButton1";
-            this.testButton.Click += new System.EventHandler(this.testButton_Click);
             // 
             // alertControl1
             // 
@@ -456,17 +437,6 @@
             this.tabPage1.Text = "监控点";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // hostConfig1
-            // 
-            this.hostConfig1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.hostConfig1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.hostConfig1.HostName = "";
-            this.hostConfig1.Location = new System.Drawing.Point(3, 3);
-            this.hostConfig1.Name = "hostConfig1";
-            this.hostConfig1.Size = new System.Drawing.Size(132, 0);
-            this.hostConfig1.TabIndex = 0;
-            this.hostConfig1.ApplyClick += new System.EventHandler(this.hostConfig1_ApplyClick);
-            // 
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.sanyoNetCamera1);
@@ -477,23 +447,6 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "摄像头";
             this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // sanyoNetCamera1
-            // 
-            this.sanyoNetCamera1.AgcEnabled = true;
-            this.sanyoNetCamera1.DigitalGainEnabled = false;
-            this.sanyoNetCamera1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.sanyoNetCamera1.IrisLevel = 0;
-            this.sanyoNetCamera1.IrisMode = Damany.Component.IrisMode.Manual;
-            this.sanyoNetCamera1.Location = new System.Drawing.Point(3, 3);
-            this.sanyoNetCamera1.Name = "sanyoNetCamera1";
-            this.sanyoNetCamera1.ShutterLevel = 0;
-            this.sanyoNetCamera1.ShutterMode = Damany.Component.ShutterMode.Short;
-            this.sanyoNetCamera1.Size = new System.Drawing.Size(132, 0);
-            this.sanyoNetCamera1.TabIndex = 0;
-            this.sanyoNetCamera1.ApplyShutterClick += new System.EventHandler(this.sanyoNetCamera1_ApplyShutterClick);
-            this.sanyoNetCamera1.ApplyIrisClick += new System.EventHandler(this.sanyoNetCamera1_ApplyIrisClick);
-            this.sanyoNetCamera1.ApplyAgcClick += new System.EventHandler(this.sanyoNetCamera1_ApplyAgcClick);
             // 
             // panelControl3
             // 
@@ -613,6 +566,50 @@
             this.layoutControlGroup1.Text = "Root";
             this.layoutControlGroup1.TextVisible = false;
             // 
+            // splitterItem1
+            // 
+            this.splitterItem1.AllowHotTrack = true;
+            this.splitterItem1.CustomizationFormText = "splitterItem1";
+            this.splitterItem1.Location = new System.Drawing.Point(158, 0);
+            this.splitterItem1.Name = "splitterItem1";
+            this.splitterItem1.Size = new System.Drawing.Size(6, 487);
+            // 
+            // menuItemImageList
+            // 
+            this.menuItemImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("menuItemImageList.ImageStream")));
+            this.menuItemImageList.TransparentColor = System.Drawing.Color.Transparent;
+            this.menuItemImageList.Images.SetKeyName(0, "1x1.ico");
+            this.menuItemImageList.Images.SetKeyName(1, "2x2.ico");
+            this.menuItemImageList.Images.SetKeyName(2, "3x3.ico");
+            // 
+            // hostConfig1
+            // 
+            this.hostConfig1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.hostConfig1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.hostConfig1.HostName = "";
+            this.hostConfig1.Location = new System.Drawing.Point(3, 3);
+            this.hostConfig1.Name = "hostConfig1";
+            this.hostConfig1.Size = new System.Drawing.Size(132, 0);
+            this.hostConfig1.TabIndex = 0;
+            this.hostConfig1.ApplyClick += new System.EventHandler(this.hostConfig1_ApplyClick);
+            // 
+            // sanyoNetCamera1
+            // 
+            this.sanyoNetCamera1.AgcEnabled = true;
+            this.sanyoNetCamera1.DigitalGainEnabled = false;
+            this.sanyoNetCamera1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.sanyoNetCamera1.IrisLevel = 0;
+            this.sanyoNetCamera1.IrisMode = Damany.Component.IrisMode.Manual;
+            this.sanyoNetCamera1.Location = new System.Drawing.Point(3, 3);
+            this.sanyoNetCamera1.Name = "sanyoNetCamera1";
+            this.sanyoNetCamera1.ShutterLevel = 0;
+            this.sanyoNetCamera1.ShutterMode = Damany.Component.ShutterMode.Short;
+            this.sanyoNetCamera1.Size = new System.Drawing.Size(132, 0);
+            this.sanyoNetCamera1.TabIndex = 0;
+            this.sanyoNetCamera1.ApplyShutterClick += new System.EventHandler(this.sanyoNetCamera1_ApplyShutterClick);
+            this.sanyoNetCamera1.ApplyIrisClick += new System.EventHandler(this.sanyoNetCamera1_ApplyIrisClick);
+            this.sanyoNetCamera1.ApplyAgcClick += new System.EventHandler(this.sanyoNetCamera1_ApplyAgcClick);
+            // 
             // layoutControlItem5
             // 
             this.layoutControlItem5.Control = this.panelControl1;
@@ -636,22 +633,6 @@
             this.layoutControlItem4.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem4.TextToControlDistance = 0;
             this.layoutControlItem4.TextVisible = false;
-            // 
-            // splitterItem1
-            // 
-            this.splitterItem1.AllowHotTrack = true;
-            this.splitterItem1.CustomizationFormText = "splitterItem1";
-            this.splitterItem1.Location = new System.Drawing.Point(158, 0);
-            this.splitterItem1.Name = "splitterItem1";
-            this.splitterItem1.Size = new System.Drawing.Size(6, 487);
-            // 
-            // menuItemImageList
-            // 
-            this.menuItemImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("menuItemImageList.ImageStream")));
-            this.menuItemImageList.TransparentColor = System.Drawing.Color.Transparent;
-            this.menuItemImageList.Images.SetKeyName(0, "1x1.ico");
-            this.menuItemImageList.Images.SetKeyName(1, "2x2.ico");
-            this.menuItemImageList.Images.SetKeyName(2, "3x3.ico");
             // 
             // MainForm
             // 
@@ -699,9 +680,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.splitterItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.splitterItem1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -744,7 +725,6 @@
         private System.Windows.Forms.ToolStripMenuItem spot1ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem spot2ToolStripMenuItem;
         private DevExpress.XtraEditors.LabelControl labelControl3;
-        private System.Windows.Forms.ToolStripButton testButton;
         private System.Windows.Forms.ToolStripButton propertyToolBar;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.TabControl tabControl1;
@@ -758,7 +738,6 @@
         private RemoteImaging.Forms.HostConfig hostConfig1;
         private Damany.Windows.Form.SanyoNetCamera sanyoNetCamera1;
         private System.Windows.Forms.ImageList menuItemImageList;
-        private System.Windows.Forms.ToolStripTextBox IpAddress;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
 
     }

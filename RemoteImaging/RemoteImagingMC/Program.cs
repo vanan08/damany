@@ -29,28 +29,12 @@ namespace RemoteImaging
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
             Application.SetUnhandledExceptionMode(UnhandledExceptionMode.ThrowException);
 
-            var loader =
-                new Damany.RemoteImaging.Common.BootLoader();
-
-            try
-            {
-                loader.Load(@"d:\ImageOutput");
-            }
-            catch (System.Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            	
-            }
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            var mainForm = new MainForm();
-            mainForm.loader = loader;
-
-            
-
-            Application.Run(mainForm);
+            var single = new SingleInstanceController();
+            single.Run(argv);
         }
 
         static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)

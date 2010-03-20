@@ -17,6 +17,7 @@ namespace RemoteImaging.Query
 
         public void CompareClicked()
         {
+            this.view.EnableCompareButton(false);
             var from = this.view.SearchFrom;
             var to = this.view.SearchTo;
 
@@ -40,24 +41,32 @@ namespace RemoteImaging.Query
             Damany.Util.DateTimeRange range,
             OpenCvSharp.IplImage image, OpenCvSharp.CvRect rect)
         {
-            var portraits = this.repository.GetPortraits(range);
-
-            foreach (var p in portraits)
+            try
             {
-                this.view.CurrentImage = p.GetImage().ToBitmap();
+                var portraits = this.repository.GetPortraits(range);
 
-                float similarity = 0;
-                bool isSimilar = FaceProcessingWrapper.StaticFunctions.CompareFace(
-                    image, rect,
-                    p.GetImage(), p.FaceBounds, ref similarity, false);
-
-                if (isSimilar)
+                foreach (var p in portraits)
                 {
-                    this.view.AddPortrait(p);
+                    this.view.CurrentImage = p.GetImage().ToBitmap();
+
+                    float similarity = 0;
+                    bool isSimilar = FaceProcessingWrapper.StaticFunctions.CompareFace(
+                        image, rect,
+                        p.GetImage(), p.FaceBounds, ref similarity, false);
+
+                    if (isSimilar)
+                    {
+                        this.view.AddPortrait(p);
+                    }
+
                 }
 
             }
-
+            finally
+            {
+                this.view.EnableCompareButton(true);
+            }
+            
         }
 
 
