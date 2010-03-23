@@ -79,7 +79,6 @@
             this.compareButton.TabIndex = 5;
             this.compareButton.Text = "比对";
             this.compareButton.UseVisualStyleBackColor = true;
-            this.compareButton.Click += new System.EventHandler(this.button1_Click);
             // 
             // label3
             // 

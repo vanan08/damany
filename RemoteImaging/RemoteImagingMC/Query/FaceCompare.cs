@@ -136,6 +136,7 @@ namespace RemoteImaging.Query
 
         public void ClearFaceList()
         {
+            this.faceList.Items.Clear();
             this.imageList1.Images.Clear();
         }
 
@@ -165,10 +166,6 @@ namespace RemoteImaging.Query
         private FaceComparePresenter presenter;
         private OpenCvSharp.IplImage ipl;
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            this.presenter.CompareClicked();
-        }
 
 
     }
