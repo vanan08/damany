@@ -1,18 +1,34 @@
+# Ignore file for Visual Studio 2008
+
+# use glob syntax
 syntax: glob
+
+# Ignore Visual Studio 2008 files
 *.obj
-*.pdb
-*.lib
-bin
-obj
-.svn
-Debug
-Release
-Disk
-*.user
 *.exe
-*.msi
+*.pdb
+*.user
 *.aps
+*.pch
+*.vspscc
+*_i.c
+*_p.c
 *.ncb
 *.suo
-*.db
-*.Cache
+*.tlb
+*.tlh
+*.bak
+*.cache
+*.ilk
+*.log
+*.lib
+*.sbr
+*.scc
+[Bb]in
+[Db]ebug*/
+obj/
+[Rr]elease*/
+_ReSharper*/
+[Tt]est[Rr]esult*
+[Bb]uild[Ll]og.*
+*.[Pp]ublish.xml
