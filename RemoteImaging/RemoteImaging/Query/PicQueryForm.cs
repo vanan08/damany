@@ -18,6 +18,10 @@ namespace RemoteImaging.Query
         public PicQueryForm()
         {
             InitializeComponent();
+
+            this.timeFrom.EditValue = DateTime.Now.AddDays(-1);
+            this.timeTo.EditValue = DateTime.Now;
+
             this.PageSize = 20;
         }
 

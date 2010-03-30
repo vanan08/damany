@@ -20,12 +20,12 @@ namespace RemoteImaging
         }
 
 
-        public void CheckImportantFiles()
+        private void CheckImportantFiles()
         {
 
         }
 
-        public void InitDataProvider()
+        private void InitDataProvider()
         {
             var repository = new Damany.PortraitCapturer.DAL.Providers.LocalDb4oProvider(@".\images.db4o");
             repository.Start();
@@ -33,7 +33,7 @@ namespace RemoteImaging
             this.builder.RegisterInstance(repository).As<Damany.PortraitCapturer.DAL.IRepository>().ExternallyOwned();
         }
 
-        public void RegisterTypes()
+        private void RegisterTypes()
         {
             this.builder.RegisterType<RemoteImaging.Query.PicQueryForm>().As<RemoteImaging.IPicQueryScreen>();
             this.builder.RegisterType<RemoteImaging.PicQueryFormPresenter>().As<RemoteImaging.IPicQueryPresenter>();
