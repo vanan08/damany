@@ -169,7 +169,7 @@ namespace Damany.PC.Shell.Winform
         }
 
         public Damany.Imaging.Processors.FaceSearchController controller { get; set; }
-        public Damany.PortraitCapturer.DAL.PersistenceService repository { get; set; }
+        public Damany.PortraitCapturer.DAL.IRepository repository { get; set; }
 
         public void ShowMessage(string msg)
         {

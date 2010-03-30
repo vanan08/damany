@@ -20,11 +20,13 @@ namespace RemoteImaging.RealtimeDisplay
 {
     public partial class MainForm : Form, IImageScreen
     {
-        private const int GB = 1024 * 1024 * 1024;
-        Configuration config = new Configuration();
-        System.Windows.Forms.Timer time = null;
+        private SplashForm splash = new SplashForm();
         public MainForm()
         {
+
+            splash.Show();
+            splash.Update();
+
             InitializeComponent();
 
             if (!string.IsNullOrEmpty(Program.directory))
@@ -32,40 +34,16 @@ namespace RemoteImaging.RealtimeDisplay
                 this.Text += "-[" + Program.directory + "]";
             }
 
-            diskSpaceCheckTimer.Interval = Properties.Settings.Default.FreeDiskspaceCheckIntervalMs;
-
-
-            Properties.Settings setting = Properties.Settings.Default;
-
-            cpuCounter = new PerformanceCounter();
-            ramCounter = new PerformanceCounter("Memory", "Available MBytes");
-
-            cpuCounter.CategoryName = "Processor";
-            cpuCounter.CounterName = "% Processor Time";
-            cpuCounter.InstanceName = "_Total";
-
-            SetMonitor();//启动布控
-            //Program.motionDetector.SetRectThr(setting.Thresholding, setting.ImageArr);//调用分组设置值
-
             InitStatusBar();
-
-            //Program.motionDetector.DrawMotionRect = setting.DrawMotionRect;
-
         }
 
-
-        private void SetMonitor()
+        public MainForm( Func<RemoteImaging.IPicQueryScreen> picQueryScreenCreator,
+                         Func<RemoteImaging.IPicQueryPresenter> picQueryPresenterCreator )
+            : this()
         {
-            string point = Properties.Settings.Default.Point;
-            if (point != "")
-            {
-                string[] strPoints = point.Split(' ');
-                int oPointx = Convert.ToInt32(strPoints[0]);
-                int oPointy = Convert.ToInt32(strPoints[1]);
-                int tPointx = Convert.ToInt32(strPoints[2]);
-                int tPointy = Convert.ToInt32(strPoints[3]);
-                //Program.motionDetector.SetAlarmArea(oPointx, oPointy, tPointx, tPointy, false);
-            }
+            this.picPresenterCreator = picQueryPresenterCreator;
+            this.picScreenCreator = picQueryScreenCreator;
+
         }
 
 
@@ -189,6 +167,11 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void MainForm_Shown(object sender, EventArgs e)
         {
+            if (this.splash != null)
+            {
+                this.splash.Dispose();
+            }
+
             diskSpaceCheckTimer.Enabled = true;
 
             commucation = new Communication("224.0.0.23", 40001);
@@ -335,7 +318,8 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void searchPic_Click(object sender, EventArgs e)
         {
-            new RemoteImaging.Query.PicQueryForm().ShowDialog(this);
+            var p = this.picPresenterCreator();
+            p.Start();
         }
 
 
@@ -439,47 +423,6 @@ namespace RemoteImaging.RealtimeDisplay
 
         long lastFreeSpaceBytes;
 
-        private static long FreeDiskSpaceBytes()
-        {
-            return FileSystemStorage.GetFreeDiskSpaceBytes(Properties.Settings.Default.OutputPath);
-        }
-
-        private static string FormatBytesString(string name, long bytes)
-        {
-            float gb = (float)bytes / GB;
-
-            if (gb < 1)
-            {
-                return string.Format(name + ": {0}MB", (int)(gb * 1024));
-            }
-            else
-            {
-                return string.Format(name + ": {0:F1}GB", gb);
-            }
-        }
-
-
-
-        private void realTimer_Tick(object sender, EventArgs e)
-        {
-            var reservedDiskSpaceBytes = (long)int.Parse(Properties.Settings.Default.ReservedDiskSpaceMB) * (1024 * 1024);
-            var totalFreeDiskSpaceBytes = FreeDiskSpaceBytes();
-
-            var availableBytes = totalFreeDiskSpaceBytes - reservedDiskSpaceBytes;
-
-            string statusTxt = string.Format("CPU占用率: {0}, 可用内存: {1}, {2}, {3}, {4}",
-                this.getCurrentCpuUsage(),
-            this.getAvailableRAM(),
-            FormatBytesString("空闲", totalFreeDiskSpaceBytes),
-            FormatBytesString("保留", reservedDiskSpaceBytes),
-            FormatBytesString("可用", availableBytes)
-            );
-
-            this.statusCPUMemUsage.Text = statusTxt;
-
-            statusTime.Text = DateTime.Now.ToString();
-
-        }
 
         private void statusOutputFolder_Click(object sender, EventArgs e)
         {
@@ -755,7 +698,6 @@ namespace RemoteImaging.RealtimeDisplay
             testButton.Click += new EventHandler(testButton_Click);
 #endif
 
-            lastFreeSpaceBytes = FreeDiskSpaceBytes();
 
             CenterLiveControl();
         }
@@ -926,5 +868,8 @@ namespace RemoteImaging.RealtimeDisplay
 
             this.presenter.FaceRecognize = faceRecognize.Checked;
         }
+
+        private Func<RemoteImaging.IPicQueryPresenter> picPresenterCreator;
+        private Func<RemoteImaging.IPicQueryScreen> picScreenCreator;
     }
 }

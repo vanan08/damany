@@ -42,7 +42,7 @@ namespace Damany.PortraitCapturer.Shell.CmdLine
 
 
 
-        private static void HandleInput(PersistenceService persistenceService,
+        private static void HandleInput(LocalDb4oProvider persistenceService,
             PersistenceWriter portraitFileSystemWriter,
             Damany.Util.PersistentWorker retriever)
         {

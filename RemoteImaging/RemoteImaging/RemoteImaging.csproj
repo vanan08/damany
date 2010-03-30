@@ -39,6 +39,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AForge.Imaging, Version=1.1.0.0, Culture=neutral, PublicKeyToken=d604c8342bbdeba9, processorArchitecture=MSIL" />
+    <Reference Include="Autofac, Version=2.1.13.813, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Library\Autofac\Autofac.dll</HintPath>
+    </Reference>
     <Reference Include="Db4objects.Db4o, Version=7.12.132.14217, Culture=neutral, PublicKeyToken=6199cd4f203aa8eb, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files\db4o\db4o-7.12\bin\net-3.5\Db4objects.Db4o.dll</HintPath>
@@ -183,6 +187,8 @@
     <Compile Include="ImageProcess\FilterForms\ContrastForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="IPicQueryPresenter.cs" />
+    <Compile Include="IPicQueryScreen.cs" />
     <Compile Include="LiveServer.cs" />
     <Compile Include="MockCamera.cs" />
     <Compile Include="OptionsForm.cs">
@@ -191,6 +197,7 @@
     <Compile Include="OptionsForm.Designer.cs">
       <DependentUpon>OptionsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="PicQueryFormPresenter.cs" />
     <Compile Include="Query\ImageDirSys.cs" />
     <Compile Include="Query\ImageSearch.cs" />
     <Compile Include="Query\ListViewEx.cs">
@@ -293,6 +300,9 @@
     <EmbeddedResource Include="RegisterForm.resx">
       <DependentUpon>RegisterForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SplashForm.resx">
+      <DependentUpon>SplashForm.cs</DependentUpon>
+    </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
@@ -327,6 +337,13 @@
     <Compile Include="Service\ServiceProvider.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="SingleInstanceController.cs" />
+    <Compile Include="SplashForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SplashForm.Designer.cs">
+      <DependentUpon>SplashForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StartUp.cs" />
     <Compile Include="Util.cs" />
     <Compile Include="VideoPlayer.cs" />
   </ItemGroup>
@@ -454,6 +471,10 @@
     <ProjectReference Include="..\Damany.PC.Domain\Damany.PC.csproj">
       <Project>{A3D29CCA-AC43-45A0-8651-74A3C51D005D}</Project>
       <Name>Damany.PC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Damany.PortraitCapturer.DAL\Damany.PortraitCapturer.DAL.csproj">
+      <Project>{85DF7A03-E0AF-4A50-B257-0DB136AED335}</Project>
+      <Name>Damany.PortraitCapturer.DAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\Damany.Util\Damany.Util.csproj">
       <Project>{FA6DEBE0-D78D-437E-B05D-0923896290C9}</Project>

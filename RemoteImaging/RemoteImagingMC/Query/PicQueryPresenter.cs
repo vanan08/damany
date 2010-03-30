@@ -13,10 +13,10 @@ namespace RemoteImaging.Query
         IList<Damany.Imaging.Common.Portrait> imagesFound;
         int currentPage;
         System.Threading.SynchronizationContext syncContext;
-        PersistenceService repository;
+        IRepository repository;
 
 
-        public PicQueryPresenter(PicQueryForm view, PersistenceService repository)
+        public PicQueryPresenter(PicQueryForm view, IRepository repository)
         {
             this.view = view;
             this.repository = repository;

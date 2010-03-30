@@ -689,12 +689,6 @@
             this.toolTip1.ReshowDelay = 100;
             this.toolTip1.UseFading = false;
             // 
-            // realTimer
-            // 
-            this.realTimer.Enabled = true;
-            this.realTimer.Interval = 1000;
-            this.realTimer.Tick += new System.EventHandler(this.realTimer_Tick);
-            // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";

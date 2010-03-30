@@ -6,7 +6,7 @@ using Damany.PortraitCapturer.DAL;
 
 namespace Damany.PortraitCapturer.DAL.Providers
 {
-    public class Db4oProvider : IDataProvider
+    public class Db4oProvider 
     {
         public Db4oProvider(string dataBaseFile)
         {

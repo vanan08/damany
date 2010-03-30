@@ -8,7 +8,7 @@ namespace RemoteImaging.Query
     public class FaceComparePresenter
     {
         public FaceComparePresenter(FaceCompare view,
-            Damany.PortraitCapturer.DAL.PersistenceService repository)
+            Damany.PortraitCapturer.DAL.IRepository repository)
         {
             this.view = view;
             this.repository = repository;
@@ -72,7 +72,7 @@ namespace RemoteImaging.Query
 
 
         FaceCompare view;
-        Damany.PortraitCapturer.DAL.PersistenceService repository;
+        Damany.PortraitCapturer.DAL.IRepository repository;
 
     }
 }

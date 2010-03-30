@@ -6,16 +6,16 @@ using Damany.Imaging.Common;
 
 namespace Damany.PortraitCapturer.DAL
 {
-    public interface IDataProvider
+    public interface IRepository
     {
-        void SavePortrait(DTO.Portrait portrait);
-        void SaveFrame(DTO.Frame frame);
+        void SavePortrait(Portrait portrait);
+        void SaveFrame(Frame frame);
 
-        DTO.Frame GetFrame(System.Guid frameId);
-        DTO.Portrait GetPortrait(System.Guid portraitId);
+        Frame GetFrame(System.Guid frameId);
+        Portrait GetPortrait(System.Guid portraitId);
 
-        IList<DTO.Frame> GetFrames(Damany.Util.DateTimeRange range);
-        IList<DTO.Portrait> GetPortraits(Damany.Util.DateTimeRange range);
+        IList<Frame> GetFrames(Damany.Util.DateTimeRange range);
+        IList<Portrait> GetPortraits(Damany.Util.DateTimeRange range);
 
         void DeletePortrait(System.Guid portraitId);
         void DeleteFrame(System.Guid frameId);
