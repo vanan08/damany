@@ -35,6 +35,16 @@ namespace RemoteImaging.RealtimeDisplay
             }
 
             InitStatusBar();
+
+            Application.Idle += new EventHandler(Application_Idle);
+        }
+
+        void Application_Idle(object sender, EventArgs e)
+        {
+            if (this.splash != null)
+            {
+                this.splash.Dispose();
+            }
         }
 
         public MainForm( Func<RemoteImaging.IPicQueryScreen> picQueryScreenCreator,
@@ -167,10 +177,6 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void MainForm_Shown(object sender, EventArgs e)
         {
-            if (this.splash != null)
-            {
-                this.splash.Dispose();
-            }
 
             diskSpaceCheckTimer.Enabled = true;
 

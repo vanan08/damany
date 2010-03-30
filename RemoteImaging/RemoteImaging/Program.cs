@@ -49,10 +49,10 @@ namespace RemoteImaging
             Application.Run(mainForm);
 
 
-            var controller
-                = new SingleInstanceController();
-
-            controller.Run(argv);
+//             var controller
+//                 = new SingleInstanceController();
+// 
+//             controller.Run(argv);
 
         }
 

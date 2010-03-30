@@ -41,6 +41,8 @@
             this.imageList2 = new System.Windows.Forms.ImageList(this.components);
             this.facesListView = new System.Windows.Forms.ListView();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.machineCombo = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
             this.currentFace = new System.Windows.Forms.PictureBox();
@@ -66,8 +68,6 @@
             this.toolStripButtonPlayVideo = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.saveToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.label4 = new System.Windows.Forms.Label();
-            this.machineCombo = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.timeFrom.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.timeTo.Properties)).BeginInit();
             this.groupBox3.SuspendLayout();
@@ -144,8 +144,8 @@
             this.timeFrom.Name = "timeFrom";
             this.timeFrom.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.timeFrom.Properties.Mask.EditMask = "G";
-            this.timeFrom.Size = new System.Drawing.Size(166, 21);
+            this.timeFrom.Properties.Mask.EditMask = "F";
+            this.timeFrom.Size = new System.Drawing.Size(166, 23);
             this.timeFrom.TabIndex = 7;
             // 
             // timeTo
@@ -155,8 +155,8 @@
             this.timeTo.Name = "timeTo";
             this.timeTo.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.timeTo.Properties.Mask.EditMask = "G";
-            this.timeTo.Size = new System.Drawing.Size(170, 21);
+            this.timeTo.Properties.Mask.EditMask = "F";
+            this.timeTo.Size = new System.Drawing.Size(170, 23);
             this.timeTo.TabIndex = 8;
             // 
             // faceImageList
@@ -205,6 +205,23 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "查询条件";
             // 
+            // machineCombo
+            // 
+            this.machineCombo.FormattingEnabled = true;
+            this.machineCombo.Location = new System.Drawing.Point(60, 27);
+            this.machineCombo.Name = "machineCombo";
+            this.machineCombo.Size = new System.Drawing.Size(105, 20);
+            this.machineCombo.TabIndex = 10;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(14, 31);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(41, 12);
+            this.label4.TabIndex = 9;
+            this.label4.Text = "主机：";
+            // 
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.layoutControl1);
@@ -231,27 +248,27 @@
             // 
             // currentFace
             // 
-            this.currentFace.Location = new System.Drawing.Point(12, 12);
+            this.currentFace.Location = new System.Drawing.Point(7, 7);
             this.currentFace.Name = "currentFace";
-            this.currentFace.Size = new System.Drawing.Size(282, 81);
+            this.currentFace.Size = new System.Drawing.Size(292, 91);
             this.currentFace.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.currentFace.TabIndex = 19;
             this.currentFace.TabStop = false;
             // 
             // labelCaptureLoc
             // 
-            this.labelCaptureLoc.Location = new System.Drawing.Point(12, 97);
+            this.labelCaptureLoc.Location = new System.Drawing.Point(7, 108);
             this.labelCaptureLoc.Name = "labelCaptureLoc";
-            this.labelCaptureLoc.Size = new System.Drawing.Size(282, 28);
+            this.labelCaptureLoc.Size = new System.Drawing.Size(292, 22);
             this.labelCaptureLoc.TabIndex = 17;
             this.labelCaptureLoc.Text = "抓拍地点：";
             this.labelCaptureLoc.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // labelCaptureTime
             // 
-            this.labelCaptureTime.Location = new System.Drawing.Point(12, 129);
+            this.labelCaptureTime.Location = new System.Drawing.Point(7, 140);
             this.labelCaptureTime.Name = "labelCaptureTime";
-            this.labelCaptureTime.Size = new System.Drawing.Size(282, 29);
+            this.labelCaptureTime.Size = new System.Drawing.Size(292, 23);
             this.labelCaptureTime.TabIndex = 18;
             this.labelCaptureTime.Text = "抓拍时间：";
             this.labelCaptureTime.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -274,11 +291,11 @@
             // 
             this.layoutControlItem1.Control = this.labelCaptureTime;
             this.layoutControlItem1.CustomizationFormText = "layoutControlItem1";
-            this.layoutControlItem1.Location = new System.Drawing.Point(0, 117);
+            this.layoutControlItem1.Location = new System.Drawing.Point(0, 133);
             this.layoutControlItem1.MaxSize = new System.Drawing.Size(0, 33);
             this.layoutControlItem1.MinSize = new System.Drawing.Size(31, 33);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(286, 33);
+            this.layoutControlItem1.Size = new System.Drawing.Size(302, 33);
             this.layoutControlItem1.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.layoutControlItem1.Text = "layoutControlItem1";
             this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
@@ -289,11 +306,11 @@
             // 
             this.layoutControlItem2.Control = this.labelCaptureLoc;
             this.layoutControlItem2.CustomizationFormText = "layoutControlItem2";
-            this.layoutControlItem2.Location = new System.Drawing.Point(0, 85);
+            this.layoutControlItem2.Location = new System.Drawing.Point(0, 101);
             this.layoutControlItem2.MaxSize = new System.Drawing.Size(0, 32);
             this.layoutControlItem2.MinSize = new System.Drawing.Size(31, 32);
             this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(286, 32);
+            this.layoutControlItem2.Size = new System.Drawing.Size(302, 32);
             this.layoutControlItem2.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.layoutControlItem2.Text = "layoutControlItem2";
             this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
@@ -306,7 +323,7 @@
             this.layoutControlItem3.CustomizationFormText = "layoutControlItem3";
             this.layoutControlItem3.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem3.Name = "layoutControlItem3";
-            this.layoutControlItem3.Size = new System.Drawing.Size(286, 85);
+            this.layoutControlItem3.Size = new System.Drawing.Size(302, 101);
             this.layoutControlItem3.Text = "layoutControlItem3";
             this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem3.TextToControlDistance = 0;
@@ -476,23 +493,6 @@
             this.saveToolStripButton.Size = new System.Drawing.Size(97, 24);
             this.saveToolStripButton.Text = "保存图片(&S)";
             this.saveToolStripButton.Click += new System.EventHandler(this.saveToolStripButton_Click);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(14, 31);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(41, 12);
-            this.label4.TabIndex = 9;
-            this.label4.Text = "主机：";
-            // 
-            // machineCombo
-            // 
-            this.machineCombo.FormattingEnabled = true;
-            this.machineCombo.Location = new System.Drawing.Point(60, 27);
-            this.machineCombo.Name = "machineCombo";
-            this.machineCombo.Size = new System.Drawing.Size(105, 20);
-            this.machineCombo.TabIndex = 10;
             // 
             // PicQueryForm
             // 

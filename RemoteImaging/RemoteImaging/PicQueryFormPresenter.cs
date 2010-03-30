@@ -18,6 +18,27 @@ namespace RemoteImaging
 
         public void Search()
         {
+            var range = this.screen.TimeRange;
+
+            System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor;
+            this.screen.EnableSearchButton(false);
+            
+
+            try
+            {
+                this.repository.GetPortraits(range);
+                System.Threading.Thread.Sleep(5000);
+            }
+            finally
+            {
+                this.screen.EnableSearchButton(true);
+                System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default;
+
+            }
+
+            
+
+
             
         }
 
