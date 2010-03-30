@@ -13,6 +13,8 @@ namespace TestDataProvider
             return IplImage.FromBitmap(Properties.Resources.frame).Clone();
         }
 
+
+
         public static IplImage GetPortrait()
         {
             return IplImage.FromBitmap(Properties.Resources.portrait).Clone();

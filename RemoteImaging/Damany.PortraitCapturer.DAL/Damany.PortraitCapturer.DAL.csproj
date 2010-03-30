@@ -85,7 +85,7 @@
     <Compile Include="DTO\Portrait.cs" />
     <Compile Include="IDataProvider.cs" />
     <Compile Include="MockFrameSource.cs" />
-    <Compile Include="PersistenceService.cs" />
+    <Compile Include="Providers\PersistenceService.cs" />
     <Compile Include="PersistenceWriter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\Db4oProvider.cs" />

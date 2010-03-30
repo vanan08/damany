@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Destination.cs" />
     <Compile Include="Domain\CameraInfo.cs" />
     <Compile Include="Domain\CameraProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

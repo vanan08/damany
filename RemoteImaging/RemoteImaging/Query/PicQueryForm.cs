@@ -12,17 +12,19 @@ using Microsoft.Practices.EnterpriseLibrary.ExceptionHandling;
 
 namespace RemoteImaging.Query
 {
-    public partial class PicQueryForm : Form
+    public partial class PicQueryForm : Form, IPicQueryScreen
     {
-        private string[] imagesFound = new string[0];
-        private int currentPage;
-        private int totalPage;
-        public int PageSize { get; set; }
 
         public PicQueryForm()
         {
             InitializeComponent();
             this.PageSize = 20;
+        }
+
+        public void AttachPresenter(IPicQueryPresenter presenter)
+        {
+            this.presenter = presenter;
+
         }
 
         public void SetCameras(IList<Damany.PC.Domain.CameraInfo> cameras)
@@ -33,7 +35,7 @@ namespace RemoteImaging.Query
 
             foreach (var camera in cameras)
             {
-                this.comboBox1.Items.Add(camera.Id.ToString());
+                this.cameraIdCombo.Items.Add(camera.Id.ToString());
             }
 
         }
@@ -62,7 +64,7 @@ namespace RemoteImaging.Query
 
         void ShowCurrentPage()
         {
-            bestPicListView.BeginUpdate();
+            facesListView.BeginUpdate();
 
             ClearCurPageList();
 
@@ -86,7 +88,7 @@ namespace RemoteImaging.Query
                     continue;
                 }
 
-                this.imageList1.Images.Add(img);
+                this.faceImageList.Images.Add(img);
                 string text = System.IO.Path.GetFileName(imagesFound[i]);
                 ListViewItem item = new ListViewItem()
                 {
@@ -94,107 +96,39 @@ namespace RemoteImaging.Query
                     Text = text,
                     ImageIndex = i % PageSize
                 };
-                this.bestPicListView.Items.Add(item);
+                this.facesListView.Items.Add(item);
             }
 
-            bestPicListView.EndUpdate();
+            facesListView.EndUpdate();
 
         }
 
         private void ClearCurPageList()
         {
-            this.bestPicListView.Clear();
-            this.imageList1.Images.Clear();
+            this.facesListView.Clear();
+            this.faceImageList.Images.Clear();
         }
 
         private void ClearLists()
         {
             ClearCurPageList();
             this.imageList2.Images.Clear();
-            this.pictureBox1.Image = null;
+            this.currentFace.Image = null;
         }
 
         private void queryBtn_Click(object sender, EventArgs e)
         {
-            Cursor.Current = Cursors.WaitCursor;
-
-            ClearLists();
-
-            if (this.comboBox1.Text == "" || this.comboBox1.Text == null)
-            {
-                MessageBox.Show("请选择要查询的摄像头ID", "警告");
-                return;
-            }
-            string cameraID = int.Parse(this.comboBox1.Text).ToString("D2");
-
-
-            //judge the input validation
-            DateTime date1 = this.dateTimePicker1.Value;
-            DateTime date2 = this.dateTimePicker2.Value;
-            DateTime time1 = this.timeEdit1.Time;
-            DateTime time2 = this.timeEdit2.Time;
-
-            DateTime dateTime1 = new DateTime(date1.Year, date1.Month, date1.Day, time1.Hour, time1.Minute, time1.Second);
-            DateTime dateTime2 = new DateTime(date2.Year, date2.Month, date2.Day, time2.Hour, time2.Minute, time2.Second);
-            if (dateTime1 >= dateTime2)
-            {
-                MessageBox.Show("时间起点不应该大于或者等于时间终点，请重新输入！", "警告");
-                return;
-            }
-            /////
-            DateTimeInString dtString1 = DateTimeInString.FromDateTime(dateTime1);
-
-            DateTimeInString dtString2 = DateTimeInString.FromDateTime(dateTime2);
-
-            Query.ImageDirSys startDir = new ImageDirSys(cameraID, dtString1);
-            Query.ImageDirSys endDir = new ImageDirSys(cameraID, dtString2);
-
-            imagesFound = ImageSearch.SearchImages(startDir, endDir, RemoteImaging.Query.ImageDirSys.SearchType.PicType);
-
-            if (imagesFound.Length == 0)
-            {
-                MessageBox.Show(this, "未找到图片");
-                return;
-            }
-
-
-            CalcPagesCount();
-            currentPage = 1;
-            UpdatePagesLabel();
-
-
-            if (imagesFound == null)
-            {
-                MessageBox.Show("没有搜索到满足条件的图片！", "警告");
-                return;
-            }
-
-            this.bestPicListView.Scrollable = true;
-            this.bestPicListView.MultiSelect = false;
-            this.bestPicListView.View = View.LargeIcon;
-            this.bestPicListView.LargeImageList = imageList1;
-
-
-            ShowCurrentPage();
-
-            Cursor.Current = Cursors.Default;
-
-
+            this.presenter.Search();
         }
-        //以前
-        //02_090702150918-0001.jpg -->大图片
-        //02_090702152518-0006-0000.jpg--> 小图片
 
-        //现在 
-        //02_090807144104343.jpg-->大图片
-        //02_090807144104343-0000.jpg-->小图片
+
         private void bestPicListView_ItemActivate(object sender, System.EventArgs e)
         {
-            string filePath = this.bestPicListView.FocusedItem.Tag as string;
+            string filePath = this.facesListView.FocusedItem.Tag as string;
 
             try
             {
-                this.pictureBox1.Image = Damany.Util.Extensions.MiscHelper.FromFileBuffered(filePath);
+                this.currentFace.Image = Damany.Util.Extensions.MiscHelper.FromFileBuffered(filePath);
 
                 //detail infomation
                 ImageDetail imgInfo = ImageDetail.FromPath(filePath);
@@ -207,7 +141,7 @@ namespace RemoteImaging.Query
 
                 string bigImgPath = FileSystemStorage.BigImgPathForFace(imgInfo);
 
-                this.pictureBoxWholeImg.Image = Damany.Util.Extensions.MiscHelper.FromFileBuffered(bigImgPath);
+                this.wholePicture.Image = Damany.Util.Extensions.MiscHelper.FromFileBuffered(bigImgPath);
             }
             catch (System.IO.IOException ex)
             {
@@ -249,8 +183,8 @@ namespace RemoteImaging.Query
 
         private void cancelBtn_Click(object sender, EventArgs e)
         {
-            this.bestPicListView.Clear();
-            this.imageList1.Images.Clear();
+            this.facesListView.Clear();
+            this.faceImageList.Images.Clear();
             this.imageList2.Images.Clear();
 
 
@@ -333,9 +267,9 @@ namespace RemoteImaging.Query
 
         private void toolStripButtonPlayVideo_Click(object sender, EventArgs e)
         {
-            if (this.bestPicListView.SelectedItems.Count != 1) return;
+            if (this.facesListView.SelectedItems.Count != 1) return;
 
-            string imgPath = this.bestPicListView.SelectedItems[0].Tag as string;
+            string imgPath = this.facesListView.SelectedItems[0].Tag as string;
 
             ImageDetail imgInfo = ImageDetail.FromPath(imgPath);
 
@@ -353,12 +287,12 @@ namespace RemoteImaging.Query
 
         private void SaveSelectedImage()
         {
-            if ((this.bestPicListView.Items.Count <= 0) || (this.bestPicListView.FocusedItem == null)) return;
-            string filePath = this.bestPicListView.FocusedItem.Tag as string;
+            if ((this.facesListView.Items.Count <= 0) || (this.facesListView.FocusedItem == null)) return;
+            string filePath = this.facesListView.FocusedItem.Tag as string;
 
             if (File.Exists(filePath))
             {
-                this.pictureBox1.Image = Damany.Util.Extensions.MiscHelper.FromFileBuffered(filePath);
+                this.currentFace.Image = Damany.Util.Extensions.MiscHelper.FromFileBuffered(filePath);
             }
             ImageDetail imgInfo = ImageDetail.FromPath(filePath);
             string bigImgPath = FileSystemStorage.BigImgPathForFace(imgInfo);
@@ -372,12 +306,12 @@ namespace RemoteImaging.Query
                 saveDialog.FileName = fileName;
                 if (saveDialog.ShowDialog() == DialogResult.OK)
                 {
-                    if (pictureBox1.Image != null)
+                    if (currentFace.Image != null)
                     {
                         string path = saveDialog.FileName;
-                        pictureBox1.Image.Save(path);
+                        currentFace.Image.Save(path);
                         path = path.Replace(fileName, Path.GetFileName(bigImgPath));
-                        pictureBoxWholeImg.Image.Save(path);
+                        wholePicture.Image.Save(path);
                     }
                 }
             }
@@ -388,5 +322,150 @@ namespace RemoteImaging.Query
         {
             SaveSelectedImage();
         }
+
+
+
+        public int PageSize { get; set; }
+
+        private string[] imagesFound = new string[0];
+        private int currentPage;
+        private int totalPage;
+        private IPicQueryPresenter presenter;
+
+
+
+        #region IPicQueryScreen Members
+
+
+        public void Clear()
+        {
+            this.facesListView.Items.Clear();
+            this.faceImageList.Images.Clear();
+            this.currentFace.Image = null;
+            this.wholePicture.Image = null;
+        }
+
+        public void AddItem(Damany.Imaging.Common.Portrait item)
+        {
+            if (InvokeRequired)
+            {
+                Action<Damany.Imaging.Common.Portrait> action = this.AddItem;
+                this.BeginInvoke(action, item);
+                return;
+            }
+
+            this.faceImageList.Images.Add(item.GetImage().ToBitmap());
+
+            var lvi = new ListViewItem
+            {
+                Tag = item,
+                Text = item.CapturedAt.ToString(),
+                ImageIndex = this.faceImageList.Images.Count - 1
+            };
+
+            this.facesListView.Items.Add(lvi);
+        }
+
+        public void EnableSearchButton(bool enable)
+        {
+            if (InvokeRequired)
+            {
+                Action<bool> action = this.EnableSearchButton;
+                this.BeginInvoke(action, enable);
+                return;
+            }
+
+            this.queryBtn.Enabled = enable;
+        }
+
+        public void EnableNavigateButtons(bool enable)
+        {
+            if (InvokeRequired)
+            {
+                Action<bool> action = this.EnableNavigateButtons;
+                this.BeginInvoke(action, enable);
+                return;
+            }
+            
+
+            this.toolStripButtonFirstPage.Enabled = enable;
+            this.toolStripButtonPrePage.Enabled = enable;
+            this.toolStripButtonNextPage.Enabled = enable;
+            this.toolStripButtonLastPage.Enabled = enable;
+        }
+
+        public Damany.Util.DateTimeRange TimeRange
+        {
+            get
+            {
+                return new Damany.Util.DateTimeRange(
+                    (DateTime) this.timeFrom.EditValue,
+                    (DateTime) this.timeTo.EditValue
+                    );
+            }
+            set
+            {
+                
+            }
+        }
+
+        public Damany.Imaging.Common.Portrait SelectedItem
+        {
+            get
+            {
+                if (this.facesListView.SelectedItems.Count <= 0) return null;
+
+                return this.facesListView.SelectedItems[0].Tag as Damany.Imaging.Common.Portrait;
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public Damany.PC.Domain.Destination SelectedCamera
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+
+        public Damany.PC.Domain.CameraInfo[] Cameras
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                this.cameraIdCombo.DataSource = value;
+                this.cameraIdCombo.DisplayMember = "Id";
+            }
+        }
+
+        public string[] Machines
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                this.machineCombo.DataSource = value;
+            }
+        }
+
+        public void Show()
+        {
+            this.ShowDialog();
+        }
+
+        #endregion
     }
 }

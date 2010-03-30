@@ -168,7 +168,7 @@
       <Value Profile="(Default)">.\ImgLib\eyeTemplate.jpg</Value>
     </Setting>
     <Setting Name="ReservedDiskSpaceMB" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">300</Value>
     </Setting>
   </Settings>
 </SettingsFile>

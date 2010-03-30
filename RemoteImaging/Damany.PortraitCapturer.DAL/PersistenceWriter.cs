@@ -8,10 +8,10 @@ namespace Damany.Imaging.Handlers
 {
     public class PersistenceWriter : Damany.Imaging.Common.IPortraitHandler
     {
-        private Damany.PortraitCapturer.DAL.PersistenceService service;
+        private Damany.PortraitCapturer.DAL.IRepository service;
         #region IPortraitHandler Members
 
-        public PersistenceWriter(Damany.PortraitCapturer.DAL.PersistenceService service)
+        public PersistenceWriter(Damany.PortraitCapturer.DAL.Providers.LocalDb4oProvider service)
         {
             this.service = service;
         }

@@ -18,13 +18,13 @@ namespace Damany.PC.DAL.Providers.Test
         [Test]
         public void Test()
         {
-            IDataProvider provider = new Db4oProvider( "faces.db4o" ) ;
+            var provider = new Db4oProvider( "faces.db4o" ) ;
 
             Func<Frame, string> f1 = f => f.Guid.ToString() +".jpg" ;
             Func<Portrait, string> f2 = p => p.Guid.ToString() + ".jpg";
 
-            var repository = new Damany.PortraitCapturer.DAL.PersistenceService(
-                                    provider, f1, f2);
+            var repository = new Damany.PortraitCapturer.DAL.Providers.LocalDb4oProvider(
+                                    @".\");
 
             var frame = new Frame(Data.GetFrame());
             var mockCamera = new Damany.Cameras.DirectoryFilesCamera(@"c:\", "*.jpg");

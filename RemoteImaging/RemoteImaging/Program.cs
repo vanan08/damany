@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows.Forms;
 using System.ServiceModel;
 using RemoteControlService;
+using Autofac;
 
 
 namespace RemoteImaging
@@ -39,6 +40,13 @@ namespace RemoteImaging
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            var strapper = new StartUp();
+            strapper.Start();
+
+            var mainForm = strapper.Container.Resolve<RemoteImaging.RealtimeDisplay.MainForm>();
+
+            Application.Run(mainForm);
 
 
             var controller
