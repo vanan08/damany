@@ -15,11 +15,14 @@ namespace RemoteImaging
         void EnableSearchButton(bool enable);
         void EnableNavigateButtons(bool enable);
 
+        void ShowUserIsBusy(bool busy);
+
 
         Damany.Util.DateTimeRange TimeRange { get; set; }
         Damany.Imaging.Common.Portrait SelectedItem { get; set; }
         Damany.PC.Domain.CameraInfo[] Cameras { get; set; }
         string[] Machines { get; set; }
+        int PageSize { get; set; }
         
         Damany.PC.Domain.Destination SelectedCamera { get; set; }
     }

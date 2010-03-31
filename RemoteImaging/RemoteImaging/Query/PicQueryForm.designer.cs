@@ -39,7 +39,7 @@
             this.timeTo = new DevExpress.XtraEditors.TimeEdit();
             this.faceImageList = new System.Windows.Forms.ImageList(this.components);
             this.imageList2 = new System.Windows.Forms.ImageList(this.components);
-            this.facesListView = new System.Windows.Forms.ListView();
+            this.facesListView = new Damany.RemoteImaging.Common.Controls.DoubleBufferedListView();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.machineCombo = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -145,7 +145,7 @@
             this.timeFrom.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
             this.timeFrom.Properties.Mask.EditMask = "F";
-            this.timeFrom.Size = new System.Drawing.Size(166, 23);
+            this.timeFrom.Size = new System.Drawing.Size(166, 21);
             this.timeFrom.TabIndex = 7;
             // 
             // timeTo
@@ -156,7 +156,7 @@
             this.timeTo.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
             this.timeTo.Properties.Mask.EditMask = "F";
-            this.timeTo.Size = new System.Drawing.Size(170, 23);
+            this.timeTo.Size = new System.Drawing.Size(170, 21);
             this.timeTo.TabIndex = 8;
             // 
             // faceImageList
@@ -184,7 +184,7 @@
             this.facesListView.Size = new System.Drawing.Size(930, 251);
             this.facesListView.TabIndex = 10;
             this.facesListView.UseCompatibleStateImageBehavior = false;
-            this.facesListView.ItemActivate += new System.EventHandler(this.bestPicListView_ItemActivate);
+            this.facesListView.ItemActivate += new System.EventHandler(this.secPicListView_ItemActive);
             // 
             // groupBox3
             // 
@@ -248,27 +248,27 @@
             // 
             // currentFace
             // 
-            this.currentFace.Location = new System.Drawing.Point(7, 7);
+            this.currentFace.Location = new System.Drawing.Point(12, 12);
             this.currentFace.Name = "currentFace";
-            this.currentFace.Size = new System.Drawing.Size(292, 91);
+            this.currentFace.Size = new System.Drawing.Size(282, 81);
             this.currentFace.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.currentFace.TabIndex = 19;
             this.currentFace.TabStop = false;
             // 
             // labelCaptureLoc
             // 
-            this.labelCaptureLoc.Location = new System.Drawing.Point(7, 108);
+            this.labelCaptureLoc.Location = new System.Drawing.Point(12, 97);
             this.labelCaptureLoc.Name = "labelCaptureLoc";
-            this.labelCaptureLoc.Size = new System.Drawing.Size(292, 22);
+            this.labelCaptureLoc.Size = new System.Drawing.Size(282, 28);
             this.labelCaptureLoc.TabIndex = 17;
             this.labelCaptureLoc.Text = "抓拍地点：";
             this.labelCaptureLoc.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // labelCaptureTime
             // 
-            this.labelCaptureTime.Location = new System.Drawing.Point(7, 140);
+            this.labelCaptureTime.Location = new System.Drawing.Point(12, 129);
             this.labelCaptureTime.Name = "labelCaptureTime";
-            this.labelCaptureTime.Size = new System.Drawing.Size(292, 23);
+            this.labelCaptureTime.Size = new System.Drawing.Size(282, 29);
             this.labelCaptureTime.TabIndex = 18;
             this.labelCaptureTime.Text = "抓拍时间：";
             this.labelCaptureTime.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -291,11 +291,11 @@
             // 
             this.layoutControlItem1.Control = this.labelCaptureTime;
             this.layoutControlItem1.CustomizationFormText = "layoutControlItem1";
-            this.layoutControlItem1.Location = new System.Drawing.Point(0, 133);
+            this.layoutControlItem1.Location = new System.Drawing.Point(0, 117);
             this.layoutControlItem1.MaxSize = new System.Drawing.Size(0, 33);
             this.layoutControlItem1.MinSize = new System.Drawing.Size(31, 33);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(302, 33);
+            this.layoutControlItem1.Size = new System.Drawing.Size(286, 33);
             this.layoutControlItem1.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.layoutControlItem1.Text = "layoutControlItem1";
             this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
@@ -306,11 +306,11 @@
             // 
             this.layoutControlItem2.Control = this.labelCaptureLoc;
             this.layoutControlItem2.CustomizationFormText = "layoutControlItem2";
-            this.layoutControlItem2.Location = new System.Drawing.Point(0, 101);
+            this.layoutControlItem2.Location = new System.Drawing.Point(0, 85);
             this.layoutControlItem2.MaxSize = new System.Drawing.Size(0, 32);
             this.layoutControlItem2.MinSize = new System.Drawing.Size(31, 32);
             this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(302, 32);
+            this.layoutControlItem2.Size = new System.Drawing.Size(286, 32);
             this.layoutControlItem2.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.layoutControlItem2.Text = "layoutControlItem2";
             this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
@@ -323,7 +323,7 @@
             this.layoutControlItem3.CustomizationFormText = "layoutControlItem3";
             this.layoutControlItem3.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem3.Name = "layoutControlItem3";
-            this.layoutControlItem3.Size = new System.Drawing.Size(302, 101);
+            this.layoutControlItem3.Size = new System.Drawing.Size(286, 85);
             this.layoutControlItem3.Text = "layoutControlItem3";
             this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem3.TextToControlDistance = 0;
@@ -546,7 +546,7 @@
         private DevExpress.XtraEditors.TimeEdit timeTo;
         private System.Windows.Forms.ImageList faceImageList;
         private System.Windows.Forms.ImageList imageList2;
-        private System.Windows.Forms.ListView facesListView;
+        private Damany.RemoteImaging.Common.Controls.DoubleBufferedListView facesListView;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Label labelCaptureTime;

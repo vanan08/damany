@@ -20,26 +20,28 @@ namespace RemoteImaging
         {
             var range = this.screen.TimeRange;
 
-            System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor;
+            this.screen.ShowUserIsBusy(true);
             this.screen.EnableSearchButton(false);
-            
+            this.screen.EnableNavigateButtons(false);
 
-            try
+            System.Threading.ThreadPool.QueueUserWorkItem(delegate
             {
-                this.repository.GetPortraits(range);
-                System.Threading.Thread.Sleep(5000);
-            }
-            finally
-            {
-                this.screen.EnableSearchButton(true);
-                System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default;
 
-            }
+                try
+                {
+                    this.portraits = this.repository.GetPortraits(range);
 
-            
+                    if (this.portraits.Count > 0) this.screen.Clear();
 
-
-            
+                    ShowCurrentPage();
+                }
+                finally
+                {
+                    this.screen.EnableSearchButton(true);
+                    this.screen.ShowUserIsBusy(false);
+                    this.screen.EnableNavigateButtons(true);
+                }
+            });
         }
 
         public void SelectedItemChanged()
@@ -56,8 +58,20 @@ namespace RemoteImaging
 
         #endregion
 
+        private void ShowCurrentPage()
+        {
+            var page = this.portraits.Skip(this.currentPageIndex * this.screen.PageSize).Take(this.screen.PageSize);
+
+            foreach (var item in page)
+            {
+                this.screen.AddItem(item);
+            }
+        }
+
         IPicQueryScreen screen;
         Damany.PortraitCapturer.DAL.IRepository repository;
+        IList<Damany.Imaging.Common.Portrait> portraits;
+        int currentPageIndex;
 
       
     }
