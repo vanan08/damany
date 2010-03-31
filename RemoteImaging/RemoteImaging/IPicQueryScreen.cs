@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Damany.Imaging.Common;
+using System.Drawing;
 
 namespace RemoteImaging
 {
@@ -12,6 +14,8 @@ namespace RemoteImaging
         void AddItem(Damany.Imaging.Common.Portrait item);
         void AttachPresenter(IPicQueryPresenter presenter);
 
+        void ShowStatus(string status);
+
         void EnableSearchButton(bool enable);
         void EnableNavigateButtons(bool enable);
 
@@ -19,11 +23,16 @@ namespace RemoteImaging
 
 
         Damany.Util.DateTimeRange TimeRange { get; set; }
-        Damany.Imaging.Common.Portrait SelectedItem { get; set; }
+        Portrait SelectedItem { get; set; }
         Damany.PC.Domain.CameraInfo[] Cameras { get; set; }
         string[] Machines { get; set; }
         int PageSize { get; set; }
-        
+        Portrait CurrentPortrait { get; set; }
+        Image CurrentBigPicture { get; set; }
+
+        int CurrentPage { get; set; }
+        int TotalPage { get; set; }
+
         Damany.PC.Domain.Destination SelectedCamera { get; set; }
     }
 }

@@ -46,8 +46,8 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
             this.currentFace = new System.Windows.Forms.PictureBox();
-            this.labelCaptureLoc = new System.Windows.Forms.Label();
-            this.labelCaptureTime = new System.Windows.Forms.Label();
+            this.captureLocation = new System.Windows.Forms.Label();
+            this.captureTime = new System.Windows.Forms.Label();
             this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
@@ -62,12 +62,14 @@
             this.toolStripButtonNextPage = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonLastPage = new System.Windows.Forms.ToolStripButton();
             this.toolStripLabelCurPage = new System.Windows.Forms.ToolStripLabel();
-            this.toolStripComboBoxPageSize = new System.Windows.Forms.ToolStripComboBox();
+            this.pageSizeCombo = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButtonPlayVideo = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.saveToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.status = new System.Windows.Forms.ToolStripStatusLabel();
             ((System.ComponentModel.ISupportInitialize)(this.timeFrom.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.timeTo.Properties)).BeginInit();
             this.groupBox3.SuspendLayout();
@@ -88,6 +90,7 @@
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.wholePicture)).BeginInit();
             this.toolStrip1.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // queryBtn
@@ -236,8 +239,8 @@
             // layoutControl1
             // 
             this.layoutControl1.Controls.Add(this.currentFace);
-            this.layoutControl1.Controls.Add(this.labelCaptureLoc);
-            this.layoutControl1.Controls.Add(this.labelCaptureTime);
+            this.layoutControl1.Controls.Add(this.captureLocation);
+            this.layoutControl1.Controls.Add(this.captureTime);
             this.layoutControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.layoutControl1.Location = new System.Drawing.Point(3, 17);
             this.layoutControl1.Name = "layoutControl1";
@@ -255,23 +258,23 @@
             this.currentFace.TabIndex = 19;
             this.currentFace.TabStop = false;
             // 
-            // labelCaptureLoc
+            // captureLocation
             // 
-            this.labelCaptureLoc.Location = new System.Drawing.Point(12, 97);
-            this.labelCaptureLoc.Name = "labelCaptureLoc";
-            this.labelCaptureLoc.Size = new System.Drawing.Size(282, 28);
-            this.labelCaptureLoc.TabIndex = 17;
-            this.labelCaptureLoc.Text = "抓拍地点：";
-            this.labelCaptureLoc.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.captureLocation.Location = new System.Drawing.Point(12, 97);
+            this.captureLocation.Name = "captureLocation";
+            this.captureLocation.Size = new System.Drawing.Size(282, 28);
+            this.captureLocation.TabIndex = 17;
+            this.captureLocation.Text = "抓拍地点：";
+            this.captureLocation.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // labelCaptureTime
+            // captureTime
             // 
-            this.labelCaptureTime.Location = new System.Drawing.Point(12, 129);
-            this.labelCaptureTime.Name = "labelCaptureTime";
-            this.labelCaptureTime.Size = new System.Drawing.Size(282, 29);
-            this.labelCaptureTime.TabIndex = 18;
-            this.labelCaptureTime.Text = "抓拍时间：";
-            this.labelCaptureTime.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.captureTime.Location = new System.Drawing.Point(12, 129);
+            this.captureTime.Name = "captureTime";
+            this.captureTime.Size = new System.Drawing.Size(282, 29);
+            this.captureTime.TabIndex = 18;
+            this.captureTime.Text = "抓拍时间：";
+            this.captureTime.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // layoutControlGroup1
             // 
@@ -289,7 +292,7 @@
             // 
             // layoutControlItem1
             // 
-            this.layoutControlItem1.Control = this.labelCaptureTime;
+            this.layoutControlItem1.Control = this.captureTime;
             this.layoutControlItem1.CustomizationFormText = "layoutControlItem1";
             this.layoutControlItem1.Location = new System.Drawing.Point(0, 117);
             this.layoutControlItem1.MaxSize = new System.Drawing.Size(0, 33);
@@ -304,7 +307,7 @@
             // 
             // layoutControlItem2
             // 
-            this.layoutControlItem2.Control = this.labelCaptureLoc;
+            this.layoutControlItem2.Control = this.captureLocation;
             this.layoutControlItem2.CustomizationFormText = "layoutControlItem2";
             this.layoutControlItem2.Location = new System.Drawing.Point(0, 85);
             this.layoutControlItem2.MaxSize = new System.Drawing.Size(0, 32);
@@ -342,6 +345,7 @@
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.statusStrip1);
             this.splitContainer1.Panel2.Controls.Add(this.facesListView);
             this.splitContainer1.Panel2.Controls.Add(this.toolStrip1);
             this.splitContainer1.Size = new System.Drawing.Size(930, 472);
@@ -394,7 +398,7 @@
             this.toolStripButtonNextPage,
             this.toolStripButtonLastPage,
             this.toolStripLabelCurPage,
-            this.toolStripComboBoxPageSize,
+            this.pageSizeCombo,
             this.toolStripLabel1,
             this.toolStripSeparator2,
             this.toolStripButtonPlayVideo,
@@ -448,17 +452,12 @@
             this.toolStripLabelCurPage.Size = new System.Drawing.Size(57, 24);
             this.toolStripLabelCurPage.Text = "第1/1页";
             // 
-            // toolStripComboBoxPageSize
+            // pageSizeCombo
             // 
-            this.toolStripComboBoxPageSize.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.toolStripComboBoxPageSize.Items.AddRange(new object[] {
-            "20",
-            "30",
-            "40",
-            "50"});
-            this.toolStripComboBoxPageSize.Name = "toolStripComboBoxPageSize";
-            this.toolStripComboBoxPageSize.Size = new System.Drawing.Size(121, 27);
-            this.toolStripComboBoxPageSize.SelectedIndexChanged += new System.EventHandler(this.toolStripComboBoxPageSize_SelectedIndexChanged);
+            this.pageSizeCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.pageSizeCombo.Name = "pageSizeCombo";
+            this.pageSizeCombo.Size = new System.Drawing.Size(121, 27);
+            this.pageSizeCombo.SelectedIndexChanged += new System.EventHandler(this.toolStripComboBoxPageSize_SelectedIndexChanged);
             // 
             // toolStripLabel1
             // 
@@ -493,6 +492,22 @@
             this.saveToolStripButton.Size = new System.Drawing.Size(97, 24);
             this.saveToolStripButton.Text = "保存图片(&S)";
             this.saveToolStripButton.Click += new System.EventHandler(this.saveToolStripButton_Click);
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.status});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 254);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(930, 24);
+            this.statusStrip1.TabIndex = 14;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // status
+            // 
+            this.status.Name = "status";
+            this.status.Size = new System.Drawing.Size(35, 19);
+            this.status.Text = "就绪";
             // 
             // PicQueryForm
             // 
@@ -531,6 +546,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.wholePicture)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -549,8 +566,8 @@
         private Damany.RemoteImaging.Common.Controls.DoubleBufferedListView facesListView;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.Label labelCaptureTime;
-        private System.Windows.Forms.Label labelCaptureLoc;
+        private System.Windows.Forms.Label captureTime;
+        private System.Windows.Forms.Label captureLocation;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.SplitContainer splitContainer2;
         private DevExpress.XtraLayout.LayoutControl layoutControl1;
@@ -566,7 +583,7 @@
         private System.Windows.Forms.ToolStripButton toolStripButtonLastPage;
         private System.Windows.Forms.ToolStripLabel toolStripLabelCurPage;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
-        private System.Windows.Forms.ToolStripComboBox toolStripComboBoxPageSize;
+        private System.Windows.Forms.ToolStripComboBox pageSizeCombo;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripButton toolStripButtonPlayVideo;
         private System.Windows.Forms.PictureBox wholePicture;
@@ -575,5 +592,7 @@
         private System.Windows.Forms.ToolStripButton saveToolStripButton;
         private System.Windows.Forms.ComboBox machineCombo;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel status;
     }
 }
