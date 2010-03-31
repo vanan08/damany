@@ -12,5 +12,12 @@ namespace RemoteImaging
         void Search();
 
         void SelectedItemChanged();
+
+        void NavigateToPrev();
+        void NavigateToNext();
+        void NavigateToLast();
+        void NavigateToFirst();
+
+        void PageSizeChanged();
     }
 }

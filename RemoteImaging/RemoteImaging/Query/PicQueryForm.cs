@@ -25,6 +25,9 @@ namespace RemoteImaging.Query
             this.facesListView.LargeImageList = this.faceImageList;
             this.facesListView.SelectedIndexChanged += new EventHandler(facesListView_SelectedIndexChanged);
 
+            this.pageSizeCombo.ComboBox.DataSource = new int[] { 20, 30, 40, 50 };
+            this.pageSizeCombo.ComboBox.SelectedItem = 20;
+
             this.PageSize = 20;
         }
 
@@ -36,7 +39,6 @@ namespace RemoteImaging.Query
         public void AttachPresenter(IPicQueryPresenter presenter)
         {
             this.presenter = presenter;
-
         }
 
         public void SetCameras(IList<Damany.PC.Domain.CameraInfo> cameras)
@@ -63,57 +65,21 @@ namespace RemoteImaging.Query
 
         private void UpdatePagesLabel()
         {
+            if (InvokeRequired)
+            {
+                this.BeginInvoke(new MethodInvoker(this.UpdatePagesLabel));
+                return;
+            }
+
             this.toolStripLabelCurPage.Text = string.Format("第{0}/{1}页", currentPage, totalPage);
         }
 
         private int CalcPagesCount()
         {
-
             totalPage = (imagesFound.Length + PageSize - 1) / PageSize;
-
             return totalPage;
         }
 
-        void ShowCurrentPage()
-        {
-            facesListView.BeginUpdate();
-
-            ClearCurPageList();
-
-            for (int i = (currentPage - 1) * PageSize;
-                (i < currentPage * PageSize) && (i < imagesFound.Length);
-                ++i)
-            {
-                Image img = null;
-                try
-                {
-                    img = Damany.Util.Extensions.MiscHelper.FromFileBuffered(imagesFound[i]);
-                }
-                catch (System.IO.IOException ex)
-                {
-                    bool rethrow = ExceptionPolicy.HandleException(ex, Constants.ExceptionHandlingLogging);
-                    if (rethrow)
-                    {
-                        throw;
-                    }
-
-                    continue;
-                }
-
-                this.faceImageList.Images.Add(img);
-                string text = System.IO.Path.GetFileName(imagesFound[i]);
-                ListViewItem item = new ListViewItem()
-                {
-                    Tag = imagesFound[i],
-                    Text = text,
-                    ImageIndex = i % PageSize
-                };
-                this.facesListView.Items.Add(item);
-            }
-
-            facesListView.EndUpdate();
-
-        }
 
         private void ClearCurPageList()
         {
@@ -133,29 +99,6 @@ namespace RemoteImaging.Query
             this.presenter.Search();
         }
 
-        private void PopulateBigPicList(string iconFile)
-        {
-            this.imageList2.Images.Clear();
-
-            string[] files = ImageSearch.SelectedBestImageChanged(iconFile);
-            if (files == null)
-            {
-                MessageBox.Show("没有搜索到对应的二级图片", "警告");
-                return;
-            }
-
-            for (int i = 0; i < files.Length; i++)
-            {
-                this.imageList2.Images.Add(Damany.Util.Extensions.MiscHelper.FromFileBuffered(files[i]));
-                string text = System.IO.Path.GetFileName(files[i]);
-                ListViewItem item = new ListViewItem()
-                {
-                    Tag = files[i],
-                    Text = text,
-                    ImageIndex = i
-                };
-            }
-        }
 
         private void secPicListView_ItemActive(object sender, System.EventArgs e)
         {
@@ -179,70 +122,37 @@ namespace RemoteImaging.Query
 
         private void PicQueryForm_Load(object sender, EventArgs e)
         {
-            this.toolStripComboBoxPageSize.Text = this.PageSize.ToString();
+            
         }
 
         private void toolStripButtonFirstPage_Click(object sender, EventArgs e)
         {
-            currentPage = 1;
-            ShowCurrentPage();
-            UpdatePagesLabel();
+            this.presenter.NavigateToFirst();
 
         }
 
         private void toolStripButtonPrePage_Click(object sender, EventArgs e)
         {
-            --currentPage;
-
-            if (currentPage <= 0)
-            {
-                currentPage = 1;
-                return;
-            }
-
-            ShowCurrentPage();
-            UpdatePagesLabel();
+            this.presenter.NavigateToPrev();
 
         }
 
         private void toolStripButtonNextPage_Click(object sender, EventArgs e)
         {
-            ++currentPage;
-
-            if (currentPage > totalPage)
-            {
-                currentPage = totalPage;
-                return;
-            }
-
-            ShowCurrentPage();
-            UpdatePagesLabel();
+            this.presenter.NavigateToNext();
         }
 
         private void toolStripButtonLastPage_Click(object sender, EventArgs e)
         {
-            currentPage = totalPage;
-
-            ShowCurrentPage();
-            UpdatePagesLabel();
-
+            this.presenter.NavigateToLast();
         }
 
         private void toolStripComboBoxPageSize_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string pageSize = (string)this.toolStripComboBoxPageSize.SelectedItem;
+            this.pageSize = (int)this.pageSizeCombo.SelectedItem;
 
-            // if (string.IsNullOrEmpty(pageSize)) return;
-
-            int sz = int.Parse(pageSize);
-
-            this.PageSize = sz;
-
-            CalcPagesCount();
-            currentPage = 1;
-            UpdatePagesLabel();
-
-            ShowCurrentPage();
+            this.presenter.PageSizeChanged();
+            
 
         }
 
@@ -305,14 +215,25 @@ namespace RemoteImaging.Query
         }
 
 
-
-        public int PageSize { get; set; }
+        public int PageSize 
+        { 
+            get
+            {
+                return this.pageSize;
+            }
+            set
+            {
+                
+                //this.pageSizeCombo.SelectedItem = value;
+                this.pageSize = value;
+            }
+        }
 
         private string[] imagesFound = new string[0];
         private int currentPage;
         private int totalPage;
+        private int pageSize;
         private IPicQueryPresenter presenter;
-
 
 
         #region IPicQueryScreen Members
@@ -320,10 +241,14 @@ namespace RemoteImaging.Query
 
         public void Clear()
         {
+            if (InvokeRequired)
+            {
+                this.BeginInvoke(new MethodInvoker(Clear));
+                return;
+            }
+
             this.facesListView.Items.Clear();
             this.faceImageList.Images.Clear();
-            this.currentFace.Image = null;
-            this.wholePicture.Image = null;
         }
 
         public void AddItem(Damany.Imaging.Common.Portrait item)
@@ -450,6 +375,75 @@ namespace RemoteImaging.Query
         public void ShowUserIsBusy(bool busy)
         {
             Cursor.Current = busy ? Cursors.WaitCursor : Cursors.Default;
+        }
+
+
+        public Damany.Imaging.Common.Portrait CurrentPortrait
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                this.currentFace.Image = value.GetImage().ToBitmap();
+                this.captureLocation.Text = value.CapturedFrom.Id.ToString();
+                this.captureTime.Text = value.CapturedAt.ToString();
+            }
+        }
+
+        public Image CurrentBigPicture
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                this.wholePicture.Image = value;
+            }
+        }
+
+
+        public int CurrentPage
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                this.currentPage = value;
+                this.UpdatePagesLabel();
+                
+            }
+        }
+
+        public int TotalPage
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                this.totalPage = value;
+                this.UpdatePagesLabel();
+            }
+        }
+
+
+        public void ShowStatus(string status)
+        {
+            if (InvokeRequired)
+            {
+                Action<string> action = this.ShowStatus;
+
+                this.BeginInvoke(action, status);
+                return;
+            }
+
+            this.status.Text = status;
         }
 
         #endregion
