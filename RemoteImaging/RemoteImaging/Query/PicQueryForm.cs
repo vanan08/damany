@@ -74,13 +74,7 @@ namespace RemoteImaging.Query
             this.toolStripLabelCurPage.Text = string.Format("第{0}/{1}页", currentPage, totalPage);
         }
 
-        private int CalcPagesCount()
-        {
-            totalPage = (imagesFound.Length + PageSize - 1) / PageSize;
-            return totalPage;
-        }
-
-
+       
         private void ClearCurPageList()
         {
             this.facesListView.Clear();
@@ -89,7 +83,6 @@ namespace RemoteImaging.Query
 
         private void ClearLists()
         {
-            ClearCurPageList();
             this.imageList2.Images.Clear();
             this.currentFace.Image = null;
         }
@@ -152,7 +145,6 @@ namespace RemoteImaging.Query
             this.pageSize = (int)this.pageSizeCombo.SelectedItem;
 
             this.presenter.PageSizeChanged();
-            
 
         }
 

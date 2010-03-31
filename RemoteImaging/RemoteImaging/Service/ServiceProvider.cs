@@ -11,28 +11,23 @@ namespace RemoteImaging.Service
     {
         //MotionDetectWrapper.MotionDetector motionDetector;
         FaceSearchWrapper.FaceSearch faceSearcher;
-        RealtimeDisplay.Presenter presenter;
         Damany.Component.ICamera camera;
 
         public ServiceProvider(
                     //MotionDetectWrapper.MotionDetector motionDetector,
                     FaceSearchWrapper.FaceSearch faceSearcher,
-                    RealtimeDisplay.Presenter presenter,
                     Damany.Component.ICamera camera)
         {
 //             if (motionDetector == null)
 //                 throw new ArgumentNullException("motionDetector", "motionDetector is null.");
             if (faceSearcher == null)
                 throw new ArgumentNullException("faceSearcher", "faceSearcher is null.");
-            if (presenter == null)
-                throw new ArgumentNullException("presenter", "presenter is null.");
             if (camera == null)
                 throw new ArgumentNullException("camera", "camera is null.");
 
 
             //this.motionDetector = motionDetector;
             this.faceSearcher = faceSearcher;
-            this.presenter = presenter;
             this.camera = camera;
         }
 
@@ -85,7 +80,7 @@ namespace RemoteImaging.Service
         private void OpenConfigHostService()
         {
             var confitHost =
-                            new Service.ConfigHostProvider(this.faceSearcher, this.presenter);
+                            new Service.ConfigHostProvider(this.faceSearcher);
             var baseAddrConfigHost = string.Format("net.tcp://{0}:8001", System.Net.IPAddress.Any);
             DoOpenService(baseAddrConfigHost, confitHost, typeof(RemoteControlService.IConfigHost));
         }

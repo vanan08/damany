@@ -20,12 +20,19 @@ namespace RemoteImaging
         {
             this.range = this.screen.TimeRange;
 
-            Action disableUI = delegate { EnableScreen(false); this.screen.ShowStatus("开始搜索");};
-            Action enableUI = delegate { EnableScreen(true); this.screen.ShowStatus("搜索完毕"); };
+            Action disableUI = delegate {
+                EnableScreen(false); 
+                this.screen.ShowStatus("开始搜索"); 
+            };
+
+            Action enableUI = delegate {
+                EnableScreen(true);
+                this.screen.ShowStatus("搜索完毕"); 
+            };
 
             this.DoActionsAsync(disableUI, enableUI, 
                 (Action)SearchInternal, 
-                (Action)UpdateScreenPagesLabel, 
+                (Action)CalculatePaging, 
                 (Action)ShowCurrentPage);
             
         }
@@ -51,6 +58,8 @@ namespace RemoteImaging
         private void ShowCurrentPage()
         {
             if (this.portraits == null) return;
+
+            this.screen.Clear();
 
             var page = this.portraits.Skip(this.currentPageIndex * this.screen.PageSize).Take(this.screen.PageSize);
 
@@ -89,6 +98,7 @@ namespace RemoteImaging
         public void NavigateToLast()
         {
             if (this.portraits == null) return;
+            if (this.currentPageIndex == this.totalPagesCount - 1) return;
 
             this.currentPageIndex = this.totalPagesCount - 1;
             UpdateCurrentPageAsync();
@@ -98,6 +108,7 @@ namespace RemoteImaging
         public void NavigateToFirst()
         {
             if (this.portraits == null) return;
+            if (this.currentPageIndex == 0) return;
 
             this.currentPageIndex = 0;
             UpdateCurrentPageAsync();
@@ -107,6 +118,8 @@ namespace RemoteImaging
         public void PageSizeChanged()
         {
             if (this.portraits == null) return;
+
+            this.CalculatePaging();
 
             Action pre = delegate { this.screen.Clear(); this.EnableScreen(false); };
             Action after = delegate { this.EnableScreen(true); };
@@ -131,7 +144,6 @@ namespace RemoteImaging
                     foreach (var item in actions)
                     {
                         item();
-                        System.Threading.Thread.Sleep(1000);
                     }
                 }
                 finally
@@ -145,17 +157,22 @@ namespace RemoteImaging
             });
         }
 
-        private void UpdateScreenPagesLabel()
+        private void CalculatePaging()
         {
             if (this.portraits.Count > 0)
             {
-                this.screen.Clear();
-                this.screen.CurrentPage = this.currentPageIndex + 1;
-               
                 this.totalPagesCount = (this.portraits.Count + this.screen.PageSize - 1) / this.screen.PageSize;
+
+                if (this.currentPageIndex > this.totalPagesCount-1)
+                {
+                    this.currentPageIndex = this.totalPagesCount - 1;
+                }
+
+                this.screen.CurrentPage = this.currentPageIndex + 1;
                 this.screen.TotalPage = this.totalPagesCount;
             }
         }
+
         private void SearchInternal()
         {
             this.portraits = this.repository.GetPortraits(this.range);
@@ -170,7 +187,7 @@ namespace RemoteImaging
 
         private void UpdateCurrentPageAsync()
         {
-            Action pre = delegate { this.EnableScreen(false); this.UpdateScreenPagesLabel(); };
+            Action pre = delegate { this.EnableScreen(false); this.CalculatePaging(); };
             Action after = delegate { this.EnableScreen(true); };
 
             this.DoActionsAsync(pre, after, this.ShowCurrentPage);

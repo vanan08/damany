@@ -57,7 +57,6 @@ namespace RemoteImaging.RealtimeDisplay
         }
 
 
-        private Presenter presenter;
         CameraInfo allCamera = new CameraInfo() { Id = -1 };
 
         private TreeNode getTopCamera(TreeNode node)
@@ -588,27 +587,13 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void OnConnectionFinished(object ex)
         {
-            if (ex != null)
-                MessageBox.Show(this,
-                                 "无法连接摄像头，请检查摄像头后重新连接",
-                                 "连接错误",
-                                 MessageBoxButtons.OK,
-                                 MessageBoxIcon.Error);
-            else
-            {
-                presenter.Start();
-                this.faceRecognize.Enabled = true;
-            }
+           
 
         }
 
 
         int? lastSelCamID = null;
 
-        private Presenter CreatePresenter(string ip, string userName, string passWord, int port)
-        {
-            return null;
-        }
 
 
         private void StartCamera(CameraInfo cam)
@@ -637,8 +622,6 @@ namespace RemoteImaging.RealtimeDisplay
             }
 
 
-            if (presenter == null)
-                presenter = new Presenter(this, Icam);
 
             System.Threading.ThreadPool.QueueUserWorkItem((object o) =>
                 {
@@ -802,14 +785,12 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
-            if (presenter == null) return;
 
             DialogResult res = MessageBox.Show("设置背景后将影响人脸识别准确度, 你确认要设置背景吗?", "警告",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
             if (res != DialogResult.Yes) return;
 
-            presenter.UpdateBG();
         }
 
 
@@ -870,9 +851,6 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void faceRecognize_CheckedChanged(object sender, EventArgs e)
         {
-            if (this.presenter == null) return;
-
-            this.presenter.FaceRecognize = faceRecognize.Checked;
         }
 
         private Func<RemoteImaging.IPicQueryPresenter> picPresenterCreator;
