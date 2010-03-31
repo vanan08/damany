@@ -27,7 +27,7 @@ namespace RemoteImaging
 
         private void InitDataProvider()
         {
-            var repository = new Damany.PortraitCapturer.DAL.Providers.LocalDb4oProvider(@".\images.db4o");
+            var repository = new Damany.PortraitCapturer.DAL.Providers.LocalDb4oProvider(@"D:\ImageOutput");
             repository.Start();
 
             this.builder.RegisterInstance(repository).As<Damany.PortraitCapturer.DAL.IRepository>().ExternallyOwned();

@@ -22,7 +22,15 @@ namespace RemoteImaging.Query
             this.timeFrom.EditValue = DateTime.Now.AddDays(-1);
             this.timeTo.EditValue = DateTime.Now;
 
+            this.facesListView.LargeImageList = this.faceImageList;
+            this.facesListView.SelectedIndexChanged += new EventHandler(facesListView_SelectedIndexChanged);
+
             this.PageSize = 20;
+        }
+
+        void facesListView_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.presenter.SelectedItemChanged();
         }
 
         public void AttachPresenter(IPicQueryPresenter presenter)
@@ -125,36 +133,6 @@ namespace RemoteImaging.Query
             this.presenter.Search();
         }
 
-
-        private void bestPicListView_ItemActivate(object sender, System.EventArgs e)
-        {
-            string filePath = this.facesListView.FocusedItem.Tag as string;
-
-            try
-            {
-                this.currentFace.Image = Damany.Util.Extensions.MiscHelper.FromFileBuffered(filePath);
-
-                //detail infomation
-                ImageDetail imgInfo = ImageDetail.FromPath(filePath);
-
-                string captureLoc = string.Format("抓拍地点: {0}", imgInfo.FromCamera);
-                this.labelCaptureLoc.Text = captureLoc;
-
-                string captureTime = string.Format("抓拍时间: {0}", imgInfo.CaptureTime);
-                this.labelCaptureTime.Text = captureTime;
-
-                string bigImgPath = FileSystemStorage.BigImgPathForFace(imgInfo);
-
-                this.wholePicture.Image = Damany.Util.Extensions.MiscHelper.FromFileBuffered(bigImgPath);
-            }
-            catch (System.IO.IOException ex)
-            {
-                ShowUserError(ex.Message);
-            }
-
-        }
-
-
         private void PopulateBigPicList(string iconFile)
         {
             this.imageList2.Images.Clear();
@@ -181,7 +159,6 @@ namespace RemoteImaging.Query
 
         private void secPicListView_ItemActive(object sender, System.EventArgs e)
         {
-
 
         }
 
@@ -468,6 +445,11 @@ namespace RemoteImaging.Query
         public void Show()
         {
             this.ShowDialog();
+        }
+
+        public void ShowUserIsBusy(bool busy)
+        {
+            Cursor.Current = busy ? Cursors.WaitCursor : Cursors.Default;
         }
 
         #endregion
