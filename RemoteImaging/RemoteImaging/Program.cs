@@ -49,11 +49,6 @@ namespace RemoteImaging
             Application.Run(mainForm);
 
 
-//             var controller
-//                 = new SingleInstanceController();
-// 
-//             controller.Run(argv);
-
         }
 
         static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)

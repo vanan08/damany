@@ -8,12 +8,12 @@ namespace Damany.Imaging.Handlers
 {
     public class PersistenceWriter : Damany.Imaging.Common.IPortraitHandler
     {
-        private Damany.PortraitCapturer.DAL.IRepository service;
+        private Damany.PortraitCapturer.DAL.IRepository repository;
         #region IPortraitHandler Members
 
-        public PersistenceWriter(Damany.PortraitCapturer.DAL.Providers.LocalDb4oProvider service)
+        public PersistenceWriter(Damany.PortraitCapturer.DAL.IRepository repository)
         {
-            this.service = service;
+            this.repository = repository;
         }
 
         public void Initialize() {}
@@ -22,8 +22,8 @@ namespace Damany.Imaging.Handlers
 
         public void HandlePortraits(IList<Damany.Imaging.Common.Frame> motionFrames, IList<Damany.Imaging.Common.Portrait> portraits)
         {
-            motionFrames.ToList().ForEach(f =>{ service.SaveFrame(f); });
-            portraits.ToList().ForEach(p => { service.SavePortrait(p); });
+            motionFrames.ToList().ForEach(f =>{ this.repository.SaveFrame(f); });
+            portraits.ToList().ForEach(p => { this.repository.SavePortrait(p); });
             
         }
 
