@@ -55,15 +55,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Algorithms\FaceCompareResult.cs" />
+    <Compile Include="PlugIns\IFaceComparer.cs" />
+    <Compile Include="PlugIns\LBPFaceComparer.cs" />
     <Compile Include="FaceSearchController.cs" />
     <Compile Include="FaceSearchFactory.cs" />
     <Compile Include="Algorithms\FrameManager.cs" />
     <Compile Include="Algorithms\MotionDetector.cs" />
     <Compile Include="Algorithms\PortraitFinder.cs" />
     <Compile Include="Handlers\AsyncPortraitLogger.cs" />
+    <Compile Include="PlugIns\FaceComparer.cs" />
     <Compile Include="Handlers\FrameWritter.cs" />
     <Compile Include="Handlers\GUIUpdater.cs" />
+    <Compile Include="Handlers\IWantedRepository.cs" />
     <Compile Include="Handlers\PortraitsLogger.cs" />
+    <Compile Include="PlugIns\Suspect.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

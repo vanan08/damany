@@ -62,7 +62,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="BK_NetClientSDK.lib $(NOINHERIT)"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;l:\Documents and Settings\benny\My Documents\Visual Studio 2008\Projects\Damany\Damany.Library\CameraWrappers\library\ClisentSDK\lib&quot;"
+				AdditionalLibraryDirectories="&quot;$(ProjectDir)library\ClisentSDK\lib&quot;"
 				GenerateDebugInformation="true"
 				AssemblyDebug="1"
 				TargetMachine="1"
@@ -188,7 +188,7 @@
 		/>
 		<ProjectReference
 			ReferencedProjectIdentifier="{B8F7A553-6295-4F0B-B48A-7C85DA5118BB}"
-			RelativePathToProject="..\Damany.ImageProcessing.Contracts\Damany.Imaging.Contracts.csproj"
+			RelativePathToProject="..\Damany.ImageProcessing.Contracts\Damany.Imaging.csproj"
 		/>
 	</References>
 	<Files>
