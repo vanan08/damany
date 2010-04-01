@@ -221,6 +221,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\LBP.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\LightCorrect.cpp"
 				>
 			</File>
@@ -292,6 +296,10 @@
 			</File>
 			<File
 				RelativePath=".\ImageRotate.h"
+				>
+			</File>
+			<File
+				RelativePath=".\LBP.h"
 				>
 			</File>
 			<File
