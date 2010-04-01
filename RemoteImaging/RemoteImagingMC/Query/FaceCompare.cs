@@ -151,7 +151,7 @@ namespace RemoteImaging.Query
                 return;
             }
 
-            this.imageList1.Images.Add(p.GetImage().ToBitmap());
+            this.imageList1.Images.Add(p.GetIpl().ToBitmap());
 
             var item = new ListViewItem();
             item.Text = p.CapturedAt.ToString();

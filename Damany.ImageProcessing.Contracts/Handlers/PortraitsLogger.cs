@@ -61,13 +61,13 @@ namespace Damany.Imaging.Handlers
             portraits.ToList().ForEach(p =>
             {
                 var rect = p.FaceBounds;
-                p.GetImage().DrawRect(rect.Location,
+                p.GetIpl().DrawRect(rect.Location,
                                          new OpenCvSharp.CvPoint(rect.X + rect.Width, rect.Y + rect.Width),
                                          new OpenCvSharp.CvScalar(0));
 
                 var outputPath = System.IO.Path.Combine(this.outputDirectory, p.Guid.ToString() + ".jpg");
 
-                p.GetImage().SaveImage(outputPath);
+                p.GetIpl().SaveImage(outputPath);
             });
         }
 

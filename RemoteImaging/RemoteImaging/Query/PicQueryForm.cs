@@ -252,7 +252,7 @@ namespace RemoteImaging.Query
                 return;
             }
 
-            this.faceImageList.Images.Add(item.GetImage().ToBitmap());
+            this.faceImageList.Images.Add(item.GetIpl().ToBitmap());
 
             var lvi = new ListViewItem
             {
@@ -378,7 +378,7 @@ namespace RemoteImaging.Query
             }
             set
             {
-                this.currentFace.Image = value.GetImage().ToBitmap();
+                this.currentFace.Image = value.GetIpl().ToBitmap();
                 this.captureLocation.Text = value.CapturedFrom.Id.ToString();
                 this.captureTime.Text = value.CapturedAt.ToString();
             }

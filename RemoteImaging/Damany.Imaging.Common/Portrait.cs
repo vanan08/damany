@@ -29,7 +29,7 @@ namespace Damany.Imaging.Common
         }
 
 
-        public IplImage GetImage()
+        public IplImage GetIpl()
         {
             CheckForDisposed();
 

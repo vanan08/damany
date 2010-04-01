@@ -58,7 +58,7 @@ namespace Damany.PortraitCapturer.DAL.Providers
             var dto = Mapper.Map<Portrait, DAL.DTO.Portrait>(portrait);
             dataProvider.SavePortrait(dto);
             var absolutePath = GetAbsolutePath(dto.Path);
-            portrait.GetImage().SaveImage(absolutePath);
+            portrait.GetIpl().SaveImage(absolutePath);
 
         }
 
