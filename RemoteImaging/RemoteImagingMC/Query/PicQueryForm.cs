@@ -222,7 +222,7 @@ namespace RemoteImaging.Query
 
         public void AddFace(Damany.Imaging.Common.Portrait p)
         {
-            var bmp = p.GetImage().ToBitmap();
+            var bmp = p.GetIpl().ToBitmap();
             this.facesList.Images.Add(bmp);
             string text = p.CapturedAt.ToString();
             ListViewItem item = new ListViewItem()
@@ -316,7 +316,7 @@ namespace RemoteImaging.Query
         {
             var p = this.facesListView.FocusedItem.Tag as Damany.Imaging.Common.Portrait;
 
-            this.facePictureBox.Image = p.GetImage().ToBitmap();
+            this.facePictureBox.Image = p.GetIpl().ToBitmap();
 
 
             string captureLoc = string.Format("抓拍地点: {0}", p.CapturedFrom.Id);

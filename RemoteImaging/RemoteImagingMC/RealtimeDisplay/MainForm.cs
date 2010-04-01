@@ -961,7 +961,7 @@ namespace RemoteImaging.RealtimeDisplay
             {
                 portraits.ToList().ForEach(p =>
                 {
-                    var img = p.GetImage().ToBitmap();
+                    var img = p.GetIpl().ToBitmap();
                     foreach (var pip in this.Pips)
                     {
                         int index = (int) pip.Tag;

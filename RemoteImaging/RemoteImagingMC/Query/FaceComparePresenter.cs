@@ -47,12 +47,12 @@ namespace RemoteImaging.Query
 
                 foreach (var p in portraits)
                 {
-                    this.view.CurrentImage = p.GetImage().ToBitmap();
+                    this.view.CurrentImage = p.GetIpl().ToBitmap();
 
                     float similarity = 0;
                     bool isSimilar = FaceProcessingWrapper.StaticFunctions.CompareFace(
                         image, rect,
-                        p.GetImage(), p.FaceBounds, ref similarity, false);
+                        p.GetIpl(), p.FaceBounds, ref similarity, false);
 
                     if (isSimilar)
                     {

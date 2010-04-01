@@ -69,7 +69,8 @@
     <Compile Include="Handlers\GUIUpdater.cs" />
     <Compile Include="Handlers\IWantedRepository.cs" />
     <Compile Include="Handlers\PortraitsLogger.cs" />
-    <Compile Include="PlugIns\Suspect.cs" />
+    <Compile Include="PlugIns\PersonOfInterest.cs" />
+    <Compile Include="PlugIns\PersonOfInterestDetectedArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

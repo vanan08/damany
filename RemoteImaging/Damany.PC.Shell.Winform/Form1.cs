@@ -116,7 +116,7 @@ namespace Damany.PC.Shell.Winform
             {
                 portraits.ToList().ForEach(p =>
                 {
-                    var portrait = portraits.Last().GetImage().ToBitmap();
+                    var portrait = portraits.Last().GetIpl().ToBitmap();
                     var g = Graphics.FromImage(portrait);
                     g.DrawRectangle(Pens.Black, p.FaceBounds.ToRectangle());
                     g.Dispose();
@@ -249,7 +249,7 @@ namespace Damany.PC.Shell.Winform
                     {
                         Damany.RemoteImaging.Common.Portrait newP = new Damany.RemoteImaging.Common.Portrait();
                         newP.cameraId = p.CapturedFrom.Id;
-                        newP.image = p.GetImage().ToBitmap();
+                        newP.image = p.GetIpl().ToBitmap();
                         newP.timeStamp = p.CapturedAt;
                         sender.EnqueueObject(newP);
                     }
