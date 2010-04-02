@@ -31,12 +31,12 @@
             this.lblDate = new System.Windows.Forms.Label();
             this.lblTime = new System.Windows.Forms.Label();
             this.lblAddress = new System.Windows.Forms.Label();
-            this.picCheck = new System.Windows.Forms.PictureBox();
+            this.suspectImage = new System.Windows.Forms.PictureBox();
             this.lblTextSim = new System.Windows.Forms.Label();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.grbTargetImg = new System.Windows.Forms.GroupBox();
-            this.picStandard = new System.Windows.Forms.PictureBox();
+            this.personOfInterestImage = new System.Windows.Forms.PictureBox();
             this.v = new System.Windows.Forms.ListView();
             this.cId = new System.Windows.Forms.ColumnHeader();
             this.cName = new System.Windows.Forms.ColumnHeader();
@@ -45,9 +45,9 @@
             this.cCard = new System.Windows.Forms.ColumnHeader();
             this.cSimilarity = new System.Windows.Forms.ColumnHeader();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            ((System.ComponentModel.ISupportInitialize)(this.picCheck)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.suspectImage)).BeginInit();
             this.grbTargetImg.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picStandard)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.personOfInterestImage)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -80,14 +80,14 @@
             this.lblAddress.TabIndex = 9;
             this.lblAddress.Text = "地址： **市**区**号**南门";
             // 
-            // picCheck
+            // suspectImage
             // 
-            this.picCheck.Location = new System.Drawing.Point(6, 16);
-            this.picCheck.Name = "picCheck";
-            this.picCheck.Size = new System.Drawing.Size(158, 179);
-            this.picCheck.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picCheck.TabIndex = 1;
-            this.picCheck.TabStop = false;
+            this.suspectImage.Location = new System.Drawing.Point(6, 16);
+            this.suspectImage.Name = "suspectImage";
+            this.suspectImage.Size = new System.Drawing.Size(158, 179);
+            this.suspectImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.suspectImage.TabIndex = 1;
+            this.suspectImage.TabStop = false;
             // 
             // lblTextSim
             // 
@@ -124,7 +124,7 @@
             this.grbTargetImg.Controls.Add(this.btnCancel);
             this.grbTargetImg.Controls.Add(this.btnOK);
             this.grbTargetImg.Controls.Add(this.lblTextSim);
-            this.grbTargetImg.Controls.Add(this.picCheck);
+            this.grbTargetImg.Controls.Add(this.suspectImage);
             this.grbTargetImg.Controls.Add(this.lblAddress);
             this.grbTargetImg.Controls.Add(this.lblTime);
             this.grbTargetImg.Controls.Add(this.lblDate);
@@ -136,14 +136,14 @@
             this.grbTargetImg.TabStop = false;
             this.grbTargetImg.Text = "待识别图片";
             // 
-            // picStandard
+            // personOfInterestImage
             // 
-            this.picStandard.Location = new System.Drawing.Point(6, 20);
-            this.picStandard.Name = "picStandard";
-            this.picStandard.Size = new System.Drawing.Size(158, 179);
-            this.picStandard.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picStandard.TabIndex = 0;
-            this.picStandard.TabStop = false;
+            this.personOfInterestImage.Location = new System.Drawing.Point(6, 20);
+            this.personOfInterestImage.Name = "personOfInterestImage";
+            this.personOfInterestImage.Size = new System.Drawing.Size(158, 179);
+            this.personOfInterestImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.personOfInterestImage.TabIndex = 0;
+            this.personOfInterestImage.TabStop = false;
             // 
             // v
             // 
@@ -197,7 +197,7 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.v);
-            this.groupBox1.Controls.Add(this.picStandard);
+            this.groupBox1.Controls.Add(this.personOfInterestImage);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox1.Location = new System.Drawing.Point(0, 202);
             this.groupBox1.Name = "groupBox1";
@@ -222,10 +222,10 @@
             this.Text = "报警 立即处理模式";
             this.Load += new System.EventHandler(this.PersonCheck_Load);
             this.Shown += new System.EventHandler(this.ImmediatelyModel_Shown);
-            ((System.ComponentModel.ISupportInitialize)(this.picCheck)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.suspectImage)).EndInit();
             this.grbTargetImg.ResumeLayout(false);
             this.grbTargetImg.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picStandard)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.personOfInterestImage)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -236,12 +236,12 @@
         private System.Windows.Forms.Label lblDate;
         private System.Windows.Forms.Label lblTime;
         private System.Windows.Forms.Label lblAddress;
-        private System.Windows.Forms.PictureBox picCheck;
+        private System.Windows.Forms.PictureBox suspectImage;
         private System.Windows.Forms.Label lblTextSim;
         private System.Windows.Forms.Button btnOK;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.GroupBox grbTargetImg;
-        private System.Windows.Forms.PictureBox picStandard;
+        private System.Windows.Forms.PictureBox personOfInterestImage;
         private System.Windows.Forms.ListView v;
         private System.Windows.Forms.ColumnHeader cId;
         private System.Windows.Forms.ColumnHeader cName;

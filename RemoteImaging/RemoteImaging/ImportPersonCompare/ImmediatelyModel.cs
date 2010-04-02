@@ -76,7 +76,7 @@ namespace RemoteImaging.ImportPersonCompare
         public Image PicCheckImg
         {
             private get { return picCheckImg; }
-            set { picCheck.Image = (Image)value; }
+            set { suspectImage.Image = (Image)value; }
         }
 
         private List<Damany.Imaging.PlugIns.PersonOfInterestDetectionResult> listPersons = null;
@@ -112,8 +112,7 @@ namespace RemoteImaging.ImportPersonCompare
                                                             ipd.Details.Age.ToString(),
                                                             ipd.Details.ID,
                                                             string.Empty});
-                lvi.SubItems[0].Tag = ipd.Similarity; //人脸库中的图片
-                lvi.SubItems[1].Tag = ipd;
+                lvi.Tag = ipd;
                 this.v.Items.Add(lvi);
             }
 
@@ -146,7 +145,7 @@ namespace RemoteImaging.ImportPersonCompare
                 if (dlg.ShowDialog(this) == DialogResult.OK)
                 {
                     string path = Path.Combine(dlg.SelectedPath, GetFileName());
-                    picCheck.Image.Save(path);
+                    suspectImage.Image.Save(path);
                 }
             }
         }
@@ -176,21 +175,19 @@ namespace RemoteImaging.ImportPersonCompare
         {
             if (v.SelectedItems.Count > 0)
             {
-                ListViewItem lvi = v.SelectedItems[0];
-                RecognizeResult sm = (RecognizeResult)lvi.SubItems[0].Tag;
-                string range = lvi.SubItems[5].Text;
-                lblTextSim.Text = string.Format("相似度: {0:F0}%", sm.Similarity * 100);
+                var lvi = v.SelectedItems[0];
+                var result = (Damany.Imaging.PlugIns.PersonOfInterestDetectionResult) lvi.Tag;
+
+                lblTextSim.Text = string.Format("相似度: {0:F0}%", result.Similarity * 100);
                 //犯罪分子图片显示
-                if (picStandard.Image != null)
+                if (personOfInterestImage.Image != null)
                 {
-                    picStandard.Image.Dispose();
-                    picStandard.Image = null;
+                    personOfInterestImage.Image.Dispose();
+                    personOfInterestImage.Image = null;
                 }
 
-                string path = Path.Combine(Properties.Settings.Default.ImpSelectPersonPath, lvi.SubItems[1].Tag as string);
-
-
-                picStandard.Image = Damany.Util.Extensions.MiscHelper.FromFileBuffered(path);
+                personOfInterestImage.Image = result.Details.GetImage();
+                this.suspectImage.Image = result.Portrait.GetIpl().ToBitmap();
                 btnOK.Enabled = true;
             }
         }
