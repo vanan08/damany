@@ -5,6 +5,7 @@ using System.Text;
 using RemoteImaging.Core;
 using System.Drawing;
 using Damany.PC.Domain;
+using RemoteImaging.ImportPersonCompare;
 
 namespace RemoteImaging.RealtimeDisplay
 {
@@ -32,14 +33,10 @@ namespace RemoteImaging.RealtimeDisplay
 
         void ShowImages(ImageDetail[] images);
 
-        void ShowFaceRecognitionResult(
-            System.Drawing.Image captured,
-            System.Drawing.Image fromLib,
-            float similarity);
 
         bool ShowProgress { set; }
         void StepProgress();
 
-        void ShowSuspects(ImportPersonCompare.ImportantPersonDetail[] suspects, Image captured);
+        void ShowSuspects( Damany.Imaging.PlugIns.PersonOfInterestDetectionResult result );
     }
 }

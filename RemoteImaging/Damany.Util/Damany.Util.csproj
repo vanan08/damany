@@ -32,6 +32,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="OpenCvSharp, Version=2.0.3497.28493, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Library\OpenCvSharp\OpenCvSharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -48,8 +52,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CvRectConverter.cs" />
     <Compile Include="DateTimeRange.cs" />
     <Compile Include="Extensions\MiscHelper.cs" />
+    <Compile Include="Gender.cs" />
     <Compile Include="PerformanceCounterFactory.cs" />
     <Compile Include="PersistentWorker.cs" />
     <Compile Include="SingleInstanceController.cs" />

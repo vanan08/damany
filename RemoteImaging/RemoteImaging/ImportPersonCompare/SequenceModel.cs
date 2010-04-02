@@ -91,12 +91,12 @@ namespace RemoteImaging.ImportPersonCompare
 
                     ListViewItem lvi = new ListViewItem(string.Format("",
                                                             ipd.Info.Name,
-                                                            ipd.Info.Sex.ToString(),
+                                                            ipd.Info.Gender.ToString(),
                                                             ipd.Info.Age.ToString(),
-                                                            ipd.Info.CardId,
+                                                            ipd.Info.ID,
                                                             string.Format("{0}%-{1}%", x * 100, y * 100)));
                     lvi.SubItems[0].Tag = ipd.Similarity; //人脸库中的图片
-                    lvi.SubItems[1].Tag = ipd.Info.FileName;//犯罪分子图片  未进行灰度图转换
+                    lvi.SubItems[1].Tag = ipd.Info.ImageFilePath;//犯罪分子图片  未进行灰度图转换
                     v.Items.Add(lvi);
                 }
                 v.Items[0].Selected = true;

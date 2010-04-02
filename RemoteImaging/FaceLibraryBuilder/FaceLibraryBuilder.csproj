@@ -66,6 +66,12 @@
     <Compile Include="..\VersionAssemblyInfo.cs">
       <Link>Properties\VersionAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormProgress.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -89,6 +95,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Damany.ImageProcessing.Contracts\Damany.Imaging.csproj">
+      <Project>{B8F7A553-6295-4F0B-B48A-7C85DA5118BB}</Project>
+      <Name>Damany.Imaging</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Damany.Util\Damany.Util.csproj">
       <Project>{FA6DEBE0-D78D-437E-B05D-0923896290C9}</Project>
       <Name>Damany.Util</Name>
@@ -112,6 +122,10 @@
     <ProjectReference Include="..\SuspectsRepository\SuspectsRepository.csproj">
       <Project>{B942C0AF-0BE0-4655-A1DE-B63782D67F2F}</Project>
       <Name>SuspectsRepository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TestDataProvider\TestDataProvider.csproj">
+      <Project>{5783AFA7-05AD-4B52-8A0F-C120EADCCB9C}</Project>
+      <Name>TestDataProvider</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Damany.Imaging.PlugIns
 {
-    public class PersonOfInterestDetectedArgs : EventArgs
+    public class PersonOfInterestDetectionResult
     {
         public PersonOfInterest Details { get; set; }
         public Common.Portrait Portrait { get; set; }

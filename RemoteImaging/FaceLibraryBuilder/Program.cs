@@ -18,7 +18,7 @@ namespace FaceLibraryBuilder
             searcher = new FaceSearchWrapper.FaceSearch();
             searcher.SetFaceParas(50, 6);
 
-            Application.ThreadException += new System.Threading.ThreadExceptionEventHandler(Application_ThreadException);
+            Application.ThreadException += Application_ThreadException;
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

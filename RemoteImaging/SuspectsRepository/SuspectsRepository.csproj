@@ -60,7 +60,6 @@
     <Compile Include="..\VersionAssemblyInfo.cs">
       <Link>Properties\VersionAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="PersonInfo.cs" />
     <Compile Include="Properties\Resource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -78,6 +77,14 @@
     <None Include="Resources\config.ini" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Damany.ImageProcessing.Contracts\Damany.Imaging.csproj">
+      <Project>{B8F7A553-6295-4F0B-B48A-7C85DA5118BB}</Project>
+      <Name>Damany.Imaging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Damany.Util\Damany.Util.csproj">
+      <Project>{FA6DEBE0-D78D-437E-B05D-0923896290C9}</Project>
+      <Name>Damany.Util</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FaceProcessingWrapper\FaceProcessingWrapper.vcproj">
       <Project>{02B00EA5-D734-429C-BF58-44769501B940}</Project>
       <Name>FaceProcessingWrapper</Name>

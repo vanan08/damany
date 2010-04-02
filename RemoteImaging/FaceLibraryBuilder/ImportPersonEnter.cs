@@ -109,13 +109,12 @@ namespace FaceLibraryBuilder
 
             string card = txtCard.Text.ToString();
 
-            PersonInfo info = new PersonInfo();
+            var info = new Damany.Imaging.PlugIns.PersonOfInterest(TestDataProvider.Data.GetPortrait());
             info.ID = id;
             info.Name = name;
-            info.Sex = sex;
+            info.Gender = Damany.Util.Gender.Male;
             info.Age = age;
-            info.CardId = card;
-            info.Similarity = 0;
+            info.ID = card;
 
             mnger.AddNewPerson(info, imageFilePathAbsolute, this.drawRectangle);
 
@@ -164,6 +163,8 @@ namespace FaceLibraryBuilder
             FormProgress form = new FormProgress();
             form.Manager = this.mnger;
             form.ShowDialog(this);
+
+            var m = SuspectsRepositoryManager.LoadFrom(@"d:\imglib");
 
 
         }

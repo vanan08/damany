@@ -19,14 +19,7 @@ namespace RemoteImaging
         public static int ImageLen = 100*100;
         public static int EigenNum = 40;
 
-        [STAThread]
-        public static bool Run()
-        {
-            Main(new string[0]);
-            return true;
-        }
   
-
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -43,6 +36,7 @@ namespace RemoteImaging
 
             var strapper = new StartUp();
             strapper.Start();
+            strapper.Run();
 
             var mainForm = strapper.Container.Resolve<RemoteImaging.RealtimeDisplay.MainForm>();
 
