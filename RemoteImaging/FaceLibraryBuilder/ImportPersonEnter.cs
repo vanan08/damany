@@ -11,6 +11,7 @@ using System.IO;
 using OpenCvSharp;
 using ImageProcess;
 using SuspectsRepository;
+using Damany.Util;
 
 namespace FaceLibraryBuilder
 {
@@ -99,27 +100,17 @@ namespace FaceLibraryBuilder
 
             String imageFilePathAbsolute = this.picTargetPerson.Image.Tag as string;
 
-
-            string id = txtId.Text.ToString();
-            string name = txtName.Text.ToString();
-            string sex = rabMan.Checked ? "男" : "女";
-            int age = 0;
-
-            int.TryParse(txtAge.Text, out age);
-
-            string card = txtCard.Text.ToString();
-
-            var info = new Damany.Imaging.PlugIns.PersonOfInterest(TestDataProvider.Data.GetPortrait());
-            info.ID = id;
-            info.Name = name;
+            var ipl = OpenCvSharp.IplImage.FromBitmap((Bitmap) this.picTargetPerson.Image);
+            ipl.ROI = this.drawRectangle.ToCvRect();
+            var info = new Damany.Imaging.PlugIns.PersonOfInterest(ipl);
+            info.ID = this.txtId.Text;
+            info.Name = this.txtName.Text;
             info.Gender = Damany.Util.Gender.Male;
-            info.Age = age;
-            info.ID = card;
+            info.Age = 0;
 
-            mnger.AddNewPerson(info, imageFilePathAbsolute, this.drawRectangle);
+            mnger.AddNewPerson(info);
 
             MessageBox.Show("添加成功");
-
 
         }
 
@@ -349,9 +340,6 @@ namespace FaceLibraryBuilder
             this.mnger = SuspectsRepositoryManager.LoadFrom(this.RootDirectoryForImageRepository);
             UpdateFormText();
             EnableButtons();
-
-
-
 
         }
 

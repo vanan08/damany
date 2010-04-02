@@ -31,6 +31,11 @@ namespace Damany.Imaging.PlugIns
                 return;
             }
 
+            foreach (var portrait in portraits)
+            {
+                portrait.GetIpl().ROI = portrait.FaceBounds;
+            }
+
             var matches = from p in portraits
                           from s in this.personsOfInterests
                             let r = this.Comparer.Compare(p.GetIpl(), s.Ipl)

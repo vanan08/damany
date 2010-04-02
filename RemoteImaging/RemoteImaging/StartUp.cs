@@ -32,19 +32,25 @@ namespace RemoteImaging
             camInfo.Id = 1;
             camInfo.Description = "";
 
-
             var camController = Damany.RemoteImaging.Common.SearchLineBuilder.BuildNewSearchLine(camInfo);
             var faceComparer = this.Container.Resolve<Damany.Imaging.PlugIns.FaceComparer>();
             camController.RegisterPortraitHandler(faceComparer);
 
+            var persistenWriter =
+                new Damany.Imaging.Handlers.PersistenceWriter(
+                    this.Container.Resolve<Damany.PortraitCapturer.DAL.IRepository>());
+
+            camController.RegisterPortraitHandler(persistenWriter);
+
             var mainForm = this.Container.Resolve<RemoteImaging.RealtimeDisplay.MainForm>();
             faceComparer.PersonOfInterestDected += delegate(object sender, EventArgs<PersonOfInterestDetectionResult> e)
-                                                       {
-                                                           mainForm.ShowSuspects(e.Value);
-                                                       };
+            {
+                mainForm.ShowSuspects(e.Value);
+            };
 
-        camController.Start();
-            
+            camController.RegisterPortraitHandler(mainForm);
+
+            camController.Start();
         }
 
 
