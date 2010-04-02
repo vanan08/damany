@@ -26,6 +26,11 @@ namespace Damany.Imaging.PlugIns
 
         public void HandlePortraits(IList<Frame> motionFrames, IList<Portrait> portraits)
         {
+            if (portraits.Count == 0)
+            {
+                return;
+            }
+
             var matches = from p in portraits
                           from s in this.personsOfInterests
                             let r = this.Comparer.Compare(p.GetIpl(), s.Ipl)
@@ -34,7 +39,7 @@ namespace Damany.Imaging.PlugIns
 
             foreach (var match in matches)
             {
-                var args = new PersonOfInterestDetectedArgs
+                var args = new PersonOfInterestDetectionResult
                                {
                                    Details = match.Suspect,
                                    Portrait = match.Portrait,
@@ -78,13 +83,13 @@ namespace Damany.Imaging.PlugIns
             get { return false; }
         }
 
-        public event EventHandler<EventArgs<Exception>> Stopped;
-        public event EventHandler<PersonOfInterestDetectedArgs> PersonOfInterestDected;
+        public event EventHandler< EventArgs<Exception> > Stopped;
+        public event EventHandler< EventArgs<PersonOfInterestDetectionResult> > PersonOfInterestDected;
 
-        private void InvokePersonOfInterestDected(PersonOfInterestDetectedArgs e)
+        private void InvokePersonOfInterestDected(PersonOfInterestDetectionResult e)
         {
-            EventHandler<PersonOfInterestDetectedArgs> handler = PersonOfInterestDected;
-            if (handler != null) handler(this, e);
+            var handler = PersonOfInterestDected;
+            if (handler != null) handler(this, new EventArgs<PersonOfInterestDetectionResult>(e));
         }
 
 

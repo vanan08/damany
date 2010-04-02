@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Damany.Imaging.PlugIns;
 using Damany.Windows.Form;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -796,56 +797,25 @@ namespace RemoteImaging.RealtimeDisplay
 
         #region IImageScreen Members
 
-        private void ShowFaceRecognition(Image captured, Image fromLib, float similarity)
-        {
-            FormFaceRecognitionResult form = new FormFaceRecognitionResult();
-            form.capturedFace.Image = captured;
-            form.faceInLibrary.Image = fromLib;
-            form.similarity.Text = similarity.ToString();
 
-            form.Show(this);
-        }
-        public void ShowFaceRecognitionResult(Image captured, Image fromLib, float similarity)
+        public void ShowSuspects(Damany.Imaging.PlugIns.PersonOfInterestDetectionResult result)
         {
             if (InvokeRequired)
             {
-                Action<Image, Image, float> show = ShowFaceRecognition;
+                Action<Damany.Imaging.PlugIns.PersonOfInterestDetectionResult> action = this.ShowSuspects;
 
-                this.Invoke(show, captured, fromLib, similarity);
+                this.BeginInvoke(action, result);
+                return;
             }
-            else
-            {
-                ShowFaceRecognition(captured, fromLib, similarity);
-            }
-        }
-
-        public void ShowSuspectsInternal(ImportantPersonDetail[] suspects, Image captured)
-        {
 
             ImportPersonCompare.ImmediatelyModel formAlert = new ImportPersonCompare.ImmediatelyModel();
-            formAlert.ShowPersons = suspects.ToList();
-            formAlert.PicCheckImg = captured;
+            var list = new List<PersonOfInterestDetectionResult>();
+            list.Add(result);
+            formAlert.ShowPersons =  list; 
 
             formAlert.ShowDialog(this);
         }
 
-
-        public void ShowSuspects(ImportantPersonDetail[] suspects, Image captured)
-        {
-            if (InvokeRequired)
-            {
-                Action<ImportantPersonDetail[], Image> showSuspectsDel =
-                    this.ShowSuspectsInternal;
-
-                this.BeginInvoke(showSuspectsDel, suspects, captured);
-
-            }
-            else
-            {
-                ShowSuspectsInternal(suspects, captured);
-            }
-
-        }
 
         #endregion
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Damany.Util;
 using OpenCvSharp;
 
 namespace Damany.Imaging.PlugIns
@@ -18,6 +19,7 @@ namespace Damany.Imaging.PlugIns
 
 
             this.Ipl = image;
+            this.Guid = System.Guid.NewGuid();
         }
 
         public System.Drawing.Image GetImage()
@@ -26,6 +28,14 @@ namespace Damany.Imaging.PlugIns
         }
 
         public IplImage Ipl { get; private set; }
+        public string ID { get; set; }
+        public string Name { get; set; }
+        public string SN { get; set; }
+        public System.Guid Guid { get; set; }
+        public Gender Gender { get; set; }
+        public int Age { get; set; }
+        public string ImageFilePath { get; set; }
+
 
 
     }

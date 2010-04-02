@@ -5,6 +5,7 @@ using System.Text;
 using Gallio.Framework;
 using MbUnit.Framework;
 using MbUnit.Framework.ContractVerifiers;
+using Damany.Imaging.PlugIns;
 
 namespace SuspectsRepository.Test
 {
@@ -14,18 +15,10 @@ namespace SuspectsRepository.Test
         [Test]
         public void SaveToTest()
         {
-            SuspectsRepositoryManager mnger = SuspectsRepositoryManager.CreateNewIn("lib");
-
-            var p1 = new PersonInfo();
-            p1.FileName = RelativePathToAbsolute("abc");
-
-            var p2 = new PersonInfo() { FileName = RelativePathToAbsolute("def"), };
+            SuspectsRepositoryManager mnger = SuspectsRepositoryManager.LoadFrom(@"d:\imglib");
 
 
-            mnger.SaveTo("wanted.xml");
-
-            SuspectsRepositoryManager saved = SuspectsRepositoryManager.LoadFrom("wanted.xml");
-            Assert.IsTrue( saved.Count == 2);
+            Assert.IsTrue( mnger.Peoples.Count() == 1  );
 
         }
 

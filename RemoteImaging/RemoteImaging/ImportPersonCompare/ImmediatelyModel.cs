@@ -79,8 +79,8 @@ namespace RemoteImaging.ImportPersonCompare
             set { picCheck.Image = (Image)value; }
         }
 
-        private List<ImportantPersonDetail> listPersons = null;
-        public List<ImportantPersonDetail> ShowPersons
+        private List<Damany.Imaging.PlugIns.PersonOfInterestDetectionResult> listPersons = null;
+        public List<Damany.Imaging.PlugIns.PersonOfInterestDetectionResult> ShowPersons
         {
             private get { return listPersons; }
             set
@@ -97,24 +97,23 @@ namespace RemoteImaging.ImportPersonCompare
             return (int)(y.Similarity.Similarity * 1000 - x.Similarity.Similarity * 1000);
         }
 
-        protected void InitControl(List<ImportantPersonDetail> listpersons)
+        protected void InitControl(List<Damany.Imaging.PlugIns.PersonOfInterestDetectionResult> listpersons)
         {
-            listpersons.Sort(CompareTarget);
 
-            foreach (ImportantPersonDetail ipd in listPersons)
+            foreach (var ipd in listPersons)
             {
 
                 //                     float x = Convert.ToSingle(p[0]);
                 //                     float y = Convert.ToSingle(p[1]);
 
                 ListViewItem lvi = new ListViewItem(new string[] { "",
-                                                            ipd.Info.Name,
-                                                            ipd.Info.Sex.ToString(),
-                                                            ipd.Info.Age.ToString(),
-                                                            ipd.Info.CardId,
+                                                            ipd.Details.Name,
+                                                            ipd.Details.Gender.ToString(),
+                                                            ipd.Details.Age.ToString(),
+                                                            ipd.Details.ID,
                                                             string.Empty});
                 lvi.SubItems[0].Tag = ipd.Similarity; //人脸库中的图片
-                lvi.SubItems[1].Tag = ipd.Info.FileName;//犯罪分子图片  未进行灰度图转换
+                lvi.SubItems[1].Tag = ipd;
                 this.v.Items.Add(lvi);
             }
 
