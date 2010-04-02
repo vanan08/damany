@@ -12,6 +12,7 @@ Damany::Imaging::FaceCompare::LBP::LBP(IplImage* img, CvRect& faceRect)
 	num1 = flagheight*flagwidth;
 	num2 = 26;
 
+
 	IplImage* targetImg = cvCreateImage(cvSize(faceRect.width, faceRect.height), 8, 1);
 	cvSetImageROI(img, faceRect);
 	cvCopy(img, targetImg);

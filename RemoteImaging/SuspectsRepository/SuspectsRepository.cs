@@ -224,42 +224,17 @@ namespace SuspectsRepository
             this.storage[p.Guid] = p;
         }
 
-        public void AddNewPerson(PersonOfInterest p, string imageFilePathAbsolute, Rectangle faceRect)
+        public void AddNewPerson(PersonOfInterest p)
         {
-            String newImageFileName = 
-                p.Guid.ToString().ToUpper() + System.IO.Path.GetExtension(imageFilePathAbsolute);
-
-            //搜索人脸
-            var iplFace = 
-                BitmapConverter.ToIplImage( (Bitmap) Bitmap.FromFile(imageFilePathAbsolute) );
-            iplFace.ROI = faceRect.ToCvRect();
+            String newImageFileName =
+                p.Guid.ToString().ToUpper() + ".jpg";
 
             string badGuyColorFilePath = Path.Combine(GetBadGuyColorDirectoryAbsolute(), newImageFileName);
-            iplFace.SaveImage(badGuyColorFilePath);
 
-            //归一化
-            OpenCvSharp.CvRect rect = new OpenCvSharp.CvRect(
-                                                                faceRect.X,
-                                                                faceRect.Y,
-                                                                faceRect.Width,
-                                                                faceRect.Height);
-
-            IplImage faceFound = faceSearcher.NormalizeImage(iplFace, new CvRect(0, 0, iplFace.Width, iplFace.Height));
-
-            OpenCvSharp.IplImage[] normalizedImages =
-                faceSearcher.NormalizeImageForTraining(iplFace, rect);
-
-            for (int i = 0; i < normalizedImages.Length; ++i)
-            {
-                if (i != 2) continue;
-
-                string normalizedFaceName = string.Format("{0}_{1:d4}.jpg",
-                    System.IO.Path.GetFileNameWithoutExtension(badGuyColorFilePath), i);
-
-                string grayFilePath = System.IO.Path.Combine(GetBadGuyGrayDirectoryAbsolute(), normalizedFaceName);
-
-                normalizedImages[i].SaveImage(grayFilePath);
-            }
+            var roi = p.Ipl.ROI;
+            p.Ipl.ResetROI();
+            p.Ipl.SaveImage(badGuyColorFilePath);
+            p.Ipl.ROI = roi;
 
             p.ImageFilePath = badGuyColorFilePath;
 

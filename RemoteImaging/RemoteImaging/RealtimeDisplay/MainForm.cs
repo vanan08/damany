@@ -4,11 +4,13 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Damany.Imaging.Common;
 using Damany.Imaging.PlugIns;
 using Damany.Windows.Form;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
+using MiscUtil;
 using RemoteImaging.Core;
 using Damany.Component;
 using System.Threading;
@@ -19,7 +21,7 @@ using Damany.PC.Domain;
 
 namespace RemoteImaging.RealtimeDisplay
 {
-    public partial class MainForm : Form, IImageScreen
+    public partial class MainForm : Form, IImageScreen, Damany.Imaging.Common.IPortraitHandler
     {
         private SplashForm splash = new SplashForm();
         public MainForm()
@@ -825,5 +827,54 @@ namespace RemoteImaging.RealtimeDisplay
 
         private Func<RemoteImaging.IPicQueryPresenter> picPresenterCreator;
         private Func<RemoteImaging.IPicQueryScreen> picScreenCreator;
+        public void Initialize()
+        {
+        }
+
+        public void Start()
+        {
+        }
+
+        public void HandlePortraits(IList<Frame> motionFrames, IList<Portrait> portraits)
+        {
+            var imgCells = portraits.Select(p => new ImageCell()
+                                                     {
+                                                         Image = p.GetIpl().ToBitmap(),
+                                                         Text = p.CapturedAt.ToString(),
+                                                     }).ToArray();
+
+            this.squareListView1.ShowImages(imgCells);
+        }
+
+        public void Stop()
+        {
+        }
+
+        public string Description
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public string Author
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public Version Version
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public bool WantCopy
+        {
+            get { return true; }
+        }
+
+        public bool WantFrame
+        {
+            get { return false; }
+        }
+
+        public event EventHandler<EventArgs<Exception>> Stopped;
     }
 }
