@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using Damany.Imaging.Common;
 using Damany.RemoteImaging.Common.Forms;
 using Damany.RemoteImaging.Common;
+using Damany.Util;
 
 
 namespace Damany.PC.Shell.Winform
