@@ -15,5 +15,19 @@ namespace Damany.Util
             ipl.DrawRect(rect.X, rect.Y, rect.X + rect.Width, rect.Y + rect.Height, color, thickNess);
             ipl.SetROI(roi);
         }
+
+        public static IplImage CvtToGray(this IplImage ipl)
+        {
+            var gray = new IplImage(ipl.Width, ipl.Height, BitDepth.U8, 1);
+
+            var roi = ipl.ROI;
+            ipl.ResetROI();
+            ipl.CvtColor(gray,ColorConversion.BgrToGray);
+            ipl.SetROI(roi);
+
+            gray.SetROI(roi);
+
+            return gray;
+        }
     }
 }

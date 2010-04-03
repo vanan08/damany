@@ -5,6 +5,7 @@ using System.Text;
 using Damany.Imaging.Algorithms;
 using FaceProcessingWrapper;
 using OpenCvSharp;
+using Damany.Util;
 
 namespace Damany.Imaging.PlugIns
 {
@@ -13,19 +14,22 @@ namespace Damany.Imaging.PlugIns
 
         public FaceCompareResult Compare(OpenCvSharp.IplImage a, OpenCvSharp.IplImage b)
         {
-            var grayA = new IplImage(a.ROI.Size, BitDepth.U8, 1);
-            a.CvtColor(grayA,ColorConversion.BgrToGray);
+            var roiA = a.ROI;
+            var roiB = b.ROI;
 
-            var grayB = new IplImage(b.ROI.Size, BitDepth.U8, 1);
-            b.CvtColor(grayB, ColorConversion.BgrToGray);
-
+            var grayA = a.CvtToGray();
+            var grayB = b.CvtToGray();
 #if DEBUG
             var bmpA = grayA.ToBitmap();
             var bmpB = grayB.ToBitmap();
 #endif
 
             float score = 0.0f;
-            bool similar = StaticFunctions.LBPCompareFace(grayA, grayA.ROI, grayB, grayB.ROI, ref score);
+
+            grayA.ResetROI();
+            grayB.ResetROI();
+            bool similar = StaticFunctions.LBPCompareFace(grayA, roiA, grayB, roiB, ref score);
+            
 
             grayA.Dispose();
             grayB.Dispose();
