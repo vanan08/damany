@@ -9,11 +9,6 @@ namespace Damany.Imaging.Common
     public static class Extensions
     {
 
-        public static System.Drawing.Rectangle ToRectangle(this OpenCvSharp.CvRect rect)
-        {
-            return new System.Drawing.Rectangle(rect.X, rect.Y, rect.Width, rect.Height);
-
-        }
 
         public static OpenCvSharp.IplImage GetSub(this OpenCvSharp.IplImage ipl, OpenCvSharp.CvRect subRect)
         {
