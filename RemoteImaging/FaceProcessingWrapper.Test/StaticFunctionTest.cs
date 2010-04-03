@@ -18,7 +18,6 @@ namespace FaceProcessingWrapper.Test
     public class StaticFunctionTest
     {
         private IplImage x;
-        private IplImage y;
         private FaceSearchWrapper.FaceSearch searcher;
 
         [FixtureSetUp]
@@ -26,33 +25,59 @@ namespace FaceProcessingWrapper.Test
         {
             searcher = new FaceSearch();
 
-            x = OpenCvSharp.IplImage.FromFile(@"D:\target.jpg");
+            x = OpenCvSharp.IplImage.FromFile(@"d:\dd.jpg");
             x.ROI = new CvRect(54, 63, 72, 71);
 
-            y = IplImage.FromFile(@"d:\suspect.jpg");
-            y.ROI = new CvRect(58, 63, 71, 67);
         }
 
 
         [Test]
+        [Timeout(0)]
         public void LbpTest()
         {
+            var destDir = System.IO.Path.Combine(@"d:\searchResult", DateTime.Now.ToShortTimeString().Replace(":", "-"));
 
-            var faceX = SearchFace(x);
-            faceX.DrawRect(faceX.ROI, CvColor.Black);
+            var target = SearchFace(x);
+            target.DrawRect(target.ROI, CvColor.Red, 2);
 
-            var faceY = SearchFace(y);
-            faceY.DrawRect(faceY.ROI, CvColor.Black);
-
-            var bmpX = faceX.ToBitmap();
-            var bmpY = faceY.ToBitmap();
-
-            DrawRect(faceX, bmpX);
-            DrawRect(faceY, bmpY);
-
-
+            var bmpTarget = target.ToBitmap();
+           
             var compareAlgorith = new Damany.Imaging.PlugIns.LBPFaceComparer();
-            var result = compareAlgorith.Compare(faceX, faceY);
+
+            foreach (var file in System.IO.Directory.GetFiles(@"m:\测试图片\公司人脸", "*.jpg"))
+            {
+                var img = IplImage.FromFile(file);
+                var faceToBeCompared = SearchFace(img);
+
+                if (faceToBeCompared == null)
+                {
+                    continue; 
+                }
+
+                var bmpY = faceToBeCompared.ToBitmap();
+                var matchResult = compareAlgorith.Compare(target, faceToBeCompared);
+
+                if (matchResult.IsSimilar)
+                {
+                    if (!System.IO.Directory.Exists(destDir))
+                    {
+                        System.IO.Directory.CreateDirectory(destDir);
+                    }
+
+                    System.Diagnostics.Debug.WriteLine(file);
+                    var fileNameWithoutExt = System.IO.Path.GetFileNameWithoutExtension(file);
+                    var ext = System.IO.Path.GetExtension(file);
+                    var fileNameWithScore = string.Format("{0}_{1:f2}{2}", fileNameWithoutExt, matchResult.SimilarScore, ext);
+                    var destFile = System.IO.Path.Combine(destDir, fileNameWithScore);
+                    faceToBeCompared.DrawRect(faceToBeCompared.ROI, CvColor.Red, 2);
+                    faceToBeCompared.ResetROI();
+                    faceToBeCompared.SaveImage(destFile);
+                }
+
+
+            }
+
+
             
         }
 
@@ -73,6 +98,12 @@ namespace FaceProcessingWrapper.Test
             searcher.AddInFrame(frame);
             var faces = searcher.SearchFaces();
             img.ROI = roi;
+
+            if (faces.Length == 0)
+            {
+                return null;
+            }
+
             var face = faces[0].Portraits[0].Face;
             var bmp = face.ToBitmap();
             face.ROI = faces[0].Portraits[0].FacesRectForCompare;
