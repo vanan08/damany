@@ -25,7 +25,7 @@ namespace FaceProcessingWrapper.Test
         {
             searcher = new FaceSearch();
 
-            x = OpenCvSharp.IplImage.FromFile(@"d:\dd.jpg");
+            x = OpenCvSharp.IplImage.FromFile(@"d:\target.jpg");
             x.ROI = new CvRect(54, 63, 72, 71);
 
         }
@@ -37,25 +37,19 @@ namespace FaceProcessingWrapper.Test
         {
             var destDir = System.IO.Path.Combine(@"d:\searchResult", DateTime.Now.ToShortTimeString().Replace(":", "-"));
 
-            var target = SearchFace(x);
-            target.DrawRect(target.ROI, CvColor.Red, 2);
+            var faceRectTarget = SearchFace(x);
+            x.ROI = faceRectTarget;
 
-            var bmpTarget = target.ToBitmap();
-           
             var compareAlgorith = new Damany.Imaging.PlugIns.LBPFaceComparer();
 
-            foreach (var file in System.IO.Directory.GetFiles(@"m:\测试图片\公司人脸", "*.jpg"))
+            foreach (var file in System.IO.Directory.GetFiles(@"d:\abc", "*.jpg"))
             {
                 var img = IplImage.FromFile(file);
-                var faceToBeCompared = SearchFace(img);
+                var faceRectToBeCompared = SearchFace(img);
+                img.ROI = faceRectToBeCompared;
 
-                if (faceToBeCompared == null)
-                {
-                    continue; 
-                }
 
-                var bmpY = faceToBeCompared.ToBitmap();
-                var matchResult = compareAlgorith.Compare(target, faceToBeCompared);
+                var matchResult = compareAlgorith.Compare(x, img);
 
                 if (matchResult.IsSimilar)
                 {
@@ -69,9 +63,9 @@ namespace FaceProcessingWrapper.Test
                     var ext = System.IO.Path.GetExtension(file);
                     var fileNameWithScore = string.Format("{0}_{1:f2}{2}", fileNameWithoutExt, matchResult.SimilarScore, ext);
                     var destFile = System.IO.Path.Combine(destDir, fileNameWithScore);
-                    faceToBeCompared.DrawRect(faceToBeCompared.ROI, CvColor.Red, 2);
-                    faceToBeCompared.ResetROI();
-                    faceToBeCompared.SaveImage(destFile);
+                    img.DrawRect(img.ROI, CvColor.Red, 2);
+                    img.ResetROI();
+                    img.SaveImage(destFile);
                 }
 
 
@@ -89,7 +83,7 @@ namespace FaceProcessingWrapper.Test
             }
         }
 
-        private IplImage SearchFace(IplImage img)
+        private CvRect SearchFace(IplImage img)
         {
             var roi = img.ROI;
             img.ResetROI();
@@ -101,13 +95,14 @@ namespace FaceProcessingWrapper.Test
 
             if (faces.Length == 0)
             {
-                return null;
+                return new CvRect();
             }
+
 
             var face = faces[0].Portraits[0].Face;
             var bmp = face.ToBitmap();
-            face.ROI = faces[0].Portraits[0].FacesRectForCompare;
-            return face;
+             
+            return faces[0].Portraits[0].FacesRectForCompare;;
         }
     }
 }
