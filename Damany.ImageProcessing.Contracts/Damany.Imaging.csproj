@@ -43,6 +43,10 @@
     <Reference Include="OpenCvSharp">
       <HintPath>..\Library\OpenCvSharp\OpenCvSharp.dll</HintPath>
     </Reference>
+    <Reference Include="OpenCvSharp.Extensions, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Library\OpenCvSharp\OpenCvSharp.Extensions.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -56,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Algorithms\FaceCompareResult.cs" />
+    <Compile Include="Extensions\IplImageExtensions.cs" />
     <Compile Include="PlugIns\IFaceComparer.cs" />
     <Compile Include="PlugIns\LBPFaceComparer.cs" />
     <Compile Include="FaceSearchController.cs" />

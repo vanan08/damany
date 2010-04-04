@@ -12,6 +12,8 @@ using OpenCvSharp;
 using ImageProcess;
 using SuspectsRepository;
 using Damany.Util;
+using Damany.Imaging.Extensions;
+using OpenCvSharp;
 
 namespace FaceLibraryBuilder
 {
@@ -187,7 +189,17 @@ namespace FaceLibraryBuilder
                     img.Tag = files[0];
                     this.picTargetPerson.Image = img;
                     this.InitCotrol(true);
-                    drawRectangle = Rectangle.Empty;
+
+                    using (var ipl = IplImage.FromFile(files[0]))
+                    {
+                        var facesRect = ipl.LocateFaces();
+
+                        if (facesRect.Length > 0)
+                        {
+                            drawRectangle = facesRect[0].ToRectangle();
+                        }
+                        
+                    }
 
                 }
                 else if (System.IO.Directory.Exists(files[0]))
