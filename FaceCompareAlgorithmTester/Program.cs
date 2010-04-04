@@ -20,7 +20,11 @@ namespace FaceCompareAlgorithmTester
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
+
+            var mainForm = new MainForm();
+            mainForm.FaceComparers = controller.FaceComparers;
+
+            Application.Run(mainForm);
         }
 
         private static Controller LoadPlugins()

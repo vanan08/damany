@@ -6,8 +6,6 @@
 
         string Name { get; }
         string Description { get; }
-        bool CanConfig { get; }
-        System.Windows.Forms.Control ConfigControl { get; }
         System.Guid UUID { get; }
     }
 }
