@@ -63,6 +63,7 @@
     <Compile Include="Extensions.cs" />
     <Compile Include="FaceCompareResult.cs" />
     <Compile Include="Frame.cs" />
+    <Compile Include="IConfigurable.cs" />
     <Compile Include="IFaceComparer.cs" />
     <Compile Include="IFrameHandler.cs" />
     <Compile Include="IFrameStream.cs" />
