@@ -3,7 +3,7 @@
 
 Damany::Imaging::FaceCompare::LBP::LBP(IplImage* img, CvRect& faceRect)
 {
-	threshold = 40;
+	threshold = 35;
 	widthsize = 70; 
 	heightsize = 70;	
 	blockwidth=10;
