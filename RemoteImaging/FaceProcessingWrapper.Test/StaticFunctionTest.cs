@@ -39,7 +39,7 @@ namespace FaceProcessingWrapper.Test
             var faceRectTarget = SearchFace(x);
             x.ROI = faceRectTarget;
 
-            var compareAlgorith = new Damany.Imaging.PlugIns.LBPFaceComparer();
+            var compareAlgorith = new Damany.Imaging.PlugIns.LbpFaceComparer();
 
             foreach (var file in System.IO.Directory.GetFiles(@"D:\ImageOutput\Images\2010\4\4\14", "*.jpg"))
             {
