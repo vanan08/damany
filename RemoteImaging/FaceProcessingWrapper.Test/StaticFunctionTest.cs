@@ -25,8 +25,7 @@ namespace FaceProcessingWrapper.Test
         {
             searcher = new FaceSearch();
 
-            x = OpenCvSharp.IplImage.FromFile(@"d:\target.jpg");
-            x.ROI = new CvRect(54, 63, 72, 71);
+            x = OpenCvSharp.IplImage.FromFile(@"D:\ImageOutput\Images\2010\4\4\14\03d5ee92-ad5f-4ebc-8a81-6a896d3fba8d.jpg");
 
         }
 
@@ -42,10 +41,16 @@ namespace FaceProcessingWrapper.Test
 
             var compareAlgorith = new Damany.Imaging.PlugIns.LBPFaceComparer();
 
-            foreach (var file in System.IO.Directory.GetFiles(@"d:\abc", "*.jpg"))
+            foreach (var file in System.IO.Directory.GetFiles(@"D:\ImageOutput\Images\2010\4\4\14", "*.jpg"))
             {
                 var img = IplImage.FromFile(file);
                 var faceRectToBeCompared = SearchFace(img);
+
+                if (faceRectToBeCompared.Width == 0 || faceRectToBeCompared.Height == 0)
+                {
+                    continue;
+                }
+
                 img.ROI = faceRectToBeCompared;
 
 

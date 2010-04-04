@@ -27,8 +27,8 @@ namespace RemoteImaging
         {
             var camInfo = new Damany.PC.Domain.CameraInfo();
             camInfo.Name = "sanyo";
-            camInfo.Provider = CameraProvider.LocalDirectory;
-            camInfo.Location = new Uri(@"file://D:\20090505");
+            camInfo.Provider = CameraProvider.Sanyo;
+            camInfo.Location = new Uri(@"http://192.168.1.201");
             camInfo.Id = 1;
             camInfo.Description = "";
 

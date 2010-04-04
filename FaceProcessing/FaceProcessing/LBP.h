@@ -21,8 +21,11 @@ public:
 	LBP(IplImage* img, CvRect& faceRect);
 	~LBP(); 
 	bool CmpFace(IplImage* destImg, CvRect& destRect, float& score); 
+	void SetThreshold(int value);
 
 private:
+	int threshold;
+
 	float weightCoeff[49];
 	float** targetHst;
 	int widthsize; 

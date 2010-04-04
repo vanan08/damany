@@ -3,6 +3,7 @@
 
 Damany::Imaging::FaceCompare::LBP::LBP(IplImage* img, CvRect& faceRect)
 {
+	threshold = 40;
 	widthsize = 70; 
 	heightsize = 70;	
 	blockwidth=10;
@@ -28,6 +29,12 @@ Damany::Imaging::FaceCompare::LBP::LBP(IplImage* img, CvRect& faceRect)
 	SetCoeff();
 	CalcAvg(targetHst, num1, num2); 
 	cvReleaseImage(&targetImg);
+}
+
+void Damany::Imaging::FaceCompare::LBP::SetThreshold(int value)
+{
+	threshold = value;
+
 }
 
 Damany::Imaging::FaceCompare::LBP::~LBP()
@@ -916,7 +923,7 @@ bool Damany::Imaging::FaceCompare::LBP::CmpFace(IplImage* destImg, CvRect& destR
 
 	cvReleaseImage(&dstImg); 
 
-	if (res < 32)
+	if (res < threshold)
 	{
 		return true;
 	}
