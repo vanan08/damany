@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="RemoteImaging.RealtimeDisplay.ImageClassifier">
+    <Position X="3.25" Y="0.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>RealtimeDisplay\ImageClassifier.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RemoteImaging.RealtimeDisplay.Presenter">
+    <Position X="5.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>RealtimeDisplay\Presenter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RemoteImaging.RealtimeDisplay.ImageUploadWatcher">
+    <Position X="5.25" Y="2.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AhAAAAAAACAAgAAEQAAAAEAQAAAAAAAAAAAAAAQgAAA=</HashCode>
+      <FileName>RealtimeDisplay\ImageUploadWatcher.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RemoteImaging.RealtimeDisplay.ImageDetail">
+    <Position X="0.5" Y="0.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAAAAAAIAAAAACAQAAAAAAAAAAAIAAAAAAAQ=</HashCode>
+      <FileName>RealtimeDisplay\ImageDetail.cs</FileName>
+      <NewMemberFileName>RealtimeDisplay\ImageUploadEventArgs.cs</NewMemberFileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RemoteImaging.Camera">
+    <Position X="3.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAggAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>RealtimeDisplay\Camera.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="RemoteImaging.RealtimeDisplay.IImageScreen">
+    <Position X="8.25" Y="0.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAAAAAAAAAAAAAAAAAIAAAQAAAAAAQACAA=</HashCode>
+      <FileName>RealtimeDisplay\IRealtimeScreen.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="RemoteImaging.RealtimeDisplay.IImageScreenObserver">
+    <Position X="8.25" Y="3.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>RealtimeDisplay\IImageScreenObserver.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Delegate Name="RemoteImaging.RealtimeDisplay.ImageUploadHandler">
+    <Position X="0.5" Y="2.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>RealtimeDisplay\ImageUploadHandler.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Font Name="Tahoma" Size="9.75" />
+</ClassDiagram>

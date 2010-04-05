@@ -1,0 +1,174 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="RemoteImaging.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="OutputPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">D:\ImageOutput</Value>
+    </Setting>
+    <Setting Name="BigImageDirectoryName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">BigPic</Value>
+    </Setting>
+    <Setting Name="IconDirectoryName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Icon</Value>
+    </Setting>
+    <Setting Name="VideoDirectoryName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Video</Value>
+    </Setting>
+    <Setting Name="ImageUploadPool" Type="System.String" Scope="User">
+      <Value Profile="(Default)">D:\UploadPool</Value>
+    </Setting>
+    <Setting Name="ColumnNumber" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">4</Value>
+    </Setting>
+    <Setting Name="CamConfigFile" Type="System.String" Scope="User">
+      <Value Profile="(Default)">CamConfig.xml</Value>
+    </Setting>
+    <Setting Name="LengthOfImageGroup" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">6</Value>
+    </Setting>
+    <Setting Name="IconLeftExtRatio" Type="System.String" Scope="User">
+      <Value Profile="(Default)">0.5</Value>
+    </Setting>
+    <Setting Name="IconRightExtRatio" Type="System.String" Scope="User">
+      <Value Profile="(Default)">0.5</Value>
+    </Setting>
+    <Setting Name="IconTopExtRatio" Type="System.String" Scope="User">
+      <Value Profile="(Default)">0.5</Value>
+    </Setting>
+    <Setting Name="IconBottomExtRatio" Type="System.String" Scope="User">
+      <Value Profile="(Default)">0.5</Value>
+    </Setting>
+    <Setting Name="MinFaceWidth" Type="System.String" Scope="User">
+      <Value Profile="(Default)">60</Value>
+    </Setting>
+    <Setting Name="DownSampling" Type="System.String" Scope="User">
+      <Value Profile="(Default)">0.5</Value>
+    </Setting>
+    <Setting Name="SrchRegionLeft" Type="System.String" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="SrchRegionTop" Type="System.String" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="SrchRegionWidth" Type="System.String" Scope="User">
+      <Value Profile="(Default)">1920</Value>
+    </Setting>
+    <Setting Name="VideoDnTool" Type="System.String" Scope="User">
+      <Value Profile="(Default)">.\VideoDownLoadTool\HDCDownloader.exe</Value>
+    </Setting>
+    <Setting Name="SrchRegionHeight" Type="System.String" Scope="User">
+      <Value Profile="(Default)">1080</Value>
+    </Setting>
+    <Setting Name="EnvMode" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="FPs" Type="System.String" Scope="User">
+      <Value Profile="(Default)">2</Value>
+    </Setting>
+    <Setting Name="DrawMotionRect" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="DetectMotion" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="removeDuplicatedFace" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="MaxDupFaces" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">2</Value>
+    </Setting>
+    <Setting Name="LastSelCamID" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">-1</Value>
+    </Setting>
+    <Setting Name="BrightMode" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="ComName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">COM3</Value>
+    </Setting>
+    <Setting Name="CurIp" Type="System.String" Scope="User">
+      <Value Profile="(Default)">192.168.0.6</Value>
+    </Setting>
+    <Setting Name="Thresholding" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">500</Value>
+    </Setting>
+    <Setting Name="ImageArr" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">5</Value>
+    </Setting>
+    <Setting Name="Point" Type="System.String" Scope="User">
+      <Value Profile="(Default)">600 110 700 1200  </Value>
+    </Setting>
+    <Setting Name="MaxFaceWidth" Type="System.String" Scope="User">
+      <Value Profile="(Default)">300</Value>
+    </Setting>
+    <Setting Name="SaveDay" Type="System.String" Scope="User">
+      <Value Profile="(Default)">2false</Value>
+    </Setting>
+    <Setting Name="Temp" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="WarnPicSavePath" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="WarnInfoHandleMode" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="ImpPersonConfigure" Type="System.String" Scope="User">
+      <Value Profile="(Default)">ImpPersonConfigure.xml</Value>
+    </Setting>
+    <Setting Name="ImpSelectPersonPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\faceRecognition\selectedFace\</Value>
+    </Setting>
+    <Setting Name="FaceStoregePath" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="SimilarityLevel" Type="System.String" Scope="User">
+      <Value Profile="(Default)">0.5,0.58|0.58,0.68|0.68,1</Value>
+    </Setting>
+    <Setting Name="FaceSampleLib" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\faceRecognition\faceSample\</Value>
+    </Setting>
+    <Setting Name="RecheckFace" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="ShowFaceRecognizeButton" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="KeepMotionLessVideo" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="FreeDiskspaceCheckIntervalMs" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">60000</Value>
+    </Setting>
+    <Setting Name="MaxFrameQueueLength" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">40</Value>
+    </Setting>
+    <Setting Name="HostId" Type="System.String" Scope="User">
+      <Value Profile="(Default)">-1</Value>
+    </Setting>
+    <Setting Name="HostName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">未命名监控点</Value>
+    </Setting>
+    <Setting Name="Live" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="SearchFace" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="SearchSuspecious" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="ImageRepositoryDirectory" Type="System.String" Scope="User">
+      <Value Profile="(Default)">.\ImgLib</Value>
+    </Setting>
+    <Setting Name="SVMDirectoryName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">SVM</Value>
+    </Setting>
+    <Setting Name="FrontFaceTemplateFile" Type="System.String" Scope="User">
+      <Value Profile="(Default)">.\ImgLib\eyeTemplate.jpg</Value>
+    </Setting>
+    <Setting Name="ReservedDiskSpaceMB" Type="System.String" Scope="User">
+      <Value Profile="(Default)">300</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

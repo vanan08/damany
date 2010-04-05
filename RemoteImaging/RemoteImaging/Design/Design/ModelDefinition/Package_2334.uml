@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm5="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ComponentDesigner"
+  dslVersion="0.3.0.0"
+  Id="c628338c-9cba-46e2-8109-13c3e675757e"
+  name="Cameras" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <packagedElements>
+    <packageHasNamedElement>
+      <class
+        Id="1293986f-d2ac-4221-a99c-38a372973bee"
+        name="SanyoNetCamera"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <suppliersInternal>
+          <interfaceRealization
+            Id="ff948250-e86d-4bd8-84ab-154c23aa0025">
+            <interfaceMoniker
+              Id="50e4cf0c-9850-4d35-8934-19d24105fb46"
+              LastKnownName="IIpCamera"
+              LastKnownLocation="Package_1227.uml" />
+          </interfaceRealization>
+        </suppliersInternal>
+        <ownedOperationsInternal>
+          <operation
+            Id="c9ebb481-95a2-48de-b6ba-8635824bad6a"
+            name="RetrieveFrame"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="877761f7-b2e8-4f0c-8f3d-a8fddee0f130"
+                  direction="Return"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="4833a9aa-efe6-4dd3-8deb-d0ad5be4319f"
+                      LastKnownName="Frame"
+                      LastKnownLocation="Package_1227.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="5a8cad64-c848-4252-8e06-962a46ce5473"
+        name="AipStarNetCamera"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <suppliersInternal>
+          <interfaceRealization
+            Id="9a5f0e7f-597c-41a2-a8f8-9d9fe190d123">
+            <interfaceMoniker
+              Id="50e4cf0c-9850-4d35-8934-19d24105fb46"
+              LastKnownName="IIpCamera"
+              LastKnownLocation="Package_1227.uml" />
+          </interfaceRealization>
+        </suppliersInternal>
+        <ownedOperationsInternal>
+          <operation
+            Id="4a56c9e8-e4e9-4cdd-b6ad-115b466056ca"
+            name="RetrieveFrame"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="2e93795f-7835-464c-862c-2533858f8df8"
+                  direction="Return"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="4833a9aa-efe6-4dd3-8deb-d0ad5be4319f"
+                      LastKnownName="Frame"
+                      LastKnownLocation="Package_1227.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="3e302869-f348-43f5-9562-336ca71cd80c"
+        name="ImageFrame"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="14dffa7b-f134-454a-a43e-3f797a77917d"
+        name="byte[]" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="70ed6375-4f13-41d8-8c82-84a08fd62900"
+        name="int" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="5119adbd-e889-4b8e-99f4-833225ac0f6f"
+        name="DateTime" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="ba79237a-ebc4-4400-97ed-b2eeabfef234"
+        name="System.Uri" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="073902d8-a305-4d53-9ba8-c00a1a6f363a"
+        name="string" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="78fe4a7d-b745-45b0-b618-071bc1d5fa15"
+        name="System::Uri" />
+    </packageHasNamedElement>
+  </packagedElements>
+</package>
