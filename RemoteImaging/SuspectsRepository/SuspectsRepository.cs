@@ -164,8 +164,13 @@ namespace SuspectsRepository
                 var w = int.Parse(n.Attributes["W"].Value);
                 var h = int.Parse(n.Attributes["H"].Value);
                 ipl.ROI = new CvRect( x, y, w, h );
-
                 var p = new PersonOfInterest(ipl);
+
+                p.ID = n.Attributes["id"].Value;
+                p.Name = n.Attributes["name"].Value;
+                p.Gender = (Damany.Util.Gender) Enum.Parse(typeof(Damany.Util.Gender), n.Attributes["sex"].Value);
+                p.ImageFilePath = absolutePath;
+
                 AddPerson(p);
             }
 
