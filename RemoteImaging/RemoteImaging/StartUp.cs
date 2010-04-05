@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Damany.Imaging.Common;
 using Damany.PC.Domain;
 using Damany.PortraitCapturer.DAL.Providers;
 using Autofac;
@@ -81,7 +82,7 @@ namespace RemoteImaging
 
             this.builder.RegisterType<RealtimeDisplay.MainForm>().SingleInstance();
 
-            this.builder.RegisterType<LBPFaceComparer>().As<IFaceComparer>();
+            this.builder.RegisterType<LbpFaceComparer>().As<IFaceComparer>();
             this.builder.RegisterType<FaceComparer>();
 
             this.Container = this.builder.Build();
