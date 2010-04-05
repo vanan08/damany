@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Damany.Imaging.Common;
 using MiscUtil;
+using Damany.Imaging.Extensions;
 
 namespace Damany.Imaging.PlugIns
 {
@@ -33,6 +34,12 @@ namespace Damany.Imaging.PlugIns
 
             foreach (var portrait in portraits)
             {
+                var faceRects = portrait.GetIpl().LocateFaces();
+                if (faceRects.Length > 0)
+                {
+                    portrait.FaceBounds = faceRects[0];
+                }
+
                 portrait.GetIpl().ROI = portrait.FaceBounds;
             }
 

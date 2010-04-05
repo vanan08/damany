@@ -20,8 +20,14 @@ namespace Damany.Imaging.PlugIns
             var grayA = a.CvtToGray();
             var grayB = b.CvtToGray();
 #if DEBUG
-            var bmpA = grayA.ToBitmap();
-            var bmpB = grayB.ToBitmap();
+            var cloneA = grayA.Clone();
+            cloneA.DrawRect(roiA, CvColor.Red, 2);
+            var bmpA = cloneA.ToBitmap();
+            
+
+            var cloneB = grayB.Clone();
+            cloneB.DrawRect(roiB, CvColor.Red, 2);
+            var bmpB = cloneB.ToBitmap();
 #endif
 
             float score = 0.0f;

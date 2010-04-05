@@ -3,7 +3,7 @@
 
 Damany::Imaging::FaceCompare::LBP::LBP(IplImage* img, CvRect& faceRect)
 {
-	threshold = 35;
+	threshold = 39;
 	widthsize = 70; 
 	heightsize = 70;	
 	blockwidth=10;
@@ -97,6 +97,57 @@ void Damany::Imaging::FaceCompare::LBP::SetCoeff()
 	weightCoeff[46] = 1;
 	weightCoeff[47] = 1;
 	weightCoeff[48] = 0;
+
+	//weightCoeff[0] = 1;
+	//weightCoeff[1] = 1;
+	//weightCoeff[2] = 1;
+	//weightCoeff[3] = 1;
+	//weightCoeff[4] = 1;
+	//weightCoeff[5] = 1;
+	//weightCoeff[6] = 4;
+	//weightCoeff[7] = 1;
+	//weightCoeff[8] = 4;
+	//weightCoeff[9] = 1;
+	//weightCoeff[10] = 0;
+	//weightCoeff[11] = 1;
+	//weightCoeff[12] = 1;
+	//weightCoeff[13] = 1;
+	//weightCoeff[14] = 0;
+	//weightCoeff[15] = 0;
+	//weightCoeff[16] = 1;
+	//weightCoeff[17] = 2;
+	//weightCoeff[18] = 1;
+	//weightCoeff[19] = 0;
+	//weightCoeff[20] = 0;
+	//weightCoeff[21] = 1;
+	//weightCoeff[22] = 1;
+	//weightCoeff[23] = 1;
+	//weightCoeff[24] = 0;
+
+	/*weightCoeff[25] = 1;
+	weightCoeff[26] = 1;
+	weightCoeff[27] = 0;
+	weightCoeff[28] = 0;
+	weightCoeff[29] = 1;
+	weightCoeff[30] = 1;
+	weightCoeff[31] = 1;
+	weightCoeff[32] = 1;
+	weightCoeff[33] = 1;
+	weightCoeff[34] = 0;
+	weightCoeff[35] = 0;
+	weightCoeff[36] = 1;
+	weightCoeff[37] = 1;
+	weightCoeff[38] = 2;
+	weightCoeff[39] = 1;
+	weightCoeff[40] = 1;
+	weightCoeff[41] = 0;
+	weightCoeff[42] = 0;
+	weightCoeff[43] = 1;
+	weightCoeff[44] = 1;
+	weightCoeff[45] = 1;
+	weightCoeff[46] = 1;
+	weightCoeff[47] = 1;
+	weightCoeff[48] = 0;*/
 };
 
 int Damany::Imaging::FaceCompare::LBP::GammaCorrect(IplImage* src, IplImage* dst, double low, double high, double bottom, double top, double gamma)
