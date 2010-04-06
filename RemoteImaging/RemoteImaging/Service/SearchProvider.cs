@@ -60,8 +60,7 @@ namespace RemoteImaging.Service
                 serviceVideos[i] = new Video()
                 {
                     HasFaceCaptured = videos[i].HasFaceCaptured,
-                    IsMotionLess = videos[i].IsMotionLess,
-                    IsMotionWithoutFace = videos[i].IsMotionWithoutFace,
+                    HasMotionDected = videos[i].HasMotionDetected,
                     Path = videos[i].Path,
                 };
             }

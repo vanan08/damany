@@ -187,28 +187,23 @@ namespace RemoteImaging
             DateTime endUTC = endLocalTime.ToUniversalTime();
             List<RemoteImaging.Core.Video> videos = new List<RemoteImaging.Core.Video>();
 
-            while (startUTC <= endUTC)
+            var time = startUTC;
+
+            while (time <= endUTC)
             {
-                string relativePath = RelativePathNameForVideoFile(startUTC);
+                string relativePath = RelativePathNameForVideoFile(time);
                 string path = Path.Combine(rootFolder, relativePath);
 
                 if (File.Exists(path))
                 {
-                    bool hasFaceCaptured =
-                        FaceImagesCapturedWhen(cameraID, startUTC.ToLocalTime());
-                    bool isMotionLess =
-                        !MotionImagesCapturedWhen(cameraID, startUTC.ToLocalTime());
-                    bool isMotionWithoutFace = !isMotionLess && !hasFaceCaptured;
 
                     videos.Add(new RemoteImaging.Core.Video { 
-                                                            HasFaceCaptured = hasFaceCaptured, 
                                                             Path = path, 
-                                                            IsMotionWithoutFace = isMotionWithoutFace,
-                                                            IsMotionLess = isMotionLess,
+                                                            CapturedAt = time.ToLocalTime(),
                                                             });
                 }
 
-                startUTC = startUTC.AddMinutes(1);
+                time = time.AddMinutes(1);
 
             }
 

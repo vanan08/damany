@@ -1,4 +1,6 @@
-﻿namespace RemoteImaging.Query
+﻿using System;
+
+namespace RemoteImaging.Query
 {
     partial class VideoQueryForm
     {
@@ -37,24 +39,20 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
-            this.timeEdit1 = new DevExpress.XtraEditors.TimeEdit();
-            this.timeEdit2 = new DevExpress.XtraEditors.TimeEdit();
+            this.cameraComboBox = new System.Windows.Forms.ComboBox();
             this.imageListFace = new System.Windows.Forms.ImageList(this.components);
             this.videoList = new System.Windows.Forms.ListView();
             this.imageListIcon = new System.Windows.Forms.ImageList(this.components);
             this.label1 = new System.Windows.Forms.Label();
-            this.picList = new System.Windows.Forms.ListView();
+            this.faceList = new System.Windows.Forms.ListView();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.axVLCPlugin21 = new AxAXVLC.AxVLCPlugin2();
+            this.timeFrom = new DevExpress.XtraEditors.TimeEdit();
+            this.timeTO = new DevExpress.XtraEditors.TimeEdit();
             this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.timeEdit1.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.timeEdit2.Properties)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
@@ -62,21 +60,21 @@
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.axVLCPlugin21)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.timeFrom.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.timeTO.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.timeTO);
+            this.groupBox3.Controls.Add(this.timeFrom);
             this.groupBox3.Controls.Add(this.searchType);
             this.groupBox3.Controls.Add(this.queryBtn);
             this.groupBox3.Controls.Add(this.label7);
             this.groupBox3.Controls.Add(this.label4);
             this.groupBox3.Controls.Add(this.label2);
             this.groupBox3.Controls.Add(this.label3);
-            this.groupBox3.Controls.Add(this.comboBox1);
-            this.groupBox3.Controls.Add(this.dateTimePicker1);
-            this.groupBox3.Controls.Add(this.dateTimePicker2);
-            this.groupBox3.Controls.Add(this.timeEdit1);
-            this.groupBox3.Controls.Add(this.timeEdit2);
+            this.groupBox3.Controls.Add(this.cameraComboBox);
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox3.Location = new System.Drawing.Point(0, 0);
             this.groupBox3.Name = "groupBox3";
@@ -89,7 +87,7 @@
             // 
             this.searchType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.searchType.FormattingEnabled = true;
-            this.searchType.Location = new System.Drawing.Point(397, 22);
+            this.searchType.Location = new System.Drawing.Point(79, 52);
             this.searchType.Name = "searchType";
             this.searchType.Size = new System.Drawing.Size(129, 20);
             this.searchType.TabIndex = 20;
@@ -108,7 +106,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(338, 26);
+            this.label7.Location = new System.Drawing.Point(6, 55);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(53, 12);
             this.label7.TabIndex = 10;
@@ -119,14 +117,14 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(6, 26);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(65, 12);
+            this.label4.Size = new System.Drawing.Size(41, 12);
             this.label4.TabIndex = 9;
-            this.label4.Text = "摄像机编号";
+            this.label4.Text = "摄像机";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 60);
+            this.label2.Location = new System.Drawing.Point(338, 26);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(53, 12);
             this.label2.TabIndex = 2;
@@ -141,47 +139,13 @@
             this.label3.TabIndex = 3;
             this.label3.Text = "时间终点";
             // 
-            // comboBox1
+            // cameraComboBox
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(79, 22);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(129, 20);
-            this.comboBox1.TabIndex = 4;
-            // 
-            // dateTimePicker1
-            // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(79, 56);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(129, 21);
-            this.dateTimePicker1.TabIndex = 5;
-            // 
-            // dateTimePicker2
-            // 
-            this.dateTimePicker2.Location = new System.Drawing.Point(397, 56);
-            this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(129, 21);
-            this.dateTimePicker2.TabIndex = 6;
-            // 
-            // timeEdit1
-            // 
-            this.timeEdit1.EditValue = new System.DateTime(2009, 5, 7, 0, 0, 0, 0);
-            this.timeEdit1.Location = new System.Drawing.Point(217, 56);
-            this.timeEdit1.Name = "timeEdit1";
-            this.timeEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.timeEdit1.Size = new System.Drawing.Size(96, 23);
-            this.timeEdit1.TabIndex = 7;
-            // 
-            // timeEdit2
-            // 
-            this.timeEdit2.EditValue = new System.DateTime(2009, 5, 7, 0, 0, 0, 0);
-            this.timeEdit2.Location = new System.Drawing.Point(532, 56);
-            this.timeEdit2.Name = "timeEdit2";
-            this.timeEdit2.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.timeEdit2.Size = new System.Drawing.Size(96, 23);
-            this.timeEdit2.TabIndex = 8;
+            this.cameraComboBox.FormattingEnabled = true;
+            this.cameraComboBox.Location = new System.Drawing.Point(79, 22);
+            this.cameraComboBox.Name = "cameraComboBox";
+            this.cameraComboBox.Size = new System.Drawing.Size(129, 20);
+            this.cameraComboBox.TabIndex = 4;
             // 
             // imageListFace
             // 
@@ -222,16 +186,16 @@
             this.label1.TabIndex = 26;
             this.label1.Text = "视频列表：";
             // 
-            // picList
+            // faceList
             // 
-            this.picList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.picList.Location = new System.Drawing.Point(0, 12);
-            this.picList.MultiSelect = false;
-            this.picList.Name = "picList";
-            this.picList.Size = new System.Drawing.Size(746, 116);
-            this.picList.TabIndex = 22;
-            this.picList.UseCompatibleStateImageBehavior = false;
-            this.picList.DoubleClick += new System.EventHandler(this.picList_DoubleClick);
+            this.faceList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.faceList.Location = new System.Drawing.Point(0, 12);
+            this.faceList.MultiSelect = false;
+            this.faceList.Name = "faceList";
+            this.faceList.Size = new System.Drawing.Size(746, 116);
+            this.faceList.TabIndex = 22;
+            this.faceList.UseCompatibleStateImageBehavior = false;
+            this.faceList.DoubleClick += new System.EventHandler(this.picList_DoubleClick);
             // 
             // label5
             // 
@@ -285,7 +249,7 @@
             // 
             // splitContainer2.Panel2
             // 
-            this.splitContainer2.Panel2.Controls.Add(this.picList);
+            this.splitContainer2.Panel2.Controls.Add(this.faceList);
             this.splitContainer2.Panel2.Controls.Add(this.label5);
             this.splitContainer2.Size = new System.Drawing.Size(746, 516);
             this.splitContainer2.SplitterDistance = 384;
@@ -300,6 +264,28 @@
             this.axVLCPlugin21.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axVLCPlugin21.OcxState")));
             this.axVLCPlugin21.Size = new System.Drawing.Size(746, 372);
             this.axVLCPlugin21.TabIndex = 30;
+            // 
+            // timeFrom
+            // 
+            this.timeFrom.EditValue = new System.DateTime(2010, 4, 6, 0, 0, 0, 0);
+            this.timeFrom.Location = new System.Drawing.Point(411, 20);
+            this.timeFrom.Name = "timeFrom";
+            this.timeFrom.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton()});
+            this.timeFrom.Properties.Mask.EditMask = "F";
+            this.timeFrom.Size = new System.Drawing.Size(188, 23);
+            this.timeFrom.TabIndex = 21;
+            // 
+            // timeTO
+            // 
+            this.timeTO.EditValue = new System.DateTime(2010, 4, 6, 0, 0, 0, 0);
+            this.timeTO.Location = new System.Drawing.Point(411, 54);
+            this.timeTO.Name = "timeTO";
+            this.timeTO.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton()});
+            this.timeTO.Properties.Mask.EditMask = "F";
+            this.timeTO.Size = new System.Drawing.Size(188, 23);
+            this.timeTO.TabIndex = 22;
             // 
             // VideoQueryForm
             // 
@@ -317,8 +303,6 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.VideoQueryForm_FormClosing);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.timeEdit1.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.timeEdit2.Properties)).EndInit();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
@@ -329,6 +313,8 @@
             this.splitContainer2.Panel2.PerformLayout();
             this.splitContainer2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.axVLCPlugin21)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.timeFrom.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.timeTO.Properties)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -338,17 +324,13 @@
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
-        private System.Windows.Forms.DateTimePicker dateTimePicker2;
-        private DevExpress.XtraEditors.TimeEdit timeEdit1;
-        private DevExpress.XtraEditors.TimeEdit timeEdit2;
+        private System.Windows.Forms.ComboBox cameraComboBox;
         private System.Windows.Forms.Button queryBtn;
         private System.Windows.Forms.ImageList imageListFace;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ListView videoList;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ListView picList;
+        private System.Windows.Forms.ListView faceList;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ImageList imageListIcon;
@@ -357,5 +339,7 @@
         private System.Windows.Forms.SplitContainer splitContainer2;
         private AxAXVLC.AxVLCPlugin2 axVLCPlugin21;
         private System.Windows.Forms.ComboBox searchType;
+        private DevExpress.XtraEditors.TimeEdit timeTO;
+        private DevExpress.XtraEditors.TimeEdit timeFrom;
     }
 }

@@ -72,6 +72,9 @@ namespace RemoteImaging
             this.builder.RegisterType<Query.PicQueryForm>().As<IPicQueryScreen>();
             this.builder.RegisterType<PicQueryFormPresenter>().As<IPicQueryPresenter>();
 
+            this.builder.RegisterType<Query.VideoQueryForm>().As<Query.IVideoQueryScreen>();
+            this.builder.RegisterType<Query.VideoQueryPresenter>().As<Query.IVideoQueryPresenter>();
+
 
             this.builder.RegisterType<LbpFaceComparer>().As<IFaceComparer>();
             this.builder.RegisterType<FaceComparer>();
