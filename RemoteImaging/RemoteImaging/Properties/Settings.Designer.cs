@@ -650,12 +650,12 @@ namespace RemoteImaging.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute(".\\ImgLib")]
-        public string ImageRepositoryDirectory {
+        public string PersonOfInterespPath {
             get {
-                return ((string)(this["ImageRepositoryDirectory"]));
+                return ((string)(this["PersonOfInterespPath"]));
             }
             set {
-                this["ImageRepositoryDirectory"] = value;
+                this["PersonOfInterespPath"] = value;
             }
         }
         

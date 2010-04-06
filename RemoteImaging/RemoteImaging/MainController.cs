@@ -8,7 +8,8 @@ namespace RemoteImaging
 {
     public class MainController
     {
-        public MainController(RealtimeDisplay.MainForm mainForm, Damany.RemoteImaging.Common.ConfigurationManager configManager)
+        public MainController(RealtimeDisplay.MainForm mainForm, 
+            Damany.RemoteImaging.Common.ConfigurationManager configManager)
         {
             this._mainForm = mainForm;
             this._configManager = configManager;
