@@ -8,6 +8,7 @@ using Damany.RemoteImaging.Common;
 using Damany.Util;
 using RemoteControlService;
 using Video = RemoteImaging.Core.Video;
+using Damany.Util.Extensions;
 
 namespace RemoteImaging.Query
 {
@@ -60,8 +61,8 @@ namespace RemoteImaging.Query
             foreach (var v in videos)
             {
                 var queryTime = new DateTimeRange(v.CapturedAt, v.CapturedAt);
-                v.HasMotionDetected = frameQuery.FirstOrDefault(f => f.CapturedAt == v.CapturedAt) != null;
-                v.HasFaceCaptured = portraitQuery.FirstOrDefault(p => p.CapturedAt == v.CapturedAt) != null;
+                v.HasMotionDetected = frameQuery.FirstOrDefault(f => f.CapturedAt.RoundToMinute() == v.CapturedAt.RoundToMinute()) != null;
+                v.HasFaceCaptured = portraitQuery.FirstOrDefault(p => p.CapturedAt.RoundToMinute() == v.CapturedAt.RoundToMinute()) != null;
 
 
                 if (( type & SearchScope.FaceCapturedVideo)

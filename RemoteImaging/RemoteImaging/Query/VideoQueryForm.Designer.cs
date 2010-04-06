@@ -33,6 +33,8 @@ namespace RemoteImaging.Query
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VideoQueryForm));
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.timeTO = new DevExpress.XtraEditors.TimeEdit();
+            this.timeFrom = new DevExpress.XtraEditors.TimeEdit();
             this.searchType = new System.Windows.Forms.ComboBox();
             this.queryBtn = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
@@ -50,9 +52,9 @@ namespace RemoteImaging.Query
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.axVLCPlugin21 = new AxAXVLC.AxVLCPlugin2();
-            this.timeFrom = new DevExpress.XtraEditors.TimeEdit();
-            this.timeTO = new DevExpress.XtraEditors.TimeEdit();
             this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.timeTO.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.timeFrom.Properties)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
@@ -60,8 +62,6 @@ namespace RemoteImaging.Query
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.axVLCPlugin21)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.timeFrom.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.timeTO.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox3
@@ -82,6 +82,28 @@ namespace RemoteImaging.Query
             this.groupBox3.TabIndex = 20;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "查询条件";
+            // 
+            // timeTO
+            // 
+            this.timeTO.EditValue = new System.DateTime(2010, 4, 6, 0, 0, 0, 0);
+            this.timeTO.Location = new System.Drawing.Point(411, 54);
+            this.timeTO.Name = "timeTO";
+            this.timeTO.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton()});
+            this.timeTO.Properties.Mask.EditMask = "F";
+            this.timeTO.Size = new System.Drawing.Size(188, 23);
+            this.timeTO.TabIndex = 22;
+            // 
+            // timeFrom
+            // 
+            this.timeFrom.EditValue = new System.DateTime(2010, 4, 6, 0, 0, 0, 0);
+            this.timeFrom.Location = new System.Drawing.Point(411, 20);
+            this.timeFrom.Name = "timeFrom";
+            this.timeFrom.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton()});
+            this.timeFrom.Properties.Mask.EditMask = "F";
+            this.timeFrom.Size = new System.Drawing.Size(188, 23);
+            this.timeFrom.TabIndex = 21;
             // 
             // searchType
             // 
@@ -265,28 +287,6 @@ namespace RemoteImaging.Query
             this.axVLCPlugin21.Size = new System.Drawing.Size(746, 372);
             this.axVLCPlugin21.TabIndex = 30;
             // 
-            // timeFrom
-            // 
-            this.timeFrom.EditValue = new System.DateTime(2010, 4, 6, 0, 0, 0, 0);
-            this.timeFrom.Location = new System.Drawing.Point(411, 20);
-            this.timeFrom.Name = "timeFrom";
-            this.timeFrom.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.timeFrom.Properties.Mask.EditMask = "F";
-            this.timeFrom.Size = new System.Drawing.Size(188, 23);
-            this.timeFrom.TabIndex = 21;
-            // 
-            // timeTO
-            // 
-            this.timeTO.EditValue = new System.DateTime(2010, 4, 6, 0, 0, 0, 0);
-            this.timeTO.Location = new System.Drawing.Point(411, 54);
-            this.timeTO.Name = "timeTO";
-            this.timeTO.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.timeTO.Properties.Mask.EditMask = "F";
-            this.timeTO.Size = new System.Drawing.Size(188, 23);
-            this.timeTO.TabIndex = 22;
-            // 
             // VideoQueryForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -303,6 +303,8 @@ namespace RemoteImaging.Query
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.VideoQueryForm_FormClosing);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.timeTO.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.timeFrom.Properties)).EndInit();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
@@ -313,8 +315,6 @@ namespace RemoteImaging.Query
             this.splitContainer2.Panel2.PerformLayout();
             this.splitContainer2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.axVLCPlugin21)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.timeFrom.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.timeTO.Properties)).EndInit();
             this.ResumeLayout(false);
 
         }
