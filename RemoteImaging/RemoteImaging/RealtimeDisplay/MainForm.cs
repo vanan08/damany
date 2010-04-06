@@ -43,14 +43,14 @@ namespace RemoteImaging.RealtimeDisplay
         }
 
 
-        public MainForm(Func<RemoteImaging.IPicQueryScreen> picQueryScreenCreator,
-                         Func<RemoteImaging.IPicQueryPresenter> picQueryPresenterCreator,
+        public MainForm(Func<RemoteImaging.IPicQueryPresenter> picQueryPresenterCreator,
+                        Func<Query.IVideoQueryPresenter> createVideoQueryPresenter,
                          Func<OptionsForm> createOptionsForm,
                          Func<OptionsPresenter> createOptionsPresenter)
             : this()
         {
             this.picPresenterCreator = picQueryPresenterCreator;
-            this.picScreenCreator = picQueryScreenCreator;
+            _createVideoQueryPresenter = createVideoQueryPresenter;
             this._createOptionsPresenter = createOptionsPresenter;
             this._createOptionsForm = createOptionsForm;
 
@@ -343,7 +343,8 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void videoSearch_Click(object sender, EventArgs e)
         {
-            new RemoteImaging.Query.VideoQueryForm().ShowDialog(this);
+            var p = _createVideoQueryPresenter();
+            p.Start();
         }
 
         Thread thread = null;
@@ -797,6 +798,7 @@ namespace RemoteImaging.RealtimeDisplay
         }
 
         private Func<RemoteImaging.IPicQueryPresenter> picPresenterCreator;
+        private readonly Func<IVideoQueryPresenter> _createVideoQueryPresenter;
         private Func<RemoteImaging.IPicQueryScreen> picScreenCreator;
         public void Initialize()
         {

@@ -8,13 +8,15 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
+using Damany.PC.Domain;
+using Damany.Util;
 using RemoteImaging.Core;
 using Microsoft.Practices.EnterpriseLibrary.ExceptionHandling;
 using Damany.RemoteImaging.Common;
 
 namespace RemoteImaging.Query
 {
-    public partial class VideoQueryForm : Form
+    public partial class VideoQueryForm : Form, IVideoQueryScreen
     {
         public VideoQueryForm()
         {
@@ -22,7 +24,12 @@ namespace RemoteImaging.Query
 
             PopulateSearchScope();
             setListViewColumns();
+
+            var now = DateTime.Now;
+            this.timeTO.EditValue = now;
+            this.timeFrom.EditValue = now.AddDays(-1);
         }
+
 
         public void SetCameras(IList<Damany.PC.Domain.CameraInfo> cameras)
         {
@@ -31,7 +38,7 @@ namespace RemoteImaging.Query
 
             foreach (var c in cameras)
             {
-                this.comboBox1.Items.Add(c.Id.ToString());
+                this.cameraComboBox.Items.Add(c.Id.ToString());
             }
 
         }
@@ -52,87 +59,7 @@ namespace RemoteImaging.Query
 
         private void queryBtn_Click(object sender, EventArgs e)
         {
-            this.axVLCPlugin21.Toolbar = true;
-
-            this.picList.Clear();
-
-            if (this.comboBox1.Text == "" || this.comboBox1.Text == null)
-            {
-                MessageBox.Show("请选择要查询的摄像头ID", "警告");
-                return;
-            }
-
-
-            int cameraID = int.Parse(this.comboBox1.Text);
-
-            //judge the input validation
-            DateTime date1 = this.dateTimePicker1.Value;
-            DateTime date2 = this.dateTimePicker2.Value;
-            DateTime time1 = this.timeEdit1.Time;
-            DateTime time2 = this.timeEdit2.Time;
-
-            DateTime dateTime1 = new DateTime(date1.Year, date1.Month, date1.Day, time1.Hour, time1.Minute, time1.Second);
-            DateTime dateTime2 = new DateTime(date2.Year, date2.Month, date2.Day, time2.Hour, time2.Minute, time2.Second);
-            if (dateTime1 >= dateTime2)
-            {
-                MessageBox.Show("时间起点不应该大于或者等于时间终点，请重新输入！", "警告");
-                return;
-            }
-
-            Video[] videos = FileSystemStorage.VideoFilesBetween(cameraID, dateTime1, dateTime2);
-
-            if (videos.Length == 0)
-            {
-                MessageBox.Show("没有搜索到满足条件的视频！", "警告");
-                return;
-            }
-
-            this.videoList.Items.Clear();
-
-            foreach (Video v in videos)
-            {
-                string videoPath = v.Path;
-                DateTime dTime = ImageSearch.getDateTimeStr(videoPath);//"2009-6-29 14:00:00"
-                ListViewItem lvl = new ListViewItem();
-                lvl.Text = dTime.ToString();
-                lvl.SubItems.Add(videoPath);
-                lvl.Tag = videoPath;
-
-                if ( ((SearchScope) this.searchType.SelectedValue & SearchScope.FaceCapturedVideo) 
-                      == SearchScope.FaceCapturedVideo )
-                {
-                    if (v.HasFaceCaptured)
-                    {
-                        lvl.ImageIndex = 0;
-                        videoList.Items.Add(lvl);
-                    }
-                }
-                
-                if (((SearchScope)this.searchType.SelectedValue & SearchScope.MotionWithoutFaceVideo)
-                     == SearchScope.MotionWithoutFaceVideo)
-                {
-                    if (v.IsMotionWithoutFace)
-                    {
-                        lvl.ImageIndex = 1;
-                        videoList.Items.Add(lvl);
-                    }
-                }
-                
-                if ( ((SearchScope) this.searchType.SelectedValue & SearchScope.MotionLessVideo) 
-                      == SearchScope.MotionLessVideo)
-                {
-                    if (v.IsMotionLess)
-                    {
-                        lvl.ImageIndex = 2;
-                        videoList.Items.Add(lvl);
-                    }
-                }
-
-               
-
-
-
-            }
+            _presenter.Search();
         }
 
         private void setListViewColumns()//添加ListView行头
@@ -143,7 +70,7 @@ namespace RemoteImaging.Query
 
         private void cancelBtn_Click(object sender, EventArgs e)
         {
-            this.picList.Clear();
+            this.faceList.Clear();
             this.imageListFace.Images.Clear();
             this.Close();
         }
@@ -173,11 +100,11 @@ namespace RemoteImaging.Query
 
         void bindPiclist()
         {
-            this.picList.Clear();
+            this.faceList.Clear();
             this.imageListFace.Images.Clear();
 
             DateTime time = ImageSearch.getDateTimeStr(videoList.FocusedItem.Tag as string);
-            int cameID = int.Parse(this.comboBox1.Text);
+            int cameID = int.Parse(this.cameraComboBox.Text);
 
             string[] fileArr = ImageSearch.FacesCapturedAt(time, cameID, true);//得到图片路径
             if (fileArr.Length == 0) return;
@@ -208,12 +135,12 @@ namespace RemoteImaging.Query
                     Text = text,
                     ImageIndex = i
                 };
-                this.picList.Items.Add(item);
+                this.faceList.Items.Add(item);
             }
-            this.picList.Scrollable = true;
-            this.picList.MultiSelect = false;
-            this.picList.View = View.LargeIcon;
-            this.picList.LargeImageList = imageListFace;
+            this.faceList.Scrollable = true;
+            this.faceList.MultiSelect = false;
+            this.faceList.View = View.LargeIcon;
+            this.faceList.LargeImageList = imageListFace;
         }
 
         #endregion
@@ -231,7 +158,7 @@ namespace RemoteImaging.Query
         private void picList_DoubleClick(object sender, EventArgs e)
         {
             //MessageBox.Show("图片路径："+this.picList.FocusedItem.Tag.ToString());
-            ShowDetailPic(ImageDetail.FromPath(this.picList.FocusedItem.Tag.ToString()));
+            ShowDetailPic(ImageDetail.FromPath(this.faceList.FocusedItem.Tag.ToString()));
         }
 
         private void ShowDetailPic(ImageDetail img)
@@ -242,19 +169,104 @@ namespace RemoteImaging.Query
             detail.Dispose();
         }
 
-        [Flags]
-        internal enum SearchScope : byte
-        {
-            FaceCapturedVideo = 1,
-            MotionWithoutFaceVideo = 2,
-            MotionLessVideo = 4,
-            All = byte.MaxValue,
-        }
-
         internal class SearchCategory
         {
             public string Name { get; set; }
-            public SearchScope Scope { get; set; }
+            public Query.SearchScope Scope { get; set; }
         }
+
+
+
+        #region IVideoQueryScreen Members
+
+        public Damany.Util.DateTimeRange TimeRange
+        {
+            get {  return new DateTimeRange((DateTime) this.timeFrom.EditValue, (DateTime) this.timeTO.EditValue);  }
+        }
+
+        public SearchScope SearchScope
+        {
+            get {  return (SearchScope) this.searchType.SelectedValue; }
+        }
+
+        public CameraInfo SelectedCamera
+        {
+            get
+            {
+                return (CameraInfo) this.cameraComboBox.SelectedValue;
+            }
+        }
+
+        public CameraInfo[] Cameras
+        {
+            set
+            {
+                this.cameraComboBox.DataSource = value;
+                this.cameraComboBox.DisplayMember = "Name";
+            }
+        }
+
+        public void ClearAll()
+        {
+            this.videoList.Items.Clear();
+            this.ClearFacesList();
+        }
+
+        public void ClearFacesList()
+        {
+            this.imageListFace.Images.Clear();
+            this.faceList.Clear();
+        }
+
+        public void AddFace(Damany.Imaging.Common.Portrait p)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddVideo(RemoteImaging.Core.Video v)
+        {
+            string videoPath = v.Path;
+            DateTime dTime = ImageSearch.getDateTimeStr(v.Path);//"2009-6-29 14:00:00"
+            var item = new ListViewItem();
+            item.Text = dTime.ToString();
+            item.SubItems.Add(videoPath);
+            item.Tag = videoPath;
+
+            if (v.HasFaceCaptured)
+            {
+                item.ImageIndex = 0;
+            }
+            else if (v.HasMotionDetected)
+            {
+                item.ImageIndex = 1;
+            }
+            else if (!v.HasFaceCaptured && !v.HasMotionDetected)
+            {
+                item.ImageIndex = 2;
+            }
+
+
+            this.videoList.Items.Add(item);
+
+        }
+
+        public void AttachPresenter(IVideoQueryPresenter presenter)
+        {
+            this._presenter = presenter;
+        }
+
+        public void ShowMessage(string msg)
+        {
+            MessageBox.Show(this, msg, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        public new void Show()
+        {
+            ShowDialog(Application.OpenForms[0]);
+        }
+
+        #endregion
+
+        private IVideoQueryPresenter _presenter;
     }
 }

@@ -164,7 +164,7 @@ namespace RemoteImaging.Query
                     if (((SearchScope)this.searchType.SelectedValue & SearchScope.MotionWithoutFaceVideo)
                          == SearchScope.MotionWithoutFaceVideo)
                     {
-                        if (v.IsMotionWithoutFace)
+                        if (v.HasMotionDected)
                         {
                             lvl.ImageIndex = 1;
                             videoList.Items.Add(lvl);
@@ -174,7 +174,6 @@ namespace RemoteImaging.Query
                     if (((SearchScope)this.searchType.SelectedValue & SearchScope.MotionLessVideo)
                           == SearchScope.MotionLessVideo)
                     {
-                        if (v.IsMotionLess)
                         {
                             lvl.ImageIndex = 2;
                             videoList.Items.Add(lvl);

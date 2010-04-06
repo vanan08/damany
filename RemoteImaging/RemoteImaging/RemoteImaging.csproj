@@ -198,6 +198,8 @@
     <Compile Include="PicQueryFormPresenter.cs" />
     <Compile Include="Query\ImageDirSys.cs" />
     <Compile Include="Query\ImageSearch.cs" />
+    <Compile Include="Query\IVideoQueryPresenter.cs" />
+    <Compile Include="Query\IVideoQueryScreen.cs" />
     <Compile Include="Query\ListViewEx.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -207,12 +209,14 @@
     <Compile Include="Query\PicQueryForm.designer.cs">
       <DependentUpon>PicQueryForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Query\SearchScope.cs" />
     <Compile Include="Query\VideoQueryForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Query\VideoQueryForm.Designer.cs">
       <DependentUpon>VideoQueryForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Query\VideoQueryPresenter.cs" />
     <Compile Include="RealtimeDisplay\CameraUpdateSettings.cs" />
     <Compile Include="RealtimeDisplay\IImageScreenObserver.cs" />
     <Compile Include="Core\ImageDetail.cs" />

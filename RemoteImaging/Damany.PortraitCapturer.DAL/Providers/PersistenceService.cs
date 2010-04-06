@@ -17,7 +17,7 @@ namespace Damany.PortraitCapturer.DAL.Providers
             string reason;
             if (PathHelper.IsValidRelativePath(outputDirectory, out reason))
             {
-                outputDirectory = 
+                outputDirectory =
                     System.IO.Path.Combine(System.IO.Directory.GetCurrentDirectory(), outputDirectory);
             }
 
@@ -26,7 +26,7 @@ namespace Damany.PortraitCapturer.DAL.Providers
 
             this.FrameToPathConverter = this.ObjToPathMapper;
             this.PortraitToPathConverter = this.ObjToPathMapper;
-   
+
         }
 
 
@@ -94,8 +94,20 @@ namespace Damany.PortraitCapturer.DAL.Providers
         {
             this.CheckStarted();
             var dtos = dataProvider.GetFrames(range);
-            var frames = dtos.ToList().ConvertAll( dto => Mapper.Map<DAL.DTO.Frame, Frame>(dto) );
-            return frames;
+            var frames = dtos.ToList().ConvertAll<Frame>( dto =>
+                                                       {
+                                                           try
+                                                           {
+                                                              return  Mapper.Map<DAL.DTO.Frame, Frame>(dto);
+                                                           }
+                                                           catch (AutoMapperMappingException)
+                                                           {
+                                                               return null;
+                                                           }
+                                                           
+                                                       } ).Where(f => f!= null);
+           
+            return frames.ToList();
         }
 
         public IList<Portrait> GetPortraits(Damany.Util.DateTimeRange range)
@@ -120,7 +132,7 @@ namespace Damany.PortraitCapturer.DAL.Providers
             dataProvider.DeleteFrame(frameId);
         }
 
-       
+
 
         private string GetAbsolutePath(string relativePathOfImage)
         {
@@ -135,7 +147,7 @@ namespace Damany.PortraitCapturer.DAL.Providers
             return absoluteDirectory;
         }
 
- 
+
         private void InitializeDatabase()
         {
             if (this.dataProvider == null)
@@ -194,7 +206,7 @@ namespace Damany.PortraitCapturer.DAL.Providers
             }
         }
 
-       
+
 
         public Func<Damany.Imaging.Common.Frame, string> FrameToPathConverter { get; set; }
         public Func<Damany.Imaging.Common.Portrait, string> PortraitToPathConverter { get; set; }
@@ -206,6 +218,6 @@ namespace Damany.PortraitCapturer.DAL.Providers
 
         Damany.PortraitCapturer.DAL.Providers.Db4oProvider dataProvider;
 
-       
+
     }
 }
