@@ -19,23 +19,25 @@ namespace RemoteImaging
         {
             this._mainForm.Cameras = this._configManager.GetCameras().ToArray();
 
-            var camToStart = this._configManager.GetCameras().SingleOrDefault();
 
-            if (camToStart != null)
+            var camToStart = this._configManager.GetCameras();
+
+            if (camToStart.Count == 1)
             {
+                var single = this._configManager.GetCameras().Single();
 
-                Action action = delegate
+                System.Threading.WaitCallback action = delegate
                                     {
-                                        var camController = Damany.RemoteImaging.Common.SearchLineBuilder.BuildNewSearchLine(camToStart);
+                                        var camController = Damany.RemoteImaging.Common.SearchLineBuilder.BuildNewSearchLine(single);
                                         camController.RegisterPortraitHandler(this._mainForm);
 
                                         camController.Start();
-                                        if (camToStart.Provider == CameraProvider.Sanyo)
+                                        if (single.Provider == CameraProvider.Sanyo)
                                         {
-                                            this._mainForm.StartRecord(camToStart);
+                                            this._mainForm.StartRecord(single);
                                         }
                                     };
-                action.BeginInvoke(null, null);
+                System.Threading.ThreadPool.QueueUserWorkItem(action);
             }
             
         }

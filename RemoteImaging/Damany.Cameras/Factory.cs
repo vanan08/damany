@@ -26,6 +26,7 @@ namespace Damany.Cameras
                     source = sanyo;
                     break;
                 case Damany.PC.Domain.CameraProvider.AipStar:
+
                     var aip = new Damany.Cameras.Wrappers.AipStarCamera(cameraInfo.Location.Host, cameraInfo.Location.Port, "", "");
                     aip.UserName = "system";
                     aip.PassWord = "system";
