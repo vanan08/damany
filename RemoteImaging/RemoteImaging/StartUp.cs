@@ -34,14 +34,27 @@ namespace RemoteImaging
 
         private void LoadPersonRepository()
         {
-            var personRepository = SuspectsRepositoryManager.LoadFrom(@"d:\imglib");
-            this.builder.RegisterInstance(personRepository.Peoples).As
-                <IEnumerable<PersonOfInterest>>().ExternallyOwned();
+            if (System.IO.Directory.Exists(Properties.Settings.Default.PersonOfInterespPath))
+            {
+                var personRepository = SuspectsRepositoryManager.LoadFrom(Properties.Settings.Default.PersonOfInterespPath);
+                this.builder.RegisterInstance(personRepository.Peoples).As
+                    <IEnumerable<PersonOfInterest>>().ExternallyOwned();
+            }
+            else
+            {
+                this.builder.Register(c => new PersonOfInterest[0]).SingleInstance();
+            }
+
         }
 
         private void InitDataProvider()
         {
-            var repository = new LocalDb4oProvider(@"D:\ImageOutput");
+            if (!System.IO.Directory.Exists(Properties.Settings.Default.OutputPath))
+            {
+                System.IO.Directory.CreateDirectory(Properties.Settings.Default.OutputPath);
+            }
+
+            var repository = new LocalDb4oProvider( Properties.Settings.Default.OutputPath );
             repository.Start();
 
             this.builder.RegisterInstance(repository).As<Damany.PortraitCapturer.DAL.IRepository>().ExternallyOwned();
