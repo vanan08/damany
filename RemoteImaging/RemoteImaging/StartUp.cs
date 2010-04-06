@@ -8,6 +8,8 @@ using Damany.PortraitCapturer.DAL.Providers;
 using Autofac;
 using Damany.Imaging.PlugIns;
 using MiscUtil;
+using SuspectsRepository;
+using Damany.RemoteImaging.Common;
 
 namespace RemoteImaging
 {
@@ -32,14 +34,14 @@ namespace RemoteImaging
 
         private void LoadPersonRepository()
         {
-            var personRepository = SuspectsRepository.SuspectsRepositoryManager.LoadFrom(@"d:\imglib");
+            var personRepository = SuspectsRepositoryManager.LoadFrom(@"d:\imglib");
             this.builder.RegisterInstance(personRepository.Peoples).As
-                <IEnumerable<Damany.Imaging.PlugIns.PersonOfInterest>>().ExternallyOwned();
+                <IEnumerable<PersonOfInterest>>().ExternallyOwned();
         }
 
         private void InitDataProvider()
         {
-            var repository = new Damany.PortraitCapturer.DAL.Providers.LocalDb4oProvider(@"D:\ImageOutput");
+            var repository = new LocalDb4oProvider(@"D:\ImageOutput");
             repository.Start();
 
             this.builder.RegisterInstance(repository).As<Damany.PortraitCapturer.DAL.IRepository>().ExternallyOwned();
@@ -47,9 +49,9 @@ namespace RemoteImaging
 
         private void InitConfigManager()
         {
-            var configManger = Damany.RemoteImaging.Common.ConfigurationManager.GetDefault();
+            var configManger = ConfigurationManager.GetDefault();
 
-            this.builder.RegisterInstance(configManger).As<Damany.RemoteImaging.Common.ConfigurationManager>().ExternallyOwned();
+            this.builder.RegisterInstance(configManger).As<ConfigurationManager>().ExternallyOwned();
         }
 
         private void RegisterTypes()
@@ -74,10 +76,10 @@ namespace RemoteImaging
 
         public string Status { get; set; }
         public string OutputImagePath { get; set; }
-        public Autofac.IContainer Container { get; private set; }
+        public IContainer Container { get; private set; }
 
-        private Autofac.ContainerBuilder builder;
+        private ContainerBuilder builder;
 
-        private Damany.PortraitCapturer.DAL.Providers.Db4oProvider dataProvider;
+        private Db4oProvider dataProvider;
     }
 }

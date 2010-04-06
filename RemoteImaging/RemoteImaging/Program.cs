@@ -33,7 +33,6 @@ namespace RemoteImaging
 
             var strapper = new StartUp();
             strapper.Start();
-            strapper.Run();
 
             var mainForm = strapper.Container.Resolve<RemoteImaging.RealtimeDisplay.MainForm>();
             var controller = strapper.Container.Resolve<MainController>();
