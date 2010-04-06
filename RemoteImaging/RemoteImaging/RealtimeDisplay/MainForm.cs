@@ -42,6 +42,25 @@ namespace RemoteImaging.RealtimeDisplay
             Application.Idle += new EventHandler(Application_Idle);
         }
 
+
+        public MainForm(Func<RemoteImaging.IPicQueryScreen> picQueryScreenCreator,
+                         Func<RemoteImaging.IPicQueryPresenter> picQueryPresenterCreator,
+                         Func<OptionsForm> createOptionsForm,
+                         Func<OptionsPresenter> createOptionsPresenter)
+            : this()
+        {
+            this.picPresenterCreator = picQueryPresenterCreator;
+            this.picScreenCreator = picQueryScreenCreator;
+            this._createOptionsPresenter = createOptionsPresenter;
+            this._createOptionsForm = createOptionsForm;
+
+        }
+
+        public void AttachController(MainController controller)
+        {
+            this._mainController = controller;
+        }
+
         void Application_Idle(object sender, EventArgs e)
         {
             if (this.splash != null)
@@ -50,14 +69,6 @@ namespace RemoteImaging.RealtimeDisplay
             }
         }
 
-        public MainForm( Func<RemoteImaging.IPicQueryScreen> picQueryScreenCreator,
-                         Func<RemoteImaging.IPicQueryPresenter> picQueryPresenterCreator )
-            : this()
-        {
-            this.picPresenterCreator = picQueryPresenterCreator;
-            this.picScreenCreator = picQueryScreenCreator;
-
-        }
 
 
         CameraInfo allCamera = new CameraInfo() { Id = -1 };
@@ -179,35 +190,18 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void MainForm_Shown(object sender, EventArgs e)
         {
+            var caminfo = new Damany.PC.Domain.CameraInfo();
+            caminfo.Location = new Uri(@"http://192.168.1.201");
 
-            diskSpaceCheckTimer.Enabled = true;
+            this.StartRecord(caminfo);
 
-            commucation = new Communication("224.0.0.23", 40001);
-            commucation.Start();
-
-            var c = GetLastSelectedCamera();
-            if (c == null) return;
-
-            if (FileSystemStorage.DriveRemoveable(Properties.Settings.Default.OutputPath))
-            {
-                DialogResult result = MessageBox.Show(this,
-                    "输出目录位于可移动介质！继续吗?", "警告",
-                    MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
-                if (result == DialogResult.No)
-                {
-                    return;
-                }
-            }
-
-
-            this.StartCamera(c);
-
+          //  this._mainController.Start();
 
         }
 
         #region IImageScreen Members
 
-        public CameraInfo[] CamerasInfo
+        public CameraInfo[] Cameras
         {
             set
             {
@@ -230,27 +224,11 @@ namespace RemoteImaging.RealtimeDisplay
                         Tag = camera,
                     };
 
-                    Action<string> setupCamera = (ip) =>
-                    {
-                        using (FormConfigCamera form = new FormConfigCamera())
-                        {
-                            StringBuilder sb = new StringBuilder(form.Text);
-                            sb.Append("-[");
-                            sb.Append(ip);
-                            sb.Append("]");
-
-                            form.Navigate(ip);
-                            form.Text = sb.ToString();
-                            form.ShowDialog(this);
-                        }
-                    };
-
                     TreeNode setupNode = new TreeNode()
                     {
                         Text = "设置",
                         ImageIndex = 2,
                         SelectedImageIndex = 2,
-                        Tag = setupCamera,
                     };
                     TreeNode propertyNode = new TreeNode()
                     {
@@ -260,7 +238,7 @@ namespace RemoteImaging.RealtimeDisplay
                     };
                     TreeNode ipNode = new TreeNode()
                     {
-                        Text = "IP地址:" + camera.Location.Host,
+                        Text = "地址:" + camera.Location.ToString(),
                         ImageIndex = 4,
                         SelectedImageIndex = 4
                     };
@@ -377,19 +355,8 @@ namespace RemoteImaging.RealtimeDisplay
         int tempModel = 0;
         private void options_Click(object sender, EventArgs e)
         {
-            var frm = OptionsForm.Instance;
-
-            if (frm.ShowDialog(this) == DialogResult.OK)
-            {
-
-                Properties.Settings setting = Properties.Settings.Default;
-
-                //setting.Save();
-
-                InitStatusBar();
-
-            }
-
+            var p = this._createOptionsPresenter();
+            p.Start();
         }
 
         private void column1by1_Click(object sender, EventArgs e)
@@ -562,8 +529,16 @@ namespace RemoteImaging.RealtimeDisplay
 
         string videoPlayerPath;
 
-        private void StartRecord(CameraInfo cam)
+        public void StartRecord(CameraInfo cam)
         {
+            if (InvokeRequired)
+            {
+                Action<CameraInfo> action = StartRecord;
+
+                this.BeginInvoke(action, cam);
+                return;
+            }
+
             this.axCamImgCtrl1.CamImgCtrlStop();
 
             this.axCamImgCtrl1.ImageFileURL = @"liveimg.cgi";
@@ -876,5 +851,9 @@ namespace RemoteImaging.RealtimeDisplay
         }
 
         public event EventHandler<EventArgs<Exception>> Stopped;
+
+        private MainController _mainController;
+        private Func<OptionsPresenter> _createOptionsPresenter;
+        private Func<OptionsForm> _createOptionsForm;
     }
 }

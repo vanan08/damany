@@ -11,7 +11,7 @@ namespace RemoteImaging.RealtimeDisplay
 {
     public interface IImageScreen
     {
-        CameraInfo[] CamerasInfo { set; }
+        CameraInfo[] Cameras { set; }
 
         CameraInfo GetSelectedCamera();
 

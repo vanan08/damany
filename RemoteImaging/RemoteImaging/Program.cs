@@ -15,9 +15,6 @@ namespace RemoteImaging
     static class Program
     {
         public static string directory;
-        public static int ImageSampleCount = 2230;
-        public static int ImageLen = 100*100;
-        public static int EigenNum = 40;
 
   
         /// <summary>
@@ -34,14 +31,16 @@ namespace RemoteImaging
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            var strapper = new StartUp();
-            strapper.Start();
-            strapper.Run();
+            //var strapper = new StartUp();
+            //strapper.Start();
+            //strapper.Run();
 
-            var mainForm = strapper.Container.Resolve<RemoteImaging.RealtimeDisplay.MainForm>();
+            //var mainForm = strapper.Container.Resolve<RemoteImaging.RealtimeDisplay.MainForm>();
+            //var controller = strapper.Container.Resolve<MainController>();
+            //mainForm.AttachController(controller);
 
-            Application.Run(mainForm);
 
+            Application.Run(new MainForm());
 
         }
 
