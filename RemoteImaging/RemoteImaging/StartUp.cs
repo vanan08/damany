@@ -25,13 +25,6 @@ namespace RemoteImaging
             this.RegisterTypes();
         }
 
-        public void Run()
-        {
-
-
-        }
-
-
         private void CheckImportantFiles()
         {
 

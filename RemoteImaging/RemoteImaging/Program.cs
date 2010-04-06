@@ -31,16 +31,15 @@ namespace RemoteImaging
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            //var strapper = new StartUp();
-            //strapper.Start();
-            //strapper.Run();
+            var strapper = new StartUp();
+            strapper.Start();
+            strapper.Run();
 
-            //var mainForm = strapper.Container.Resolve<RemoteImaging.RealtimeDisplay.MainForm>();
-            //var controller = strapper.Container.Resolve<MainController>();
-            //mainForm.AttachController(controller);
+            var mainForm = strapper.Container.Resolve<RemoteImaging.RealtimeDisplay.MainForm>();
+            var controller = strapper.Container.Resolve<MainController>();
+            mainForm.AttachController(controller);
 
-
-            Application.Run(new MainForm());
+            Application.Run(mainForm);
 
         }
 
