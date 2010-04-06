@@ -190,12 +190,8 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void MainForm_Shown(object sender, EventArgs e)
         {
-            var caminfo = new Damany.PC.Domain.CameraInfo();
-            caminfo.Location = new Uri(@"http://192.168.1.201");
 
-            this.StartRecord(caminfo);
-
-          //  this._mainController.Start();
+            this._mainController.Start();
 
         }
 
