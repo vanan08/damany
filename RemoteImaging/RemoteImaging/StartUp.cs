@@ -21,37 +21,14 @@ namespace RemoteImaging
 
             this.LoadPersonRepository();
             this.InitDataProvider();
+            this.InitConfigManager();
             this.RegisterTypes();
         }
 
         public void Run()
         {
-            var camInfo = new Damany.PC.Domain.CameraInfo();
-            camInfo.Name = "sanyo";
-            camInfo.Provider = CameraProvider.Sanyo;
-            camInfo.Location = new Uri(@"http://192.168.1.201");
-            camInfo.Id = 1;
-            camInfo.Description = "";
 
-            var camController = Damany.RemoteImaging.Common.SearchLineBuilder.BuildNewSearchLine(camInfo);
-            var faceComparer = this.Container.Resolve<Damany.Imaging.PlugIns.FaceComparer>();
-            camController.RegisterPortraitHandler(faceComparer);
 
-            var persistenWriter =
-                new Damany.Imaging.Handlers.PersistenceWriter(
-                    this.Container.Resolve<Damany.PortraitCapturer.DAL.IRepository>());
-
-            camController.RegisterPortraitHandler(persistenWriter);
-
-            var mainForm = this.Container.Resolve<RemoteImaging.RealtimeDisplay.MainForm>();
-            faceComparer.PersonOfInterestDected += delegate(object sender, EventArgs<PersonOfInterestDetectionResult> e)
-            {
-                mainForm.ShowSuspects(e.Value);
-            };
-
-            camController.RegisterPortraitHandler(mainForm);
-
-            camController.Start();
         }
 
 
@@ -75,15 +52,28 @@ namespace RemoteImaging
             this.builder.RegisterInstance(repository).As<Damany.PortraitCapturer.DAL.IRepository>().ExternallyOwned();
         }
 
+        private void InitConfigManager()
+        {
+            var configManger = Damany.RemoteImaging.Common.ConfigurationManager.GetDefault();
+
+            this.builder.RegisterInstance(configManger).As<Damany.RemoteImaging.Common.ConfigurationManager>().ExternallyOwned();
+        }
+
         private void RegisterTypes()
         {
             this.builder.RegisterType<Query.PicQueryForm>().As<IPicQueryScreen>();
             this.builder.RegisterType<PicQueryFormPresenter>().As<IPicQueryPresenter>();
 
-            this.builder.RegisterType<RealtimeDisplay.MainForm>().SingleInstance();
 
             this.builder.RegisterType<LbpFaceComparer>().As<IFaceComparer>();
             this.builder.RegisterType<FaceComparer>();
+
+            this.builder.RegisterType<OptionsForm>().SingleInstance();
+            this.builder.RegisterType<OptionsPresenter>();
+
+            this.builder.RegisterType<MainController>();
+            this.builder.RegisterType<RealtimeDisplay.MainForm>().SingleInstance();
+
 
             this.Container = this.builder.Build();
         }

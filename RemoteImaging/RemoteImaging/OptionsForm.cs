@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Xml;
@@ -13,21 +14,7 @@ namespace RemoteImaging
 {
     public partial class OptionsForm : Form
     {
-        private static OptionsForm instance = null;
-
-        public static OptionsForm Instance
-        {
-            get
-            {
-                if (instance == null)
-                {
-                    instance = new OptionsForm();
-                }
-                return instance;
-            }
-        }
-
-        private OptionsForm()
+        public OptionsForm()
         {
             InitializeComponent();
             InitCamDatagridView();
@@ -39,26 +26,26 @@ namespace RemoteImaging
 //             this.cameraSetting1.MotionRegionAreaLimit = Properties.Settings.Default.Thresholding;
         }
 
+        public void AttachPresenter(OptionsPresenter presenter)
+        {
+            this._presenter = presenter;
+        }
+
+
         private void InitCamDatagridView()
         {
-            InitCamList();
 
             this.dataGridCameras.AutoGenerateColumns = false;
             this.dataGridCameras.Columns[0].DataPropertyName = "Name";
-            this.dataGridCameras.Columns[1].DataPropertyName = "ID";
-            this.dataGridCameras.Columns[2].DataPropertyName = "IpAddress";
+            this.dataGridCameras.Columns[1].DataPropertyName = "Id";
+            this.dataGridCameras.Columns[2].DataPropertyName = "Location";
+            this.dataGridCameras.Columns[3].DataPropertyName = "Provider";
+            this.comboBoxColumnProvider.DataSource = Enum.GetValues(typeof (CameraProvider));
         }
 
         Damany.RemoteImaging.Common.ConfigurationManager configManager
             = Damany.RemoteImaging.Common.ConfigurationManager.GetDefault();
-        private void InitCamList()
-        {
-            camList.Clear();
-            foreach (var cam in configManager.GetCameras())
-            {
-                camList.Add(cam);
-            }
-        }
+        
         private void browseForUploadFolder_Click(object sender, EventArgs e)
         {
             using (FolderBrowserDialog dlg = new FolderBrowserDialog())
@@ -98,6 +85,18 @@ namespace RemoteImaging
 
                 this.dataGridCameras.DataSource = bs;
             }
+            get
+            {
+                var list = from c in this.camList
+                           select c;
+
+                var returnList = list.ToList();
+
+                return returnList;
+            }
+
+
+
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
@@ -140,15 +139,7 @@ namespace RemoteImaging
 
         private void buttonOK_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.BrightMode = this.rgBrightMode.SelectedIndex;
-            Properties.Settings.Default.CurIp = this.textBox4.Text;
-            Properties.Settings.Default.ComName = this.cmbComPort.Text;
-
-
-            //调用的薛晓莉的接口
-//             Properties.Settings.Default.ImageArr = this.cameraSetting1.ImageGroupLength;
-//             Properties.Settings.Default.Thresholding = this.cameraSetting1.MotionRegionAreaLimit;
-            
+           this._presenter.UpdateConfig();
         }
 
 
@@ -195,5 +186,7 @@ namespace RemoteImaging
                     Properties.Settings.Default.WarnPicSavePath = dlg.SelectedPath;
             }
         }
+
+        private OptionsPresenter _presenter;
     }
 }

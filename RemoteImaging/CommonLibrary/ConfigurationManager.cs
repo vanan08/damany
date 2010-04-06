@@ -61,6 +61,15 @@ namespace Damany.RemoteImaging.Common
             this.objContainer.Commit();
         }
 
+        public void ClearCameras()
+        {
+            foreach (var cameraInfo in this.GetCameras())
+            {
+                this.objContainer.Delete(cameraInfo);
+            }
+            
+        }
+
         private ConfigurationManager() {}
 
         private  Db4objects.Db4o.IObjectContainer objContainer;
