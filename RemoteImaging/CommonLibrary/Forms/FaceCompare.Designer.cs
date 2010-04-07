@@ -1,4 +1,4 @@
-﻿namespace RemoteImaging.Query
+﻿namespace Damany.RemoteImaging.Common.Forms
 {
     partial class FaceCompare
     {
@@ -43,10 +43,10 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.targetPic = new System.Windows.Forms.PictureBox();
             this.splitter1 = new System.Windows.Forms.Splitter();
-            this.faceList = new Damany.RemoteImaging.Common.Controls.DoubleBufferedListView();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.label4 = new System.Windows.Forms.Label();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.faceList = new Damany.RemoteImaging.Common.Controls.DoubleBufferedListView();
             this.panel1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.currentPic)).BeginInit();
@@ -68,14 +68,17 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(200, 782);
+            this.panel1.Size = new System.Drawing.Size(200, 722);
             this.panel1.TabIndex = 0;
             // 
             // compareButton
             // 
-            this.compareButton.Location = new System.Drawing.Point(63, 476);
+            this.compareButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.compareButton.Enabled = false;
+            this.compareButton.Location = new System.Drawing.Point(63, 439);
             this.compareButton.Name = "compareButton";
-            this.compareButton.Size = new System.Drawing.Size(75, 23);
+            this.compareButton.Size = new System.Drawing.Size(75, 21);
             this.compareButton.TabIndex = 5;
             this.compareButton.Text = "比对";
             this.compareButton.UseVisualStyleBackColor = true;
@@ -83,9 +86,9 @@
             // label3
             // 
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label3.Location = new System.Drawing.Point(6, 9);
+            this.label3.Location = new System.Drawing.Point(6, 8);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(182, 63);
+            this.label3.Size = new System.Drawing.Size(182, 58);
             this.label3.TabIndex = 4;
             this.label3.Text = "选定一张照片后,从数据库中比较与该照片相似的图片";
             // 
@@ -95,9 +98,9 @@
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox3.Controls.Add(this.currentPic);
-            this.groupBox3.Location = new System.Drawing.Point(3, 505);
+            this.groupBox3.Location = new System.Drawing.Point(3, 466);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(194, 274);
+            this.groupBox3.Size = new System.Drawing.Size(194, 253);
             this.groupBox3.TabIndex = 3;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "待比较图片";
@@ -105,9 +108,9 @@
             // currentPic
             // 
             this.currentPic.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.currentPic.Location = new System.Drawing.Point(3, 16);
+            this.currentPic.Location = new System.Drawing.Point(3, 17);
             this.currentPic.Name = "currentPic";
-            this.currentPic.Size = new System.Drawing.Size(188, 255);
+            this.currentPic.Size = new System.Drawing.Size(188, 233);
             this.currentPic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.currentPic.TabIndex = 0;
             this.currentPic.TabStop = false;
@@ -120,9 +123,9 @@
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Controls.Add(this.searchTo);
             this.groupBox2.Controls.Add(this.searchFrom);
-            this.groupBox2.Location = new System.Drawing.Point(3, 315);
+            this.groupBox2.Location = new System.Drawing.Point(3, 291);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(194, 137);
+            this.groupBox2.Size = new System.Drawing.Size(194, 126);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "时间范围";
@@ -130,18 +133,18 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(10, 77);
+            this.label2.Location = new System.Drawing.Point(10, 71);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(58, 13);
+            this.label2.Size = new System.Drawing.Size(59, 12);
             this.label2.TabIndex = 3;
             this.label2.Text = "结束时间:";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(11, 24);
+            this.label1.Location = new System.Drawing.Point(11, 22);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(58, 13);
+            this.label1.Size = new System.Drawing.Size(59, 12);
             this.label1.TabIndex = 2;
             this.label1.Text = "起始时间:";
             // 
@@ -150,12 +153,12 @@
             this.searchTo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.searchTo.EditValue = new System.DateTime(2010, 3, 19, 0, 0, 0, 0);
-            this.searchTo.Location = new System.Drawing.Point(9, 91);
+            this.searchTo.Location = new System.Drawing.Point(9, 84);
             this.searchTo.Name = "searchTo";
             this.searchTo.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
             this.searchTo.Properties.Mask.EditMask = "f";
-            this.searchTo.Size = new System.Drawing.Size(179, 22);
+            this.searchTo.Size = new System.Drawing.Size(179, 23);
             this.searchTo.TabIndex = 1;
             // 
             // searchFrom
@@ -163,21 +166,21 @@
             this.searchFrom.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.searchFrom.EditValue = new System.DateTime(2010, 3, 19, 0, 0, 0, 0);
-            this.searchFrom.Location = new System.Drawing.Point(9, 40);
+            this.searchFrom.Location = new System.Drawing.Point(9, 37);
             this.searchFrom.Name = "searchFrom";
             this.searchFrom.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
             this.searchFrom.Properties.Mask.EditMask = "f";
-            this.searchFrom.Size = new System.Drawing.Size(179, 22);
+            this.searchFrom.Size = new System.Drawing.Size(179, 23);
             this.searchFrom.TabIndex = 0;
             // 
             // choosePic
             // 
             this.choosePic.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.choosePic.Location = new System.Drawing.Point(63, 265);
+            this.choosePic.Location = new System.Drawing.Point(63, 245);
             this.choosePic.Name = "choosePic";
-            this.choosePic.Size = new System.Drawing.Size(75, 23);
+            this.choosePic.Size = new System.Drawing.Size(75, 21);
             this.choosePic.TabIndex = 1;
             this.choosePic.Text = "浏览";
             this.choosePic.UseVisualStyleBackColor = true;
@@ -188,9 +191,9 @@
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.targetPic);
-            this.groupBox1.Location = new System.Drawing.Point(0, 75);
+            this.groupBox1.Location = new System.Drawing.Point(0, 69);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(200, 184);
+            this.groupBox1.Size = new System.Drawing.Size(200, 170);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "选定目标";
@@ -198,9 +201,9 @@
             // targetPic
             // 
             this.targetPic.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.targetPic.Location = new System.Drawing.Point(3, 16);
+            this.targetPic.Location = new System.Drawing.Point(3, 17);
             this.targetPic.Name = "targetPic";
-            this.targetPic.Size = new System.Drawing.Size(194, 165);
+            this.targetPic.Size = new System.Drawing.Size(194, 150);
             this.targetPic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.targetPic.TabIndex = 0;
             this.targetPic.TabStop = false;
@@ -209,19 +212,9 @@
             // 
             this.splitter1.Location = new System.Drawing.Point(200, 0);
             this.splitter1.Name = "splitter1";
-            this.splitter1.Size = new System.Drawing.Size(3, 782);
+            this.splitter1.Size = new System.Drawing.Size(3, 722);
             this.splitter1.TabIndex = 1;
             this.splitter1.TabStop = false;
-            // 
-            // faceList
-            // 
-            this.faceList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.faceList.LargeImageList = this.imageList1;
-            this.faceList.Location = new System.Drawing.Point(203, 24);
-            this.faceList.Name = "faceList";
-            this.faceList.Size = new System.Drawing.Size(519, 758);
-            this.faceList.TabIndex = 2;
-            this.faceList.UseCompatibleStateImageBehavior = false;
             // 
             // imageList1
             // 
@@ -237,7 +230,7 @@
             this.label4.ForeColor = System.Drawing.Color.White;
             this.label4.Location = new System.Drawing.Point(203, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(519, 24);
+            this.label4.Size = new System.Drawing.Size(519, 22);
             this.label4.TabIndex = 3;
             this.label4.Text = "比较结果";
             // 
@@ -247,11 +240,21 @@
             this.openFileDialog1.Filter = "Jpeg 文件|*.jpg";
             this.openFileDialog1.RestoreDirectory = true;
             // 
+            // faceList
+            // 
+            this.faceList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.faceList.LargeImageList = this.imageList1;
+            this.faceList.Location = new System.Drawing.Point(203, 22);
+            this.faceList.Name = "faceList";
+            this.faceList.Size = new System.Drawing.Size(519, 700);
+            this.faceList.TabIndex = 2;
+            this.faceList.UseCompatibleStateImageBehavior = false;
+            // 
             // FaceCompare
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(722, 782);
+            this.ClientSize = new System.Drawing.Size(722, 722);
             this.Controls.Add(this.faceList);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.splitter1);
@@ -260,6 +263,7 @@
             this.ShowInTaskbar = false;
             this.Text = "人脸比对查询";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FaceCompare_FormClosing);
             this.panel1.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.currentPic)).EndInit();

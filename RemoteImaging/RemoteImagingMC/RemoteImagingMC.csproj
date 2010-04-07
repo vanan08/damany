@@ -179,12 +179,6 @@
     <Compile Include="OptionsForm.Designer.cs">
       <DependentUpon>OptionsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Query\FaceCompare.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Query\FaceCompare.Designer.cs">
-      <DependentUpon>FaceCompare.cs</DependentUpon>
-    </Compile>
     <Compile Include="Query\ImageDirSys.cs" />
     <Compile Include="Query\ImageSearch.cs" />
     <Compile Include="Query\ListViewEx.cs">
@@ -207,7 +201,6 @@
     <Compile Include="Query\VideoQueryPresenter.cs" />
     <Compile Include="RealtimeDisplay\Camera.cs" />
     <Compile Include="RealtimeDisplay\CameraUpdateSettings.cs" />
-    <Compile Include="Query\FaceComparePresenter.cs" />
     <Compile Include="RealtimeDisplay\IImageScreenObserver.cs" />
     <Compile Include="Core\ImageDetail.cs" />
     <Compile Include="RealtimeDisplay\ImageUploadEventArgs.cs" />
@@ -259,9 +252,6 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
-    <EmbeddedResource Include="Query\FaceCompare.resx">
-      <DependentUpon>FaceCompare.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Query\PicQueryForm.resx">
       <DependentUpon>PicQueryForm.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -503,7 +493,7 @@
   -->
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_BuildAction="ReBuild" BuildVersion_ConfigurationName="Release" BuildVersion_UpdateFileVersion="True" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_BuildVersioningStyle="None.None.Increment.None" Reactor_Enabled="1" Reactor_Lib="0" Reactor_Automatic="1" Reactor_Commands="" Reactor_Project="" Reactor_Output="[main_assembly_dir]RemoteImagingMC_Secure\RemoteImagingMC.exe" />
+      <UserProperties Reactor_Output="[main_assembly_dir]RemoteImagingMC_Secure\RemoteImagingMC.exe" Reactor_Project="" Reactor_Commands="" Reactor_Automatic="1" Reactor_Lib="0" Reactor_Enabled="1" BuildVersion_BuildVersioningStyle="None.None.Increment.None" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_UpdateFileVersion="True" BuildVersion_ConfigurationName="Release" BuildVersion_BuildAction="ReBuild" />
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>

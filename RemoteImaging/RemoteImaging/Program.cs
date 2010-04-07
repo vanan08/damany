@@ -51,8 +51,13 @@ namespace RemoteImaging
 
         static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)
         {
-            LogException(e.Exception);
-            ShowException(e.Exception);
+            HandleException(e.Exception);
+        }
+
+        private static void HandleException(Exception e)
+        {
+            LogException(e);
+            ShowException(e);
         }
 
         private static void ShowException(System.Exception e)
@@ -62,8 +67,7 @@ namespace RemoteImaging
 
         static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            LogException(e.ExceptionObject as Exception);
-            ShowException(e.ExceptionObject as Exception);
+            HandleException(e.ExceptionObject as Exception);
         }
 
         private static void LogException(System.Exception e)

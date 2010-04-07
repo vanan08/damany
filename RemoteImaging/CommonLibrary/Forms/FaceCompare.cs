@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
+using Damany.RemoteImaging.Common.Presenters;
+using Damany.Imaging.Extensions;
 
-namespace RemoteImaging.Query
+namespace Damany.RemoteImaging.Common.Forms
 {
     public partial class FaceCompare : Form
     {
@@ -60,24 +57,19 @@ namespace RemoteImaging.Query
 
             this.ipl = OpenCvSharp.IplImage.FromBitmap((Bitmap)img);
 
-            var searcher = new FaceSearchWrapper.FaceSearch();
+            var rects = this.ipl.LocateFaces();
 
-            var frame = new Damany.Imaging.Common.Frame(ipl);
-            frame.MotionRectangles.Add(new OpenCvSharp.CvRect(0, 0, ipl.Width, ipl.Height));
-            searcher.AddInFrame(frame);
-            var portraits = searcher.SearchFaces();
-            var face = portraits.FirstOrDefault();
-
-            if (face == null)
+            if (rects.Length == 0)
             {
                 MessageBox.Show("未定位到人脸", this.Text,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            this.faceRect = face.Portraits[0].FacesRectForCompare;
+            this.faceRect = rects[0];
 
             this.targetPic.Invalidate();
+            this.compareButton.Enabled = true;
         }
 
         public DateTime SearchFrom
@@ -165,6 +157,11 @@ namespace RemoteImaging.Query
         private Rectangle faceRect;
         private FaceComparePresenter presenter;
         private OpenCvSharp.IplImage ipl;
+
+        private void FaceCompare_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.presenter.Stop();
+        }
 
 
 

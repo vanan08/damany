@@ -48,6 +48,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Library\MiscUtil\MiscUtil.dll</HintPath>
     </Reference>
+    <Reference Include="OpenCvSharp, Version=2.0.3497.28493, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Library\OpenCvSharp\OpenCvSharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -107,6 +111,12 @@
     <Compile Include="Forms\EditCamera.Designer.cs">
       <DependentUpon>EditCamera.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FaceCompare.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FaceCompare.Designer.cs">
+      <DependentUpon>FaceCompare.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Login.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -125,6 +135,7 @@
     <Compile Include="IProgress.cs" />
     <Compile Include="MiscConfiguration.cs" />
     <Compile Include="ObjectReceiver.cs" />
+    <Compile Include="Presenters\FaceComparePresenter.cs" />
     <Compile Include="SearchLineBuilder.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -142,6 +153,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\EditCamera.resx">
       <DependentUpon>EditCamera.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FaceCompare.resx">
+      <DependentUpon>FaceCompare.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
@@ -195,7 +209,7 @@
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_BuildAction="ReBuild" BuildVersion_ConfigurationName="Release" BuildVersion_BuildVersioningStyle="None.None.Increment.None" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_UpdateFileVersion="True" />
+      <UserProperties BuildVersion_UpdateFileVersion="True" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_BuildVersioningStyle="None.None.Increment.None" BuildVersion_ConfigurationName="Release" BuildVersion_BuildAction="ReBuild" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
