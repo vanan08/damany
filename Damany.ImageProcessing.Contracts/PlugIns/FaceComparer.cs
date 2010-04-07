@@ -17,6 +17,11 @@ namespace Damany.Imaging.PlugIns
 
             this.personsOfInterests = personsOfInterests;
             this.Comparer = comparer;
+
+            if (personsOfInterests.Count() == 0)
+            {
+                System.Windows.Forms.MessageBox.Show("人脸特征库为空，将不进行实时人脸比对");
+            }
         }
 
         public void Initialize(){}
