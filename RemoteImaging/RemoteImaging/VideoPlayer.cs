@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Diagnostics;
+using Damany.Imaging.Common;
 using Microsoft.Win32;
 using System.Windows.Forms;
+using RemoteImaging.Core;
 
 namespace RemoteImaging
 {
@@ -29,6 +31,23 @@ namespace RemoteImaging
 
 
         public static string ExePath { get { return videoPlayerPath; } }
+
+        public static void PlayRelatedVideo(Portrait p)
+        {
+            var imgInfo = new ImageDetail();
+            imgInfo.CaptureTime = p.CapturedAt;
+            imgInfo.FromCamera = p.CapturedFrom.Id;
+
+            string[] videos = FileSystemStorage.VideoFilesOfImage(imgInfo);
+
+            if (videos.Length == 0)
+            {
+                System.Windows.Forms.MessageBox.Show("没有找到相关视频");
+                return;
+            }
+
+            VideoPlayer.PlayVideosAsync(videos);
+        }
 
 
         public static void PlayVideosAsync(string[] videos)

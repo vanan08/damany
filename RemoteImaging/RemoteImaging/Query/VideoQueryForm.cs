@@ -71,79 +71,15 @@ namespace RemoteImaging.Query
         private void cancelBtn_Click(object sender, EventArgs e)
         {
             this.faceList.Clear();
-            this.imageListFace.Images.Clear();
+            this.faceImageList.Images.Clear();
             this.Close();
         }
 
         private void videoList_ItemActivate(object sender, EventArgs e)
         {
-            bindPiclist();
-
-            if (this.videoList.SelectedItems.Count == 0) return;
-
-            if (this.axVLCPlugin21.playlist.isPlaying)
-            {
-                this.axVLCPlugin21.playlist.stop();
-            }
-
-            this.axVLCPlugin21.playlist.items.clear();
-
-            ListViewItem item = this.videoList.SelectedItems[0];
-
-            int idx = this.axVLCPlugin21.playlist.add(item.Tag as string, null, null);
-
-            this.axVLCPlugin21.playlist.playItem(idx);
+            _presenter.PlayVideo();
+            _presenter.ShowRelatedFaces();
         }
-
-
-        #region 绑定picList()
-
-        void bindPiclist()
-        {
-            this.faceList.Clear();
-            this.imageListFace.Images.Clear();
-
-            DateTime time = ImageSearch.getDateTimeStr(videoList.FocusedItem.Tag as string);
-            int cameID = int.Parse(this.cameraComboBox.Text);
-
-            string[] fileArr = ImageSearch.FacesCapturedAt(time, cameID, true);//得到图片路径
-            if (fileArr.Length == 0) return;
-
-            for (int i = 0; i < fileArr.Length; ++i)
-            {
-                Image img = null;
-                try
-                {
-                    img = Damany.Util.Extensions.MiscHelper.FromFileBuffered(fileArr[i]);
-                }
-                catch (System.Exception ex)
-                {
-                    bool rethrow = ExceptionPolicy.HandleException(ex, Constants.ExceptionHandlingLogging);
-                    if (rethrow)
-                    {
-                        throw;
-                    }
-
-                    continue;
-                }
-
-                this.imageListFace.Images.Add(img);
-                string text = System.IO.Path.GetFileName(fileArr[i]);
-                ListViewItem item = new ListViewItem()
-                {
-                    Tag = fileArr[i].ToString(),
-                    Text = text,
-                    ImageIndex = i
-                };
-                this.faceList.Items.Add(item);
-            }
-            this.faceList.Scrollable = true;
-            this.faceList.MultiSelect = false;
-            this.faceList.View = View.LargeIcon;
-            this.faceList.LargeImageList = imageListFace;
-        }
-
-        #endregion
 
         private void VideoQueryForm_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -214,13 +150,30 @@ namespace RemoteImaging.Query
 
         public void ClearFacesList()
         {
-            this.imageListFace.Images.Clear();
+            this.faceImageList.Images.Clear();
             this.faceList.Clear();
         }
 
         public void AddFace(Damany.Imaging.Common.Portrait p)
         {
-            throw new NotImplementedException();
+            if (InvokeRequired)
+            {
+                Action<Damany.Imaging.Common.Portrait> action = this.AddFace;
+                this.BeginInvoke(action, p);
+                return;
+            }
+
+            this.faceImageList.Images.Add(p.GetIpl().ToBitmap());
+
+            var lvi = new ListViewItem
+            {
+                Tag = p,
+                Text = p.CapturedAt.ToString(),
+                ImageIndex = this.faceImageList.Images.Count - 1
+            };
+
+            this.faceList.Items.Add(lvi);
+
         }
 
         public void AddVideo(RemoteImaging.Core.Video v)
@@ -230,7 +183,7 @@ namespace RemoteImaging.Query
             var item = new ListViewItem();
             item.Text = dTime.ToString();
             item.SubItems.Add(videoPath);
-            item.Tag = videoPath;
+            item.Tag = v;
 
             if (v.HasFaceCaptured)
             {
@@ -268,5 +221,41 @@ namespace RemoteImaging.Query
         #endregion
 
         private IVideoQueryPresenter _presenter;
+
+        #region IVideoQueryScreen Members
+
+
+        public void PlayVideoInPlace(string videoPath)
+        {
+            if (this.axVLCPlugin21.playlist.isPlaying)
+            {
+                this.axVLCPlugin21.playlist.stop();
+            }
+            this.axVLCPlugin21.playlist.items.clear();
+
+
+            int idx = this.axVLCPlugin21.playlist.add(videoPath, null, null);
+            this.axVLCPlugin21.playlist.playItem(idx);
+        }
+
+        #endregion
+
+        #region IVideoQueryScreen Members
+
+
+        public Video SelectedVideoFile
+        {
+            get
+            {
+                if (this.videoList.SelectedItems.Count == 0)
+                {
+                    return null;
+                }
+
+                return (Video) this.videoList.SelectedItems[0].Tag;
+            }
+        }
+
+        #endregion
     }
 }

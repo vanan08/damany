@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Damany.Imaging.Common;
 using RemoteImaging.Core;
 using System.Drawing;
 using Damany.PC.Domain;
 using RemoteImaging.ImportPersonCompare;
+
 
 namespace RemoteImaging.RealtimeDisplay
 {
@@ -15,12 +17,12 @@ namespace RemoteImaging.RealtimeDisplay
 
         CameraInfo GetSelectedCamera();
 
-        ImageDetail SelectedImage
+        Portrait SelectedPortrait
         {
             get;
         }
 
-        ImageDetail BigImage
+        Frame BigImage
         {
             set;
         }

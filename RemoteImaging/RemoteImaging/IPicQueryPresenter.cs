@@ -8,8 +8,8 @@ namespace RemoteImaging
     public interface IPicQueryPresenter
     {
         void Start();
-
         void Search();
+        void PlayVideo();
 
         void SelectedItemChanged();
 

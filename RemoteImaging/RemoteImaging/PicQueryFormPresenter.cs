@@ -2,16 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Damany.PortraitCapturer.DAL;
+using Damany.RemoteImaging.Common;
 
 namespace RemoteImaging
 {
     public class PicQueryFormPresenter : IPicQueryPresenter
     {
         public PicQueryFormPresenter( IPicQueryScreen screen, 
-            Damany.PortraitCapturer.DAL.IRepository repository )
+                                      IRepository repository,
+                                      ConfigurationManager configManager)
         {
             this.screen = screen;
             this.repository = repository;
+            _configManager = configManager;
         }
 
         #region IPicQueryPresenter Members
@@ -37,6 +41,13 @@ namespace RemoteImaging
             
         }
 
+        public void PlayVideo()
+        {
+            var p = this.screen.SelectedItem;
+
+            if (p != null) VideoPlayer.PlayRelatedVideo(p);
+        }
+
         public void SelectedItemChanged()
         {
             if (this.screen.SelectedItem == null) return;
@@ -51,6 +62,7 @@ namespace RemoteImaging
         public void Start()
         {
             this.screen.AttachPresenter(this);
+            this.screen.Cameras = _configManager.GetCameras().ToArray();
             this.screen.Show();
         }
 
@@ -196,6 +208,7 @@ namespace RemoteImaging
         private Damany.Util.DateTimeRange range;
         IPicQueryScreen screen;
         Damany.PortraitCapturer.DAL.IRepository repository;
+        private readonly ConfigurationManager _configManager;
         IList<Damany.Imaging.Common.Portrait> portraits;
         int currentPageIndex;
         int totalPagesCount;

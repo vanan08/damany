@@ -56,6 +56,11 @@ namespace RemoteImaging.RealtimeDisplay
 
         }
 
+        public void ShowMessage(string msg)
+        {
+            MessageBox.Show(msg, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
         public void AttachController(MainController controller)
         {
             this.controller = controller;
@@ -84,16 +89,16 @@ namespace RemoteImaging.RealtimeDisplay
             return node;
         }
 
- 
+
         #region IImageScreen Members
 
         public CameraInfo GetSelectedCamera()
         {
             if (this.InvokeRequired)
             {
-                return (CameraInfo) this.Invoke( new Func<CameraInfo>(()=> this.GetSelectedCamera()));
+                return (CameraInfo)this.Invoke(new Func<CameraInfo>(() => this.GetSelectedCamera()));
             }
-            
+
 
             if (this.cameraTree.SelectedNode == null
                 || this.cameraTree.SelectedNode.Level == 0)
@@ -105,43 +110,37 @@ namespace RemoteImaging.RealtimeDisplay
             return nd.Tag as CameraInfo;
         }
 
-        public ImageDetail SelectedImage
+        public Portrait SelectedPortrait
         {
             get
             {
-                ImageDetail img = null;
+                Portrait p = null;
                 if (this.squareListView1.SelectedCell != null)
                 {
-                    Cell c = this.squareListView1.SelectedCell;
-                    if (!string.IsNullOrEmpty(c.Path))
-                    {
-                        img = ImageDetail.FromPath(c.Path);
-                    }
-
+                    p = (Portrait)this.squareListView1.SelectedCell.Tag;
                 }
 
-                return img;
+                return p;
             }
 
         }
 
-        public ImageDetail BigImage
+        public Frame BigImage
         {
             set
             {
-                try
+                if (InvokeRequired)
                 {
-                    Image img = Damany.Util.Extensions.MiscHelper.FromFileBuffered(value.Path);
-                    this.pictureEdit1.Image = img;
-                    this.pictureEdit1.Tag = value;
+                    Action action = delegate
+                                        {
+                                            this.BigImage = value;
+                                        };
+                    this.BeginInvoke(action);
+                    return;
                 }
-                catch (System.IO.IOException)
-                {
-                    string msg = string.Format("无法打开文件:\"{0}\"，请检查。", value.Path);
 
-                    MessageBox.Show(this, msg, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                }
+                this.pictureEdit1.Image = value.GetImage().ToBitmap();
+                this.pictureEdit1.Tag = value;
 
             }
         }
@@ -161,6 +160,8 @@ namespace RemoteImaging.RealtimeDisplay
                 oldFace.Dispose();
             }
         }
+
+
         public void ShowImages(ImageDetail[] images)
         {
             ImageCell[] cells = new ImageCell[images.Length];
@@ -180,7 +181,6 @@ namespace RemoteImaging.RealtimeDisplay
 
         #endregion
 
-        Communication commucation;
 
         private CameraInfo GetLastSelectedCamera()
         {
@@ -263,10 +263,7 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void squareListView1_SelectedCellChanged(object sender, EventArgs e)
         {
-            if (this.Observer != null)
-            {
-                this.Observer.SelectedImageChanged();
-            }
+            controller.SelectedPortraitChanged();
         }
 
 
@@ -507,20 +504,7 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void playRelateVideo_Click(object sender, EventArgs e)
         {
-            Cell c = this.squareListView1.SelectedCell;
-            if (c == null || c.Path == null) return;
-
-            ImageDetail imgInfo = ImageDetail.FromPath(c.Path);
-
-            string[] videos = FileSystemStorage.VideoFilesOfImage(imgInfo);
-
-            if (videos.Length == 0)
-            {
-                MessageBox.Show(this, "没有找到相关视频", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-
-            VideoPlayer.PlayVideosAsync(videos);
+            controller.PlayVideo();
         }
 
 
@@ -562,7 +546,7 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void OnConnectionFinished(object ex)
         {
-           
+
 
         }
 
@@ -779,7 +763,7 @@ namespace RemoteImaging.RealtimeDisplay
             ImportPersonCompare.ImmediatelyModel formAlert = new ImportPersonCompare.ImmediatelyModel();
             var list = new List<PersonOfInterestDetectionResult>();
             list.Add(result);
-            formAlert.ShowPersons =  list; 
+            formAlert.ShowPersons = list;
 
             formAlert.ShowDialog(this);
         }
@@ -808,9 +792,15 @@ namespace RemoteImaging.RealtimeDisplay
                                                      {
                                                          Image = p.GetIpl().ToBitmap(),
                                                          Text = p.CapturedAt.ToString(),
+                                                         Tag = p
                                                      }).ToArray();
 
             this.squareListView1.ShowImages(imgCells);
+            var last = portraits.LastOrDefault();
+            if (last != null)
+            {
+                this.liveFace.Image = last.GetIpl().ToBitmap();
+            }
         }
 
         public void Stop()

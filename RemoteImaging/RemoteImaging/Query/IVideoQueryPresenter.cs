@@ -4,5 +4,8 @@ namespace RemoteImaging.Query
     {
         void Start();
         void Search();
+
+        void PlayVideo();
+        void ShowRelatedFaces();
     }
 }
