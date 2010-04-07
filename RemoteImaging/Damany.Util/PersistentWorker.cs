@@ -33,7 +33,6 @@ namespace Damany.Util
         public void Stop()
         {
             this.done = true;
-            this.stopped.WaitOne();
 
         }
 
