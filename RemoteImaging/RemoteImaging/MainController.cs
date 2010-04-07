@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Damany.Imaging.Common;
+using Damany.Imaging.PlugIns;
 using Damany.PC.Domain;
 using Damany.PortraitCapturer.DAL;
 using RemoteImaging.Core;
@@ -16,12 +17,14 @@ namespace RemoteImaging
         public MainController(RealtimeDisplay.MainForm mainForm,
                               ConfigurationManager configManager,
                               IRepository repository,
-                              IEnumerable<IPortraitHandler> handlers)
+                              IEnumerable<IPortraitHandler> handlers,
+                              Damany.Imaging.PlugIns.FaceComparer comparer)
         {
             this._mainForm = mainForm;
             this._configManager = configManager;
             _repository = repository;
             _handlers = handlers;
+            _comparer = comparer;
         }
 
         public void Start()
@@ -32,6 +35,11 @@ namespace RemoteImaging
                 portraitHandler.Start();
             }
 
+            this._comparer.Initialize();
+            this._comparer.Start();
+
+            this._comparer.PersonOfInterestDected += new EventHandler<MiscUtil.EventArgs<PersonOfInterestDetectionResult>>(_comparer_PersonOfInterestDected);
+
             this._mainForm.Cameras = this._configManager.GetCameras().ToArray();
             var camToStart = this._configManager.GetCameras();
 
@@ -41,6 +49,11 @@ namespace RemoteImaging
                 this.StartCameraInternal(single);
             }
 
+        }
+
+        void _comparer_PersonOfInterestDected(object sender, MiscUtil.EventArgs<PersonOfInterestDetectionResult> e)
+        {
+            this._mainForm.ShowSuspects(e.Value);
         }
 
         public void StartCamera()
@@ -94,6 +107,8 @@ namespace RemoteImaging
                     }
 
                     camController.RegisterPortraitHandler(_mainForm);
+                    camController.RegisterPortraitHandler(this._comparer);
+
 
                     camController.Start();
                     _currentController = camController;
@@ -118,6 +133,7 @@ namespace RemoteImaging
         private Damany.RemoteImaging.Common.ConfigurationManager _configManager;
         private readonly IRepository _repository;
         private readonly IEnumerable<IPortraitHandler> _handlers;
+        private readonly FaceComparer _comparer;
         private Damany.Imaging.Processors.FaceSearchController _currentController;
     }
 }

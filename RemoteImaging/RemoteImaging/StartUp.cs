@@ -82,7 +82,7 @@ namespace RemoteImaging
 
             this.builder.RegisterType<LbpFaceComparer>().As<IFaceComparer>();
 
-            this.builder.RegisterType<FaceComparer>().As<IPortraitHandler>();
+            this.builder.RegisterType<FaceComparer>();
             this.builder.RegisterType<Damany.Imaging.Handlers.PersistenceWriter>()
                                     .As<IPortraitHandler>().SingleInstance();
 
