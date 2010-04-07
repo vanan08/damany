@@ -855,5 +855,10 @@ namespace RemoteImaging.RealtimeDisplay
             p.Start();
 
         }
+
+        private void faceLibBuilder_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("FaceLibraryBuilder.exe");
+        }
     }
 }

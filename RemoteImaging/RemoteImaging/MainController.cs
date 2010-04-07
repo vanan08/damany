@@ -7,25 +7,32 @@ using Damany.Imaging.Common;
 using Damany.PC.Domain;
 using Damany.PortraitCapturer.DAL;
 using RemoteImaging.Core;
+using Damany.RemoteImaging.Common;
 
 namespace RemoteImaging
 {
     public class MainController
     {
         public MainController(RealtimeDisplay.MainForm mainForm,
-            Damany.RemoteImaging.Common.ConfigurationManager configManager,
-            IRepository repository)
+                              ConfigurationManager configManager,
+                              IRepository repository,
+                              IEnumerable<IPortraitHandler> handlers)
         {
             this._mainForm = mainForm;
             this._configManager = configManager;
             _repository = repository;
+            _handlers = handlers;
         }
 
         public void Start()
         {
+            foreach (var portraitHandler in _handlers)
+            {
+                portraitHandler.Initialize();
+                portraitHandler.Start();
+            }
+
             this._mainForm.Cameras = this._configManager.GetCameras().ToArray();
-
-
             var camToStart = this._configManager.GetCameras();
 
             if (camToStart.Count == 1)
@@ -79,9 +86,14 @@ namespace RemoteImaging
             {
                 try
                 {
-                    var camController = Damany.RemoteImaging.Common.SearchLineBuilder.BuildNewSearchLine(cam);
-                    camController.RegisterPortraitHandler(new Damany.Imaging.Handlers.PersistenceWriter(_repository));
-                    camController.RegisterPortraitHandler(this._mainForm);
+                    var camController = SearchLineBuilder.BuildNewSearchLine(cam);
+
+                    foreach (var h in _handlers)
+                    {
+                        camController.RegisterPortraitHandler(h);
+                    }
+
+                    camController.RegisterPortraitHandler(_mainForm);
 
                     camController.Start();
                     _currentController = camController;
@@ -105,6 +117,7 @@ namespace RemoteImaging
         private RealtimeDisplay.MainForm _mainForm;
         private Damany.RemoteImaging.Common.ConfigurationManager _configManager;
         private readonly IRepository _repository;
+        private readonly IEnumerable<IPortraitHandler> _handlers;
         private Damany.Imaging.Processors.FaceSearchController _currentController;
     }
 }

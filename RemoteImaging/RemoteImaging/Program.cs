@@ -45,7 +45,7 @@ namespace RemoteImaging
             }
             catch (Exception e)
             {
-                ShowException(e);
+                HandleException(e);
             }
         }
 
@@ -62,7 +62,7 @@ namespace RemoteImaging
 
         private static void ShowException(System.Exception e)
         {
-            MessageBox.Show(e.ToString(), "发生异常", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show(e.Message, "发生异常", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
