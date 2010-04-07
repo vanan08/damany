@@ -6,6 +6,7 @@ using System.Text;
 using System.Windows.Forms;
 using Damany.Imaging.Common;
 using Damany.Imaging.PlugIns;
+using Damany.RemoteImaging.Common.Presenters;
 using Damany.Windows.Form;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -45,12 +46,14 @@ namespace RemoteImaging.RealtimeDisplay
 
         public MainForm(Func<RemoteImaging.IPicQueryPresenter> picQueryPresenterCreator,
                         Func<Query.IVideoQueryPresenter> createVideoQueryPresenter,
+                        Func<Damany.RemoteImaging.Common.Presenters.FaceComparePresenter> createFaceCompare,
                          Func<OptionsForm> createOptionsForm,
                          Func<OptionsPresenter> createOptionsPresenter)
             : this()
         {
             this.picPresenterCreator = picQueryPresenterCreator;
             _createVideoQueryPresenter = createVideoQueryPresenter;
+            _createFaceCompare = createFaceCompare;
             this._createOptionsPresenter = createOptionsPresenter;
             this._createOptionsForm = createOptionsForm;
 
@@ -58,6 +61,13 @@ namespace RemoteImaging.RealtimeDisplay
 
         public void ShowMessage(string msg)
         {
+            if (InvokeRequired)
+            {
+                Action<string> action = this.ShowMessage;
+                this.BeginInvoke(action, msg);
+                return;
+            }
+
             MessageBox.Show(msg, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
@@ -777,6 +787,7 @@ namespace RemoteImaging.RealtimeDisplay
 
         private Func<RemoteImaging.IPicQueryPresenter> picPresenterCreator;
         private readonly Func<IVideoQueryPresenter> _createVideoQueryPresenter;
+        private readonly Func<FaceComparePresenter> _createFaceCompare;
         private Func<RemoteImaging.IPicQueryScreen> picScreenCreator;
         public void Initialize()
         {
@@ -837,5 +848,12 @@ namespace RemoteImaging.RealtimeDisplay
         private MainController controller;
         private Func<OptionsPresenter> _createOptionsPresenter;
         private Func<OptionsForm> _createOptionsForm;
+
+        private void faceRecognize_Click(object sender, EventArgs e)
+        {
+            var p = _createFaceCompare();
+            p.Start();
+
+        }
     }
 }

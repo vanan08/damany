@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 using Damany.Imaging.Common;
 using Damany.PC.Domain;
 using Damany.PortraitCapturer.DAL;
@@ -70,22 +71,32 @@ namespace RemoteImaging
             VideoPlayer.PlayRelatedVideo(p);
         }
 
-       
+
 
         private void StartCameraInternal(CameraInfo cam)
         {
             System.Threading.WaitCallback action = delegate
             {
-                var camController = Damany.RemoteImaging.Common.SearchLineBuilder.BuildNewSearchLine(cam);
-                camController.RegisterPortraitHandler(new Damany.Imaging.Handlers.PersistenceWriter(_repository));
-                camController.RegisterPortraitHandler(this._mainForm);
-
-                camController.Start();
-                _currentController = camController;
-                if (cam.Provider == CameraProvider.Sanyo)
+                try
                 {
-                    this._mainForm.StartRecord(cam);
+                    var camController = Damany.RemoteImaging.Common.SearchLineBuilder.BuildNewSearchLine(cam);
+                    camController.RegisterPortraitHandler(new Damany.Imaging.Handlers.PersistenceWriter(_repository));
+                    camController.RegisterPortraitHandler(this._mainForm);
+
+                    camController.Start();
+                    _currentController = camController;
+                    if (cam.Provider == CameraProvider.Sanyo)
+                    {
+                        this._mainForm.StartRecord(cam);
+                    }
+
                 }
+                catch (Exception ex)
+                {
+                    var msg = string.Format("无法连接 {0}", cam.Location.Host);
+                    _mainForm.ShowMessage(msg);
+                }
+
             };
             System.Threading.ThreadPool.QueueUserWorkItem(action);
         }

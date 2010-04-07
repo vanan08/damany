@@ -16,7 +16,7 @@ namespace Damany.Cameras
 {
     using NameObjectCollection = Dictionary<string, object>;
 
-    public partial class SanyoNetCamera :  IIpCamera, IDisposable
+    public partial class SanyoNetCamera : IIpCamera, IDisposable
     {
         const string _ShutterMode = "shutter_sw";
         const string _ShutterShortSpeedLevel = "short_speed";
@@ -34,7 +34,7 @@ namespace Damany.Cameras
 
         public SanyoNetCamera()
         {
-            
+
         }
 
         public IrisMode IrisMode
@@ -501,7 +501,7 @@ namespace Damany.Cameras
             req.KeepAlive = true;
             req.PreAuthenticate = true;
             req.Method = method;
-            req.Timeout = 10 * 1000;
+            req.Timeout = 1 * 1000;
             System.Net.WebRequest.DefaultWebProxy = null;
 
             return req;
@@ -642,7 +642,7 @@ namespace Damany.Cameras
 
         public void Close()
         {
-            
+
         }
 
         public Frame RetrieveFrame()
@@ -659,7 +659,7 @@ namespace Damany.Cameras
                 this.connected = false;
                 throw;
             }
-            
+
         }
 
         public int Id { get; set; }
