@@ -105,6 +105,7 @@
             this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.faceLibBuilder = new System.Windows.Forms.ToolStripButton();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
@@ -648,10 +649,11 @@
             this.toolStripSeparator3,
             this.aboutButton,
             this.tsbMonitoring,
+            this.faceLibBuilder,
+            this.faceCompare,
             this.toolStripSeparator5,
             this.enhanceImg,
             this.toolStripButton1,
-            this.faceCompare,
             this.testButton});
             this.mainToolStrip.Location = new System.Drawing.Point(0, 64);
             this.mainToolStrip.Name = "mainToolStrip";
@@ -753,7 +755,7 @@
             this.testButton.Image = ((System.Drawing.Image)(resources.GetObject("testButton.Image")));
             this.testButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.testButton.Name = "testButton";
-            this.testButton.Size = new System.Drawing.Size(23, 23);
+            this.testButton.Size = new System.Drawing.Size(23, 20);
             this.testButton.Text = "test";
             this.testButton.Visible = false;
             // 
@@ -833,6 +835,15 @@
             this.layoutControlItem6.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem6.TextToControlDistance = 0;
             this.layoutControlItem6.TextVisible = false;
+            // 
+            // faceLibBuilder
+            // 
+            this.faceLibBuilder.Image = ((System.Drawing.Image)(resources.GetObject("faceLibBuilder.Image")));
+            this.faceLibBuilder.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.faceLibBuilder.Name = "faceLibBuilder";
+            this.faceLibBuilder.Size = new System.Drawing.Size(94, 23);
+            this.faceLibBuilder.Text = "人脸特征库";
+            this.faceLibBuilder.Click += new System.EventHandler(this.faceLibBuilder_Click);
             // 
             // MainForm
             // 
@@ -962,6 +973,7 @@
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem6;
         private DevExpress.XtraLayout.SplitterItem splitterItem3;
         private System.Windows.Forms.PictureBox liveFace;
+        private System.Windows.Forms.ToolStripButton faceLibBuilder;
 
     }
 }

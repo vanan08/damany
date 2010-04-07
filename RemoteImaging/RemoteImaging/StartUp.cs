@@ -10,6 +10,7 @@ using Damany.Imaging.PlugIns;
 using MiscUtil;
 using SuspectsRepository;
 using Damany.RemoteImaging.Common;
+using Damany.RemoteImaging.Common;
 
 namespace RemoteImaging
 {
@@ -54,7 +55,7 @@ namespace RemoteImaging
                 System.IO.Directory.CreateDirectory(Properties.Settings.Default.OutputPath);
             }
 
-            var repository = new LocalDb4oProvider( Properties.Settings.Default.OutputPath );
+            var repository = new LocalDb4oProvider(Properties.Settings.Default.OutputPath);
             repository.Start();
 
             this.builder.RegisterInstance(repository).As<Damany.PortraitCapturer.DAL.IRepository>().ExternallyOwned();
@@ -80,7 +81,10 @@ namespace RemoteImaging
 
 
             this.builder.RegisterType<LbpFaceComparer>().As<IFaceComparer>();
-            this.builder.RegisterType<FaceComparer>();
+
+            this.builder.RegisterType<FaceComparer>().As<IPortraitHandler>();
+            this.builder.RegisterType<Damany.Imaging.Handlers.PersistenceWriter>()
+                                    .As<IPortraitHandler>().SingleInstance();
 
             this.builder.RegisterType<OptionsForm>().SingleInstance();
             this.builder.RegisterType<OptionsPresenter>();

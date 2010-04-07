@@ -107,5 +107,9 @@ namespace Damany.Imaging.PlugIns
 
         private IEnumerable<PersonOfInterest> personsOfInterests;
 
+        private Queue<Portrait> portraitsQueue = new Queue<Portrait>();
+        private object queueLocker = new object();
+        private System.Threading.Thread worker;
+
     }
 }
