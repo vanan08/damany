@@ -20,7 +20,7 @@ namespace RemoteImaging.Query
 
         public VideoQueryPresenter(IVideoQueryScreen screen,
                                    IRepository portraitRepository,
-                                   Damany.RemoteImaging.Common.ConfigurationManager manager)
+                                   ConfigurationManager manager)
         {
             _screen = screen;
             _portraitRepository = portraitRepository;
@@ -93,6 +93,37 @@ namespace RemoteImaging.Query
                 }
 
             }
+        }
+
+        public void PlayVideo()
+        {
+            var p = this._screen.SelectedVideoFile;
+            if (p == null) return;
+            if (string.IsNullOrEmpty(p.Path))
+                return;
+            if (!System.IO.File.Exists(p.Path))
+                return;
+
+            this._screen.PlayVideoInPlace(p.Path);
+        }
+
+        public void ShowRelatedFaces()
+        {
+            var video = _screen.SelectedVideoFile;
+
+            var from = Damany.Util.Extensions.MiscHelper.RoundToMinute(video.CapturedAt);
+            var to = from.AddMinutes(1);
+
+            var range = new DateTimeRange(from, to);
+
+            var p = _portraitRepository.GetPortraits(range);
+            _screen.ClearFacesList();
+
+            foreach (var portrait in p)
+            {
+                 _screen.AddFace(portrait);
+            }
+           
         }
     }
 }

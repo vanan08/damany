@@ -85,7 +85,6 @@ namespace RemoteImaging
             this.builder.RegisterType<MainController>();
             this.builder.RegisterType<RealtimeDisplay.MainForm>().SingleInstance();
 
-
             this.Container = this.builder.Build();
         }
 

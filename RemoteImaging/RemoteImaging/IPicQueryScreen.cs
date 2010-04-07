@@ -24,8 +24,14 @@ namespace RemoteImaging
 
         Damany.Util.DateTimeRange TimeRange { get; set; }
         Portrait SelectedItem { get; set; }
+
         Damany.PC.Domain.CameraInfo[] Cameras { get; set; }
+        Damany.PC.Domain.Destination SelectedCamera { get; set; }
+
+
         string[] Machines { get; set; }
+        string SelectedMachine { get; set; }
+
         int PageSize { get; set; }
         Portrait CurrentPortrait { get; set; }
         Image CurrentBigPicture { get; set; }
@@ -33,6 +39,5 @@ namespace RemoteImaging
         int CurrentPage { get; set; }
         int TotalPage { get; set; }
 
-        Damany.PC.Domain.Destination SelectedCamera { get; set; }
     }
 }

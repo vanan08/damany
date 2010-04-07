@@ -42,7 +42,7 @@ namespace RemoteImaging.Query
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.cameraComboBox = new System.Windows.Forms.ComboBox();
-            this.imageListFace = new System.Windows.Forms.ImageList(this.components);
+            this.faceImageList = new System.Windows.Forms.ImageList(this.components);
             this.videoList = new System.Windows.Forms.ListView();
             this.imageListIcon = new System.Windows.Forms.ImageList(this.components);
             this.label1 = new System.Windows.Forms.Label();
@@ -169,11 +169,11 @@ namespace RemoteImaging.Query
             this.cameraComboBox.Size = new System.Drawing.Size(129, 20);
             this.cameraComboBox.TabIndex = 4;
             // 
-            // imageListFace
+            // faceImageList
             // 
-            this.imageListFace.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
-            this.imageListFace.ImageSize = new System.Drawing.Size(80, 60);
-            this.imageListFace.TransparentColor = System.Drawing.Color.Transparent;
+            this.faceImageList.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
+            this.faceImageList.ImageSize = new System.Drawing.Size(80, 60);
+            this.faceImageList.TransparentColor = System.Drawing.Color.Transparent;
             // 
             // videoList
             // 
@@ -211,6 +211,7 @@ namespace RemoteImaging.Query
             // faceList
             // 
             this.faceList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.faceList.LargeImageList = this.faceImageList;
             this.faceList.Location = new System.Drawing.Point(0, 12);
             this.faceList.MultiSelect = false;
             this.faceList.Name = "faceList";
@@ -326,7 +327,7 @@ namespace RemoteImaging.Query
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox cameraComboBox;
         private System.Windows.Forms.Button queryBtn;
-        private System.Windows.Forms.ImageList imageListFace;
+        private System.Windows.Forms.ImageList faceImageList;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ListView videoList;
         private System.Windows.Forms.Label label1;

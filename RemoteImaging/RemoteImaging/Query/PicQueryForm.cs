@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
+using Damany.PC.Domain;
 using RemoteImaging.Core;
 using Microsoft.Practices.EnterpriseLibrary.ExceptionHandling;
 
@@ -150,21 +151,7 @@ namespace RemoteImaging.Query
 
         private void toolStripButtonPlayVideo_Click(object sender, EventArgs e)
         {
-            if (this.facesListView.SelectedItems.Count != 1) return;
-
-            string imgPath = this.facesListView.SelectedItems[0].Tag as string;
-
-            ImageDetail imgInfo = ImageDetail.FromPath(imgPath);
-
-            string[] videos = FileSystemStorage.VideoFilesOfImage(imgInfo);
-
-            if (videos.Length == 0)
-            {
-                MessageBox.Show("未找到相关视频");
-                return;
-            }
-
-            VideoPlayer.PlayVideosAsync(videos);
+            presenter.PlayVideo();
 
         }
 
@@ -325,7 +312,7 @@ namespace RemoteImaging.Query
         {
             get
             {
-                throw new NotImplementedException();
+                return (Destination) this.cameraIdCombo.SelectedValue;
             }
             set
             {
@@ -343,7 +330,7 @@ namespace RemoteImaging.Query
             set
             {
                 this.cameraIdCombo.DataSource = value;
-                this.cameraIdCombo.DisplayMember = "Id";
+                this.cameraIdCombo.DisplayMember = "Name";
             }
         }
 
@@ -436,6 +423,23 @@ namespace RemoteImaging.Query
             }
 
             this.status.Text = status;
+        }
+
+        #endregion
+
+        #region IPicQueryScreen Members
+
+
+        public string SelectedMachine
+        {
+            get
+            {
+                return  (string) this.machineCombo.SelectedValue;
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
         }
 
         #endregion

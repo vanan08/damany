@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Damany.Imaging.Common;
 using Damany.PC.Domain;
 using Damany.PortraitCapturer.DAL;
+using RemoteImaging.Core;
 
 namespace RemoteImaging
 {
@@ -11,7 +13,7 @@ namespace RemoteImaging
     {
         public MainController(RealtimeDisplay.MainForm mainForm,
             Damany.RemoteImaging.Common.ConfigurationManager configManager,
-            Damany.PortraitCapturer.DAL.IRepository repository)
+            IRepository repository)
         {
             this._mainForm = mainForm;
             this._configManager = configManager;
@@ -45,6 +47,30 @@ namespace RemoteImaging
 
             this.StartCameraInternal(selected);
         }
+
+        public void SelectedPortraitChanged()
+        {
+            var p = _mainForm.SelectedPortrait;
+            if (p == null) return;
+
+            System.Threading.ThreadPool.QueueUserWorkItem(delegate
+                                                              {
+                                                                  var f = _repository.GetFrame(p.FrameId);
+                                                                  _mainForm.BigImage = f;
+
+                                                              });
+
+        }
+
+        public void PlayVideo()
+        {
+            var p = _mainForm.SelectedPortrait;
+            if (p == null) return;
+
+            VideoPlayer.PlayRelatedVideo(p);
+        }
+
+       
 
         private void StartCameraInternal(CameraInfo cam)
         {

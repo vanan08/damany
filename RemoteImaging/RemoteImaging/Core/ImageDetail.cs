@@ -7,7 +7,7 @@ namespace RemoteImaging.Core
 {
     public class ImageDetail
     {
-        private ImageDetail()
+        public ImageDetail()
         {
 
         }
@@ -26,9 +26,9 @@ namespace RemoteImaging.Core
             this.ParsePath(destPath);
         }
 
-        public DateTime CaptureTime { get; private set; }
+        public DateTime CaptureTime { get; set; }
 
-        public int FromCamera { get; private set; }
+        public int FromCamera { get; set; }
 
         public string Name { get; private set; }
 
