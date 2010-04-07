@@ -18,13 +18,14 @@ namespace RemoteImaging
                               ConfigurationManager configManager,
                               IRepository repository,
                               IEnumerable<IPortraitHandler> handlers,
-                              Damany.Imaging.PlugIns.FaceComparer comparer)
+                              FaceComparer comparer)
         {
             this._mainForm = mainForm;
             this._configManager = configManager;
             _repository = repository;
             _handlers = handlers;
             _comparer = comparer;
+
         }
 
         public void Start()
@@ -35,10 +36,7 @@ namespace RemoteImaging
                 portraitHandler.Start();
             }
 
-            this._comparer.Initialize();
-            this._comparer.Start();
-
-            this._comparer.PersonOfInterestDected += new EventHandler<MiscUtil.EventArgs<PersonOfInterestDetectionResult>>(_comparer_PersonOfInterestDected);
+            this._comparer.PersonOfInterestDected += _comparer_PersonOfInterestDected;
 
             this._mainForm.Cameras = this._configManager.GetCameras().ToArray();
             var camToStart = this._configManager.GetCameras();
@@ -106,11 +104,8 @@ namespace RemoteImaging
                         camController.RegisterPortraitHandler(h);
                     }
 
-                    camController.RegisterPortraitHandler(_mainForm);
-                    camController.RegisterPortraitHandler(this._comparer);
-
-
                     camController.Start();
+
                     _currentController = camController;
                     if (cam.Provider == CameraProvider.Sanyo)
                     {
@@ -130,7 +125,7 @@ namespace RemoteImaging
 
 
         private RealtimeDisplay.MainForm _mainForm;
-        private Damany.RemoteImaging.Common.ConfigurationManager _configManager;
+        private ConfigurationManager _configManager;
         private readonly IRepository _repository;
         private readonly IEnumerable<IPortraitHandler> _handlers;
         private readonly FaceComparer _comparer;

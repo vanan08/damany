@@ -80,9 +80,14 @@ namespace RemoteImaging
             this.builder.RegisterType<Damany.RemoteImaging.Common.Presenters.FaceComparePresenter>();
 
 
-            this.builder.RegisterType<LbpFaceComparer>().As<IFaceComparer>();
+            this.builder.RegisterType<LbpFaceComparer>()
+                .As<IFaceComparer>();
 
-            this.builder.RegisterType<FaceComparer>();
+            this.builder.RegisterType<FaceComparer>()
+                .As<IPortraitHandler>()
+                .As<FaceComparer>()
+                .SingleInstance();
+
             this.builder.RegisterType<Damany.Imaging.Handlers.PersistenceWriter>()
                                     .As<IPortraitHandler>().SingleInstance();
 
@@ -90,7 +95,10 @@ namespace RemoteImaging
             this.builder.RegisterType<OptionsPresenter>();
 
             this.builder.RegisterType<MainController>();
-            this.builder.RegisterType<RealtimeDisplay.MainForm>().SingleInstance();
+            this.builder.RegisterType<RealtimeDisplay.MainForm>()
+                .As<IPortraitHandler>()
+                .As<RealtimeDisplay.MainForm>()
+                .SingleInstance();
 
             this.Container = this.builder.Build();
         }
