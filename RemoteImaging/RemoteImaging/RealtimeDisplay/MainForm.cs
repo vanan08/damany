@@ -58,7 +58,7 @@ namespace RemoteImaging.RealtimeDisplay
 
         public void AttachController(MainController controller)
         {
-            this._mainController = controller;
+            this.controller = controller;
         }
 
         void Application_Idle(object sender, EventArgs e)
@@ -191,7 +191,7 @@ namespace RemoteImaging.RealtimeDisplay
         private void MainForm_Shown(object sender, EventArgs e)
         {
 
-            this._mainController.Start();
+            this.controller.Start();
 
         }
 
@@ -711,13 +711,7 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void ViewCameraToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (this.cameraTree.SelectedNode == null) return;
-
-            Action<string> setupCamera = this.cameraTree.SelectedNode.Tag as Action<string>;
-            if (setupCamera == null) return;
-
-            var cam = this.getTopCamera(this.cameraTree.SelectedNode).Tag as CameraInfo;
-            StartCamera(cam);
+            this.controller.StartCamera();
         }
 
         bool isDeleting = false;
@@ -850,7 +844,7 @@ namespace RemoteImaging.RealtimeDisplay
 
         public event EventHandler<EventArgs<Exception>> Stopped;
 
-        private MainController _mainController;
+        private MainController controller;
         private Func<OptionsPresenter> _createOptionsPresenter;
         private Func<OptionsForm> _createOptionsForm;
     }
