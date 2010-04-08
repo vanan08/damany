@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using Damany.Imaging.Common;
 using MiscUtil;
 using Damany.Imaging.Extensions;
 
 namespace Damany.Imaging.PlugIns
 {
-    public class FaceComparer : Common.IPortraitHandler
+    public class FaceComparer : IPortraitHandler
     {
         public FaceComparer(IEnumerable<PersonOfInterest> personsOfInterests, IFaceComparer comparer)
         {
@@ -24,51 +25,30 @@ namespace Damany.Imaging.PlugIns
             }
         }
 
-        public void Initialize(){}
+        public void Initialize()
+        {
+            this.worker = new Thread(this.DoComare);
+            this.goSignal = new AutoResetEvent(false);
+            this.Run = true;
+        }
 
         public IFaceComparer Comparer { get; set; }
 
-        public void Start(){}
+        public void Start()
+        {
+            this.worker.Start(null);
+        }
 
         public void HandlePortraits(IList<Frame> motionFrames, IList<Portrait> portraits)
         {
-            if (portraits.Count == 0)
-            {
-                return;
-            }
-
-            foreach (var portrait in portraits)
-            {
-                var faceRects = portrait.GetIpl().LocateFaces();
-                if (faceRects.Length > 0)
-                {
-                    portrait.FaceBounds = faceRects[0];
-                }
-
-                portrait.GetIpl().ROI = portrait.FaceBounds;
-            }
-
-            var matches = from p in portraits
-                          from s in this.personsOfInterests
-                            let r = this.Comparer.Compare(p.GetIpl(), s.Ipl)
-                          where r.IsSimilar
-                          select new {Portrait = p, Suspect = s, Result = r};
-
-            foreach (var match in matches)
-            {
-                var args = new PersonOfInterestDetectionResult
-                               {
-                                   Details = match.Suspect,
-                                   Portrait = match.Portrait,
-                                   Similarity = match.Result.SimilarScore
-                               };
-                this.InvokePersonOfInterestDected(args);
-                
-            }
+            this.Enqueue(portraits);
 
         }
 
-        public void Stop(){}
+        public void Stop()
+        {
+            Run = false;
+        }
 
         public string Name
         {
@@ -109,12 +89,118 @@ namespace Damany.Imaging.PlugIns
             if (handler != null) handler(this, new EventArgs<PersonOfInterestDetectionResult>(e));
         }
 
+        private void DoComare(object state)
+        {
+            while (Run)
+            {
+                this.goSignal.WaitOne();
+
+                var portraits = this.Dequeue();
+                if (portraits == null)
+                {
+                    continue;
+                }
+
+                if (portraits.Count == 0)
+                {
+                    return;
+                }
+
+                foreach (var portrait in portraits)
+                {
+                    var faceRects = portrait.GetIpl().LocateFaces();
+                    if (faceRects.Length > 0)
+                    {
+                        portrait.FaceBounds = faceRects[0];
+                    }
+
+                    portrait.GetIpl().ROI = portrait.FaceBounds;
+                }
+
+                var matches = from p in portraits
+                              from s in this.personsOfInterests
+                              let r = this.Comparer.Compare(p.GetIpl(), s.Ipl)
+                              where r.IsSimilar
+                              select new { Portrait = p, Suspect = s, Result = r };
+
+                foreach (var match in matches)
+                {
+                    var args = new PersonOfInterestDetectionResult
+                    {
+                        Details = match.Suspect,
+                        Portrait = match.Portrait,
+                        Similarity = match.Result.SimilarScore
+                    };
+                    this.InvokePersonOfInterestDected(args);
+
+                }
+                
+            }
+            
+        }
+
+        private void Enqueue(IList<Portrait> portraits)
+        {
+            if (portraits.Count == 0)
+            {
+                return;
+            }
+            
+
+            lock (queueLocker)
+            {
+                if (portraitsQueue.Count == 100)
+                {
+                    return;
+                }
+
+                portraitsQueue.Enqueue(portraits);
+                goSignal.Set();
+            }
+        }
+
+        private IList<Portrait> Dequeue()
+        {
+            lock (queueLocker)
+            {
+                if (portraitsQueue.Count > 0)
+                {
+                    return portraitsQueue.Dequeue();
+                }
+
+                return null;
+            }
+        }
+
+        private bool Run
+        {
+            get
+            {
+                lock (runLocker)
+                {
+                    return run;
+                }
+            }
+            set
+            {
+                lock (runLocker)
+                {
+                    this.run = value;
+                }
+            }
+        }
+
 
         private IEnumerable<PersonOfInterest> personsOfInterests;
 
-        private Queue<Portrait> portraitsQueue = new Queue<Portrait>();
+        private Queue<IList<Portrait>> portraitsQueue = new Queue<IList<Portrait>>();
         private object queueLocker = new object();
+
         private System.Threading.Thread worker;
+        private AutoResetEvent goSignal;
+
+        private bool run;
+        private object runLocker = new object();
 
     }
 }
