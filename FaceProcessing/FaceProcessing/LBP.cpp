@@ -970,7 +970,7 @@ bool Damany::Imaging::FaceCompare::LBP::CmpFace(IplImage* destImg, CvRect& destR
 	cvResetImageROI(destImg);
 
 	float res = CalcFace(dstImg);
-	score = res;
+	score = 100 - res;
 
 	cvReleaseImage(&dstImg); 
 

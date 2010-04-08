@@ -13,8 +13,12 @@ namespace Damany.Imaging.PlugIns
     [Export(typeof(IFaceComparer))]
     public class LbpFaceComparer : IFaceComparer, IConfigurable
     {
+        public void SetSensitivity(float value)
+        {
+            this.sensitivity = value;
+        }
 
-        public FaceCompareResult Compare(OpenCvSharp.IplImage a, OpenCvSharp.IplImage b)
+        public FaceCompareResult Compare(IplImage a, IplImage b)
         {
             var roiA = a.ROI;
             var roiB = b.ROI;
@@ -36,7 +40,7 @@ namespace Damany.Imaging.PlugIns
 
             grayA.ResetROI();
             grayB.ResetROI();
-            bool similar = StaticFunctions.LBPCompareFace(grayA, roiA, grayB, roiB, ref score);
+            bool similar = StaticFunctions.LBPCompareFace(grayA, roiA, grayB, roiB, ref score, sensitivity);
             
 
             grayA.Dispose();
@@ -51,7 +55,7 @@ namespace Damany.Imaging.PlugIns
 
         public string Name
         {
-            get { return "Lbp ÈËÁ³±È¶ÔÄ£¿é"; }
+            get { return "Lbp Face Comparer"; }
         }
 
         public string Description
@@ -82,5 +86,7 @@ namespace Damany.Imaging.PlugIns
         }
 
         #endregion
+
+        private float sensitivity = 35;
     }
 }

@@ -37,7 +37,7 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.grbTargetImg = new System.Windows.Forms.GroupBox();
             this.personOfInterestImage = new System.Windows.Forms.PictureBox();
-            this.v = new System.Windows.Forms.ListView();
+            this.suspectsList = new System.Windows.Forms.ListView();
             this.cId = new System.Windows.Forms.ColumnHeader();
             this.cName = new System.Windows.Forms.ColumnHeader();
             this.cSex = new System.Windows.Forms.ColumnHeader();
@@ -115,7 +115,7 @@
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 12;
-            this.btnCancel.Text = "取消";
+            this.btnCancel.Text = "消警";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
@@ -145,24 +145,27 @@
             this.personOfInterestImage.TabIndex = 0;
             this.personOfInterestImage.TabStop = false;
             // 
-            // v
+            // suspectsList
             // 
-            this.v.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.suspectsList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.suspectsList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.cId,
             this.cName,
             this.cSex,
             this.cAge,
             this.cCard,
             this.cSimilarity});
-            this.v.FullRowSelect = true;
-            this.v.GridLines = true;
-            this.v.Location = new System.Drawing.Point(185, 20);
-            this.v.Name = "v";
-            this.v.Size = new System.Drawing.Size(551, 179);
-            this.v.TabIndex = 15;
-            this.v.UseCompatibleStateImageBehavior = false;
-            this.v.View = System.Windows.Forms.View.Details;
-            this.v.SelectedIndexChanged += new System.EventHandler(this.lvPersonInfo_SelectedIndexChanged);
+            this.suspectsList.FullRowSelect = true;
+            this.suspectsList.GridLines = true;
+            this.suspectsList.Location = new System.Drawing.Point(185, 20);
+            this.suspectsList.Name = "suspectsList";
+            this.suspectsList.Size = new System.Drawing.Size(545, 179);
+            this.suspectsList.TabIndex = 15;
+            this.suspectsList.UseCompatibleStateImageBehavior = false;
+            this.suspectsList.View = System.Windows.Forms.View.Details;
+            this.suspectsList.SelectedIndexChanged += new System.EventHandler(this.lvPersonInfo_SelectedIndexChanged);
             // 
             // cId
             // 
@@ -172,7 +175,7 @@
             // cName
             // 
             this.cName.Text = "姓名";
-            this.cName.Width = 89;
+            this.cName.Width = 62;
             // 
             // cSex
             // 
@@ -196,7 +199,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.v);
+            this.groupBox1.Controls.Add(this.suspectsList);
             this.groupBox1.Controls.Add(this.personOfInterestImage);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox1.Location = new System.Drawing.Point(0, 202);
@@ -213,15 +216,16 @@
             this.ClientSize = new System.Drawing.Size(736, 410);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.grbTargetImg);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ImmediatelyModel";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "报警 立即处理模式";
-            this.Load += new System.EventHandler(this.PersonCheck_Load);
+            this.Text = "警报";
             this.Shown += new System.EventHandler(this.ImmediatelyModel_Shown);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ImmediatelyModel_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.suspectImage)).EndInit();
             this.grbTargetImg.ResumeLayout(false);
             this.grbTargetImg.PerformLayout();
@@ -242,7 +246,7 @@
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.GroupBox grbTargetImg;
         private System.Windows.Forms.PictureBox personOfInterestImage;
-        private System.Windows.Forms.ListView v;
+        private System.Windows.Forms.ListView suspectsList;
         private System.Windows.Forms.ColumnHeader cId;
         private System.Windows.Forms.ColumnHeader cName;
         private System.Windows.Forms.ColumnHeader cSex;

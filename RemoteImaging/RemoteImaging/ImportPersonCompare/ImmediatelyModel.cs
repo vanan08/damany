@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
+using Damany.Imaging.PlugIns;
 using RemoteImaging.Query;
 using FaceRecognition;
 
@@ -20,10 +21,26 @@ namespace RemoteImaging.ImportPersonCompare
             btnOK.Enabled = false;
         }
 
-        private void PersonCheck_Load(object sender, EventArgs e)
+        public void AddSuspects(Damany.Imaging.PlugIns.PersonOfInterestDetectionResult compareResult)
         {
+            this.listPersons.Add(compareResult);
+
+            var lvi = new ListViewItem(new string[] { "",
+                                                            compareResult.Details.Name,
+                                                            compareResult.Details.Gender.ToString(),
+                                                            compareResult.Details.Age.ToString(),
+                                                            compareResult.Details.ID,
+                                                            string.Empty});
+            lvi.Tag = compareResult;
+            this.suspectsList.Items.Add(lvi);
+
+            if (!Visible)
+            {
+                this.ShowDialog(Application.OpenForms[0]);
+            }
 
         }
+
 
         public ImageDirSys SetWarnInfo
         {
@@ -38,40 +55,6 @@ namespace RemoteImaging.ImportPersonCompare
             }
         }
 
-        //private string time = "";
-        //public string TimeSet
-        //{
-        //    private get { return time; }
-        //    set { lblTime.Text = string.Format("时间： {0}", value.ToString()); }
-        //}
-
-        //private string day = "";
-        //public string DateSet
-        //{
-        //    private get { return day; }
-        //    set { lblDate.Text = string.Format("日期： {0}", value.ToString()); }
-        //}
-
-        //private string address = "";
-        //public string AddressSet
-        //{
-        //    private get { return address; }
-        //    set { lblAddress.Text = string.Format("地址： {0}", value.ToString()); }
-        //}
-
-        //private string picCheckFilePath = "";
-        ///// <summary>
-        ///// 通过路径加载待识别图片
-        ///// </summary>
-        //public string PicCheckFilePath
-        //{
-        //    private get { return picCheckFilePath; }
-        //    set { picCheck.Image = Damany.Util.Extensions.MiscHelper.FromFileBuffered(value.ToString()); }
-        //}
-
-        /// <summary>
-        /// 通过内存加载图片
-        /// </summary>
         private Image picCheckImg = null;
         public Image PicCheckImg
         {
@@ -79,17 +62,6 @@ namespace RemoteImaging.ImportPersonCompare
             set { suspectImage.Image = (Image)value; }
         }
 
-        private List<Damany.Imaging.PlugIns.PersonOfInterestDetectionResult> listPersons = null;
-        public List<Damany.Imaging.PlugIns.PersonOfInterestDetectionResult> ShowPersons
-        {
-            private get { return listPersons; }
-            set
-            {
-                this.listPersons = value;
-
-                InitControl(listPersons);
-            }
-        }
 
         private static int CompareTarget(ImportantPersonDetail x, ImportantPersonDetail y)
         {
@@ -97,31 +69,12 @@ namespace RemoteImaging.ImportPersonCompare
             return (int)(y.Similarity.Similarity * 1000 - x.Similarity.Similarity * 1000);
         }
 
-        protected void InitControl(List<Damany.Imaging.PlugIns.PersonOfInterestDetectionResult> listpersons)
-        {
-
-            foreach (var ipd in listPersons)
-            {
-
-                //                     float x = Convert.ToSingle(p[0]);
-                //                     float y = Convert.ToSingle(p[1]);
-
-                ListViewItem lvi = new ListViewItem(new string[] { "",
-                                                            ipd.Details.Name,
-                                                            ipd.Details.Gender.ToString(),
-                                                            ipd.Details.Age.ToString(),
-                                                            ipd.Details.ID,
-                                                            string.Empty});
-                lvi.Tag = ipd;
-                this.v.Items.Add(lvi);
-            }
-
-        }
+       
 
         private void btnOK_Click(object sender, EventArgs e)
         {
             //将比对好的图片 另外存入一个文件夹中
-            if (v.FocusedItem == null)
+            if (suspectsList.FocusedItem == null)
             {
                 MessageBox.Show("请选择报警信息！", "警告");
                 return;
@@ -138,7 +91,7 @@ namespace RemoteImaging.ImportPersonCompare
 
         private void SaveCurrentSelectedInfo()
         {
-            using (FolderBrowserDialog dlg = new FolderBrowserDialog())
+            using (var dlg = new FolderBrowserDialog())
             {
                 dlg.ShowNewFolderButton = true;
                 dlg.RootFolder = Environment.SpecialFolder.MyComputer;
@@ -166,16 +119,17 @@ namespace RemoteImaging.ImportPersonCompare
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            //取消时 删除模板库中的 动态比对图片
-            this.Close();
-            this.Dispose();
+            foreach (var item in suspectsList.SelectedItems)
+            {
+                this.suspectsList.Items.Remove((ListViewItem) item);
+            }
         }
 
         private void lvPersonInfo_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (v.SelectedItems.Count > 0)
+            if (suspectsList.SelectedItems.Count > 0)
             {
-                var lvi = v.SelectedItems[0];
+                var lvi = suspectsList.SelectedItems[0];
                 var result = (Damany.Imaging.PlugIns.PersonOfInterestDetectionResult) lvi.Tag;
 
                 lblTextSim.Text = string.Format("相似度: {0:F0}%", result.Similarity * 100);
@@ -194,13 +148,23 @@ namespace RemoteImaging.ImportPersonCompare
 
         private void ImmediatelyModel_Shown(object sender, EventArgs e)
         {
-            if (this.v.Items.Count > 0)
+            if (this.suspectsList.Items.Count > 0)
             {
-                this.v.Items[0].Selected = true;
-                this.v.Select();
+                this.suspectsList.Items[0].Selected = true;
+                this.suspectsList.Select();
             }
 
         }
+
+        private readonly List<Damany.Imaging.PlugIns.PersonOfInterestDetectionResult> listPersons 
+            = new List<PersonOfInterestDetectionResult>();
+
+        private void ImmediatelyModel_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = true;
+            this.Hide();
+        }
+
     }
 
 

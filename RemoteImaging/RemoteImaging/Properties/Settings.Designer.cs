@@ -694,5 +694,56 @@ namespace RemoteImaging.Properties {
                 this["ReservedDiskSpaceMB"] = value;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("66")]
+        public float RealTimeFaceCompareSensitivity {
+            get {
+                return ((float)(this["RealTimeFaceCompareSensitivity"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("40")]
+        public int LbpThreshold {
+            get {
+                return ((int)(this["LbpThreshold"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("55")]
+        public float HistoryFaceCompareSensitivityLow {
+            get {
+                return ((float)(this["HistoryFaceCompareSensitivityLow"]));
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("58")]
+        public float HistoryFaceCompareSensitivityMiddle {
+            get {
+                return ((float)(this["HistoryFaceCompareSensitivityMiddle"]));
+            }
+            set {
+                this["HistoryFaceCompareSensitivityMiddle"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("60")]
+        public float HistoryFaceCompareSensitivityHi {
+            get {
+                return ((float)(this["HistoryFaceCompareSensitivityHi"]));
+            }
+            set {
+                this["HistoryFaceCompareSensitivityHi"] = value;
+            }
+        }
     }
 }

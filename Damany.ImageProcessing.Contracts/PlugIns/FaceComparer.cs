@@ -25,9 +25,12 @@ namespace Damany.Imaging.PlugIns
             }
         }
 
+        public float Threshold { get; set; }
+
         public void Initialize()
         {
             this.worker = new Thread(this.DoComare);
+            this.worker.IsBackground = true;
             this.goSignal = new AutoResetEvent(false);
             this.Run = true;
         }
@@ -80,6 +83,15 @@ namespace Damany.Imaging.PlugIns
             get { return false; }
         }
 
+        public float Sensitivity
+        {
+            set
+            {
+                this.Comparer.SetSensitivity(value);
+            }
+        }
+
+
         public event EventHandler< EventArgs<Exception> > Stopped;
         public event EventHandler< EventArgs<PersonOfInterestDetectionResult> > PersonOfInterestDected;
 
@@ -120,7 +132,7 @@ namespace Damany.Imaging.PlugIns
                 var matches = from p in portraits
                               from s in this.personsOfInterests
                               let r = this.Comparer.Compare(p.GetIpl(), s.Ipl)
-                              where r.IsSimilar
+                              where r.SimilarScore > Threshold
                               select new { Portrait = p, Suspect = s, Result = r };
 
                 foreach (var match in matches)
@@ -201,6 +213,8 @@ namespace Damany.Imaging.PlugIns
 
         private bool run;
         private object runLocker = new object();
+
+       
 
     }
 }

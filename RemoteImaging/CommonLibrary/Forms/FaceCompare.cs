@@ -154,6 +154,33 @@ namespace Damany.RemoteImaging.Common.Forms
             p.Dispose();
         }
 
+
+        public void SetStatusText(string msg)
+        {
+            if (InvokeRequired)
+            {
+                Action<string> action = SetStatusText;
+                this.BeginInvoke(action, msg);
+                return;
+            }
+
+            this.toolStripStatusLabel1.Text = msg;
+        }
+
+        public CompareAccuracy SelectedAccuracy
+        {
+            get
+            {
+                return (CompareAccuracy) this.radioGroup1.SelectedIndex;
+            }
+            set
+            {
+                int idx = (int) value;
+                this.radioGroup1.SelectedIndex = idx;
+            }
+        }
+
+
         private Rectangle faceRect;
         private FaceComparePresenter presenter;
         private OpenCvSharp.IplImage ipl;
@@ -161,6 +188,11 @@ namespace Damany.RemoteImaging.Common.Forms
         private void FaceCompare_FormClosing(object sender, FormClosingEventArgs e)
         {
             this.presenter.Stop();
+        }
+
+        private void radioGroup1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.presenter.ThresholdChanged();
         }
 
 
