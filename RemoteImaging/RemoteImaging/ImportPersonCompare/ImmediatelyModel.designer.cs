@@ -45,6 +45,7 @@
             this.cCard = new System.Windows.Forms.ColumnHeader();
             this.cSimilarity = new System.Windows.Forms.ColumnHeader();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.clearAll = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.suspectImage)).BeginInit();
             this.grbTargetImg.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.personOfInterestImage)).BeginInit();
@@ -101,7 +102,7 @@
             // 
             // btnOK
             // 
-            this.btnOK.Location = new System.Drawing.Point(532, 168);
+            this.btnOK.Location = new System.Drawing.Point(476, 172);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
             this.btnOK.TabIndex = 11;
@@ -111,7 +112,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(632, 168);
+            this.btnCancel.Location = new System.Drawing.Point(557, 172);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 12;
@@ -121,6 +122,7 @@
             // 
             // grbTargetImg
             // 
+            this.grbTargetImg.Controls.Add(this.clearAll);
             this.grbTargetImg.Controls.Add(this.btnCancel);
             this.grbTargetImg.Controls.Add(this.btnOK);
             this.grbTargetImg.Controls.Add(this.lblTextSim);
@@ -209,6 +211,16 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "预设目标";
             // 
+            // clearAll
+            // 
+            this.clearAll.Location = new System.Drawing.Point(638, 173);
+            this.clearAll.Name = "clearAll";
+            this.clearAll.Size = new System.Drawing.Size(75, 23);
+            this.clearAll.TabIndex = 17;
+            this.clearAll.Text = "全部消警";
+            this.clearAll.UseVisualStyleBackColor = true;
+            this.clearAll.Click += new System.EventHandler(this.clearAll_Click);
+            // 
             // ImmediatelyModel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -254,6 +266,7 @@
         private System.Windows.Forms.ColumnHeader cCard;
         private System.Windows.Forms.ColumnHeader cSimilarity;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Button clearAll;
 
 
     }
