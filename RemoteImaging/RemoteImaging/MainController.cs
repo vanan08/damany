@@ -5,6 +5,7 @@ using System.Text;
 using System.Windows.Forms;
 using Damany.Imaging.Common;
 using Damany.Imaging.PlugIns;
+using Damany.Imaging.Processors;
 using Damany.PC.Domain;
 using Damany.PortraitCapturer.DAL;
 using RemoteImaging.Core;
@@ -30,11 +31,7 @@ namespace RemoteImaging
 
         public void Start()
         {
-            foreach (var portraitHandler in _handlers)
-            {
-                portraitHandler.Initialize();
-                portraitHandler.Start();
-            }
+            InitializeHandlers();
 
             this._comparer.PersonOfInterestDected += _comparer_PersonOfInterestDected;
 
@@ -47,6 +44,15 @@ namespace RemoteImaging
                 this.StartCameraInternal(single);
             }
 
+        }
+
+        private void InitializeHandlers()
+        {
+            foreach (var portraitHandler in _handlers)
+            {
+                portraitHandler.Initialize();
+                portraitHandler.Start();
+            }
         }
 
         void _comparer_PersonOfInterestDected(object sender, MiscUtil.EventArgs<PersonOfInterestDetectionResult> e)
@@ -99,10 +105,7 @@ namespace RemoteImaging
                 {
                     var camController = SearchLineBuilder.BuildNewSearchLine(cam);
 
-                    foreach (var h in _handlers)
-                    {
-                        camController.RegisterPortraitHandler(h);
-                    }
+                    RegisterHandlers(camController);
 
                     camController.Start();
 
@@ -121,6 +124,14 @@ namespace RemoteImaging
 
             };
             System.Threading.ThreadPool.QueueUserWorkItem(action);
+        }
+
+        private void RegisterHandlers(FaceSearchController camController)
+        {
+            foreach (var h in _handlers)
+            {
+                camController.RegisterPortraitHandler(h);
+            }
         }
 
 

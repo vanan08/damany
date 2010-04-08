@@ -58,23 +58,31 @@ namespace RemoteImaging
             var repository = new LocalDb4oProvider(Properties.Settings.Default.OutputPath);
             repository.Start();
 
-            this.builder.RegisterInstance(repository).As<Damany.PortraitCapturer.DAL.IRepository>().ExternallyOwned();
+            this.builder.RegisterInstance(repository)
+                .As<Damany.PortraitCapturer.DAL.IRepository>()
+                .ExternallyOwned();
         }
 
         private void InitConfigManager()
         {
             var configManger = ConfigurationManager.GetDefault();
 
-            this.builder.RegisterInstance(configManger).As<ConfigurationManager>().ExternallyOwned();
+            this.builder.RegisterInstance(configManger)
+                .As<ConfigurationManager>()
+                .ExternallyOwned();
         }
 
         private void RegisterTypes()
         {
-            this.builder.RegisterType<Query.PicQueryForm>().As<IPicQueryScreen>();
-            this.builder.RegisterType<PicQueryFormPresenter>().As<IPicQueryPresenter>();
+            this.builder.RegisterType<Query.PicQueryForm>()
+                .As<IPicQueryScreen>();
+            this.builder.RegisterType<PicQueryFormPresenter>()
+                .As<IPicQueryPresenter>();
 
-            this.builder.RegisterType<Query.VideoQueryForm>().As<Query.IVideoQueryScreen>();
-            this.builder.RegisterType<Query.VideoQueryPresenter>().As<Query.IVideoQueryPresenter>();
+            this.builder.RegisterType<Query.VideoQueryForm>()
+                .As<Query.IVideoQueryScreen>();
+            this.builder.RegisterType<Query.VideoQueryPresenter>()
+                .As<Query.IVideoQueryPresenter>();
 
             this.builder.RegisterType<Damany.RemoteImaging.Common.Forms.FaceCompare>();
             this.builder.RegisterType<Damany.RemoteImaging.Common.Presenters.FaceComparePresenter>();
@@ -89,7 +97,8 @@ namespace RemoteImaging
                 .SingleInstance();
 
             this.builder.RegisterType<Damany.Imaging.Handlers.PersistenceWriter>()
-                                    .As<IPortraitHandler>().SingleInstance();
+                                    .As<IPortraitHandler>()
+                                    .SingleInstance();
 
             this.builder.RegisterType<OptionsForm>().SingleInstance();
             this.builder.RegisterType<OptionsPresenter>();
