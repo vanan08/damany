@@ -63,14 +63,7 @@ namespace RemoteImaging.ImportPersonCompare
         }
 
 
-        private static int CompareTarget(ImportantPersonDetail x, ImportantPersonDetail y)
-        {
-            //similarity is in percent float.
-            return (int)(y.Similarity.Similarity * 1000 - x.Similarity.Similarity * 1000);
-        }
-
        
-
         private void btnOK_Click(object sender, EventArgs e)
         {
             //将比对好的图片 另外存入一个文件夹中

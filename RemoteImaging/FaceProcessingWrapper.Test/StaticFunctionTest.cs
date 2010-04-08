@@ -39,7 +39,10 @@ namespace FaceProcessingWrapper.Test
             var faceRectTarget = SearchFace(x);
             x.ROI = faceRectTarget;
 
-            var compareAlgorith = new Damany.Imaging.PlugIns.LbpFaceComparer();
+            var comparer = new Damany.Imaging.PlugIns.LbpFaceComparer();
+            var repo = new PersonOfInterest[1];
+            repo[0] = new PersonOfInterest(x);
+            comparer.Load( repo.ToList());
 
             foreach (var file in System.IO.Directory.GetFiles(@"D:\ImageOutput\Images\2010\4\4\14", "*.jpg"))
             {
@@ -54,9 +57,9 @@ namespace FaceProcessingWrapper.Test
                 img.ROI = faceRectToBeCompared;
 
 
-                var matchResult = compareAlgorith.Compare(x, img);
+                var matchResult = comparer.CompareTo(img);
 
-                if (matchResult.IsSimilar)
+                foreach (var repositoryCompareResult in matchResult)
                 {
                     if (!System.IO.Directory.Exists(destDir))
                     {
@@ -66,13 +69,9 @@ namespace FaceProcessingWrapper.Test
                     System.Diagnostics.Debug.WriteLine(file);
                     var fileNameWithoutExt = System.IO.Path.GetFileNameWithoutExtension(file);
                     var ext = System.IO.Path.GetExtension(file);
-                    var fileNameWithScore = string.Format("{0}_{1:f2}{2}", fileNameWithoutExt, matchResult.SimilarScore, ext);
-                    var destFile = System.IO.Path.Combine(destDir, fileNameWithScore);
-                    img.DrawRect(img.ROI, CvColor.Red, 2);
-                    img.ResetROI();
-                    img.SaveImage(destFile);
-                }
 
+                    System.Diagnostics.Debug.WriteLine(repositoryCompareResult.Similarity);
+                } 
 
             }
 
@@ -106,8 +105,8 @@ namespace FaceProcessingWrapper.Test
 
             var face = faces[0].Portraits[0].Face;
             var bmp = face.ToBitmap();
-             
-            return faces[0].Portraits[0].FacesRectForCompare;;
+
+            return faces[0].Portraits[0].FacesRectForCompare; ;
         }
     }
 }

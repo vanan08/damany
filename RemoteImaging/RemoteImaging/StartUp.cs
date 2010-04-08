@@ -89,7 +89,7 @@ namespace RemoteImaging
 
 
             this.builder.RegisterType<LbpFaceComparer>()
-                .As<IFaceComparer>();
+                .As<IRepositoryFaceComparer>();
 
             this.builder.RegisterType<FaceComparer>()
                 .As<IPortraitHandler>()

@@ -104,7 +104,7 @@ namespace FaceLibraryBuilder
 
             var ipl = OpenCvSharp.IplImage.FromBitmap((Bitmap) this.picTargetPerson.Image);
             ipl.ROI = this.drawRectangle.ToCvRect();
-            var info = new Damany.Imaging.PlugIns.PersonOfInterest(ipl);
+            var info = new Damany.Imaging.Common.PersonOfInterest(ipl);
             info.ID = this.txtId.Text;
             info.Name = this.txtName.Text;
             info.Gender = Damany.Util.Gender.Male;

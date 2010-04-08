@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Damany.Util;
 using OpenCvSharp;
 
-namespace Damany.Imaging.PlugIns
+namespace Damany.Imaging.Common
 {
     public class PersonOfInterest
     {

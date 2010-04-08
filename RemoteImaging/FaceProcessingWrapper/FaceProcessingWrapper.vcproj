@@ -230,6 +230,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Lbp.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\MotionDetectionResult.cpp"
 				>
 			</File>

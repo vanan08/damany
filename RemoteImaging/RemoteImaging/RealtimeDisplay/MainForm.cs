@@ -650,13 +650,6 @@ namespace RemoteImaging.RealtimeDisplay
         private void MainForm_Load(object sender, EventArgs e)
         {
 
-
-#if DEBUG
-            testButton.Visible = true;
-            testButton.Click += new EventHandler(testButton_Click);
-#endif
-
-
             CenterLiveControl();
         }
 

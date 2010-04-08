@@ -647,15 +647,12 @@ namespace RemoteImaging.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute(".\\ImgLib")]
         public string PersonOfInterespPath {
             get {
                 return ((string)(this["PersonOfInterespPath"]));
-            }
-            set {
-                this["PersonOfInterespPath"] = value;
             }
         }
         

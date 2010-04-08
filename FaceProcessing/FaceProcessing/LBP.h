@@ -18,16 +18,16 @@ class DLL_API LBP
 {
 
 public:
-	LBP(IplImage* img, CvRect& faceRect);
+	LBP(int width=70, int height=70, int blockWidth=10, int blockHeight=10, int dim=26);
 	~LBP(); 
-	bool CmpFace(IplImage* destImg, CvRect& destRect, float& score); 
+	void CmpFace(IplImage* destImg, CvRect& destRect, float score[]); 
 	void SetThreshold(int value);
+	void LoadImages(IplImage* imgs[], int count);
 
 private:
 	int threshold;
 
-	float weightCoeff[49];
-	float** targetHst;
+	float weightCoeff[49]; 
 	int widthsize; 
 	int heightsize;	
 	int blockwidth;
@@ -36,6 +36,8 @@ private:
 	int flagheight;
 	int num1;
 	int num2;
+	int faceCount;
+	CvMat* targetHst;
 
 	void SetCoeff();
 	int GammaCorrect(IplImage* src, IplImage* dst, double low, double high, double bottom, double top, double gamma);
@@ -47,9 +49,9 @@ private:
 	void SetZero(IplImage* pImg[], int n);
 	int RotateInvariantLBP(IplImage* img, float* hst);
 	int LBP243(IplImage* imgDst, int blockwidth, int blockheight, int flagwidth, int flagheight, float* hst[]);
-	float CalcDistance(float** hstPro, int num1, int num2, float weight[]);
-	void CalcBlackLBP(IplImage* img, float** hst);
-	float CalcFace(IplImage* destImg);
+	void CalcDistance(float** hstPro, int num1, int num2, float score[]); 
+	void CalcBlockLBP(IplImage* img, float** hst);
+	void CalcFace(IplImage* destImg, float score[]);
 	void CalcAvg(float** arr, int num1, int num2);
 
 };

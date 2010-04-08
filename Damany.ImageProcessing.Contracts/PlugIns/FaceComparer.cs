@@ -11,15 +11,16 @@ namespace Damany.Imaging.PlugIns
 {
     public class FaceComparer : IPortraitHandler
     {
-        public FaceComparer(IEnumerable<PersonOfInterest> personsOfInterests, IFaceComparer comparer)
+        private readonly IEnumerable<PersonOfInterest> _personsOfInterests;
+
+        public FaceComparer(IEnumerable<PersonOfInterest> personsOfInterests, IRepositoryFaceComparer comparer)
         {
-            if (personsOfInterests == null) throw new ArgumentNullException("personsOfInterests");
+            _personsOfInterests = personsOfInterests;
             if (comparer == null) throw new ArgumentNullException("comparer");
 
-            this.personsOfInterests = personsOfInterests;
             this.Comparer = comparer;
 
-            if (personsOfInterests.Count() == 0)
+            if (_personsOfInterests.Count() == 0)
             {
                 System.Windows.Forms.MessageBox.Show("人脸特征库为空，将不进行实时人脸比对");
             }
@@ -29,13 +30,15 @@ namespace Damany.Imaging.PlugIns
 
         public void Initialize()
         {
+            this.Comparer.Load(this._personsOfInterests.ToList());
+
             this.worker = new Thread(this.DoComare);
             this.worker.IsBackground = true;
             this.goSignal = new AutoResetEvent(false);
             this.Run = true;
         }
 
-        public IFaceComparer Comparer { get; set; }
+        public IRepositoryFaceComparer Comparer { get; set; }
 
         public void Start()
         {
@@ -127,25 +130,30 @@ namespace Damany.Imaging.PlugIns
                     }
 
                     portrait.GetIpl().ROI = portrait.FaceBounds;
-                }
 
-                var matches = from p in portraits
-                              from s in this.personsOfInterests
-                              let r = this.Comparer.Compare(p.GetIpl(), s.Ipl)
-                              where r.SimilarScore > Threshold
-                              select new { Portrait = p, Suspect = s, Result = r };
+                    var compareResults = this.Comparer.CompareTo(portrait.GetIpl());
 
-                foreach (var match in matches)
-                {
-                    var args = new PersonOfInterestDetectionResult
+                    var matches = from r in compareResults
+                                  where r.Similarity > Threshold
+                                  select r;
+
+                    foreach (var match in matches)
                     {
-                        Details = match.Suspect,
-                        Portrait = match.Portrait,
-                        Similarity = match.Result.SimilarScore
-                    };
-                    this.InvokePersonOfInterestDected(args);
+                        var args = new PersonOfInterestDetectionResult
+                        {
+                            Details = match.PersonInfo,
+                            Portrait = portrait,
+                            Similarity = match.Similarity
+                        };
+                        this.InvokePersonOfInterestDected(args);
 
+                    }
                 }
+
+
+           
+
+               
                 
             }
             

@@ -10,48 +10,41 @@ using System.ComponentModel.Composition;
 
 namespace Damany.Imaging.PlugIns
 {
-    [Export(typeof(IFaceComparer))]
-    public class LbpFaceComparer : IFaceComparer, IConfigurable
+    [Export(typeof(IRepositoryFaceComparer))]
+    public class LbpFaceComparer : IRepositoryFaceComparer, IConfigurable
     {
+        public void Load(IList<Common.PersonOfInterest> persons)
+        {
+            this.persons = persons;
+
+            var ipls = from p in persons
+                       select p.Ipl.CvtToGray();
+
+            this.lbp.Load(ipls.ToArray());
+        }
+
         public void SetSensitivity(float value)
         {
             this.sensitivity = value;
         }
 
-        public FaceCompareResult Compare(IplImage a, IplImage b)
+        public RepositoryCompareResult[] CompareTo(IplImage image)
         {
-            var roiA = a.ROI;
-            var roiB = b.ROI;
+            var results = this.lbp.CompareTo(image.CvtToGray());
 
-            var grayA = a.CvtToGray();
-            var grayB = b.CvtToGray();
-#if DEBUG
-            var cloneA = grayA.Clone();
-            cloneA.DrawRect(roiA, CvColor.Red, 2);
-            var bmpA = cloneA.ToBitmap();
-            
+            var returnResult = new RepositoryCompareResult[this.persons.Count];
 
-            var cloneB = grayB.Clone();
-            cloneB.DrawRect(roiB, CvColor.Red, 2);
-            var bmpB = cloneB.ToBitmap();
-#endif
+            for (int i = 0; i < returnResult.Length; i++)
+            {
+                var r = new RepositoryCompareResult();
+                r.PersonInfo = persons[i];
+                r.Similarity = results[i];
 
-            float score = 0.0f;
+                returnResult[i] = r;
+            }
 
-            grayA.ResetROI();
-            grayB.ResetROI();
-            bool similar = StaticFunctions.LBPCompareFace(grayA, roiA, grayB, roiB, ref score, sensitivity);
-            
-
-            grayA.Dispose();
-            grayB.Dispose();
-
-            var result = new FaceCompareResult() { IsSimilar = similar, SimilarScore = score };
-            return result;
+            return returnResult;
         }
-
-        #region IFaceComparer Members
-
 
         public string Name
         {
@@ -69,7 +62,6 @@ namespace Damany.Imaging.PlugIns
             get { return  uuid; }
         }
 
-        #endregion
 
         private static System.Guid uuid = new Guid("{5E7780E6-C093-4694-B3A4-C60B4659BA57}");
 
@@ -88,5 +80,7 @@ namespace Damany.Imaging.PlugIns
         #endregion
 
         private float sensitivity = 35;
+        private FaceProcessingWrapper.LbpWrapper lbp = new LbpWrapper();
+        private IList<Common.PersonOfInterest> persons;
     }
 }

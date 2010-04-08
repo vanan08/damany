@@ -64,16 +64,19 @@
     <Compile Include="FaceCompareResult.cs" />
     <Compile Include="Frame.cs" />
     <Compile Include="IConfigurable.cs" />
-    <Compile Include="IFaceComparer.cs" />
+    <Compile Include="IRepositoryFaceComparer.cs" />
+    <Compile Include="ISimpleFaceComparer.cs" />
     <Compile Include="IFrameHandler.cs" />
     <Compile Include="IFrameStream.cs" />
     <Compile Include="IIpCamera.cs" />
     <Compile Include="IMotionFrameHandler.cs" />
     <Compile Include="IPortraitHandler.cs" />
     <Compile Include="LazyIplImage.cs" />
+    <Compile Include="PersonOfInterest.cs" />
     <Compile Include="Portrait.cs" />
     <Compile Include="PortraitBounds.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RepositoryCompareResult.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Damany.Util\Damany.Util.csproj">

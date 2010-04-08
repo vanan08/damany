@@ -3,6 +3,7 @@ using Damany.Imaging.Common;
 using Damany.PortraitCapturer.DAL;
 using Damany.RemoteImaging.Common.Forms;
 using Damany.Imaging.Extensions;
+using System.Linq;
 
 namespace Damany.RemoteImaging.Common.Presenters
 {
@@ -10,7 +11,7 @@ namespace Damany.RemoteImaging.Common.Presenters
     {
         public FaceComparePresenter(FaceCompare view,
                                     IRepository repository,
-                                    IFaceComparer comparer)
+                                    IRepositoryFaceComparer comparer)
         {
             this.view = view;
             this.repository = repository;
@@ -91,6 +92,9 @@ namespace Damany.RemoteImaging.Common.Presenters
                 var portraits = this.repository.GetPortraits(range);
                 int count = 0;
 
+                var repo = new PersonOfInterest[] {new PersonOfInterest(targetImage)};
+                this._comparer.Load( repo.ToList() );
+
                 foreach (var p in portraits)
                 {
                     if (exit)
@@ -110,15 +114,18 @@ namespace Damany.RemoteImaging.Common.Presenters
                     }
 
 
-                    var result = this._comparer.Compare(targetImage, imgFromRepository);
+                    var result = this._comparer.CompareTo(imgFromRepository);
 
-                    if (result.SimilarScore > Thresholds[ThresholdIndex] )
+                    foreach (var repositoryCompareResult in result)
                     {
-                        count++;
-                        this.view.AddPortrait(p);
-                        this.view.SetStatusText( string.Format( "检索到 {0} 个目标", count ) );
+                        if (repositoryCompareResult.Similarity > Thresholds[ThresholdIndex])
+                        {
+                            count++;
+                            this.view.AddPortrait(p);
+                            this.view.SetStatusText(string.Format("检索到 {0} 个目标", count));
+                        }
+                        
                     }
-
                 }
 
             }
@@ -156,7 +163,7 @@ namespace Damany.RemoteImaging.Common.Presenters
         FaceCompare view;
 
         Damany.PortraitCapturer.DAL.IRepository repository;
-        private readonly IFaceComparer _comparer;
+        private readonly IRepositoryFaceComparer _comparer;
 
         private volatile bool exit;
         private int _thresholdIndex;

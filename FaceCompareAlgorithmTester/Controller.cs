@@ -10,6 +10,6 @@ namespace FaceCompareAlgorithmTester
     public class Controller
     {
         [ImportMany]
-        public IEnumerable<IFaceComparer> FaceComparers { get; set; }
+        public IEnumerable<ISimpleFaceComparer> FaceComparers { get; set; }
     }
 }

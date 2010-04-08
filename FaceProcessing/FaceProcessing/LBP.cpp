@@ -1,49 +1,30 @@
 #include "stdafx.h"
 #include "LBP.h"
 
-Damany::Imaging::FaceCompare::LBP::LBP(IplImage* img, CvRect& faceRect)
+Damany::Imaging::FaceCompare::LBP::LBP(int width, int height, int blockWidth, int blockHeight, int dim)
 {
-	threshold = 39;
-	widthsize = 70; 
-	heightsize = 70;	
-	blockwidth=10;
-	blockheight=10;	
+    threshold = 40;
+	widthsize = width;  
+	heightsize = height;	 
+	blockwidth = blockWidth;  
+	blockheight = blockHeight;	
 	flagwidth = widthsize/blockwidth;
 	flagheight = heightsize/blockheight;
 	num1 = flagheight*flagwidth;
 	num2 = 26;
 
-
-	IplImage* targetImg = cvCreateImage(cvSize(faceRect.width, faceRect.height), 8, 1);
-	cvSetImageROI(img, faceRect);
-	cvCopy(img, targetImg);
-	cvResetImageROI(img);
-
-	targetHst = new float*[num1];   
-	for(int i=0; i<flagheight*flagwidth; i++) 
-	{
-		targetHst[i] = new float[num2];
-	}  
-
-	CalcBlackLBP(targetImg, targetHst); 
 	SetCoeff();
-	CalcAvg(targetHst, num1, num2); 
-	cvReleaseImage(&targetImg);
+	faceCount = 0; 
 }
 
 void Damany::Imaging::FaceCompare::LBP::SetThreshold(int value)
 {
 	threshold = value;
-
 }
 
 Damany::Imaging::FaceCompare::LBP::~LBP()
 {
-	for (int i=0; i<num1; i++)
-	{
-		delete[] targetHst[i];
-	}
-	delete[] targetHst;
+	cvReleaseMat(&targetHst);
 }
 
 void Damany::Imaging::FaceCompare::LBP::SetCoeff()
@@ -97,57 +78,6 @@ void Damany::Imaging::FaceCompare::LBP::SetCoeff()
 	weightCoeff[46] = 1;
 	weightCoeff[47] = 1;
 	weightCoeff[48] = 0;
-
-	//weightCoeff[0] = 1;
-	//weightCoeff[1] = 1;
-	//weightCoeff[2] = 1;
-	//weightCoeff[3] = 1;
-	//weightCoeff[4] = 1;
-	//weightCoeff[5] = 1;
-	//weightCoeff[6] = 4;
-	//weightCoeff[7] = 1;
-	//weightCoeff[8] = 4;
-	//weightCoeff[9] = 1;
-	//weightCoeff[10] = 0;
-	//weightCoeff[11] = 1;
-	//weightCoeff[12] = 1;
-	//weightCoeff[13] = 1;
-	//weightCoeff[14] = 0;
-	//weightCoeff[15] = 0;
-	//weightCoeff[16] = 1;
-	//weightCoeff[17] = 2;
-	//weightCoeff[18] = 1;
-	//weightCoeff[19] = 0;
-	//weightCoeff[20] = 0;
-	//weightCoeff[21] = 1;
-	//weightCoeff[22] = 1;
-	//weightCoeff[23] = 1;
-	//weightCoeff[24] = 0;
-
-	/*weightCoeff[25] = 1;
-	weightCoeff[26] = 1;
-	weightCoeff[27] = 0;
-	weightCoeff[28] = 0;
-	weightCoeff[29] = 1;
-	weightCoeff[30] = 1;
-	weightCoeff[31] = 1;
-	weightCoeff[32] = 1;
-	weightCoeff[33] = 1;
-	weightCoeff[34] = 0;
-	weightCoeff[35] = 0;
-	weightCoeff[36] = 1;
-	weightCoeff[37] = 1;
-	weightCoeff[38] = 2;
-	weightCoeff[39] = 1;
-	weightCoeff[40] = 1;
-	weightCoeff[41] = 0;
-	weightCoeff[42] = 0;
-	weightCoeff[43] = 1;
-	weightCoeff[44] = 1;
-	weightCoeff[45] = 1;
-	weightCoeff[46] = 1;
-	weightCoeff[47] = 1;
-	weightCoeff[48] = 0;*/
 };
 
 int Damany::Imaging::FaceCompare::LBP::GammaCorrect(IplImage* src, IplImage* dst, double low, double high, double bottom, double top, double gamma)
@@ -870,10 +800,13 @@ int Damany::Imaging::FaceCompare::LBP::LBP243(IplImage* imgDst, int blockwidth, 
 	{
 		for (int i=0;i<flagwidth;i++)
 		{
-			cvSetImageROI(imgDst, cvRect(i*blockwidth,j*blockheight,blockwidth,blockheight));
-			cvCopy(imgDst, ipatch);	
-			RotateInvariantLBP(ipatch, hst[j*flagheight+i]);
-			cvResetImageROI(imgDst);
+			if (fabs(weightCoeff[j*flagwidth+i]) > 0.00001)
+			{
+				cvSetImageROI(imgDst, cvRect(i*blockwidth,j*blockheight,blockwidth,blockheight));
+				cvCopy(imgDst, ipatch);	
+				RotateInvariantLBP(ipatch, hst[j*flagheight+i]); 
+				cvResetImageROI(imgDst);
+			}
 		}
 	}
 
@@ -905,32 +838,42 @@ void Damany::Imaging::FaceCompare::LBP::CalcAvg(float** arr, int num1, int num2)
 	}
 };
 
-float Damany::Imaging::FaceCompare::LBP::CalcDistance(float** hstPro, int num1, int num2, float weight[])
+void Damany::Imaging::FaceCompare::LBP::CalcDistance(float** hstPro, int num1, int num2, float score[])
 {
 	CalcAvg(hstPro, num1, num2);
 	float dist = 0;
 	float s = 0;
-	for(int i=0; i<num1; i++)
+	float targetVal = 0.0f;
+	for (int k=0; k<faceCount; k++)
 	{
-		s=0;
-		for (int j=0; j<num2; j++)
+		dist = 0; 
+		for(int i=0; i<num1; i++)
 		{
-			s += (targetHst[i][j]-hstPro[i][j])*(targetHst[i][j]-hstPro[i][j])/(targetHst[i][j]+hstPro[i][j]);
+			s=0; 
+			for (int j=0; j<num2; j++) 
+			{
+				if (fabs(weightCoeff[i]) > 0.00001)
+				{
+					targetVal = cvGetReal2D(targetHst, k, i*num2+j);
+					s += (targetVal-hstPro[i][j])*(targetVal-hstPro[i][j])/(targetVal+hstPro[i][j]);
+				}
+			}
+			dist = weightCoeff[i]*s + dist;   
 		}
-		dist = weight[i]*s + dist;
+		score[k] = (100 - dist)>0 ? (100-dist):0;   
 	}
-	return dist; 
 }
 
-void Damany::Imaging::FaceCompare::LBP::CalcBlackLBP(IplImage* img, float** hst)
+void Damany::Imaging::FaceCompare::LBP::CalcBlockLBP(IplImage* img, float** hst)
 {
 	IplImage* imgSource = cvCreateImage(cvSize(widthsize, heightsize), IPL_DEPTH_8U, 1);
 	cvResize(img, imgSource);
 
 	IplImage* imgDst=cvCreateImage(cvSize(widthsize, heightsize), IPL_DEPTH_8U, 1);
-	imgDst = cvCloneImage(imgSource);
+	//imgDst = cvCloneImage(imgSource);
 	cvSmooth(imgSource, imgSource, CV_GAUSSIAN, 5); 
-	MultiRetinex(imgSource, imgDst);
+	//MultiRetinex(imgSource, imgDst);
+	imgDst = cvCloneImage(imgSource);
 
 	IplImage* ipatch=cvCreateImage(cvSize(blockwidth,blockheight),IPL_DEPTH_8U,1);
 
@@ -941,45 +884,66 @@ void Damany::Imaging::FaceCompare::LBP::CalcBlackLBP(IplImage* img, float** hst)
 	cvReleaseImage(&ipatch); 
 }
 
-float Damany::Imaging::FaceCompare::LBP::CalcFace(IplImage* destImg)
+void Damany::Imaging::FaceCompare::LBP::CalcFace(IplImage* destImg, float score[])
 {
 	float** hstPro=new float*[num1];   
 	for(int   i=0;i<flagheight*flagwidth;i++)
 	{
 		hstPro[i]=new float[num2]; 
 	}
-	CalcBlackLBP(destImg, hstPro);
 
-	float res = CalcDistance(hstPro, num1, num2, weightCoeff);
+	CalcBlockLBP(destImg, hstPro); 
+	CalcDistance(hstPro, num1, num2, score); 
 
 	for (int i=0; i<num1; i++)
 	{
 		delete[] hstPro[i];
 	}
-	delete[] hstPro;
-
-	return res;
+	delete[] hstPro; 
 }
 
-bool Damany::Imaging::FaceCompare::LBP::CmpFace(IplImage* destImg, CvRect& destRect, float& score)
+void Damany::Imaging::FaceCompare::LBP::CmpFace(IplImage* destImg, CvRect& destRect, float score[])
 {
-	IplImage* dstImg = cvCreateImage(cvSize(destRect.width,destRect.height), 8, 1);
-
 	cvSetImageROI(destImg, destRect);
-	cvCopy(destImg, dstImg);
-	cvResetImageROI(destImg);
+	CalcFace(destImg, score);
+	cvResetImageROI(destImg); 
+}
 
-	float res = CalcFace(dstImg);
-	score = 100 - res;
+void Damany::Imaging::FaceCompare::LBP::LoadImages(IplImage* imgs[], int count)
+{
+	faceCount = count; 
+	targetHst = cvCreateMat(faceCount, num1*num2, CV_32FC1);
+	cvSetZero(targetHst); 
 
-	cvReleaseImage(&dstImg); 
-
-	if (res < threshold)
+	float** hst;
+	hst = new float*[num1];   
+	for(int i=0; i<flagheight*flagwidth; i++) 
 	{
-		return true;
+		hst[i] = new float[num2];
 	}
-	else
+
+	int colIndex = 0; 
+	for (int k=0; k<faceCount; k++)
 	{
-		return false;
+		CalcBlockLBP(imgs[k], hst); 
+		CalcAvg(hst, num1, num2); 
+
+		float val = 0.0f;
+		for(int i=0; i<num1; i++)
+		{
+			for (int j=0; j<num2; j++)
+			{
+				val = hst[i][j];
+				cvSetReal2D(targetHst, k, colIndex, val);
+				colIndex++;  
+			}
+		}
+		colIndex = 0;
 	}
+
+	for (int i=0; i<num1; i++)
+	{
+		delete[] hst[i];
+	}
+	delete[] hst; 
 }

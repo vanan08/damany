@@ -1,6 +1,6 @@
 ﻿namespace Damany.Imaging.Common
 {
-    public interface IFaceComparer
+    public interface ISimpleFaceComparer
     {
 
         void SetSensitivity(float value);

@@ -24,7 +24,7 @@ namespace FaceCompareAlgorithmTester
 
         }
 
-        public IEnumerable<IFaceComparer> FaceComparers
+        public IEnumerable<ISimpleFaceComparer> FaceComparers
         {
             set
             {
@@ -34,11 +34,11 @@ namespace FaceCompareAlgorithmTester
             }
         }
 
-        public IFaceComparer SelectedComparer
+        public ISimpleFaceComparer SelectedComparer
         {
             get
             {
-                return (IFaceComparer) this.faceComparersComboBox.SelectedValue;
+                return (ISimpleFaceComparer) this.faceComparersComboBox.SelectedValue;
             }
 
         }
@@ -46,7 +46,7 @@ namespace FaceCompareAlgorithmTester
 
         private void faceComparersComboBox_SelectedValueChanged(object sender, EventArgs e)
         {
-            var comparer = this.faceComparersComboBox.SelectedValue as Damany.Imaging.Common.IFaceComparer;
+            var comparer = this.faceComparersComboBox.SelectedValue as Damany.Imaging.Common.ISimpleFaceComparer;
             this.descOfCurFaceComparer.Text = comparer.Description;
             this.configComparer.Enabled = comparer is IConfigurable;
         }

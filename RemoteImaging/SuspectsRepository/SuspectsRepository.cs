@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 using System.Xml.Linq;
+using Damany.Imaging.Common;
 using NDepend.Helpers.FileDirectoryPath;
 using System.Drawing;
 using OpenCvSharp;
