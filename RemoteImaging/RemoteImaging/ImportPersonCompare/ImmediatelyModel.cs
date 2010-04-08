@@ -165,6 +165,11 @@ namespace RemoteImaging.ImportPersonCompare
             this.Hide();
         }
 
+        private void clearAll_Click(object sender, EventArgs e)
+        {
+            this.suspectsList.Items.Clear();
+        }
+
     }
 
 
