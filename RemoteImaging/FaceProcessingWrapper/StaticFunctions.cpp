@@ -29,11 +29,13 @@ namespace FaceProcessingWrapper
 
 			static bool LBPCompareFace(OpenCvSharp::IplImage^ one, OpenCvSharp::CvRect oneRect, 
 										OpenCvSharp::IplImage^ another, OpenCvSharp::CvRect anotherRect, 
-										float% cmpResult)
+										float% cmpResult, float sensitivity)
 			{
 				Damany::Imaging::FaceCompare::LBP comparer( 
 					(IplImage*) one->CvPtr.ToPointer(),
 					::cvRect(oneRect.X, oneRect.Y, oneRect.Width, oneRect.Height) );
+
+				comparer.SetThreshold(sensitivity);
 
 				float score = 0.0;
 

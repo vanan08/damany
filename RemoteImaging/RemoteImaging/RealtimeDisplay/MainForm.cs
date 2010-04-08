@@ -770,12 +770,8 @@ namespace RemoteImaging.RealtimeDisplay
                 return;
             }
 
-            ImportPersonCompare.ImmediatelyModel formAlert = new ImportPersonCompare.ImmediatelyModel();
-            var list = new List<PersonOfInterestDetectionResult>();
-            list.Add(result);
-            formAlert.ShowPersons = list;
-
-            formAlert.ShowDialog(this);
+            alertForm.AddSuspects(result);
+           
         }
 
 
@@ -852,6 +848,16 @@ namespace RemoteImaging.RealtimeDisplay
         private void faceRecognize_Click(object sender, EventArgs e)
         {
             var p = _createFaceCompare();
+            p.ComparerSensitivity = Properties.Settings.Default.LbpThreshold;
+
+            var thresholds = new float[]
+                                 {
+                                     Properties.Settings.Default.HistoryFaceCompareSensitivityLow,
+                                     Properties.Settings.Default.HistoryFaceCompareSensitivityMiddle,
+                                     Properties.Settings.Default.HistoryFaceCompareSensitivityHi
+                                 };
+
+            p.Thresholds = thresholds;
             p.Start();
 
         }
@@ -860,5 +866,13 @@ namespace RemoteImaging.RealtimeDisplay
         {
             System.Diagnostics.Process.Start("FaceLibraryBuilder.exe");
         }
+
+       ImportPersonCompare.ImmediatelyModel alertForm = new ImportPersonCompare.ImmediatelyModel();
+
+       private void alermForm_Click(object sender, EventArgs e)
+       {
+           this.alertForm.ShowDialog(this);
+       }
+
     }
 }

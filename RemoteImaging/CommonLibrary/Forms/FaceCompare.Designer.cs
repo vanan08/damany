@@ -46,6 +46,10 @@
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.label4 = new System.Windows.Forms.Label();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.radioGroup1 = new DevExpress.XtraEditors.RadioGroup();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.faceList = new Damany.RemoteImaging.Common.Controls.DoubleBufferedListView();
             this.panel1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -55,6 +59,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.searchFrom.Properties)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.targetPic)).BeginInit();
+            this.statusStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radioGroup1.Properties)).BeginInit();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -68,7 +75,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(200, 722);
+            this.panel1.Size = new System.Drawing.Size(200, 830);
             this.panel1.TabIndex = 0;
             // 
             // compareButton
@@ -76,7 +83,7 @@
             this.compareButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.compareButton.Enabled = false;
-            this.compareButton.Location = new System.Drawing.Point(63, 439);
+            this.compareButton.Location = new System.Drawing.Point(63, 502);
             this.compareButton.Name = "compareButton";
             this.compareButton.Size = new System.Drawing.Size(75, 21);
             this.compareButton.TabIndex = 5;
@@ -98,9 +105,9 @@
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox3.Controls.Add(this.currentPic);
-            this.groupBox3.Location = new System.Drawing.Point(3, 466);
+            this.groupBox3.Location = new System.Drawing.Point(3, 539);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(194, 253);
+            this.groupBox3.Size = new System.Drawing.Size(194, 288);
             this.groupBox3.TabIndex = 3;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "待比较图片";
@@ -110,7 +117,7 @@
             this.currentPic.Dock = System.Windows.Forms.DockStyle.Fill;
             this.currentPic.Location = new System.Drawing.Point(3, 17);
             this.currentPic.Name = "currentPic";
-            this.currentPic.Size = new System.Drawing.Size(188, 233);
+            this.currentPic.Size = new System.Drawing.Size(188, 268);
             this.currentPic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.currentPic.TabIndex = 0;
             this.currentPic.TabStop = false;
@@ -119,16 +126,17 @@
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.groupBox4);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Controls.Add(this.searchTo);
             this.groupBox2.Controls.Add(this.searchFrom);
             this.groupBox2.Location = new System.Drawing.Point(3, 291);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(194, 126);
+            this.groupBox2.Size = new System.Drawing.Size(194, 191);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "时间范围";
+            this.groupBox2.Text = "比对参数";
             // 
             // label2
             // 
@@ -158,7 +166,7 @@
             this.searchTo.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
             this.searchTo.Properties.Mask.EditMask = "f";
-            this.searchTo.Size = new System.Drawing.Size(179, 23);
+            this.searchTo.Size = new System.Drawing.Size(179, 21);
             this.searchTo.TabIndex = 1;
             // 
             // searchFrom
@@ -171,7 +179,7 @@
             this.searchFrom.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
             this.searchFrom.Properties.Mask.EditMask = "f";
-            this.searchFrom.Size = new System.Drawing.Size(179, 23);
+            this.searchFrom.Size = new System.Drawing.Size(179, 21);
             this.searchFrom.TabIndex = 0;
             // 
             // choosePic
@@ -212,7 +220,7 @@
             // 
             this.splitter1.Location = new System.Drawing.Point(200, 0);
             this.splitter1.Name = "splitter1";
-            this.splitter1.Size = new System.Drawing.Size(3, 722);
+            this.splitter1.Size = new System.Drawing.Size(3, 830);
             this.splitter1.TabIndex = 1;
             this.splitter1.TabStop = false;
             // 
@@ -230,7 +238,7 @@
             this.label4.ForeColor = System.Drawing.Color.White;
             this.label4.Location = new System.Drawing.Point(203, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(519, 22);
+            this.label4.Size = new System.Drawing.Size(561, 22);
             this.label4.TabIndex = 3;
             this.label4.Text = "比较结果";
             // 
@@ -240,13 +248,56 @@
             this.openFileDialog1.Filter = "Jpeg 文件|*.jpg";
             this.openFileDialog1.RestoreDirectory = true;
             // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel1});
+            this.statusStrip1.Location = new System.Drawing.Point(203, 806);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(561, 24);
+            this.statusStrip1.TabIndex = 4;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(35, 19);
+            this.toolStripStatusLabel1.Text = "就绪";
+            // 
+            // radioGroup1
+            // 
+            this.radioGroup1.Location = new System.Drawing.Point(22, 17);
+            this.radioGroup1.Name = "radioGroup1";
+            this.radioGroup1.Properties.Appearance.BackColor = System.Drawing.SystemColors.Control;
+            this.radioGroup1.Properties.Appearance.Options.UseBackColor = true;
+            this.radioGroup1.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.radioGroup1.Properties.Items.AddRange(new DevExpress.XtraEditors.Controls.RadioGroupItem[] {
+            new DevExpress.XtraEditors.Controls.RadioGroupItem(null, "低"),
+            new DevExpress.XtraEditors.Controls.RadioGroupItem(null, "中"),
+            new DevExpress.XtraEditors.Controls.RadioGroupItem(null, "高")});
+            this.radioGroup1.Size = new System.Drawing.Size(138, 37);
+            this.radioGroup1.TabIndex = 4;
+            this.radioGroup1.SelectedIndexChanged += new System.EventHandler(this.radioGroup1_SelectedIndexChanged);
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox4.Controls.Add(this.radioGroup1);
+            this.groupBox4.Location = new System.Drawing.Point(6, 125);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(179, 60);
+            this.groupBox4.TabIndex = 4;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "准确度";
+            // 
             // faceList
             // 
             this.faceList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.faceList.LargeImageList = this.imageList1;
             this.faceList.Location = new System.Drawing.Point(203, 22);
             this.faceList.Name = "faceList";
-            this.faceList.Size = new System.Drawing.Size(519, 700);
+            this.faceList.Size = new System.Drawing.Size(561, 784);
             this.faceList.TabIndex = 2;
             this.faceList.UseCompatibleStateImageBehavior = false;
             // 
@@ -254,8 +305,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(722, 722);
+            this.ClientSize = new System.Drawing.Size(764, 830);
             this.Controls.Add(this.faceList);
+            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.splitter1);
             this.Controls.Add(this.panel1);
@@ -273,7 +325,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.searchFrom.Properties)).EndInit();
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.targetPic)).EndInit();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radioGroup1.Properties)).EndInit();
+            this.groupBox4.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -297,5 +354,9 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.Button compareButton;
         private System.Windows.Forms.ImageList imageList1;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private DevExpress.XtraEditors.RadioGroup radioGroup1;
     }
 }

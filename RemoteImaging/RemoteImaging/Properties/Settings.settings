@@ -170,5 +170,20 @@
     <Setting Name="ReservedDiskSpaceMB" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="RealTimeFaceCompareSensitivity" Type="System.Single" Scope="Application">
+      <Value Profile="(Default)">66</Value>
+    </Setting>
+    <Setting Name="LbpThreshold" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">40</Value>
+    </Setting>
+    <Setting Name="HistoryFaceCompareSensitivityLow" Type="System.Single" Scope="Application">
+      <Value Profile="(Default)">55</Value>
+    </Setting>
+    <Setting Name="HistoryFaceCompareSensitivityMiddle" Type="System.Single" Scope="User">
+      <Value Profile="(Default)">58</Value>
+    </Setting>
+    <Setting Name="HistoryFaceCompareSensitivityHi" Type="System.Single" Scope="User">
+      <Value Profile="(Default)">60</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -34,6 +34,8 @@ namespace RemoteImaging
             InitializeHandlers();
 
             this._comparer.PersonOfInterestDected += _comparer_PersonOfInterestDected;
+            this._comparer.Threshold = Properties.Settings.Default.RealTimeFaceCompareSensitivity;
+            this._comparer.Comparer.SetSensitivity( Properties.Settings.Default.LbpThreshold );
 
             this._mainForm.Cameras = this._configManager.GetCameras().ToArray();
             var camToStart = this._configManager.GetCameras();

@@ -2,6 +2,7 @@
 using Damany.Imaging.Common;
 using Damany.PortraitCapturer.DAL;
 using Damany.RemoteImaging.Common.Forms;
+using Damany.Imaging.Extensions;
 
 namespace Damany.RemoteImaging.Common.Presenters
 {
@@ -15,7 +16,27 @@ namespace Damany.RemoteImaging.Common.Presenters
             this.repository = repository;
             _comparer = comparer;
             this.exit = false;
+
+            this.Thresholds = new float[] {55, 58, 60} ;
         }
+
+        public float ComparerSensitivity
+        {
+            set
+            {
+                _comparer.SetSensitivity(value);
+            }
+        }
+
+        public void ThresholdChanged()
+        {
+            var acc = this.view.SelectedAccuracy;
+
+            this.ThresholdIndex = (int) acc;
+
+        }
+
+        public float[] Thresholds { get; set; }
 
         public void CompareClicked()
         {
@@ -49,13 +70,15 @@ namespace Damany.RemoteImaging.Common.Presenters
         public void Start()
         {
             this.view.AttachPresenter(this);
+            this.ThresholdIndex = 1;
+            this.view.SelectedAccuracy = CompareAccuracy.Middle;
+
             this.view.ShowDialog(System.Windows.Forms.Application.OpenForms[0]);
         }
 
         public void Stop()
         {
             this.exit = true;
-            
         }
 
         private void CompareFace(
@@ -66,6 +89,7 @@ namespace Damany.RemoteImaging.Common.Presenters
             {
                 targetImage.ROI = rect;
                 var portraits = this.repository.GetPortraits(range);
+                int count = 0;
 
                 foreach (var p in portraits)
                 {
@@ -79,11 +103,20 @@ namespace Damany.RemoteImaging.Common.Presenters
                     var imgFromRepository = p.GetIpl();
                     imgFromRepository.ROI = p.FaceBounds;
 
+                    var faceRects = imgFromRepository.LocateFaces();
+                    if (faceRects.Length > 0)
+                    {
+                        imgFromRepository.ROI = faceRects[0];
+                    }
+
+
                     var result = this._comparer.Compare(targetImage, imgFromRepository);
 
-                    if (result.IsSimilar)
+                    if (result.SimilarScore > Thresholds[ThresholdIndex] )
                     {
+                        count++;
                         this.view.AddPortrait(p);
+                        this.view.SetStatusText( string.Format( "检索到 {0} 个目标", count ) );
                     }
 
                 }
@@ -98,9 +131,35 @@ namespace Damany.RemoteImaging.Common.Presenters
 
 
 
+
+
+        private int ThresholdIndex
+        { 
+            get
+            {
+                lock (locker)
+                {
+                    return _thresholdIndex;
+                }
+                
+            }
+            set
+            {
+                lock (locker)
+                {
+                    _thresholdIndex = value;
+                }
+                
+            }
+        }
+
         FaceCompare view;
+
         Damany.PortraitCapturer.DAL.IRepository repository;
         private readonly IFaceComparer _comparer;
+
         private volatile bool exit;
+        private int _thresholdIndex;
+        private object locker = new object();
     }
 }

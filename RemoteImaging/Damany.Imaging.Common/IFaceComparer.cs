@@ -2,6 +2,8 @@
 {
     public interface IFaceComparer
     {
+
+        void SetSensitivity(float value);
         FaceCompareResult Compare(OpenCvSharp.IplImage a, OpenCvSharp.IplImage b);
 
         string Name { get; }
