@@ -649,7 +649,7 @@ namespace RemoteImaging.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute(".\\ImgLib")]
+        [global::System.Configuration.DefaultSettingValueAttribute("d:\\ImgLib")]
         public string PersonOfInterespPath {
             get {
                 return ((string)(this["PersonOfInterespPath"]));
@@ -694,7 +694,7 @@ namespace RemoteImaging.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("66")]
+        [global::System.Configuration.DefaultSettingValueAttribute("60")]
         public float RealTimeFaceCompareSensitivity {
             get {
                 return ((float)(this["RealTimeFaceCompareSensitivity"]));
@@ -733,7 +733,7 @@ namespace RemoteImaging.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("60")]
+        [global::System.Configuration.DefaultSettingValueAttribute("63")]
         public float HistoryFaceCompareSensitivityHi {
             get {
                 return ((float)(this["HistoryFaceCompareSensitivityHi"]));

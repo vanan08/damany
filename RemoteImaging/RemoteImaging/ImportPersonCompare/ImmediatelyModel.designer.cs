@@ -230,6 +230,7 @@
             this.Controls.Add(this.grbTargetImg);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "ImmediatelyModel";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
