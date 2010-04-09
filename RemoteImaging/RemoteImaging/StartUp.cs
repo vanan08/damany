@@ -38,8 +38,9 @@ namespace RemoteImaging
             if (System.IO.Directory.Exists(Properties.Settings.Default.PersonOfInterespPath))
             {
                 var personRepository = SuspectsRepositoryManager.LoadFrom(Properties.Settings.Default.PersonOfInterespPath);
-                this.builder.RegisterInstance(personRepository.Peoples).As
-                    <IEnumerable<PersonOfInterest>>().ExternallyOwned();
+                this.builder.RegisterInstance(personRepository.Peoples)
+                    .As<IEnumerable<PersonOfInterest>>()
+                    .ExternallyOwned();
             }
             else
             {
