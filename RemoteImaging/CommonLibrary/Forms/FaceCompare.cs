@@ -28,12 +28,23 @@ namespace Damany.RemoteImaging.Common.Forms
                 return;
             }
 
-            this.compareButton.Enabled = enable;
+            //this.compareButton.Enabled = enable;
         }
 
         void compareButton_Click(object sender, EventArgs e)
         {
-            this.presenter.CompareClicked();
+            if (started)
+            {
+                this.presenter.Stop();
+            }
+            else
+            {
+                this.presenter.CompareClicked();
+            }
+
+            started = !started;
+
+            this.compareButton.Text = started ? "停止" : "比对";
         }
 
         public void AttachPresenter(FaceComparePresenter presenter)
@@ -184,6 +195,7 @@ namespace Damany.RemoteImaging.Common.Forms
         private Rectangle faceRect;
         private FaceComparePresenter presenter;
         private OpenCvSharp.IplImage ipl;
+        private bool started;
 
         private void FaceCompare_FormClosing(object sender, FormClosingEventArgs e)
         {
