@@ -22,8 +22,6 @@ namespace FaceProcessingWrapper {
 
 		void Load( array<OpenCvSharp::IplImage^>^ images )
 		{
-			if (images->Length == 0)
-				throw gcnew System::ArgumentException("Length of images is 0");
 
 
 			count = images->Length;

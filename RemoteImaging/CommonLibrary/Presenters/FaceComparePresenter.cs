@@ -41,8 +41,14 @@ namespace Damany.RemoteImaging.Common.Presenters
 
         public void CompareClicked()
         {
+            if (isRunning)
+            {
+                return;
+            }
+
             this.view.EnableCompareButton(false);
             this.exit = false;
+            this.isRunning = true;
 
 
             try
@@ -64,6 +70,7 @@ namespace Damany.RemoteImaging.Common.Presenters
             catch (Exception)
             {
                 this.view.EnableCompareButton(true);
+                isRunning = false;
                 throw;
             }
 
@@ -171,5 +178,7 @@ namespace Damany.RemoteImaging.Common.Presenters
         private volatile bool exit;
         private int _thresholdIndex;
         private object locker = new object();
+
+        private bool isRunning = false;
     }
 }

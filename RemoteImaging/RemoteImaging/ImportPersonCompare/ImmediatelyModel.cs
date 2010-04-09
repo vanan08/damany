@@ -36,7 +36,7 @@ namespace RemoteImaging.ImportPersonCompare
 
             if (!Visible)
             {
-                this.ShowDialog(Application.OpenForms[0]);
+                this.Show(Application.OpenForms[0]);
             }
 
         }

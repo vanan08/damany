@@ -20,6 +20,8 @@ namespace RemoteImaging
 
         public void Start()
         {
+            CheckImportantFiles();
+
             this.builder = new Autofac.ContainerBuilder();
 
             this.LoadPersonRepository();
@@ -30,6 +32,38 @@ namespace RemoteImaging
 
         private void CheckImportantFiles()
         {
+            var filesToCheck = new string[]
+                                   {
+                                       "cv100.dll",
+                                       "cvaux100.dll",
+                                       "cvcam100.dll",
+                                       "cxcore100.dll",
+                                       "cxts001.dll",
+                                       "highgui100.dll",
+                                       "libguide40.dll",
+                                       "ml100.dll",
+                                       "avdecoder.dll",
+                                       "bk_netclientsdk.dll",
+                                       "bkpostproc.dll",
+                                       "libavcodec.dll",
+                                       "transtclient.dll",
+                                       "trclient.dll",
+                                   };
+
+            var dllsQuery = from f in System.IO.Directory.GetFiles(@".\", "*.dll")
+                              select System.IO.Path.GetFileName(f).ToUpper();
+
+            var dlls = dllsQuery.ToArray();
+
+
+            foreach (var f in filesToCheck)
+            {
+                if (!dlls.Contains(f.ToUpper()))
+                {
+                    throw new System.Exception(f + " is missing");
+                }
+            }
+
 
         }
 

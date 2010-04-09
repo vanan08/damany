@@ -912,6 +912,12 @@ void Damany::Imaging::FaceCompare::LBP::CmpFace(IplImage* destImg, CvRect& destR
 void Damany::Imaging::FaceCompare::LBP::LoadImages(IplImage* imgs[], int count)
 {
 	faceCount = count; 
+
+	if (count <= 0)
+	{
+		return;
+	}
+
 	targetHst = cvCreateMat(faceCount, num1*num2, CV_32FC1);
 	cvSetZero(targetHst); 
 
