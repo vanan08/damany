@@ -135,6 +135,7 @@ namespace Damany.Imaging.PlugIns
 
                     var matches = from r in compareResults
                                   where r.Similarity > Threshold
+                                  orderby r.Similarity descending 
                                   select r;
 
                     foreach (var match in matches)

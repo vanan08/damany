@@ -36,6 +36,7 @@
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.grbTargetImg = new System.Windows.Forms.GroupBox();
+            this.clearAll = new System.Windows.Forms.Button();
             this.personOfInterestImage = new System.Windows.Forms.PictureBox();
             this.suspectsList = new System.Windows.Forms.ListView();
             this.cId = new System.Windows.Forms.ColumnHeader();
@@ -45,7 +46,6 @@
             this.cCard = new System.Windows.Forms.ColumnHeader();
             this.cSimilarity = new System.Windows.Forms.ColumnHeader();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.clearAll = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.suspectImage)).BeginInit();
             this.grbTargetImg.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.personOfInterestImage)).BeginInit();
@@ -138,6 +138,16 @@
             this.grbTargetImg.TabStop = false;
             this.grbTargetImg.Text = "待识别图片";
             // 
+            // clearAll
+            // 
+            this.clearAll.Location = new System.Drawing.Point(638, 173);
+            this.clearAll.Name = "clearAll";
+            this.clearAll.Size = new System.Drawing.Size(75, 23);
+            this.clearAll.TabIndex = 17;
+            this.clearAll.Text = "全部消警";
+            this.clearAll.UseVisualStyleBackColor = true;
+            this.clearAll.Click += new System.EventHandler(this.clearAll_Click);
+            // 
             // personOfInterestImage
             // 
             this.personOfInterestImage.Location = new System.Drawing.Point(6, 20);
@@ -211,16 +221,6 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "预设目标";
             // 
-            // clearAll
-            // 
-            this.clearAll.Location = new System.Drawing.Point(638, 173);
-            this.clearAll.Name = "clearAll";
-            this.clearAll.Size = new System.Drawing.Size(75, 23);
-            this.clearAll.TabIndex = 17;
-            this.clearAll.Text = "全部消警";
-            this.clearAll.UseVisualStyleBackColor = true;
-            this.clearAll.Click += new System.EventHandler(this.clearAll_Click);
-            // 
             // ImmediatelyModel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -230,7 +230,6 @@
             this.Controls.Add(this.grbTargetImg);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
-            this.MinimizeBox = false;
             this.Name = "ImmediatelyModel";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;

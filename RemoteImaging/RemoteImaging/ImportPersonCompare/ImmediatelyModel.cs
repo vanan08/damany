@@ -125,7 +125,7 @@ namespace RemoteImaging.ImportPersonCompare
                 var lvi = suspectsList.SelectedItems[0];
                 var result = (Damany.Imaging.PlugIns.PersonOfInterestDetectionResult) lvi.Tag;
 
-                lblTextSim.Text = string.Format("相似度: {0:F0}%", result.Similarity * 100);
+                lblTextSim.Text = string.Format("相似度: {0:F0}%", result.Similarity);
                 //犯罪分子图片显示
                 if (personOfInterestImage.Image != null)
                 {
