@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using Damany.Imaging.Common;
+using Damany.Imaging.Extensions;
 using FaceProcessingWrapper;
 using OpenCvSharp;
 using Damany.Util;
@@ -16,16 +17,32 @@ namespace Damany.Imaging.PlugIns
     {
         public void Load(IList<Common.PersonOfInterest> persons)
         {
+            if (persons == null) throw new ArgumentNullException("persons");
+            foreach (var personOfInterest in persons)
+            {
+                if ( personOfInterest.Ipl.BoundsRect().Equals(personOfInterest.Ipl.ROI) )
+                {
+                    throw new System.ArgumentException("Roi is same as bouding rect");
+                }
+
+                if (personOfInterest.Ipl.NChannels == 1)
+                {
+                    throw new System.ArgumentException("gray image is not supported");
+                }
+            }
+
             this.persons = persons;
+
+            foreach (var p in persons)
+            {
+                p.Ipl.CheckWithBmp();
+            } 
+
 
             var ipls = from p in persons
                        select p.Ipl.CvtToGray().GetSub(p.Ipl.ROI);
-#if DEBUG
-            foreach (var iplImage in ipls)
-            {
-                var bmp = iplImage.ToBitmap();
-            } 
-#endif
+
+
 
             this.lbp.Load(ipls.ToArray());
         }
@@ -37,15 +54,26 @@ namespace Damany.Imaging.PlugIns
 
         public RepositoryCompareResult[] CompareTo(IplImage image)
         {
+            if (image == null) throw new ArgumentNullException("image");
+            if (image.NChannels == 1)
+            {
+                throw new ArgumentException("gray image is not supported");
+            }
+
+            var roi = image.ROI;
+            image.ResetROI();
             var gray = image.CvtToGray();
 
-#if DEBUG
-            var bmp = image.ToBitmap();
-            using (var g = System.Drawing.Graphics.FromImage(bmp))
+            //relocate face to be more precise.
+            var faceRects = image.LocateFaces();
+            if (faceRects.Length > 0)
             {
-                g.DrawRectangle( Pens.Black, gray.ROI.ToRectangle() );
+                gray.ROI = faceRects[0];
             }
-#endif
+
+            image.ROI = gray.ROI;
+            image.CheckWithBmp();
+            image.SetROI(roi);
 
             var results = this.lbp.CompareTo(gray);
 

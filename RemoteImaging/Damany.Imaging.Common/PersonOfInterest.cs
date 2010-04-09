@@ -6,6 +6,11 @@ namespace Damany.Imaging.Common
 {
     public class PersonOfInterest
     {
+        public static PersonOfInterest FromIplImage(IplImage image)
+        {
+            return new PersonOfInterest(image);
+        }
+
         public PersonOfInterest(IplImage image)
         {
             if (image == null) throw new ArgumentNullException("image");

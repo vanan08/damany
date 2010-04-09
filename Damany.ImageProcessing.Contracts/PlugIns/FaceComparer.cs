@@ -124,13 +124,6 @@ namespace Damany.Imaging.PlugIns
 
                 foreach (var portrait in portraits)
                 {
-                    var faceRects = portrait.GetIpl().LocateFaces(new CvRect(0,0,0,0));
-                    if (faceRects.Length > 0)
-                    {
-                        portrait.FaceBounds = faceRects[0];
-                    }
-
-                    portrait.GetIpl().ROI = portrait.FaceBounds;
 
                     var compareResults = this.Comparer.CompareTo(portrait.GetIpl());
 

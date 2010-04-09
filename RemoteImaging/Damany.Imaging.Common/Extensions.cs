@@ -15,7 +15,9 @@ namespace Damany.Imaging.Common
             if (ipl == null)
                 throw new ArgumentNullException("ipl", "ipl is null.");
 
-            if (!ipl.BoundingRect().Contains(subRect))
+            var boundingRect = new CvRect(0, 0, ipl.Width, ipl.Height);
+
+            if (!boundingRect.Contains(subRect))
                 throw new InvalidOperationException("subRect is outside of ipl");
 
 

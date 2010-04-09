@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
 using System.Text;
+using Damany.Util;
 using FaceProcessingWrapper;
 using OpenCvSharp;
 
@@ -33,6 +36,23 @@ namespace Damany.Imaging.Extensions
         public static CvRect BoundsRect(this IplImage img)
         {
             return new CvRect(0, 0, img.Width, img.Height);
+            
+        }
+
+        public static IplImage LoadIntoIpl(this string path)
+        {
+            return IplImage.FromFile(path);
+        }
+
+        [Conditional("DEBUG")]
+        public static void CheckWithBmp(this IplImage ipl)
+        {
+            var bmp = ipl.ToBitmap();
+
+            using (Graphics g = Graphics.FromImage(bmp))
+            {
+                g.DrawRectangle(Pens.Red, ipl.ROI.ToRectangle());
+            }
             
         }
     }

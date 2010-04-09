@@ -81,6 +81,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DirectoryRepository.cs" />
     <Compile Include="DTO\Frame.cs" />
     <Compile Include="DTO\Portrait.cs" />
     <Compile Include="IDataProvider.cs" />
