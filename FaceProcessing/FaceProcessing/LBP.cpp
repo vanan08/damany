@@ -870,10 +870,10 @@ void Damany::Imaging::FaceCompare::LBP::CalcBlockLBP(IplImage* img, float** hst)
 	cvResize(img, imgSource);
 
 	IplImage* imgDst=cvCreateImage(cvSize(widthsize, heightsize), IPL_DEPTH_8U, 1);
-	//imgDst = cvCloneImage(imgSource);
-	cvSmooth(imgSource, imgSource, CV_GAUSSIAN, 5); 
-	//MultiRetinex(imgSource, imgDst);
 	imgDst = cvCloneImage(imgSource);
+	cvSmooth(imgSource, imgSource, CV_GAUSSIAN, 5); 
+	MultiRetinex(imgSource, imgDst);
+	//imgDst = cvCloneImage(imgSource);
 
 	IplImage* ipatch=cvCreateImage(cvSize(blockwidth,blockheight),IPL_DEPTH_8U,1);
 

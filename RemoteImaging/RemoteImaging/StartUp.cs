@@ -45,7 +45,6 @@ namespace RemoteImaging
                                        "avdecoder.dll",
                                        "bk_netclientsdk.dll",
                                        "bkpostproc.dll",
-                                       "libavcodec.dll",
                                        "transtclient.dll",
                                        "trclient.dll",
                                    };
@@ -60,7 +59,7 @@ namespace RemoteImaging
             {
                 if (!dlls.Contains(f.ToUpper()))
                 {
-                    throw new System.IO.FileNotFoundException(f + "is missing");
+                    throw new System.IO.FileNotFoundException(f + " is missing");
                 }
             }
 
@@ -93,9 +92,17 @@ namespace RemoteImaging
             var repository = new LocalDb4oProvider(Properties.Settings.Default.OutputPath);
             repository.Start();
 
-            this.builder.RegisterInstance(repository)
-                .As<Damany.PortraitCapturer.DAL.IRepository>()
-                .ExternallyOwned();
+
+
+            //this.builder.RegisterInstance(repository)
+            //    .As<Damany.PortraitCapturer.DAL.IRepository>()
+            //    .ExternallyOwned();
+
+            var dirRepository = new Damany.PortraitCapturer.DAL.DirectoryRepository(@"M:\imageSearch");
+
+            this.builder.RegisterInstance(dirRepository)
+                        .As<Damany.PortraitCapturer.DAL.IRepository>()
+                        .ExternallyOwned();
         }
 
         private void InitConfigManager()

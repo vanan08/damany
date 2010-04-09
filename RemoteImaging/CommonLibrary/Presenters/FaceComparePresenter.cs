@@ -67,11 +67,10 @@ namespace Damany.RemoteImaging.Common.Presenters
                     this.CompareFace(range, image, rect));
 
             }
-            catch (Exception)
+            finally 
             {
                 this.view.EnableCompareButton(true);
                 isRunning = false;
-                throw;
             }
 
            
@@ -115,14 +114,6 @@ namespace Damany.RemoteImaging.Common.Presenters
                     this.view.CurrentImage = p.GetIpl().ToBitmap();
 
                     var imgFromRepository = p.GetIpl();
-                    imgFromRepository.ROI = p.FaceBounds;
-
-                    var faceRects = imgFromRepository.LocateFaces();
-                    if (faceRects.Length > 0)
-                    {
-                        imgFromRepository.ROI = faceRects[0];
-                    }
-
 
                     var result = this._comparer.CompareTo(imgFromRepository);
 

@@ -33,16 +33,7 @@ namespace Damany.RemoteImaging.Common.Forms
 
         void compareButton_Click(object sender, EventArgs e)
         {
-            if (started)
-            {
-                this.presenter.Stop();
-            }
-            else
-            {
-                this.presenter.CompareClicked();
-            }
-
-            started = !started;
+            this.presenter.CompareClicked();
 
             //this.compareButton.Text = started ? "停止" : "比对";
         }
