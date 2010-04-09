@@ -6,6 +6,7 @@ using System.Threading;
 using Damany.Imaging.Common;
 using MiscUtil;
 using Damany.Imaging.Extensions;
+using OpenCvSharp;
 
 namespace Damany.Imaging.PlugIns
 {
@@ -123,7 +124,7 @@ namespace Damany.Imaging.PlugIns
 
                 foreach (var portrait in portraits)
                 {
-                    var faceRects = portrait.GetIpl().LocateFaces();
+                    var faceRects = portrait.GetIpl().LocateFaces(new CvRect(0,0,0,0));
                     if (faceRects.Length > 0)
                     {
                         portrait.FaceBounds = faceRects[0];

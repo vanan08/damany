@@ -51,7 +51,7 @@ namespace RemoteImaging
                                    };
 
             var dllsQuery = from f in System.IO.Directory.GetFiles(@".\", "*.dll")
-                              select System.IO.Path.GetFileName(f).ToUpper();
+                            select System.IO.Path.GetFileName(f).ToUpper();
 
             var dlls = dllsQuery.ToArray();
 
@@ -60,7 +60,7 @@ namespace RemoteImaging
             {
                 if (!dlls.Contains(f.ToUpper()))
                 {
-                    throw new System.Exception(f + " is missing");
+                    throw new System.IO.FileNotFoundException(f + "is missing");
                 }
             }
 
