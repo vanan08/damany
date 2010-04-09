@@ -28,7 +28,7 @@ namespace Damany.RemoteImaging.Common.Forms
                 return;
             }
 
-            //this.compareButton.Enabled = enable;
+            this.compareButton.Enabled = enable;
         }
 
         void compareButton_Click(object sender, EventArgs e)
@@ -44,7 +44,7 @@ namespace Damany.RemoteImaging.Common.Forms
 
             started = !started;
 
-            this.compareButton.Text = started ? "停止" : "比对";
+            //this.compareButton.Text = started ? "停止" : "比对";
         }
 
         public void AttachPresenter(FaceComparePresenter presenter)
