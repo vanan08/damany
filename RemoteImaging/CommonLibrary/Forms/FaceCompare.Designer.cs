@@ -35,6 +35,8 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.currentPic = new System.Windows.Forms.PictureBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.radioGroup1 = new DevExpress.XtraEditors.RadioGroup();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.searchTo = new DevExpress.XtraEditors.TimeEdit();
@@ -48,20 +50,18 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.radioGroup1 = new DevExpress.XtraEditors.RadioGroup();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.faceList = new Damany.RemoteImaging.Common.Controls.DoubleBufferedListView();
             this.panel1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.currentPic)).BeginInit();
             this.groupBox2.SuspendLayout();
+            this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radioGroup1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.searchTo.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.searchFrom.Properties)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.targetPic)).BeginInit();
             this.statusStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radioGroup1.Properties)).BeginInit();
-            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -137,6 +137,33 @@
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "比对参数";
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox4.Controls.Add(this.radioGroup1);
+            this.groupBox4.Location = new System.Drawing.Point(6, 125);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(179, 60);
+            this.groupBox4.TabIndex = 4;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "准确度";
+            // 
+            // radioGroup1
+            // 
+            this.radioGroup1.Location = new System.Drawing.Point(22, 17);
+            this.radioGroup1.Name = "radioGroup1";
+            this.radioGroup1.Properties.Appearance.BackColor = System.Drawing.SystemColors.Control;
+            this.radioGroup1.Properties.Appearance.Options.UseBackColor = true;
+            this.radioGroup1.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.radioGroup1.Properties.Items.AddRange(new DevExpress.XtraEditors.Controls.RadioGroupItem[] {
+            new DevExpress.XtraEditors.Controls.RadioGroupItem(null, "低"),
+            new DevExpress.XtraEditors.Controls.RadioGroupItem(null, "中"),
+            new DevExpress.XtraEditors.Controls.RadioGroupItem(null, "高")});
+            this.radioGroup1.Size = new System.Drawing.Size(138, 37);
+            this.radioGroup1.TabIndex = 4;
+            this.radioGroup1.SelectedIndexChanged += new System.EventHandler(this.radioGroup1_SelectedIndexChanged);
             // 
             // label2
             // 
@@ -264,33 +291,6 @@
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(35, 19);
             this.toolStripStatusLabel1.Text = "就绪";
             // 
-            // radioGroup1
-            // 
-            this.radioGroup1.Location = new System.Drawing.Point(22, 17);
-            this.radioGroup1.Name = "radioGroup1";
-            this.radioGroup1.Properties.Appearance.BackColor = System.Drawing.SystemColors.Control;
-            this.radioGroup1.Properties.Appearance.Options.UseBackColor = true;
-            this.radioGroup1.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.radioGroup1.Properties.Items.AddRange(new DevExpress.XtraEditors.Controls.RadioGroupItem[] {
-            new DevExpress.XtraEditors.Controls.RadioGroupItem(null, "低"),
-            new DevExpress.XtraEditors.Controls.RadioGroupItem(null, "中"),
-            new DevExpress.XtraEditors.Controls.RadioGroupItem(null, "高")});
-            this.radioGroup1.Size = new System.Drawing.Size(138, 37);
-            this.radioGroup1.TabIndex = 4;
-            this.radioGroup1.SelectedIndexChanged += new System.EventHandler(this.radioGroup1_SelectedIndexChanged);
-            // 
-            // groupBox4
-            // 
-            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox4.Controls.Add(this.radioGroup1);
-            this.groupBox4.Location = new System.Drawing.Point(6, 125);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(179, 60);
-            this.groupBox4.TabIndex = 4;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "准确度";
-            // 
             // faceList
             // 
             this.faceList.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -321,14 +321,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.currentPic)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.radioGroup1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.searchTo.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.searchFrom.Properties)).EndInit();
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.targetPic)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radioGroup1.Properties)).EndInit();
-            this.groupBox4.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 

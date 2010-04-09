@@ -42,6 +42,8 @@ namespace Damany.RemoteImaging.Common.Presenters
         public void CompareClicked()
         {
             this.view.EnableCompareButton(false);
+            this.exit = false;
+
 
             try
             {
@@ -73,6 +75,7 @@ namespace Damany.RemoteImaging.Common.Presenters
             this.view.AttachPresenter(this);
             this.ThresholdIndex = 1;
             this.view.SelectedAccuracy = CompareAccuracy.Middle;
+
 
             this.view.ShowDialog(System.Windows.Forms.Application.OpenForms[0]);
         }

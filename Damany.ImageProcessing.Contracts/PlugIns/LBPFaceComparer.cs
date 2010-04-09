@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using Damany.Imaging.Common;
@@ -18,7 +19,13 @@ namespace Damany.Imaging.PlugIns
             this.persons = persons;
 
             var ipls = from p in persons
-                       select p.Ipl.CvtToGray();
+                       select p.Ipl.CvtToGray().GetSub(p.Ipl.ROI);
+#if DEBUG
+            foreach (var iplImage in ipls)
+            {
+                var bmp = iplImage.ToBitmap();
+            } 
+#endif
 
             this.lbp.Load(ipls.ToArray());
         }
@@ -30,7 +37,17 @@ namespace Damany.Imaging.PlugIns
 
         public RepositoryCompareResult[] CompareTo(IplImage image)
         {
-            var results = this.lbp.CompareTo(image.CvtToGray());
+            var gray = image.CvtToGray();
+
+#if DEBUG
+            var bmp = image.ToBitmap();
+            using (var g = System.Drawing.Graphics.FromImage(bmp))
+            {
+                g.DrawRectangle( Pens.Black, gray.ROI.ToRectangle() );
+            }
+#endif
+
+            var results = this.lbp.CompareTo(gray);
 
             var returnResult = new RepositoryCompareResult[this.persons.Count];
 
