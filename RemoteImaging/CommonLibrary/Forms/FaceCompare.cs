@@ -19,23 +19,22 @@ namespace Damany.RemoteImaging.Common.Forms
             this.compareButton.Click += new EventHandler(compareButton_Click);
         }
 
-        public void EnableCompareButton(bool enable)
+        public void EnableStartButton(bool enable)
         {
             if (this.InvokeRequired)
             {
-                Action<bool> action = this.EnableCompareButton;
+                Action<bool> action = this.EnableStartButton;
                 this.BeginInvoke(action, enable);
                 return;
             }
 
-            this.compareButton.Enabled = enable;
+            this.compareButton.Text = enable ? "比对" : "停止";
         }
 
         void compareButton_Click(object sender, EventArgs e)
         {
             this.presenter.CompareClicked();
 
-            //this.compareButton.Text = started ? "停止" : "比对";
         }
 
         public void AttachPresenter(FaceComparePresenter presenter)

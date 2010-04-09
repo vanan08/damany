@@ -159,7 +159,7 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="PersonOfInterespPath" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">.\ImgLib</Value>
+      <Value Profile="(Default)">d:\ImgLib</Value>
     </Setting>
     <Setting Name="SVMDirectoryName" Type="System.String" Scope="User">
       <Value Profile="(Default)">SVM</Value>
@@ -171,7 +171,7 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="RealTimeFaceCompareSensitivity" Type="System.Single" Scope="Application">
-      <Value Profile="(Default)">66</Value>
+      <Value Profile="(Default)">60</Value>
     </Setting>
     <Setting Name="LbpThreshold" Type="System.Int32" Scope="Application">
       <Value Profile="(Default)">40</Value>
@@ -183,7 +183,7 @@
       <Value Profile="(Default)">58</Value>
     </Setting>
     <Setting Name="HistoryFaceCompareSensitivityHi" Type="System.Single" Scope="User">
-      <Value Profile="(Default)">60</Value>
+      <Value Profile="(Default)">63</Value>
     </Setting>
   </Settings>
 </SettingsFile>

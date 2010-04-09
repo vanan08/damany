@@ -23,6 +23,7 @@ namespace RemoteImaging.ImportPersonCompare
 
         public void AddSuspects(Damany.Imaging.PlugIns.PersonOfInterestDetectionResult compareResult)
         {
+
             this.listPersons.Add(compareResult);
 
             var lvi = new ListViewItem(new string[] { "",
@@ -154,8 +155,11 @@ namespace RemoteImaging.ImportPersonCompare
 
         private void ImmediatelyModel_FormClosing(object sender, FormClosingEventArgs e)
         {
-            e.Cancel = true;
-            this.Hide();
+            if (e.CloseReason != CloseReason.FormOwnerClosing)
+            {
+                e.Cancel = true;
+                this.Hide();
+            }
         }
 
         private void clearAll_Click(object sender, EventArgs e)

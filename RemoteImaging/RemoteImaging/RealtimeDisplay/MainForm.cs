@@ -864,7 +864,7 @@ namespace RemoteImaging.RealtimeDisplay
 
        private void alermForm_Click(object sender, EventArgs e)
        {
-           this.alertForm.ShowDialog(this);
+           this.alertForm.Show(this);
        }
 
     }

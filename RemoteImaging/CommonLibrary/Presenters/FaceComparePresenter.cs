@@ -43,16 +43,12 @@ namespace Damany.RemoteImaging.Common.Presenters
         {
             if (isRunning)
             {
-                return;
+                this.exit = true;
             }
-
-            this.view.EnableCompareButton(false);
-            this.exit = false;
-            this.isRunning = true;
-
-
-            try
+            else
             {
+                this.exit = false; 
+                
                 var from = this.view.SearchFrom;
                 var to = this.view.SearchTo;
 
@@ -67,11 +63,8 @@ namespace Damany.RemoteImaging.Common.Presenters
                     this.CompareFace(range, image, rect));
 
             }
-            finally 
-            {
-                this.view.EnableCompareButton(true);
-                isRunning = false;
-            }
+
+         
 
            
         }
@@ -96,7 +89,10 @@ namespace Damany.RemoteImaging.Common.Presenters
             OpenCvSharp.IplImage targetImage, OpenCvSharp.CvRect rect)
         {
             try
-            {
+            { 
+                isRunning = true;
+                this.view.EnableStartButton(false);
+
                 targetImage.ROI = rect;
                 var portraits = this.repository.GetPortraits(range);
                 int count = 0;
@@ -132,14 +128,11 @@ namespace Damany.RemoteImaging.Common.Presenters
             }
             finally
             {
-                this.view.EnableCompareButton(true);
+                isRunning = false;
+                this.view.EnableStartButton(true);
             }
             
         }
-
-
-
-
 
         private int ThresholdIndex
         { 
@@ -170,6 +163,6 @@ namespace Damany.RemoteImaging.Common.Presenters
         private int _thresholdIndex;
         private object locker = new object();
 
-        private bool isRunning = false;
+        private volatile bool isRunning = false;
     }
 }

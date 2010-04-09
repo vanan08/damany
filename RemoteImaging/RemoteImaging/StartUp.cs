@@ -94,15 +94,15 @@ namespace RemoteImaging
 
 
 
-            //this.builder.RegisterInstance(repository)
-            //    .As<Damany.PortraitCapturer.DAL.IRepository>()
-            //    .ExternallyOwned();
+            this.builder.RegisterInstance(repository)
+                .As<Damany.PortraitCapturer.DAL.IRepository>()
+                .ExternallyOwned();
 
-            var dirRepository = new Damany.PortraitCapturer.DAL.DirectoryRepository(@"M:\imageSearch");
+            //var dirRepository = new Damany.PortraitCapturer.DAL.DirectoryRepository(@"M:\imageSearch");
 
-            this.builder.RegisterInstance(dirRepository)
-                        .As<Damany.PortraitCapturer.DAL.IRepository>()
-                        .ExternallyOwned();
+            //this.builder.RegisterInstance(dirRepository)
+            //            .As<Damany.PortraitCapturer.DAL.IRepository>()
+            //            .ExternallyOwned();
         }
 
         private void InitConfigManager()
