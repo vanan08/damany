@@ -13,8 +13,13 @@ namespace Damany.Imaging.Extensions
 
         public static CvRect[] LocateFaces(this IplImage img)
         {
+            return LocateFaces(img, new CvRect(0,0,0,0));
+        }
+
+        public static CvRect[] LocateFaces(this IplImage img, CvRect rectToLookin)
+        {
             var frame = new Common.Frame(img);
-            frame.MotionRectangles.Add(img.BoundsRect());
+            frame.MotionRectangles.Add(rectToLookin);
             searcher.AddInFrame(frame);
             var faces = searcher.SearchFaces();
 
