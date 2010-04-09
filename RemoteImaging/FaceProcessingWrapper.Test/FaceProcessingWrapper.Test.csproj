@@ -13,6 +13,10 @@
     <AssemblyName>FaceProcessingWrapper.Test</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <SccProjectName>&lt;Project Location In Database&gt;</SccProjectName>
+    <SccLocalPath>&lt;Local Binding Root of Project&gt;</SccLocalPath>
+    <SccAuxPath>&lt;Source Control Database&gt;</SccAuxPath>
+    <SccProvider>Mercurial Source Control Package</SccProvider>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -56,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FacePCATest.cs" />
+    <Compile Include="FaceSearcherTest.cs" />
     <Compile Include="FrontFaceCheckerTest.cs" />
     <Compile Include="MotionDetectorTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -91,6 +96,10 @@
     <ProjectReference Include="..\IconExtractor\ImageProcessing.csproj">
       <Project>{C917EC7F-9A59-4845-9108-87056AC61D4F}</Project>
       <Name>ImageProcessing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TestDataProvider\TestDataProvider.csproj">
+      <Project>{5783AFA7-05AD-4B52-8A0F-C120EADCCB9C}</Project>
+      <Name>TestDataProvider</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
