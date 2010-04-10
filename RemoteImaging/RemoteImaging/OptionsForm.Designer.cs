@@ -41,6 +41,7 @@
             this.linkLabelConfigCamera = new System.Windows.Forms.LinkLabel();
             this.dataGridCameras = new System.Windows.Forms.DataGridView();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.cameraSetting1 = new RemoteImaging.Controls.CameraSetting();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.browseForOutputFolder = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
@@ -78,9 +79,10 @@
             this.label17 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.textBox8 = new System.Windows.Forms.TextBox();
-            this.cameraSetting1 = new RemoteImaging.Controls.CameraSetting();
             this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.UserName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Pwd = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.IP = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.comboBoxColumnProvider = new System.Windows.Forms.DataGridViewComboBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
@@ -111,7 +113,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(92, 38);
+            this.label2.Location = new System.Drawing.Point(92, 59);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(293, 12);
             this.label2.TabIndex = 2;
@@ -121,7 +123,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Tahoma", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label1.Location = new System.Drawing.Point(92, 12);
+            this.label1.Location = new System.Drawing.Point(92, 23);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(136, 24);
             this.label1.TabIndex = 1;
@@ -130,7 +132,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(38, 6);
+            this.pictureBox1.Location = new System.Drawing.Point(38, 23);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(48, 48);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -175,6 +177,7 @@
             // 
             // dataGridCameras
             // 
+            this.dataGridCameras.AllowUserToOrderColumns = true;
             this.dataGridCameras.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
@@ -188,6 +191,8 @@
             this.dataGridCameras.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.name,
             this.ID,
+            this.UserName,
+            this.Pwd,
             this.IP,
             this.comboBoxColumnProvider});
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -198,7 +203,7 @@
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridCameras.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dataGridCameras.Location = new System.Drawing.Point(16, 30);
+            this.dataGridCameras.Location = new System.Drawing.Point(14, 30);
             this.dataGridCameras.Name = "dataGridCameras";
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
@@ -223,6 +228,31 @@
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "人像截取";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // cameraSetting1
+            // 
+            this.cameraSetting1.BottomExtRatio = 0.5F;
+            this.cameraSetting1.DrawMotionRegion = false;
+            this.cameraSetting1.EnableDetectMotion = false;
+            this.cameraSetting1.ImageGroupLength = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.cameraSetting1.LeftExtRatio = 0.5F;
+            this.cameraSetting1.Location = new System.Drawing.Point(6, 3);
+            this.cameraSetting1.MaxFaceWidth = 300;
+            this.cameraSetting1.MinFaceWidth = 60;
+            this.cameraSetting1.MotionRegionAreaLimit = new decimal(new int[] {
+            500,
+            0,
+            0,
+            0});
+            this.cameraSetting1.Name = "cameraSetting1";
+            this.cameraSetting1.RightExtRatio = 0.5F;
+            this.cameraSetting1.Size = new System.Drawing.Size(467, 333);
+            this.cameraSetting1.TabIndex = 0;
+            this.cameraSetting1.TopExtRatio = 0.5F;
             // 
             // tabPage5
             // 
@@ -581,48 +611,37 @@
             this.textBox8.Size = new System.Drawing.Size(51, 21);
             this.textBox8.TabIndex = 0;
             // 
-            // cameraSetting1
-            // 
-            this.cameraSetting1.BottomExtRatio = 0.5F;
-            this.cameraSetting1.DrawMotionRegion = false;
-            this.cameraSetting1.EnableDetectMotion = false;
-            this.cameraSetting1.ImageGroupLength = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-            this.cameraSetting1.LeftExtRatio = 0.5F;
-            this.cameraSetting1.Location = new System.Drawing.Point(6, 3);
-            this.cameraSetting1.MaxFaceWidth = 300;
-            this.cameraSetting1.MinFaceWidth = 60;
-            this.cameraSetting1.MotionRegionAreaLimit = new decimal(new int[] {
-            500,
-            0,
-            0,
-            0});
-            this.cameraSetting1.Name = "cameraSetting1";
-            this.cameraSetting1.RightExtRatio = 0.5F;
-            this.cameraSetting1.Size = new System.Drawing.Size(467, 333);
-            this.cameraSetting1.TabIndex = 0;
-            this.cameraSetting1.TopExtRatio = 0.5F;
-            // 
             // name
             // 
+            this.name.FillWeight = 101.5228F;
             this.name.HeaderText = "名称";
             this.name.Name = "name";
             // 
             // ID
             // 
+            this.ID.FillWeight = 99.49239F;
             this.ID.HeaderText = "编号";
             this.ID.Name = "ID";
             // 
+            // UserName
+            // 
+            this.UserName.HeaderText = "用户名";
+            this.UserName.Name = "UserName";
+            // 
+            // Pwd
+            // 
+            this.Pwd.HeaderText = "密码";
+            this.Pwd.Name = "Pwd";
+            // 
             // IP
             // 
+            this.IP.FillWeight = 99.49239F;
             this.IP.HeaderText = "地址";
             this.IP.Name = "IP";
             // 
             // comboBoxColumnProvider
             // 
+            this.comboBoxColumnProvider.FillWeight = 99.49239F;
             this.comboBoxColumnProvider.HeaderText = "类型";
             this.comboBoxColumnProvider.Name = "comboBoxColumnProvider";
             // 
@@ -714,6 +733,8 @@
         private RemoteImaging.Controls.CameraSetting cameraSetting1;
         private System.Windows.Forms.DataGridViewTextBoxColumn name;
         private System.Windows.Forms.DataGridViewTextBoxColumn ID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn UserName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Pwd;
         private System.Windows.Forms.DataGridViewTextBoxColumn IP;
         private System.Windows.Forms.DataGridViewComboBoxColumn comboBoxColumnProvider;
     }

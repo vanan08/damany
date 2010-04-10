@@ -40,6 +40,13 @@ namespace RemoteImaging.RealtimeDisplay
 
             InitStatusBar();
 
+            this.zoomPicBox.Visible = false;
+            this.zoomPicBox.Dock = DockStyle.Fill;
+
+            this.tableLayoutPanel1.Visible = true;
+            this.tableLayoutPanel1.Dock = DockStyle.Fill;
+
+
             Application.Idle += new EventHandler(Application_Idle);
         }
 
@@ -125,10 +132,6 @@ namespace RemoteImaging.RealtimeDisplay
             get
             {
                 Portrait p = null;
-                if (this.squareListView1.SelectedCell != null)
-                {
-                    p = (Portrait)this.squareListView1.SelectedCell.Tag;
-                }
 
                 return p;
             }
@@ -149,8 +152,6 @@ namespace RemoteImaging.RealtimeDisplay
                     return;
                 }
 
-                this.pictureEdit1.Image = value.GetImage().ToBitmap();
-                this.pictureEdit1.Tag = value;
 
             }
         }
@@ -174,18 +175,6 @@ namespace RemoteImaging.RealtimeDisplay
 
         public void ShowImages(ImageDetail[] images)
         {
-            ImageCell[] cells = new ImageCell[images.Length];
-            for (int i = 0; i < cells.Length; i++)
-            {
-                Image img = Damany.Util.Extensions.MiscHelper.FromFileBuffered(images[i].Path);
-                string text = images[i].CaptureTime.ToString();
-                ImageCell newCell = new ImageCell() { Image = img, Path = images[i].Path, Text = text, Tag = null };
-                cells[i] = newCell;
-            }
-
-            ShowLiveFace(images);
-
-            this.squareListView1.ShowImages(cells);
 
         }
 
@@ -213,56 +202,56 @@ namespace RemoteImaging.RealtimeDisplay
             {
                 this.cameraTree.Nodes.Clear();
 
-                TreeNode rootNode = new TreeNode()
-                {
-                    Text = "所有摄像头",
-                    ImageIndex = 0,
-                    SelectedImageIndex = 0
-                };
+//                TreeNode rootNode = new TreeNode()
+//                {
+//                    Text = "所有摄像头",
+//                    ImageIndex = 0,
+//                    SelectedImageIndex = 0
+//                };
 
                 Array.ForEach(value, camera =>
                 {
-                    TreeNode camNode = new TreeNode()
+                    TreeNode camNode = new TreeNode
                     {
-                        Text = camera.Name,
+                        Text = camera.Name + @"-[" + camera.Location.Host + "]",
                         ImageIndex = 1,
                         SelectedImageIndex = 1,
                         Tag = camera,
                     };
 
-                    TreeNode setupNode = new TreeNode()
-                    {
-                        Text = "设置",
-                        ImageIndex = 2,
-                        SelectedImageIndex = 2,
-                    };
-                    TreeNode propertyNode = new TreeNode()
-                    {
-                        Text = "属性",
-                        ImageIndex = 3,
-                        SelectedImageIndex = 3,
-                    };
-                    TreeNode ipNode = new TreeNode()
-                    {
-                        Text = "地址:" + camera.Location.ToString(),
-                        ImageIndex = 4,
-                        SelectedImageIndex = 4
-                    };
-                    TreeNode idNode = new TreeNode()
-                    {
-                        Text = "编号:" + camera.Id.ToString(),
-                        ImageIndex = 5,
-                        SelectedImageIndex = 5
-                    };
+//                    TreeNode setupNode = new TreeNode()
+//                    {
+//                        Text = "设置",
+//                        ImageIndex = 2,
+//                        SelectedImageIndex = 2,
+//                    };
+//                    TreeNode propertyNode = new TreeNode()
+//                    {
+//                        Text = "属性",
+//                        ImageIndex = 3,
+//                        SelectedImageIndex = 3,
+//                    };
+//                    TreeNode ipNode = new TreeNode()
+//                    {
+//                        Text = "地址:" + camera.Location.ToString(),
+//                        ImageIndex = 4,
+//                        SelectedImageIndex = 4
+//                    };
+//                    TreeNode idNode = new TreeNode()
+//                    {
+//                        Text = "编号:" + camera.Id.ToString(),
+//                        ImageIndex = 5,
+//                        SelectedImageIndex = 5
+//                    };
 
 
-                    propertyNode.Nodes.AddRange(new TreeNode[] { ipNode, idNode });
-                    camNode.Nodes.AddRange(new TreeNode[] { setupNode, propertyNode });
-                    rootNode.Nodes.Add(camNode);
+//                    propertyNode.Nodes.AddRange(new TreeNode[] { ipNode, idNode });
+//                    camNode.Nodes.AddRange(new TreeNode[] { setupNode, propertyNode });
+                    this.cameraTree.Nodes.Add(camNode);
 
                 });
 
-                this.cameraTree.Nodes.Add(rootNode);
+//                this.cameraTree.Nodes.Add(rootNode);
 
                 this.cameraTree.ExpandAll();
             }
@@ -363,30 +352,6 @@ namespace RemoteImaging.RealtimeDisplay
             p.Start();
         }
 
-        private void column1by1_Click(object sender, EventArgs e)
-        {
-            this.squareListView1.NumberOfColumns = 1;
-        }
-
-        private void column2by2_Click(object sender, EventArgs e)
-        {
-            this.squareListView1.NumberOfColumns = 2;
-        }
-
-        private void column3by3_Click(object sender, EventArgs e)
-        {
-            this.squareListView1.NumberOfColumns = 3;
-        }
-
-        private void column4by4_Click(object sender, EventArgs e)
-        {
-            this.squareListView1.NumberOfColumns = 4;
-        }
-
-        private void column5by5_Click(object sender, EventArgs e)
-        {
-            this.squareListView1.NumberOfColumns = 5;
-        }
 
         private void InitStatusBar()
         {
@@ -394,6 +359,11 @@ namespace RemoteImaging.RealtimeDisplay
         }
 
         private void aboutButton_Click(object sender, EventArgs e)
+        {
+            ShowAbout();
+        }
+
+        private void ShowAbout()
         {
             AboutBox about = new AboutBox();
             about.ShowDialog();
@@ -482,25 +452,12 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void pictureEdit1_DoubleClick(object sender, EventArgs e)
         {
-            if (this.pictureEdit1.Tag == null)
-            {
-                return;
-            }
-
-            ImageDetail img = this.pictureEdit1.Tag as ImageDetail;
-
-            ShowDetailPic(img);
+          
 
         }
 
         private void ShowPic()
         {
-            if (this.squareListView1.SelectedCell == null)
-                return;
-            string p = this.squareListView1.SelectedCell.Path;
-            if (p == null) return;
-
-            this.ShowDetailPic(ImageDetail.FromPath(p));
         }
 
 
@@ -528,28 +485,6 @@ namespace RemoteImaging.RealtimeDisplay
 
                 this.BeginInvoke(action, cam);
                 return;
-            }
-
-            this.axCamImgCtrl1.CamImgCtrlStop();
-
-            this.axCamImgCtrl1.ImageFileURL = @"liveimg.cgi";
-            this.axCamImgCtrl1.ImageType = @"MPEG";
-            this.axCamImgCtrl1.CameraModel = 1;
-            this.axCamImgCtrl1.CtlLocation = @"http://" + cam.Location.Host;
-            this.axCamImgCtrl1.uid = "guest";
-            this.axCamImgCtrl1.pwd = "guest";
-            this.axCamImgCtrl1.RecordingFolderPath
-                = Path.Combine(Properties.Settings.Default.OutputPath, cam.Id.ToString("D2"));
-            this.axCamImgCtrl1.RecordingFormat = 0;
-            this.axCamImgCtrl1.UniIP = this.axCamImgCtrl1.CtlLocation;
-            this.axCamImgCtrl1.UnicastPort = 3939;
-            this.axCamImgCtrl1.ComType = 0;
-
-            if (Properties.Settings.Default.Live)
-            {
-                this.axCamImgCtrl1.CamImgCtrlStart();
-                this.axCamImgCtrl1.CamImgRecStart();
-
             }
 
         }
@@ -637,10 +572,6 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void CenterLiveControl()
         {
-            int height = this.panelControl1.Height - this.axCamImgCtrl1.Height;
-            int x = (this.panelControl1.Width - this.axCamImgCtrl1.Width) / 2;
-            this.axCamImgCtrl1.Left = x;
-            this.squareListView1.Height = height - 15;
         }
         private void panelControl1_SizeChanged(object sender, EventArgs e)
         {
@@ -795,7 +726,6 @@ namespace RemoteImaging.RealtimeDisplay
                                                          Tag = p
                                                      }).ToArray();
 
-            this.squareListView1.ShowImages(imgCells);
             var last = portraits.LastOrDefault();
             if (last != null)
             {
@@ -866,6 +796,31 @@ namespace RemoteImaging.RealtimeDisplay
        {
            this.alertForm.Show(this);
        }
+
+       private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+       {
+           this.ShowAbout();
+       }
+
+       private void pictureEdit2_DoubleClick(object sender, EventArgs e)
+       {
+           SwitchZoomPicbox();
+       }
+
+       private void zoomPicBox_DoubleClick(object sender, EventArgs e)
+       {
+           SwitchZoomPicbox();
+       }
+
+        private void SwitchZoomPicbox()
+        {
+            this.tableLayoutPanel1.Visible = !this.tableLayoutPanel1.Visible;
+            this.zoomPicBox.Visible = !this.zoomPicBox.Visible;
+        }
+
+
+
+
 
     }
 }
