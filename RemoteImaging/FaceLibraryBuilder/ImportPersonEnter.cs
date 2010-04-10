@@ -156,10 +156,6 @@ namespace FaceLibraryBuilder
             FormProgress form = new FormProgress();
             form.Manager = this.mnger;
             form.ShowDialog(this);
-
-            var m = SuspectsRepositoryManager.LoadFrom(@"d:\imglib");
-
-
         }
 
         private void txtId_Validating(object sender, CancelEventArgs e)
