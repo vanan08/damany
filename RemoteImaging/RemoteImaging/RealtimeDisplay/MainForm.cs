@@ -92,6 +92,29 @@ namespace RemoteImaging.RealtimeDisplay
         }
 
 
+        public void ShowFrame(Frame frame)
+        {
+            foreach (var c in tableLayoutPanel1.Controls)
+            {
+                var pip = c as PipPictureBox;
+                if (pip == null)
+                {
+                    continue;
+                }
+
+                var cam = pip.Tag as CameraInfo;
+                if (cam == null)
+                {
+                    continue;
+                }
+
+                if (cam.Id == frame.CapturedFrom.Id)
+                {
+                    pip.Image = frame.GetImage().ToBitmap();
+                }
+            }
+        }
+
 
         CameraInfo allCamera = new CameraInfo() { Id = -1 };
 
@@ -116,15 +139,18 @@ namespace RemoteImaging.RealtimeDisplay
                 return (CameraInfo)this.Invoke(new Func<CameraInfo>(() => this.GetSelectedCamera()));
             }
 
-
-            if (this.cameraTree.SelectedNode == null
-                || this.cameraTree.SelectedNode.Level == 0)
+            if (Cameras == null)
             {
-                return allCamera;
+                return null;
             }
 
-            TreeNode nd = getTopCamera(this.cameraTree.SelectedNode);
-            return nd.Tag as CameraInfo;
+            if (SelectedLiveCamera != null)
+            {
+                var c = Cameras.SingleOrDefault(cam => cam.Id == (int) SelectedLiveCamera.Tag);
+                return c;
+            }
+
+            return null;
         }
 
         public Portrait SelectedPortrait
@@ -196,10 +222,17 @@ namespace RemoteImaging.RealtimeDisplay
 
         #region IImageScreen Members
 
+        private CameraInfo[] _cameras = new CameraInfo[0];
         public CameraInfo[] Cameras
         {
+            get
+            {
+                return _cameras;
+            }
             set
             {
+                _cameras = value;
+
                 this.cameraTree.Nodes.Clear();
 
 //                TreeNode rootNode = new TreeNode()
@@ -213,7 +246,7 @@ namespace RemoteImaging.RealtimeDisplay
                 {
                     TreeNode camNode = new TreeNode
                     {
-                        Text = camera.Name + @"-[" + camera.Location.Host + "]",
+                        Text = camera.Name + @"-[" + camera.Location.ToString() + "]",
                         ImageIndex = 1,
                         SelectedImageIndex = 1,
                         Tag = camera,
@@ -237,16 +270,18 @@ namespace RemoteImaging.RealtimeDisplay
 //                        ImageIndex = 4,
 //                        SelectedImageIndex = 4
 //                    };
-//                    TreeNode idNode = new TreeNode()
-//                    {
-//                        Text = "编号:" + camera.Id.ToString(),
-//                        ImageIndex = 5,
-//                        SelectedImageIndex = 5
-//                    };
+                    TreeNode idNode = new TreeNode()
+                    {
+                        Text = "编号:" + camera.Id.ToString(),
+                        ImageIndex = 5,
+                        SelectedImageIndex = 5
+                    };
+
+                    camNode.Nodes.Add(idNode);
 
 
 //                    propertyNode.Nodes.AddRange(new TreeNode[] { ipNode, idNode });
-//                    camNode.Nodes.AddRange(new TreeNode[] { setupNode, propertyNode });
+//                    camNode.Nodes.AddRange(new TreeNode[] { setupNode, propertyNode });)
                     this.cameraTree.Nodes.Add(camNode);
 
                 });
@@ -350,6 +385,7 @@ namespace RemoteImaging.RealtimeDisplay
         {
             var p = this._createOptionsPresenter();
             p.Start();
+
         }
 
 
@@ -629,7 +665,7 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void ViewCameraToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.controller.StartCamera();
+            
         }
 
         bool isDeleting = false;
@@ -719,18 +755,39 @@ namespace RemoteImaging.RealtimeDisplay
 
         public void HandlePortraits(IList<Frame> motionFrames, IList<Portrait> portraits)
         {
-            var imgCells = portraits.Select(p => new ImageCell()
-                                                     {
-                                                         Image = p.GetIpl().ToBitmap(),
-                                                         Text = p.CapturedAt.ToString(),
-                                                         Tag = p
-                                                     }).ToArray();
-
-            var last = portraits.LastOrDefault();
-            if (last != null)
+            foreach (var portrait in portraits)
             {
-                this.liveFace.Image = last.GetIpl().ToBitmap();
+                foreach (var control in tableLayoutPanel1.Controls)
+                {
+                    var p = control as PipPictureBox;
+                    if (p == null) continue;
+                    
+                    var cam =  p.Tag as CameraInfo ;
+                    if (cam == null)
+                        continue;
+
+                    if (cam.Id.Equals(portrait.CapturedFrom.Id))
+                        {
+                            p.SmallImage = portrait.GetIpl().ToBitmap();
+                        }
+                }
+
+
+                var liveIdx = this.liveFace.Tag as CameraInfo;
+                if (liveIdx == null)
+                {
+                    return;
+                }
+
+                if (liveIdx.Id == portrait.CapturedFrom.Id)
+                {
+                    liveFace.Image = portrait.GetIpl().ToBitmap();
+                    
+                }
+
+
             }
+
         }
 
         public void Stop()
@@ -818,9 +875,76 @@ namespace RemoteImaging.RealtimeDisplay
             this.zoomPicBox.Visible = !this.zoomPicBox.Visible;
         }
 
+        private void cameraTree_ItemDrag(object sender, ItemDragEventArgs e)
+        {
+            
+        }
+
+        private void pipPictureBox_Click(object sender, EventArgs e)
+        {
+            var p = sender as PipPictureBox;
+            if (p == null)
+                return;
+
+            if (SelectedLiveCamera != null && !object.ReferenceEquals(SelectedLiveCamera, sender))
+            {
+                SelectedLiveCamera.BorderStyle = BorderStyle.None;
+
+            }
+
+            p.BorderStyle = BorderStyle.FixedSingle;
+            SelectedLiveCamera = (PipPictureBox)sender;
 
 
 
+            liveFace.Tag = p.Tag;
+        }
 
+        private PipPictureBox SelectedLiveCamera { get; set; }
+
+        public Image LiveFace
+        {
+            set
+            {
+                if (liveFace.Image != null)
+                {
+                    liveFace.Dispose();
+                }
+
+                liveFace.Image = value;
+            }
+        }
+
+        private void contextMenuStripPip_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            contextMenuStripPip.Items.Clear();
+
+            foreach (var cam in Cameras)
+            {
+                var item = new ToolStripMenuItem(cam.Name);
+                item.Tag = cam;
+
+                item.Click += new EventHandler(item_Click);
+                contextMenuStripPip.Items.Add(item);
+            }
+        }
+
+        void item_Click(object sender, EventArgs e)
+        {
+            var cam = (CameraInfo) ((ToolStripMenuItem) sender).Tag ;
+            StartCam(cam);
+        }
+
+        private void StartCam(CameraInfo cam)
+        {
+            CameraInfo old = SelectedLiveCamera.Tag as CameraInfo;
+            if (old != null)
+            {
+                controller.StopCamera(old);
+            }
+
+            controller.StartCamera(cam);
+            SelectedLiveCamera.Tag = cam;
+        }
     }
 }

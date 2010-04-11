@@ -10,6 +10,7 @@ using Damany.PC.Domain;
 using Damany.PortraitCapturer.DAL;
 using RemoteImaging.Core;
 using Damany.RemoteImaging.Common;
+using Frame = Damany.Imaging.Common.Frame;
 
 namespace RemoteImaging
 {
@@ -23,6 +24,12 @@ namespace RemoteImaging
         {
             this._mainForm = mainForm;
             this._configManager = configManager;
+            configManager.ConfigurationChanged += delegate
+                                                      {
+                                                          var cams = configManager.GetCameras();
+                                                          mainForm.Cameras = cams.ToArray();
+                                                      };
+
             _repository = repository;
             _handlers = handlers;
             _comparer = comparer;
@@ -48,6 +55,12 @@ namespace RemoteImaging
 
         }
 
+        public void SelectLiveCamera()
+        {
+            
+        }
+
+
         private void InitializeHandlers()
         {
             foreach (var portraitHandler in _handlers)
@@ -62,17 +75,29 @@ namespace RemoteImaging
             this._mainForm.ShowSuspects(e.Value);
         }
 
-        public void StartCamera()
+        public void StartCamera(CameraInfo cam)
         {
-            var selected = this._mainForm.GetSelectedCamera();
-            if (selected == null) return;
-
-            if (_currentController != null)
+            if (cam == null)
             {
-                _currentController.Stop();
+                return;
             }
 
-            this.StartCameraInternal(selected);
+            if (HasStarted(cam))
+            {
+                camReferences[cam]++;
+                return;
+            }
+
+
+            this.StartCameraInternal(cam);
+        }
+
+        public void StopCamera(CameraInfo cam)
+        {
+            if (camReferences.ContainsKey(cam))
+            {
+                camReferences[cam]--;
+            }
         }
 
         public void SelectedPortraitChanged()
@@ -108,10 +133,21 @@ namespace RemoteImaging
                     var camController = SearchLineBuilder.BuildNewSearchLine(cam);
 
                     RegisterHandlers(camController);
-
+                    camController.Worker.OnWorkItemIsDone += new Action<object>(Worker_OnWorkItemIsDone);
                     camController.Start();
 
-                    _currentController = camController;
+                    if (!camReferences.ContainsKey(cam))
+                    {
+                        camReferences.Add(cam, 1);
+                    }
+                    else
+                    {
+                        camReferences[cam]++;
+                        
+                    }
+
+                    
+                    controllers[cam] = camController;
                     if (cam.Provider == CameraProvider.Sanyo)
                     {
                         this._mainForm.StartRecord(cam);
@@ -128,6 +164,16 @@ namespace RemoteImaging
             System.Threading.ThreadPool.QueueUserWorkItem(action);
         }
 
+        void Worker_OnWorkItemIsDone(object obj)
+        {
+            Frame f = obj as Frame;
+
+            if (f != null)
+            {
+                _mainForm.ShowFrame(f);
+            }
+        }
+
         private void RegisterHandlers(FaceSearchController camController)
         {
             foreach (var h in _handlers)
@@ -136,12 +182,31 @@ namespace RemoteImaging
             }
         }
 
+        private bool HasReference(CameraInfo cam)
+        {
+            if (camReferences.ContainsKey(cam))
+            {
+                return false;
+            }
+
+            return camReferences[cam] != 0;
+        }
+
+        private bool HasStarted(CameraInfo cam)
+        {
+            return controllers.ContainsKey(cam);
+        }
+
 
         private RealtimeDisplay.MainForm _mainForm;
         private ConfigurationManager _configManager;
         private readonly IRepository _repository;
         private readonly IEnumerable<IPortraitHandler> _handlers;
         private readonly FaceComparer _comparer;
-        private Damany.Imaging.Processors.FaceSearchController _currentController;
+
+        private Dictionary<CameraInfo, int> camReferences = new Dictionary<CameraInfo, int>();
+
+        private Dictionary<CameraInfo, FaceSearchController> controllers =
+            new Dictionary<CameraInfo, FaceSearchController>();
     }
 }

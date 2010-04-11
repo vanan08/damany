@@ -9,6 +9,14 @@ namespace Damany.RemoteImaging.Common
 {
     public class ConfigurationManager
     {
+        public event EventHandler ConfigurationChanged;
+
+        public void InvokeConfigurationChanged()
+        {
+            EventHandler handler = ConfigurationChanged;
+            if (handler != null) handler(this, EventArgs.Empty);
+        }
+
         public static ConfigurationManager GetDefault()
         {
             if (instance == null)
@@ -53,6 +61,8 @@ namespace Damany.RemoteImaging.Common
         {
             this.objContainer.Store(camera);
             this.objContainer.Commit();
+
+            InvokeConfigurationChanged();
         }
 
         public void DeleteCamera(CameraInfo camera)
