@@ -30,16 +30,16 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("192.168.1.2", 1, 1);
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("2", 2, 2);
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("南门", new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode2});
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("192.168.1.1", 1, 1);
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("3", 2, 2);
-            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("北门", new System.Windows.Forms.TreeNode[] {
-            treeNode4,
-            treeNode5});
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("192.168.1.2", 1, 1);
+            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("2", 2, 2);
+            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("南门", new System.Windows.Forms.TreeNode[] {
+            treeNode7,
+            treeNode8});
+            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("192.168.1.1", 1, 1);
+            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("3", 2, 2);
+            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("北门", new System.Windows.Forms.TreeNode[] {
+            treeNode10,
+            treeNode11});
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.statusOutputFolder = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusCPUMemUsage = new System.Windows.Forms.ToolStripStatusLabel();
@@ -49,6 +49,15 @@
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
             this.zoomPicBox = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.pipPictureBox1 = new Damany.Windows.Form.PipPictureBox();
+            this.pipPictureBox2 = new Damany.Windows.Form.PipPictureBox();
+            this.pipPictureBox3 = new Damany.Windows.Form.PipPictureBox();
+            this.pipPictureBox4 = new Damany.Windows.Form.PipPictureBox();
+            this.pipPictureBox5 = new Damany.Windows.Form.PipPictureBox();
+            this.pipPictureBox6 = new Damany.Windows.Form.PipPictureBox();
+            this.pipPictureBox7 = new Damany.Windows.Form.PipPictureBox();
+            this.pipPictureBox8 = new Damany.Windows.Form.PipPictureBox();
+            this.pipPictureBox9 = new Damany.Windows.Form.PipPictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.liveFace = new System.Windows.Forms.PictureBox();
             this.panelControl6 = new DevExpress.XtraEditors.PanelControl();
@@ -114,15 +123,7 @@
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panelControl5 = new DevExpress.XtraEditors.PanelControl();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.pictureBox5 = new System.Windows.Forms.PictureBox();
-            this.pictureBox6 = new System.Windows.Forms.PictureBox();
-            this.pictureBox7 = new System.Windows.Forms.PictureBox();
-            this.pictureBox8 = new System.Windows.Forms.PictureBox();
-            this.pictureBox9 = new System.Windows.Forms.PictureBox();
-            this.pictureBox10 = new System.Windows.Forms.PictureBox();
-            this.pictureBox11 = new System.Windows.Forms.PictureBox();
-            this.pictureBox12 = new System.Windows.Forms.PictureBox();
+            this.contextMenuStripPip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
@@ -130,6 +131,15 @@
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.zoomPicBox)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pipPictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pipPictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pipPictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pipPictureBox4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pipPictureBox5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pipPictureBox6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pipPictureBox7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pipPictureBox8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pipPictureBox9)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.liveFace)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl6)).BeginInit();
@@ -154,15 +164,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.panelControl5)).BeginInit();
             this.panelControl5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox12)).BeginInit();
             this.SuspendLayout();
             // 
             // statusStrip1
@@ -172,9 +173,9 @@
             this.statusCPUMemUsage,
             this.statusProgressBar,
             this.statusTime});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 581);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 584);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(948, 28);
+            this.statusStrip1.Size = new System.Drawing.Size(948, 25);
             this.statusStrip1.TabIndex = 2;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -185,7 +186,7 @@
                         | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
             this.statusOutputFolder.Image = ((System.Drawing.Image)(resources.GetObject("statusOutputFolder.Image")));
             this.statusOutputFolder.Name = "statusOutputFolder";
-            this.statusOutputFolder.Size = new System.Drawing.Size(161, 23);
+            this.statusOutputFolder.Size = new System.Drawing.Size(149, 20);
             this.statusOutputFolder.Text = "toolStripStatusLabel2";
             this.statusOutputFolder.Click += new System.EventHandler(this.statusOutputFolder_Click);
             // 
@@ -195,13 +196,13 @@
                         | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)
                         | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
             this.statusCPUMemUsage.Name = "statusCPUMemUsage";
-            this.statusCPUMemUsage.Size = new System.Drawing.Size(145, 23);
+            this.statusCPUMemUsage.Size = new System.Drawing.Size(133, 20);
             this.statusCPUMemUsage.Text = "toolStripStatusLabel1";
             // 
             // statusProgressBar
             // 
             this.statusProgressBar.Name = "statusProgressBar";
-            this.statusProgressBar.Size = new System.Drawing.Size(200, 22);
+            this.statusProgressBar.Size = new System.Drawing.Size(200, 19);
             this.statusProgressBar.Step = 1;
             this.statusProgressBar.Visible = false;
             // 
@@ -213,7 +214,7 @@
             this.statusTime.Image = ((System.Drawing.Image)(resources.GetObject("statusTime.Image")));
             this.statusTime.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.statusTime.Name = "statusTime";
-            this.statusTime.Size = new System.Drawing.Size(627, 23);
+            this.statusTime.Size = new System.Drawing.Size(651, 20);
             this.statusTime.Spring = true;
             this.statusTime.Text = "toolStripStatusLabel1";
             // 
@@ -231,7 +232,7 @@
             this.layoutControl1.Location = new System.Drawing.Point(0, 50);
             this.layoutControl1.Name = "layoutControl1";
             this.layoutControl1.Root = this.layoutControlGroup1;
-            this.layoutControl1.Size = new System.Drawing.Size(948, 531);
+            this.layoutControl1.Size = new System.Drawing.Size(948, 534);
             this.layoutControl1.TabIndex = 3;
             this.layoutControl1.Text = "layoutControl1";
             // 
@@ -241,7 +242,7 @@
             this.panelControl1.Controls.Add(this.tableLayoutPanel1);
             this.panelControl1.Location = new System.Drawing.Point(175, 7);
             this.panelControl1.Name = "panelControl1";
-            this.panelControl1.Size = new System.Drawing.Size(766, 517);
+            this.panelControl1.Size = new System.Drawing.Size(766, 520);
             this.panelControl1.TabIndex = 10;
             this.panelControl1.SizeChanged += new System.EventHandler(this.panelControl1_SizeChanged);
             // 
@@ -261,31 +262,185 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
-            this.tableLayoutPanel1.Controls.Add(this.pictureBox12, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.pictureBox11, 2, 2);
-            this.tableLayoutPanel1.Controls.Add(this.pictureBox10, 1, 2);
-            this.tableLayoutPanel1.Controls.Add(this.pictureBox9, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.pictureBox8, 2, 1);
-            this.tableLayoutPanel1.Controls.Add(this.pictureBox7, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.pictureBox6, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.pictureBox5, 2, 0);
-            this.tableLayoutPanel1.Controls.Add(this.pictureBox3, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.pipPictureBox1, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.pipPictureBox2, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.pipPictureBox3, 2, 0);
+            this.tableLayoutPanel1.Controls.Add(this.pipPictureBox4, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.pipPictureBox5, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.pipPictureBox6, 2, 1);
+            this.tableLayoutPanel1.Controls.Add(this.pipPictureBox7, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.pipPictureBox8, 1, 2);
+            this.tableLayoutPanel1.Controls.Add(this.pipPictureBox9, 2, 2);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(23, 24);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 3;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(387, 327);
             this.tableLayoutPanel1.TabIndex = 4;
+            // 
+            // pipPictureBox1
+            // 
+            this.pipPictureBox1.BackColor = System.Drawing.SystemColors.Window;
+            this.pipPictureBox1.ContextMenuStrip = this.contextMenuStripPip;
+            this.pipPictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pipPictureBox1.DrawFrame = false;
+            this.pipPictureBox1.Location = new System.Drawing.Point(3, 3);
+            this.pipPictureBox1.Name = "pipPictureBox1";
+            this.pipPictureBox1.Size = new System.Drawing.Size(122, 103);
+            this.pipPictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pipPictureBox1.SmallImage = null;
+            this.pipPictureBox1.SmallImageSizePercentage = 0.25F;
+            this.pipPictureBox1.TabIndex = 0;
+            this.pipPictureBox1.TabStop = false;
+            this.pipPictureBox1.Tag = "";
+            this.pipPictureBox1.Click += new System.EventHandler(this.pipPictureBox_Click);
+            // 
+            // pipPictureBox2
+            // 
+            this.pipPictureBox2.BackColor = System.Drawing.SystemColors.Window;
+            this.pipPictureBox2.ContextMenuStrip = this.contextMenuStripPip;
+            this.pipPictureBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pipPictureBox2.DrawFrame = false;
+            this.pipPictureBox2.Location = new System.Drawing.Point(131, 3);
+            this.pipPictureBox2.Name = "pipPictureBox2";
+            this.pipPictureBox2.Size = new System.Drawing.Size(123, 103);
+            this.pipPictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pipPictureBox2.SmallImage = null;
+            this.pipPictureBox2.SmallImageSizePercentage = 0.25F;
+            this.pipPictureBox2.TabIndex = 1;
+            this.pipPictureBox2.TabStop = false;
+            this.pipPictureBox2.Tag = "";
+            this.pipPictureBox2.Click += new System.EventHandler(this.pipPictureBox_Click);
+            // 
+            // pipPictureBox3
+            // 
+            this.pipPictureBox3.BackColor = System.Drawing.SystemColors.Window;
+            this.pipPictureBox3.ContextMenuStrip = this.contextMenuStripPip;
+            this.pipPictureBox3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pipPictureBox3.DrawFrame = false;
+            this.pipPictureBox3.Location = new System.Drawing.Point(260, 3);
+            this.pipPictureBox3.Name = "pipPictureBox3";
+            this.pipPictureBox3.Size = new System.Drawing.Size(124, 103);
+            this.pipPictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pipPictureBox3.SmallImage = null;
+            this.pipPictureBox3.SmallImageSizePercentage = 0.25F;
+            this.pipPictureBox3.TabIndex = 2;
+            this.pipPictureBox3.TabStop = false;
+            this.pipPictureBox3.Tag = "";
+            this.pipPictureBox3.Click += new System.EventHandler(this.pipPictureBox_Click);
+            // 
+            // pipPictureBox4
+            // 
+            this.pipPictureBox4.BackColor = System.Drawing.SystemColors.Window;
+            this.pipPictureBox4.ContextMenuStrip = this.contextMenuStripPip;
+            this.pipPictureBox4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pipPictureBox4.DrawFrame = false;
+            this.pipPictureBox4.Location = new System.Drawing.Point(3, 112);
+            this.pipPictureBox4.Name = "pipPictureBox4";
+            this.pipPictureBox4.Size = new System.Drawing.Size(122, 103);
+            this.pipPictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pipPictureBox4.SmallImage = null;
+            this.pipPictureBox4.SmallImageSizePercentage = 0.25F;
+            this.pipPictureBox4.TabIndex = 3;
+            this.pipPictureBox4.TabStop = false;
+            this.pipPictureBox4.Tag = "";
+            this.pipPictureBox4.Click += new System.EventHandler(this.pipPictureBox_Click);
+            // 
+            // pipPictureBox5
+            // 
+            this.pipPictureBox5.BackColor = System.Drawing.SystemColors.Window;
+            this.pipPictureBox5.ContextMenuStrip = this.contextMenuStripPip;
+            this.pipPictureBox5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pipPictureBox5.DrawFrame = false;
+            this.pipPictureBox5.Location = new System.Drawing.Point(131, 112);
+            this.pipPictureBox5.Name = "pipPictureBox5";
+            this.pipPictureBox5.Size = new System.Drawing.Size(123, 103);
+            this.pipPictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pipPictureBox5.SmallImage = null;
+            this.pipPictureBox5.SmallImageSizePercentage = 0.25F;
+            this.pipPictureBox5.TabIndex = 4;
+            this.pipPictureBox5.TabStop = false;
+            this.pipPictureBox5.Tag = "";
+            this.pipPictureBox5.Click += new System.EventHandler(this.pipPictureBox_Click);
+            // 
+            // pipPictureBox6
+            // 
+            this.pipPictureBox6.BackColor = System.Drawing.SystemColors.Window;
+            this.pipPictureBox6.ContextMenuStrip = this.contextMenuStripPip;
+            this.pipPictureBox6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pipPictureBox6.DrawFrame = false;
+            this.pipPictureBox6.Location = new System.Drawing.Point(260, 112);
+            this.pipPictureBox6.Name = "pipPictureBox6";
+            this.pipPictureBox6.Size = new System.Drawing.Size(124, 103);
+            this.pipPictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pipPictureBox6.SmallImage = null;
+            this.pipPictureBox6.SmallImageSizePercentage = 0.25F;
+            this.pipPictureBox6.TabIndex = 5;
+            this.pipPictureBox6.TabStop = false;
+            this.pipPictureBox6.Tag = "";
+            this.pipPictureBox6.Click += new System.EventHandler(this.pipPictureBox_Click);
+            // 
+            // pipPictureBox7
+            // 
+            this.pipPictureBox7.BackColor = System.Drawing.SystemColors.Window;
+            this.pipPictureBox7.ContextMenuStrip = this.contextMenuStripPip;
+            this.pipPictureBox7.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pipPictureBox7.DrawFrame = false;
+            this.pipPictureBox7.Location = new System.Drawing.Point(3, 221);
+            this.pipPictureBox7.Name = "pipPictureBox7";
+            this.pipPictureBox7.Size = new System.Drawing.Size(122, 103);
+            this.pipPictureBox7.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pipPictureBox7.SmallImage = null;
+            this.pipPictureBox7.SmallImageSizePercentage = 0.25F;
+            this.pipPictureBox7.TabIndex = 6;
+            this.pipPictureBox7.TabStop = false;
+            this.pipPictureBox7.Tag = "";
+            this.pipPictureBox7.Click += new System.EventHandler(this.pipPictureBox_Click);
+            // 
+            // pipPictureBox8
+            // 
+            this.pipPictureBox8.BackColor = System.Drawing.SystemColors.Window;
+            this.pipPictureBox8.ContextMenuStrip = this.contextMenuStripPip;
+            this.pipPictureBox8.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pipPictureBox8.DrawFrame = false;
+            this.pipPictureBox8.Location = new System.Drawing.Point(131, 221);
+            this.pipPictureBox8.Name = "pipPictureBox8";
+            this.pipPictureBox8.Size = new System.Drawing.Size(123, 103);
+            this.pipPictureBox8.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pipPictureBox8.SmallImage = null;
+            this.pipPictureBox8.SmallImageSizePercentage = 0.25F;
+            this.pipPictureBox8.TabIndex = 7;
+            this.pipPictureBox8.TabStop = false;
+            this.pipPictureBox8.Tag = "";
+            this.pipPictureBox8.Click += new System.EventHandler(this.pipPictureBox_Click);
+            // 
+            // pipPictureBox9
+            // 
+            this.pipPictureBox9.BackColor = System.Drawing.SystemColors.Window;
+            this.pipPictureBox9.ContextMenuStrip = this.contextMenuStripPip;
+            this.pipPictureBox9.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pipPictureBox9.DrawFrame = false;
+            this.pipPictureBox9.Location = new System.Drawing.Point(260, 221);
+            this.pipPictureBox9.Name = "pipPictureBox9";
+            this.pipPictureBox9.Size = new System.Drawing.Size(124, 103);
+            this.pipPictureBox9.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pipPictureBox9.SmallImage = null;
+            this.pipPictureBox9.SmallImageSizePercentage = 0.25F;
+            this.pipPictureBox9.TabIndex = 8;
+            this.pipPictureBox9.TabStop = false;
+            this.pipPictureBox9.Tag = "";
+            this.pipPictureBox9.Click += new System.EventHandler(this.pipPictureBox_Click);
             // 
             // panel2
             // 
             this.panel2.Controls.Add(this.liveFace);
             this.panel2.Controls.Add(this.panelControl6);
-            this.panel2.Location = new System.Drawing.Point(7, 317);
+            this.panel2.Location = new System.Drawing.Point(7, 319);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(152, 207);
+            this.panel2.Size = new System.Drawing.Size(152, 208);
             this.panel2.TabIndex = 13;
             // 
             // liveFace
@@ -294,10 +449,11 @@
             this.liveFace.Dock = System.Windows.Forms.DockStyle.Fill;
             this.liveFace.Location = new System.Drawing.Point(0, 24);
             this.liveFace.Name = "liveFace";
-            this.liveFace.Size = new System.Drawing.Size(152, 183);
+            this.liveFace.Size = new System.Drawing.Size(152, 184);
             this.liveFace.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.liveFace.TabIndex = 3;
             this.liveFace.TabStop = false;
+            this.liveFace.Tag = 0;
             // 
             // panelControl6
             // 
@@ -361,7 +517,7 @@
             this.panelControl2.Controls.Add(this.panelControl4);
             this.panelControl2.Location = new System.Drawing.Point(7, 7);
             this.panelControl2.Name = "panelControl2";
-            this.panelControl2.Size = new System.Drawing.Size(152, 294);
+            this.panelControl2.Size = new System.Drawing.Size(152, 296);
             this.panelControl2.TabIndex = 11;
             // 
             // cameraTree
@@ -375,35 +531,36 @@
             this.cameraTree.ImageList = this.cameraImageList;
             this.cameraTree.Location = new System.Drawing.Point(0, 24);
             this.cameraTree.Name = "cameraTree";
-            treeNode1.ImageIndex = 1;
-            treeNode1.Name = "Node1";
-            treeNode1.SelectedImageIndex = 1;
-            treeNode1.Text = "192.168.1.2";
-            treeNode2.ImageIndex = 2;
-            treeNode2.Name = "Node4";
-            treeNode2.SelectedImageIndex = 2;
-            treeNode2.Text = "2";
-            treeNode3.ImageIndex = 0;
-            treeNode3.Name = "Node0";
-            treeNode3.Text = "南门";
-            treeNode4.ImageIndex = 1;
-            treeNode4.Name = "Node3";
-            treeNode4.SelectedImageIndex = 1;
-            treeNode4.Text = "192.168.1.1";
-            treeNode5.ImageIndex = 2;
-            treeNode5.Name = "Node5";
-            treeNode5.SelectedImageIndex = 2;
-            treeNode5.Text = "3";
-            treeNode6.Name = "Node2";
-            treeNode6.Text = "北门";
+            treeNode7.ImageIndex = 1;
+            treeNode7.Name = "Node1";
+            treeNode7.SelectedImageIndex = 1;
+            treeNode7.Text = "192.168.1.2";
+            treeNode8.ImageIndex = 2;
+            treeNode8.Name = "Node4";
+            treeNode8.SelectedImageIndex = 2;
+            treeNode8.Text = "2";
+            treeNode9.ImageIndex = 0;
+            treeNode9.Name = "Node0";
+            treeNode9.Text = "南门";
+            treeNode10.ImageIndex = 1;
+            treeNode10.Name = "Node3";
+            treeNode10.SelectedImageIndex = 1;
+            treeNode10.Text = "192.168.1.1";
+            treeNode11.ImageIndex = 2;
+            treeNode11.Name = "Node5";
+            treeNode11.SelectedImageIndex = 2;
+            treeNode11.Text = "3";
+            treeNode12.Name = "Node2";
+            treeNode12.Text = "北门";
             this.cameraTree.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode3,
-            treeNode6});
+            treeNode9,
+            treeNode12});
             this.cameraTree.SelectedImageIndex = 0;
-            this.cameraTree.Size = new System.Drawing.Size(152, 270);
+            this.cameraTree.Size = new System.Drawing.Size(152, 272);
             this.cameraTree.TabIndex = 1;
             this.cameraTree.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.cameraTree_NodeMouseDoubleClick);
             this.cameraTree.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.cameraTree_NodeMouseClick);
+            this.cameraTree.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.cameraTree_ItemDrag);
             // 
             // contextMenuStripForCamTreeView
             // 
@@ -411,19 +568,19 @@
             this.ViewCameraToolStripMenuItem,
             this.SetupCameraToolStripMenuItem});
             this.contextMenuStripForCamTreeView.Name = "contextMenuStripForCamTreeView";
-            this.contextMenuStripForCamTreeView.Size = new System.Drawing.Size(105, 52);
+            this.contextMenuStripForCamTreeView.Size = new System.Drawing.Size(107, 48);
             // 
             // ViewCameraToolStripMenuItem
             // 
             this.ViewCameraToolStripMenuItem.Name = "ViewCameraToolStripMenuItem";
-            this.ViewCameraToolStripMenuItem.Size = new System.Drawing.Size(104, 24);
+            this.ViewCameraToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
             this.ViewCameraToolStripMenuItem.Text = "查看";
             this.ViewCameraToolStripMenuItem.Click += new System.EventHandler(this.ViewCameraToolStripMenuItem_Click);
             // 
             // SetupCameraToolStripMenuItem
             // 
             this.SetupCameraToolStripMenuItem.Name = "SetupCameraToolStripMenuItem";
-            this.SetupCameraToolStripMenuItem.Size = new System.Drawing.Size(104, 24);
+            this.SetupCameraToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
             this.SetupCameraToolStripMenuItem.Text = "设置";
             this.SetupCameraToolStripMenuItem.Click += new System.EventHandler(this.SetupCameraToolStripMenuItem_Click);
             // 
@@ -511,7 +668,7 @@
             this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup1.Name = "Root";
             this.layoutControlGroup1.OptionsItemText.TextToControlDistance = 5;
-            this.layoutControlGroup1.Size = new System.Drawing.Size(948, 531);
+            this.layoutControlGroup1.Size = new System.Drawing.Size(948, 534);
             this.layoutControlGroup1.Text = "Root";
             this.layoutControlGroup1.TextVisible = false;
             // 
@@ -521,7 +678,7 @@
             this.layoutControlItem5.CustomizationFormText = "layoutControlItem5";
             this.layoutControlItem5.Location = new System.Drawing.Point(168, 0);
             this.layoutControlItem5.Name = "layoutControlItem5";
-            this.layoutControlItem5.Size = new System.Drawing.Size(776, 527);
+            this.layoutControlItem5.Size = new System.Drawing.Size(776, 530);
             this.layoutControlItem5.Text = "layoutControlItem5";
             this.layoutControlItem5.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem5.TextToControlDistance = 0;
@@ -533,7 +690,7 @@
             this.layoutControlItem2.CustomizationFormText = "layoutControlItem2";
             this.layoutControlItem2.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(162, 304);
+            this.layoutControlItem2.Size = new System.Drawing.Size(162, 306);
             this.layoutControlItem2.Text = "layoutControlItem2";
             this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem2.TextToControlDistance = 0;
@@ -546,13 +703,13 @@
             this.splitterItem2.CustomizationFormText = "splitterItem2";
             this.splitterItem2.Location = new System.Drawing.Point(162, 0);
             this.splitterItem2.Name = "splitterItem2";
-            this.splitterItem2.Size = new System.Drawing.Size(6, 527);
+            this.splitterItem2.Size = new System.Drawing.Size(6, 530);
             // 
             // splitterItem1
             // 
             this.splitterItem1.AllowHotTrack = true;
             this.splitterItem1.CustomizationFormText = "splitterItem1";
-            this.splitterItem1.Location = new System.Drawing.Point(0, 304);
+            this.splitterItem1.Location = new System.Drawing.Point(0, 306);
             this.splitterItem1.Name = "splitterItem1";
             this.splitterItem1.Size = new System.Drawing.Size(162, 6);
             // 
@@ -560,9 +717,9 @@
             // 
             this.layoutControlItem6.Control = this.panel2;
             this.layoutControlItem6.CustomizationFormText = "layoutControlItem6";
-            this.layoutControlItem6.Location = new System.Drawing.Point(0, 310);
+            this.layoutControlItem6.Location = new System.Drawing.Point(0, 312);
             this.layoutControlItem6.Name = "layoutControlItem6";
-            this.layoutControlItem6.Size = new System.Drawing.Size(162, 217);
+            this.layoutControlItem6.Size = new System.Drawing.Size(162, 218);
             this.layoutControlItem6.Text = "layoutControlItem6";
             this.layoutControlItem6.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem6.TextToControlDistance = 0;
@@ -895,104 +1052,11 @@
             this.pictureBox2.TabIndex = 1;
             this.pictureBox2.TabStop = false;
             // 
-            // pictureBox3
+            // contextMenuStripPip
             // 
-            this.pictureBox3.BackColor = System.Drawing.SystemColors.Window;
-            this.pictureBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox3.Location = new System.Drawing.Point(3, 3);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(122, 103);
-            this.pictureBox3.TabIndex = 8;
-            this.pictureBox3.TabStop = false;
-            this.pictureBox3.DoubleClick += new System.EventHandler(this.zoomPicBox_DoubleClick);
-            // 
-            // pictureBox5
-            // 
-            this.pictureBox5.BackColor = System.Drawing.SystemColors.Window;
-            this.pictureBox5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox5.Location = new System.Drawing.Point(260, 3);
-            this.pictureBox5.Name = "pictureBox5";
-            this.pictureBox5.Size = new System.Drawing.Size(124, 103);
-            this.pictureBox5.TabIndex = 9;
-            this.pictureBox5.TabStop = false;
-            this.pictureBox5.DoubleClick += new System.EventHandler(this.zoomPicBox_DoubleClick);
-            // 
-            // pictureBox6
-            // 
-            this.pictureBox6.BackColor = System.Drawing.SystemColors.Window;
-            this.pictureBox6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox6.Location = new System.Drawing.Point(3, 112);
-            this.pictureBox6.Name = "pictureBox6";
-            this.pictureBox6.Size = new System.Drawing.Size(122, 103);
-            this.pictureBox6.TabIndex = 10;
-            this.pictureBox6.TabStop = false;
-            this.pictureBox6.DoubleClick += new System.EventHandler(this.zoomPicBox_DoubleClick);
-            // 
-            // pictureBox7
-            // 
-            this.pictureBox7.BackColor = System.Drawing.SystemColors.Window;
-            this.pictureBox7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox7.Location = new System.Drawing.Point(131, 112);
-            this.pictureBox7.Name = "pictureBox7";
-            this.pictureBox7.Size = new System.Drawing.Size(123, 103);
-            this.pictureBox7.TabIndex = 11;
-            this.pictureBox7.TabStop = false;
-            this.pictureBox7.DoubleClick += new System.EventHandler(this.zoomPicBox_DoubleClick);
-            // 
-            // pictureBox8
-            // 
-            this.pictureBox8.BackColor = System.Drawing.SystemColors.Window;
-            this.pictureBox8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox8.Location = new System.Drawing.Point(260, 112);
-            this.pictureBox8.Name = "pictureBox8";
-            this.pictureBox8.Size = new System.Drawing.Size(124, 103);
-            this.pictureBox8.TabIndex = 12;
-            this.pictureBox8.TabStop = false;
-            this.pictureBox8.DoubleClick += new System.EventHandler(this.zoomPicBox_DoubleClick);
-            // 
-            // pictureBox9
-            // 
-            this.pictureBox9.BackColor = System.Drawing.SystemColors.Window;
-            this.pictureBox9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox9.Location = new System.Drawing.Point(3, 221);
-            this.pictureBox9.Name = "pictureBox9";
-            this.pictureBox9.Size = new System.Drawing.Size(122, 103);
-            this.pictureBox9.TabIndex = 13;
-            this.pictureBox9.TabStop = false;
-            this.pictureBox9.DoubleClick += new System.EventHandler(this.zoomPicBox_DoubleClick);
-            // 
-            // pictureBox10
-            // 
-            this.pictureBox10.BackColor = System.Drawing.SystemColors.Window;
-            this.pictureBox10.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox10.Location = new System.Drawing.Point(131, 221);
-            this.pictureBox10.Name = "pictureBox10";
-            this.pictureBox10.Size = new System.Drawing.Size(123, 103);
-            this.pictureBox10.TabIndex = 14;
-            this.pictureBox10.TabStop = false;
-            this.pictureBox10.DoubleClick += new System.EventHandler(this.zoomPicBox_DoubleClick);
-            // 
-            // pictureBox11
-            // 
-            this.pictureBox11.BackColor = System.Drawing.SystemColors.Window;
-            this.pictureBox11.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox11.Location = new System.Drawing.Point(260, 221);
-            this.pictureBox11.Name = "pictureBox11";
-            this.pictureBox11.Size = new System.Drawing.Size(124, 103);
-            this.pictureBox11.TabIndex = 15;
-            this.pictureBox11.TabStop = false;
-            this.pictureBox11.DoubleClick += new System.EventHandler(this.zoomPicBox_DoubleClick);
-            // 
-            // pictureBox12
-            // 
-            this.pictureBox12.BackColor = System.Drawing.SystemColors.Window;
-            this.pictureBox12.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox12.Location = new System.Drawing.Point(131, 3);
-            this.pictureBox12.Name = "pictureBox12";
-            this.pictureBox12.Size = new System.Drawing.Size(123, 103);
-            this.pictureBox12.TabIndex = 16;
-            this.pictureBox12.TabStop = false;
-            this.pictureBox12.DoubleClick += new System.EventHandler(this.zoomPicBox_DoubleClick);
+            this.contextMenuStripPip.Name = "contextMenuStripPip";
+            this.contextMenuStripPip.Size = new System.Drawing.Size(61, 4);
+            this.contextMenuStripPip.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripPip_Opening);
             // 
             // MainForm
             // 
@@ -1019,6 +1083,15 @@
             this.panelControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.zoomPicBox)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pipPictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pipPictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pipPictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pipPictureBox4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pipPictureBox5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pipPictureBox6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pipPictureBox7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pipPictureBox8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pipPictureBox9)).EndInit();
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.liveFace)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl6)).EndInit();
@@ -1045,15 +1118,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.panelControl5)).EndInit();
             this.panelControl5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox12)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1135,15 +1199,16 @@
         private System.Windows.Forms.PictureBox zoomPicBox;
         private DevExpress.XtraEditors.PanelControl panelControl5;
         private System.Windows.Forms.PictureBox pictureBox2;
-        private System.Windows.Forms.PictureBox pictureBox12;
-        private System.Windows.Forms.PictureBox pictureBox11;
-        private System.Windows.Forms.PictureBox pictureBox10;
-        private System.Windows.Forms.PictureBox pictureBox9;
-        private System.Windows.Forms.PictureBox pictureBox8;
-        private System.Windows.Forms.PictureBox pictureBox7;
-        private System.Windows.Forms.PictureBox pictureBox6;
-        private System.Windows.Forms.PictureBox pictureBox5;
-        private System.Windows.Forms.PictureBox pictureBox3;
+        private Damany.Windows.Form.PipPictureBox pipPictureBox1;
+        private Damany.Windows.Form.PipPictureBox pipPictureBox2;
+        private Damany.Windows.Form.PipPictureBox pipPictureBox3;
+        private Damany.Windows.Form.PipPictureBox pipPictureBox4;
+        private Damany.Windows.Form.PipPictureBox pipPictureBox5;
+        private Damany.Windows.Form.PipPictureBox pipPictureBox6;
+        private Damany.Windows.Form.PipPictureBox pipPictureBox7;
+        private Damany.Windows.Form.PipPictureBox pipPictureBox8;
+        private Damany.Windows.Form.PipPictureBox pipPictureBox9;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripPip;
 
     }
 }
