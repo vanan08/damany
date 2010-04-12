@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using Damany.RemoteImaging.Common.Presenters;
 using Damany.Imaging.Extensions;
+using FaceSearchWrapper;
 
 namespace Damany.RemoteImaging.Common.Forms
 {
@@ -58,7 +59,7 @@ namespace Damany.RemoteImaging.Common.Forms
 
             this.ipl = OpenCvSharp.IplImage.FromBitmap((Bitmap)img);
 
-            var rects = this.ipl.LocateFaces();
+            var rects = this.ipl.LocateFaces(this.searcher);
 
             if (rects.Length == 0)
             {
@@ -182,10 +183,6 @@ namespace Damany.RemoteImaging.Common.Forms
         }
 
 
-        private Rectangle faceRect;
-        private FaceComparePresenter presenter;
-        private OpenCvSharp.IplImage ipl;
-        private bool started;
 
         private void FaceCompare_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -196,6 +193,14 @@ namespace Damany.RemoteImaging.Common.Forms
         {
             this.presenter.ThresholdChanged();
         }
+
+        private Rectangle faceRect;
+        private FaceComparePresenter presenter;
+        private OpenCvSharp.IplImage ipl;
+        private bool started;
+        private FaceSearchWrapper.FaceSearch searcher = new FaceSearch();
+
+
 
 
 
