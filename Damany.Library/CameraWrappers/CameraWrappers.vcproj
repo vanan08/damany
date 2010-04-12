@@ -134,7 +134,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="BK_NetClientSDK.lib $(NOINHERIT)"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;l:\Documents and Settings\benny\My Documents\Visual Studio 2008\Projects\Damany\Damany.Library\CameraWrappers\library\ClisentSDK\lib&quot;"
+				AdditionalLibraryDirectories="&quot;D:\windows.old\Documents and Settings\Benny\My Documents\Visual Studio 2008\Projects\Damany\Damany.Library\CameraWrappers\library\ClisentSDK\lib&quot;"
 				GenerateDebugInformation="true"
 				TargetMachine="1"
 			/>

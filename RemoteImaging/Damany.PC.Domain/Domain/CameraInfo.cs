@@ -17,20 +17,5 @@ namespace Damany.PC.Domain
         public string LoginUserName { get; set; }
         public string LoginPassword { get; set; }
 
-        public override bool Equals(object obj)
-        {
-            if (obj == null)
-            {
-                return false;
-            }
-            if ( !(obj is CameraInfo) )
-            {
-                return false;
-            }
-
-            var other = (CameraInfo) obj;
-
-            return this.Location.Equals(other.Location);
-        }
     }
 }
