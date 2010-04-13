@@ -39,6 +39,8 @@ namespace Damany.Cameras
         public void Close() { }
         public void Connect() {}
 
+        public string Name { get; set; }
+
         public Frame RetrieveFrame()
         {
             var ipl = IplImage.FromFile(this.imageFiles[current++]);

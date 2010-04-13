@@ -207,6 +207,18 @@ namespace Damany
 					}
 				}
 
+				virtual property String^ Name
+				{
+					String^ get(void)
+					{
+						return name;
+					}
+					void set(String^ value)
+					{
+						name = value;
+					}
+				}
+
 
 			private:
 				static void CheckResult(int result)
@@ -226,6 +238,7 @@ namespace Damany
 				String^ tmpFile;
 				System::Uri^ location;
 				int id;
+				String^ name;
 			};
 
 

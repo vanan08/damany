@@ -37,6 +37,8 @@ namespace Damany.Cameras
 
         }
 
+        public string Name { get; set; }
+
         public IrisMode IrisMode
         {
             get

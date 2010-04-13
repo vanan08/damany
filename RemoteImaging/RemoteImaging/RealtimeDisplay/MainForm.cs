@@ -46,8 +46,25 @@ namespace RemoteImaging.RealtimeDisplay
             this.tableLayoutPanel1.Visible = true;
             this.tableLayoutPanel1.Dock = DockStyle.Fill;
 
-
             Application.Idle += new EventHandler(Application_Idle);
+        }
+
+        public void InitPips()
+        {
+            if (InvokeRequired)
+            {
+                Action action = InitPips;
+                BeginInvoke(action, null);
+                return;
+            }
+
+
+            for (int i = 0; i < Math.Min(tableLayoutPanel1.Controls.Count, Cameras.Length); i++)
+            {
+                var pip = (PipPictureBox) tableLayoutPanel1.Controls[i];
+                pip.Tag = Cameras[i];
+                
+            }
         }
 
 
@@ -64,6 +81,14 @@ namespace RemoteImaging.RealtimeDisplay
             this._createOptionsPresenter = createOptionsPresenter;
             this._createOptionsForm = createOptionsForm;
 
+        }
+
+        public int PipCount
+        {
+            get
+            {
+                return tableLayoutPanel1.Controls.Count;
+            }
         }
 
         public void ShowMessage(string msg)
@@ -110,6 +135,7 @@ namespace RemoteImaging.RealtimeDisplay
 
                 if (cam.Id == frame.CapturedFrom.Id)
                 {
+                    pip.Text = frame.CapturedFrom.Name;
                     pip.Image = frame.GetImage().ToBitmap();
                 }
             }

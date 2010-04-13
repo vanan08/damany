@@ -45,13 +45,14 @@ namespace RemoteImaging
             this._comparer.Comparer.SetSensitivity( Properties.Settings.Default.LbpThreshold );
 
             this._mainForm.Cameras = this._configManager.GetCameras().ToArray();
-            var camToStart = this._configManager.GetCameras();
+            var camsToStart = this._configManager.GetCameras();
 
-            if (camToStart.Count == 1)
+            for (int i = 0; i < Math.Min(_mainForm.PipCount, camsToStart.Count); i++)
             {
-                var single = this._configManager.GetCameras().Single();
-                this.StartCameraInternal(single);
+                StartCameraInternal(camsToStart[i]);
             }
+
+            _mainForm.InitPips();
 
         }
 

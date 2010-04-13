@@ -155,7 +155,7 @@ namespace RemoteImaging.ImportPersonCompare
 
         private void ImmediatelyModel_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (e.CloseReason != CloseReason.FormOwnerClosing)
+            if (e.CloseReason == CloseReason.UserClosing)
             {
                 e.Cancel = true;
                 this.Hide();

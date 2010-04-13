@@ -15,5 +15,6 @@ namespace Damany.Imaging.Common
         Frame RetrieveFrame();
         int Id { get; set; }
         string Description { get; }
+        string Name { get; set; }
     }
 }
