@@ -34,6 +34,8 @@ namespace Damany.PortraitCapturer.DAL
             get;set;
         }
 
+        public string Name { get; set; }
+
         public string Description
         {
             get { return "Database"; }

@@ -40,6 +40,7 @@ namespace Damany.Cameras
 
 
             source.Id = cameraInfo.Id;
+            source.Name = cameraInfo.Name;
 
             return source;
         }
