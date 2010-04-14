@@ -40,7 +40,14 @@ namespace Damany.RemoteImaging.Common
 
         public IList<CameraInfo> GetCameras()
         {
-            return objContainer.Query<CameraInfo>();
+            if (isDirty)
+            {
+                camerasCache = objContainer.Query<CameraInfo>();
+             
+                isDirty = false;
+            }
+
+            return camerasCache;
         }
 
         public CameraInfo GetCameraById(int camId)
@@ -62,6 +69,8 @@ namespace Damany.RemoteImaging.Common
             this.objContainer.Store(camera);
             this.objContainer.Commit();
 
+            isDirty = true;
+
             InvokeConfigurationChanged();
         }
 
@@ -69,6 +78,8 @@ namespace Damany.RemoteImaging.Common
         {
             this.objContainer.Delete(camera);
             this.objContainer.Commit();
+
+            isDirty = true;
         }
 
         public void ClearCameras()
@@ -77,13 +88,38 @@ namespace Damany.RemoteImaging.Common
             {
                 this.objContainer.Delete(cameraInfo);
             }
+
+            isDirty = true;
             
         }
 
-        private ConfigurationManager() {}
+        public string GetName(int id)
+        {
+            var cameras = GetCameras();
+
+            var query = from c in cameras
+                        where c.Id == id
+                        select c;
+
+            var single = query.SingleOrDefault();
+
+            if (single == null)
+            {
+                return string.Empty;
+            }
+            return single.Name;
+        }
+
+        private ConfigurationManager()
+        {
+            isDirty = true;
+        }
 
         private  Db4objects.Db4o.IObjectContainer objContainer;
 
         private static ConfigurationManager instance;
+        private bool isDirty;
+
+        private IList<CameraInfo> camerasCache;
     }
 }

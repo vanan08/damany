@@ -54,7 +54,7 @@ namespace RemoteImaging.Query
             if (videos.Length == 0) return;
 
             var frameQuery = _portraitRepository.GetFrames(range).ToArray();
-            var portraitQuery = _portraitRepository.GetPortraits(range).ToArray();
+            var portraitQuery = _portraitRepository.GetPortraits(selectedCamera.Id, range).ToArray();
 
             this._screen.ClearAll();
 
@@ -116,7 +116,7 @@ namespace RemoteImaging.Query
 
             var range = new DateTimeRange(from, to);
 
-            var p = _portraitRepository.GetPortraits(range);
+            var p = _portraitRepository.GetPortraits(_screen.SelectedCamera.Id, range);
             _screen.ClearFacesList();
 
             foreach (var portrait in p)

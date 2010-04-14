@@ -40,7 +40,7 @@ namespace Damany.PortraitCapturer.DAL
             return new List<Frame>();
         }
 
-        public IList<Portrait> GetPortraits(DateTimeRange range)
+        public IList<Portrait> GetPortraits(int cameraId, DateTimeRange range)
         {
             var portraits = from f in System.IO.Directory.GetFiles(this._directoryPath, "*.jpg")
                             select new Portrait(f);

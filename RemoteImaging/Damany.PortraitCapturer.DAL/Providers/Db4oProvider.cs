@@ -6,7 +6,7 @@ using Damany.PortraitCapturer.DAL;
 
 namespace Damany.PortraitCapturer.DAL.Providers
 {
-    public class Db4oProvider 
+    public class Db4oProvider
     {
         public Db4oProvider(string dataBaseFile)
         {
@@ -74,13 +74,19 @@ namespace Damany.PortraitCapturer.DAL.Providers
             
         }
 
-        public IList<DTO.Portrait> GetPortraits(Damany.Util.DateTimeRange range)
+        public IList<DTO.Portrait> GetPortraits(int cameraId, Damany.Util.DateTimeRange range)
         {
             using (var container = OpenContainer())
             {
                 return container.Query<DTO.Portrait>(portrait =>
                 {
-                    return portrait.CapturedAt >= range.From && portrait.CapturedAt <= range.To;
+                    bool flag = portrait.CapturedAt >= range.From && portrait.CapturedAt <= range.To;
+                    if (cameraId != -1)
+                    {
+                        flag = flag && portrait.SourceId == cameraId;
+                    }
+
+                    return flag;
                 });
             }
 

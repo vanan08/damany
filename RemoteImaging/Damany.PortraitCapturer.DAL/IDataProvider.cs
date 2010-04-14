@@ -15,7 +15,7 @@ namespace Damany.PortraitCapturer.DAL
         Portrait GetPortrait(System.Guid portraitId);
 
         IList<Frame> GetFrames(Damany.Util.DateTimeRange range);
-        IList<Portrait> GetPortraits(Damany.Util.DateTimeRange range);
+        IList<Portrait> GetPortraits(int cameraId, Damany.Util.DateTimeRange range);
 
         void DeletePortrait(System.Guid portraitId);
         void DeleteFrame(System.Guid frameId);

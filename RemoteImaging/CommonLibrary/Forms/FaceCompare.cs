@@ -9,6 +9,8 @@ namespace Damany.RemoteImaging.Common.Forms
 {
     public partial class FaceCompare : Form
     {
+        private readonly ConfigurationManager _manager;
+
         public FaceCompare()
         {
             InitializeComponent();
@@ -16,8 +18,14 @@ namespace Damany.RemoteImaging.Common.Forms
             this.searchFrom.EditValue = DateTime.Now.AddDays(-1);
             this.searchTo.EditValue = DateTime.Now;
 
-            this.targetPic.Paint += new PaintEventHandler(targetPic_Paint);
-            this.compareButton.Click += new EventHandler(compareButton_Click);
+            this.targetPic.Paint += targetPic_Paint;
+            this.compareButton.Click += compareButton_Click;
+        }
+
+        public FaceCompare(ConfigurationManager manager)
+            : this()
+        {
+            _manager = manager;
         }
 
         public void EnableStartButton(bool enable)
@@ -34,7 +42,7 @@ namespace Damany.RemoteImaging.Common.Forms
 
         void compareButton_Click(object sender, EventArgs e)
         {
-            this.presenter.CompareClicked();
+            presenter.CompareClicked();
 
         }
 
@@ -148,7 +156,7 @@ namespace Damany.RemoteImaging.Common.Forms
             this.imageList1.Images.Add(p.GetIpl().ToBitmap());
 
             var item = new ListViewItem();
-            item.Text = p.CapturedAt.ToString();
+            item.Text = (_manager.GetName(p.CapturedFrom.Id) ?? string.Empty) + " " + p.CapturedAt.ToString();
             item.ImageIndex = this.imageList1.Images.Count - 1;
 
             this.faceList.Items.Add(item);
@@ -199,10 +207,5 @@ namespace Damany.RemoteImaging.Common.Forms
         private OpenCvSharp.IplImage ipl;
         private bool started;
         private FaceSearchWrapper.FaceSearch searcher = new FaceSearch();
-
-
-
-
-
     }
 }

@@ -23,6 +23,12 @@ namespace RemoteImaging
         public void Search()
         {
             this.range = this.screen.TimeRange;
+            selectedCamera = screen.SelectedCamera;
+
+            if (selectedCamera == null)
+            {
+                return;
+            }
 
             Action disableUI = delegate {
                 EnableScreen(false); 
@@ -187,7 +193,7 @@ namespace RemoteImaging
 
         private void SearchInternal()
         {
-            this.portraits = this.repository.GetPortraits(this.range);
+            this.portraits = this.repository.GetPortraits(selectedCamera.CameraId, this.range);
         }
 
         private void EnableScreen(bool enable)
@@ -212,6 +218,7 @@ namespace RemoteImaging
         IList<Damany.Imaging.Common.Portrait> portraits;
         int currentPageIndex;
         int totalPagesCount;
+        Damany.PC.Domain.Destination selectedCamera;
 
     }
 }
