@@ -63,10 +63,17 @@ namespace Damany.RemoteImaging.Common.Presenters
                     this.CompareFace(range, image, rect));
 
             }
+        }
 
-         
+        public void DeletePortrait()
+        {
+            var p = view.SelectedPortrait;
+            if (p == null)
+            {
+                return;
+            }
 
-           
+            repository.DeletePortrait(p.Guid);
         }
 
         public void Start()
@@ -76,7 +83,7 @@ namespace Damany.RemoteImaging.Common.Presenters
             this.view.SelectedAccuracy = CompareAccuracy.Middle;
 
 
-            this.view.ShowDialog(System.Windows.Forms.Application.OpenForms[0]);
+            this.view.Show(System.Windows.Forms.Application.OpenForms[0]);
         }
 
         public void Stop()
@@ -107,9 +114,18 @@ namespace Damany.RemoteImaging.Common.Presenters
                         break;
                     }
 
-                    this.view.CurrentImage = p.GetIpl().ToBitmap();
+                    var imgFromRepository = default(OpenCvSharp.IplImage);
 
-                    var imgFromRepository = p.GetIpl();
+                    try
+                    {
+                        view.CurrentImage = p.GetIpl().ToBitmap();
+                        imgFromRepository = p.GetIpl();
+
+                    }
+                    catch (System.IO.IOException)
+                    {
+                        continue;
+                    }
 
                     var result = this._comparer.CompareTo(imgFromRepository);
 

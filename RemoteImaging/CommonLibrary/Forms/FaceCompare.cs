@@ -40,6 +40,19 @@ namespace Damany.RemoteImaging.Common.Forms
             this.compareButton.Text = enable ? "比对" : "停止";
         }
 
+        public Damany.Imaging.Common.Portrait SelectedPortrait
+        {
+            get
+            {
+                if (faceList.SelectedItems.Count == 0)
+                {
+                    return null;
+                }
+
+                return (Imaging.Common.Portrait) faceList.SelectedItems[0].Tag;
+            }
+        }
+
         void compareButton_Click(object sender, EventArgs e)
         {
             presenter.CompareClicked();
@@ -158,8 +171,11 @@ namespace Damany.RemoteImaging.Common.Forms
             var item = new ListViewItem();
             item.Text = (_manager.GetName(p.CapturedFrom.Id) ?? string.Empty) + " " + p.CapturedAt.ToString();
             item.ImageIndex = this.imageList1.Images.Count - 1;
+            item.Tag = p;
 
             this.faceList.Items.Add(item);
+            int idx = faceList.Items.Count;
+            this.faceList.EnsureVisible(idx-1);
 
             p.Dispose();
         }
@@ -192,6 +208,8 @@ namespace Damany.RemoteImaging.Common.Forms
 
 
 
+
+
         private void FaceCompare_FormClosing(object sender, FormClosingEventArgs e)
         {
             this.presenter.Stop();
@@ -207,5 +225,11 @@ namespace Damany.RemoteImaging.Common.Forms
         private OpenCvSharp.IplImage ipl;
         private bool started;
         private FaceSearchWrapper.FaceSearch searcher = new FaceSearch();
+
+        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            presenter.DeletePortrait();
+
+        }
     }
 }

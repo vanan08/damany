@@ -35,6 +35,7 @@ namespace RemoteImaging.Query
         }
 
         public PicQueryForm( Damany.RemoteImaging.Common.ConfigurationManager manager )
+            :this()
         {
             _manager = manager;
         }
@@ -245,7 +246,15 @@ namespace RemoteImaging.Query
                 return;
             }
 
-            this.faceImageList.Images.Add(item.GetIpl().ToBitmap());
+            try
+            {
+                this.faceImageList.Images.Add(item.GetIpl().ToBitmap());
+            }
+            catch (System.IO.IOException)
+            {
+                return;
+            }
+
 
             var lvi = new ListViewItem
             {
