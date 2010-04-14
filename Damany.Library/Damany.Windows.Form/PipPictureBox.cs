@@ -70,7 +70,7 @@ namespace Damany.Windows.Form
 
         private void DrawText(Graphics g)
         {
-            using (var font = new Font(FontFamily.GenericSansSerif, 20))
+            using (var font = new Font(FontFamily.GenericSansSerif, 10))
             {
                 g.DrawStringOutLined(this.Text, font, 0, 0);
             }
