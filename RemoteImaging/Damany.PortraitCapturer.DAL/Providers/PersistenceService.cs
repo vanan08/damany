@@ -110,10 +110,10 @@ namespace Damany.PortraitCapturer.DAL.Providers
             return frames.ToList();
         }
 
-        public IList<Portrait> GetPortraits(Damany.Util.DateTimeRange range)
+        public IList<Portrait> GetPortraits(int cameraId, Damany.Util.DateTimeRange range)
         {
             this.CheckStarted();
-            var dtos = dataProvider.GetPortraits(range);
+            var dtos = dataProvider.GetPortraits(cameraId, range);
             var portraits = dtos.ToList().ConvertAll(dto => Mapper.Map<DAL.DTO.Portrait, Portrait>(dto));
             return portraits;
 

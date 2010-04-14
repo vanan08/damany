@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using Damany.PC.Domain;
+using Damany.RemoteImaging.Common;
 using RemoteImaging.Core;
 using Microsoft.Practices.EnterpriseLibrary.ExceptionHandling;
 
@@ -15,6 +16,7 @@ namespace RemoteImaging.Query
 {
     public partial class PicQueryForm : Form, IPicQueryScreen
     {
+        private readonly ConfigurationManager _manager;
 
         public PicQueryForm()
         {
@@ -30,6 +32,11 @@ namespace RemoteImaging.Query
             this.pageSizeCombo.ComboBox.SelectedItem = 20;
 
             this.PageSize = 20;
+        }
+
+        public PicQueryForm( Damany.RemoteImaging.Common.ConfigurationManager manager )
+        {
+            _manager = manager;
         }
 
         void facesListView_SelectedIndexChanged(object sender, EventArgs e)
@@ -52,7 +59,6 @@ namespace RemoteImaging.Query
             {
                 this.cameraIdCombo.Items.Add(camera.Id.ToString());
             }
-
         }
 
         private void ShowUserError(string msg)
@@ -312,7 +318,19 @@ namespace RemoteImaging.Query
         {
             get
             {
-                return (Destination) this.cameraIdCombo.SelectedValue;
+                if (cameraIdCombo.SelectedValue == null)
+                {
+                    return null;
+                }
+
+                CameraInfo cam = (CameraInfo) cameraIdCombo.SelectedValue;
+                int id =  cam.Id;
+
+                return new Destination()
+                           {
+                               CameraId = id,
+                               MachineName = (string) (machineCombo.SelectedValue ?? string.Empty)
+                           };
             }
             set
             {
@@ -366,8 +384,8 @@ namespace RemoteImaging.Query
             set
             {
                 this.currentFace.Image = value.GetIpl().ToBitmap();
-                this.captureLocation.Text = value.CapturedFrom.Id.ToString();
-                this.captureTime.Text = value.CapturedAt.ToString();
+                this.captureLocation.Text = "抓拍地点：" + _manager.GetName(value.CapturedFrom.Id) ?? "未知";
+                this.captureTime.Text = "抓拍时间：" + value.CapturedAt.ToString();
             }
         }
 

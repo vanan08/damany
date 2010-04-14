@@ -50,6 +50,7 @@ namespace RemoteImaging
             for (int i = 0; i < Math.Min(_mainForm.PipCount, camsToStart.Count); i++)
             {
                 StartCameraInternal(camsToStart[i]);
+                System.Threading.Thread.Sleep(300);
             }
 
             _mainForm.InitPips();

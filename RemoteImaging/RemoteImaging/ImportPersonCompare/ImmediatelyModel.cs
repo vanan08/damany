@@ -42,20 +42,6 @@ namespace RemoteImaging.ImportPersonCompare
 
         }
 
-
-        public ImageDirSys SetWarnInfo
-        {
-            set
-            {
-                if (value != null)
-                {
-                    lblDate.Text = string.Format("日期： {0}-{1}-{2}", value.Year, value.Month, value.Day);
-                    lblTime.Text = string.Format("时间： {0}:{1}:{2}", value.Hour, value.Minute, value.Second);
-                    lblAddress.Text = string.Format("地址： {0}", value.CameraID.ToString());
-                }
-            }
-        }
-
         private Image picCheckImg = null;
         public Image PicCheckImg
         {
@@ -117,6 +103,8 @@ namespace RemoteImaging.ImportPersonCompare
             {
                 this.suspectsList.Items.Remove((ListViewItem) item);
             }
+
+            ClearUI();
         }
 
         private void lvPersonInfo_SelectedIndexChanged(object sender, EventArgs e)
@@ -135,7 +123,11 @@ namespace RemoteImaging.ImportPersonCompare
                 }
 
                 personOfInterestImage.Image = result.Details.GetImage();
-                this.suspectImage.Image = result.Portrait.GetIpl().ToBitmap();
+                suspectImage.Image = result.Portrait.GetIpl().ToBitmap();
+
+                lblTime.Text = string.Format("抓拍时间：{0}", result.Portrait.CapturedAt);
+                lblAddress.Text = string.Format("抓拍地点：{0}", result.Portrait.CapturedFrom.Name);
+
                 btnOK.Enabled = true;
             }
         }
@@ -165,8 +157,18 @@ namespace RemoteImaging.ImportPersonCompare
         private void clearAll_Click(object sender, EventArgs e)
         {
             this.suspectsList.Items.Clear();
+
+            ClearUI();
         }
 
+        private void ClearUI()
+        {
+            this.suspectImage.Image = null;
+            this.personOfInterestImage.Image = null;
+
+            lblTime.Text = "抓拍时间：";
+            lblAddress.Text = "抓拍地点：";
+        }
     }
 
 

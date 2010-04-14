@@ -28,8 +28,8 @@ namespace RemoteImaging.RealtimeDisplay
         public MainForm()
         {
 
-            splash.Show();
-            splash.Update();
+//            splash.Show();
+//            splash.Update();
 
             InitializeComponent();
 
@@ -781,6 +781,13 @@ namespace RemoteImaging.RealtimeDisplay
 
         public void HandlePortraits(IList<Frame> motionFrames, IList<Portrait> portraits)
         {
+            if (InvokeRequired)
+            {
+                Action<IList<Frame>, IList<Portrait>> action = HandlePortraits;
+                BeginInvoke(action, motionFrames, portraits);
+                return;
+            }
+
             foreach (var portrait in portraits)
             {
                 foreach (var control in tableLayoutPanel1.Controls)
@@ -808,7 +815,6 @@ namespace RemoteImaging.RealtimeDisplay
                 if (liveIdx.Id == portrait.CapturedFrom.Id)
                 {
                     liveFace.Image = portrait.GetIpl().ToBitmap();
-                    
                 }
 
 
@@ -921,6 +927,10 @@ namespace RemoteImaging.RealtimeDisplay
             p.BorderStyle = BorderStyle.FixedSingle;
             SelectedLiveCamera = (PipPictureBox)sender;
 
+            if (p.SmallImage != null)
+            {
+                liveFace.Image = p.SmallImage;
+            }
 
 
             liveFace.Tag = p.Tag;
