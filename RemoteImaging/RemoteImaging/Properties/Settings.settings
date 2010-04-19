@@ -185,5 +185,8 @@
     <Setting Name="HistoryFaceCompareSensitivityHi" Type="System.Single" Scope="User">
       <Value Profile="(Default)">63</Value>
     </Setting>
+    <Setting Name="ApplicationName" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">大连开发区公安局智能人像抓拍卡口系统</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

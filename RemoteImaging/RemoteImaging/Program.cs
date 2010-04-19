@@ -40,6 +40,8 @@ namespace RemoteImaging
                 var controller = strapper.Container.Resolve<MainController>();
                 mainForm.AttachController(controller);
 
+                mainForm.Text = Properties.Settings.Default.ApplicationName;
+
                 Application.Run(mainForm);
 
             }
@@ -51,6 +53,7 @@ namespace RemoteImaging
 
         static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)
         {
+            
             HandleException(e.Exception);
         }
 
@@ -67,6 +70,7 @@ namespace RemoteImaging
 
         static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
+            
             HandleException(e.ExceptionObject as Exception);
         }
 

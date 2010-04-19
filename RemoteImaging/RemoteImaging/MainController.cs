@@ -20,7 +20,7 @@ namespace RemoteImaging
                               ConfigurationManager configManager,
                               IRepository repository,
                               IEnumerable<IPortraitHandler> handlers,
-                              FaceComparer comparer)
+                              Func<FaceComparer> createComparer)
         {
             this._mainForm = mainForm;
             this._configManager = configManager;
@@ -32,7 +32,8 @@ namespace RemoteImaging
 
             _repository = repository;
             _handlers = handlers;
-            _comparer = comparer;
+            _createComparer = createComparer;
+
 
         }
 
@@ -40,26 +41,49 @@ namespace RemoteImaging
         {
             InitializeHandlers();
 
-            this._comparer.PersonOfInterestDected += _comparer_PersonOfInterestDected;
-            this._comparer.Threshold = Properties.Settings.Default.RealTimeFaceCompareSensitivity;
-            this._comparer.Comparer.SetSensitivity( Properties.Settings.Default.LbpThreshold );
-
             this._mainForm.Cameras = this._configManager.GetCameras().ToArray();
             var camsToStart = this._configManager.GetCameras();
 
-            for (int i = 0; i < Math.Min(_mainForm.PipCount, camsToStart.Count); i++)
-            {
-                StartCameraInternal(camsToStart[i]);
-                System.Threading.Thread.Sleep(300);
-            }
-
             _mainForm.InitPips();
 
+            System.Threading.WaitCallback action = delegate
+                                {
+                                    for (int i = 0; i < Math.Min(_mainForm.PipCount, camsToStart.Count); i++)
+                                    {
+                                        var cam = camsToStart[i];
+                                        Action<CameraInfo> ac = StartCameraInternal;
+                                        ac(cam);
+
+                                        System.Diagnostics.Debug.WriteLine("start " + cam.Id);
+
+                                        System.Threading.Thread.Sleep(500);
+
+                                    }
+                                };
+
+            System.Threading.ThreadPool.QueueUserWorkItem(action);
+            //action(null);
+
+
+        }
+
+        private FaceComparer CreateComparer()
+        {
+            var c = _createComparer();
+
+            c.PersonOfInterestDected += _comparer_PersonOfInterestDected;
+            c.Threshold = Properties.Settings.Default.RealTimeFaceCompareSensitivity;
+            c.Comparer.SetSensitivity(Properties.Settings.Default.LbpThreshold);
+
+            c.Initialize();
+            c.Start();
+
+            return c;
         }
 
         public void SelectLiveCamera()
         {
-            
+
         }
 
 
@@ -138,32 +162,22 @@ namespace RemoteImaging
                     camController.Worker.OnWorkItemIsDone += new Action<object>(Worker_OnWorkItemIsDone);
                     camController.Start();
 
-                    if (!camReferences.ContainsKey(cam))
-                    {
-                        camReferences.Add(cam, 1);
-                    }
-                    else
-                    {
-                        camReferences[cam]++;
-                        
-                    }
-
-                    
-                    controllers[cam] = camController;
                     if (cam.Provider == CameraProvider.Sanyo)
                     {
                         this._mainForm.StartRecord(cam);
                     }
 
                 }
-                catch (Exception ex)
+                catch (System.IO.IOException ex)
                 {
                     var msg = string.Format("无法连接 {0}", cam.Location.Host);
                     _mainForm.ShowMessage(msg);
+                    throw;
                 }
 
             };
             System.Threading.ThreadPool.QueueUserWorkItem(action);
+            //action(null);
         }
 
         void Worker_OnWorkItemIsDone(object obj)
@@ -172,7 +186,7 @@ namespace RemoteImaging
 
             if (f != null)
             {
-                _mainForm.ShowFrame(f);
+                _mainForm.ShowFrame(f.Clone());
             }
         }
 
@@ -181,6 +195,12 @@ namespace RemoteImaging
             foreach (var h in _handlers)
             {
                 camController.RegisterPortraitHandler(h);
+            }
+
+            if (camController.Options.FaceCompareEnabled)
+            {
+                var c = CreateComparer();
+                camController.RegisterPortraitHandler(c);
             }
         }
 
@@ -204,6 +224,7 @@ namespace RemoteImaging
         private ConfigurationManager _configManager;
         private readonly IRepository _repository;
         private readonly IEnumerable<IPortraitHandler> _handlers;
+        private readonly Func<FaceComparer> _createComparer;
         private readonly FaceComparer _comparer;
 
         private Dictionary<CameraInfo, int> camReferences = new Dictionary<CameraInfo, int>();

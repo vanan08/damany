@@ -65,6 +65,18 @@
       <HintPath>..\..\Library\Emcaster.0.1.5\Emcaster.dll</HintPath>
     </Reference>
     <Reference Include="EnvDTE, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <Reference Include="Lokad.Logging, Version=1.5.78.1, Culture=neutral, PublicKeyToken=43f0664b2b4db1fc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Library\Lokad\Lokad.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Lokad.Shared, Version=1.5.78.1, Culture=neutral, PublicKeyToken=43f0664b2b4db1fc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Library\Lokad\Lokad.Shared.dll</HintPath>
+    </Reference>
+    <Reference Include="Lokad.Stack, Version=1.5.173.0, Culture=neutral, PublicKeyToken=43f0664b2b4db1fc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Library\Lokad\Lokad.Stack.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -522,7 +534,7 @@
   -->
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_BuildVersioningStyle="None.None.Increment.None" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_UpdateFileVersion="True" Reactor_Enabled="1" Reactor_Lib="0" Reactor_Automatic="1" Reactor_Commands="" Reactor_Project="l:\Documents and Settings\benny\My Documents\Visual Studio 2008\Projects\RemoteImaging_shen_retlang\RemoteImaging\RemoteImaging\reactor.nrproj" Reactor_Output="l:\Documents and Settings\benny\My Documents\Visual Studio 2008\Projects\RemoteImaging_shen_retlang\RemoteImaging\RemoteImaging\bin\Release\RemoteImaging.exe" BuildVersion_ConfigurationName="Release" BuildVersion_BuildAction="ReBuild" />
+      <UserProperties BuildVersion_BuildAction="ReBuild" BuildVersion_ConfigurationName="Release" Reactor_Output="l:\Documents and Settings\benny\My Documents\Visual Studio 2008\Projects\RemoteImaging_shen_retlang\RemoteImaging\RemoteImaging\bin\Release\RemoteImaging.exe" Reactor_Project="l:\Documents and Settings\benny\My Documents\Visual Studio 2008\Projects\RemoteImaging_shen_retlang\RemoteImaging\RemoteImaging\reactor.nrproj" Reactor_Commands="" Reactor_Automatic="1" Reactor_Lib="0" Reactor_Enabled="1" BuildVersion_UpdateFileVersion="True" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_BuildVersioningStyle="None.None.Increment.None" />
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>

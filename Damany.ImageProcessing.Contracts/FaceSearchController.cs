@@ -43,5 +43,7 @@ namespace Damany.Imaging.Processors
         public PortraitFinder PortraitFinder { get; internal set; }
         public Damany.Util.PersistentWorker Worker { get; internal set; }
 
+        public SearchLineOptions Options { get; set; }
+
     }
 }

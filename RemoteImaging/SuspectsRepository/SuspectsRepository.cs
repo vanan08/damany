@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,7 +15,7 @@ using Damany.Util;
 
 namespace SuspectsRepository
 {
-    public class SuspectsRepositoryManager
+    public class SuspectsRepositoryManager : IEnumerable<PersonOfInterest>
     {
         private Dictionary<System.Guid, PersonOfInterest> storage;
         FaceSearchWrapper.FaceSearch faceSearcher;
@@ -31,11 +32,12 @@ namespace SuspectsRepository
 
         public string RootDirectoryPathAbsolute { get; set; }
 
-        private SuspectsRepositoryManager(string rootDirectorPathAbsolute)
+        public SuspectsRepositoryManager(string rootDirectorPathAbsolute)
         {
             this.RootDirectoryPathAbsolute = rootDirectorPathAbsolute;
             this.storage = new Dictionary<Guid, PersonOfInterest>();
             this.faceSearcher = new FaceSearchWrapper.FaceSearch();
+            Load();
         }
 
         public static SuspectsRepositoryManager LoadFrom(string filePath)
@@ -269,5 +271,14 @@ namespace SuspectsRepository
             get { return this.storage[id]; }
         }
 
+        public IEnumerator<PersonOfInterest> GetEnumerator()
+        {
+            return storage.Values.AsEnumerable().GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
     }
 }

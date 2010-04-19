@@ -20,12 +20,18 @@ namespace Damany.RemoteImaging.Common
                 source.Initialize();
                 source.Connect();
 
-                return CreateProcessLine(source);
+                return CreateProcessLine(source, 
+                                       new Damany.Imaging.SearchLineOptions
+                                           {
+                                               FaceCompareEnabled = cam.FaceCompareEnabled
+                                           });
             }
 
-            private static Damany.Imaging.Processors.FaceSearchController CreateProcessLine(Damany.Imaging.Common.IFrameStream source)
+            private static FaceSearchController CreateProcessLine(
+                Damany.Imaging.Common.IFrameStream source,
+                Damany.Imaging.SearchLineOptions config)
             {
-                var controller = FaceSearchFactory.CreateNewController(source);
+                var controller = FaceSearchFactory.CreateNewController(source, config);
 
                 return controller;
             }

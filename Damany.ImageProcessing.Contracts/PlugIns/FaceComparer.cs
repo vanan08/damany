@@ -7,17 +7,25 @@ using Damany.Imaging.Common;
 using MiscUtil;
 using Damany.Imaging.Extensions;
 using OpenCvSharp;
+using Lokad;
 
 namespace Damany.Imaging.PlugIns
 {
     public class FaceComparer : IPortraitHandler
     {
-        private readonly IEnumerable<PersonOfInterest> _personsOfInterests;
+        private IEnumerable<PersonOfInterest> _personsOfInterests;
+        private readonly ILog _logger;
 
-        public FaceComparer(IEnumerable<PersonOfInterest> personsOfInterests, IRepositoryFaceComparer comparer)
+        public FaceComparer(IEnumerable<PersonOfInterest> personsOfInterests,
+                            IRepositoryFaceComparer comparer,
+                            ILog logger)
         {
-            _personsOfInterests = personsOfInterests;
+            if (personsOfInterests == null) throw new ArgumentNullException("personsOfInterests");
             if (comparer == null) throw new ArgumentNullException("comparer");
+            if (logger == null) throw new ArgumentNullException("logger");
+
+            _personsOfInterests = personsOfInterests;
+            _logger = logger;
 
             this.Comparer = comparer;
 
@@ -31,7 +39,9 @@ namespace Damany.Imaging.PlugIns
 
         public void Initialize()
         {
-            this.Comparer.Load(this._personsOfInterests.ToList());
+            _logger.Debug("Before Load in FaceComparer");
+            this.Comparer.Load(_personsOfInterests.ToList());
+            _logger.Debug("After Load in FaceComparer");
 
             this.worker = new Thread(this.DoComare);
             this.worker.IsBackground = true;
@@ -43,13 +53,19 @@ namespace Damany.Imaging.PlugIns
 
         public void Start()
         {
+            _started = true;
             this.worker.Start(null);
+        }
+
+        protected bool Started
+        {
+            get { return _started; }
+            set { _started = value; }
         }
 
         public void HandlePortraits(IList<Frame> motionFrames, IList<Portrait> portraits)
         {
             this.Enqueue(portraits);
-
         }
 
         public void Stop()
@@ -124,8 +140,9 @@ namespace Damany.Imaging.PlugIns
 
                 foreach (var portrait in portraits)
                 {
-
+                    _logger.Debug("before CompareTo");
                     var compareResults = this.Comparer.CompareTo(portrait.GetIpl());
+                    _logger.Debug("after CompareTo");
 
                     var matches = from r in compareResults
                                   where r.Similarity > Threshold
@@ -144,12 +161,6 @@ namespace Damany.Imaging.PlugIns
 
                     }
                 }
-
-
-           
-
-               
-                
             }
             
         }
@@ -216,8 +227,6 @@ namespace Damany.Imaging.PlugIns
 
         private bool run;
         private object runLocker = new object();
-
-       
-
+        private bool _started;
     }
 }

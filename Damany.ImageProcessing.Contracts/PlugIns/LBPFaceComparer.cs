@@ -7,6 +7,7 @@ using Damany.Imaging.Common;
 using Damany.Imaging.Extensions;
 using FaceProcessingWrapper;
 using FaceSearchWrapper;
+using Lokad;
 using OpenCvSharp;
 using Damany.Util;
 using System.ComponentModel.Composition;
@@ -16,8 +17,20 @@ namespace Damany.Imaging.PlugIns
     [Export(typeof(IRepositoryFaceComparer))]
     public class LbpFaceComparer : IRepositoryFaceComparer, IConfigurable
     {
+        private readonly ILog _logger;
+
+        public LbpFaceComparer() : this(null)
+        {
+        }
+
+        public LbpFaceComparer(Lokad.ILog logger)
+        {
+            _logger = logger;
+        }
+
         public void Load(IList<Common.PersonOfInterest> persons)
         {
+            _logger.Debug("before error checking in Lbpfacecomparer");
             if (persons == null) throw new ArgumentNullException("persons");
             foreach (var personOfInterest in persons)
             {
@@ -32,20 +45,30 @@ namespace Damany.Imaging.PlugIns
                 }
             }
 
+            _logger.Debug("after error checking in Lbpfacecomparer");
+
+
             this.persons = persons;
 
             foreach (var p in persons)
             {
                 p.Ipl.CheckWithBmp();
-            } 
+            }
 
+            _logger.Debug("before converting to gray in Lbpfacecomparer");
 
             var ipls = from p in persons
                        select p.Ipl.CvtToGray().GetSub(p.Ipl.ROI);
 
+            _logger.Debug("after converting to gray in Lbpfacecomparer");
 
+            foreach (var iplImage in ipls)
+            {
+                System.Diagnostics.Debug.Assert(iplImage.CvPtr != null);
+            }
 
             this.lbp.Load(ipls.ToArray());
+            _logger.Debug("after loading  in Lbpfacecomparer");
         }
 
         public void SetSensitivity(float value)

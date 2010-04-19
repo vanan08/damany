@@ -40,11 +40,16 @@ namespace Damany.RemoteImaging.Common
 
         public IList<CameraInfo> GetCameras()
         {
-            if (isDirty)
+            //if (isDirty)
             {
                 camerasCache = objContainer.Query<CameraInfo>();
+                var sort = from c in camerasCache
+                           orderby c.Id ascending
+                           select c;
+
+                camerasCache = sort.ToList();
              
-                isDirty = false;
+                //isDirty = false;
             }
 
             return camerasCache;
@@ -84,12 +89,14 @@ namespace Damany.RemoteImaging.Common
 
         public void ClearCameras()
         {
-            foreach (var cameraInfo in this.GetCameras())
+            foreach (var cameraInfo in objContainer.Query<CameraInfo>())
             {
                 this.objContainer.Delete(cameraInfo);
             }
 
             isDirty = true;
+
+            InvokeConfigurationChanged();
             
         }
 

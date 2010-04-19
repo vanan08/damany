@@ -9,7 +9,8 @@ namespace Damany.Imaging.Processors
 
     public static class FaceSearchFactory
     {
-        public static FaceSearchController CreateNewController(IFrameStream source)
+        public static FaceSearchController CreateNewController(IFrameStream source, 
+                                                              SearchLineOptions options)
         {
             PortraitFinder finder = new PortraitFinder();
 
@@ -22,7 +23,8 @@ namespace Damany.Imaging.Processors
             {
                 Worker = retriever,
                 PortraitFinder = finder,
-                MotionDetector = motionDetector
+                MotionDetector = motionDetector,
+                Options = options
             };
 
             return controller;

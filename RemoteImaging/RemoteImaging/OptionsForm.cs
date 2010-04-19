@@ -17,13 +17,10 @@ namespace RemoteImaging
         public OptionsForm()
         {
             InitializeComponent();
-            InitCamDatagridView();
 
             this.rgBrightMode.SelectedIndex = Properties.Settings.Default.BrightMode;
             this.cmbComPort.SelectedText = Properties.Settings.Default.ComName;
             this.textBox4.Text = Properties.Settings.Default.CurIp;
-//             this.cameraSetting1.ImageGroupLength = Properties.Settings.Default.ImageArr;
-//             this.cameraSetting1.MotionRegionAreaLimit = Properties.Settings.Default.Thresholding;
         }
 
         public void AttachPresenter(OptionsPresenter presenter)
@@ -32,24 +29,8 @@ namespace RemoteImaging
         }
 
 
-        private void InitCamDatagridView()
-        {
 
-            this.dataGridCameras.AutoGenerateColumns = false;
-            this.dataGridCameras.Columns[0].DataPropertyName = "Name";
-            this.dataGridCameras.Columns[1].DataPropertyName = "Id";
 
-            this.dataGridCameras.Columns[2].DataPropertyName = "LoginUserName";
-            this.dataGridCameras.Columns[3].DataPropertyName = "LoginPassword";
-
-            this.dataGridCameras.Columns[4].DataPropertyName = "Location";
-            this.dataGridCameras.Columns[5].DataPropertyName = "Provider";
-            this.comboBoxColumnProvider.DataSource = Enum.GetValues(typeof (CameraProvider));
-        }
-
-        Damany.RemoteImaging.Common.ConfigurationManager configManager
-            = Damany.RemoteImaging.Common.ConfigurationManager.GetDefault();
-        
         private void browseForUploadFolder_Click(object sender, EventArgs e)
         {
             using (FolderBrowserDialog dlg = new FolderBrowserDialog())
@@ -73,34 +54,40 @@ namespace RemoteImaging
             }
         }
 
+        private IList<CameraInfo> _cameras;
+
         public IList<CameraInfo> Cameras
         {
- 
+
             set
             {
-                camList.Clear();
-                foreach (var item in value)
+                _cameras = value;
+                camerasListBox.DataSource = value;
+                camerasListBox.DisplayMember = "Name";
+
+
+                foreach (var cameraInfo in value)
                 {
-                    camList.Add(item);
+                    cameraInfo.PropertyChanged += cameraInfo_PropertyChanged;
                 }
 
-                bs = new BindingSource();
-                bs.DataSource = camList;
-
-                this.dataGridCameras.DataSource = bs;
             }
             get
             {
-                var list = from c in this.camList
-                           select c;
-
-                var returnList = list.ToList();
-
-                return returnList;
+                return _cameras;
             }
 
+        }
 
+        void cameraInfo_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            UpdateCamerasList();
+        }
 
+        private void UpdateCamerasList()
+        {
+            camerasListBox.DisplayMember = "";
+            camerasListBox.DisplayMember = "Name";
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
@@ -143,11 +130,11 @@ namespace RemoteImaging
 
         private void buttonOK_Click(object sender, EventArgs e)
         {
-           this._presenter.UpdateConfig();
+            this._presenter.UpdateConfig();
         }
 
 
-        
+
 
 
         private void OptionsForm_Load(object sender, EventArgs e)
@@ -155,18 +142,7 @@ namespace RemoteImaging
 
         }
 
-        
 
-
-        #region 弹出窗口的操作
-        public void ShowResDialog(int picIndex, string msg)
-        {
-            AlertSettingRes asr = new AlertSettingRes(msg, picIndex);
-            asr.HeightMax = 169;
-            asr.WidthMax = 175;
-            asr.ShowDialog(this);
-        }
-        #endregion
 
         private void textBox2_TextChanged(object sender, EventArgs e)
         {
@@ -174,11 +150,11 @@ namespace RemoteImaging
 
         private void cmbComPort_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.ComName = cmbComPort.Text;
+            //Properties.Settings.Default.ComName = cmbComPort.Text;
         }
 
 
-     
+
 
         private void btnBrowseSavePath_Click(object sender, EventArgs e)
         {
@@ -192,5 +168,47 @@ namespace RemoteImaging
         }
 
         private OptionsPresenter _presenter;
+
+        private void camerasListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (camerasListBox.SelectedItem == null)
+            {
+                return;
+                
+            }
+
+            var obj = camerasListBox.SelectedItem;
+            propertyGrid1.SelectedObject = obj;
+        }
+
+        private void addCamera_Click(object sender, EventArgs e)
+        {
+            var item = new CameraInfo();
+            item.Name = "新摄像头";
+            _cameras.Add(item);
+            UpdateCamerasList();
+
+            item.PropertyChanged += cameraInfo_PropertyChanged;
+
+            camerasListBox.SelectedItem = item;
+        }
+
+        private void removeCamera_Click(object sender, EventArgs e)
+        {
+            if (_cameras == null)
+            {
+                return;
+            }
+
+            var item = camerasListBox.SelectedIndex;
+            if (item == -1)
+            {
+                return;
+            }
+
+            _cameras.RemoveAt(item);
+            UpdateCamerasList();
+
+        }
     }
 }
