@@ -4,6 +4,7 @@ using OpenCvSharp;
 
 namespace Damany.Imaging.Common
 {
+    [Serializable]
     public class PersonOfInterest
     {
         public static PersonOfInterest FromIplImage(IplImage image)
@@ -27,6 +28,22 @@ namespace Damany.Imaging.Common
         public System.Drawing.Image GetImage()
         {
             return this.Ipl.ToBitmap();
+        }
+
+        public PersonOfInterest Clone()
+        {
+            var ipl = this.Ipl.Clone();
+
+            var clone = new PersonOfInterest(ipl);
+            clone.ID = ID;
+            clone.Name = Name;
+            clone.SN = SN;
+            clone.Guid = Guid;
+            clone.Gender = Gender;
+            clone.Age = Age;
+            clone.ImageFilePath = ImageFilePath;
+
+            return clone;
         }
 
         public IplImage Ipl { get; private set; }

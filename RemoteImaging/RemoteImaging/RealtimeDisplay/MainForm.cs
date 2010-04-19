@@ -62,7 +62,10 @@ namespace RemoteImaging.RealtimeDisplay
             for (int i = 0; i < Math.Min(tableLayoutPanel1.Controls.Count, Cameras.Length); i++)
             {
                 var pip = (PipPictureBox) tableLayoutPanel1.Controls[i];
-                pip.Tag = Cameras[i];
+                var cam = Cameras[i];
+                pip.Tag = cam;
+
+                System.Diagnostics.Debug.WriteLine("pip tag " + cam.Id);
                 
             }
         }
@@ -119,6 +122,14 @@ namespace RemoteImaging.RealtimeDisplay
 
         public void ShowFrame(Frame frame)
         {
+            if (InvokeRequired)
+            {
+                Action<Frame> action = ShowFrame;
+
+                BeginInvoke(action, frame);
+                return;
+            }
+
             foreach (var c in tableLayoutPanel1.Controls)
             {
                 var pip = c as PipPictureBox;
@@ -139,6 +150,8 @@ namespace RemoteImaging.RealtimeDisplay
                     pip.Image = frame.GetImage().ToBitmap();
                 }
             }
+
+            frame.Dispose();
         }
 
 
@@ -409,6 +422,7 @@ namespace RemoteImaging.RealtimeDisplay
         int tempModel = 0;
         private void options_Click(object sender, EventArgs e)
         {
+
             var p = this._createOptionsPresenter();
             p.Start();
 
@@ -929,7 +943,7 @@ namespace RemoteImaging.RealtimeDisplay
 
             if (p.SmallImage != null)
             {
-                liveFace.Image = p.SmallImage;
+                liveFace.Image = (Image) p.SmallImage.Clone();
             }
 
 

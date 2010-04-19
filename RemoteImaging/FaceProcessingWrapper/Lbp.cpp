@@ -29,6 +29,8 @@ namespace FaceProcessingWrapper {
 
 			for (int i=0; i<images->Length; ++i)
 			{
+				
+
 				IplPtrs[i] = (IplImage*) images[i]->CvPtr.ToPointer();
 			}
 

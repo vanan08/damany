@@ -11,6 +11,7 @@ using MiscUtil;
 using SuspectsRepository;
 using Damany.RemoteImaging.Common;
 using Damany.RemoteImaging.Common;
+using Lokad;
 
 namespace RemoteImaging
 {
@@ -23,6 +24,10 @@ namespace RemoteImaging
             CheckImportantFiles();
 
             this.builder = new Autofac.ContainerBuilder();
+
+            var logger = Lokad.Logging.LoggingStack.UseRollingLog("logs/log.text", 100.Kb(), 10);
+            builder.RegisterInstance(Lokad.Logging.LoggingStack.GetLog())
+                .As<ILog>();
 
             this.LoadPersonRepository();
             this.InitDataProvider();
@@ -70,10 +75,9 @@ namespace RemoteImaging
         {
             if (System.IO.Directory.Exists(Properties.Settings.Default.PersonOfInterespPath))
             {
-                var personRepository = SuspectsRepositoryManager.LoadFrom(Properties.Settings.Default.PersonOfInterespPath);
-                this.builder.RegisterInstance(personRepository.Peoples)
-                    .As<IEnumerable<PersonOfInterest>>()
-                    .ExternallyOwned();
+                this.builder.RegisterType<SuspectsRepositoryManager>()
+                    .WithParameter("rootDirectorPathAbsolute", Properties.Settings.Default.PersonOfInterespPath)
+                    .As<IEnumerable<PersonOfInterest>>();
             }
             else
             {
@@ -134,15 +138,13 @@ namespace RemoteImaging
                 .As<IRepositoryFaceComparer>();
 
             this.builder.RegisterType<FaceComparer>()
-                .As<IPortraitHandler>()
-                .As<FaceComparer>()
-                .SingleInstance();
+                        .As<FaceComparer>();
 
             this.builder.RegisterType<Damany.Imaging.Handlers.PersistenceWriter>()
                                     .As<IPortraitHandler>()
                                     .SingleInstance();
 
-            this.builder.RegisterType<OptionsForm>().SingleInstance();
+            this.builder.RegisterType<OptionsForm>();
             this.builder.RegisterType<OptionsPresenter>();
 
             this.builder.RegisterType<MainController>();
@@ -161,6 +163,7 @@ namespace RemoteImaging
 
         private ContainerBuilder builder;
 
+        private SuspectsRepositoryManager manager;
         private Db4oProvider dataProvider;
     }
 }
