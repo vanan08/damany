@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using System.IO;
+using FaceSearchWrapper;
 using OpenCvSharp;
 using ImageProcess;
 using SuspectsRepository;
@@ -188,7 +189,7 @@ namespace FaceLibraryBuilder
 
                     using (var ipl = IplImage.FromFile(files[0]))
                     {
-                        var facesRect = ipl.LocateFaces();
+                        var facesRect = ipl.LocateFaces(searcher);
 
                         if (facesRect.Length > 0)
                         {
@@ -382,6 +383,8 @@ namespace FaceLibraryBuilder
 
             this.CreateNew(dir);
         }
+
+        private FaceSearchWrapper.FaceSearch searcher = new FaceSearch();
 
 
     }

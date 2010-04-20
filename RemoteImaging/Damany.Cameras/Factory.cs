@@ -21,15 +21,15 @@ namespace Damany.Cameras
                 case Damany.PC.Domain.CameraProvider.Sanyo:
                     var sanyo = new SanyoNetCamera();
                     sanyo.Uri = cameraInfo.Location;
-                    sanyo.UserName = "guest";
-                    sanyo.PassWord = "guest";
+                    sanyo.UserName = cameraInfo.LoginUserName ?? "guest";
+                    sanyo.PassWord = cameraInfo.LoginPassword ?? "guest";
                     source = sanyo;
                     break;
                 case Damany.PC.Domain.CameraProvider.AipStar:
 
                     var aip = new Damany.Cameras.Wrappers.AipStarCamera(cameraInfo.Location.Host, cameraInfo.Location.Port, "", "");
-                    aip.UserName = "system";
-                    aip.PassWord = "system";
+                    aip.UserName = cameraInfo.LoginUserName ?? "system";
+                    aip.PassWord = cameraInfo.LoginPassword ?? "system";
                     source = aip;
                     break;
                 default:

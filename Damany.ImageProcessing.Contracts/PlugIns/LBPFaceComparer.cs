@@ -6,6 +6,7 @@ using System.Text;
 using Damany.Imaging.Common;
 using Damany.Imaging.Extensions;
 using FaceProcessingWrapper;
+using FaceSearchWrapper;
 using OpenCvSharp;
 using Damany.Util;
 using System.ComponentModel.Composition;
@@ -65,7 +66,7 @@ namespace Damany.Imaging.PlugIns
             var gray = image.CvtToGray();
 
             //relocate face to be more precise.
-            var faceRects = image.LocateFaces();
+            var faceRects = image.LocateFaces(searcher);
             if (faceRects.Length > 0)
             {
                 gray.ROI = faceRects[0];
@@ -127,5 +128,7 @@ namespace Damany.Imaging.PlugIns
         private float sensitivity = 35;
         private FaceProcessingWrapper.LbpWrapper lbp = new LbpWrapper();
         private IList<Common.PersonOfInterest> persons;
+
+        private FaceSearchWrapper.FaceSearch searcher = new FaceSearch();
     }
 }

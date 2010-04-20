@@ -4,22 +4,22 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using Damany.Util;
 using FaceProcessingWrapper;
+using FaceSearchWrapper;
 using OpenCvSharp;
 
 namespace Damany.Imaging.Extensions
 {
     public static class IplImageExtensions
     {
-        public static FaceSearchWrapper.FaceSearch searcher = new FaceSearchWrapper.FaceSearch();
-
-        public static CvRect[] LocateFaces(this IplImage img)
+        public static CvRect[] LocateFaces(this IplImage img, FaceSearch searcher)
         {
-            return LocateFaces(img, new CvRect(0,0,0,0));
+            return LocateFaces(img, searcher, new CvRect(0,0,0,0));
         }
 
-        public static CvRect[] LocateFaces(this IplImage img, CvRect rectToLookin)
+        public static CvRect[] LocateFaces(this IplImage img, FaceSearch searcher, CvRect rectToLookin)
         {
             var frame = new Common.Frame(img);
             frame.MotionRectangles.Add(rectToLookin);

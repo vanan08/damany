@@ -41,13 +41,13 @@ namespace Damany.RemoteImaging.Common.Presenters
 
         public void CompareClicked()
         {
-            if (isRunning)
+            if (IsRunning)
             {
-                this.exit = true;
+                this.Exit = true;
             }
             else
             {
-                this.exit = false; 
+                this.Exit = false; 
                 
                 var from = this.view.SearchFrom;
                 var to = this.view.SearchTo;
@@ -81,7 +81,7 @@ namespace Damany.RemoteImaging.Common.Presenters
 
         public void Stop()
         {
-            this.exit = true;
+            this.Exit = true;
         }
 
         private void CompareFace(
@@ -90,7 +90,7 @@ namespace Damany.RemoteImaging.Common.Presenters
         {
             try
             { 
-                isRunning = true;
+                IsRunning = true;
                 this.view.EnableStartButton(false);
 
                 targetImage.ROI = rect;
@@ -102,7 +102,7 @@ namespace Damany.RemoteImaging.Common.Presenters
 
                 foreach (var p in portraits)
                 {
-                    if (exit)
+                    if (Exit)
                     {
                         break;
                     }
@@ -128,7 +128,7 @@ namespace Damany.RemoteImaging.Common.Presenters
             }
             finally
             {
-                isRunning = false;
+                IsRunning = false;
                 this.view.EnableStartButton(true);
             }
             
@@ -154,15 +154,57 @@ namespace Damany.RemoteImaging.Common.Presenters
             }
         }
 
+
+        private bool IsRunning
+        {
+            get
+            {
+                lock (runningFlagLock)
+                {
+                    return isRunning;
+                }
+            }
+            set
+            {
+                lock (runningFlagLock)
+                {
+                    isRunning = value;
+                }
+            }
+        }
+
+        private bool Exit
+        {
+            get
+            {
+                lock (exitLock)
+                {
+                    return exit;
+                }
+            }
+            set
+            {
+                lock (exitLock)
+                {
+                    exit = value;
+                }
+            }
+        }
+
+
+
         FaceCompare view;
 
         Damany.PortraitCapturer.DAL.IRepository repository;
         private readonly IRepositoryFaceComparer _comparer;
 
+        private object exitLock = new object();
         private volatile bool exit;
+
         private int _thresholdIndex;
         private object locker = new object();
 
         private volatile bool isRunning = false;
+        private object runningFlagLock = new object();
     }
 }
