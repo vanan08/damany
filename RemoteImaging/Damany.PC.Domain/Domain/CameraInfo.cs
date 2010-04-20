@@ -13,5 +13,9 @@ namespace Damany.PC.Domain
         public string Description { get; set; }
         public CameraProvider Provider { get; set; }
         public bool Enabled { get; set; }
+
+        public string LoginUserName { get; set; }
+        public string LoginPassword { get; set; }
+
     }
 }
