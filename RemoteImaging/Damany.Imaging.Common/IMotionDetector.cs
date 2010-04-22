@@ -7,6 +7,6 @@ namespace Damany.Imaging.Common
 {
     public interface IMotionDetector
     {
-        bool Detect(Frame frame, out MotionDetectionResult result);
+        bool Detect(Frame frame, ref MotionDetectionResult result);
     }
 }

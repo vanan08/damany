@@ -80,16 +80,17 @@ namespace Damany.Imaging.Processors
 
         private IEnumerable<Portrait> SearchIn(IEnumerable<Frame> motionFrames)
         {
-            foreach (var item in motionFrames)
+            var mList = motionFrames.ToList();
+            foreach (var item in mList)
             {
                 this.searcher.AddInFrame(item);
             }
 
             var portraits = this.searcher.SearchFaces();
 
-            var facelessFrames = GetFacelessFrames(motionFrames, portraits);
-            var faceFrames = GetFaceFrames(motionFrames, portraits);
-            var portraitList = ExpandPortraitsList(faceFrames, portraits);
+            var facelessFrames = GetFacelessFrames(mList, portraits).ToList();
+            var faceFrames = GetFaceFrames(mList, portraits).ToList();
+            var portraitList = ExpandPortraitsList(faceFrames, portraits).ToList();
 
             return portraitList;
             

@@ -15,25 +15,46 @@ namespace Damany.RemoteImaging.Common
             private static LocalDb4oProvider persistenceService = null;
             static System.Threading.AutoResetEvent exit = new System.Threading.AutoResetEvent(false);
 
-            public static Damany.Imaging.Processors.FaceSearchController BuildNewSearchLine(CameraInfo cam)
+            public static FaceSearchController BuildNewSearchLine(
+                CameraInfo cam, 
+                IEnumerable< IOperation<Damany.Imaging.Common.Frame> > framefilters,
+                IConvertor<Damany.Imaging.Common.Frame, Damany.Imaging.Common.Portrait> convertor,
+                IEnumerable< IOperation<Damany.Imaging.Common.Portrait>> portraitFilters)
             {
                 var source = Damany.Cameras.Factory.NewFrameStream(cam);
                 source.Initialize();
                 source.Connect();
 
-                return CreateProcessLine(source);
+                var frameFilters = framefilters.ToList();
+                frameFilters.Insert(0, new FrameReader(source));
+
+                return CreateProcessLine(source, frameFilters, convertor, portraitFilters);
             }
 
-            private static FaceSearchController CreateProcessLine(Damany.Imaging.Common.IFrameStream source)
+            private static FaceSearchController CreateProcessLine(
+                IFrameStream source, 
+                IEnumerable<IOperation<Damany.Imaging.Common.Frame>> frameFilters,
+                IConvertor<Damany.Imaging.Common.Frame, Damany.Imaging.Common.Portrait> convertor,
+                IEnumerable<IOperation<Damany.Imaging.Common.Portrait>> portraitFilters)
             {
-                var motionDetector = new MotionDetector(new FaceProcessingWrapper.MotionDetector(), source);
-                var portraitFinder = new PortraitFinder();
+
+                var ff = new Operations<Imaging.Common.Frame>();
+                foreach (var frameFilter in frameFilters)
+                {
+                    ff.Register(frameFilter);
+                }
+
+                var pf = new Operations<Damany.Imaging.Common.Portrait>();
+                foreach (var portraitFilter in portraitFilters)
+                {
+                    pf.Register(portraitFilter);
+                }
 
                 var controller = FaceSearchFactory.CreateNewController(
                     source, 
-                    motionDetector, 
-                    portraitFinder,
-                    new PortraitHandler());
+                    ff, 
+                    convertor,
+                    pf);
 
                 return controller;
             }

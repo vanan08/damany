@@ -11,6 +11,8 @@ using MiscUtil;
 using SuspectsRepository;
 using Damany.RemoteImaging.Common;
 using Damany.RemoteImaging.Common;
+using Frame = Damany.Imaging.Common.Frame;
+using Portrait = Damany.Imaging.Common.Portrait;
 
 namespace RemoteImaging
 {
@@ -129,6 +131,10 @@ namespace RemoteImaging
             this.builder.RegisterType<Damany.RemoteImaging.Common.Forms.FaceCompare>();
             this.builder.RegisterType<Damany.RemoteImaging.Common.Presenters.FaceComparePresenter>();
 
+            builder.RegisterType<FaceProcessingWrapper.MotionDetector>().As<IMotionDetector>();
+            builder.RegisterType<Damany.Imaging.Processors.MotionDetector>().As < IOperation<Frame> >();
+
+            builder.RegisterType<Damany.Imaging.Processors.PortraitFinder>().As < IConvertor<Frame, Portrait> >();
 
             this.builder.RegisterType<LbpFaceComparer>()
                 .As<IRepositoryFaceComparer>();
@@ -147,7 +153,7 @@ namespace RemoteImaging
 
             this.builder.RegisterType<MainController>();
             this.builder.RegisterType<RealtimeDisplay.MainForm>()
-                .As<IPortraitHandler>()
+                .As<IOperation<Portrait>>()
                 .As<RealtimeDisplay.MainForm>()
                 .SingleInstance();
 

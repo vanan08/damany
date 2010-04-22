@@ -22,12 +22,12 @@ using Damany.PC.Domain;
 
 namespace RemoteImaging.RealtimeDisplay
 {
-    public partial class MainForm : Form, IImageScreen, Damany.Imaging.Common.IPortraitHandler
+    public partial class MainForm : Form, IImageScreen, Damany.Imaging.Common.IOperation<Portrait>
     {
         private SplashForm splash = new SplashForm();
         public MainForm()
         {
-
+            splash.TopMost = false;
             splash.Show();
             splash.Update();
 
@@ -786,7 +786,7 @@ namespace RemoteImaging.RealtimeDisplay
         {
         }
 
-        public void HandlePortraits(IList<Frame> motionFrames, IList<Portrait> portraits)
+        public void HandlePortraits(IEnumerable<Portrait> portraits)
         {
             var imgCells = portraits.Select(p => new ImageCell()
                                                      {
@@ -867,5 +867,11 @@ namespace RemoteImaging.RealtimeDisplay
            this.alertForm.Show(this);
        }
 
+        public IEnumerable<Portrait> Execute(IEnumerable<Portrait> inputs)
+        {
+            this.HandlePortraits(inputs);
+
+            return inputs;
+        }
     }
 }

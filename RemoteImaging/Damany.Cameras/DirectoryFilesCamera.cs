@@ -34,6 +34,8 @@ namespace Damany.Cameras
             {
                 throw new InvalidOperationException(GetDirectoryStringForDisplay(this.directory) + " is empty");
             }
+
+            _initialized = true;
         }
 
         public void Close() { }
@@ -41,7 +43,14 @@ namespace Damany.Cameras
 
         public Frame RetrieveFrame()
         {
+            if (!_initialized)
+            {
+                throw new InvalidOperationException("not initialized");
+            }
+
             var ipl = IplImage.FromFile(this.imageFiles[current++]);
+
+            System.Diagnostics.Debug.WriteLine("read file: " + this.imageFiles[current-1]);
 
             if (this.Repeat)
             {
@@ -72,5 +81,6 @@ namespace Damany.Cameras
         private string imagePattern;
         private string[] imageFiles;
         private int current;
+        private bool _initialized;
     }
 }

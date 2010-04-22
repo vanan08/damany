@@ -10,6 +10,8 @@ using Damany.PC.Domain;
 using Damany.PortraitCapturer.DAL;
 using RemoteImaging.Core;
 using Damany.RemoteImaging.Common;
+using Frame = Damany.Imaging.Common.Frame;
+using Portrait = Damany.Imaging.Common.Portrait;
 
 namespace RemoteImaging
 {
@@ -18,20 +20,24 @@ namespace RemoteImaging
         public MainController(RealtimeDisplay.MainForm mainForm,
                               ConfigurationManager configManager,
                               IRepository repository,
-                              IEnumerable<IPortraitHandler> handlers,
+                              IEnumerable<IOperation<Frame>> frameOperations,
+                              IConvertor<Frame, Portrait> convertor,
+                              IEnumerable<IOperation<Portrait>> portraitOperations,
                               FaceComparer comparer)
         {
             this._mainForm = mainForm;
             this._configManager = configManager;
             _repository = repository;
-            _handlers = handlers;
+            _frameOperations = frameOperations;
+            _convertor = convertor;
+            _portraitOperations = portraitOperations;
             _comparer = comparer;
 
         }
 
         public void Start()
         {
-            InitializeHandlers();
+            //InitializeHandlers();
 
             this._comparer.PersonOfInterestDected += _comparer_PersonOfInterestDected;
             this._comparer.Threshold = Properties.Settings.Default.RealTimeFaceCompareSensitivity;
@@ -105,9 +111,7 @@ namespace RemoteImaging
             {
                 try
                 {
-                    var camController = SearchLineBuilder.BuildNewSearchLine(cam);
-
-                    RegisterHandlers(camController);
+                    var camController = SearchLineBuilder.BuildNewSearchLine(cam, _frameOperations, _convertor, _portraitOperations);
 
                     camController.Start();
 
@@ -139,6 +143,9 @@ namespace RemoteImaging
         private RealtimeDisplay.MainForm _mainForm;
         private ConfigurationManager _configManager;
         private readonly IRepository _repository;
+        private readonly IEnumerable<IOperation<Frame>> _frameOperations;
+        private readonly IConvertor<Frame, Portrait> _convertor;
+        private readonly IEnumerable<IOperation<Portrait>> _portraitOperations;
         private readonly IEnumerable<IPortraitHandler> _handlers;
         private readonly FaceComparer _comparer;
         private Damany.Imaging.Processors.FaceSearchController _currentController;

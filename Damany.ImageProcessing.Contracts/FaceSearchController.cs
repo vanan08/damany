@@ -16,9 +16,9 @@ namespace Damany.Imaging.Processors
 
         private readonly Util.PersistentWorker _worker = new PersistentWorker();
 
-        public FaceSearchController( IOperation<Frame> frameProcessor,
+        public FaceSearchController(IOperation<Frame> frameProcessor,
                                      IConvertor<Frame, Portrait> convertor,
-                                     IOperation<Portrait> portraitProcessor )
+                                     IOperation<Portrait> portraitProcessor)
         {
             _frameProcessor = frameProcessor;
             _convertor = convertor;
