@@ -27,7 +27,7 @@ namespace Damany.Imaging.Processors
         {
             foreach (var frame in input)
             {
-                var motionFrames = DetectMotion(frame).ToList();
+                var motionFrames = DetectMotion(frame);
 
                 foreach (var motionFrame in motionFrames)
                 {
@@ -73,10 +73,6 @@ namespace Damany.Imaging.Processors
         private bool ProcessNewFrame(Frame frame, ref MotionDetectionResult detectionResult)
         {
             var result = _detector.Detect(frame, ref detectionResult);
-
-            System.Diagnostics.Debug.WriteLine("result: " + result);
-
-
 
             return result;
         }

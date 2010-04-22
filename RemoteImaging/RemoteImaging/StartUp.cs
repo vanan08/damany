@@ -131,18 +131,18 @@ namespace RemoteImaging
             this.builder.RegisterType<Damany.RemoteImaging.Common.Forms.FaceCompare>();
             this.builder.RegisterType<Damany.RemoteImaging.Common.Presenters.FaceComparePresenter>();
 
-            builder.RegisterType<FaceProcessingWrapper.MotionDetector>().As<IMotionDetector>();
-            builder.RegisterType<Damany.Imaging.Processors.MotionDetector>().As < IOperation<Frame> >();
+            builder.RegisterType<FaceProcessingWrapper.MotionDetector>()
+                .As<IMotionDetector>();
 
-            builder.RegisterType<Damany.Imaging.Processors.PortraitFinder>().As < IConvertor<Frame, Portrait> >();
+            builder.RegisterType<Damany.Imaging.Processors.MotionDetector>()
+                .As<IOperation<Frame>>();
+
+            builder.RegisterType<Damany.Imaging.Processors.PortraitFinder>()
+                .As<IConvertor<Frame, Portrait>>();
 
             this.builder.RegisterType<LbpFaceComparer>()
                 .As<IRepositoryFaceComparer>();
 
-            this.builder.RegisterType<FaceComparer>()
-                .As<IPortraitHandler>()
-                .As<FaceComparer>()
-                .SingleInstance();
 
             this.builder.RegisterType<Damany.Imaging.Handlers.PersistenceWriter>()
                                     .As<IPortraitHandler>()
@@ -156,6 +156,17 @@ namespace RemoteImaging
                 .As<IOperation<Portrait>>()
                 .As<RealtimeDisplay.MainForm>()
                 .SingleInstance();
+
+            this.builder.RegisterType<FaceComparer>()
+                        .As<IOperation<Portrait>>()
+                        .As<FaceComparer>()
+                        .SingleInstance();
+
+
+            builder.RegisterType<Damany.Imaging.Handlers.FaceVerifier>()
+                .As<IOperation<Portrait>>();
+
+
 
             this.Container = this.builder.Build();
         }

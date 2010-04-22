@@ -209,7 +209,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\FaceVarify.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Frame.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\FrontalFaceVarify.cpp"
 				>
 			</File>
 			<File
@@ -287,7 +295,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\FaceVarify.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Frame.h"
+				>
+			</File>
+			<File
+				RelativePath=".\FrontalFaceVarify.h"
 				>
 			</File>
 			<File

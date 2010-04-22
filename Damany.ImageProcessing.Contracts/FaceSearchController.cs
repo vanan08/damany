@@ -26,9 +26,14 @@ namespace Damany.Imaging.Processors
 
             _worker.DoWork = delegate
             {
-                var frames = frameProcessor.Execute(null);
-                var portraits = _convertor.Execute(frames);
-                var portraitsAfterProcess = _portraitProcessor.Execute(portraits);
+                var frames = frameProcessor.Execute(null).ToList();
+                var portraits = _convertor.Execute(frames).ToList();
+                var portraitsAfterProcess = _portraitProcessor.Execute(portraits).ToList();
+
+                foreach (var portrait in portraitsAfterProcess)
+                {
+                    portrait.Dispose();
+                }
             };
         }
 
