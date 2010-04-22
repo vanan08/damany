@@ -806,22 +806,9 @@ namespace RemoteImaging.RealtimeDisplay
 
             foreach (var c in loader.controllers)
             {
-                c.PortraitFinder.AddListener(this);
 
                 c.Start();
-                c.Worker.OnWorkItemIsDone += obj =>
-                {
-                    var frame = obj as Damany.Imaging.Common.Frame;
-                    try
-                    {
-                        var img = frame.GetImage().ToBitmap();
-                        this.UpdateLiveImage(img, frame.CapturedFrom.Id);
-                    }
-                    catch (System.Exception ex)
-                    {
-                    	
-                    }
-                };
+
             }
 
             this.Cameras = ConfigurationManager.GetDefault().GetCameras();

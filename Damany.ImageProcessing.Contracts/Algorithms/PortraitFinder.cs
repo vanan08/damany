@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Damany.Util.Extensions;
+using ImageProcess;
 
 namespace Damany.Imaging.Processors
 {
     using Damany.Imaging.Common;
 
-    public class PortraitFinder : IMotionFrameHandler
+    public class PortraitFinder : IConvertor<Frame, Portrait>
     {
         public event Action<IList<Portrait>> PortraitCaptured;
 
@@ -18,6 +19,12 @@ namespace Damany.Imaging.Processors
             this.searcher = new FaceSearchWrapper.FaceSearch();
         }
 
+        public IEnumerable<Portrait> Execute(IEnumerable<Frame> inputs)
+        {
+            return HandleMotionFrame(inputs);
+        }
+
+
         public void AddListener(IPortraitHandler l)
         {
             if (l == null)
@@ -26,12 +33,11 @@ namespace Damany.Imaging.Processors
             lock (this.locker)
             {
                 this.listeners.Add(l);
-                System.Diagnostics.Debug.WriteLine("listener: " + l.Name + " added");
             }
 
         }
 
-        IList<IPortraitHandler> GetListenersCopy()
+        IEnumerable<IPortraitHandler> GetListenersCopy()
         {
             lock (this.locker)
             {
@@ -64,17 +70,15 @@ namespace Damany.Imaging.Processors
 
         #region IMotionFrameHandler Members
 
-        public void HandleMotionFrame(IList<Frame> motionFrames)
+        public IEnumerable<Portrait> HandleMotionFrame(IEnumerable<Frame> motionFrames)
         {
-            if (motionFrames.Count == 0) return;
-
-            this.SearchIn(motionFrames);
+           return this.SearchIn(motionFrames);
         }
 
         #endregion
 
 
-        private void SearchIn(IList<Frame> motionFrames)
+        private IEnumerable<Portrait> SearchIn(IEnumerable<Frame> motionFrames)
         {
             foreach (var item in motionFrames)
             {
@@ -83,9 +87,12 @@ namespace Damany.Imaging.Processors
 
             var portraits = this.searcher.SearchFaces();
 
-            DisposeFacelessFrames(motionFrames, portraits);
-            var portraitList = ExpandPortraitsList(motionFrames, portraits);
-            Dispatch(motionFrames, portraitList);
+            var facelessFrames = GetFacelessFrames(motionFrames, portraits);
+            var faceFrames = GetFaceFrames(motionFrames, portraits);
+            var portraitList = ExpandPortraitsList(faceFrames, portraits);
+
+            return portraitList;
+            
         }
 
         private static OpenCvSharp.CvRect FrameToPortrait(OpenCvSharp.CvRect bounds, OpenCvSharp.CvRect faceBounds)
@@ -96,7 +103,7 @@ namespace Damany.Imaging.Processors
             return faceBounds;
         }
 
-        private static List<Portrait> ExpandPortraitsList(IList<Frame> motionFrames, ImageProcess.Target[] portraits)
+        private static IEnumerable<Portrait> ExpandPortraitsList(IEnumerable<Frame> motionFrames, IEnumerable<Target> portraits)
         {
             var portraitFoundFrameQuery = from m in motionFrames
                                           join p in portraits
@@ -114,22 +121,31 @@ namespace Damany.Imaging.Processors
                                    };
 
 
-            return expanedPortraits.ToList();
+            return expanedPortraits;
         }
 
-        private static void DisposeFacelessFrames(IList<Frame> motionFrames, ImageProcess.Target[] portraits)
+        private static IEnumerable<Frame> GetFacelessFrames(IEnumerable<Frame> motionFrames, IEnumerable<Target> portraits)
         {
             var noPortraitFrameQuery = from m in motionFrames
                                        where !portraits.Any(t => t.BaseFrame.guid.Equals(m.Guid))
                                        select m;
 
-            Array.ForEach(noPortraitFrameQuery.ToArray(), mf => { motionFrames.Remove(mf); mf.Dispose(); });
+            return noPortraitFrameQuery;
+        }
+
+        private static IEnumerable<Frame> GetFaceFrames(IEnumerable<Frame> motionFrames, IEnumerable<Target> portraits)
+        {
+            var portraitFrameQuery = from m in motionFrames
+                                       where portraits.Any(t => t.BaseFrame.guid.Equals(m.Guid))
+                                       select m;
+
+            return portraitFrameQuery;
         }
 
 
         private static void NotifyAListenerWithCopy(
-            IList<Frame> motionFrames,
-            IList<Portrait> portraitList,
+            IEnumerable<Frame> motionFrames,
+            IEnumerable<Portrait> portraitList,
             IPortraitHandler listener)
         {
             var frameCpy = listener.WantFrame ? motionFrames.ToList().ConvertAll(m => m.Clone()) : null;

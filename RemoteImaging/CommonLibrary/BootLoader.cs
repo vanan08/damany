@@ -33,7 +33,6 @@ namespace Damany.RemoteImaging.Common
                 string url = @"D:\20090505";
                 ReportProgress(50, "初始化摄像头: " + cam.Location.ToString());
                 var controller = SearchLineBuilder.BuildNewSearchLine(cam);
-                controller.RegisterPortraitHandler(portraitWriter);
                 this.controllers.Add(controller);
                 ReportProgress(90, "初始化摄像头: " + cam.Location.ToString() + "成功");
 

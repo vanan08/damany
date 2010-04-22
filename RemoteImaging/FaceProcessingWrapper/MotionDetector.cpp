@@ -3,7 +3,6 @@
 #include <stdafx.h>
 #include "../../FaceProcessing/FaceProcessing/MotionDetector.h"
 #include "Converter.h"
-#include "MotionDetectionResult.cpp"
 
 
 using namespace System;
@@ -11,7 +10,7 @@ using namespace System::Runtime::InteropServices;
 
 namespace FaceProcessingWrapper
 {
-	public ref class MotionDetector
+	public ref class MotionDetector : public Damany::Imaging::Common::IMotionDetector
 	{
 		public:
 			MotionDetector()
@@ -27,8 +26,9 @@ namespace FaceProcessingWrapper
 				}
 			}
 
-			bool PreProcessFrame(Damany::Imaging::Common::Frame^ frame, 
-				[Out] MotionDetectionResult^ result )
+
+			virtual bool Detect(Damany::Imaging::Common::Frame^ frame, 
+				Damany::Imaging::Common::MotionDetectionResult ^% result)
 			{
 				Frame f = FaceProcessingWrapper::FrameConverter::ToUnManaged(frame);
 				Frame frameToDispose;
@@ -41,12 +41,13 @@ namespace FaceProcessingWrapper
 				result->FrameGuid = System::Guid(guidBytes);
 
 				result->MotionRect = OpenCvSharp::CvRect(
-								frameToDispose.searchRect.x,
-								frameToDispose.searchRect.y,
-								frameToDispose.searchRect.width,
-								frameToDispose.searchRect.height
-								);
+					frameToDispose.searchRect.x,
+					frameToDispose.searchRect.y,
+					frameToDispose.searchRect.width,
+					frameToDispose.searchRect.height
+					);
 				return groupCaptured;
+
 			}
 
 			property System::Drawing::Rectangle ForbiddenRegion

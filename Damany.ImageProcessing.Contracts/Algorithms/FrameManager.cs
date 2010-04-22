@@ -27,7 +27,7 @@ namespace Damany.Imaging.Processors
             return toReturn;
         }
 
-        public void MoveToMotionFrames( FaceProcessingWrapper.MotionDetectionResult frameResult )
+        public void MoveToMotionFrames( MotionDetectionResult frameResult )
         {
             var f = RetrieveFrame(frameResult.FrameGuid);
             if (f != null)

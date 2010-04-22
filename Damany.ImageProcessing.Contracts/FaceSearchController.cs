@@ -3,45 +3,55 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Damany.Imaging.Common;
+using Damany.Util;
 
 namespace Damany.Imaging.Processors
 {
 
     public class FaceSearchController
     {
-        public void RegisterPortraitHandler( IPortraitHandler handler  )
+        private readonly IOperation<Frame> _frameProcessor;
+        private readonly IConvertor<Frame, Portrait> _convertor;
+        private readonly IOperation<Portrait> _portraitProcessor;
+
+        private readonly Util.PersistentWorker _worker = new PersistentWorker();
+
+        public FaceSearchController( IOperation<Frame> frameProcessor,
+                                     IConvertor<Frame, Portrait> convertor,
+                                     IOperation<Portrait> portraitProcessor )
         {
-            this.PortraitFinder.AddListener(handler);
+            _frameProcessor = frameProcessor;
+            _convertor = convertor;
+            _portraitProcessor = portraitProcessor;
+
+            _worker.DoWork = delegate
+            {
+                var frames = frameProcessor.Execute(null);
+                var portraits = _convertor.Execute(frames);
+                var portraitsAfterProcess = _portraitProcessor.Execute(portraits);
+            };
         }
 
-        public void UnRegisterPortraitHandler(IPortraitHandler handler)
-        {
-            this.PortraitFinder.RemoveListener(handler);
-        }
 
         public void Start()
         {
-            this.Worker.Start();
+            _worker.Start();
         }
 
         public void Stop()
         {
-            this.Worker.Stop();
+            _worker.Stop();
         }
 
         public void SpeedUp()
         {
-            this.Worker.WorkFrequency *= 2;
+            _worker.WorkFrequency *= 2;
         }
 
         public void SlowDown()
         {
-            this.Worker.WorkFrequency /= 2;
+            _worker.WorkFrequency /= 2;
         }
-
-        public MotionDetector MotionDetector { get; internal set; }
-        public PortraitFinder PortraitFinder { get; internal set; }
-        public Damany.Util.PersistentWorker Worker { get; internal set; }
 
     }
 }

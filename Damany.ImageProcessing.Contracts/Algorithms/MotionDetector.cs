@@ -2,28 +2,41 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using FaceProcessingWrapper;
 using Damany.Imaging.Common;
 
 namespace Damany.Imaging.Processors
 {
 
-
-    public class MotionDetector
+    public class MotionDetector : IOperation<Frame>
     {
+        private readonly IMotionDetector _detector;
+        private readonly IFrameStream _frameStream;
+        OpenCvSharp.CvSize lastImageSize;
+        readonly FrameManager _manager = new FrameManager();
 
-        public MotionDetector()
+
+        public event Action<IList<Frame>> MotionFrameCaptured;
+
+        public MotionDetector(IMotionDetector detector, IFrameStream frameStream)
         {
-            this.manager = new FrameManager();
-            this.detector = new FaceProcessingWrapper.MotionDetector();
-            this.DetectMethod = this.detector.PreProcessFrame;
+            _detector = detector;
+            _frameStream = frameStream;
         }
 
+        #region IOperation<Frame> Members
 
-        public Func<Common.Frame, FaceProcessingWrapper.MotionDetectionResult, bool> DetectMethod { get; set; }
-       
+        public IEnumerable<Frame> Execute(IEnumerable<Frame> input)
+        {
+            var frame = _frameStream.RetrieveFrame();
 
-        public void DetectMotion(Frame frame)
+            System.Diagnostics.Debug.WriteLine("get frame: " + frame.ToString());
+
+            return DetectMotion(frame);
+        }
+
+        #endregion
+
+        private IEnumerable<Frame> DetectMotion(Frame frame)
         {
             try
             {
@@ -31,30 +44,32 @@ namespace Damany.Imaging.Processors
             }
             catch (System.ArgumentException ex)
             {
-                return;
+                yield break;
             }
-             
-            this.manager.AddNewFrame(frame);
 
-            FaceProcessingWrapper.MotionDetectionResult oldFrameMotionResult;
-            bool groupCaptured = 
+            this._manager.AddNewFrame(frame);
+
+            var oldFrameMotionResult = new MotionDetectionResult();
+            bool groupCaptured =
                 ProcessNewFrame(frame, out oldFrameMotionResult);
 
             ProcessOldFrame(oldFrameMotionResult);
 
             if (groupCaptured)
             {
-                NotifyListener();
+                var frames = _manager.RetrieveMotionFrames();
+                foreach (var f in frames)
+                {
+                    yield return f;
+                }
             }
 
         }
 
 
-        private bool ProcessNewFrame(Frame frame, out FaceProcessingWrapper.MotionDetectionResult detectionResult)
+        private bool ProcessNewFrame(Frame frame, out MotionDetectionResult detectionResult)
         {
-            detectionResult = new FaceProcessingWrapper.MotionDetectionResult();
-
-            return this.DetectMethod(frame, detectionResult);
+            return _detector.Detect(frame, out detectionResult);
         }
 
 
@@ -64,29 +79,27 @@ namespace Damany.Imaging.Processors
         }
 
 
-        private void ProcessOldFrame(FaceProcessingWrapper.MotionDetectionResult result)
+        private void ProcessOldFrame(MotionDetectionResult result)
         {
             if (IsStaticFrame(result.MotionRect))
             {
-                this.manager.DisposeFrame(result.FrameGuid);
+                this._manager.DisposeFrame(result.FrameGuid);
             }
             else
             {
-                this.manager.MoveToMotionFrames(result);
+                this._manager.MoveToMotionFrames(result);
             }
         }
 
         private void NotifyListener()
         {
-            var frames = this.manager.RetrieveMotionFrames();
+            var frames = this._manager.RetrieveMotionFrames();
             if (frames.Count == 0) return;
 
             if (this.MotionFrameCaptured != null)
             {
                 this.MotionFrameCaptured(frames);
             }
-
-            
         }
 
         private bool ImageResolutionChanged(Frame currentFrame)
@@ -94,11 +107,5 @@ namespace Damany.Imaging.Processors
             return currentFrame.GetImage().Size != lastImageSize;
         }
 
-        public event Action<IList<Common.Frame>> MotionFrameCaptured;
-
-        FaceProcessingWrapper.MotionDetector detector;
-        OpenCvSharp.CvSize lastImageSize;
-
-        FrameManager manager;
     }
 }
