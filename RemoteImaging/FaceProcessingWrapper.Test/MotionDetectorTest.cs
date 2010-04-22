@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Damany.Imaging.Common;
 using Gallio.Framework;
 using MbUnit.Framework;
 using MbUnit.Framework.ContractVerifiers;
@@ -26,12 +27,10 @@ namespace FaceProcessingWrapper.Test
 
             MotionDetectionResult result = new MotionDetectionResult();
 
-            detector.PreProcessFrame(f, result);
             Assert.IsTrue(Guid.Empty.Equals(result.FrameGuid));
 
             bytes = System.IO.File.OpenRead(@"D:\ImageOutput\02\2010\01\27\BigPic\201001271121\02_100127112121953.jpg");
             f = new Damany.Imaging.Common.Frame(bytes);
-            detector.PreProcessFrame(f, result);
 
             Assert.IsTrue(result.FrameGuid.Equals(guidFram1));
         }

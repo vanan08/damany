@@ -9,46 +9,16 @@ namespace Damany.Imaging.Processors
 
     public static class FaceSearchFactory
     {
-        public static FaceSearchController CreateNewController(IFrameStream source)
+        public static FaceSearchController CreateNewController(IFrameStream source, 
+                                                               IOperation<Frame> frameProcessor,
+                                                               IConvertor<Frame, Portrait> convertor,
+                                                               IOperation<Portrait> portraitProcessor)
         {
-            PortraitFinder finder = new PortraitFinder();
 
-            MotionDetector motionDetector = new MotionDetector();
-            motionDetector.MotionFrameCaptured += finder.HandleMotionFrame;
-
-            Damany.Util.PersistentWorker retriever = CreateDriver(source, motionDetector);
-
-            var controller = new FaceSearchController()
-            {
-                Worker = retriever,
-                PortraitFinder = finder,
-                MotionDetector = motionDetector
-            };
+            var controller = new FaceSearchController(frameProcessor, convertor, portraitProcessor);
 
             return controller;
 
-        }
-
-
-        private static Damany.Util.PersistentWorker CreateDriver(IFrameStream source, MotionDetector motionDetector)
-        {
-            var retriever = new Damany.Util.PersistentWorker();
-            retriever.OnWorkItemIsDone += item =>
-            {
-                Console.Write("\r");
-                Frame f = item as Frame;
-                Console.Write(f.ToString());
-            };
-
-            retriever.DoWork = delegate
-            {
-                var frame = source.RetrieveFrame();
-                retriever.ReportWorkItem(frame);
-                motionDetector.DetectMotion(frame);
-            };
-
-            retriever.OnExceptionRetry = delegate { source.Connect(); };
-            return retriever;
         }
     }
 }

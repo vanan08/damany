@@ -234,10 +234,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\MotionDetectionResult.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\MotionDetector.cpp"
 				>
 			</File>

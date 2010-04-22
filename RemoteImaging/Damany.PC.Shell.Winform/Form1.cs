@@ -234,29 +234,7 @@ namespace Damany.PC.Shell.Winform
             
             foreach (var c in this.controllers)
             {
-                c.Worker.OnWorkItemIsDone +=  o=> { 
-                    Damany.Imaging.Common.Frame frame = o as Damany.Imaging.Common.Frame;
-                    Damany.RemoteImaging.Common.Frame f = new Damany.RemoteImaging.Common.Frame();
-                    f.CameraID = frame.CapturedFrom.Id;
-                    f.image = frame.GetImage().ToBitmap();
-                    f.timeStamp = frame.CapturedAt;
-                    sender.EnqueueObject(f);
-                };
 
-                c.PortraitFinder.PortraitCaptured += l =>
-                {
-
-                    foreach (var p in l)
-                    {
-                        Damany.RemoteImaging.Common.Portrait newP = new Damany.RemoteImaging.Common.Portrait();
-                        newP.cameraId = p.CapturedFrom.Id;
-                        newP.image = p.GetIpl().ToBitmap();
-                        newP.timeStamp = p.CapturedAt;
-                        sender.EnqueueObject(newP);
-                    }
-
-
-                };
             }
 
         }
@@ -273,12 +251,6 @@ namespace Damany.PC.Shell.Winform
 
             foreach (var c in loader.controllers)
             {
-                c.RegisterPortraitHandler(this);
-                c.MotionDetector.DetectMethod = delegate( Damany.Imaging.Common.Frame frame, FaceProcessingWrapper.MotionDetectionResult result){
-                    result.FrameGuid = frame.Guid;
-                    result.MotionRect = new OpenCvSharp.CvRect(0, 0, frame.GetImage().Width, frame.GetImage().Height);
-                    return true;
-                    };
                 this.controllers.Add(c);
             }
 

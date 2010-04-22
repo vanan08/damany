@@ -132,7 +132,6 @@ namespace RemoteImaging
         {
             foreach (var h in _handlers)
             {
-                camController.RegisterPortraitHandler(h);
             }
         }
 
