@@ -10,28 +10,31 @@ namespace Damany.Imaging.Processors
     public class MotionDetector : IOperation<Frame>
     {
         private readonly IMotionDetector _detector;
-        private readonly IFrameStream _frameStream;
         OpenCvSharp.CvSize lastImageSize;
         readonly FrameManager _manager = new FrameManager();
 
 
         public event Action<IList<Frame>> MotionFrameCaptured;
 
-        public MotionDetector(IMotionDetector detector, IFrameStream frameStream)
+        public MotionDetector(IMotionDetector detector)
         {
             _detector = detector;
-            _frameStream = frameStream;
         }
 
         #region IOperation<Frame> Members
 
         public IEnumerable<Frame> Execute(IEnumerable<Frame> input)
         {
-            var frame = _frameStream.RetrieveFrame();
+            foreach (var frame in input)
+            {
+                var motionFrames = DetectMotion(frame).ToList();
 
-            System.Diagnostics.Debug.WriteLine("get frame: " + frame.ToString());
+                foreach (var motionFrame in motionFrames)
+                {
+                    yield return motionFrame;
+                }
+            }
 
-            return DetectMotion(frame);
         }
 
         #endregion
@@ -51,7 +54,7 @@ namespace Damany.Imaging.Processors
 
             var oldFrameMotionResult = new MotionDetectionResult();
             bool groupCaptured =
-                ProcessNewFrame(frame, out oldFrameMotionResult);
+                ProcessNewFrame(frame, ref oldFrameMotionResult);
 
             ProcessOldFrame(oldFrameMotionResult);
 
@@ -67,9 +70,15 @@ namespace Damany.Imaging.Processors
         }
 
 
-        private bool ProcessNewFrame(Frame frame, out MotionDetectionResult detectionResult)
+        private bool ProcessNewFrame(Frame frame, ref MotionDetectionResult detectionResult)
         {
-            return _detector.Detect(frame, out detectionResult);
+            var result = _detector.Detect(frame, ref detectionResult);
+
+            System.Diagnostics.Debug.WriteLine("result: " + result);
+
+
+
+            return result;
         }
 
 

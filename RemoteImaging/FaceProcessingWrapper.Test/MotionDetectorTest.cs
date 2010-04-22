@@ -13,26 +13,37 @@ namespace FaceProcessingWrapper.Test
     [TestFixture]
     public class MotionDetectorTest
     {
-        [Test]
         public void Test()
         {
-            FaceProcessingWrapper.MotionDetector detector = new FaceProcessingWrapper.MotionDetector();
+            IMotionDetector motiondetector = new FaceProcessingWrapper.MotionDetector();
 
-            var bytes = System.IO.File.OpenRead(@"D:\ImageOutput\02\2010\01\27\BigPic\201001271121\02_100127112121328.jpg");
+            foreach (var file in System.IO.Directory.GetFiles(@"M:\测试图片\Lb", "*.jpg"))
+            {
+                var ipl = OpenCvSharp.IplImage.FromFile(file);
+                var frame = new Frame(ipl);
 
-            var f = new Damany.Imaging.Common.Frame(bytes);
-            Debug.WriteLine("guid: " + f.Guid.ToString());
+                MotionDetectionResult result = new MotionDetectionResult();
+                var groupCaptured = motiondetector.Detect(frame, ref result);
 
-            Guid guidFram1 = f.Guid;
+                System.Diagnostics.Debug.WriteLine(groupCaptured.ToString() + " " + result.MotionRect.Width);
 
-            MotionDetectionResult result = new MotionDetectionResult();
+            }
+        }
 
-            Assert.IsTrue(Guid.Empty.Equals(result.FrameGuid));
+        [Test]
+        public void MotionDetectorHlTest()
+        {
+            IMotionDetector algorithm = new FaceProcessingWrapper.MotionDetector();
 
-            bytes = System.IO.File.OpenRead(@"D:\ImageOutput\02\2010\01\27\BigPic\201001271121\02_100127112121953.jpg");
-            f = new Damany.Imaging.Common.Frame(bytes);
+            var dir = new Damany.Cameras.DirectoryFilesCamera(@"M:\测试图片\Lb", "*.jpg");
+            dir.Initialize();
+            var detector = new Damany.Imaging.Processors.MotionDetector(algorithm);
 
-            Assert.IsTrue(result.FrameGuid.Equals(guidFram1));
+            while (true)
+            {
+                detector.Execute(null);
+            } 
+            
         }
     }
 }
