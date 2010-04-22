@@ -10,7 +10,7 @@ using OpenCvSharp;
 
 namespace Damany.Imaging.PlugIns
 {
-    public class FaceComparer : IPortraitHandler
+    public class FaceComparer : IOperation<Portrait>
     {
         private readonly IEnumerable<PersonOfInterest> _personsOfInterests;
 
@@ -144,12 +144,6 @@ namespace Damany.Imaging.PlugIns
 
                     }
                 }
-
-
-           
-
-               
-                
             }
             
         }
@@ -217,7 +211,15 @@ namespace Damany.Imaging.PlugIns
         private bool run;
         private object runLocker = new object();
 
-       
 
+        public IEnumerable<Portrait> Execute(IEnumerable<Portrait> inputs)
+        {
+            var clone = from p in inputs
+                        select p.Clone();
+
+            HandlePortraits(null, clone.ToList());
+
+            return inputs;
+        }
     }
 }

@@ -70,7 +70,7 @@ namespace Damany.Util
                     this.stopped.Set();
                 }
             }
-            catch (System.Exception ex)
+            catch (System.IO.IOException ex)
             {
                 this.IsBusy = false;
                 Recover();

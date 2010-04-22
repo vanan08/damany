@@ -20,12 +20,13 @@ namespace Damany.Imaging.Common
 
         public IEnumerable<T> Execute(IEnumerable<T> input)
         {
-            IEnumerable<T> current = input;
+            var current = input;
             foreach (var operation in _operations)
             {
                 current = operation.Execute(current);
+                current = current.ToList();
             }
-
+            
             return current;
         }
 

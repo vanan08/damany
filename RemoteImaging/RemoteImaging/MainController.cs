@@ -37,7 +37,8 @@ namespace RemoteImaging
 
         public void Start()
         {
-            //InitializeHandlers();
+            _comparer.Initialize();
+            _comparer.Start();
 
             this._comparer.PersonOfInterestDected += _comparer_PersonOfInterestDected;
             this._comparer.Threshold = Properties.Settings.Default.RealTimeFaceCompareSensitivity;

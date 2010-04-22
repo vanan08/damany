@@ -65,6 +65,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions\IplImageExtensions.cs" />
+    <Compile Include="Handlers\FaceVerifier.cs" />
+    <Compile Include="Handlers\FrontFaceVerifier.cs" />
     <Compile Include="PlugIns\LbpConfiguration.cs" />
     <Compile Include="PlugIns\LBPFaceComparer.cs" />
     <Compile Include="FaceSearchController.cs" />

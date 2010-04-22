@@ -226,7 +226,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\FaceVerifier.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\FrontFaceChecker.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\FrontFaceVerifier.cpp"
 				>
 			</File>
 			<File
