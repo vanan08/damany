@@ -20,17 +20,13 @@ namespace RemoteImaging
         public MainController(RealtimeDisplay.MainForm mainForm,
                               ConfigurationManager configManager,
                               IRepository repository,
-                              IEnumerable<IOperation<Frame>> frameOperations,
-                              IConvertor<Frame, Portrait> convertor,
-                              IEnumerable<IOperation<Portrait>> portraitOperations,
+                              SearchLineBuilder.SearchLineFactory searchLineFactory,
                               FaceComparer comparer)
         {
             this._mainForm = mainForm;
             this._configManager = configManager;
             _repository = repository;
-            _frameOperations = frameOperations;
-            _convertor = convertor;
-            _portraitOperations = portraitOperations;
+            _searchLineFactory = searchLineFactory;
             _comparer = comparer;
 
         }
@@ -57,11 +53,6 @@ namespace RemoteImaging
 
         private void InitializeHandlers()
         {
-            foreach (var portraitHandler in _handlers)
-            {
-                portraitHandler.Initialize();
-                portraitHandler.Start();
-            }
         }
 
         void _comparer_PersonOfInterestDected(object sender, MiscUtil.EventArgs<PersonOfInterestDetectionResult> e)
@@ -112,7 +103,8 @@ namespace RemoteImaging
             {
                 try
                 {
-                    var camController = SearchLineBuilder.BuildNewSearchLine(cam, _frameOperations, _convertor, _portraitOperations);
+                    var builder = _searchLineFactory(cam);
+                    var camController = builder.Build();
 
                     camController.Start();
 
@@ -135,19 +127,13 @@ namespace RemoteImaging
 
         private void RegisterHandlers(FaceSearchController camController)
         {
-            foreach (var h in _handlers)
-            {
-            }
         }
 
 
         private RealtimeDisplay.MainForm _mainForm;
         private ConfigurationManager _configManager;
         private readonly IRepository _repository;
-        private readonly IEnumerable<IOperation<Frame>> _frameOperations;
-        private readonly IConvertor<Frame, Portrait> _convertor;
-        private readonly IEnumerable<IOperation<Portrait>> _portraitOperations;
-        private readonly IEnumerable<IPortraitHandler> _handlers;
+        private readonly SearchLineBuilder.SearchLineFactory _searchLineFactory;
         private readonly FaceComparer _comparer;
         private Damany.Imaging.Processors.FaceSearchController _currentController;
     }

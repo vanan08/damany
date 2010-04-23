@@ -168,14 +168,13 @@ namespace RemoteImaging
                         .As<IOperation<Portrait>>()
                         .SingleInstance();
 
-
-
             builder.RegisterType<Damany.Imaging.Handlers.FaceVerifier>()
                 .As<IOperation<Portrait>>();
 
-
+            builder.RegisterType<SearchLineBuilder>();
 
             this.Container = this.builder.Build();
+
         }
 
 
