@@ -31,7 +31,7 @@ namespace Damany.Imaging.Handlers
         {
             foreach (var portrait in inputs)
             {
-                if (_verifier.IsFrontFace(portrait.GetIpl()))
+                if (_verifier.IsFrontFace(portrait.GetIpl().GetSub(portrait.FaceBounds)))
                 {
                     yield return portrait;
                 }
