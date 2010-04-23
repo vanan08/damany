@@ -13,7 +13,7 @@ namespace Damany.Imaging.Handlers
         {
             foreach (var portrait in inputs)
             {
-                if (_verifier.IsFace(portrait.GetIpl()))
+                if (_verifier.IsFace(portrait.GetIpl().GetSub(portrait.FaceBounds)))
                 {
                     yield return portrait;
                 }
