@@ -70,7 +70,7 @@ namespace Damany.Util
                     this.stopped.Set();
                 }
             }
-            catch (System.IO.IOException ex)
+            catch (System.Net.WebException ex)
             {
                 this.IsBusy = false;
                 Recover();
@@ -94,7 +94,7 @@ namespace Damany.Util
                     this.timer.Enabled = true;
                     break;
                 }
-                catch (System.Exception ex)
+                catch (System.Net.WebException ex)
                 {
                     System.Diagnostics.Debug.WriteLine(string.Format("sleep {0} to retry", this.RetryInterval));
                     System.Threading.Thread.Sleep(RetryInterval);

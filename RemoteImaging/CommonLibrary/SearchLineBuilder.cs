@@ -10,33 +10,32 @@ using Damany.PC.Domain;
 
 namespace Damany.RemoteImaging.Common
 {
-        public static class SearchLineBuilder
+        public class SearchLineBuilder
         {
-            private static LocalDb4oProvider persistenceService = null;
-            static System.Threading.AutoResetEvent exit = new System.Threading.AutoResetEvent(false);
+            public delegate SearchLineBuilder SearchLineFactory(CameraInfo spec);
 
-            public static FaceSearchController BuildNewSearchLine(
-                CameraInfo cam, 
+            public SearchLineBuilder(
+                CameraInfo spec, 
                 IEnumerable< IOperation<Damany.Imaging.Common.Frame> > framefilters,
                 IConvertor<Damany.Imaging.Common.Frame, Damany.Imaging.Common.Portrait> convertor,
                 IEnumerable< IOperation<Damany.Imaging.Common.Portrait>> portraitFilters)
             {
-                var source = Damany.Cameras.Factory.NewFrameStream(cam);
+                _spec = spec;
+                _framefilters = framefilters;
+                _convertor = convertor;
+                _portraitFilters = portraitFilters;
+            }
+
+            public FaceSearchController Build( )
+            {
+                var source = Damany.Cameras.Factory.NewFrameStream(_spec);
                 source.Initialize();
                 source.Connect();
 
-                var frameFilters = framefilters.ToList();
+                var frameFilters = _framefilters.ToList();
                 frameFilters.Insert(0, new FrameReader(source));
 
-                return CreateProcessLine(source, frameFilters, convertor, portraitFilters);
-            }
 
-            private static FaceSearchController CreateProcessLine(
-                IFrameStream source, 
-                IEnumerable<IOperation<Damany.Imaging.Common.Frame>> frameFilters,
-                IConvertor<Damany.Imaging.Common.Frame, Damany.Imaging.Common.Portrait> convertor,
-                IEnumerable<IOperation<Damany.Imaging.Common.Portrait>> portraitFilters)
-            {
 
                 var ff = new Operations<Imaging.Common.Frame>();
                 foreach (var frameFilter in frameFilters)
@@ -45,7 +44,7 @@ namespace Damany.RemoteImaging.Common
                 }
 
                 var pf = new Operations<Damany.Imaging.Common.Portrait>();
-                foreach (var portraitFilter in portraitFilters)
+                foreach (var portraitFilter in _portraitFilters)
                 {
                     pf.Register(portraitFilter);
                 }
@@ -53,10 +52,16 @@ namespace Damany.RemoteImaging.Common
                 var controller = FaceSearchFactory.CreateNewController(
                     source, 
                     ff, 
-                    convertor,
+                    _convertor,
                     pf);
 
                 return controller;
             }
+
+
+            private readonly CameraInfo _spec;
+            private readonly IEnumerable<IOperation<Imaging.Common.Frame>> _framefilters;
+            private readonly IConvertor<Imaging.Common.Frame, Imaging.Common.Portrait> _convertor;
+            private readonly IEnumerable<IOperation<Imaging.Common.Portrait>> _portraitFilters;
         }
 }

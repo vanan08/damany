@@ -15,7 +15,7 @@ namespace Damany.Imaging.Processors
                                                                IOperation<Portrait> portraitProcessor)
         {
 
-            var controller = new FaceSearchController(frameProcessor, convertor, portraitProcessor);
+            var controller = new FaceSearchController(source, frameProcessor, convertor, portraitProcessor);
 
             return controller;
 
