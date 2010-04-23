@@ -151,16 +151,21 @@ namespace RemoteImaging
             this.builder.RegisterType<OptionsForm>().SingleInstance();
             this.builder.RegisterType<OptionsPresenter>();
 
-            this.builder.RegisterType<MainController>();
-            this.builder.RegisterType<RealtimeDisplay.MainForm>()
-                .As<IOperation<Portrait>>()
-                .As<RealtimeDisplay.MainForm>()
-                .SingleInstance();
 
             this.builder.RegisterType<FaceComparer>()
                         .As<IOperation<Portrait>>()
                         .As<FaceComparer>()
                         .SingleInstance();
+
+            builder.RegisterType<Damany.Imaging.Handlers.FrontFaceVerifier>()
+                .WithParameter("template", Properties.Settings.Default.FrontFaceTemplateFile)
+                .As<IOperation<Portrait>>();
+
+            this.builder.RegisterType<MainController>();
+            this.builder.RegisterType<RealtimeDisplay.MainForm>()
+                .As<IOperation<Portrait>>()
+                .As<RealtimeDisplay.MainForm>()
+                .SingleInstance();
 
 
             builder.RegisterType<Damany.Imaging.Handlers.FaceVerifier>()
