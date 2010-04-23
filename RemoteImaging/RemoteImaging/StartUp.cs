@@ -144,9 +144,6 @@ namespace RemoteImaging
                 .As<IRepositoryFaceComparer>();
 
 
-            this.builder.RegisterType<Damany.Imaging.Handlers.PersistenceWriter>()
-                                    .As<IPortraitHandler>()
-                                    .SingleInstance();
 
             this.builder.RegisterType<OptionsForm>().SingleInstance();
             this.builder.RegisterType<OptionsPresenter>();
@@ -166,6 +163,11 @@ namespace RemoteImaging
                 .As<IOperation<Portrait>>()
                 .As<RealtimeDisplay.MainForm>()
                 .SingleInstance();
+
+            this.builder.RegisterType<Damany.Imaging.Handlers.PersistenceWriter>()
+                        .As<IOperation<Portrait>>()
+                        .SingleInstance();
+
 
 
             builder.RegisterType<Damany.Imaging.Handlers.FaceVerifier>()

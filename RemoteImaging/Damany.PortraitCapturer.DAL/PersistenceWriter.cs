@@ -2,16 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Damany.Imaging.Common;
 using Damany.PortraitCapturer.DAL;
 
 namespace Damany.Imaging.Handlers
 {
-    public class PersistenceWriter : Damany.Imaging.Common.IPortraitHandler
+    public class PersistenceWriter : IOperation<Portrait>
     {
         private Damany.PortraitCapturer.DAL.IRepository repository;
         #region IPortraitHandler Members
 
-        public PersistenceWriter(Damany.PortraitCapturer.DAL.IRepository repository)
+        public PersistenceWriter(IRepository repository)
         {
             this.repository = repository;
         }
@@ -20,7 +21,7 @@ namespace Damany.Imaging.Handlers
 
         public void Start() {}
 
-        public void HandlePortraits(IList<Damany.Imaging.Common.Frame> motionFrames, IList<Damany.Imaging.Common.Portrait> portraits)
+        public void HandlePortraits(IList<Frame> motionFrames, IList<Portrait> portraits)
         {
             motionFrames.ToList().ForEach(f =>{ this.repository.SaveFrame(f); });
             portraits.ToList().ForEach(p => { this.repository.SavePortrait(p); });
@@ -63,5 +64,10 @@ namespace Damany.Imaging.Handlers
 
         #endregion
 
+        public IEnumerable<Portrait> Execute(IEnumerable<Portrait> inputs)
+        {
+            HandlePortraits( new List<Frame>(), inputs.ToList() );
+            return inputs;
+        }
     }
 }
