@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Damany.Imaging.Common;
 using RemoteControlService;
 using Damany.PortraitCapturer.DAL;
 

@@ -37,13 +37,8 @@ namespace Damany.PortraitCapturer.Shell.CmdLine
         }
 
 
-
-
-
-
-
-        private static void HandleInput(LocalDb4oProvider persistenceService,
-            PersistenceWriter portraitFileSystemWriter,
+        private static void HandleInput(
+            LocalDb4oProvider persistenceService,
             Damany.Util.PersistentWorker retriever)
         {
             while (true)
@@ -66,7 +61,6 @@ namespace Damany.PortraitCapturer.Shell.CmdLine
                         break;
                     default:
                         retriever.Stop();
-                        portraitFileSystemWriter.Stop();
                         exit.Set();
                         return;
                         break;

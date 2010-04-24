@@ -66,6 +66,7 @@
     <Compile Include="FrameReader.cs" />
     <Compile Include="IConfigurable.cs" />
     <Compile Include="IConvertor.cs" />
+    <Compile Include="IDataProvider.cs" />
     <Compile Include="IMotionDetector.cs" />
     <Compile Include="IOperation.cs" />
     <Compile Include="IRepositoryFaceComparer.cs" />
