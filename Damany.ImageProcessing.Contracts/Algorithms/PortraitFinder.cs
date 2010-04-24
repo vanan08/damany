@@ -13,6 +13,8 @@ namespace Damany.Imaging.Processors
     {
         public event Action<IList<Portrait>> PortraitCaptured;
 
+        public IRepository Repository { get; set; }
+
         public PortraitFinder()
         {
             this.listeners = new List<IPortraitHandler>();
@@ -72,7 +74,7 @@ namespace Damany.Imaging.Processors
 
         public IEnumerable<Portrait> HandleMotionFrame(IEnumerable<Frame> motionFrames)
         {
-           return this.SearchIn(motionFrames);
+            return this.SearchIn(motionFrames);
         }
 
         #endregion
@@ -92,13 +94,25 @@ namespace Damany.Imaging.Processors
             var faceFrames = GetFaceFrames(mList, portraits);
             var portraitList = ExpandPortraitsList(faceFrames, portraits);
 
+            PersistPortraits(faceFrames, portraitList);
+
+
             foreach (var facelessFrame in facelessFrames)
             {
                 facelessFrame.Dispose();
             }
 
             return portraitList;
-            
+
+        }
+
+        private void PersistPortraits(IEnumerable<Frame> faceFrames, IEnumerable<Portrait> portraitList)
+        {
+            if (Repository != null)
+            {
+                faceFrames.ToList().ForEach(f => this.Repository.SaveFrame(f));
+                portraitList.ToList().ForEach(p => this.Repository.SavePortrait(p));
+            }
         }
 
         private static OpenCvSharp.CvRect FrameToPortrait(OpenCvSharp.CvRect bounds, OpenCvSharp.CvRect faceBounds)
@@ -142,8 +156,8 @@ namespace Damany.Imaging.Processors
         private static IEnumerable<Frame> GetFaceFrames(IEnumerable<Frame> motionFrames, IEnumerable<Target> portraits)
         {
             var portraitFrameQuery = from m in motionFrames
-                                       where portraits.Any(t => t.BaseFrame.guid.Equals(m.Guid))
-                                       select m;
+                                     where portraits.Any(t => t.BaseFrame.guid.Equals(m.Guid))
+                                     select m;
 
             return portraitFrameQuery;
         }

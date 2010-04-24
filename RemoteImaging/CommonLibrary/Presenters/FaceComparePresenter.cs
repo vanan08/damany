@@ -195,7 +195,7 @@ namespace Damany.RemoteImaging.Common.Presenters
 
         FaceCompare view;
 
-        Damany.PortraitCapturer.DAL.IRepository repository;
+        IRepository repository;
         private readonly IRepositoryFaceComparer _comparer;
 
         private object exitLock = new object();

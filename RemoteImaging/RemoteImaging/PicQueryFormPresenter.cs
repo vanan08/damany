@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Damany.Imaging.Common;
 using Damany.PortraitCapturer.DAL;
 using Damany.RemoteImaging.Common;
 
@@ -207,7 +208,7 @@ namespace RemoteImaging
 
         private Damany.Util.DateTimeRange range;
         IPicQueryScreen screen;
-        Damany.PortraitCapturer.DAL.IRepository repository;
+        IRepository repository;
         private readonly ConfigurationManager _configManager;
         IList<Damany.Imaging.Common.Portrait> portraits;
         int currentPageIndex;

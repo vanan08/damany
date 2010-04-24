@@ -97,7 +97,7 @@ namespace RemoteImaging
 
 
             this.builder.RegisterInstance(repository)
-                .As<Damany.PortraitCapturer.DAL.IRepository>()
+                .As<IRepository>()
                 .ExternallyOwned();
 
             //var dirRepository = new Damany.PortraitCapturer.DAL.DirectoryRepository(@"M:\imageSearch");
@@ -138,7 +138,8 @@ namespace RemoteImaging
                 .As<IOperation<Frame>>();
 
             builder.RegisterType<Damany.Imaging.Processors.PortraitFinder>()
-                .As<IConvertor<Frame, Portrait>>();
+                .As<IConvertor<Frame, Portrait>>()
+                .PropertiesAutowired();
 
             this.builder.RegisterType<LbpFaceComparer>()
                 .As<IRepositoryFaceComparer>();
@@ -163,10 +164,6 @@ namespace RemoteImaging
                 .As<IOperation<Portrait>>()
                 .As<RealtimeDisplay.MainForm>()
                 .SingleInstance();
-
-            this.builder.RegisterType<Damany.Imaging.Handlers.PersistenceWriter>()
-                        .As<IOperation<Portrait>>()
-                        .SingleInstance();
 
             builder.RegisterType<Damany.Imaging.Handlers.FaceVerifier>()
                 .As<IOperation<Portrait>>();
