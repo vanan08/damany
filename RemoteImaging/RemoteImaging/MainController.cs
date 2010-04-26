@@ -38,15 +38,14 @@ namespace RemoteImaging
 
             this._comparer.PersonOfInterestDected += _comparer_PersonOfInterestDected;
             this._comparer.Threshold = Properties.Settings.Default.RealTimeFaceCompareSensitivity;
-            this._comparer.Comparer.SetSensitivity( Properties.Settings.Default.LbpThreshold );
+            this._comparer.Comparer.SetSensitivity(Properties.Settings.Default.LbpThreshold);
 
             this._mainForm.Cameras = this._configManager.GetCameras().ToArray();
             var camToStart = this._configManager.GetCameras();
 
-            if (camToStart.Count == 1)
+            if (camToStart.Count <= 2)
             {
-                var single = this._configManager.GetCameras().Single();
-                this.StartCameraInternal(single);
+                this.StartCameras();
             }
 
         }
@@ -58,19 +57,6 @@ namespace RemoteImaging
         void _comparer_PersonOfInterestDected(object sender, MiscUtil.EventArgs<PersonOfInterestDetectionResult> e)
         {
             this._mainForm.ShowSuspects(e.Value);
-        }
-
-        public void StartCamera()
-        {
-            var selected = this._mainForm.GetSelectedCamera();
-            if (selected == null) return;
-
-            if (_currentController != null)
-            {
-                _currentController.Stop();
-            }
-
-            this.StartCameraInternal(selected);
         }
 
         public void SelectedPortraitChanged()
@@ -97,28 +83,33 @@ namespace RemoteImaging
 
 
 
-        private void StartCameraInternal(CameraInfo cam)
+        private void StartCameras()
         {
             System.Threading.WaitCallback action = delegate
             {
-                try
+                foreach (var cameraInfo in _configManager.GetCameras())
                 {
-                    var builder = _searchLineFactory(cam);
-                    var camController = builder.Build();
-
-                    camController.Start();
-
-                    _currentController = camController;
-                    if (cam.Provider == CameraProvider.Sanyo)
+                    try
                     {
-                        this._mainForm.StartRecord(cam);
+                        var builder = _searchLineFactory(cameraInfo);
+                        var camController = builder.Build();
+
+                        camController.Start();
+
+                        if (cameraInfo.Provider == CameraProvider.Sanyo)
+                        {
+                            this._mainForm.StartRecord(cameraInfo);
+                        }
+
+
+                    }
+                    catch (System.Net.WebException)
+                    {
+                        var msg = string.Format("无法连接 {0}", cameraInfo.Location.Host);
+                        _mainForm.ShowMessage(msg);
+
                     }
 
-                }
-                catch (Exception ex)
-                {
-                    var msg = string.Format("无法连接 {0}", cam.Location.Host);
-                    _mainForm.ShowMessage(msg);
                 }
 
             };

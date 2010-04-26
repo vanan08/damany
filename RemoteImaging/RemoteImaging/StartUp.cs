@@ -163,12 +163,19 @@ namespace RemoteImaging
             this.builder.RegisterType<RealtimeDisplay.MainForm>()
                 .As<IOperation<Portrait>>()
                 .As<RealtimeDisplay.MainForm>()
+                .PropertiesAutowired()
                 .SingleInstance();
 
             builder.RegisterType<Damany.Imaging.Handlers.FaceVerifier>()
                 .As<IOperation<Portrait>>();
 
             builder.RegisterType<SearchLineBuilder>();
+
+            builder.RegisterType<LicensePlate.LicensePlateEventPublisher>()
+                .As<LicensePlate.ILicensePlateEventPublisher>()
+                .SingleInstance();
+
+            builder.RegisterType<LicensePlate.MockLicensePlateGenerator>();
 
             this.Container = this.builder.Build();
 

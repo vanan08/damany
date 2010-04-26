@@ -40,6 +40,8 @@ namespace RemoteImaging
                 var controller = strapper.Container.Resolve<MainController>();
                 mainForm.AttachController(controller);
 
+                strapper.Container.Resolve<LicensePlate.MockLicensePlateGenerator>();
+
                 Application.Run(mainForm);
 
             }
