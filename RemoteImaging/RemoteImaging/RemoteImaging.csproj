@@ -135,6 +135,8 @@
     <Compile Include="DateTimeInString.cs" />
     <Compile Include="DisposableWrapper.cs" />
     <Compile Include="Face.cs" />
+    <Compile Include="ICameraNameResolver.cs" />
+    <Compile Include="LicensePlate\ILicensePlateEventPublisher.cs" />
     <Compile Include="ImportPersonCompare\ImmediatelyModel.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -178,6 +180,13 @@
     </Compile>
     <Compile Include="IPicQueryPresenter.cs" />
     <Compile Include="IPicQueryScreen.cs" />
+    <Compile Include="LicensePlate\ILicensePlateObserver.cs" />
+    <Compile Include="LicensePlate\ILicensePlatePresenter.cs" />
+    <Compile Include="LicensePlate\ILicensePlateRepository.cs" />
+    <Compile Include="LicensePlate\ILicensePlateScreen.cs" />
+    <Compile Include="LicensePlate\LicensePlateEventPublisher.cs" />
+    <Compile Include="LicensePlate\LicensePlateInfo.cs" />
+    <Compile Include="LicensePlate\MockLicensePlateGenerator.cs" />
     <Compile Include="MainController.cs" />
     <Compile Include="MainScreenPresenter.cs" />
     <Compile Include="MockCamera.cs" />
