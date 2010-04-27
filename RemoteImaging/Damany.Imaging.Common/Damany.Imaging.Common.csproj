@@ -78,6 +78,7 @@
     <Compile Include="IPortraitHandler.cs" />
     <Compile Include="LazyIplImage.cs" />
     <Compile Include="MotionDetectResult.cs" />
+    <Compile Include="NullRepositoryFaceComparer.cs" />
     <Compile Include="PersonOfInterest.cs" />
     <Compile Include="Operations.cs" />
     <Compile Include="Portrait.cs" />
