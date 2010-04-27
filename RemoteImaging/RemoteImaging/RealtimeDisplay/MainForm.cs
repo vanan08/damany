@@ -24,6 +24,7 @@ namespace RemoteImaging.RealtimeDisplay
 {
     public partial class MainForm : Form, IImageScreen, Damany.Imaging.Common.IOperation<Portrait>
     {
+        public Func<FaceComparePresenter> CreateFaceCompare { get; set; }
         private SplashForm splash = new SplashForm();
         public MainForm()
         {
@@ -44,13 +45,14 @@ namespace RemoteImaging.RealtimeDisplay
         }
 
 
-        public MainForm(Func<RemoteImaging.IPicQueryPresenter> picQueryPresenterCreator,
-                        Func<Query.IVideoQueryPresenter> createVideoQueryPresenter,
-                        Func<Damany.RemoteImaging.Common.Presenters.FaceComparePresenter> createFaceCompare,
-                         Func<OptionsForm> createOptionsForm,
-                         Func<OptionsPresenter> createOptionsPresenter)
+        public MainForm(Func<IPicQueryPresenter> picQueryPresenterCreator,
+                        Func<IVideoQueryPresenter> createVideoQueryPresenter,
+                        Func<FaceComparePresenter> createFaceCompare,
+                        Func<OptionsForm> createOptionsForm,
+                        Func<OptionsPresenter> createOptionsPresenter)
             : this()
         {
+            CreateFaceCompare = createFaceCompare;
             this.picPresenterCreator = picQueryPresenterCreator;
             _createVideoQueryPresenter = createVideoQueryPresenter;
             _createFaceCompare = createFaceCompare;
@@ -764,7 +766,7 @@ namespace RemoteImaging.RealtimeDisplay
             }
 
             alertForm.AddSuspects(result);
-           
+
         }
 
 
@@ -860,12 +862,12 @@ namespace RemoteImaging.RealtimeDisplay
             System.Diagnostics.Process.Start("FaceLibraryBuilder.exe");
         }
 
-       ImportPersonCompare.ImmediatelyModel alertForm = new ImportPersonCompare.ImmediatelyModel();
+        ImportPersonCompare.ImmediatelyModel alertForm = new ImportPersonCompare.ImmediatelyModel();
 
-       private void alermForm_Click(object sender, EventArgs e)
-       {
-           this.alertForm.Show(this);
-       }
+        private void alermForm_Click(object sender, EventArgs e)
+        {
+            this.alertForm.Show(this);
+        }
 
         public IEnumerable<Portrait> Execute(IEnumerable<Portrait> inputs)
         {
@@ -873,5 +875,17 @@ namespace RemoteImaging.RealtimeDisplay
 
             return inputs;
         }
+
+        public ConfigurationSectionHandlers.ButtonsVisibleSectionHandler ButtonsVisible
+        {
+            set
+            {
+                this.faceLibBuilder.Visible = value.HumanFaceLibraryButtonVisible;
+                this.faceCompare.Visible = value.CompareFaceButtonVisible;
+                this.alermForm.Visible = value.ShowAlermFormButtonVisible;
+            }
+        }
+
+
     }
 }
