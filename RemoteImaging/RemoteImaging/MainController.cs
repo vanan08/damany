@@ -115,7 +115,7 @@ namespace RemoteImaging
                     }
 
                 }
-                catch (Exception ex)
+                catch (System.Net.WebException ex)
                 {
                     var msg = string.Format("无法连接 {0}", cam.Location.Host);
                     _mainForm.ShowMessage(msg);

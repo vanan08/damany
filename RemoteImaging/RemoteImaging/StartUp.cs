@@ -68,22 +68,6 @@ namespace RemoteImaging
 
         }
 
-        private void LoadPersonRepository()
-        {
-            if (System.IO.Directory.Exists(Properties.Settings.Default.PersonOfInterespPath))
-            {
-                var personRepository = SuspectsRepositoryManager.LoadFrom(Properties.Settings.Default.PersonOfInterespPath);
-                this.builder.RegisterInstance(personRepository.Peoples)
-                    .As<IEnumerable<PersonOfInterest>>()
-                    .ExternallyOwned();
-            }
-            else
-            {
-                this.builder.Register(c => new PersonOfInterest[0]).SingleInstance();
-            }
-
-        }
-
         private void InitDataProvider()
         {
             if (!System.IO.Directory.Exists(Properties.Settings.Default.OutputPath))
@@ -141,34 +125,14 @@ namespace RemoteImaging
                 .As<IConvertor<Frame, Portrait>>()
                 .PropertiesAutowired();
 
-            this.builder.RegisterType<LbpFaceComparer>()
-                .As<IRepositoryFaceComparer>();
-
-
-
             this.builder.RegisterType<OptionsForm>().SingleInstance();
             this.builder.RegisterType<OptionsPresenter>();
 
-
-            this.builder.RegisterType<FaceComparer>()
-                        .As<IOperation<Portrait>>()
-                        .As<FaceComparer>()
-                        .SingleInstance();
-
-            builder.RegisterType<Damany.Imaging.Handlers.FrontFaceVerifier>()
-                .WithParameter("template", Properties.Settings.Default.FrontFaceTemplateFile)
-                .As<IOperation<Portrait>>();
-
             this.builder.RegisterType<MainController>();
-            this.builder.RegisterType<RealtimeDisplay.MainForm>()
-                .As<IOperation<Portrait>>()
-                .As<RealtimeDisplay.MainForm>()
-                .SingleInstance();
-
-            builder.RegisterType<Damany.Imaging.Handlers.FaceVerifier>()
-                .As<IOperation<Portrait>>();
 
             builder.RegisterType<SearchLineBuilder>();
+
+            builder.RegisterModule(new Autofac.Configuration.ConfigurationSettingsReader());
 
             this.Container = this.builder.Build();
 
