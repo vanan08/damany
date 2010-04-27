@@ -26,7 +26,6 @@ namespace RemoteImaging
 
             this.builder = new Autofac.ContainerBuilder();
 
-            this.LoadPersonRepository();
             this.InitDataProvider();
             this.InitConfigManager();
             this.RegisterTypes();
