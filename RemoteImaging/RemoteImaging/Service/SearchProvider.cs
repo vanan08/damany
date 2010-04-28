@@ -35,7 +35,7 @@ namespace RemoteImaging.Service
         {
             Bitmap face = (Bitmap)Damany.Util.Extensions.MiscHelper.FromFileBuffered(path);
 
-            string bigImgPath = FileSystemStorage.BigImgPathForFace(Core.ImageDetail.FromPath(path));
+            string bigImgPath = new FileSystemStorage(Properties.Settings.Default.OutputPath).BigImgPathForFace(Core.ImageDetail.FromPath(path));
 
             Bitmap big = (Bitmap)Damany.Util.Extensions.MiscHelper.FromFileBuffered(bigImgPath);
 
@@ -51,7 +51,7 @@ namespace RemoteImaging.Service
 
         public Video[] SearchVideos(int cameraID, DateTime from, DateTime to)
         {
-            RemoteImaging.Core.Video[] videos = FileSystemStorage.VideoFilesBetween(cameraID, from, to);
+            RemoteImaging.Core.Video[] videos = new FileSystemStorage(Properties.Settings.Default.OutputPath).VideoFilesBetween(cameraID, from, to);
 
             Video[] serviceVideos = new Video[videos.Length];
 
@@ -70,7 +70,7 @@ namespace RemoteImaging.Service
 
         public string VideoFilePathRecordedAt(DateTime time, int camID)
         {
-            return FileSystemStorage.VideoFilePathNameIfExists(time, camID);
+            return new FileSystemStorage(Properties.Settings.Default.OutputPath).VideoFilePathNameIfExists(time, camID);
         }
 
 

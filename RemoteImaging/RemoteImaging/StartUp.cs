@@ -101,6 +101,9 @@ namespace RemoteImaging
 
         private void RegisterTypes()
         {
+            builder.RegisterType<FileSystemStorage>()
+                .WithParameter("outputRoot", Properties.Settings.Default.OutputPath).SingleInstance();
+
             this.builder.RegisterType<Query.PicQueryForm>()
                 .As<IPicQueryScreen>();
             this.builder.RegisterType<PicQueryFormPresenter>()

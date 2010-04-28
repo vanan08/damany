@@ -49,7 +49,8 @@ namespace RemoteImaging.RealtimeDisplay
                         Func<IVideoQueryPresenter> createVideoQueryPresenter,
                         Func<FaceComparePresenter> createFaceCompare,
                         Func<OptionsForm> createOptionsForm,
-                        Func<OptionsPresenter> createOptionsPresenter)
+                        Func<OptionsPresenter> createOptionsPresenter,
+                        FileSystemStorage videoRepository)
             : this()
         {
             CreateFaceCompare = createFaceCompare;
@@ -57,6 +58,7 @@ namespace RemoteImaging.RealtimeDisplay
             _createVideoQueryPresenter = createVideoQueryPresenter;
             _createFaceCompare = createFaceCompare;
             this._createOptionsPresenter = createOptionsPresenter;
+            _videoRepository = videoRepository;
             this._createOptionsForm = createOptionsForm;
 
         }
@@ -276,34 +278,6 @@ namespace RemoteImaging.RealtimeDisplay
         private void squareListView1_SelectedCellChanged(object sender, EventArgs e)
         {
             controller.SelectedPortraitChanged();
-        }
-
-
-        private void simpleButton3_Click(object sender, EventArgs e)
-        {
-            using (PicQueryForm form = new PicQueryForm())
-            {
-                form.ShowDialog(this);
-            }
-        }
-
-        private static void SetupExtractor(int envMode, float leftRatio,
-            float rightRatio,
-            float topRatio,
-            float bottomRatio,
-            int minFaceWidth,
-            float maxFaceWidthRatio,
-            Rectangle SearchRectangle)
-        {
-
-
-
-        }
-
-
-        private void simpleButton4_Click(object sender, EventArgs e)
-        {
-
         }
 
 
@@ -657,7 +631,7 @@ namespace RemoteImaging.RealtimeDisplay
 
         void testButton_Click(object sender, EventArgs e)
         {
-            FileSystemStorage.DeleteMostOutDatedDataForDay(1);
+            _videoRepository.DeleteMostOutDatedDataForDay(0, 1);
         }
 
         private void tsbFileSet_Click(object sender, EventArgs e)
@@ -709,7 +683,7 @@ namespace RemoteImaging.RealtimeDisplay
         {
             string drive = System.IO.Path.GetPathRoot(Properties.Settings.Default.OutputPath);
 
-            var space = FileSystemStorage.GetFreeDiskSpaceBytes(drive);
+            var space = _videoRepository.GetFreeDiskSpaceBytes(drive);
 
             long diskQuota = long.Parse(Properties.Settings.Default.ReservedDiskSpaceMB) * (1024 * 1024);
 
@@ -720,7 +694,7 @@ namespace RemoteImaging.RealtimeDisplay
                     {
                         try
                         {
-                            FileSystemStorage.DeleteMostOutDatedDataForDay(1);
+                            _videoRepository.DeleteMostOutDatedDataForDay(0, 1);
                         }
                         catch (System.IO.IOException ex)
                         {
@@ -838,6 +812,7 @@ namespace RemoteImaging.RealtimeDisplay
 
         private MainController controller;
         private Func<OptionsPresenter> _createOptionsPresenter;
+        private readonly FileSystemStorage _videoRepository;
         private Func<OptionsForm> _createOptionsForm;
 
         private void faceRecognize_Click(object sender, EventArgs e)
