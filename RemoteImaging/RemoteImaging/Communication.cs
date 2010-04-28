@@ -30,7 +30,7 @@ namespace RemoteImaging
                 var cfg = new HostConfiguration(Configuration.Instance.GetStationID());
                 cfg.CameraID = 2;
                 cfg.Name = Properties.Settings.Default.HostName;
-                cfg.TotalStorageCapacityMB = FileSystemStorage.GetTotalStorageMB();
+                cfg.TotalStorageCapacityMB = new FileSystemStorage(Properties.Settings.Default.OutputPath).GetTotalStorageMB();
                 cfg.ReservedStorageCapacityMB = Configuration.Instance.GetReservedSpaceinMB();
                 bus.Publish(Topics.HostReply, cfg, 3000);
             }

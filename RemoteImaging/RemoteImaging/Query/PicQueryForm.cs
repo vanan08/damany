@@ -15,9 +15,11 @@ namespace RemoteImaging.Query
 {
     public partial class PicQueryForm : Form, IPicQueryScreen
     {
+        private readonly FileSystemStorage _videoRepository;
 
-        public PicQueryForm()
+        public PicQueryForm(FileSystemStorage videoRepository)
         {
+            _videoRepository = videoRepository;
             InitializeComponent();
 
             this.timeFrom.EditValue = DateTime.Now.AddDays(-1);
@@ -165,7 +167,7 @@ namespace RemoteImaging.Query
                 this.currentFace.Image = Damany.Util.Extensions.MiscHelper.FromFileBuffered(filePath);
             }
             ImageDetail imgInfo = ImageDetail.FromPath(filePath);
-            string bigImgPath = FileSystemStorage.BigImgPathForFace(imgInfo);
+            string bigImgPath = _videoRepository.BigImgPathForFace(imgInfo);
 
             using (SaveFileDialog saveDialog = new SaveFileDialog())
             {

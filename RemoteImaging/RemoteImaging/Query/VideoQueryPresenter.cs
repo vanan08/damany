@@ -50,7 +50,7 @@ namespace RemoteImaging.Query
 
 
             Core.Video[] videos =
-                FileSystemStorage.VideoFilesBetween(selectedCamera.Id, range.From, range.To);
+                new FileSystemStorage(Properties.Settings.Default.OutputPath).VideoFilesBetween(selectedCamera.Id, range.From, range.To);
 
             if (videos.Length == 0) return;
 
