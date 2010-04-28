@@ -13,7 +13,7 @@ namespace Damany.Util
             this.RetryInterval = 3000;
 
             this.timer.AutoReset = false;
-            this.timer.Elapsed += new System.Timers.ElapsedEventHandler(timer_Elapsed);
+            this.timer.Elapsed += timer_Elapsed;
             this.OnRetrySucceedDo = delegate { };
 
         }

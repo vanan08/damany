@@ -194,6 +194,7 @@
       <DependentUpon>OptionsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="OptionsPresenter.cs" />
+    <Compile Include="OutDatedDataRemover.cs" />
     <Compile Include="PicQueryFormPresenter.cs" />
     <Compile Include="Query\ImageDirSys.cs" />
     <Compile Include="Query\ImageSearch.cs" />
