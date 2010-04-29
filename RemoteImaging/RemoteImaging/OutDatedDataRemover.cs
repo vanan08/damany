@@ -19,7 +19,7 @@ namespace RemoteImaging
             _videoRepository = videoRepository;
             _outputDirectory = outputDirectory;
             Interval = 10 * 60 * 1000;
-            ReservedDiskSpaceInGB = 1;
+            ReservedDiskSpaceInGb = 1;
 
 #if DEBUG
             Interval = 10*1000;
@@ -66,21 +66,21 @@ namespace RemoteImaging
         private bool ShouldDoCleaning()
         {
             var freeSpace = GetFreeDiskSpaceInGb(_outputDirectory);
-            return freeSpace <= ReservedDiskSpaceInGB;
+            return freeSpace <= ReservedDiskSpaceInGb;
         }
 
         public long GetFreeDiskSpaceInGb(string drive)
         {
-            DriveInfo driveInfo = new DriveInfo(drive);
-            long FreeSpace = driveInfo.AvailableFreeSpace / (1024 * 1024 * 1024);
+            var driveInfo = new DriveInfo(drive);
+            long freeSpace = driveInfo.AvailableFreeSpace / (1024 * 1024 * 1024);
 
-            return FreeSpace;
+            return freeSpace;
         }
 
 
 
         public double Interval { get; set; }
-        public float ReservedDiskSpaceInGB { get; set; }
+        public float ReservedDiskSpaceInGb { get; set; }
 
 
         private readonly IRepository _facesRepository;
