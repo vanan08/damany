@@ -29,6 +29,7 @@ namespace Damany.Imaging.Processors
 
             PersistPortraits(portraits);
 
+
             return portraits;
         }
 
