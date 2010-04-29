@@ -102,10 +102,12 @@ namespace RemoteImaging
         private void RegisterTypes()
         {
             builder.RegisterType<FileSystemStorage>()
-                .WithParameter("outputRoot", Properties.Settings.Default.OutputPath).SingleInstance();
+                .WithParameter("outputRoot", Properties.Settings.Default.OutputPath)
+                .SingleInstance();
 
             builder.RegisterType<OutDatedDataRemover>()
-                .WithParameter("outputDirectory", Properties.Settings.Default.OutputPath);
+                .WithParameter("outputDirectory", Properties.Settings.Default.OutputPath)
+                .WithProperty("ReservedDiskSpaceInGb", Properties.Settings.Default.ReservedDiskSpaceGb);
 
             this.builder.RegisterType<Query.PicQueryForm>()
                 .As<IPicQueryScreen>();

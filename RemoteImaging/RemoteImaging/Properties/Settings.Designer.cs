@@ -659,15 +659,12 @@ namespace RemoteImaging.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string ReservedDiskSpaceMB {
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int ReservedDiskSpaceGb {
             get {
-                return ((string)(this["ReservedDiskSpaceMB"]));
-            }
-            set {
-                this["ReservedDiskSpaceMB"] = value;
+                return ((int)(this["ReservedDiskSpaceGb"]));
             }
         }
         

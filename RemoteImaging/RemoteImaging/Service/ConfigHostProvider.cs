@@ -48,7 +48,7 @@ namespace RemoteImaging.Service
 
         public void SetReservedDiskSpaceMB(int capacity)
         {
-            Properties.Settings.Default.ReservedDiskSpaceMB = capacity.ToString();
+           
         }
 
         #endregion
