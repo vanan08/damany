@@ -137,7 +137,7 @@ namespace Damany.PortraitCapturer.DAL.Providers
 
             var utcRange = new DateTimeRange(range.From.ToUniversalTime(), range.To.ToUniversalTime());
 
-            var dtos = dataProvider.GetPortraits(cameraId, range);
+            var dtos = dataProvider.GetPortraits(cameraId, utcRange);
             var portraits = dtos.ToList().ConvertAll(dto =>
                                                          {
                                                              var utc = Mapper.Map<DAL.DTO.Portrait, Portrait>(dto);
