@@ -104,6 +104,9 @@ namespace RemoteImaging
             builder.RegisterType<FileSystemStorage>()
                 .WithParameter("outputRoot", Properties.Settings.Default.OutputPath).SingleInstance();
 
+            builder.RegisterType<OutDatedDataRemover>()
+                .WithParameter("outputDirectory", Properties.Settings.Default.OutputPath);
+
             this.builder.RegisterType<Query.PicQueryForm>()
                 .As<IPicQueryScreen>();
             this.builder.RegisterType<PicQueryFormPresenter>()

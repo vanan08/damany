@@ -10,11 +10,14 @@ namespace Damany.Imaging.Common
         Frame GetFrame(System.Guid frameId);
         Portrait GetPortrait(System.Guid portraitId);
 
-        IList<Frame> GetFrames(Damany.Util.DateTimeRange range);
-        IList<Portrait> GetPortraits(Damany.Util.DateTimeRange range);
+        IList<Frame> GetFrames(int cameraId, Damany.Util.DateTimeRange range);
+        IList<Portrait> GetPortraits(int dameraId, Damany.Util.DateTimeRange range);
 
         void DeletePortrait(System.Guid portraitId);
         void DeleteFrame(System.Guid frameId);
+
+        void DeletePortraits(int cameraId, Util.DateTimeRange range);
+        void DeleteFrames(int cameraId, Util.DateTimeRange range);
 
     }
 }

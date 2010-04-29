@@ -37,6 +37,9 @@ namespace RemoteImaging
                 var strapper = new StartUp();
                 strapper.Start();
 
+                var remover = strapper.Container.Resolve<OutDatedDataRemover>();
+                System.GC.KeepAlive(remover);
+
                 var mainForm = strapper.Container.Resolve<RemoteImaging.RealtimeDisplay.MainForm>();
                 var controller = strapper.Container.Resolve<MainController>();
                 mainForm.AttachController(controller);
