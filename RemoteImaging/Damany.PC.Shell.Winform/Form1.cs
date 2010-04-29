@@ -325,7 +325,7 @@ namespace Damany.PC.Shell.Winform
 
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
-            this.repository.GetFrames(new Damany.Util.DateTimeRange(DateTime.Now.AddDays(-1), DateTime.Now));
+            this.repository.GetFrames(-1, new Damany.Util.DateTimeRange(DateTime.Now.AddDays(-1), DateTime.Now));
         }
 
         List<Damany.Windows.Form.PipPictureBox> Pips = 

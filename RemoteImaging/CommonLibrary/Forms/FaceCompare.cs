@@ -9,6 +9,8 @@ namespace Damany.RemoteImaging.Common.Forms
 {
     public partial class FaceCompare : Form
     {
+        private readonly ConfigurationManager _manager;
+
         public FaceCompare()
         {
             InitializeComponent();
@@ -18,6 +20,12 @@ namespace Damany.RemoteImaging.Common.Forms
 
             this.targetPic.Paint += new PaintEventHandler(targetPic_Paint);
             this.compareButton.Click += new EventHandler(compareButton_Click);
+        }
+		
+		 public FaceCompare(ConfigurationManager manager)
+            : this()
+        {
+            _manager = manager;
         }
 
         public void EnableStartButton(bool enable)
@@ -148,7 +156,7 @@ namespace Damany.RemoteImaging.Common.Forms
             this.imageList1.Images.Add(p.GetIpl().ToBitmap());
 
             var item = new ListViewItem();
-            item.Text = p.CapturedAt.ToString();
+            item.Text = (_manager.GetName(p.CapturedFrom.Id) ?? string.Empty) + " " + p.CapturedAt.ToString();
             item.ImageIndex = this.imageList1.Images.Count - 1;
 
             this.faceList.Items.Add(item);

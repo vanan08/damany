@@ -677,43 +677,6 @@ namespace RemoteImaging.RealtimeDisplay
             this.controller.StartCamera();
         }
 
-        bool isDeleting = false;
-
-        private void diskSpaceCheckTimer_Tick(object sender, EventArgs e)
-        {
-            string drive = System.IO.Path.GetPathRoot(Properties.Settings.Default.OutputPath);
-
-            var space = _videoRepository.GetFreeDiskSpaceBytes(drive);
-
-            long diskQuota = long.Parse(Properties.Settings.Default.ReservedDiskSpaceMB) * (1024 * 1024);
-
-            if (space <= diskQuota && !isDeleting)
-            {
-                isDeleting = true;
-                System.Threading.ThreadPool.QueueUserWorkItem((o) =>
-                    {
-                        try
-                        {
-                            _videoRepository.DeleteMostOutDatedDataForDay(0, 1);
-                        }
-                        catch (System.IO.IOException ex)
-                        {
-                            bool rethrow = ExceptionPolicy.HandleException(ex, Constants.ExceptionHandlingLogging);
-                            if (rethrow)
-                            {
-                                throw;
-                            }
-                        }
-                        finally
-                        {
-                            isDeleting = false;
-                        }
-
-                    },
-                    null
-                    );
-            }
-        }
 
         private void toolStripButton1_Click(object sender, EventArgs e)
         {

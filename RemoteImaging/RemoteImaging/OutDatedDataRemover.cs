@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using Damany.Imaging.Common;
@@ -17,39 +18,75 @@ namespace RemoteImaging
             _facesRepository = facesRepository;
             _videoRepository = videoRepository;
             _outputDirectory = outputDirectory;
-            Interval = 10*60*1000;
+            Interval = 10 * 60 * 1000;
             ReservedDiskSpaceInGB = 1;
 
+#if DEBUG
+            Interval = 10*1000;
+#endif
 
-            var timer = new System.Timers.Timer();
-            timer.Interval = Interval;
-            timer.AutoReset = false;
-            timer.Elapsed += timer_Elapsed;
-            timer.Enabled = true;
+            _timer = new System.Timers.Timer();
+            _timer.Interval = Interval;
+            _timer.AutoReset = false;
+            _timer.Elapsed += timer_Elapsed;
+            _timer.Enabled = true;
         }
 
         void timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
-            var videos = _videoRepository.Videos;
+            DeleteData();
 
-            var ordered = from v in videos
-                          where v.Deleted == false
-                          orderby v.Date ascending
-                          select v;
-
-
-
-            
+            _timer.Enabled = true;
         }
+
+        private void DeleteData()
+        {
+            while (ShouldDoCleaning())
+            {
+                var videos = _videoRepository.Videos;
+
+                var ordered = from v in videos
+                              where v.Deleted == false
+                              orderby v.Date ascending
+                              select v;
+
+                var first = ordered.FirstOrDefault();
+                if (first != null)
+                {
+                    _videoRepository.DeleteVideos(first);
+
+                    var range = new Damany.Util.DateTimeRange(first.Date, first.Date.AddDays(1));
+
+                    _facesRepository.DeletePortraits(first.CameraId, range);
+                    _facesRepository.DeleteFrames(first.CameraId, range);
+                }
+            }
+        }
+
+        private bool ShouldDoCleaning()
+        {
+            var freeSpace = GetFreeDiskSpaceInGb(_outputDirectory);
+            return freeSpace <= ReservedDiskSpaceInGB;
+        }
+
+        public long GetFreeDiskSpaceInGb(string drive)
+        {
+            DriveInfo driveInfo = new DriveInfo(drive);
+            long FreeSpace = driveInfo.AvailableFreeSpace / (1024 * 1024 * 1024);
+
+            return FreeSpace;
+        }
+
 
 
         public double Interval { get; set; }
         public float ReservedDiskSpaceInGB { get; set; }
 
-       
 
         private readonly IRepository _facesRepository;
         private readonly FileSystemStorage _videoRepository;
         private readonly string _outputDirectory;
+
+        private readonly System.Timers.Timer _timer;
     }
 }

@@ -104,7 +104,6 @@
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.enhanceImg = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
-            this.diskSpaceCheckTimer = new System.Windows.Forms.Timer(this.components);
             this.alertControl1 = new DevExpress.XtraBars.Alerter.AlertControl(this.components);
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
@@ -835,11 +834,6 @@
             this.toolStripButton1.Text = "设置背景";
             this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
-            // diskSpaceCheckTimer
-            // 
-            this.diskSpaceCheckTimer.Interval = 600000;
-            this.diskSpaceCheckTimer.Tick += new System.EventHandler(this.diskSpaceCheckTimer_Tick);
-            // 
             // alertControl1
             // 
             this.alertControl1.ShowPinButton = false;
@@ -959,7 +953,6 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStripForCamTreeView;
         private System.Windows.Forms.ToolStripMenuItem SetupCameraToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ViewCameraToolStripMenuItem;
-        private System.Windows.Forms.Timer diskSpaceCheckTimer;
         private DevExpress.XtraBars.Alerter.AlertControl alertControl1;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
         private System.Windows.Forms.ToolStripButton faceCompare;

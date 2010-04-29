@@ -5,6 +5,7 @@ using System.Text;
 using AutoMapper;
 using Damany.Imaging.Common;
 using Damany.PortraitCapturer.DAL;
+using Damany.Util;
 using NDepend.Helpers.FileDirectoryPath;
 
 namespace Damany.PortraitCapturer.DAL.Providers
@@ -76,7 +77,7 @@ namespace Damany.PortraitCapturer.DAL.Providers
         {
             this.CheckStarted();
             var dto = dataProvider.GetFrame(frameId);
-            var frame = Mapper.Map<Damany.PortraitCapturer.DAL.DTO.Frame, Frame>(dto);
+            var frame = Mapper.Map<DTO.Frame, Frame>(dto);
 
             return frame;
         }
@@ -85,35 +86,35 @@ namespace Damany.PortraitCapturer.DAL.Providers
         {
             this.CheckStarted();
             var dto = dataProvider.GetPortrait(portraitId);
-            var p = Mapper.Map<Damany.PortraitCapturer.DAL.DTO.Portrait, Portrait>(dto);
+            var p = Mapper.Map<DTO.Portrait, Portrait>(dto);
 
             return p;
         }
 
-        public IList<Frame> GetFrames(Damany.Util.DateTimeRange range)
+        public IList<Frame> GetFrames(int cameraId, DateTimeRange range)
         {
             this.CheckStarted();
-            var dtos = dataProvider.GetFrames(range);
-            var frames = dtos.ToList().ConvertAll<Frame>( dto =>
+            var dtos = dataProvider.GetFrames(cameraId, range);
+            var frames = dtos.ToList().ConvertAll<Frame>(dto =>
                                                        {
                                                            try
                                                            {
-                                                              return  Mapper.Map<DAL.DTO.Frame, Frame>(dto);
+                                                               return Mapper.Map<DAL.DTO.Frame, Frame>(dto);
                                                            }
                                                            catch (AutoMapperMappingException)
                                                            {
                                                                return null;
                                                            }
-                                                           
-                                                       } ).Where(f => f!= null);
-           
+
+                                                       }).Where(f => f != null);
+
             return frames.ToList();
         }
 
-        public IList<Portrait> GetPortraits(Damany.Util.DateTimeRange range)
+        public IList<Portrait> GetPortraits(int cameraId, Damany.Util.DateTimeRange range)
         {
             this.CheckStarted();
-            var dtos = dataProvider.GetPortraits(range);
+            var dtos = dataProvider.GetPortraits(cameraId, range);
             var portraits = dtos.ToList().ConvertAll(dto => Mapper.Map<DAL.DTO.Portrait, Portrait>(dto));
             return portraits;
 
@@ -132,6 +133,52 @@ namespace Damany.PortraitCapturer.DAL.Providers
             dataProvider.DeleteFrame(frameId);
         }
 
+        public void DeletePortraits(int cameraId, DateTimeRange range)
+        {
+            this.CheckStarted();
+            var ps = dataProvider.GetPortraits(cameraId, range);
+
+            foreach (var portrait in ps)
+            {
+                var path = GetAbsolutePath(portrait.Path);
+
+                try
+                {
+                    if (System.IO.File.Exists(path))
+                    {
+                        System.IO.File.Delete(path);
+                    }
+                }
+                catch (System.IO.IOException){}
+            }
+
+            dataProvider.DeletePortraits(ps);
+
+        }
+
+        public void DeleteFrames(int cameraId, DateTimeRange range)
+        {
+            this.CheckStarted();
+
+            var fs = dataProvider.GetFrames(cameraId, range);
+
+            foreach (var frame in fs)
+            {
+                var path = GetAbsolutePath(frame.Path);
+
+                try
+                {
+                    if (System.IO.File.Exists(path))
+                    {
+                        System.IO.File.Delete(path);
+                    }
+                }
+                catch (System.IO.IOException){}
+            }
+
+            dataProvider.DeleteFrames(fs);
+
+        }
 
 
         private string GetAbsolutePath(string relativePathOfImage)

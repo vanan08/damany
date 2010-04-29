@@ -68,13 +68,6 @@ namespace RemoteImaging
             }
         }
 
-        public long GetFreeDiskSpaceBytes(string drive)
-        {
-            DriveInfo driveInfo = new DriveInfo(drive);
-            long FreeSpace = driveInfo.AvailableFreeSpace;
-
-            return FreeSpace;
-        }
 
         public bool DriveRemoveable(string drive)
         {
@@ -319,10 +312,17 @@ namespace RemoteImaging
 
                 }
             }
-
-
         }
 
+        public void DeleteVideos(DateAndDeleteFlag videoToDelete)
+        {
+            if (Directory.Exists(videoToDelete.AbsoluteDirectory))
+            {
+                Directory.Delete(videoToDelete.AbsoluteDirectory, true);
+                videoToDelete.Deleted = true;
+            }
+            
+        }
 
         public void DeleteMostOutDatedDataForDay(int days, int cameraId)
         {
