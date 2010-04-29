@@ -80,7 +80,24 @@ namespace RemoteImaging
 
 
         public double Interval { get; set; }
-        public float ReservedDiskSpaceInGb { get; set; }
+        private float _reservedDiskSpaceInGb;
+
+        public float ReservedDiskSpaceInGb
+        {
+            get
+            {
+                return _reservedDiskSpaceInGb;
+            }
+            set
+            {
+                if (value <= 0)
+                {
+                    throw new ArgumentException("value should > 0");
+                }
+
+                _reservedDiskSpaceInGb = value;
+            }
+        }
 
 
         private readonly IRepository _facesRepository;

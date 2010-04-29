@@ -56,28 +56,40 @@ namespace Damany.PortraitCapturer.DAL.Providers
         {
             this.CheckStarted();
 
+            portrait.CapturedAt = portrait.CapturedAt.ToUniversalTime();
+
             var dto = Mapper.Map<Portrait, DAL.DTO.Portrait>(portrait);
             dataProvider.SavePortrait(dto);
             var absolutePath = GetAbsolutePath(dto.Path);
             portrait.GetIpl().SaveImage(absolutePath);
+
+            portrait.CapturedAt = portrait.CapturedAt.ToLocalTime();
 
         }
 
         public void SaveFrame(Frame frame)
         {
             this.CheckStarted();
+
+            frame.CapturedAt = frame.CapturedAt.ToUniversalTime();
+
             var dto = Mapper.Map<Frame, DAL.DTO.Frame>(frame);
             dataProvider.SaveFrame(dto);
 
             var absolutePath = GetAbsolutePath(dto.Path);
             frame.GetImage().SaveImage(absolutePath);
+
+            frame.CapturedAt = frame.CapturedAt.ToLocalTime();
         }
 
         public Frame GetFrame(System.Guid frameId)
         {
             this.CheckStarted();
+
             var dto = dataProvider.GetFrame(frameId);
             var frame = Mapper.Map<DTO.Frame, Frame>(dto);
+
+            frame.CapturedAt = frame.CapturedAt.ToLocalTime();
 
             return frame;
         }
@@ -86,7 +98,10 @@ namespace Damany.PortraitCapturer.DAL.Providers
         {
             this.CheckStarted();
             var dto = dataProvider.GetPortrait(portraitId);
+
             var p = Mapper.Map<DTO.Portrait, Portrait>(dto);
+
+            p.CapturedAt = p.CapturedAt.ToLocalTime();
 
             return p;
         }
@@ -94,12 +109,17 @@ namespace Damany.PortraitCapturer.DAL.Providers
         public IList<Frame> GetFrames(int cameraId, DateTimeRange range)
         {
             this.CheckStarted();
-            var dtos = dataProvider.GetFrames(cameraId, range);
+
+            var utcRange = new DateTimeRange(range.From.ToUniversalTime(), range.To.ToUniversalTime());
+
+            var dtos = dataProvider.GetFrames(cameraId, utcRange);
             var frames = dtos.ToList().ConvertAll<Frame>(dto =>
                                                        {
                                                            try
                                                            {
-                                                               return Mapper.Map<DAL.DTO.Frame, Frame>(dto);
+                                                               var frame = Mapper.Map<DAL.DTO.Frame, Frame>(dto);
+                                                               frame.CapturedAt = frame.CapturedAt.ToLocalTime();
+                                                               return frame;
                                                            }
                                                            catch (AutoMapperMappingException)
                                                            {
@@ -114,8 +134,16 @@ namespace Damany.PortraitCapturer.DAL.Providers
         public IList<Portrait> GetPortraits(int cameraId, Damany.Util.DateTimeRange range)
         {
             this.CheckStarted();
+
+            var utcRange = new DateTimeRange(range.From.ToUniversalTime(), range.To.ToUniversalTime());
+
             var dtos = dataProvider.GetPortraits(cameraId, range);
-            var portraits = dtos.ToList().ConvertAll(dto => Mapper.Map<DAL.DTO.Portrait, Portrait>(dto));
+            var portraits = dtos.ToList().ConvertAll(dto =>
+                                                         {
+                                                             var utc = Mapper.Map<DAL.DTO.Portrait, Portrait>(dto);
+                                                             utc.CapturedAt = utc.CapturedAt.ToLocalTime();
+                                                             return utc;
+                                                         } );
             return portraits;
 
         }
@@ -136,7 +164,10 @@ namespace Damany.PortraitCapturer.DAL.Providers
         public void DeletePortraits(int cameraId, DateTimeRange range)
         {
             this.CheckStarted();
-            var ps = dataProvider.GetPortraits(cameraId, range);
+
+            var utcRange = new DateTimeRange(range.From.ToUniversalTime(), range.To.ToUniversalTime());
+
+            var ps = dataProvider.GetPortraits(cameraId, utcRange);
 
             foreach (var portrait in ps)
             {
@@ -159,6 +190,8 @@ namespace Damany.PortraitCapturer.DAL.Providers
         public void DeleteFrames(int cameraId, DateTimeRange range)
         {
             this.CheckStarted();
+
+            var utcRange = new DateTimeRange(range.From.ToUniversalTime(), range.To.ToUniversalTime());
 
             var fs = dataProvider.GetFrames(cameraId, range);
 

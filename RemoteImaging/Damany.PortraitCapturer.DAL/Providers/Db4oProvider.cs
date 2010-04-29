@@ -34,15 +34,15 @@ namespace Damany.PortraitCapturer.DAL.Providers
         public void SavePortrait(DTO.Portrait portrait)
         {
             var container = OpenContainer();
-            portrait.CapturedAt = portrait.CapturedAt.ToUniversalTime();
             container.Store(portrait);
+            container.Commit();
         }
 
         public void SaveFrame(DTO.Frame frame)
         {
             var container = OpenContainer();
-            frame.CapturedAt = frame.CapturedAt.ToUniversalTime();
             container.Store(frame);
+            container.Commit();
         }
 
         public DTO.Frame GetFrame(Guid frameId)
@@ -62,7 +62,7 @@ namespace Damany.PortraitCapturer.DAL.Providers
             var container = OpenContainer();
             var frames = container.Query<DTO.Frame>(frame =>
             {
-                bool flag = frame.CapturedAt >= range.From.ToUniversalTime() && frame.CapturedAt <= range.To.ToUniversalTime();
+                bool flag = frame.CapturedAt >= range.From && frame.CapturedAt <= range.To;
 
                 if (cameraId != -1)
                 {
@@ -72,7 +72,6 @@ namespace Damany.PortraitCapturer.DAL.Providers
                 return flag;
             });
 
-            frames.ToList().ForEach(f => f.CapturedAt = f.CapturedAt.ToLocalTime());
 
             return frames;
 
@@ -83,7 +82,7 @@ namespace Damany.PortraitCapturer.DAL.Providers
             var container = OpenContainer();
             var portraits = container.Query<DTO.Portrait>(portrait =>
             {
-                bool flag = portrait.CapturedAt >= range.From.ToUniversalTime() && portrait.CapturedAt <= range.To.ToUniversalTime();
+                bool flag = portrait.CapturedAt >= range.From && portrait.CapturedAt <= range.To;
                 if (cameraId != -1)
                 {
                     flag = flag && portrait.SourceId == cameraId;
@@ -92,7 +91,6 @@ namespace Damany.PortraitCapturer.DAL.Providers
                 return flag;
             });
 
-            portraits.ToList().ForEach(p => p.CapturedAt = p.CapturedAt.ToLocalTime());
 
             return portraits;
 
@@ -105,23 +103,32 @@ namespace Damany.PortraitCapturer.DAL.Providers
             if (p != null)
             {
                 container.Delete(p);
+                container.Commit();
             }
         }
 
         public void DeletePortraits(IEnumerable<DTO.Portrait> portraits)
         {
+            var c = OpenContainer();
             foreach (var portrait in portraits)
             {
-                OpenContainer().Delete(portrait);
+                c.Delete(portrait);
             }
+
+            c.Commit();
+
+
         }
 
         public void DeleteFrames(IEnumerable<DTO.Frame> frames)
         {
+            var c = OpenContainer();
             foreach (var frame in frames)
             {
-                OpenContainer().Delete(frame);
+                c.Delete(frame);
             }
+
+            c.Commit();
         }
 
         public void DeleteFrame(Guid frameId)

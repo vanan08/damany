@@ -19,9 +19,11 @@ namespace RemoteImaging.Query
         private readonly FileSystemStorage _videoRepository;
 		private readonly ConfigurationManager _manager;
 
-        public PicQueryForm(FileSystemStorage videoRepository)
+        public PicQueryForm(FileSystemStorage videoRepository, ConfigurationManager manager)
         {
             _videoRepository = videoRepository;
+            _manager = manager;
+
             InitializeComponent();
 
             this.timeFrom.EditValue = DateTime.Now.AddDays(-1);
@@ -36,10 +38,6 @@ namespace RemoteImaging.Query
             this.PageSize = 20;
         }
 		
-		 public PicQueryForm( Damany.RemoteImaging.Common.ConfigurationManager manager )
-        {
-            _manager = manager;
-        }
 
 
         void facesListView_SelectedIndexChanged(object sender, EventArgs e)
