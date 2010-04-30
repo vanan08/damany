@@ -31,6 +31,7 @@ namespace RemoteImaging.RealtimeDisplay
         IOperation<Portrait>,
         LicensePlate.ILicensePlateObserver
     {
+        public Func<FaceComparePresenter> CreateFaceCompare { get; set; }
         private SplashForm splash = new SplashForm();
         public MainForm()
         {
