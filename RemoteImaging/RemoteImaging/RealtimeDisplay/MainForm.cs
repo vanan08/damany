@@ -62,6 +62,7 @@ namespace RemoteImaging.RealtimeDisplay
                         )
             : this()
         {
+            CreateFaceCompare = createFaceCompare;
             this.picPresenterCreator = picQueryPresenterCreator;
             _createVideoQueryPresenter = createVideoQueryPresenter;
             _createFaceCompare = createFaceCompare;
@@ -673,7 +674,7 @@ namespace RemoteImaging.RealtimeDisplay
             }
 
             alertForm.AddSuspects(result);
-           
+
         }
 
 
@@ -771,12 +772,12 @@ namespace RemoteImaging.RealtimeDisplay
             System.Diagnostics.Process.Start("FaceLibraryBuilder.exe");
         }
 
-       ImportPersonCompare.ImmediatelyModel alertForm = new ImportPersonCompare.ImmediatelyModel();
+        ImportPersonCompare.ImmediatelyModel alertForm = new ImportPersonCompare.ImmediatelyModel();
 
-       private void alermForm_Click(object sender, EventArgs e)
-       {
-           this.alertForm.Show(this);
-       }
+        private void alermForm_Click(object sender, EventArgs e)
+        {
+            this.alertForm.Show(this);
+        }
 
         public IEnumerable<Portrait> Execute(IEnumerable<Portrait> inputs)
         {
