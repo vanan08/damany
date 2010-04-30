@@ -40,6 +40,7 @@ namespace RemoteImaging
             this.dataGridCameras.Columns[1].DataPropertyName = "Id";
             this.dataGridCameras.Columns[2].DataPropertyName = "Location";
             this.dataGridCameras.Columns[3].DataPropertyName = "Provider";
+            this.dataGridCameras.Columns[4].DataPropertyName = "LicensePlateUploadDirectory";
             this.comboBoxColumnProvider.DataSource = Enum.GetValues(typeof (CameraProvider));
         }
 

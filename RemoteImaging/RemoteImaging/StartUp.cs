@@ -141,7 +141,7 @@ namespace RemoteImaging
                     .As<LicensePlate.ILicensePlateEventPublisher>()
                     .SingleInstance();
 
-            builder.RegisterType<LicensePlate.MockLicensePlateGenerator>();
+            builder.RegisterType<LicensePlate.LicensePlateUploadMonitor>();
 
             builder.RegisterType<SearchLineBuilder>();
 
