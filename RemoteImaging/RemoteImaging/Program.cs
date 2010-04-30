@@ -7,6 +7,7 @@ using System.ServiceModel;
 using RemoteControlService;
 using Autofac;
 using RemoteImaging.ConfigurationSectionHandlers;
+using RemoteImaging.LicensePlate;
 
 
 namespace RemoteImaging
@@ -47,19 +48,7 @@ namespace RemoteImaging
                 mainForm.ButtonsVisible =
                     (ButtonsVisibleSectionHandler) System.Configuration.ConfigurationManager.GetSection("FaceDetector.ButtonsVisible");
 
-
-                var factory = strapper.Container.Resolve<LicensePlate.LicensePlateUploadMonitor.Factory>();
-
-                var manager = strapper.Container.Resolve<Damany.RemoteImaging.Common.ConfigurationManager>();
-                foreach (var cam in manager.GetCameras())
-                {
-                    if (cam.LicensePlateUploadDirectory != null)
-                    {
-                        var m = factory.Invoke(cam.LicensePlateUploadDirectory);
-                        m.CameraId = cam.Id;
-                        System.GC.KeepAlive(m);
-                    }
-                }
+                StartLicensePlateMonitor(strapper.Container);
 
                 Application.Run(mainForm);
 
@@ -67,6 +56,24 @@ namespace RemoteImaging
             catch (Exception e)
             {
                 HandleException(e);
+            }
+        }
+
+        private static void StartLicensePlateMonitor(Autofac.IContainer container)
+        {
+            var factory = container.Resolve<LicensePlate.LicensePlateUploadMonitor.Factory>();
+
+            var manager = container.Resolve<Damany.RemoteImaging.Common.ConfigurationManager>();
+            foreach (var cam in manager.GetCameras())
+            {
+                if (cam.LicensePlateUploadDirectory != null)
+                {
+                    var m = factory.Invoke(cam.LicensePlateUploadDirectory);
+                    m.CameraId = cam.Id;
+                    m.Configuration = (LicenseParsingConfig) System.Configuration.ConfigurationManager.GetSection("LicenseParsingConfig");
+                    m.Start();
+                    System.GC.KeepAlive(m);
+                }
             }
         }
 
