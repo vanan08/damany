@@ -7,9 +7,9 @@ namespace RemoteImaging.LicensePlate
 {
     public interface ILicensePlateRepository
     {
-        void Save(LicensePlateInfo licensePlateInfo);
+        void Save(DtoLicensePlateInfo licensePlateInfo);
 
-        IEnumerable<LicensePlateInfo> GetLicensePlates(Damany.Util.DateTimeRange dateTimeRange);
-        IEnumerable<LicensePlateInfo> GetLicensePlates(string licensePlateNumber);
+        IEnumerable<DtoLicensePlateInfo> GetLicensePlates(Damany.Util.DateTimeRange dateTimeRange);
+        IEnumerable<DtoLicensePlateInfo> GetLicensePlates(string licensePlateNumber);
     }
 }
