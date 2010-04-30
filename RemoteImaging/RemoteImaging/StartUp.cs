@@ -137,9 +137,7 @@ namespace RemoteImaging
 
             this.builder.RegisterType<MainController>();
 
-            builder.RegisterType<SearchLineBuilder>();
-
-            builder.RegisterModule(new Autofac.Configuration.ConfigurationSettingsReader());
+            builder.RegisterType<LicensePlate.MockLicensePlateGenerator>();
 
             this.Container = this.builder.Build();
 

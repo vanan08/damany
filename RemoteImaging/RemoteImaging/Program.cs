@@ -47,6 +47,9 @@ namespace RemoteImaging
                 mainForm.ButtonsVisible =
                     (ButtonsVisibleSectionHandler) System.Configuration.ConfigurationManager.GetSection("FaceDetector.ButtonsVisible");
 
+
+                strapper.Container.Resolve<LicensePlate.MockLicensePlateGenerator>();
+
                 Application.Run(mainForm);
 
             }

@@ -10,6 +10,13 @@ namespace Damany.Util.Extensions
 {
     public static class MiscHelper
     {
+        // usage: someObject.AsEnumerable();
+        public static IEnumerable<T> AsEnumerable<T>(this T item)
+        {
+            yield return item;
+        }
+
+
         public static Image FromFileBuffered(string filePath)
         {
             using (var fs = new FileStream(filePath, FileMode.Open, FileAccess.Read))

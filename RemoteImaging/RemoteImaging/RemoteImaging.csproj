@@ -43,6 +43,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Library\Autofac\Autofac.dll</HintPath>
     </Reference>
+    <Reference Include="AutoMapper, Version=1.0.0.155, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Library\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Autofac.Configuration, Version=2.1.13.813, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Library\Autofac\Autofac.Configuration.dll</HintPath>
@@ -50,6 +54,10 @@
     <Reference Include="Db4objects.Db4o, Version=7.12.132.14217, Culture=neutral, PublicKeyToken=6199cd4f203aa8eb, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files\db4o\db4o-7.12\bin\net-3.5\Db4objects.Db4o.dll</HintPath>
+    </Reference>
+    <Reference Include="Db4objects.Db4o.Linq, Version=7.12.132.14217, Culture=neutral, PublicKeyToken=6199cd4f203aa8eb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files\db4o\db4o-7.12\bin\net-3.5\Db4objects.Db4o.Linq.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.BonusSkins.v9.2, Version=9.2.9.0, Culture=neutral, PublicKeyToken=95fc6c5621878f0a" />
     <Reference Include="DevExpress.Data.v9.2, Version=9.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
@@ -141,6 +149,9 @@
     <Compile Include="DisposableWrapper.cs" />
     <Compile Include="Face.cs" />
     <Compile Include="FaceProcessingModule.cs" />
+    <Compile Include="ICameraNameResolver.cs" />
+    <Compile Include="LicensePlate\DtoLicensePlateInfo.cs" />
+    <Compile Include="LicensePlate\ILicensePlateEventPublisher.cs" />
     <Compile Include="ImportPersonCompare\ImmediatelyModel.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -184,6 +195,15 @@
     </Compile>
     <Compile Include="IPicQueryPresenter.cs" />
     <Compile Include="IPicQueryScreen.cs" />
+    <Compile Include="LicensePlate\ILicensePlateObserver.cs" />
+    <Compile Include="LicensePlate\ILicensePlatePresenter.cs" />
+    <Compile Include="LicensePlate\ILicensePlateRepository.cs" />
+    <Compile Include="LicensePlate\ILicensePlateScreen.cs" />
+    <Compile Include="LicensePlate\LicensePlateEventPublisher.cs" />
+    <Compile Include="LicensePlate\LicensePlateInfo.cs" />
+    <Compile Include="LicensePlate\LicensePlateRepository.cs" />
+    <Compile Include="LicensePlate\Mapper.cs" />
+    <Compile Include="LicensePlate\MockLicensePlateGenerator.cs" />
     <Compile Include="MainController.cs" />
     <Compile Include="MainScreenPresenter.cs" />
     <Compile Include="MockCamera.cs" />
