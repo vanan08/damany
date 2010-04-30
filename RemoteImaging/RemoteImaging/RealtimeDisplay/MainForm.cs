@@ -868,7 +868,7 @@ namespace RemoteImaging.RealtimeDisplay
 
             var item = new ListViewItem(string.Empty, 0);
             item.SubItems.Add(licensePlateInfo.LicensePlateNumber);
-            item.SubItems.Add(licensePlateInfo.CaptureTime.ToLongTimeString());
+            item.SubItems.Add(licensePlateInfo.CaptureTime.ToString());
 
             var camInfo = _configurationManager.GetCameraById(licensePlateInfo.CapturedFrom);
             var cameraName = "未知摄像头";
