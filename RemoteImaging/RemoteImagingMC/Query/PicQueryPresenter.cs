@@ -164,7 +164,7 @@ namespace RemoteImaging.Query
         {
 
             this.imagesFound =
-                repository.GetPortraits(
+                repository.GetPortraits(-1, 
                 new Damany.Util.DateTimeRange(this.view.SearchFrom, this.view.SearchTo));
 
             if (imagesFound.Count == 0)

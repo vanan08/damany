@@ -6,7 +6,7 @@ using Damany.PortraitCapturer.DAL;
 
 namespace Damany.PortraitCapturer.DAL.Providers
 {
-    public class Db4oProvider 
+    public class Db4oProvider
     {
         public Db4oProvider(string dataBaseFile)
         {
@@ -33,82 +33,112 @@ namespace Damany.PortraitCapturer.DAL.Providers
 
         public void SavePortrait(DTO.Portrait portrait)
         {
-            using (var container = OpenContainer())
-            {
-                container.Store(portrait);
-            }
+            var container = OpenContainer();
+            container.Store(portrait);
+            container.Commit();
         }
 
         public void SaveFrame(DTO.Frame frame)
         {
-            using (var container = OpenContainer())
-            {
-                container.Store(frame);
-            }
+            var container = OpenContainer();
+            container.Store(frame);
+            container.Commit();
         }
 
         public DTO.Frame GetFrame(Guid frameId)
         {
-            using (var container = OpenContainer())
-            {
-                 return GetFrameInternal(frameId, container);
-            }
+            var container = OpenContainer();
+            return GetFrameInternal(frameId, container);
         }
 
         public DTO.Portrait GetPortrait(Guid portraitId)
         {
-            using (var container = OpenContainer())
-            {
-                return GetPortraitInternal(portraitId, container);
-            }
+            var container = OpenContainer();
+            return GetPortraitInternal(portraitId, container);
         }
 
-        public IList<DTO.Frame> GetFrames(Damany.Util.DateTimeRange range)
+        public IList<DTO.Frame> GetFrames(int cameraId, Damany.Util.DateTimeRange range)
         {
-            using (var container = OpenContainer())
+            var container = OpenContainer();
+            var frames = container.Query<DTO.Frame>(frame =>
             {
-                return container.Query<DTO.Frame>(frame => {
-                   return frame.CapturedAt >= range.From && frame.CapturedAt <= range.To;
-                });
-            }
-            
-        }
+                bool flag = frame.CapturedAt >= range.From && frame.CapturedAt <= range.To;
 
-        public IList<DTO.Portrait> GetPortraits(Damany.Util.DateTimeRange range)
-        {
-            using (var container = OpenContainer())
-            {
-                return container.Query<DTO.Portrait>(portrait =>
+                if (cameraId != -1)
                 {
-                    return portrait.CapturedAt >= range.From && portrait.CapturedAt <= range.To;
-                });
-            }
+                    flag = flag && frame.SourceId == cameraId;
+                }
+
+                return flag;
+            });
+
+
+            return frames;
+
+        }
+
+        public IList<DTO.Portrait> GetPortraits(int cameraId, Damany.Util.DateTimeRange range)
+        {
+            var container = OpenContainer();
+            var portraits = container.Query<DTO.Portrait>(portrait =>
+            {
+                bool flag = portrait.CapturedAt >= range.From && portrait.CapturedAt <= range.To;
+                if (cameraId != -1)
+                {
+                    flag = flag && portrait.SourceId == cameraId;
+                }
+
+                return flag;
+            });
+
+
+            return portraits;
 
         }
 
         public void DeletePortrait(Guid portraitId)
         {
-            using (var container = OpenContainer())
+            var container = OpenContainer();
+            var p = GetPortraitInternal(portraitId, container);
+            if (p != null)
             {
-                var p = GetPortraitInternal(portraitId, container);
-                if (p != null)
-                {
-                    container.Delete(p);
-                }
+                container.Delete(p);
+                container.Commit();
             }
+        }
+
+        public void DeletePortraits(IEnumerable<DTO.Portrait> portraits)
+        {
+            var c = OpenContainer();
+            foreach (var portrait in portraits)
+            {
+                c.Delete(portrait);
+            }
+
+            c.Commit();
+
+
+        }
+
+        public void DeleteFrames(IEnumerable<DTO.Frame> frames)
+        {
+            var c = OpenContainer();
+            foreach (var frame in frames)
+            {
+                c.Delete(frame);
+            }
+
+            c.Commit();
         }
 
         public void DeleteFrame(Guid frameId)
         {
-            using (var container = OpenContainer())
+            var container = OpenContainer();
+            var p = GetFrameInternal(frameId, container);
+            if (p != null)
             {
-                var p = GetFrameInternal(frameId, container);
-                if (p != null)
-                {
-                    container.Delete(p);
-                }
+                container.Delete(p);
             }
-            
         }
 
         #endregion
@@ -125,9 +155,12 @@ namespace Damany.PortraitCapturer.DAL.Providers
 
         private Db4objects.Db4o.IObjectContainer OpenContainer()
         {
-            return this.server.OpenClient();
+            return _container ?? (_container = this.server.OpenClient());
         }
+
+
         private string uriOfDb;
         private Db4objects.Db4o.IObjectServer server;
+        private Db4objects.Db4o.IObjectContainer _container;
     }
 }

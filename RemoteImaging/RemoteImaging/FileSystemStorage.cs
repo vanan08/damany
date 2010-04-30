@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using RemoteImaging.Core;
@@ -10,53 +11,86 @@ using RemoteControlService;
 
 namespace RemoteImaging
 {
-    public static class FileSystemStorage
+    public class FileSystemStorage
     {
-        private static string ToStringYearToMinute(DateTime dt)
+        private readonly string _outputRoot;
+
+
+        public FileSystemStorage(string outputRoot)
         {
-            return dt.Year.ToString("D4") + dt.Month.ToString("D2") + dt.Day.ToString("D2") + dt.Hour.ToString("D2") + dt.Minute.ToString("D2");
+            if (outputRoot == null) throw new ArgumentNullException("outputRoot");
+
+            if (!Directory.Exists(outputRoot))
+            {
+                Directory.CreateDirectory(outputRoot);
+            }
+
+            _outputRoot = outputRoot;
+
+            InitializeVideoRepository();
+
+            InitializeFileWatcher();
         }
 
-        private static string RootStoragePathForCamera(int cameraID)
+
+
+        private void InitializeVideoRepository()
         {
-            return Path.Combine(Properties.Settings.Default.OutputPath, cameraID.ToString("D2"));
+            var cameraIds = System.IO.Directory.GetDirectories(_outputRoot);
+
+            foreach (var cameraId in cameraIds)
+            {
+                var dirName = cameraId.Split(Path.DirectorySeparatorChar).Last();
+
+                int id;
+                if (int.TryParse(dirName, out id))
+                {
+                    SearchAllDaysSaved(id);
+                }
+            }
+        }
+
+        private void InitializeFileWatcher()
+        {
+            var watcher = new FileSystemWatcher(_outputRoot);
+            watcher.IncludeSubdirectories = true;
+            watcher.NotifyFilter = NotifyFilters.DirectoryName;
+            watcher.Created += watcher_Created;
+        }
+
+        void watcher_Created(object sender, FileSystemEventArgs e)
+        {
+            var date = this.GetDayFromPath(e.FullPath);
+
+            if (date != null)
+            {
+                _daysSaved.Add(date);
+            }
         }
 
 
-        public static long GetFreeDiskSpaceBytes(string drive)
+        public bool DriveRemoveable(string drive)
         {
-            DriveInfo driveInfo = new DriveInfo(drive);
-            long FreeSpace = driveInfo.AvailableFreeSpace;
-
-            return FreeSpace;
-        }
-
-        public static bool DriveRemoveable(string drive)
-        {
-            System.IO.DriveInfo di = new System.IO.DriveInfo(Properties.Settings.Default.OutputPath);
+            System.IO.DriveInfo di = new System.IO.DriveInfo(_outputRoot);
             return (di.DriveType == DriveType.Removable);
         }
 
-      
 
-
-
-
-        private static string FaceImageFileNameOf(string bigImagePath, int indexOfFace)
+        private string FaceImageFileNameOf(string bigImagePath, int indexOfFace)
         {
             int idx = bigImagePath.IndexOf('.');
             string faceFileName = bigImagePath.Insert(idx, "-" + indexOfFace.ToString("d4"));
             return faceFileName;
         }
 
-        private static string ContainerDirectoryOfFaceAt(int camID, DateTime dt)
+        private string ContainerDirectoryOfFaceAt(int camID, DateTime dt)
         {
             string folderForFaces = BuildDestDirectory(RootStoragePathForCamera(camID),
                                                 dt, Properties.Settings.Default.IconDirectoryName);
             return folderForFaces;
         }
 
-        private static string EnsureFolderForFacesAt(int camID, DateTime dt)
+        private string EnsureFolderForFacesAt(int camID, DateTime dt)
         {
             string folderForFaces = ContainerDirectoryOfFaceAt(camID, dt);
 
@@ -67,14 +101,14 @@ namespace RemoteImaging
         }
 
 
-        public static bool FaceImagesCapturedWhen(int camID, DateTime time)
+        public bool FaceImagesCapturedWhen(int camID, DateTime time)
         {
             string path = ContainerDirectoryOfFaceAt(camID, time);
 
             return Directory.Exists(path);
         }
 
-        public static bool MotionImagesCapturedWhen(int camID, DateTime time)
+        public bool MotionImagesCapturedWhen(int camID, DateTime time)
         {
             string root = RootStoragePathForCamera(camID);
             string path = BuildBigImgPath(root, time);
@@ -83,20 +117,20 @@ namespace RemoteImaging
         }
 
 
-        public static string BuildBigImgPath(string outputPath, DateTime time)
+        public string BuildBigImgPath(string outputPath, DateTime time)
         {
             return BuildDestDirectory(outputPath, time, Properties.Settings.Default.BigImageDirectoryName);
         }
 
 
-        public static string BuildFaceImgPath(string outputPath, DateTime time)
+        public string BuildFaceImgPath(string outputPath, DateTime time)
         {
             return BuildDestDirectory(outputPath, time, Properties.Settings.Default.IconDirectoryName);
         }
 
 
 
-        public static string BuildDestDirectory(string outputPathRoot,
+        public string BuildDestDirectory(string outputPathRoot,
            DateTime dt,
            string subFoldername
            )
@@ -122,7 +156,7 @@ namespace RemoteImaging
             return destPath;
         }
 
-        public static string BigImgPathForFace(ImageDetail face)
+        public string BigImgPathForFace(ImageDetail face)
         {
             string nameWithoutExtension = Path.GetFileNameWithoutExtension(face.Name);
             int idx = nameWithoutExtension.LastIndexOf('-');
@@ -140,9 +174,9 @@ namespace RemoteImaging
         }
 
 
-        private static string VideoFilePathFrom(DateTime time, int camID)
+        private string VideoFilePathFrom(DateTime time, int camID)
         {
-            string rootFolder = Path.Combine(Properties.Settings.Default.OutputPath,
+            string rootFolder = Path.Combine(_outputRoot,
                                         camID.ToString("D2"));
 
             DateTime utcTime = time.ToUniversalTime();
@@ -152,7 +186,7 @@ namespace RemoteImaging
             return videoFilePath;
         }
 
-        public static string VideoFilePathNameIfExists(DateTime time, int camID)
+        public string VideoFilePathNameIfExists(DateTime time, int camID)
         {
             string videoFilePath = VideoFilePathFrom(time, camID);
             if (System.IO.File.Exists(videoFilePath))
@@ -163,9 +197,7 @@ namespace RemoteImaging
         }
 
 
-
-
-        public static string[] VideoFilesOfImage(ImageDetail img)
+        public string[] VideoFilesOfImage(ImageDetail img)
         {
             string videoFilePath = VideoFilePathNameIfExists(img.CaptureTime, img.FromCamera);
             if (File.Exists(videoFilePath))
@@ -179,9 +211,9 @@ namespace RemoteImaging
             }
         }
 
-        public static RemoteImaging.Core.Video[] VideoFilesBetween(int cameraID, DateTime startLocalTime, DateTime endLocalTime)
+        public RemoteImaging.Core.Video[] VideoFilesBetween(int cameraID, DateTime startLocalTime, DateTime endLocalTime)
         {
-            string rootFolder = Path.Combine(Properties.Settings.Default.OutputPath, cameraID.ToString("D2"));
+            string rootFolder = Path.Combine(_outputRoot, cameraID.ToString("D2"));
 
             DateTime startUTC = startLocalTime.ToUniversalTime();
             DateTime endUTC = endLocalTime.ToUniversalTime();
@@ -197,10 +229,11 @@ namespace RemoteImaging
                 if (File.Exists(path))
                 {
 
-                    videos.Add(new RemoteImaging.Core.Video { 
-                                                            Path = path, 
-                                                            CapturedAt = time.ToLocalTime(),
-                                                            });
+                    videos.Add(new RemoteImaging.Core.Video
+                    {
+                        Path = path,
+                        CapturedAt = time.ToLocalTime(),
+                    });
                 }
 
                 time = time.AddMinutes(1);
@@ -211,14 +244,14 @@ namespace RemoteImaging
 
         }
 
-        private static string RelativePathNameForVideoFile(DateTime utcTime)
+        private string RelativePathNameForVideoFile(DateTime utcTime)
         {
             string relativePath = string.Format(@"NORMAL\{0:D4}{1:D2}{2:D2}\{3:D2}\{4:D2}.m4v",
                             utcTime.Year, utcTime.Month, utcTime.Day, utcTime.Hour, utcTime.Minute);
             return relativePath;
         }
 
-        public static void DeleteVideoFileAt(DateTime time)
+        public void DeleteVideoFileAt(DateTime time)
         {
             string m4vFile = VideoFilePathNameIfExists(time, 2);
             if (File.Exists(m4vFile))
@@ -233,7 +266,7 @@ namespace RemoteImaging
             }
         }
 
-        private static string TheOldestSubDirectory(string root, string pattern)
+        private string TheOldestSubDirectory(string root, string pattern)
         {
             string oldestName = (from y in System.IO.Directory.GetDirectories(root, pattern)
                                  orderby y
@@ -246,7 +279,7 @@ namespace RemoteImaging
         }
 
 
-        private static void DeleteVideoForDay(int y, int m, int d)
+        private void DeleteVideoForDay(int y, int m, int d)
         {
             DateTime dt = new DateTime(y, m, d);
 
@@ -279,14 +312,21 @@ namespace RemoteImaging
 
                 }
             }
-
-
         }
 
-
-        public static void DeleteMostOutDatedDataForDay(int days)
+        public void DeleteVideos(DateAndDeleteFlag videoToDelete)
         {
-            string root = RootStoragePathForCamera(2);
+            if (Directory.Exists(videoToDelete.AbsoluteDirectory))
+            {
+                Directory.Delete(videoToDelete.AbsoluteDirectory, true);
+                videoToDelete.Deleted = true;
+            }
+            
+        }
+
+        public void DeleteMostOutDatedDataForDay(int days, int cameraId)
+        {
+            string root = RootStoragePathForCamera(cameraId);
             DateTime now = DateTime.Now;
 
             string yS, mS, dS;
@@ -336,12 +376,133 @@ namespace RemoteImaging
 
         }
 
-        public static int GetTotalStorageMB()
+        public int GetTotalStorageMB()
         {
-            int mb = (int) new System.IO.DriveInfo(Properties.Settings.Default.OutputPath).TotalSize / (1024 * 1024);
+            int mb = (int)new System.IO.DriveInfo(_outputRoot).TotalSize / (1024 * 1024);
             return mb;
 
         }
+
+        private string ToStringYearToMinute(DateTime dt)
+        {
+            return dt.Year.ToString("D4") + dt.Month.ToString("D2") + dt.Day.ToString("D2") + dt.Hour.ToString("D2") + dt.Minute.ToString("D2");
+        }
+
+        private string RootStoragePathForCamera(int cameraID)
+        {
+            return Path.Combine(_outputRoot, cameraID.ToString("D2"));
+        }
+
+
+        private void SearchAllDaysSaved(int id)
+        {
+
+            string dayAbsoluteDir = GetAbsoluteDirectoryForDay(id);
+            foreach (var dayDir in Directory.GetDirectories(dayAbsoluteDir))
+            {
+                var date = GetDayFromPath(dayDir);
+                if (date != null)
+                {
+                    _daysSaved.Add(date);
+                }
+            }
+        }
+
+
+        private DateAndDeleteFlag GetDayFromPath(string absolutePath)
+        {
+            var dirs = absolutePath.Split(Path.DirectorySeparatorChar).Select(s => s.ToUpper()).ToArray();
+            if (!dirs.Contains(DirNameNormal)) return null;
+
+            int idx = -1;
+            for (int i = 0; i < dirs.Length; i++)
+            {
+                if (dirs[i] == DirNameNormal)
+                {
+                    idx = i;
+                    break;
+                }
+            }
+
+            if (idx == -1) return null;
+
+            if (idx == 0 || idx == dirs.Length - 1) return null;
+
+            var cameraIdDirName = dirs[idx - 1];
+            var dayDirName = dirs[idx + 1].Trim();
+
+            if (dayDirName.Length < 8) return null;
+
+            var cameraId = 0;
+            if (!int.TryParse(cameraIdDirName, out cameraId)) return null;
+
+            int y;
+            if (!int.TryParse(dayDirName.Substring(0, 4), out y)) return null;
+
+            int m;
+            if (!int.TryParse(dayDirName.Substring(4, 2), out m)) return null;
+
+            int d;
+            if (!int.TryParse(dayDirName.Substring(6, 2), out d)) return null;
+
+            var date = new DateTime(y, m, d, 0, 0, 0, 0, DateTimeKind.Utc).ToLocalTime();
+
+            var absoluteDayDir = string.Join(Path.DirectorySeparatorChar.ToString(), dirs, 0, idx + 2);
+
+            var dateAndDeleteFlag = new DateAndDeleteFlag() { AbsoluteDirectory = absoluteDayDir, Date = date, Deleted = false, CameraId = cameraId };
+
+            return dateAndDeleteFlag;
+
+        }
+
+
+        private static int GetNormalDirNameIndex(string absoluteDayDir)
+        {
+            return absoluteDayDir.ToUpper().IndexOf(DirNameNormal);
+        }
+
+        private string GetAbsoluteDirectoryForDay(int id)
+        {
+            var dayRelativeDir = string.Format(@"{0:d2}\Normal\", id);
+            return System.IO.Path.Combine(_outputRoot, dayRelativeDir);
+        }
+
+
+        public class DateAndDeleteFlag
+        {
+            public int CameraId { get; set; }
+            public DateTime Date { get; set; }
+            public string AbsoluteDirectory { get; set; }
+            public bool Deleted { get; set; }
+        }
+
+        private void AddToVideoList(DateAndDeleteFlag flag)
+        {
+            lock (_locker)
+            {
+                _daysSaved.Add(flag);
+            }
+        }
+
+        public DateAndDeleteFlag[] Videos
+        {
+            get
+            {
+                lock (_locker)
+                {
+                    var query = _daysSaved.ToArray();
+                    return query;
+                }
+            }
+        }
+
+
+        private const string DirNameNormal = "NORMAL";
+
+        private object _locker = new object();
+        private readonly IList<DateAndDeleteFlag> _daysSaved
+              = new List<DateAndDeleteFlag>();
+
 
     }
 }

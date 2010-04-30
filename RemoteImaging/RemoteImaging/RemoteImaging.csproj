@@ -47,6 +47,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Library\AutoMapper.dll</HintPath>
     </Reference>
+    <Reference Include="Autofac.Configuration, Version=2.1.13.813, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Library\Autofac\Autofac.Configuration.dll</HintPath>
+    </Reference>
     <Reference Include="Db4objects.Db4o, Version=7.12.132.14217, Culture=neutral, PublicKeyToken=6199cd4f203aa8eb, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files\db4o\db4o-7.12\bin\net-3.5\Db4objects.Db4o.dll</HintPath>
@@ -136,6 +140,7 @@
     <Compile Include="BackGroundComparer.cs" />
     <Compile Include="Communication.cs" />
     <Compile Include="Configuration.cs" />
+    <Compile Include="ConfigurationSectionHandlers\ButtonsVisibleSectionHandler.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Converter.cs" />
     <Compile Include="Core\IplBitmapComposite.cs" />
@@ -143,6 +148,7 @@
     <Compile Include="DateTimeInString.cs" />
     <Compile Include="DisposableWrapper.cs" />
     <Compile Include="Face.cs" />
+    <Compile Include="FaceProcessingModule.cs" />
     <Compile Include="ICameraNameResolver.cs" />
     <Compile Include="LicensePlate\DtoLicensePlateInfo.cs" />
     <Compile Include="LicensePlate\ILicensePlateEventPublisher.cs" />
@@ -208,6 +214,7 @@
       <DependentUpon>OptionsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="OptionsPresenter.cs" />
+    <Compile Include="OutDatedDataRemover.cs" />
     <Compile Include="PicQueryFormPresenter.cs" />
     <Compile Include="Query\ImageDirSys.cs" />
     <Compile Include="Query\ImageSearch.cs" />
@@ -399,8 +406,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Library\Back.dll" />
+    <Content Include="ImgLib\eyetemplate.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="PeoplesWanted.xml" />
-    <Content Include="Library\JSZN.Component.dll" />
     <Content Include="MainIcon.ico" />
     <None Include="Resources\logo1.png" />
     <None Include="Resources\FaceIcon32.gif" />
@@ -542,7 +551,7 @@
   -->
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_BuildVersioningStyle="None.None.Increment.None" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_UpdateFileVersion="True" Reactor_Enabled="1" Reactor_Lib="0" Reactor_Automatic="1" Reactor_Commands="" Reactor_Project="l:\Documents and Settings\benny\My Documents\Visual Studio 2008\Projects\RemoteImaging_shen_retlang\RemoteImaging\RemoteImaging\reactor.nrproj" Reactor_Output="l:\Documents and Settings\benny\My Documents\Visual Studio 2008\Projects\RemoteImaging_shen_retlang\RemoteImaging\RemoteImaging\bin\Release\RemoteImaging.exe" BuildVersion_ConfigurationName="Release" BuildVersion_BuildAction="ReBuild" />
+      <UserProperties BuildVersion_BuildAction="ReBuild" BuildVersion_ConfigurationName="Release" Reactor_Output="l:\Documents and Settings\benny\My Documents\Visual Studio 2008\Projects\RemoteImaging_shen_retlang\RemoteImaging\RemoteImaging\bin\Release\RemoteImaging.exe" Reactor_Project="l:\Documents and Settings\benny\My Documents\Visual Studio 2008\Projects\RemoteImaging_shen_retlang\RemoteImaging\RemoteImaging\reactor.nrproj" Reactor_Commands="" Reactor_Automatic="1" Reactor_Lib="0" Reactor_Enabled="1" BuildVersion_UpdateFileVersion="True" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_BuildVersioningStyle="None.None.Increment.None" />
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>

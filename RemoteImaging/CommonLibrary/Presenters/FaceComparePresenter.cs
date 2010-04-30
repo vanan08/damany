@@ -94,7 +94,7 @@ namespace Damany.RemoteImaging.Common.Presenters
                 this.view.EnableStartButton(false);
 
                 targetImage.ROI = rect;
-                var portraits = this.repository.GetPortraits(range);
+                var portraits = this.repository.GetPortraits(-1, range);
                 int count = 0;
 
                 var repo = new PersonOfInterest[] {new PersonOfInterest(targetImage)};

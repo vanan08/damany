@@ -35,12 +35,12 @@ namespace Damany.PortraitCapturer.DAL
             return null;
         }
 
-        public IList<Frame> GetFrames(DateTimeRange range)
+        public IList<Frame> GetFrames(int cameraId, DateTimeRange range)
         {
             return new List<Frame>();
         }
 
-        public IList<Portrait> GetPortraits(DateTimeRange range)
+        public IList<Portrait> GetPortraits(int cameraId, DateTimeRange range)
         {
             var portraits = from f in System.IO.Directory.GetFiles(this._directoryPath, "*.jpg")
                             select new Portrait(f);
@@ -53,6 +53,14 @@ namespace Damany.PortraitCapturer.DAL
         }
 
         public void DeleteFrame(Guid frameId)
+        {
+        }
+
+        public void DeletePortraits(int cameraId, DateTimeRange range)
+        {
+        }
+
+        public void DeleteFrames(int cameraId, DateTimeRange range)
         {
         }
     }

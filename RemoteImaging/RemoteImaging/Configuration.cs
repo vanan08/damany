@@ -66,7 +66,7 @@ namespace RemoteImaging
 
         public int GetReservedSpaceinMB()
         {
-            return int.Parse(Properties.Settings.Default.ReservedDiskSpaceMB);
+            return Properties.Settings.Default.ReservedDiskSpaceGb;
         }
 
         private Db4objects.Db4o.IObjectContainer OpenDb()

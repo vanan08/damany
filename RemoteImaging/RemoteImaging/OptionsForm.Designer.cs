@@ -40,15 +40,17 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.linkLabelConfigCamera = new System.Windows.Forms.LinkLabel();
             this.dataGridCameras = new System.Windows.Forms.DataGridView();
+            this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IP = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.comboBoxColumnProvider = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.cameraSetting1 = new RemoteImaging.Controls.CameraSetting();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.browseForOutputFolder = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
-            this.label34 = new System.Windows.Forms.Label();
-            this.label35 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.textBoxOutputFolder = new System.Windows.Forms.TextBox();
-            this.DiskQuota = new System.Windows.Forms.ComboBox();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.label24 = new System.Windows.Forms.Label();
@@ -78,11 +80,6 @@
             this.label17 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.textBox8 = new System.Windows.Forms.TextBox();
-            this.cameraSetting1 = new RemoteImaging.Controls.CameraSetting();
-            this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IP = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.comboBoxColumnProvider = new System.Windows.Forms.DataGridViewComboBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -212,6 +209,26 @@
             this.dataGridCameras.Size = new System.Drawing.Size(449, 228);
             this.dataGridCameras.TabIndex = 0;
             // 
+            // name
+            // 
+            this.name.HeaderText = "名称";
+            this.name.Name = "name";
+            // 
+            // ID
+            // 
+            this.ID.HeaderText = "编号";
+            this.ID.Name = "ID";
+            // 
+            // IP
+            // 
+            this.IP.HeaderText = "地址";
+            this.IP.Name = "IP";
+            // 
+            // comboBoxColumnProvider
+            // 
+            this.comboBoxColumnProvider.HeaderText = "类型";
+            this.comboBoxColumnProvider.Name = "comboBoxColumnProvider";
+            // 
             // tabPage3
             // 
             this.tabPage3.AutoScroll = true;
@@ -224,15 +241,37 @@
             this.tabPage3.Text = "人像截取";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // cameraSetting1
+            // 
+            this.cameraSetting1.BottomExtRatio = 0.5F;
+            this.cameraSetting1.DrawMotionRegion = false;
+            this.cameraSetting1.EnableDetectMotion = false;
+            this.cameraSetting1.ImageGroupLength = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.cameraSetting1.LeftExtRatio = 0.5F;
+            this.cameraSetting1.Location = new System.Drawing.Point(6, 3);
+            this.cameraSetting1.MaxFaceWidth = 300;
+            this.cameraSetting1.MinFaceWidth = 60;
+            this.cameraSetting1.MotionRegionAreaLimit = new decimal(new int[] {
+            500,
+            0,
+            0,
+            0});
+            this.cameraSetting1.Name = "cameraSetting1";
+            this.cameraSetting1.RightExtRatio = 0.5F;
+            this.cameraSetting1.Size = new System.Drawing.Size(467, 333);
+            this.cameraSetting1.TabIndex = 0;
+            this.cameraSetting1.TopExtRatio = 0.5F;
+            // 
             // tabPage5
             // 
             this.tabPage5.Controls.Add(this.browseForOutputFolder);
             this.tabPage5.Controls.Add(this.label4);
-            this.tabPage5.Controls.Add(this.label34);
-            this.tabPage5.Controls.Add(this.label35);
             this.tabPage5.Controls.Add(this.label3);
             this.tabPage5.Controls.Add(this.textBoxOutputFolder);
-            this.tabPage5.Controls.Add(this.DiskQuota);
             this.tabPage5.Location = new System.Drawing.Point(4, 21);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Size = new System.Drawing.Size(477, 342);
@@ -258,24 +297,6 @@
             this.label4.TabIndex = 36;
             this.label4.Text = "图片输出目录:";
             // 
-            // label34
-            // 
-            this.label34.AutoSize = true;
-            this.label34.Location = new System.Drawing.Point(32, 101);
-            this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(89, 12);
-            this.label34.TabIndex = 31;
-            this.label34.Text = "当磁盘空间不足";
-            // 
-            // label35
-            // 
-            this.label35.AutoSize = true;
-            this.label35.Location = new System.Drawing.Point(202, 101);
-            this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(137, 12);
-            this.label35.TabIndex = 32;
-            this.label35.Text = "MB时，自动覆盖过期数据";
-            // 
             // label3
             // 
             this.label3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -292,21 +313,6 @@
             this.textBoxOutputFolder.Size = new System.Drawing.Size(328, 21);
             this.textBoxOutputFolder.TabIndex = 37;
             this.textBoxOutputFolder.Text = global::RemoteImaging.Properties.Settings.Default.OutputPath;
-            // 
-            // DiskQuota
-            // 
-            this.DiskQuota.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "ReservedDiskSpaceMB", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.DiskQuota.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.DiskQuota.FormattingEnabled = true;
-            this.DiskQuota.Items.AddRange(new object[] {
-            "300",
-            "500",
-            "1000"});
-            this.DiskQuota.Location = new System.Drawing.Point(128, 98);
-            this.DiskQuota.Name = "DiskQuota";
-            this.DiskQuota.Size = new System.Drawing.Size(68, 20);
-            this.DiskQuota.TabIndex = 35;
-            this.DiskQuota.Text = global::RemoteImaging.Properties.Settings.Default.ReservedDiskSpaceMB;
             // 
             // tabPage4
             // 
@@ -581,51 +587,6 @@
             this.textBox8.Size = new System.Drawing.Size(51, 21);
             this.textBox8.TabIndex = 0;
             // 
-            // cameraSetting1
-            // 
-            this.cameraSetting1.BottomExtRatio = 0.5F;
-            this.cameraSetting1.DrawMotionRegion = false;
-            this.cameraSetting1.EnableDetectMotion = false;
-            this.cameraSetting1.ImageGroupLength = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-            this.cameraSetting1.LeftExtRatio = 0.5F;
-            this.cameraSetting1.Location = new System.Drawing.Point(6, 3);
-            this.cameraSetting1.MaxFaceWidth = 300;
-            this.cameraSetting1.MinFaceWidth = 60;
-            this.cameraSetting1.MotionRegionAreaLimit = new decimal(new int[] {
-            500,
-            0,
-            0,
-            0});
-            this.cameraSetting1.Name = "cameraSetting1";
-            this.cameraSetting1.RightExtRatio = 0.5F;
-            this.cameraSetting1.Size = new System.Drawing.Size(467, 333);
-            this.cameraSetting1.TabIndex = 0;
-            this.cameraSetting1.TopExtRatio = 0.5F;
-            // 
-            // name
-            // 
-            this.name.HeaderText = "名称";
-            this.name.Name = "name";
-            // 
-            // ID
-            // 
-            this.ID.HeaderText = "编号";
-            this.ID.Name = "ID";
-            // 
-            // IP
-            // 
-            this.IP.HeaderText = "地址";
-            this.IP.Name = "IP";
-            // 
-            // comboBoxColumnProvider
-            // 
-            this.comboBoxColumnProvider.HeaderText = "类型";
-            this.comboBoxColumnProvider.Name = "comboBoxColumnProvider";
-            // 
             // OptionsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -699,9 +660,6 @@
         private System.Windows.Forms.Label label30;
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.ComboBox cmbComPort;
-        private System.Windows.Forms.Label label34;
-        private System.Windows.Forms.Label label35;
-        private System.Windows.Forms.ComboBox DiskQuota;
         private System.Windows.Forms.Button browseForOutputFolder;
         private System.Windows.Forms.TextBox textBoxOutputFolder;
         private System.Windows.Forms.Label label4;

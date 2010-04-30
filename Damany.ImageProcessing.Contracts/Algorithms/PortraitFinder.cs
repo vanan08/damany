@@ -23,7 +23,14 @@ namespace Damany.Imaging.Processors
 
         public IEnumerable<Portrait> Execute(IEnumerable<Frame> inputs)
         {
-            return HandleMotionFrame(inputs);
+            PersistentFrames(inputs);
+
+            var portraits = HandleMotionFrame(inputs);
+
+            PersistPortraits(portraits);
+
+
+            return portraits;
         }
 
 
@@ -94,9 +101,6 @@ namespace Damany.Imaging.Processors
             var faceFrames = GetFaceFrames(mList, portraits);
             var portraitList = ExpandPortraitsList(faceFrames, portraits);
 
-            PersistPortraits(faceFrames, portraitList);
-
-
             foreach (var facelessFrame in facelessFrames)
             {
                 facelessFrame.Dispose();
@@ -106,13 +110,21 @@ namespace Damany.Imaging.Processors
 
         }
 
-        private void PersistPortraits(IEnumerable<Frame> faceFrames, IEnumerable<Portrait> portraitList)
+        private void PersistPortraits(IEnumerable<Portrait> portraitList)
+        {
+            if (Repository != null)
+            {
+                portraitList.ToList().ForEach(p => this.Repository.SavePortrait(p));
+            }
+        }
+
+        private void PersistentFrames(IEnumerable<Frame> faceFrames)
         {
             if (Repository != null)
             {
                 faceFrames.ToList().ForEach(f => this.Repository.SaveFrame(f));
-                portraitList.ToList().ForEach(p => this.Repository.SavePortrait(p));
             }
+            
         }
 
         private static OpenCvSharp.CvRect FrameToPortrait(OpenCvSharp.CvRect bounds, OpenCvSharp.CvRect faceBounds)

@@ -57,7 +57,8 @@ namespace RemoteImaging.RealtimeDisplay
                         Func<FaceComparePresenter> createFaceCompare,
                         Func<OptionsForm> createOptionsForm,
                         Func<OptionsPresenter> createOptionsPresenter,
-                        ConfigurationManager configurationManager
+                        ConfigurationManager configurationManager,
+						FileSystemStorage videoRepository
                         )
             : this()
         {
@@ -67,6 +68,7 @@ namespace RemoteImaging.RealtimeDisplay
             this._createOptionsPresenter = createOptionsPresenter;
             _configurationManager = configurationManager;
             this._createOptionsForm = createOptionsForm;
+			_videoRepository = videoRepository;
 
         }
 
@@ -294,34 +296,6 @@ namespace RemoteImaging.RealtimeDisplay
         private void squareListView1_SelectedCellChanged(object sender, EventArgs e)
         {
             controller.SelectedPortraitChanged();
-        }
-
-
-        private void simpleButton3_Click(object sender, EventArgs e)
-        {
-            using (PicQueryForm form = new PicQueryForm())
-            {
-                form.ShowDialog(this);
-            }
-        }
-
-        private static void SetupExtractor(int envMode, float leftRatio,
-            float rightRatio,
-            float topRatio,
-            float bottomRatio,
-            int minFaceWidth,
-            float maxFaceWidthRatio,
-            Rectangle SearchRectangle)
-        {
-
-
-
-        }
-
-
-        private void simpleButton4_Click(object sender, EventArgs e)
-        {
-
         }
 
 
@@ -627,7 +601,7 @@ namespace RemoteImaging.RealtimeDisplay
 
         void testButton_Click(object sender, EventArgs e)
         {
-            FileSystemStorage.DeleteMostOutDatedDataForDay(1);
+            _videoRepository.DeleteMostOutDatedDataForDay(0, 1);
         }
 
         private void tsbFileSet_Click(object sender, EventArgs e)
@@ -673,43 +647,6 @@ namespace RemoteImaging.RealtimeDisplay
             this.controller.Start();
         }
 
-        bool isDeleting = false;
-
-        private void diskSpaceCheckTimer_Tick(object sender, EventArgs e)
-        {
-            string drive = System.IO.Path.GetPathRoot(Properties.Settings.Default.OutputPath);
-
-            var space = FileSystemStorage.GetFreeDiskSpaceBytes(drive);
-
-            long diskQuota = long.Parse(Properties.Settings.Default.ReservedDiskSpaceMB) * (1024 * 1024);
-
-            if (space <= diskQuota && !isDeleting)
-            {
-                isDeleting = true;
-                System.Threading.ThreadPool.QueueUserWorkItem((o) =>
-                    {
-                        try
-                        {
-                            FileSystemStorage.DeleteMostOutDatedDataForDay(1);
-                        }
-                        catch (System.IO.IOException ex)
-                        {
-                            bool rethrow = ExceptionPolicy.HandleException(ex, Constants.ExceptionHandlingLogging);
-                            if (rethrow)
-                            {
-                                throw;
-                            }
-                        }
-                        finally
-                        {
-                            isDeleting = false;
-                        }
-
-                    },
-                    null
-                    );
-            }
-        }
 
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
@@ -809,6 +746,7 @@ namespace RemoteImaging.RealtimeDisplay
         private MainController controller;
         private Func<OptionsPresenter> _createOptionsPresenter;
         private readonly ConfigurationManager _configurationManager;
+		private readonly FileSystemStorage _videoRepository;
         private Func<OptionsForm> _createOptionsForm;
 
         private void faceRecognize_Click(object sender, EventArgs e)
@@ -846,6 +784,18 @@ namespace RemoteImaging.RealtimeDisplay
 
             return inputs;
         }
+		
+		
+	    public ConfigurationSectionHandlers.ButtonsVisibleSectionHandler ButtonsVisible
+        {
+            set
+            {
+                this.faceLibBuilder.Visible = value.HumanFaceLibraryButtonVisible;
+                this.faceCompare.Visible = value.CompareFaceButtonVisible;
+                this.alermForm.Visible = value.ShowAlermFormButtonVisible;
+            }
+        }
+
 
         private void axCamImgCtrl1_Enter(object sender, EventArgs e)
         {

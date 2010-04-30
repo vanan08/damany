@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using Damany.PC.Domain;
+using Damany.RemoteImaging.Common;
 using RemoteImaging.Core;
 using Microsoft.Practices.EnterpriseLibrary.ExceptionHandling;
 
@@ -15,9 +16,14 @@ namespace RemoteImaging.Query
 {
     public partial class PicQueryForm : Form, IPicQueryScreen
     {
+        private readonly FileSystemStorage _videoRepository;
+		private readonly ConfigurationManager _manager;
 
-        public PicQueryForm()
+        public PicQueryForm(FileSystemStorage videoRepository, ConfigurationManager manager)
         {
+            _videoRepository = videoRepository;
+            _manager = manager;
+
             InitializeComponent();
 
             this.timeFrom.EditValue = DateTime.Now.AddDays(-1);
@@ -31,6 +37,8 @@ namespace RemoteImaging.Query
 
             this.PageSize = 20;
         }
+		
+
 
         void facesListView_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -165,7 +173,7 @@ namespace RemoteImaging.Query
                 this.currentFace.Image = Damany.Util.Extensions.MiscHelper.FromFileBuffered(filePath);
             }
             ImageDetail imgInfo = ImageDetail.FromPath(filePath);
-            string bigImgPath = FileSystemStorage.BigImgPathForFace(imgInfo);
+            string bigImgPath = _videoRepository.BigImgPathForFace(imgInfo);
 
             using (SaveFileDialog saveDialog = new SaveFileDialog())
             {
@@ -312,7 +320,19 @@ namespace RemoteImaging.Query
         {
             get
             {
-                return (Destination) this.cameraIdCombo.SelectedValue;
+                if (cameraIdCombo.SelectedValue == null)
+                {
+                    return null;
+                }
+
+                CameraInfo cam = (CameraInfo) cameraIdCombo.SelectedValue;
+                int id =  cam.Id;
+
+                return new Destination()
+                           {
+                               CameraId = id,
+                               MachineName = (string) (machineCombo.SelectedValue ?? string.Empty)
+                           };
             }
             set
             {
@@ -366,8 +386,8 @@ namespace RemoteImaging.Query
             set
             {
                 this.currentFace.Image = value.GetIpl().ToBitmap();
-                this.captureLocation.Text = value.CapturedFrom.Id.ToString();
-                this.captureTime.Text = value.CapturedAt.ToString();
+                this.captureLocation.Text = "抓拍地点：" + _manager.GetName(value.CapturedFrom.Id) ?? "未知";
+                this.captureTime.Text = "抓拍时间：" + value.CapturedAt.ToString();
             }
         }
 

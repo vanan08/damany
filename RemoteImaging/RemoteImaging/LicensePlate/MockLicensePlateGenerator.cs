@@ -25,7 +25,7 @@ namespace RemoteImaging.LicensePlate
             {
                 System.Threading.Thread.Sleep(3000);
                 var licensePlate = new LicensePlateInfo();
-                licensePlate.CapturedFrom = 3;
+                licensePlate.CapturedFrom = 1;
                 licensePlate.CaptureTime = DateTime.Now;
                 licensePlate.LicensePlateNumber = "川D12345";
 

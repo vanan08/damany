@@ -647,15 +647,6 @@ namespace RemoteImaging.Properties {
             }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("d:\\ImgLib")]
-        public string PersonOfInterespPath {
-            get {
-                return ((string)(this["PersonOfInterespPath"]));
-            }
-        }
-        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("SVM")]
@@ -668,27 +659,14 @@ namespace RemoteImaging.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute(".\\ImgLib\\eyeTemplate.jpg")]
-        public string FrontFaceTemplateFile {
-            get {
-                return ((string)(this["FrontFaceTemplateFile"]));
-            }
-            set {
-                this["FrontFaceTemplateFile"] = value;
-            }
-        }
+     
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string ReservedDiskSpaceMB {
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int ReservedDiskSpaceGb {
             get {
-                return ((string)(this["ReservedDiskSpaceMB"]));
-            }
-            set {
-                this["ReservedDiskSpaceMB"] = value;
+                return ((int)(this["ReservedDiskSpaceGb"]));
             }
         }
         

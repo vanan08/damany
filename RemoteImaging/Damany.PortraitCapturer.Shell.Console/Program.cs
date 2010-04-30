@@ -54,7 +54,7 @@ namespace Damany.PortraitCapturer.Shell.CmdLine
                         break;
                     case ConsoleKey.F:
                         var query =
-                            persistenceService.GetPortraits(new Damany.Util.DateTimeRange(DateTime.Now.AddHours(-1), DateTime.Now));
+                            persistenceService.GetPortraits(-1, new Damany.Util.DateTimeRange(DateTime.Now.AddHours(-1), DateTime.Now));
 
                         Console.WriteLine("query hit: " + query.Count);
 
