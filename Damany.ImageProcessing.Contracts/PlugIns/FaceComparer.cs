@@ -21,10 +21,6 @@ namespace Damany.Imaging.PlugIns
 
             this.Comparer = comparer;
 
-            if (_personsOfInterests.Count() == 0)
-            {
-                System.Windows.Forms.MessageBox.Show("人脸特征库为空，将不进行实时人脸比对");
-            }
         }
 
         public float Threshold { get; set; }

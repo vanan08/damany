@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using System.ServiceModel;
 using RemoteControlService;
 using Autofac;
+using RemoteImaging.ConfigurationSectionHandlers;
 
 
 namespace RemoteImaging
@@ -36,9 +37,16 @@ namespace RemoteImaging
                 var strapper = new StartUp();
                 strapper.Start();
 
+                var remover = strapper.Container.Resolve<OutDatedDataRemover>();
+                System.GC.KeepAlive(remover);
+
                 var mainForm = strapper.Container.Resolve<RemoteImaging.RealtimeDisplay.MainForm>();
                 var controller = strapper.Container.Resolve<MainController>();
                 mainForm.AttachController(controller);
+
+                mainForm.ButtonsVisible =
+                    (ButtonsVisibleSectionHandler) System.Configuration.ConfigurationManager.GetSection("FaceDetector.ButtonsVisible");
+
 
                 strapper.Container.Resolve<LicensePlate.MockLicensePlateGenerator>();
 

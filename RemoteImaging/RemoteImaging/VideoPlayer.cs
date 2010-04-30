@@ -38,7 +38,7 @@ namespace RemoteImaging
             imgInfo.CaptureTime = p.CapturedAt;
             imgInfo.FromCamera = p.CapturedFrom.Id;
 
-            string[] videos = FileSystemStorage.VideoFilesOfImage(imgInfo);
+            string[] videos = new FileSystemStorage(Properties.Settings.Default.OutputPath).VideoFilesOfImage(imgInfo);
 
             if (videos.Length == 0)
             {

@@ -965,11 +965,6 @@
             this.toolStripButton1.Text = "设置背景";
             this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
-            // diskSpaceCheckTimer
-            // 
-            this.diskSpaceCheckTimer.Interval = 600000;
-            this.diskSpaceCheckTimer.Tick += new System.EventHandler(this.diskSpaceCheckTimer_Tick);
-            // 
             // alertControl1
             // 
             this.alertControl1.ShowPinButton = false;

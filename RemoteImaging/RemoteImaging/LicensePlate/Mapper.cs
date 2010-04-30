@@ -15,12 +15,13 @@ namespace RemoteImaging.LicensePlate
 
         public static DtoLicensePlateInfo ToDto(this LicensePlateInfo licensePlateInfo)
         {
+            return null;
             
         }
 
         public static LicensePlateInfo ToBusinessObject(this DtoLicensePlateInfo dtoLicensePlateInfo)
         {
-            
+            return null;
         }
 
 

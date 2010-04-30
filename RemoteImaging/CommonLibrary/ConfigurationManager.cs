@@ -80,6 +80,22 @@ namespace Damany.RemoteImaging.Common
             
         }
 
+        public string GetName(int id)
+        {
+            var cameras = GetCameras();
+
+            var query = from c in cameras
+                        where c.Id == id
+                        select c;
+
+            var single = query.SingleOrDefault();
+
+            if (single == null)
+            {
+                return string.Empty;
+            }
+            return single.Name;
+        }
         private ConfigurationManager() {}
 
         private  Db4objects.Db4o.IObjectContainer objContainer;
