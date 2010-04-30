@@ -12,22 +12,29 @@ namespace RemoteImaging.LicensePlate
         public delegate LicensePlateUploadMonitor Factory(string pathToMonitor);
 
         public LicensePlateUploadMonitor(string pathToMonitor,
-            ILicensePlateEventPublisher plateEventPublisher
-                                         )
+                                         ILicensePlateEventPublisher plateEventPublisher)
         {
             if (pathToMonitor == null) throw new ArgumentNullException("pathToMonitor");
             if (!System.IO.Directory.Exists(pathToMonitor))
                 throw new System.IO.DirectoryNotFoundException(pathToMonitor + " not found");
 
-            FileFilter = "*.jpg";
 
             _plateEventPublisher = plateEventPublisher;
+            Configuration = new LicenseParsingConfig();
             _pathToMonitor = pathToMonitor;
-            var watcher = new System.IO.FileSystemWatcher(pathToMonitor);
-            watcher.Filter = FileFilter;
+        }
+
+        public void Start()
+        {
+            var watcher = new System.IO.FileSystemWatcher(_pathToMonitor);
+            watcher.IncludeSubdirectories = Configuration.IncludeSubdirectories;
+            watcher.Filter = Configuration.Filter;
             watcher.Created += watcher_Created;
             watcher.EnableRaisingEvents = true;
+            
         }
+
+   
 
         void watcher_Created(object sender, FileSystemEventArgs e)
         {
@@ -41,6 +48,8 @@ namespace RemoteImaging.LicensePlate
                 licensePlateInfo.CapturedFrom = CameraId;
                 _plateEventPublisher.PublishLicensePlate(licensePlateInfo);
 
+                File.Delete(e.FullPath);
+
             }
             catch (FormatException)
             {
@@ -53,17 +62,15 @@ namespace RemoteImaging.LicensePlate
         {
             var fileName = System.IO.Path.GetFileName(fullPath);
             var strings = fileName.Split(new char[] { '-' }, System.StringSplitOptions.RemoveEmptyEntries);
-            if (strings.Length < 3) throw new FormatException("file naming format incorrect");
+            if (strings.Length < Configuration.LeastSectionCount) throw new FormatException("file naming format incorrect");
 
             var licensePlateInfo = new LicensePlateInfo();
 
             try
             {
-                var time = strings[1].Parse();
-                var number = strings[2];
+                var time = strings[Configuration.TimeSectionIndex].Parse();
+                var number = strings[Configuration.LicensePlateSectionIndex];
                 var img = MiscHelper.FromFileBuffered(fullPath);
-
-                File.Delete(fullPath);
 
                 licensePlateInfo.CaptureTime = time;
                 licensePlateInfo.LicensePlateImage = img;
@@ -83,9 +90,9 @@ namespace RemoteImaging.LicensePlate
                    && File.Exists(e.FullPath);
         }
 
-
-        public string FileFilter { get; set; }
         public int CameraId { get; set; }
+
+        public LicenseParsingConfig Configuration { get; set; }
 
 
         private readonly ILicensePlateEventPublisher _plateEventPublisher;
