@@ -16,6 +16,18 @@ namespace Damany.Util.Extensions
             yield return item;
         }
 
+        public static DateTime Parse(this string txt)
+        {
+            int y = int.Parse(txt.Substring(0, 4));
+            int m = int.Parse(txt.Substring(4, 2));
+            int d = int.Parse(txt.Substring(6, 2));
+            int h = int.Parse(txt.Substring(8, 2));
+            int min = int.Parse(txt.Substring(10, 2));
+            int sec = int.Parse(txt.Substring(12, 2));
+
+            return new DateTime(y, m, d, h, min, sec, 0);
+        }
+
 
         public static Image FromFileBuffered(string filePath)
         {

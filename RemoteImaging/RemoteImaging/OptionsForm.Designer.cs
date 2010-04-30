@@ -40,10 +40,6 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.linkLabelConfigCamera = new System.Windows.Forms.LinkLabel();
             this.dataGridCameras = new System.Windows.Forms.DataGridView();
-            this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IP = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.comboBoxColumnProvider = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.cameraSetting1 = new RemoteImaging.Controls.CameraSetting();
             this.tabPage5 = new System.Windows.Forms.TabPage();
@@ -80,6 +76,11 @@
             this.label17 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.textBox8 = new System.Windows.Forms.TextBox();
+            this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IP = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.comboBoxColumnProvider = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.ColumnLicensePlateUploadDirectory = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -102,13 +103,13 @@
             this.groupControl1.Controls.Add(this.pictureBox1);
             this.groupControl1.Location = new System.Drawing.Point(-8, -20);
             this.groupControl1.Name = "groupControl1";
-            this.groupControl1.Size = new System.Drawing.Size(543, 88);
+            this.groupControl1.Size = new System.Drawing.Size(651, 88);
             this.groupControl1.TabIndex = 0;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(92, 38);
+            this.label2.Location = new System.Drawing.Point(88, 58);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(293, 12);
             this.label2.TabIndex = 2;
@@ -118,7 +119,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Tahoma", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label1.Location = new System.Drawing.Point(92, 12);
+            this.label1.Location = new System.Drawing.Point(88, 32);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(136, 24);
             this.label1.TabIndex = 1;
@@ -127,7 +128,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(38, 6);
+            this.pictureBox1.Location = new System.Drawing.Point(34, 26);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(48, 48);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -144,7 +145,7 @@
             this.tabControl1.Location = new System.Drawing.Point(6, 71);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(485, 367);
+            this.tabControl1.Size = new System.Drawing.Size(622, 367);
             this.tabControl1.TabIndex = 1;
             // 
             // tabPage2
@@ -154,7 +155,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 21);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(477, 342);
+            this.tabPage2.Size = new System.Drawing.Size(614, 342);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "摄像头";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -162,7 +163,7 @@
             // linkLabelConfigCamera
             // 
             this.linkLabelConfigCamera.AutoSize = true;
-            this.linkLabelConfigCamera.Location = new System.Drawing.Point(374, 15);
+            this.linkLabelConfigCamera.Location = new System.Drawing.Point(519, 15);
             this.linkLabelConfigCamera.Name = "linkLabelConfigCamera";
             this.linkLabelConfigCamera.Size = new System.Drawing.Size(89, 12);
             this.linkLabelConfigCamera.TabIndex = 1;
@@ -186,7 +187,8 @@
             this.name,
             this.ID,
             this.IP,
-            this.comboBoxColumnProvider});
+            this.comboBoxColumnProvider,
+            this.ColumnLicensePlateUploadDirectory});
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -206,28 +208,8 @@
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridCameras.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridCameras.RowTemplate.Height = 23;
-            this.dataGridCameras.Size = new System.Drawing.Size(449, 228);
+            this.dataGridCameras.Size = new System.Drawing.Size(592, 228);
             this.dataGridCameras.TabIndex = 0;
-            // 
-            // name
-            // 
-            this.name.HeaderText = "名称";
-            this.name.Name = "name";
-            // 
-            // ID
-            // 
-            this.ID.HeaderText = "编号";
-            this.ID.Name = "ID";
-            // 
-            // IP
-            // 
-            this.IP.HeaderText = "地址";
-            this.IP.Name = "IP";
-            // 
-            // comboBoxColumnProvider
-            // 
-            this.comboBoxColumnProvider.HeaderText = "类型";
-            this.comboBoxColumnProvider.Name = "comboBoxColumnProvider";
             // 
             // tabPage3
             // 
@@ -236,7 +218,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 21);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(477, 342);
+            this.tabPage3.Size = new System.Drawing.Size(614, 342);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "人像截取";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -274,7 +256,7 @@
             this.tabPage5.Controls.Add(this.textBoxOutputFolder);
             this.tabPage5.Location = new System.Drawing.Point(4, 21);
             this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Size = new System.Drawing.Size(477, 342);
+            this.tabPage5.Size = new System.Drawing.Size(614, 342);
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "存储设置";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -328,7 +310,7 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 21);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(477, 342);
+            this.tabPage4.Size = new System.Drawing.Size(614, 342);
             this.tabPage4.TabIndex = 5;
             this.tabPage4.Text = "相机设置";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -424,7 +406,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 21);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(477, 342);
+            this.tabPage1.Size = new System.Drawing.Size(614, 342);
             this.tabPage1.TabIndex = 6;
             this.tabPage1.Text = "其它";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -469,7 +451,7 @@
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOK.Location = new System.Drawing.Point(335, 445);
+            this.buttonOK.Location = new System.Drawing.Point(472, 445);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 21);
             this.buttonOK.TabIndex = 2;
@@ -481,7 +463,7 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(416, 445);
+            this.buttonCancel.Location = new System.Drawing.Point(553, 445);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 21);
             this.buttonCancel.TabIndex = 3;
@@ -587,12 +569,37 @@
             this.textBox8.Size = new System.Drawing.Size(51, 21);
             this.textBox8.TabIndex = 0;
             // 
+            // name
+            // 
+            this.name.HeaderText = "名称";
+            this.name.Name = "name";
+            // 
+            // ID
+            // 
+            this.ID.HeaderText = "编号";
+            this.ID.Name = "ID";
+            // 
+            // IP
+            // 
+            this.IP.HeaderText = "地址";
+            this.IP.Name = "IP";
+            // 
+            // comboBoxColumnProvider
+            // 
+            this.comboBoxColumnProvider.HeaderText = "类型";
+            this.comboBoxColumnProvider.Name = "comboBoxColumnProvider";
+            // 
+            // ColumnLicensePlateUploadDirectory
+            // 
+            this.ColumnLicensePlateUploadDirectory.HeaderText = "车牌上传目录";
+            this.ColumnLicensePlateUploadDirectory.Name = "ColumnLicensePlateUploadDirectory";
+            // 
             // OptionsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(495, 469);
+            this.ClientSize = new System.Drawing.Size(632, 469);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonOK);
             this.Controls.Add(this.groupControl1);
@@ -674,5 +681,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ID;
         private System.Windows.Forms.DataGridViewTextBoxColumn IP;
         private System.Windows.Forms.DataGridViewComboBoxColumn comboBoxColumnProvider;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnLicensePlateUploadDirectory;
     }
 }

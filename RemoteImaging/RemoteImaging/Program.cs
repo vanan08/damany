@@ -48,7 +48,18 @@ namespace RemoteImaging
                     (ButtonsVisibleSectionHandler) System.Configuration.ConfigurationManager.GetSection("FaceDetector.ButtonsVisible");
 
 
-                strapper.Container.Resolve<LicensePlate.MockLicensePlateGenerator>();
+                var factory = strapper.Container.Resolve<LicensePlate.LicensePlateUploadMonitor.Factory>();
+
+                var manager = strapper.Container.Resolve<Damany.RemoteImaging.Common.ConfigurationManager>();
+                foreach (var cam in manager.GetCameras())
+                {
+                    if (cam.LicensePlateUploadDirectory != null)
+                    {
+                        var m = factory.Invoke(cam.LicensePlateUploadDirectory);
+                        m.CameraId = cam.Id;
+                        System.GC.KeepAlive(m);
+                    }
+                }
 
                 Application.Run(mainForm);
 
