@@ -236,12 +236,12 @@ namespace Damany.PortraitCapturer.DAL.Providers
                 System.IO.Directory.CreateDirectory(image_dir);
 
                 var storePath = System.IO.Path.Combine(root_dir, "images.db4o");
-                this.dataProvider = new Damany.PortraitCapturer.DAL.Providers.Db4oProvider(storePath);
+                this.dataProvider = new Db4oProvider(storePath);
                 this.dataProvider.StartServer();
             }
         }
 
-        private string ObjToPathMapper(Damany.Imaging.Common.CapturedObject obj)
+        private string ObjToPathMapper(CapturedObject obj)
         {
             var relativePath = string.Format("{0}\\{1}\\{2}\\{3}\\{4}.jpg",
                 obj.CapturedAt.Year,

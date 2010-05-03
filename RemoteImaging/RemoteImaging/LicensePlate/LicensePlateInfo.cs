@@ -10,6 +10,22 @@ namespace RemoteImaging.LicensePlate
         public DateTime CaptureTime { get; set; }
         public string LicensePlateNumber { get; set; }
         public int CapturedFrom { get; set; }
-        public System.Drawing.Image LicensePlateImage { get; set; }
+
+        public string LicensePlateImageFileAbsolutePath { get; set; }
+        public byte[] ImageData { get; set; }
+
+        public System.Drawing.Image LoadImage()
+        {
+            if (ImageData == null)
+            {
+                ImageData = System.IO.File.ReadAllBytes(LicensePlateImageFileAbsolutePath);
+            }
+
+            using (var stream = new System.IO.MemoryStream(ImageData))
+            {
+                return System.Drawing.Image.FromStream(stream);
+            }
+            
+        }
     }
 }

@@ -10,7 +10,7 @@ namespace RemoteImaging.LicensePlate
         public DateTime CaptureTime { get; set; }
         public string LicensePlateNumber { get; set; }
         public int CapturedFrom { get; set; }
-        public string LicensePlateImageFilePath { get; set; }
+        public string LicensePlateImageFileRelativePath { get; set; }
 
     }
 }

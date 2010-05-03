@@ -5,7 +5,7 @@ using System.Text;
 
 namespace RemoteImaging.LicensePlate
 {
-    public class MockLicensePlateGenerator
+    public class MockLicensePlateGenerator : ILicensePlateEventGenerator
     {
         private readonly ILicensePlateEventPublisher _publisher;
 
@@ -13,9 +13,6 @@ namespace RemoteImaging.LicensePlate
         {
             _publisher = publisher;
 
-            var worker = new System.Threading.Thread(this.Run);
-            worker.IsBackground = true;
-            worker.Start();
         }
 
 
@@ -35,5 +32,11 @@ namespace RemoteImaging.LicensePlate
         }
 
 
+        public void Start()
+        {
+            var worker = new System.Threading.Thread(this.Run);
+            worker.IsBackground = true;
+            worker.Start();
+        }
     }
 }
