@@ -7,7 +7,7 @@ using Damany.Util.Extensions;
 
 namespace RemoteImaging.LicensePlate
 {
-    public class LicensePlateUploadMonitor
+    public class LicensePlateUploadMonitor : ILicensePlateEventGenerator
     {
         public delegate LicensePlateUploadMonitor Factory(string pathToMonitor);
 
@@ -70,10 +70,9 @@ namespace RemoteImaging.LicensePlate
             {
                 var time = strings[Configuration.TimeSectionIndex].Parse();
                 var number = strings[Configuration.LicensePlateSectionIndex];
-                var img = MiscHelper.FromFileBuffered(fullPath);
 
                 licensePlateInfo.CaptureTime = time;
-                licensePlateInfo.LicensePlateImage = img;
+                licensePlateInfo.ImageData  = File.ReadAllBytes(fullPath);
                 licensePlateInfo.LicensePlateNumber = number;
 
                 return licensePlateInfo;

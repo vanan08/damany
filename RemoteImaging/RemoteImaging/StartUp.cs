@@ -79,7 +79,7 @@ namespace RemoteImaging
 
 
 
-            this.builder.RegisterInstance(repository)
+            builder.RegisterInstance(repository)
                 .As<IRepository>()
                 .ExternallyOwned();
 

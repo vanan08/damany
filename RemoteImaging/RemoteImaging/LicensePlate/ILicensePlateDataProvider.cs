@@ -5,11 +5,11 @@ using System.Text;
 
 namespace RemoteImaging.LicensePlate
 {
-    public interface ILicensePlateRepository
+    public interface ILicensePlateDataProvider
     {
         void Save(DtoLicensePlateInfo licensePlateInfo);
 
-        IEnumerable<DtoLicensePlateInfo> GetLicensePlates(Damany.Util.DateTimeRange dateTimeRange);
+        IEnumerable<DtoLicensePlateInfo> GetLicensePlates(int cameraId, Damany.Util.DateTimeRange dateTimeRange);
         IEnumerable<DtoLicensePlateInfo> GetLicensePlates(string licensePlateNumber);
     }
 }

@@ -398,6 +398,8 @@ namespace RemoteImaging
         {
 
             string dayAbsoluteDir = GetAbsoluteDirectoryForDay(id);
+            if (!Directory.Exists(dayAbsoluteDir)) return;
+
             foreach (var dayDir in Directory.GetDirectories(dayAbsoluteDir))
             {
                 var date = GetDayFromPath(dayDir);
