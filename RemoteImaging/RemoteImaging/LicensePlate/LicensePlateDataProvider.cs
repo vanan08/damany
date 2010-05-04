@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Damany.Util;
 using Db4objects.Db4o;
+using Db4objects.Db4o.Linq;
 
 namespace RemoteImaging.LicensePlate
 {
@@ -32,18 +33,25 @@ namespace RemoteImaging.LicensePlate
             _db4oContainer.Commit();
         }
 
-        public IEnumerable<DtoLicensePlateInfo> GetLicensePlates(int cameraId, DateTimeRange dateTimeRange)
+
+        public IEnumerable<DtoLicensePlateInfo> GetLicensePlatesBetween(int cameraId, DateTimeRange dateTimeRange)
         {
             return _db4oContainer.Query<DtoLicensePlateInfo>(l =>
                                                                  {
-                                                                     var match = cameraId == l.CapturedFrom &&
-                                                                                 l.CaptureTime >= dateTimeRange.From &&
+
+                                                                     var match = l.CaptureTime >= dateTimeRange.From &&
                                                                                  l.CaptureTime <= dateTimeRange.To;
+
+                                                                     if (cameraId != -1)
+                                                                     {
+                                                                         match = match && l.CapturedFrom == cameraId;
+                                                                     }
+                                                                                 ;
                                                                      return match;
                                                                  });
         }
 
-        public IEnumerable<DtoLicensePlateInfo> GetLicensePlates(string licensePlateNumber)
+        public IEnumerable<DtoLicensePlateInfo> GetRecordsFor(string licensePlateNumber)
         {
             return _db4oContainer.Query<DtoLicensePlateInfo>(l =>
                                                                  {
@@ -51,6 +59,15 @@ namespace RemoteImaging.LicensePlate
                                                                              licensePlateNumber.ToUpper());
                                                                  });
 
+        }
+
+        public IEnumerable<DtoLicensePlateInfo> GetLicensePlates(Predicate<DtoLicensePlateInfo> predicate)
+        {
+            var query = from DtoLicensePlateInfo dto in _db4oContainer
+                        where predicate(dto)
+                        select dto;
+
+            return query;
         }
     }
 }

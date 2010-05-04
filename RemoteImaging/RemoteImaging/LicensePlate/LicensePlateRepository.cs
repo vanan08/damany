@@ -46,15 +46,15 @@ namespace RemoteImaging.LicensePlate
         }
 
 
-        public IEnumerable<LicensePlateInfo> GetLicensePlates(int cameraId, Damany.Util.DateTimeRange range)
+        public IEnumerable<LicensePlateInfo> GetLicensePlates(SearchCretia searchCretia)
         {
-            var dtos = _dataProvider.GetLicensePlates(cameraId, range);
+            var dtos = _dataProvider.GetLicensePlates(searchCretia.MatchWith);
             return dtos.Select(dto => _mapper.ToBusinessObject(dto));
         }
 
-        public IEnumerable<LicensePlateInfo> GetLicensePlates(string licensePlateNumber)
+        public IEnumerable<LicensePlateInfo> GetRecordsFor(string licensePlateNumber)
         {
-            var dtos = _dataProvider.GetLicensePlates(licensePlateNumber);
+            var dtos = _dataProvider.GetRecordsFor(licensePlateNumber);
             return dtos.Select(dto => _mapper.ToBusinessObject(dto));
         }
 

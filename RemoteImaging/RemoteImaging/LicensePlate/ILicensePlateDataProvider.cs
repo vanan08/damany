@@ -9,7 +9,8 @@ namespace RemoteImaging.LicensePlate
     {
         void Save(DtoLicensePlateInfo licensePlateInfo);
 
-        IEnumerable<DtoLicensePlateInfo> GetLicensePlates(int cameraId, Damany.Util.DateTimeRange dateTimeRange);
-        IEnumerable<DtoLicensePlateInfo> GetLicensePlates(string licensePlateNumber);
+        IEnumerable<DtoLicensePlateInfo> GetLicensePlatesBetween(int cameraId, Damany.Util.DateTimeRange dateTimeRange);
+        IEnumerable<DtoLicensePlateInfo> GetRecordsFor(string licensePlateNumber);
+        IEnumerable<DtoLicensePlateInfo> GetLicensePlates(Predicate<DtoLicensePlateInfo> predicate);
     }
 }

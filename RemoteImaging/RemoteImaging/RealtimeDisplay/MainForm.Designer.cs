@@ -30,21 +30,21 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
             "",
             "1232323",
             "2010-10-20",
             "2号"}, -1);
-            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("192.168.1.2", 1, 1);
-            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("2", 2, 2);
-            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("南门", new System.Windows.Forms.TreeNode[] {
-            treeNode7,
-            treeNode8});
-            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("192.168.1.1", 1, 1);
-            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("3", 2, 2);
-            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("北门", new System.Windows.Forms.TreeNode[] {
-            treeNode10,
-            treeNode11});
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("192.168.1.2", 1, 1);
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("2", 2, 2);
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("南门", new System.Windows.Forms.TreeNode[] {
+            treeNode1,
+            treeNode2});
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("192.168.1.1", 1, 1);
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("3", 2, 2);
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("北门", new System.Windows.Forms.TreeNode[] {
+            treeNode4,
+            treeNode5});
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.statusOutputFolder = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusCPUMemUsage = new System.Windows.Forms.ToolStripStatusLabel();
@@ -75,6 +75,9 @@
             this.licensePlateNumberColumn = new System.Windows.Forms.ColumnHeader();
             this.captureTime = new System.Windows.Forms.ColumnHeader();
             this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
+            this.imageListLicensePlateList = new System.Windows.Forms.ImageList(this.components);
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.searchLicensePlates = new System.Windows.Forms.ToolStripButton();
             this.simpleButton2 = new DevExpress.XtraEditors.SimpleButton();
             this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
             this.panelControl2 = new DevExpress.XtraEditors.PanelControl();
@@ -121,7 +124,6 @@
             this.enhanceImg = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.alertControl1 = new DevExpress.XtraBars.Alerter.AlertControl(this.components);
-            this.imageListLicensePlateList = new System.Windows.Forms.ImageList(this.components);
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
@@ -146,6 +148,7 @@
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).BeginInit();
             this.panelControl2.SuspendLayout();
             this.contextMenuStripForCamTreeView.SuspendLayout();
@@ -447,6 +450,7 @@
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.licensePlateList);
+            this.tabPage2.Controls.Add(this.toolStrip1);
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -466,10 +470,10 @@
             this.licensePlateList.FullRowSelect = true;
             this.licensePlateList.GridLines = true;
             this.licensePlateList.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem2});
-            this.licensePlateList.Location = new System.Drawing.Point(3, 3);
+            listViewItem1});
+            this.licensePlateList.Location = new System.Drawing.Point(3, 28);
             this.licensePlateList.Name = "licensePlateList";
-            this.licensePlateList.Size = new System.Drawing.Size(742, 127);
+            this.licensePlateList.Size = new System.Drawing.Size(742, 102);
             this.licensePlateList.SmallImageList = this.imageListLicensePlateList;
             this.licensePlateList.TabIndex = 0;
             this.licensePlateList.UseCompatibleStateImageBehavior = false;
@@ -484,17 +488,43 @@
             // licensePlateNumberColumn
             // 
             this.licensePlateNumberColumn.Text = "车牌号";
-            this.licensePlateNumberColumn.Width = 163;
+            this.licensePlateNumberColumn.Width = 85;
             // 
             // captureTime
             // 
             this.captureTime.Text = "抓拍时间";
-            this.captureTime.Width = 162;
+            this.captureTime.Width = 101;
             // 
             // columnHeader1
             // 
             this.columnHeader1.Text = "抓拍摄像头";
             this.columnHeader1.Width = 90;
+            // 
+            // imageListLicensePlateList
+            // 
+            this.imageListLicensePlateList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageListLicensePlateList.ImageStream")));
+            this.imageListLicensePlateList.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageListLicensePlateList.Images.SetKeyName(0, "BlueDot.gif");
+            // 
+            // toolStrip1
+            // 
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.searchLicensePlates});
+            this.toolStrip1.Location = new System.Drawing.Point(3, 3);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(742, 25);
+            this.toolStrip1.TabIndex = 1;
+            this.toolStrip1.Text = "toolStrip1";
+            // 
+            // searchLicensePlates
+            // 
+            this.searchLicensePlates.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.searchLicensePlates.Image = ((System.Drawing.Image)(resources.GetObject("searchLicensePlates.Image")));
+            this.searchLicensePlates.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.searchLicensePlates.Name = "searchLicensePlates";
+            this.searchLicensePlates.Size = new System.Drawing.Size(23, 22);
+            this.searchLicensePlates.Text = "toolStripButton2";
+            this.searchLicensePlates.Click += new System.EventHandler(this.searchLicensePlates_Click);
             // 
             // simpleButton2
             // 
@@ -535,30 +565,30 @@
             this.cameraTree.ImageList = this.cameraImageList;
             this.cameraTree.Location = new System.Drawing.Point(0, 24);
             this.cameraTree.Name = "cameraTree";
-            treeNode7.ImageIndex = 1;
-            treeNode7.Name = "Node1";
-            treeNode7.SelectedImageIndex = 1;
-            treeNode7.Text = "192.168.1.2";
-            treeNode8.ImageIndex = 2;
-            treeNode8.Name = "Node4";
-            treeNode8.SelectedImageIndex = 2;
-            treeNode8.Text = "2";
-            treeNode9.ImageIndex = 0;
-            treeNode9.Name = "Node0";
-            treeNode9.Text = "南门";
-            treeNode10.ImageIndex = 1;
-            treeNode10.Name = "Node3";
-            treeNode10.SelectedImageIndex = 1;
-            treeNode10.Text = "192.168.1.1";
-            treeNode11.ImageIndex = 2;
-            treeNode11.Name = "Node5";
-            treeNode11.SelectedImageIndex = 2;
-            treeNode11.Text = "3";
-            treeNode12.Name = "Node2";
-            treeNode12.Text = "北门";
+            treeNode1.ImageIndex = 1;
+            treeNode1.Name = "Node1";
+            treeNode1.SelectedImageIndex = 1;
+            treeNode1.Text = "192.168.1.2";
+            treeNode2.ImageIndex = 2;
+            treeNode2.Name = "Node4";
+            treeNode2.SelectedImageIndex = 2;
+            treeNode2.Text = "2";
+            treeNode3.ImageIndex = 0;
+            treeNode3.Name = "Node0";
+            treeNode3.Text = "南门";
+            treeNode4.ImageIndex = 1;
+            treeNode4.Name = "Node3";
+            treeNode4.SelectedImageIndex = 1;
+            treeNode4.Text = "192.168.1.1";
+            treeNode5.ImageIndex = 2;
+            treeNode5.Name = "Node5";
+            treeNode5.SelectedImageIndex = 2;
+            treeNode5.Text = "3";
+            treeNode6.Name = "Node2";
+            treeNode6.Text = "北门";
             this.cameraTree.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode9,
-            treeNode12});
+            treeNode3,
+            treeNode6});
             this.cameraTree.SelectedImageIndex = 0;
             this.cameraTree.Size = new System.Drawing.Size(156, 106);
             this.cameraTree.TabIndex = 1;
@@ -968,12 +998,6 @@
             // 
             this.alertControl1.ShowPinButton = false;
             // 
-            // imageListLicensePlateList
-            // 
-            this.imageListLicensePlateList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageListLicensePlateList.ImageStream")));
-            this.imageListLicensePlateList.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageListLicensePlateList.Images.SetKeyName(0, "BlueDot.gif");
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1016,6 +1040,9 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).EndInit();
             this.panelControl2.ResumeLayout(false);
             this.contextMenuStripForCamTreeView.ResumeLayout(false);
@@ -1121,6 +1148,8 @@
         private System.Windows.Forms.ColumnHeader captureTime;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ImageList imageListLicensePlateList;
+        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStripButton searchLicensePlates;
 
     }
 }
