@@ -58,6 +58,7 @@ namespace RemoteImaging.RealtimeDisplay
                         Func<FaceComparePresenter> createFaceCompare,
                         Func<OptionsForm> createOptionsForm,
                         Func<OptionsPresenter> createOptionsPresenter,
+                        Func<LicensePlate.ILicensePlateSearchPresenter> licensePlateSearchFactory,
                         ConfigurationManager configurationManager,
 						FileSystemStorage videoRepository
                         )
@@ -68,6 +69,7 @@ namespace RemoteImaging.RealtimeDisplay
             _createVideoQueryPresenter = createVideoQueryPresenter;
             _createFaceCompare = createFaceCompare;
             this._createOptionsPresenter = createOptionsPresenter;
+            _licensePlateSearchFactory = licensePlateSearchFactory;
             _configurationManager = configurationManager;
             this._createOptionsForm = createOptionsForm;
 			_videoRepository = videoRepository;
@@ -747,6 +749,7 @@ namespace RemoteImaging.RealtimeDisplay
 
         private MainController controller;
         private Func<OptionsPresenter> _createOptionsPresenter;
+        private readonly Func<ILicensePlateSearchPresenter> _licensePlateSearchFactory;
         private readonly ConfigurationManager _configurationManager;
 		private readonly FileSystemStorage _videoRepository;
         private Func<OptionsForm> _createOptionsForm;
@@ -836,5 +839,11 @@ namespace RemoteImaging.RealtimeDisplay
         }
 
         private LicensePlate.ILicensePlateEventPublisher _licensePlateEventPublisher;
+
+        private void searchLicensePlates_Click(object sender, EventArgs e)
+        {
+            var presenter = _licensePlateSearchFactory();
+            presenter.Start();
+        }
     }
 }

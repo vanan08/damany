@@ -165,6 +165,12 @@ namespace RemoteImaging
                 .WithParameter("outputDirectory", Properties.Settings.Default.OutputPath)
                 .PropertiesAutowired()
                 .SingleInstance();
+
+            builder.RegisterType<LicensePlate.FormLicensePlateQuery>()
+                .As<LicensePlate.ILicenseplateSearchScreen>();
+
+            builder.RegisterType<LicensePlate.LicensePlateSearchPresenter>()
+                .As<LicensePlate.ILicensePlateSearchPresenter>();
         }
 
 

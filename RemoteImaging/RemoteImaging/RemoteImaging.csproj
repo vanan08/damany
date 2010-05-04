@@ -151,6 +151,12 @@
     <Compile Include="FaceProcessingModule.cs" />
     <Compile Include="ICameraNameResolver.cs" />
     <Compile Include="LicensePlate\DtoLicensePlateInfo.cs" />
+    <Compile Include="LicensePlate\FormLicensePlateQuery.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LicensePlate\FormLicensePlateQuery.Designer.cs">
+      <DependentUpon>FormLicensePlateQuery.cs</DependentUpon>
+    </Compile>
     <Compile Include="LicensePlate\ILicensePlateEventGenerator.cs" />
     <Compile Include="LicensePlate\ILicensePlateEventPublisher.cs" />
     <Compile Include="ImportPersonCompare\ImmediatelyModel.cs">
@@ -200,14 +206,18 @@
     <Compile Include="LicensePlate\ILicensePlatePresenter.cs" />
     <Compile Include="LicensePlate\ILicensePlateDataProvider.cs" />
     <Compile Include="LicensePlate\ILicensePlateScreen.cs" />
+    <Compile Include="LicensePlate\ILicensePlateSearchPresenter.cs" />
+    <Compile Include="LicensePlate\ILicenseplateSearchScreen.cs" />
     <Compile Include="LicensePlate\LicenseParsingConfig.cs" />
     <Compile Include="LicensePlate\LicensePlateEventPublisher.cs" />
     <Compile Include="LicensePlate\LicensePlateInfo.cs" />
     <Compile Include="LicensePlate\LicensePlateDataProvider.cs" />
     <Compile Include="LicensePlate\LicensePlateRepository.cs" />
+    <Compile Include="LicensePlate\LicensePlateSearchPresenter.cs" />
     <Compile Include="LicensePlate\LicensePlateUploadMonitor.cs" />
     <Compile Include="LicensePlate\Mapper.cs" />
     <Compile Include="LicensePlate\MockLicensePlateGenerator.cs" />
+    <Compile Include="LicensePlate\SearchCretia.cs" />
     <Compile Include="MainController.cs" />
     <Compile Include="MainScreenPresenter.cs" />
     <Compile Include="MockCamera.cs" />
@@ -292,6 +302,9 @@
     <EmbeddedResource Include="ImageProcess\FilterForms\ContrastForm.resx">
       <DependentUpon>ContrastForm.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LicensePlate\FormLicensePlateQuery.resx">
+      <DependentUpon>FormLicensePlateQuery.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="OptionsForm.resx">
       <DependentUpon>OptionsForm.cs</DependentUpon>
@@ -555,7 +568,7 @@
   -->
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_BuildVersioningStyle="None.None.Increment.None" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_UpdateFileVersion="True" Reactor_Enabled="1" Reactor_Lib="0" Reactor_Automatic="1" Reactor_Commands="" Reactor_Project="l:\Documents and Settings\benny\My Documents\Visual Studio 2008\Projects\RemoteImaging_shen_retlang\RemoteImaging\RemoteImaging\reactor.nrproj" Reactor_Output="l:\Documents and Settings\benny\My Documents\Visual Studio 2008\Projects\RemoteImaging_shen_retlang\RemoteImaging\RemoteImaging\bin\Release\RemoteImaging.exe" BuildVersion_ConfigurationName="Release" BuildVersion_BuildAction="ReBuild" />
+      <UserProperties BuildVersion_BuildAction="ReBuild" BuildVersion_ConfigurationName="Release" Reactor_Output="l:\Documents and Settings\benny\My Documents\Visual Studio 2008\Projects\RemoteImaging_shen_retlang\RemoteImaging\RemoteImaging\bin\Release\RemoteImaging.exe" Reactor_Project="l:\Documents and Settings\benny\My Documents\Visual Studio 2008\Projects\RemoteImaging_shen_retlang\RemoteImaging\RemoteImaging\reactor.nrproj" Reactor_Commands="" Reactor_Automatic="1" Reactor_Lib="0" Reactor_Enabled="1" BuildVersion_UpdateFileVersion="True" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_BuildVersioningStyle="None.None.Increment.None" />
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>
