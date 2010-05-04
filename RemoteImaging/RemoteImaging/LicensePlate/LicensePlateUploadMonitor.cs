@@ -46,6 +46,7 @@ namespace RemoteImaging.LicensePlate
 
                 var licensePlateInfo = ParsePath(e.FullPath);
                 licensePlateInfo.CapturedFrom = CameraId;
+                licensePlateInfo.ImageData = File.ReadAllBytes(e.FullPath);
                 _plateEventPublisher.PublishLicensePlate(licensePlateInfo);
 
                 File.Delete(e.FullPath);

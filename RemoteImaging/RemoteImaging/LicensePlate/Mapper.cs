@@ -32,7 +32,8 @@ namespace RemoteImaging.LicensePlate
 
             AutoMapper.Mapper.CreateMap<DtoLicensePlateInfo, LicensePlateInfo>()
                 .ForMember("LicensePlateImageFileAbsolutePath",
-                           opt => opt.MapFrom(dto => BuildAbsoluteImagePath(dto.LicensePlateImageFileRelativePath)));
+                           opt => opt.MapFrom(dto => BuildAbsoluteImagePath(dto.LicensePlateImageFileRelativePath)))
+                .ForMember("ImageData", opt => opt.Ignore());
 
             AutoMapper.Mapper.AssertConfigurationIsValid();
         }
@@ -52,11 +53,14 @@ namespace RemoteImaging.LicensePlate
 
         private string GetRelativeImagePath(LicensePlateInfo licensePlateInfo)
         {
-            var relativePath = string.Format(@"{0}\{1:d4}{2:d2}{3:d2}.jpg",
+            var relativePath = string.Format(@"{0}\{1:d4}{2:d2}{3:d2}\{4}.jpg",
                                                 LicensePlatesDirectoryName,
+
                                                 licensePlateInfo.CaptureTime.Year, 
                                                 licensePlateInfo.CaptureTime.Month,
-                                                licensePlateInfo.CaptureTime.Day);
+                                                licensePlateInfo.CaptureTime.Day,
+
+                                                licensePlateInfo.Guid);
 
             return relativePath;
         }

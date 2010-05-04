@@ -50,6 +50,8 @@ namespace RemoteImaging
 
                 StartLicensePlateMonitor(strapper.Container);
 
+                RegisterLicensePlateRepository(strapper);
+
                 Application.Run(mainForm);
 
             }
@@ -57,6 +59,11 @@ namespace RemoteImaging
             {
                 HandleException(e);
             }
+        }
+
+        private static void RegisterLicensePlateRepository(StartUp strapper)
+        {
+            var repository = strapper.Container.Resolve<LicensePlateRepository>();
         }
 
         private static void StartLicensePlateMonitor(Autofac.IContainer container)
