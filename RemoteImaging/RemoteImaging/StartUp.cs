@@ -137,11 +137,7 @@ namespace RemoteImaging
 
             this.builder.RegisterType<MainController>();
 
-            builder.RegisterType<LicensePlate.LicensePlateEventPublisher>()
-                    .As<LicensePlate.ILicensePlateEventPublisher>()
-                    .SingleInstance();
-
-            builder.RegisterType<LicensePlate.LicensePlateUploadMonitor>();
+            RegisterLicensePlateTypes();
 
             builder.RegisterType<SearchLineBuilder>();
 
@@ -150,6 +146,25 @@ namespace RemoteImaging
 
             this.Container = this.builder.Build();
 
+        }
+
+        private void RegisterLicensePlateTypes()
+        {
+            builder.RegisterType<LicensePlate.LicensePlateEventPublisher>()
+                .As<LicensePlate.ILicensePlateEventPublisher>()
+                .SingleInstance();
+
+            builder.RegisterType<LicensePlate.LicensePlateUploadMonitor>();
+
+            builder.RegisterType<LicensePlate.LicensePlateDataProvider>()
+                .As<LicensePlate.ILicensePlateDataProvider>()
+                .WithParameter("outputDirectory", Properties.Settings.Default.OutputPath)
+                .SingleInstance();
+
+            builder.RegisterType<LicensePlate.LicensePlateRepository>()
+                .WithParameter("outputDirectory", Properties.Settings.Default.OutputPath)
+                .PropertiesAutowired()
+                .SingleInstance();
         }
 
 

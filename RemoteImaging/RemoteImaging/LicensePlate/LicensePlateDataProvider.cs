@@ -8,7 +8,7 @@ namespace RemoteImaging.LicensePlate
     public class LicensePlateDataProvider : ILicensePlateDataProvider
     {
         private readonly string _outputDirectory;
-        private IEmbeddedObjectContainer _db4oContainer;
+        private readonly IEmbeddedObjectContainer _db4oContainer;
 
         public LicensePlateDataProvider(string outputDirectory)
         {
@@ -29,6 +29,7 @@ namespace RemoteImaging.LicensePlate
         public void Save(DtoLicensePlateInfo licensePlateInfo)
         {
             _db4oContainer.Store(licensePlateInfo);
+            _db4oContainer.Commit();
         }
 
         public IEnumerable<DtoLicensePlateInfo> GetLicensePlates(int cameraId, DateTimeRange dateTimeRange)

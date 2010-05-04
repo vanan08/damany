@@ -11,6 +11,7 @@ namespace RemoteImaging.LicensePlate
         public string LicensePlateNumber { get; set; }
         public int CapturedFrom { get; set; }
         public string LicensePlateImageFileRelativePath { get; set; }
+        public Guid Guid { get; set; }
 
     }
 }
