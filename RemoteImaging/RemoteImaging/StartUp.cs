@@ -138,6 +138,7 @@ namespace RemoteImaging
             this.builder.RegisterType<MainController>();
 
             RegisterLicensePlateTypes();
+            RegisterNavControlTypes();
 
             builder.RegisterType<SearchLineBuilder>();
 
@@ -171,6 +172,11 @@ namespace RemoteImaging
 
             builder.RegisterType<LicensePlate.LicensePlateSearchPresenter>()
                 .As<LicensePlate.ILicensePlateSearchPresenter>();
+        }
+
+        private void RegisterNavControlTypes()
+        {
+            builder.RegisterType<YunTai.NavigationController>();
         }
 
 

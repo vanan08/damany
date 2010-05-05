@@ -40,6 +40,13 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.linkLabelConfigCamera = new System.Windows.Forms.LinkLabel();
             this.dataGridCameras = new System.Windows.Forms.DataGridView();
+            this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IP = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.comboBoxColumnProvider = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.ColumnLicensePlateUploadDirectory = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnYuntaiAddr = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnYunTaiUri = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.cameraSetting1 = new RemoteImaging.Controls.CameraSetting();
             this.tabPage5 = new System.Windows.Forms.TabPage();
@@ -76,11 +83,6 @@
             this.label17 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.textBox8 = new System.Windows.Forms.TextBox();
-            this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IP = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.comboBoxColumnProvider = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.ColumnLicensePlateUploadDirectory = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -173,7 +175,7 @@
             // 
             // dataGridCameras
             // 
-            this.dataGridCameras.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridCameras.AllowUserToOrderColumns = true;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -182,13 +184,15 @@
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridCameras.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.dataGridCameras.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridCameras.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dataGridCameras.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.name,
             this.ID,
             this.IP,
             this.comboBoxColumnProvider,
-            this.ColumnLicensePlateUploadDirectory});
+            this.ColumnLicensePlateUploadDirectory,
+            this.ColumnYuntaiAddr,
+            this.ColumnYunTaiUri});
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -197,7 +201,7 @@
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridCameras.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dataGridCameras.Location = new System.Drawing.Point(16, 30);
+            this.dataGridCameras.Location = new System.Drawing.Point(6, 30);
             this.dataGridCameras.Name = "dataGridCameras";
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
@@ -207,9 +211,51 @@
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridCameras.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.dataGridCameras.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dataGridCameras.RowTemplate.Height = 23;
-            this.dataGridCameras.Size = new System.Drawing.Size(592, 228);
+            this.dataGridCameras.Size = new System.Drawing.Size(602, 228);
             this.dataGridCameras.TabIndex = 0;
+            // 
+            // name
+            // 
+            this.name.HeaderText = "名称";
+            this.name.Name = "name";
+            this.name.Width = 93;
+            // 
+            // ID
+            // 
+            this.ID.HeaderText = "编号";
+            this.ID.Name = "ID";
+            this.ID.Width = 93;
+            // 
+            // IP
+            // 
+            this.IP.HeaderText = "地址";
+            this.IP.Name = "IP";
+            this.IP.Width = 93;
+            // 
+            // comboBoxColumnProvider
+            // 
+            this.comboBoxColumnProvider.HeaderText = "类型";
+            this.comboBoxColumnProvider.Name = "comboBoxColumnProvider";
+            this.comboBoxColumnProvider.Width = 94;
+            // 
+            // ColumnLicensePlateUploadDirectory
+            // 
+            this.ColumnLicensePlateUploadDirectory.HeaderText = "车牌上传目录";
+            this.ColumnLicensePlateUploadDirectory.Name = "ColumnLicensePlateUploadDirectory";
+            this.ColumnLicensePlateUploadDirectory.Width = 93;
+            // 
+            // ColumnYuntaiAddr
+            // 
+            this.ColumnYuntaiAddr.HeaderText = "云台地址码";
+            this.ColumnYuntaiAddr.Name = "ColumnYuntaiAddr";
+            this.ColumnYuntaiAddr.Width = 93;
+            // 
+            // ColumnYunTaiUri
+            // 
+            this.ColumnYunTaiUri.HeaderText = "云台通讯地址";
+            this.ColumnYunTaiUri.Name = "ColumnYunTaiUri";
             // 
             // tabPage3
             // 
@@ -569,31 +615,6 @@
             this.textBox8.Size = new System.Drawing.Size(51, 21);
             this.textBox8.TabIndex = 0;
             // 
-            // name
-            // 
-            this.name.HeaderText = "名称";
-            this.name.Name = "name";
-            // 
-            // ID
-            // 
-            this.ID.HeaderText = "编号";
-            this.ID.Name = "ID";
-            // 
-            // IP
-            // 
-            this.IP.HeaderText = "地址";
-            this.IP.Name = "IP";
-            // 
-            // comboBoxColumnProvider
-            // 
-            this.comboBoxColumnProvider.HeaderText = "类型";
-            this.comboBoxColumnProvider.Name = "comboBoxColumnProvider";
-            // 
-            // ColumnLicensePlateUploadDirectory
-            // 
-            this.ColumnLicensePlateUploadDirectory.HeaderText = "车牌上传目录";
-            this.ColumnLicensePlateUploadDirectory.Name = "ColumnLicensePlateUploadDirectory";
-            // 
             // OptionsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -682,5 +703,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn IP;
         private System.Windows.Forms.DataGridViewComboBoxColumn comboBoxColumnProvider;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnLicensePlateUploadDirectory;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnYuntaiAddr;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnYunTaiUri;
     }
 }

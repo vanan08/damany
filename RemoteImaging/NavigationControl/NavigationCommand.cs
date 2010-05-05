@@ -26,7 +26,7 @@ namespace NavigationControl
             get
             {
                 var command = new NavigationCommand();
-                command.CommandCode = new byte[] { 0x00, 0x04 };
+                command.CommandCode = new byte[] { 0x00, 0x02 };
                 command.CommandData = new byte[] { 0xff, 0xff };
 
                 return command;

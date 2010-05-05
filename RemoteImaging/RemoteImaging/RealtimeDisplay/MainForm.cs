@@ -21,6 +21,7 @@ using RemoteImaging.LicensePlate;
 using RemoteImaging.Query;
 using Microsoft.Practices.EnterpriseLibrary.ExceptionHandling;
 using Damany.PC.Domain;
+using RemoteImaging.YunTai;
 using Frame = Damany.Imaging.Common.Frame;
 using Portrait = Damany.Imaging.Common.Portrait;
 
@@ -29,7 +30,9 @@ namespace RemoteImaging.RealtimeDisplay
     public partial class MainForm : Form, 
         IImageScreen, 
         IOperation<Portrait>,
-        LicensePlate.ILicensePlateObserver
+        LicensePlate.ILicensePlateObserver,
+        YunTai.INavigationScreen
+        
     {
         public Func<FaceComparePresenter> CreateFaceCompare { get; set; }
         private SplashForm splash = new SplashForm();
@@ -48,8 +51,39 @@ namespace RemoteImaging.RealtimeDisplay
 
             InitStatusBar();
 
+            WireUpNavigationControlEventHandler();
+
 
             Application.Idle += new EventHandler(Application_Idle);
+        }
+
+        private void WireUpNavigationControlEventHandler()
+        {
+            this.eightWayNavigator1.left.MouseDown += left_MouseDown;
+            this.eightWayNavigator1.left.MouseUp += leftUp_MouseUp;
+
+            this.eightWayNavigator1.right.MouseDown += right_MouseDown;
+            this.eightWayNavigator1.right.MouseUp += right_MouseUp;
+        }
+
+        void right_MouseUp(object sender, MouseEventArgs e)
+        {
+            _navController.NavStop();
+        }
+
+        void right_MouseDown(object sender, MouseEventArgs e)
+        {
+            _navController.NavRight();
+        }
+
+        void leftUp_MouseUp(object sender, MouseEventArgs e)
+        {
+            _navController.NavStop();
+        }
+
+        void left_MouseDown(object sender, MouseEventArgs e)
+        {
+            _navController.NavLeft();
         }
 
 
@@ -687,17 +721,6 @@ namespace RemoteImaging.RealtimeDisplay
         {
         }
 
-        private Func<RemoteImaging.IPicQueryPresenter> picPresenterCreator;
-        private readonly Func<IVideoQueryPresenter> _createVideoQueryPresenter;
-        private readonly Func<FaceComparePresenter> _createFaceCompare;
-        private Func<RemoteImaging.IPicQueryScreen> picScreenCreator;
-        public void Initialize()
-        {
-        }
-
-        public void Start()
-        {
-        }
 
         public void HandlePortraits(IEnumerable<Portrait> portraits)
         {
@@ -845,5 +868,24 @@ namespace RemoteImaging.RealtimeDisplay
             var presenter = _licensePlateSearchFactory();
             presenter.Start();
         }
+
+        public void AttachController(NavigationController controller)
+        {
+            if (controller == null) throw new ArgumentNullException("controller");
+            _navController = controller;
+        }
+
+        public CameraInfo SelectedCamera()
+        {
+            return GetSelectedCamera();
+        }
+
+
+        private Func<RemoteImaging.IPicQueryPresenter> picPresenterCreator;
+        private readonly Func<IVideoQueryPresenter> _createVideoQueryPresenter;
+        private readonly Func<FaceComparePresenter> _createFaceCompare;
+        private Func<RemoteImaging.IPicQueryScreen> picScreenCreator;
+        private NavigationController _navController;
+
     }
 }
