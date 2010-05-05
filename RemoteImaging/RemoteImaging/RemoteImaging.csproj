@@ -381,6 +381,9 @@
     <Compile Include="StartUp.cs" />
     <Compile Include="Util.cs" />
     <Compile Include="VideoPlayer.cs" />
+    <Compile Include="YunTai\ConnectionManager.cs" />
+    <Compile Include="YunTai\INavigationScreen.cs" />
+    <Compile Include="YunTai\NavigationController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Camera.gif" />
@@ -544,6 +547,10 @@
     <ProjectReference Include="..\Messages\Messages.csproj">
       <Project>{80A13967-C4D2-4B5A-909D-FA595F57F88D}</Project>
       <Name>Messages</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NavigationControl\NavigationControl.csproj">
+      <Project>{4145B481-C217-4FC8-80E1-A266BFD837FA}</Project>
+      <Name>NavigationControl</Name>
     </ProjectReference>
     <ProjectReference Include="..\RemoteControlService\RemoteControlService.csproj">
       <Project>{3F01A85F-C1C4-4060-AA37-57AB6F0C90AB}</Project>

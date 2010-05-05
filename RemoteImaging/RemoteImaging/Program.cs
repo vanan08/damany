@@ -49,6 +49,7 @@ namespace RemoteImaging
                     (ButtonsVisibleSectionHandler) System.Configuration.ConfigurationManager.GetSection("FaceDetector.ButtonsVisible");
 
                 StartLicensePlateMonitor(strapper.Container);
+                WireupNavigation(strapper.Container);
 
                 RegisterLicensePlateRepository(strapper);
 
@@ -64,6 +65,13 @@ namespace RemoteImaging
         private static void RegisterLicensePlateRepository(StartUp strapper)
         {
             var repository = strapper.Container.Resolve<LicensePlateRepository>();
+        }
+
+
+        private static void WireupNavigation(Autofac.IContainer container)
+        {
+            var navController = container.Resolve<YunTai.NavigationController>();
+            navController.Start();
         }
 
         private static void StartLicensePlateMonitor(Autofac.IContainer container)

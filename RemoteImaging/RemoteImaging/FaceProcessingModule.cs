@@ -58,6 +58,7 @@ namespace RemoteImaging
 
             builder.RegisterType<RealtimeDisplay.MainForm>()
                     .As<IOperation<Portrait>>()
+                    .As<YunTai.INavigationScreen>()
                     .As<RealtimeDisplay.MainForm>()
                     .PropertiesAutowired()
                     .SingleInstance();
