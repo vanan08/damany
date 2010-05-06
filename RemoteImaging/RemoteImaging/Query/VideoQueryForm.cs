@@ -99,10 +99,6 @@ namespace RemoteImaging.Query
 
         private void ShowDetailPic(ImageDetail img)
         {
-            FormDetailedPic detail = new FormDetailedPic();
-            detail.Img = img;
-            detail.ShowDialog(this);
-            detail.Dispose();
         }
 
         internal class SearchCategory
