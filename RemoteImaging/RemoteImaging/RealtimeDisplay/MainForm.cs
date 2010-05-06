@@ -64,6 +64,33 @@ namespace RemoteImaging.RealtimeDisplay
 
             this.eightWayNavigator1.right.MouseDown += right_MouseDown;
             this.eightWayNavigator1.right.MouseUp += right_MouseUp;
+
+            this.eightWayNavigator1.up.MouseDown += new MouseEventHandler(up_MouseDown);
+            this.eightWayNavigator1.up.MouseUp += new MouseEventHandler(up_MouseUp);
+
+            this.eightWayNavigator1.down.MouseDown += new MouseEventHandler(down_MouseDown);
+            this.eightWayNavigator1.down.MouseUp += new MouseEventHandler(down_MouseUp);
+
+        }
+
+        void down_MouseUp(object sender, MouseEventArgs e)
+        {
+            _navController.NavStop();
+        }
+
+        void down_MouseDown(object sender, MouseEventArgs e)
+        {
+            _navController.NavDown();
+        }
+
+        void up_MouseUp(object sender, MouseEventArgs e)
+        {
+            _navController.NavStop();
+        }
+
+        void up_MouseDown(object sender, MouseEventArgs e)
+        {
+            _navController.NavUp();
         }
 
         void right_MouseUp(object sender, MouseEventArgs e)
@@ -506,10 +533,6 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void ShowDetailPic(ImageDetail img)
         {
-            FormDetailedPic detail = new FormDetailedPic();
-            detail.Img = img;
-            detail.ShowDialog(this);
-            detail.Dispose();
         }
 
         private void pictureEdit1_DoubleClick(object sender, EventArgs e)
@@ -845,6 +868,7 @@ namespace RemoteImaging.RealtimeDisplay
             }
 
             var item = new ListViewItem(string.Empty, 0);
+            item.Tag = licensePlateInfo;
             item.SubItems.Add(licensePlateInfo.LicensePlateNumber);
             item.SubItems.Add(licensePlateInfo.CaptureTime.ToString());
 
@@ -886,6 +910,43 @@ namespace RemoteImaging.RealtimeDisplay
         private readonly Func<FaceComparePresenter> _createFaceCompare;
         private Func<RemoteImaging.IPicQueryScreen> picScreenCreator;
         private NavigationController _navController;
+
+        private void licensePlateList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (licensePlateList.SelectedItems.Count <= 0)
+            {
+                return;
+            }
+
+            var lpi = licensePlateList.SelectedItems[0].Tag as LicensePlateInfo;
+            if (lpi != null)
+            {
+                var img = lpi.LoadImage();
+                carPicture.Image = img;
+                carPicture.Tag = lpi;
+            }
+        }
+
+        private void showCarPic_Click(object sender, EventArgs e)
+        {
+            carPicGroupBox.Visible = !carPicGroupBox.Visible;
+        }
+
+        private void carPicture_DoubleClick(object sender, EventArgs e)
+        {
+            if (carPicture.Image == null)
+            {
+                return;
+            }
+
+            using (var detail = new FormDetailedPic())
+            {
+                detail.Image.Image = (Image) carPicture.Image.Clone();
+                var lpi = (LicensePlateInfo) carPicture.Tag;
+                detail.captureTime.Text = lpi.CaptureTime.ToString();
+                detail.ShowDialog(this);
+            }
+        }
 
     }
 }
