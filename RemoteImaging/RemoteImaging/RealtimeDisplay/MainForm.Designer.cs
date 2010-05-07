@@ -30,24 +30,23 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
             "",
             "1232323",
             "2010-10-20",
             "2号"}, -1);
-            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("192.168.1.2", 1, 1);
-            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("2", 2, 2);
-            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("南门", new System.Windows.Forms.TreeNode[] {
-            treeNode7,
-            treeNode8});
-            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("192.168.1.1", 1, 1);
-            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("3", 2, 2);
-            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("北门", new System.Windows.Forms.TreeNode[] {
-            treeNode10,
-            treeNode11});
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("192.168.1.2", 1, 1);
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("2", 2, 2);
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("南门", new System.Windows.Forms.TreeNode[] {
+            treeNode1,
+            treeNode2});
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("192.168.1.1", 1, 1);
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("3", 2, 2);
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("北门", new System.Windows.Forms.TreeNode[] {
+            treeNode4,
+            treeNode5});
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.statusOutputFolder = new System.Windows.Forms.ToolStripStatusLabel();
-            this.statusCPUMemUsage = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusProgressBar = new System.Windows.Forms.ToolStripProgressBar();
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -76,8 +75,11 @@
             this.captureTime = new System.Windows.Forms.ColumnHeader();
             this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
             this.imageListLicensePlateList = new System.Windows.Forms.ImageList(this.components);
+            this.carPicGroupBox = new System.Windows.Forms.GroupBox();
+            this.carPicture = new System.Windows.Forms.PictureBox();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.searchLicensePlates = new System.Windows.Forms.ToolStripButton();
+            this.showCarPic = new System.Windows.Forms.ToolStripButton();
             this.simpleButton2 = new DevExpress.XtraEditors.SimpleButton();
             this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
             this.panelControl2 = new DevExpress.XtraEditors.PanelControl();
@@ -124,9 +126,6 @@
             this.enhanceImg = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.alertControl1 = new DevExpress.XtraBars.Alerter.AlertControl(this.components);
-            this.carPicture = new System.Windows.Forms.PictureBox();
-            this.carPicGroupBox = new System.Windows.Forms.GroupBox();
-            this.showCarPic = new System.Windows.Forms.ToolStripButton();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
@@ -151,6 +150,8 @@
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.carPicGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.carPicture)).BeginInit();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).BeginInit();
             this.panelControl2.SuspendLayout();
@@ -171,15 +172,12 @@
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.mainToolStrip.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.carPicture)).BeginInit();
-            this.carPicGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.statusOutputFolder,
-            this.statusCPUMemUsage,
             this.statusProgressBar});
             this.statusStrip1.Location = new System.Drawing.Point(0, 581);
             this.statusStrip1.Name = "statusStrip1";
@@ -197,15 +195,6 @@
             this.statusOutputFolder.Size = new System.Drawing.Size(161, 23);
             this.statusOutputFolder.Text = "toolStripStatusLabel2";
             this.statusOutputFolder.Click += new System.EventHandler(this.statusOutputFolder_Click);
-            // 
-            // statusCPUMemUsage
-            // 
-            this.statusCPUMemUsage.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top)
-                        | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)
-                        | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
-            this.statusCPUMemUsage.Name = "statusCPUMemUsage";
-            this.statusCPUMemUsage.Size = new System.Drawing.Size(145, 23);
-            this.statusCPUMemUsage.Text = "toolStripStatusLabel1";
             // 
             // statusProgressBar
             // 
@@ -476,7 +465,7 @@
             this.licensePlateList.FullRowSelect = true;
             this.licensePlateList.GridLines = true;
             this.licensePlateList.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem2});
+            listViewItem1});
             this.licensePlateList.Location = new System.Drawing.Point(164, 28);
             this.licensePlateList.Name = "licensePlateList";
             this.licensePlateList.Size = new System.Drawing.Size(581, 102);
@@ -513,6 +502,28 @@
             this.imageListLicensePlateList.TransparentColor = System.Drawing.Color.Transparent;
             this.imageListLicensePlateList.Images.SetKeyName(0, "BlueDot.gif");
             // 
+            // carPicGroupBox
+            // 
+            this.carPicGroupBox.Controls.Add(this.carPicture);
+            this.carPicGroupBox.Dock = System.Windows.Forms.DockStyle.Left;
+            this.carPicGroupBox.Location = new System.Drawing.Point(3, 28);
+            this.carPicGroupBox.Name = "carPicGroupBox";
+            this.carPicGroupBox.Size = new System.Drawing.Size(161, 102);
+            this.carPicGroupBox.TabIndex = 3;
+            this.carPicGroupBox.TabStop = false;
+            this.carPicGroupBox.Text = "车牌图片";
+            // 
+            // carPicture
+            // 
+            this.carPicture.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.carPicture.Location = new System.Drawing.Point(3, 16);
+            this.carPicture.Name = "carPicture";
+            this.carPicture.Size = new System.Drawing.Size(155, 83);
+            this.carPicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.carPicture.TabIndex = 2;
+            this.carPicture.TabStop = false;
+            this.carPicture.DoubleClick += new System.EventHandler(this.carPicture_DoubleClick);
+            // 
             // toolStrip1
             // 
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -533,6 +544,16 @@
             this.searchLicensePlates.Size = new System.Drawing.Size(23, 22);
             this.searchLicensePlates.Text = "toolStripButton2";
             this.searchLicensePlates.Click += new System.EventHandler(this.searchLicensePlates_Click);
+            // 
+            // showCarPic
+            // 
+            this.showCarPic.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.showCarPic.Image = ((System.Drawing.Image)(resources.GetObject("showCarPic.Image")));
+            this.showCarPic.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.showCarPic.Name = "showCarPic";
+            this.showCarPic.Size = new System.Drawing.Size(23, 22);
+            this.showCarPic.Text = "toolStripButton2";
+            this.showCarPic.Click += new System.EventHandler(this.showCarPic_Click);
             // 
             // simpleButton2
             // 
@@ -573,30 +594,30 @@
             this.cameraTree.ImageList = this.cameraImageList;
             this.cameraTree.Location = new System.Drawing.Point(0, 24);
             this.cameraTree.Name = "cameraTree";
-            treeNode7.ImageIndex = 1;
-            treeNode7.Name = "Node1";
-            treeNode7.SelectedImageIndex = 1;
-            treeNode7.Text = "192.168.1.2";
-            treeNode8.ImageIndex = 2;
-            treeNode8.Name = "Node4";
-            treeNode8.SelectedImageIndex = 2;
-            treeNode8.Text = "2";
-            treeNode9.ImageIndex = 0;
-            treeNode9.Name = "Node0";
-            treeNode9.Text = "南门";
-            treeNode10.ImageIndex = 1;
-            treeNode10.Name = "Node3";
-            treeNode10.SelectedImageIndex = 1;
-            treeNode10.Text = "192.168.1.1";
-            treeNode11.ImageIndex = 2;
-            treeNode11.Name = "Node5";
-            treeNode11.SelectedImageIndex = 2;
-            treeNode11.Text = "3";
-            treeNode12.Name = "Node2";
-            treeNode12.Text = "北门";
+            treeNode1.ImageIndex = 1;
+            treeNode1.Name = "Node1";
+            treeNode1.SelectedImageIndex = 1;
+            treeNode1.Text = "192.168.1.2";
+            treeNode2.ImageIndex = 2;
+            treeNode2.Name = "Node4";
+            treeNode2.SelectedImageIndex = 2;
+            treeNode2.Text = "2";
+            treeNode3.ImageIndex = 0;
+            treeNode3.Name = "Node0";
+            treeNode3.Text = "南门";
+            treeNode4.ImageIndex = 1;
+            treeNode4.Name = "Node3";
+            treeNode4.SelectedImageIndex = 1;
+            treeNode4.Text = "192.168.1.1";
+            treeNode5.ImageIndex = 2;
+            treeNode5.Name = "Node5";
+            treeNode5.SelectedImageIndex = 2;
+            treeNode5.Text = "3";
+            treeNode6.Name = "Node2";
+            treeNode6.Text = "北门";
             this.cameraTree.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode9,
-            treeNode12});
+            treeNode3,
+            treeNode6});
             this.cameraTree.SelectedImageIndex = 0;
             this.cameraTree.Size = new System.Drawing.Size(156, 106);
             this.cameraTree.TabIndex = 1;
@@ -1006,38 +1027,6 @@
             // 
             this.alertControl1.ShowPinButton = false;
             // 
-            // carPicture
-            // 
-            this.carPicture.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.carPicture.Location = new System.Drawing.Point(3, 16);
-            this.carPicture.Name = "carPicture";
-            this.carPicture.Size = new System.Drawing.Size(155, 83);
-            this.carPicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.carPicture.TabIndex = 2;
-            this.carPicture.TabStop = false;
-            this.carPicture.DoubleClick += new System.EventHandler(this.carPicture_DoubleClick);
-            // 
-            // carPicGroupBox
-            // 
-            this.carPicGroupBox.Controls.Add(this.carPicture);
-            this.carPicGroupBox.Dock = System.Windows.Forms.DockStyle.Left;
-            this.carPicGroupBox.Location = new System.Drawing.Point(3, 28);
-            this.carPicGroupBox.Name = "carPicGroupBox";
-            this.carPicGroupBox.Size = new System.Drawing.Size(161, 102);
-            this.carPicGroupBox.TabIndex = 3;
-            this.carPicGroupBox.TabStop = false;
-            this.carPicGroupBox.Text = "车牌图片";
-            // 
-            // showCarPic
-            // 
-            this.showCarPic.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.showCarPic.Image = ((System.Drawing.Image)(resources.GetObject("showCarPic.Image")));
-            this.showCarPic.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.showCarPic.Name = "showCarPic";
-            this.showCarPic.Size = new System.Drawing.Size(23, 22);
-            this.showCarPic.Text = "toolStripButton2";
-            this.showCarPic.Click += new System.EventHandler(this.showCarPic_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1081,6 +1070,8 @@
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            this.carPicGroupBox.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.carPicture)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).EndInit();
@@ -1104,8 +1095,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.mainToolStrip.ResumeLayout(false);
             this.mainToolStrip.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.carPicture)).EndInit();
-            this.carPicGroupBox.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1143,7 +1132,6 @@
         private System.Windows.Forms.ToolStripStatusLabel statusOutputFolder;
         private System.Windows.Forms.Timer realTimer;
         private System.Windows.Forms.ToolStripProgressBar statusProgressBar;
-        private System.Windows.Forms.ToolStripStatusLabel statusCPUMemUsage;
         private AxIMGCTRLLib.AxCamImgCtrl axCamImgCtrl1;
         private System.Windows.Forms.ToolStripButton searchPic;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;

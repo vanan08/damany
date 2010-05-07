@@ -944,6 +944,7 @@ namespace RemoteImaging.RealtimeDisplay
                 detail.Image.Image = (Image) carPicture.Image.Clone();
                 var lpi = (LicensePlateInfo) carPicture.Tag;
                 detail.captureTime.Text = lpi.CaptureTime.ToString();
+                detail.Text = lpi.LicensePlateNumber;
                 detail.ShowDialog(this);
             }
         }
