@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormLicensePlateQuery));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.mathTimeRange = new System.Windows.Forms.CheckBox();
             this.searchButton = new System.Windows.Forms.Button();
@@ -43,11 +45,27 @@
             this.columnHeader3 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader4 = new System.Windows.Forms.ColumnHeader();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
+            this.axVLCPlugin21 = new AxAXVLC.AxVLCPlugin2();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.playVideo = new System.Windows.Forms.ToolStripButton();
             this.splitter1 = new System.Windows.Forms.Splitter();
+            this.licensePlateImageList = new System.Windows.Forms.ImageList(this.components);
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.to.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.from.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
+            this.groupControl1.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).BeginInit();
+            this.groupControl2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.axVLCPlugin21)).BeginInit();
+            this.panel1.SuspendLayout();
+            this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -159,12 +177,13 @@
             this.columnHeader2,
             this.columnHeader3,
             this.columnHeader4});
-            this.licensePlateList.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.licensePlateList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.licensePlateList.FullRowSelect = true;
             this.licensePlateList.GridLines = true;
-            this.licensePlateList.Location = new System.Drawing.Point(0, 265);
+            this.licensePlateList.Location = new System.Drawing.Point(0, 25);
             this.licensePlateList.Name = "licensePlateList";
-            this.licensePlateList.Size = new System.Drawing.Size(934, 198);
+            this.licensePlateList.Size = new System.Drawing.Size(934, 159);
+            this.licensePlateList.SmallImageList = this.licensePlateImageList;
             this.licensePlateList.TabIndex = 1;
             this.licensePlateList.UseCompatibleStateImageBehavior = false;
             this.licensePlateList.View = System.Windows.Forms.View.Details;
@@ -178,7 +197,7 @@
             // columnHeader2
             // 
             this.columnHeader2.Text = "车牌号码";
-            this.columnHeader2.Width = 112;
+            this.columnHeader2.Width = 142;
             // 
             // columnHeader3
             // 
@@ -193,39 +212,135 @@
             // pictureBox1
             // 
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox1.Location = new System.Drawing.Point(0, 81);
+            this.pictureBox1.Location = new System.Drawing.Point(3, 20);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(934, 181);
+            this.pictureBox1.Size = new System.Drawing.Size(455, 318);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
             // 
+            // groupControl1
+            // 
+            this.groupControl1.AppearanceCaption.Image = global::RemoteImaging.Properties.Resources.Camera;
+            this.groupControl1.AppearanceCaption.Options.UseImage = true;
+            this.groupControl1.Controls.Add(this.pictureBox1);
+            this.groupControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupControl1.Location = new System.Drawing.Point(470, 3);
+            this.groupControl1.Name = "groupControl1";
+            this.groupControl1.Size = new System.Drawing.Size(461, 341);
+            this.groupControl1.TabIndex = 4;
+            this.groupControl1.Text = "车牌照片";
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Controls.Add(this.groupControl1, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.groupControl2, 0, 0);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 81);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(934, 347);
+            this.tableLayoutPanel1.TabIndex = 5;
+            // 
+            // groupControl2
+            // 
+            this.groupControl2.Controls.Add(this.axVLCPlugin21);
+            this.groupControl2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupControl2.Location = new System.Drawing.Point(3, 3);
+            this.groupControl2.Name = "groupControl2";
+            this.groupControl2.Size = new System.Drawing.Size(461, 341);
+            this.groupControl2.TabIndex = 5;
+            this.groupControl2.Text = "视频";
+            this.groupControl2.Paint += new System.Windows.Forms.PaintEventHandler(this.groupControl2_Paint);
+            // 
+            // axVLCPlugin21
+            // 
+            this.axVLCPlugin21.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.axVLCPlugin21.Enabled = true;
+            this.axVLCPlugin21.Location = new System.Drawing.Point(3, 20);
+            this.axVLCPlugin21.Name = "axVLCPlugin21";
+            this.axVLCPlugin21.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axVLCPlugin21.OcxState")));
+            this.axVLCPlugin21.Size = new System.Drawing.Size(455, 318);
+            this.axVLCPlugin21.TabIndex = 31;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.licensePlateList);
+            this.panel1.Controls.Add(this.toolStrip1);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel1.Location = new System.Drawing.Point(0, 428);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(934, 184);
+            this.panel1.TabIndex = 6;
+            // 
+            // toolStrip1
+            // 
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.playVideo});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(934, 25);
+            this.toolStrip1.TabIndex = 2;
+            this.toolStrip1.Text = "toolStrip1";
+            // 
+            // playVideo
+            // 
+            this.playVideo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.playVideo.Image = ((System.Drawing.Image)(resources.GetObject("playVideo.Image")));
+            this.playVideo.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.playVideo.Name = "playVideo";
+            this.playVideo.Size = new System.Drawing.Size(23, 22);
+            this.playVideo.Text = "toolStripButton1";
+            this.playVideo.Click += new System.EventHandler(this.playVideo_Click);
+            // 
             // splitter1
             // 
             this.splitter1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.splitter1.Location = new System.Drawing.Point(0, 262);
+            this.splitter1.Location = new System.Drawing.Point(0, 425);
             this.splitter1.Name = "splitter1";
             this.splitter1.Size = new System.Drawing.Size(934, 3);
-            this.splitter1.TabIndex = 3;
+            this.splitter1.TabIndex = 7;
             this.splitter1.TabStop = false;
+            // 
+            // licensePlateImageList
+            // 
+            this.licensePlateImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("licensePlateImageList.ImageStream")));
+            this.licensePlateImageList.TransparentColor = System.Drawing.Color.Transparent;
+            this.licensePlateImageList.Images.SetKeyName(0, "BlueDot.gif");
             // 
             // FormLicensePlateQuery
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(934, 463);
-            this.Controls.Add(this.pictureBox1);
+            this.ClientSize = new System.Drawing.Size(934, 612);
             this.Controls.Add(this.splitter1);
+            this.Controls.Add(this.tableLayoutPanel1);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.licensePlateList);
             this.Name = "FormLicensePlateQuery";
             this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "车牌号查询";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormLicensePlateQuery_FormClosing);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.to.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.from.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
+            this.groupControl1.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).EndInit();
+            this.groupControl2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.axVLCPlugin21)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -247,6 +362,14 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.CheckBox mathTimeRange;
         private System.Windows.Forms.CheckBox matchLicenseNumber;
+        private DevExpress.XtraEditors.GroupControl groupControl1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private DevExpress.XtraEditors.GroupControl groupControl2;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStripButton playVideo;
         private System.Windows.Forms.Splitter splitter1;
+        private AxAXVLC.AxVLCPlugin2 axVLCPlugin21;
+        private System.Windows.Forms.ImageList licensePlateImageList;
     }
 }

@@ -8,20 +8,24 @@ using System.Text;
 using System.Windows.Forms;
 using Damany.RemoteImaging.Common;
 using Damany.Util;
+using RemoteImaging.Extensions;
 
 namespace RemoteImaging.LicensePlate
 {
     public partial class FormLicensePlateQuery : Form, ILicenseplateSearchScreen
     {
         private readonly ConfigurationManager _configurationManager;
+        private readonly FileSystemStorage _videoRepository;
         private ILicensePlateSearchPresenter _presenter;
 
 
-        public FormLicensePlateQuery(ConfigurationManager configurationManager)
+        public FormLicensePlateQuery(ConfigurationManager configurationManager, FileSystemStorage videoRepository)
         {
             if (configurationManager == null) throw new ArgumentNullException("configurationManager");
+            if (videoRepository == null) throw new ArgumentNullException("videoRepository");
 
             _configurationManager = configurationManager;
+            _videoRepository = videoRepository;
             InitializeComponent();
 
             var now = DateTime.Now;
@@ -52,6 +56,7 @@ namespace RemoteImaging.LicensePlate
 
 
             var item = new ListViewItem();
+            item.ImageIndex = 0;
             item.SubItems.Add(licensePlateInfo.LicensePlateNumber);
             item.SubItems.Add(licensePlateInfo.CaptureTime.ToString());
             var name = _configurationManager.GetName(licensePlateInfo.CapturedFrom);
@@ -131,6 +136,36 @@ namespace RemoteImaging.LicensePlate
         private void matchLicenseNumber_CheckedChanged(object sender, EventArgs e)
         {
             licensePlateNumber.Enabled = matchLicenseNumber.Checked;
+        }
+
+        private void groupControl2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void playVideo_Click(object sender, EventArgs e)
+        {
+            if (licensePlateList.SelectedItems.Count <= 0)
+            {
+                return;
+            }
+
+            var lpi = licensePlateList.SelectedItems[0].Tag as LicensePlateInfo;
+
+            if (lpi != null)
+            {
+                var videoFile = _videoRepository.VideoFilePathNameIfExists(lpi.CaptureTime, lpi.CapturedFrom);
+                if (!string.IsNullOrEmpty(videoFile) && System.IO.File.Exists(videoFile))
+                {
+                    axVLCPlugin21.PlayFile(videoFile);
+                }
+                
+            }
+        }
+
+        private void FormLicensePlateQuery_FormClosing(object sender, FormClosingEventArgs e)
+        {
+           axVLCPlugin21.StopPlaying();
         }
     }
 }

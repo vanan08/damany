@@ -29,17 +29,7 @@ namespace RemoteImaging
             this.Image.Dispose();
         }
 
-        private void Brightness_Click(object sender, EventArgs e)
-        {
-            IPLab.BrightnessForm frm = new IPLab.BrightnessForm();
-            frm.Image = (Bitmap)this.Image.Image;
-            if (frm.ShowDialog() == DialogResult.OK)
-            {
-                this.ApplyFilter(frm.Filter);
-            }
 
-            frm.Dispose();
-        }
 
         Image backup;
 
@@ -68,7 +58,6 @@ namespace RemoteImaging
             }
             finally
             {
-                // restore cursor
                 this.Cursor = Cursors.Default;
             }
         }
