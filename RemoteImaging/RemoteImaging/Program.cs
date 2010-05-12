@@ -27,6 +27,22 @@ namespace RemoteImaging
         {
             try
             {
+
+
+                if (!Util.VerifyKey())
+                {
+                    RegisterForm form = new RegisterForm();
+                    DialogResult res = form.ShowDialog();
+                    if (res == DialogResult.OK)
+                    {
+                        Application.Restart();
+                    }
+
+                    return;
+                }
+
+
+
                 AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
                 Application.ThreadException += Application_ThreadException;
 
