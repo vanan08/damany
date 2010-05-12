@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<DOCUMENT type="Advanced Installer" CreateVersion="7.2.1" version="7.2.1" modules="enterprise" RootPath="." Language="zh">
+<DOCUMENT Type="Advanced Installer" CreateVersion="7.2.1" version="7.6" Modules="enterprise" RootPath="." Language="zh">
   <COMPONENT cid="caphyon.advinst.msicomp.MsiPropsComponent">
     <ROW Property="ALLUSERS" Value="2"/>
     <ROW Property="ARPCOMMENTS" Value="人像抓拍2009" ValueLocId="*"/>
@@ -234,7 +234,7 @@
     <ATTRIBUTE name="UseAutorun" value="true"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.BuildComponent">
-    <ROW BuildKey="DefaultBuild" BuildName="DefaultBuild" BuildOrder="1" BuildType="1" Languages="zh" InstallationType="5" CabsLocation="1" FirstMediaSize="649" FirstMediaSizeUnit="2" MediaSize="650" MediaSizeUnit="2" PackageType="1" ExeIconPath="..\RemoteImaging\MainIcon.ico" CreateMd5="true" ExeName="RemoteImagingSetup" UACExecutionLevel="2"/>
+    <ROW BuildKey="DefaultBuild" BuildName="DefaultBuild" BuildOrder="1" BuildType="1" PackageFolder="." Languages="zh" InstallationType="5" CabsLocation="1" FirstMediaSize="649" FirstMediaSizeUnit="2" MediaSize="650" MediaSizeUnit="2" PackageType="1" ExeIconPath="..\RemoteImaging\MainIcon.ico" CreateMd5="true" ExeName="RemoteImagingSetup" UACExecutionLevel="2"/>
     <ATTRIBUTE name="CurrentBuild" value="DefaultBuild"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.DictionaryComponent">
@@ -242,19 +242,22 @@
     <ROW Path="&lt;AI_DICTS&gt;ui_zh.ail"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.FragmentComponent">
-    <ROW Fragment="FolderDlg.aip" Path="&lt;AI_FRAGS&gt;FolderDlg.aip"/>
-    <ROW Fragment="NET_Framework_3.5_S.aip" Path="&lt;CommonAppDataFolder&gt;Caphyon\Advanced Installer\Repository\Prerequisites\.NET Framework 3.5 S\.NET Framework 3.5 S.aip"/>
+    <ROW Fragment="CommonUI.aip" Path="&lt;AI_FRAGS&gt;CommonUI.aip"/>
+    <ROW Fragment="FolderDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\FolderDlg.aip"/>
+    <ROW Fragment="NET_Framework_3.5_S_0.aip" Path="&lt;AI_REPOSITORY&gt;Prerequisites\.NET Framework 3.5 S_0\.NET Framework 3.5 S_0.aip"/>
+    <ROW Fragment="SequenceDialogs.aip" Path="&lt;AI_THEMES&gt;classic\fragments\SequenceDialogs.aip"/>
     <ROW Fragment="Sequences.aip" Path="&lt;AI_FRAGS&gt;Sequences.aip"/>
     <ROW Fragment="StaticUIStrings.aip" Path="&lt;AI_FRAGS&gt;StaticUIStrings.aip"/>
-    <ROW Fragment="UI.aip" Path="&lt;AI_FRAGS&gt;UI.aip"/>
-    <ROW Fragment="Visual_C_2005_SP1_0.aip" Path="&lt;CommonAppDataFolder&gt;Caphyon\Advanced Installer\Repository\Prerequisites\Visual C++ 2005 SP1 _0\Visual C++ 2005 SP1 _0.aip"/>
-    <ROW Fragment="Visual_C_2008_SP1_0.aip" Path="&lt;CommonAppDataFolder&gt;Caphyon\Advanced Installer\Repository\Prerequisites\Visual C++ 2008 SP1 _0\Visual C++ 2008 SP1 _0.aip"/>
+    <ROW Fragment="UI.aip" Path="&lt;AI_THEMES&gt;classic\fragments\UI.aip"/>
+    <ROW Fragment="Validation.aip" Path="&lt;AI_FRAGS&gt;Validation.aip"/>
+    <ROW Fragment="Visual_C_2005_SP1_1.aip" Path="&lt;AI_REPOSITORY&gt;Prerequisites\Visual C++ 2005 SP1 _1\Visual C++ 2005 SP1 _1.aip"/>
+    <ROW Fragment="Visual_C_2008_SP1_1.aip" Path="&lt;AI_REPOSITORY&gt;Prerequisites\Visual C++ 2008 SP1 _1\Visual C++ 2008 SP1 _1.aip"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiBinaryComponent">
     <ROW Name="Prereq.dll" SourcePath="&lt;AI_CUSTACTS&gt;Prereq.dll"/>
     <ROW Name="aicustact.dll" SourcePath="&lt;AI_CUSTACTS&gt;aicustact.dll"/>
-    <ROW Name="default_banner.bmp" SourcePath="&lt;AI_RES&gt;default-banner.bmp"/>
-    <ROW Name="default_dialog.bmp" SourcePath="&lt;AI_RES&gt;default-dialog.bmp"/>
+    <ROW Name="default_banner.bmp" SourcePath="&lt;AI_THEMES&gt;classic\resources\default-banner.bmp"/>
+    <ROW Name="default_dialog.bmp" SourcePath="&lt;AI_THEMES&gt;classic\resources\default-dialog.bmp"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiControlComponent">
     <ATTRIBUTE name="FixedSizeBitmaps" value="2"/>
@@ -279,6 +282,7 @@
     <ROW Action="AI_LaunchApp" Type="1" Source="aicustact.dll" Target="[#RemoteImaging.exe]"/>
     <ROW Action="AI_PREPARE_UPGRADE" Type="65" Source="aicustact.dll" Target="PrepareUpgrade"/>
     <ROW Action="AI_RESTORE_LOCATION" Type="65" Source="aicustact.dll" Target="RestoreLocation"/>
+    <ROW Action="AI_ResolveKnownFolders" Type="1" Source="aicustact.dll" Target="AI_ResolveKnownFolders"/>
     <ROW Action="AI_STORE_LOCATION" Type="51" Source="ARPINSTALLLOCATION" Target="[APPDIR]"/>
     <ROW Action="SET_APPDIR" Type="307" Source="APPDIR" Target="[ProgramFilesFolder][Manufacturer]\[ProductName]"/>
     <ROW Action="SET_SHORTCUTDIR" Type="307" Source="SHORTCUTDIR" Target="[ProgramMenuFolder][ProductName]"/>
@@ -293,16 +297,21 @@
     <ROW Action="AI_STORE_LOCATION" Condition="Not Installed" Sequence="1501"/>
     <ROW Action="AI_PREPARE_UPGRADE" Condition="AI_UPGRADE=&quot;No&quot; AND (Not Installed)" Sequence="1399"/>
     <ROW Action="AI_AppSearchEx" Sequence="101"/>
+    <ROW Action="AI_ResolveKnownFolders" Sequence="51"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiInstallUISequenceComponent">
     <ROW Action="AI_RESTORE_LOCATION" Condition="APPDIR=&quot;&quot;" Sequence="749"/>
     <ROW Action="AI_AppSearchEx" Sequence="101"/>
+    <ROW Action="AI_ResolveKnownFolders" Sequence="51"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiMediaComponent">
     <ROW LastSequence="108" DiskPrompt="Disk" Cabinet="Cab" VolumeLabel="Disk" CabinetSize="649" CabinetSizeUnit="2" UseCompressed="0" Compressed="0" InsideCabinet="1" Build="DefaultBuild"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiShortsComponent">
     <ROW Shortcut="_" Directory_="Damany_DIR" Name="人像抓拍2009" Component_="RemoteImaging.exe" Target="[#RemoteImaging.exe]" Hotkey="0" Icon_="RemoteImaging.exe" IconIndex="0" ShowCmd="1" WkDir="APPDIR"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiThemeComponent">
+    <ATTRIBUTE name="UsedTheme" value="classic"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiUpgradeComponent">
     <ROW UpgradeCode="[|UpgradeCode]" VersionMax="[|ProductVersion]" Attributes="1025" ActionProperty="OLDPRODUCTS"/>
@@ -311,7 +320,7 @@
   <COMPONENT cid="caphyon.advinst.msicomp.PreReqComponent">
     <ROW PrereqKey="SanyoSDK" DisplayName="SanyoSDK" SetupFileUrl="M:\Remoteimaging needed\Sanyo.exe" Location="0" ExactSize="0" Operator="1" TargetName="Sanyo.exe"/>
     <ROW PrereqKey="VLC" DisplayName="VLC" SetupFileUrl="M:\Remoteimaging needed\vlc-0.9.8a-win32.exe" Location="0" ExactSize="0" Operator="1" TargetName="vlc-0.9.8a-win32.exe"/>
-    <ATTRIBUTE name="PrereqsOrder" value="VLC SanyoSDK DA181F5A_8297_4010_8841_B8D26A0412C1 D02A8_3F1C_4953_B413_54F3C4C7387D D_2B5E_4B20_AD6C_EA22E9FF1759"/>
+    <ATTRIBUTE name="PrereqsOrder" value="VLC SanyoSDK E8C94C4_8CE0_47EF_9D0E_8C976CB1CC43 E55947C6_5669_4E82_87AD_AD77D9B6E42C CED1100_560D_4294_91C1_B08F812D811B"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.PreReqSearchComponent">
     <ROW SearchKey="SystemFolder_file.dll" Prereq="VLC" SearchType="0" SearchString="[ProgramFilesFolder]\videolan\vlc\axvlc.dll" VerMin="0.9.8.1" VerMax="0.9.8.1" Order="1" Property="PreReqSearch_1"/>
