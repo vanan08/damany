@@ -6,6 +6,7 @@ using System.Text;
 using System.Windows.Forms;
 using Damany.Imaging.Common;
 using Damany.Imaging.PlugIns;
+using Damany.RemoteImaging.Common;
 using Damany.RemoteImaging.Common.Presenters;
 using Damany.Windows.Form;
 using System.IO;
@@ -16,13 +17,22 @@ using RemoteImaging.Core;
 using Damany.Component;
 using System.Threading;
 using RemoteImaging.ImportPersonCompare;
+using RemoteImaging.LicensePlate;
 using RemoteImaging.Query;
 using Microsoft.Practices.EnterpriseLibrary.ExceptionHandling;
 using Damany.PC.Domain;
+using RemoteImaging.YunTai;
+using Frame = Damany.Imaging.Common.Frame;
+using Portrait = Damany.Imaging.Common.Portrait;
 
 namespace RemoteImaging.RealtimeDisplay
 {
-    public partial class MainForm : Form, IImageScreen, Damany.Imaging.Common.IOperation<Portrait>
+    public partial class MainForm : Form, 
+        IImageScreen, 
+        IOperation<Portrait>,
+        LicensePlate.ILicensePlateObserver,
+        YunTai.INavigationScreen
+        
     {
         public Func<FaceComparePresenter> CreateFaceCompare { get; set; }
         private SplashForm splash = new SplashForm();
@@ -41,7 +51,66 @@ namespace RemoteImaging.RealtimeDisplay
 
             InitStatusBar();
 
+            WireUpNavigationControlEventHandler();
+
+
             Application.Idle += new EventHandler(Application_Idle);
+        }
+
+        private void WireUpNavigationControlEventHandler()
+        {
+            this.eightWayNavigator1.left.MouseDown += left_MouseDown;
+            this.eightWayNavigator1.left.MouseUp += leftUp_MouseUp;
+
+            this.eightWayNavigator1.right.MouseDown += right_MouseDown;
+            this.eightWayNavigator1.right.MouseUp += right_MouseUp;
+
+            this.eightWayNavigator1.up.MouseDown += new MouseEventHandler(up_MouseDown);
+            this.eightWayNavigator1.up.MouseUp += new MouseEventHandler(up_MouseUp);
+
+            this.eightWayNavigator1.down.MouseDown += new MouseEventHandler(down_MouseDown);
+            this.eightWayNavigator1.down.MouseUp += new MouseEventHandler(down_MouseUp);
+
+        }
+
+        void down_MouseUp(object sender, MouseEventArgs e)
+        {
+            _navController.NavStop();
+        }
+
+        void down_MouseDown(object sender, MouseEventArgs e)
+        {
+            _navController.NavDown();
+        }
+
+        void up_MouseUp(object sender, MouseEventArgs e)
+        {
+            _navController.NavStop();
+        }
+
+        void up_MouseDown(object sender, MouseEventArgs e)
+        {
+            _navController.NavUp();
+        }
+
+        void right_MouseUp(object sender, MouseEventArgs e)
+        {
+            _navController.NavStop();
+        }
+
+        void right_MouseDown(object sender, MouseEventArgs e)
+        {
+            _navController.NavRight();
+        }
+
+        void leftUp_MouseUp(object sender, MouseEventArgs e)
+        {
+            _navController.NavStop();
+        }
+
+        void left_MouseDown(object sender, MouseEventArgs e)
+        {
+            _navController.NavLeft();
         }
 
 
@@ -50,7 +119,10 @@ namespace RemoteImaging.RealtimeDisplay
                         Func<FaceComparePresenter> createFaceCompare,
                         Func<OptionsForm> createOptionsForm,
                         Func<OptionsPresenter> createOptionsPresenter,
-                        FileSystemStorage videoRepository)
+                        Func<LicensePlate.ILicensePlateSearchPresenter> licensePlateSearchFactory,
+                        ConfigurationManager configurationManager,
+						FileSystemStorage videoRepository
+                        )
             : this()
         {
             CreateFaceCompare = createFaceCompare;
@@ -58,9 +130,20 @@ namespace RemoteImaging.RealtimeDisplay
             _createVideoQueryPresenter = createVideoQueryPresenter;
             _createFaceCompare = createFaceCompare;
             this._createOptionsPresenter = createOptionsPresenter;
-            _videoRepository = videoRepository;
+            _licensePlateSearchFactory = licensePlateSearchFactory;
+            _configurationManager = configurationManager;
             this._createOptionsForm = createOptionsForm;
+			_videoRepository = videoRepository;
 
+        }
+
+        public LicensePlate.ILicensePlateEventPublisher LicensePlateEventPublisher
+        {
+            set
+            {
+                _licensePlateEventPublisher = value;
+                _licensePlateEventPublisher.RegisterForLicensePlateEvent(this);
+            }
         }
 
         public void ShowMessage(string msg)
@@ -450,10 +533,6 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void ShowDetailPic(ImageDetail img)
         {
-            FormDetailedPic detail = new FormDetailedPic();
-            detail.Img = img;
-            detail.ShowDialog(this);
-            detail.Dispose();
         }
 
         private void pictureEdit1_DoubleClick(object sender, EventArgs e)
@@ -497,37 +576,45 @@ namespace RemoteImaging.RealtimeDisplay
         string videoPlayerPath;
 
         public void StartRecord(CameraInfo cam)
-        {
+        { 
+            var axCamImgCtrl = cam.Id == 1 ? this.axCamImgCtrl1 : this.axCamImgCtrl2;
+
             if (InvokeRequired)
             {
-                Action<CameraInfo> action = StartRecord;
+                Action<CameraInfo, AxIMGCTRLLib.AxCamImgCtrl> action = StartRecordInternal;
 
-                this.BeginInvoke(action, cam);
+                this.BeginInvoke(action, cam, axCamImgCtrl);
                 return;
             }
 
-            this.axCamImgCtrl1.CamImgCtrlStop();
+            StartRecordInternal(cam, axCamImgCtrl);
+        }
 
-            this.axCamImgCtrl1.ImageFileURL = @"liveimg.cgi";
-            this.axCamImgCtrl1.ImageType = @"MPEG";
-            this.axCamImgCtrl1.CameraModel = 1;
-            this.axCamImgCtrl1.CtlLocation = @"http://" + cam.Location.Host;
-            this.axCamImgCtrl1.uid = "guest";
-            this.axCamImgCtrl1.pwd = "guest";
-            this.axCamImgCtrl1.RecordingFolderPath
+        private void StartRecordInternal(CameraInfo cam, AxIMGCTRLLib.AxCamImgCtrl axCamImgCtrl)
+        {
+            axCamImgCtrl.CamImgCtrlStop();
+
+            System.Diagnostics.Debug.WriteLine(axCamImgCtrl.Tag);
+
+            axCamImgCtrl.ImageFileURL = @"liveimg.cgi";
+            axCamImgCtrl.ImageType = @"MPEG";
+            axCamImgCtrl.CameraModel = 1;
+            axCamImgCtrl.CtlLocation = @"http://" + cam.Location.Host;
+            axCamImgCtrl.uid = "guest";
+            axCamImgCtrl.pwd = "guest";
+            axCamImgCtrl.RecordingFolderPath
                 = Path.Combine(Properties.Settings.Default.OutputPath, cam.Id.ToString("D2"));
-            this.axCamImgCtrl1.RecordingFormat = 0;
-            this.axCamImgCtrl1.UniIP = this.axCamImgCtrl1.CtlLocation;
-            this.axCamImgCtrl1.UnicastPort = 3939;
-            this.axCamImgCtrl1.ComType = 0;
+            axCamImgCtrl.RecordingFormat = 0;
+            axCamImgCtrl.UniIP = this.axCamImgCtrl1.CtlLocation;
+            axCamImgCtrl.UnicastPort = 3939;
+            axCamImgCtrl.ComType = 0;
 
             if (Properties.Settings.Default.Live)
             {
-                this.axCamImgCtrl1.CamImgCtrlStart();
-                this.axCamImgCtrl1.CamImgRecStart();
+                axCamImgCtrl.CamImgCtrlStart();
+                axCamImgCtrl.CamImgRecStart();
 
             }
-
         }
 
         private void OnConnectionFinished(object ex)
@@ -539,62 +626,6 @@ namespace RemoteImaging.RealtimeDisplay
 
         int? lastSelCamID = null;
 
-
-
-        private void StartCamera(CameraInfo cam)
-        {
-
-
-            SynchronizationContext context = SynchronizationContext.Current;
-
-            ICamera Icam = null;
-
-            if (string.IsNullOrEmpty(Program.directory))
-            {
-                var camera = new Damany.Component.SanyoNetCamera();
-                camera.IPAddress = cam.Location.Host.ToString();
-                camera.UserName = "guest";
-                camera.Password = "guest";
-
-                Icam = camera;
-
-            }
-            else
-            {
-                MockCamera mc = new MockCamera(Program.directory);
-                mc.Repeat = true;
-                Icam = mc;
-            }
-
-
-
-            System.Threading.ThreadPool.QueueUserWorkItem((object o) =>
-                {
-                    System.Exception error = null;
-                    try
-                    {
-                        Icam.Connect();
-                    }
-                    catch (System.Net.Sockets.SocketException ex)
-                    {
-                        error = ex;
-                    }
-                    catch (System.Net.WebException ex)
-                    {
-                        error = ex;
-                    }
-
-                    context.Post(OnConnectionFinished, error);
-
-                    if (error == null)
-                    {
-                        lastSelCamID = cam.Id;
-                        this.StartRecord(cam);
-                    }
-
-                });
-
-        }
         private void cameraTree_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
 
@@ -674,7 +705,7 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void ViewCameraToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.controller.StartCamera();
+            this.controller.Start();
         }
 
 
@@ -713,17 +744,6 @@ namespace RemoteImaging.RealtimeDisplay
         {
         }
 
-        private Func<RemoteImaging.IPicQueryPresenter> picPresenterCreator;
-        private readonly Func<IVideoQueryPresenter> _createVideoQueryPresenter;
-        private readonly Func<FaceComparePresenter> _createFaceCompare;
-        private Func<RemoteImaging.IPicQueryScreen> picScreenCreator;
-        public void Initialize()
-        {
-        }
-
-        public void Start()
-        {
-        }
 
         public void HandlePortraits(IEnumerable<Portrait> portraits)
         {
@@ -775,7 +795,9 @@ namespace RemoteImaging.RealtimeDisplay
 
         private MainController controller;
         private Func<OptionsPresenter> _createOptionsPresenter;
-        private readonly FileSystemStorage _videoRepository;
+        private readonly Func<ILicensePlateSearchPresenter> _licensePlateSearchFactory;
+        private readonly ConfigurationManager _configurationManager;
+		private readonly FileSystemStorage _videoRepository;
         private Func<OptionsForm> _createOptionsForm;
 
         private void faceRecognize_Click(object sender, EventArgs e)
@@ -813,8 +835,9 @@ namespace RemoteImaging.RealtimeDisplay
 
             return inputs;
         }
-
-        public ConfigurationSectionHandlers.ButtonsVisibleSectionHandler ButtonsVisible
+		
+		
+	    public ConfigurationSectionHandlers.ButtonsVisibleSectionHandler ButtonsVisible
         {
             set
             {
@@ -824,6 +847,107 @@ namespace RemoteImaging.RealtimeDisplay
             }
         }
 
+
+        private void axCamImgCtrl1_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void licensePlateList_ItemMouseHover(object sender, ListViewItemMouseHoverEventArgs e)
+        {
+
+        }
+
+        public void LicensePlateCaptured(LicensePlateInfo licensePlateInfo)
+        {
+            if (InvokeRequired)
+            {
+                Action<LicensePlateInfo> action = LicensePlateCaptured;
+                this.Invoke(action, licensePlateInfo);
+                return;
+            }
+
+            var item = new ListViewItem(string.Empty, 0);
+            item.Tag = licensePlateInfo;
+            item.SubItems.Add(licensePlateInfo.LicensePlateNumber);
+            item.SubItems.Add(licensePlateInfo.CaptureTime.ToString());
+
+            var camInfo = _configurationManager.GetCameraById(licensePlateInfo.CapturedFrom);
+            var cameraName = "未知摄像头";
+            if (camInfo != null)
+            {
+                cameraName = camInfo.Name ?? "未知摄像头";
+                
+            }
+            item.SubItems.Add(cameraName);
+
+            licensePlateList.Items.Add(item);
+            licensePlateList.EnsureVisible(licensePlateList.Items.Count-1);
+        }
+
+        private LicensePlate.ILicensePlateEventPublisher _licensePlateEventPublisher;
+
+        private void searchLicensePlates_Click(object sender, EventArgs e)
+        {
+            var presenter = _licensePlateSearchFactory();
+            presenter.Start();
+        }
+
+        public void AttachController(NavigationController controller)
+        {
+            if (controller == null) throw new ArgumentNullException("controller");
+            _navController = controller;
+        }
+
+        public CameraInfo SelectedCamera()
+        {
+            return GetSelectedCamera();
+        }
+
+
+        private Func<RemoteImaging.IPicQueryPresenter> picPresenterCreator;
+        private readonly Func<IVideoQueryPresenter> _createVideoQueryPresenter;
+        private readonly Func<FaceComparePresenter> _createFaceCompare;
+        private Func<RemoteImaging.IPicQueryScreen> picScreenCreator;
+        private NavigationController _navController;
+
+        private void licensePlateList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (licensePlateList.SelectedItems.Count <= 0)
+            {
+                return;
+            }
+
+            var lpi = licensePlateList.SelectedItems[0].Tag as LicensePlateInfo;
+            if (lpi != null)
+            {
+                var img = lpi.LoadImage();
+                carPicture.Image = img;
+                carPicture.Tag = lpi;
+            }
+        }
+
+        private void showCarPic_Click(object sender, EventArgs e)
+        {
+            carPicGroupBox.Visible = !carPicGroupBox.Visible;
+        }
+
+        private void carPicture_DoubleClick(object sender, EventArgs e)
+        {
+            if (carPicture.Image == null)
+            {
+                return;
+            }
+
+            using (var detail = new FormDetailedPic())
+            {
+                detail.Image.Image = (Image) carPicture.Image.Clone();
+                var lpi = (LicensePlateInfo) carPicture.Tag;
+                detail.captureTime.Text = lpi.CaptureTime.ToString();
+                detail.Text = lpi.LicensePlateNumber;
+                detail.ShowDialog(this);
+            }
+        }
 
     }
 }

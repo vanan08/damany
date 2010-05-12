@@ -29,13 +29,13 @@ namespace RemoteImaging
 
             if (EnableFaceComparer)
             {
-                if (System.IO.Directory.Exists(PersonOfInterestLibraryPath))
-                {
-                    var personRepository = SuspectsRepositoryManager.LoadFrom(PersonOfInterestLibraryPath);
-                    builder.RegisterInstance(personRepository.Peoples)
-                        .As<IEnumerable<PersonOfInterest>>()
-                        .ExternallyOwned();
-                }
+                if (!System.IO.Directory.Exists(PersonOfInterestLibraryPath))
+                    throw new System.IO.DirectoryNotFoundException("Persons of Interest library doesn't exist");
+
+                var personRepository = SuspectsRepositoryManager.LoadFrom(PersonOfInterestLibraryPath);
+                builder.RegisterInstance(personRepository.Peoples)
+                    .As<IEnumerable<PersonOfInterest>>()
+                    .ExternallyOwned();
 
                 builder.RegisterType<LbpFaceComparer>()
                        .As<IRepositoryFaceComparer>();
@@ -58,7 +58,9 @@ namespace RemoteImaging
 
             builder.RegisterType<RealtimeDisplay.MainForm>()
                     .As<IOperation<Portrait>>()
+                    .As<YunTai.INavigationScreen>()
                     .As<RealtimeDisplay.MainForm>()
+                    .PropertiesAutowired()
                     .SingleInstance();
 
             if (EnableBackgroundComparer)

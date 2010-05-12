@@ -43,6 +43,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Library\Autofac\Autofac.dll</HintPath>
     </Reference>
+    <Reference Include="AutoMapper, Version=1.0.0.155, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Library\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Autofac.Configuration, Version=2.1.13.813, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Library\Autofac\Autofac.Configuration.dll</HintPath>
@@ -50,6 +54,10 @@
     <Reference Include="Db4objects.Db4o, Version=7.12.132.14217, Culture=neutral, PublicKeyToken=6199cd4f203aa8eb, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files\db4o\db4o-7.12\bin\net-3.5\Db4objects.Db4o.dll</HintPath>
+    </Reference>
+    <Reference Include="Db4objects.Db4o.Linq, Version=7.12.132.14217, Culture=neutral, PublicKeyToken=6199cd4f203aa8eb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files\db4o\db4o-7.12\bin\net-3.5\Db4objects.Db4o.Linq.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.BonusSkins.v9.2, Version=9.2.9.0, Culture=neutral, PublicKeyToken=95fc6c5621878f0a" />
     <Reference Include="DevExpress.Data.v9.2, Version=9.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
@@ -139,8 +147,19 @@
     <Compile Include="Core\Video.cs" />
     <Compile Include="DateTimeInString.cs" />
     <Compile Include="DisposableWrapper.cs" />
+    <Compile Include="Extensions\MiscExtensions.cs" />
     <Compile Include="Face.cs" />
     <Compile Include="FaceProcessingModule.cs" />
+    <Compile Include="ICameraNameResolver.cs" />
+    <Compile Include="LicensePlate\DtoLicensePlateInfo.cs" />
+    <Compile Include="LicensePlate\FormLicensePlateQuery.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LicensePlate\FormLicensePlateQuery.Designer.cs">
+      <DependentUpon>FormLicensePlateQuery.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LicensePlate\ILicensePlateEventGenerator.cs" />
+    <Compile Include="LicensePlate\ILicensePlateEventPublisher.cs" />
     <Compile Include="ImportPersonCompare\ImmediatelyModel.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -184,6 +203,22 @@
     </Compile>
     <Compile Include="IPicQueryPresenter.cs" />
     <Compile Include="IPicQueryScreen.cs" />
+    <Compile Include="LicensePlate\ILicensePlateObserver.cs" />
+    <Compile Include="LicensePlate\ILicensePlatePresenter.cs" />
+    <Compile Include="LicensePlate\ILicensePlateDataProvider.cs" />
+    <Compile Include="LicensePlate\ILicensePlateScreen.cs" />
+    <Compile Include="LicensePlate\ILicensePlateSearchPresenter.cs" />
+    <Compile Include="LicensePlate\ILicenseplateSearchScreen.cs" />
+    <Compile Include="LicensePlate\LicenseParsingConfig.cs" />
+    <Compile Include="LicensePlate\LicensePlateEventPublisher.cs" />
+    <Compile Include="LicensePlate\LicensePlateInfo.cs" />
+    <Compile Include="LicensePlate\LicensePlateDataProvider.cs" />
+    <Compile Include="LicensePlate\LicensePlateRepository.cs" />
+    <Compile Include="LicensePlate\LicensePlateSearchPresenter.cs" />
+    <Compile Include="LicensePlate\LicensePlateUploadMonitor.cs" />
+    <Compile Include="LicensePlate\Mapper.cs" />
+    <Compile Include="LicensePlate\MockLicensePlateGenerator.cs" />
+    <Compile Include="LicensePlate\SearchCretia.cs" />
     <Compile Include="MainController.cs" />
     <Compile Include="MainScreenPresenter.cs" />
     <Compile Include="MockCamera.cs" />
@@ -269,6 +304,9 @@
       <DependentUpon>ContrastForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="LicensePlate\FormLicensePlateQuery.resx">
+      <DependentUpon>FormLicensePlateQuery.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="OptionsForm.resx">
       <DependentUpon>OptionsForm.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -344,6 +382,9 @@
     <Compile Include="StartUp.cs" />
     <Compile Include="Util.cs" />
     <Compile Include="VideoPlayer.cs" />
+    <Compile Include="YunTai\ConnectionManager.cs" />
+    <Compile Include="YunTai\INavigationScreen.cs" />
+    <Compile Include="YunTai\NavigationController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Camera.gif" />
@@ -508,6 +549,10 @@
       <Project>{80A13967-C4D2-4B5A-909D-FA595F57F88D}</Project>
       <Name>Messages</Name>
     </ProjectReference>
+    <ProjectReference Include="..\NavigationControl\NavigationControl.csproj">
+      <Project>{4145B481-C217-4FC8-80E1-A266BFD837FA}</Project>
+      <Name>NavigationControl</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RemoteControlService\RemoteControlService.csproj">
       <Project>{3F01A85F-C1C4-4060-AA37-57AB6F0C90AB}</Project>
       <Name>RemoteControlService</Name>
@@ -531,7 +576,7 @@
   -->
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_BuildAction="ReBuild" BuildVersion_ConfigurationName="Release" Reactor_Output="l:\Documents and Settings\benny\My Documents\Visual Studio 2008\Projects\RemoteImaging_shen_retlang\RemoteImaging\RemoteImaging\bin\Release\RemoteImaging.exe" Reactor_Project="l:\Documents and Settings\benny\My Documents\Visual Studio 2008\Projects\RemoteImaging_shen_retlang\RemoteImaging\RemoteImaging\reactor.nrproj" Reactor_Commands="" Reactor_Automatic="1" Reactor_Lib="0" Reactor_Enabled="1" BuildVersion_UpdateFileVersion="True" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_BuildVersioningStyle="None.None.Increment.None" />
+      <UserProperties BuildVersion_BuildVersioningStyle="None.None.Increment.None" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_UpdateFileVersion="True" Reactor_Enabled="1" Reactor_Lib="0" Reactor_Automatic="1" Reactor_Commands="" Reactor_Project="l:\Documents and Settings\benny\My Documents\Visual Studio 2008\Projects\RemoteImaging_shen_retlang\RemoteImaging\RemoteImaging\reactor.nrproj" Reactor_Output="l:\Documents and Settings\benny\My Documents\Visual Studio 2008\Projects\RemoteImaging_shen_retlang\RemoteImaging\RemoteImaging\bin\Release\RemoteImaging.exe" BuildVersion_ConfigurationName="Release" BuildVersion_BuildAction="ReBuild" />
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>
