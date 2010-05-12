@@ -79,7 +79,7 @@ namespace RemoteImaging
 
 
 
-            this.builder.RegisterInstance(repository)
+            builder.RegisterInstance(repository)
                 .As<IRepository>()
                 .ExternallyOwned();
 
@@ -137,12 +137,46 @@ namespace RemoteImaging
 
             this.builder.RegisterType<MainController>();
 
+            RegisterLicensePlateTypes();
+            RegisterNavControlTypes();
+
             builder.RegisterType<SearchLineBuilder>();
 
             builder.RegisterModule(new Autofac.Configuration.ConfigurationSettingsReader());
 
+
             this.Container = this.builder.Build();
 
+        }
+
+        private void RegisterLicensePlateTypes()
+        {
+            builder.RegisterType<LicensePlate.LicensePlateEventPublisher>()
+                .As<LicensePlate.ILicensePlateEventPublisher>()
+                .SingleInstance();
+
+            builder.RegisterType<LicensePlate.LicensePlateUploadMonitor>();
+
+            builder.RegisterType<LicensePlate.LicensePlateDataProvider>()
+                .As<LicensePlate.ILicensePlateDataProvider>()
+                .WithParameter("outputDirectory", Properties.Settings.Default.OutputPath)
+                .SingleInstance();
+
+            builder.RegisterType<LicensePlate.LicensePlateRepository>()
+                .WithParameter("outputDirectory", Properties.Settings.Default.OutputPath)
+                .PropertiesAutowired()
+                .SingleInstance();
+
+            builder.RegisterType<LicensePlate.FormLicensePlateQuery>()
+                .As<LicensePlate.ILicenseplateSearchScreen>();
+
+            builder.RegisterType<LicensePlate.LicensePlateSearchPresenter>()
+                .As<LicensePlate.ILicensePlateSearchPresenter>();
+        }
+
+        private void RegisterNavControlTypes()
+        {
+            builder.RegisterType<YunTai.NavigationController>();
         }
 
 

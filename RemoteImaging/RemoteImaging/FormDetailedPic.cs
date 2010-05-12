@@ -23,33 +23,13 @@ namespace RemoteImaging
 
         ImageDetail imgDetail;
 
-        public ImageDetail Img
-        {
-            set
-            {
-                byte[] buff = File.ReadAllBytes(value.Path);
-                this.pictureEdit1.Image = Image.FromStream(new MemoryStream(buff));
-                this.imgDetail = value;
-                this.captureTime.Text = value.CaptureTime.ToString();
-            }
-        }
 
         private void FormDetailedPic_FormClosed(object sender, FormClosedEventArgs e)
         {
-            this.pictureEdit1.Dispose();
+            this.Image.Dispose();
         }
 
-        private void Brightness_Click(object sender, EventArgs e)
-        {
-            IPLab.BrightnessForm frm = new IPLab.BrightnessForm();
-            frm.Image = (Bitmap)this.pictureEdit1.Image;
-            if (frm.ShowDialog() == DialogResult.OK)
-            {
-                this.ApplyFilter(frm.Filter);
-            }
 
-            frm.Dispose();
-        }
 
         Image backup;
 
@@ -61,16 +41,14 @@ namespace RemoteImaging
                 this.Cursor = Cursors.WaitCursor;
 
                 // apply filter to the image
-                Bitmap newImage = filter.Apply((Bitmap)this.pictureEdit1.Image);
+                Bitmap newImage = filter.Apply((Bitmap)this.Image.Image);
 
                 if (backup == null)
                 {
-                    backup = this.pictureEdit1.Image;
+                    backup = this.Image.Image;
                 }
 
-                this.pictureEdit1.Image = newImage;
-                this.Save.Enabled = true;
-                this.Restore.Enabled = true;
+                this.Image.Image = newImage;
 
 
             }
@@ -80,7 +58,6 @@ namespace RemoteImaging
             }
             finally
             {
-                // restore cursor
                 this.Cursor = Cursors.Default;
             }
         }
@@ -94,14 +71,14 @@ namespace RemoteImaging
         {
             if (backup != null)
             {
-                this.pictureEdit1.Image = backup;
+                this.Image.Image = backup;
             }
         }
 
         private void Contrast_Click(object sender, EventArgs e)
         {
             IPLab.ContrastForm frm = new IPLab.ContrastForm();
-            frm.Image = (Bitmap)this.pictureEdit1.Image;
+            frm.Image = (Bitmap)this.Image.Image;
             if (frm.ShowDialog() == DialogResult.OK)
             {
                 this.ApplyFilter(frm.Filter);
@@ -124,7 +101,7 @@ namespace RemoteImaging
                 return;
             }
 
-            this.pictureEdit1.Image.Save(this.imgDetail.Path);
+            this.Image.Image.Save(this.imgDetail.Path);
 
         }
     }

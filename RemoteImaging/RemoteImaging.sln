@@ -79,6 +79,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FaceCompareAlgorithmTester"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{62081853-BC52-4DD5-B474-97E9BEDFEE6F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NavigationControl", "NavigationControl\NavigationControl.csproj", "{4145B481-C217-4FC8-80E1-A266BFD837FA}"
+EndProject
 Global
 	GlobalSection(MercurialSourceControlSolutionProperties) = preSolution
 		SolutionIsControlled = True
@@ -463,6 +465,16 @@ Global
 		{62081853-BC52-4DD5-B474-97E9BEDFEE6F}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{62081853-BC52-4DD5-B474-97E9BEDFEE6F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{62081853-BC52-4DD5-B474-97E9BEDFEE6F}.Release|Win32.ActiveCfg = Release|Any CPU
+		{4145B481-C217-4FC8-80E1-A266BFD837FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4145B481-C217-4FC8-80E1-A266BFD837FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4145B481-C217-4FC8-80E1-A266BFD837FA}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{4145B481-C217-4FC8-80E1-A266BFD837FA}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{4145B481-C217-4FC8-80E1-A266BFD837FA}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{4145B481-C217-4FC8-80E1-A266BFD837FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4145B481-C217-4FC8-80E1-A266BFD837FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4145B481-C217-4FC8-80E1-A266BFD837FA}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{4145B481-C217-4FC8-80E1-A266BFD837FA}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{4145B481-C217-4FC8-80E1-A266BFD837FA}.Release|Win32.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
