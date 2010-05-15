@@ -92,7 +92,6 @@
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
     <Compile Include="StaticFunctionTest.cs" />
-    <Compile Include="SVMWrapperTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Damany.ImageProcessing.Contracts\Damany.Imaging.csproj">
