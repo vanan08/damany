@@ -44,6 +44,23 @@ namespace RemoteImaging
         }
 
 
+        public static bool VerifyKey()
+        {
+            string uuid = "";
+            string key = "";
+
+            ReadAuthentication(out uuid, out key);
+
+            if (string.IsNullOrEmpty(uuid) || string.IsNullOrEmpty(key)) return false;
+
+            string encodedSN = EncryptService.Encode(uuid);
+
+            string decoded = EncryptService.Decode(key);
+
+            return string.Compare(encodedSN, key, StringComparison.Ordinal) == 0;
+        }
+
+
         public static void WriteKey(string ID, string key)
         {
             string file = GetKeyFile();

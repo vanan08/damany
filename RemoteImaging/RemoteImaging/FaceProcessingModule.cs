@@ -29,13 +29,13 @@ namespace RemoteImaging
 
             if (EnableFaceComparer)
             {
-                if (!System.IO.Directory.Exists(PersonOfInterestLibraryPath))
-                    throw new System.IO.DirectoryNotFoundException("人脸库 \"" +PersonOfInterestLibraryPath + "\" 不存在!");
-
-                var personRepository = SuspectsRepositoryManager.LoadFrom(PersonOfInterestLibraryPath);
-                builder.RegisterInstance(personRepository.Peoples)
-                    .As<IEnumerable<PersonOfInterest>>()
-                    .ExternallyOwned();
+                if (System.IO.Directory.Exists(PersonOfInterestLibraryPath))
+                {
+                    var personRepository = SuspectsRepositoryManager.LoadFrom(PersonOfInterestLibraryPath);
+                    builder.RegisterInstance(personRepository.Peoples)
+                        .As<IEnumerable<PersonOfInterest>>()
+                        .ExternallyOwned();
+                }
 
                 builder.RegisterType<LbpFaceComparer>()
                        .As<IRepositoryFaceComparer>();
