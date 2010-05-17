@@ -65,7 +65,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>BK_NetClientSDK.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(ProjectDir)library\ClisentSDK\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\library\AipStarCameraSDK\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AssemblyDebug>true</AssemblyDebug>
       <TargetMachine>MachineX86</TargetMachine>
