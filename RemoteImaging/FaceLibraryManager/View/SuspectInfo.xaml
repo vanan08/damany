@@ -21,7 +21,7 @@
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="230*" />
         </Grid.ColumnDefinitions>
-        <Image Height="218" HorizontalAlignment="Center"  Name="image1" Stretch="Fill" VerticalAlignment="Center" Width="164" Margin="15,8,15,1" Grid.Row="1" Grid.RowSpan="7" />
+        <Image Source="{Binding Path=ImageFilePath}" Height="218" HorizontalAlignment="Center"  Name="image1" Stretch="Uniform" VerticalAlignment="Center" Width="164" Margin="15,8,15,1" Grid.Row="1" Grid.RowSpan="7" />
         <Label Content="姓名：" Grid.Column="1" Grid.Row="1"  HorizontalAlignment="Left"  Name="label1"   />
         <Label Content="性别：" Grid.Column="1" Grid.Row="3"  HorizontalAlignment="Left"  Name="label2"  />
         <Label Content="年龄：" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Left"  Name="label3"  />
