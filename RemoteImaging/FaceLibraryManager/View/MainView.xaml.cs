@@ -34,5 +34,10 @@ namespace FaceLibraryManager
         {
 
         }
+
+        private void AddNewFace_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

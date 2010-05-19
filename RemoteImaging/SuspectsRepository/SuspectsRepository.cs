@@ -230,6 +230,11 @@ namespace SuspectsRepository
             this.storage[p.Guid] = p;
         }
 
+        public void Clear()
+        {
+            this.storage.Clear();
+        }
+
         public void AddNewPerson(PersonOfInterest p)
         {
             String newImageFileName =

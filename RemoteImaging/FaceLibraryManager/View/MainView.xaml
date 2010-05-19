@@ -22,16 +22,33 @@
                 <Grid>
                     <Border >
                         <StackPanel VerticalAlignment="Top">
-                            
-                            <Button >
-                                hello
+                            <Button Margin="5" Width="110" Height="auto" Command="{Binding AddNewFaceCommand}">
+                                <StackPanel>
+                                    <Image Height="40"  Source="/FaceLibraryManager;component/Images/AddNew.png" />
+                                    <TextBlock Text="添加新人像" />
+                                </StackPanel>
+                            </Button>
+
+
+                            <Button Margin="5" Width="110" Height="auto" Command="{Binding SaveCommand}" >
+                                <StackPanel>
+                                    <Image Height="32" Source="/FaceLibraryManager;component/Images/Update.png" />
+                                    <TextBlock Text="更新特征库" />
+                                </StackPanel>
+
+                            </Button>
+                            <Button Margin="5" Width="110" Height="auto" Command="{Binding ReloadCommand}" >
+                                <StackPanel>
+                                    <Image Height="32" Source="/FaceLibraryManager;component/Images/Reload.png" />
+                                    <TextBlock Text="重新载入特征库" />
+                                </StackPanel>
                             </Button>
                         </StackPanel>
                     </Border>
                 </Grid>
             </HeaderedContentControl>
         </Border>
-    	<Border Grid.Column="2" Background="White" CornerRadius="5" >
+        <Border Grid.Column="2" Background="White" CornerRadius="5" >
             <HeaderedContentControl 
                 Header="工作区" 
                 Content="{Binding}"
@@ -39,13 +56,13 @@
                 >
                 <HeaderedContentControl.ContentTemplate>
                     <DataTemplate>
-                            <Border>
-                              <Grid>
+                        <Border>
+                            <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="auto" />
                                     <RowDefinition />
                                 </Grid.RowDefinitions>
-                                    <vw:SuspectInfo DataContext="{Binding ElementName=SuspectsList, Path=SelectedItem}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                <vw:SuspectInfo DataContext="{Binding ElementName=SuspectsList, Path=SelectedItem}" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                 <DockPanel Grid.Row="1">
                                     <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
                                         <Button Margin="5"  x:Name="deleteButton" DataContext="{Binding}" Command="{Binding Path=DeleteSuspect}" Click="deleteButton_Click">
@@ -60,37 +77,38 @@
                                         Background="White"
                                         Grid.Row="1" 
                                         IsSynchronizedWithCurrentItem="True">
-                                    <ListView.View>
-                                        <GridView>
-                                            <GridViewColumn Header="头像" Width="auto">
-                                                <GridViewColumn.CellTemplate>
-                                                    <DataTemplate>
-                                                        <Image Margin="5" Source="{Binding ImageFilePath}" Width="50">
-                                                            <Image.ToolTip>
-                                                                <Image Source="{Binding ImageFilePath}" />
-                                                            </Image.ToolTip>
-                                                        </Image>
-                                                    </DataTemplate>
-                                                </GridViewColumn.CellTemplate>
-                                            </GridViewColumn>
-                                        	<GridViewColumn Header="姓名" Width="100" DisplayMemberBinding="{Binding Name}" />
-                                            <GridViewColumn Header="性别" Width="100" DisplayMemberBinding="{Binding Gender}" />
-                                            <GridViewColumn Header="年龄" Width="100" DisplayMemberBinding="{Binding Age}" />
-                                        </GridView>
-                                    </ListView.View>
-                                        
-                                </ListView>
-                                    
+                                        <ListView.View>
+                                            <GridView>
+                                                <GridViewColumn Header="头像" Width="auto">
+                                                    <GridViewColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <Image Margin="5" Source="{Binding ImageFilePath}" Width="50">
+                                                                <Image.ToolTip>
+                                                                    <Image Source="{Binding ImageFilePath}" />
+                                                                </Image.ToolTip>
+                                                            </Image>
+
+                                                        </DataTemplate>
+                                                    </GridViewColumn.CellTemplate>
+                                                </GridViewColumn>
+                                                <GridViewColumn Header="姓名" Width="100" DisplayMemberBinding="{Binding Name}" />
+                                                <GridViewColumn Header="性别" Width="100" DisplayMemberBinding="{Binding Gender}" />
+                                                <GridViewColumn Header="年龄" Width="100" DisplayMemberBinding="{Binding Age}" />
+                                            </GridView>
+                                        </ListView.View>
+
+                                    </ListView>
+
                                 </DockPanel>
 
-                                    
-                              </Grid>
-                            </Border>
-                        
+
+                            </Grid>
+                        </Border>
+
                     </DataTemplate>
                 </HeaderedContentControl.ContentTemplate>
-                
-                
+
+
             </HeaderedContentControl>
         </Border>
     </Grid>

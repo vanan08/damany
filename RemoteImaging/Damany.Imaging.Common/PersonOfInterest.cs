@@ -11,7 +11,13 @@ namespace Damany.Imaging.Common
             return new PersonOfInterest(image);
         }
 
+        public PersonOfInterest()
+        {
+            this.Guid = System.Guid.NewGuid();
+        }
+
         public PersonOfInterest(IplImage image)
+            :this()
         {
             if (image == null) throw new ArgumentNullException("image");
             if (image.ROI.Size.Width > image.Size.Height || image.ROI.Height > image.Size.Height)
@@ -19,9 +25,8 @@ namespace Damany.Imaging.Common
                 throw new ArgumentException("ROI is invlid");
             }
 
-
             this.Ipl = image;
-            this.Guid = System.Guid.NewGuid();
+            
         }
 
         public System.Drawing.Image GetImage()
@@ -29,11 +34,11 @@ namespace Damany.Imaging.Common
             return this.Ipl.ToBitmap();
         }
 
-        public IplImage Ipl { get; private set; }
+        public IplImage Ipl { get; set; }
         public string ID { get; set; }
         public string Name { get; set; }
         public string SN { get; set; }
-        public System.Guid Guid { get; set; }
+        public Guid Guid { get; set; }
         public Gender Gender { get; set; }
         public int Age { get; set; }
         public string ImageFilePath { get; set; }
