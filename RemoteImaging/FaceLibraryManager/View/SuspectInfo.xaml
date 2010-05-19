@@ -21,8 +21,12 @@
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="230*" />
         </Grid.ColumnDefinitions>
-        <Image Source="{Binding Path=ImageFilePath}" Height="218" HorizontalAlignment="Center"  Name="image1" Stretch="Uniform" VerticalAlignment="Center" Width="164" Margin="15,8,15,1" Grid.Row="1" Grid.RowSpan="7" />
-        <Label Content="姓名：" Grid.Column="1" Grid.Row="1"  HorizontalAlignment="Left"  Name="label1"   />
+        <Image Source="{Binding Path=ImageFilePath}" Height="218" HorizontalAlignment="Center"  Name="image1" Stretch="Uniform" VerticalAlignment="Center" Width="164" Margin="15,8,15,1" Grid.Row="1" Grid.RowSpan="7">
+            <Image.ToolTip>
+                <Image Source="{Binding ImageFilePath}" />
+            </Image.ToolTip>
+        </Image>
+    	<Label Content="姓名：" Grid.Column="1" Grid.Row="1"  HorizontalAlignment="Left"  Name="label1"   />
         <Label Content="性别：" Grid.Column="1" Grid.Row="3"  HorizontalAlignment="Left"  Name="label2"  />
         <Label Content="年龄：" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Left"  Name="label3"  />
         <Expander Grid.Column="1" Grid.Row="7" Header="详情："    Name="expander1" Grid.ColumnSpan="2" ExpandDirection="Down">
@@ -30,8 +34,8 @@
                 <TextBox Name="textBox1" Height="80"  />
             </Grid>
         </Expander>
-        <TextBox Grid.Column="2" Grid.Row="1"  Name="textBox2"  />
-        <TextBox Grid.Column="2" Grid.Row="3"  Name="textBox3"  />
-        <TextBox Grid.Column="2" Grid.Row="5" Name="textBox4"  />
+        <TextBox Grid.Column="2" Grid.Row="1"  Name="textBox2" Text="{Binding Name}"  />
+        <TextBox Grid.Column="2" Grid.Row="3"  Name="textBox3" Text="{Binding Gender}" />
+        <TextBox Grid.Column="2" Grid.Row="5" Name="textBox4" Text="{Binding Age}" />
     </Grid>
 </UserControl>
