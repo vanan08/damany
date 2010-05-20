@@ -126,6 +126,7 @@ namespace FaceLibraryManager.ViewModel
             var vm = new ViewModel.AddSuspectViewModel(AllSuspects);
 
             view.DataContext = vm;
+            view.Owner = App.Current.MainWindow;
 
             view.ShowDialog();
 
