@@ -51,7 +51,13 @@ namespace FaceLibraryManager.View
                 string extenstion = System.IO.Path.GetExtension(files[0]);
                 if (string.Compare(extenstion, ".jpg", false) == 0)
                 {
-                    imageFile.Content = files[0];
+                    //var tb = (TextBox) this.Resources["imagePath"];
+                    //tb.Text = files[0];
+
+                    imageFile.SetValue(TextBox.TextProperty, files[0]);
+
+                    var expression = imageFile.GetBindingExpression(TextBox.TextProperty);
+                    expression.UpdateSource();
 
                     using (var ipl = IplImage.FromFile(files[0]))
                     {

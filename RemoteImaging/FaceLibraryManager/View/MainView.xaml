@@ -12,6 +12,10 @@
         <ResourceDictionary Source="MainWindowResources.xaml" />
     </Window.Resources>
     <Grid  Name="grid1" >
+        <Grid.Resources>
+            <TextBox x:Key="scaleFactor" Text="50" />
+            <ScaleTransform x:Key="scaleTrans" ScaleX="1" ScaleY="1" />
+        </Grid.Resources>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="180" />
             <ColumnDefinition Width="6" />
@@ -68,6 +72,7 @@
                                         <Button Margin="5"  x:Name="deleteButton" DataContext="{Binding}" Command="{Binding Path=DeleteSuspect}" Click="deleteButton_Click">
                                             <Image Height="22" Source="/FaceLibraryManager;component/Images/delete.gif" />
                                         </Button>
+                                        <Slider Margin="5" Minimum="25" Maximum="100" VerticalAlignment="Center" Width="100" Value="{Binding Source={StaticResource scaleFactor}, Path=Text}" />
                                     </StackPanel>
                                     <ListView 
                                         SelectedItem="{Binding SelectedSuspect, Mode=OneWayToSource}"  
@@ -76,13 +81,14 @@
                                         ItemsSource="{Binding AllSuspects}" 
                                         Background="White"
                                         Grid.Row="1" 
-                                        IsSynchronizedWithCurrentItem="True">
+                                        IsSynchronizedWithCurrentItem="True"
+                                        LayoutTransform="{StaticResource scaleTrans}">
                                         <ListView.View>
                                             <GridView>
-                                                <GridViewColumn Header="头像" Width="auto">
+                                                <GridViewColumn Header="头像" Width="100">
                                                     <GridViewColumn.CellTemplate>
                                                         <DataTemplate>
-                                                            <Image Margin="5" Source="{Binding ImageFilePath}" Width="50">
+                                                            <Image Name="icon" Margin="5" Source="{Binding ImageFilePath}" Width="{Binding Source={StaticResource scaleFactor}, Path=Text}">
                                                                 <Image.ToolTip>
                                                                     <Image Source="{Binding ImageFilePath}" />
                                                                 </Image.ToolTip>
