@@ -38,9 +38,9 @@
                 <TextBox Name="textBox1" Height="80"  />
             </Grid>
         </Expander>
-        <TextBox Grid.Column="2" Grid.Row="1"  Name="textBox2" Text="{Binding Name}" />
+        <TextBox Grid.Column="2" Grid.Row="1"  Name="textBox2" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
         <TextBox Grid.Column="2" Grid.Row="3"  Name="textBox3" Text="{Binding Gender}" />
-        <TextBox Grid.Column="2" Grid.Row="5" Name="textBox4" Text="{Binding Age}" />
+        <TextBox Grid.Column="2" Grid.Row="5" Name="textBox4" Text="{Binding Age, UpdateSourceTrigger=PropertyChanged}" />
     </Grid>
     </Border>
 </UserControl>

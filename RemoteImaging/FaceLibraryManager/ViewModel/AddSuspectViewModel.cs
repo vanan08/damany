@@ -32,7 +32,6 @@ namespace FaceLibraryManager.ViewModel
             {
                 _imageFile = value;
                 InvokePropertyChanged("ImageFile");
-
             }
         }
 
@@ -56,12 +55,12 @@ namespace FaceLibraryManager.ViewModel
             }
         }
 
-        public AddSuspectViewModel(System.Collections.ObjectModel.ObservableCollection<Damany.Imaging.Common.PersonOfInterest> allSuspects)
+        public AddSuspectViewModel(ObservableCollection<PersonOfInterest> allSuspects)
         {
             _allSuspects = allSuspects;
 
             CurrentSuspect = new PersonOfInterest();
-            ImageFile = "abcdefg";
+            ImageFile = "value in VM";
         }
 
         void Add()
