@@ -63,7 +63,7 @@
                                     <RowDefinition />
                                 </Grid.RowDefinitions>
                                 <vw:SuspectInfo DataContext="{Binding ElementName=SuspectsList, Path=SelectedItem}" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                <DockPanel Grid.Row="1">
+                                <DockPanel Margin="0,5,0,0" Grid.Row="1">
                                     <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
                                         <Button Margin="5"  x:Name="deleteButton" DataContext="{Binding}" Command="{Binding Path=DeleteSuspect}" Click="deleteButton_Click">
                                             <Image Height="22" Source="/FaceLibraryManager;component/Images/delete.gif" />
