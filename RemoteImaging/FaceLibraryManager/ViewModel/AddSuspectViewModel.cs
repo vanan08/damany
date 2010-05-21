@@ -65,6 +65,7 @@ namespace FaceLibraryManager.ViewModel
 
         void Add()
         {
+            CurrentSuspect.FaceRect = CurrentFaceRect;
             _allSuspects.Add(CurrentSuspect);
 
             CurrentSuspect = new PersonOfInterest();
