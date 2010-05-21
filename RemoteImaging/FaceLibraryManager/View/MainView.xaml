@@ -6,10 +6,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         Height="666" Width="768"
-        xmlns:vm="clr-namespace:FaceLibraryManager.ViewModel" 
-        xmlns:vw="clr-namespace:FaceLibraryManager.View" WindowStartupLocation="CenterScreen">
+        xmlns:vm="clr-namespace:FaceLibraryManager.ViewModel"
+        xmlns:vw="clr-namespace:FaceLibraryManager.View" 
+        WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <ResourceDictionary Source="MainWindowResources.xaml" />
+        
     </Window.Resources>
     <Grid  Name="grid1" >
         <Grid.Resources>
@@ -88,9 +90,9 @@
                                                 <GridViewColumn Header="头像" Width="100">
                                                     <GridViewColumn.CellTemplate>
                                                         <DataTemplate>
-                                                            <Image Name="icon" Margin="5" Source="{Binding ImageFilePath}" Width="{Binding Source={StaticResource scaleFactor}, Path=Text}">
+                                                            <Image Name="icon" Margin="5" Source="{Binding ImageFilePath, Converter={StaticResource imgConverter}}" Width="{Binding Source={StaticResource scaleFactor}, Path=Text}">
                                                                 <Image.ToolTip>
-                                                                    <Image Source="{Binding ImageFilePath}" />
+                                                                    <Image Source="{Binding ImageFilePath, Converter={StaticResource imgConverter}}" />
                                                                 </Image.ToolTip>
                                                             </Image>
 

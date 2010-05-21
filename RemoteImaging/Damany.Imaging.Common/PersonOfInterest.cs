@@ -44,6 +44,5 @@ namespace Damany.Imaging.Common
         public string ImageFilePath { get; set; }
 
 
-
     }
 }

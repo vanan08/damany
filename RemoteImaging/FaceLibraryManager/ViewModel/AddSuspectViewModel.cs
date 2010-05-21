@@ -51,7 +51,7 @@ namespace FaceLibraryManager.ViewModel
             {
                 return new RelayCommand(
                     param => this.Add(),
-                    param => true);
+                    param => this.CanAdd());
             }
         }
 
@@ -65,10 +65,16 @@ namespace FaceLibraryManager.ViewModel
 
         void Add()
         {
-            //_allSuspects.Add(CurrentSuspect);
-            //CurrentSuspect = new PersonOfInterest();
-            ImageFile = DateTime.Now.ToString();
+            
+           
+           
         }
+
+        bool CanAdd()
+        {
+            return !string.IsNullOrEmpty(CurrentSuspect.ImageFilePath);
+        }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 

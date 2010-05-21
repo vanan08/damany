@@ -1,22 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Xml;
 using System.Xml.Linq;
 using Damany.Imaging.Common;
 using NDepend.Helpers.FileDirectoryPath;
-using System.Drawing;
 using OpenCvSharp;
 using System.IO;
-using Damany.Imaging.PlugIns;
 using Damany.Util;
 
 namespace SuspectsRepository
 {
     public class SuspectsRepositoryManager
     {
-        private Dictionary<System.Guid, PersonOfInterest> storage;
+        private Dictionary<Guid, PersonOfInterest> storage;
         FaceSearchWrapper.FaceSearch faceSearcher;
 
         const string imageDirectory = "ImageRepository";
@@ -47,7 +44,7 @@ namespace SuspectsRepository
             string reason;
             if (!PathHelper.IsValidAbsolutePath(filePath, out reason))
             {
-                absoluteFilePath = System.IO.Path.Combine(System.IO.Directory.GetCurrentDirectory(), filePath);
+                absoluteFilePath = Path.Combine(Directory.GetCurrentDirectory(), filePath);
             }
 
             var mnger = new SuspectsRepositoryManager(absoluteFilePath);
@@ -64,7 +61,6 @@ namespace SuspectsRepository
             }
 
             this.SaveTo(this.GetWantedXMlPathAbsolute());
-
         }
 
 
@@ -84,45 +80,45 @@ namespace SuspectsRepository
 
         private string GetImageDirectoryAbsolute()
         {
-            return System.IO.Path.Combine(this.RootDirectoryPathAbsolute, "ImageRepository");
+            return Path.Combine(this.RootDirectoryPathAbsolute, "ImageRepository");
         }
         private string GetBadGuyGrayDirectoryAbsolute()
         {
-            return System.IO.Path.Combine(this.RootDirectoryPathAbsolute, badGuyGrayDirectory);
+            return Path.Combine(this.RootDirectoryPathAbsolute, badGuyGrayDirectory);
         }
         private string GetBadGuyColorDirectoryAbsolute()
         {
-            return System.IO.Path.Combine(this.RootDirectoryPathAbsolute, badGuyColorDirectory);
+            return Path.Combine(this.RootDirectoryPathAbsolute, badGuyColorDirectory);
         }
         private string GetGoodGuyGrayDirectoryAbsolute()
         {
-            return System.IO.Path.Combine(this.RootDirectoryPathAbsolute, goodGuyGrayDirectory);
+            return Path.Combine(this.RootDirectoryPathAbsolute, goodGuyGrayDirectory);
         }
         private string GetGoodGuyColorDirectoryAbsolute()
         {
-            return System.IO.Path.Combine(this.RootDirectoryPathAbsolute, goodGuyColorDirectory);
+            return Path.Combine(this.RootDirectoryPathAbsolute, goodGuyColorDirectory);
         }
         private string GetSvmDirectoryAbsolute()
         {
-            return System.IO.Path.Combine(this.RootDirectoryPathAbsolute, svmDirectory);
+            return Path.Combine(this.RootDirectoryPathAbsolute, svmDirectory);
         }
         private string GetPcaDirectoryAbsolute()
         {
-            return System.IO.Path.Combine(this.RootDirectoryPathAbsolute, pcaDirectory);
+            return Path.Combine(this.RootDirectoryPathAbsolute, pcaDirectory);
         }
 
         private static string GetConfigIniPathAbsolute(string directoryPath)
         {
-            return System.IO.Path.Combine(directoryPath, "config.ini");
+            return Path.Combine(directoryPath, "config.ini");
         }
         private string GetWantedXMlPathAbsolute()
         {
-             return System.IO.Path.Combine(this.RootDirectoryPathAbsolute, wantedXml);
+            return Path.Combine(this.RootDirectoryPathAbsolute, wantedXml);
         }
 
         public static SuspectsRepositoryManager CreateNewIn(string directoryPath)
         {
-            SuspectsRepositoryManager mnger = new SuspectsRepositoryManager(directoryPath);
+            var mnger = new SuspectsRepositoryManager(directoryPath);
 
             string[] directories = new string[] 
             { 
@@ -138,13 +134,13 @@ namespace SuspectsRepository
 
             foreach (string dir in directories)
             {
-                if (!System.IO.Directory.Exists(dir))
+                if (!Directory.Exists(dir))
                 {
-                    System.IO.Directory.CreateDirectory(dir);
+                    Directory.CreateDirectory(dir);
                 }
             }
 
-            System.IO.File.WriteAllText(GetConfigIniPathAbsolute(directoryPath), Properties.Resource.config);
+            File.WriteAllText(GetConfigIniPathAbsolute(directoryPath), Properties.Resource.config);
             return mnger;
         }
 
@@ -152,24 +148,35 @@ namespace SuspectsRepository
         {
 
             XmlDocument doc = new XmlDocument();
-            doc.Load( this.GetWantedXMlPathAbsolute() );
+            doc.Load(this.GetWantedXMlPathAbsolute());
 
             XmlNodeList nodes = doc.SelectNodes("//person");
 
             foreach (XmlNode n in nodes)
             {
-                var absolutePath = GetFilePathAbsoluteFrom( GetWantedXMlPathAbsolute(), n.Attributes["filename"].Value.ToString());
+                var absolutePath = GetFilePathAbsoluteFrom(GetWantedXMlPathAbsolute(), n.Attributes["filename"].Value.ToString());
+                if (!File.Exists(absolutePath)) continue;
+
                 var ipl = IplImage.FromFile(absolutePath);
+
                 var x = int.Parse(n.Attributes["X"].Value);
                 var y = int.Parse(n.Attributes["Y"].Value);
                 var w = int.Parse(n.Attributes["W"].Value);
                 var h = int.Parse(n.Attributes["H"].Value);
-                ipl.ROI = new CvRect( x, y, w, h );
+
+                ipl.ROI = new CvRect(x, y, w, h);
+
                 var p = new PersonOfInterest(ipl);
+
+                Guid guid;
+                if (Guid.TryParse(n.Attributes["id"].Value, out guid))
+                {
+                    p.Guid = guid;
+                }
 
                 p.ID = n.Attributes["id"].Value;
                 p.Name = n.Attributes["name"].Value;
-                p.Gender = (Damany.Util.Gender) Enum.Parse(typeof(Damany.Util.Gender), n.Attributes["sex"].Value);
+                p.Gender = (Gender)Enum.Parse(typeof(Gender), n.Attributes["sex"].Value);
                 p.ImageFilePath = absolutePath;
 
                 AddPerson(p);
@@ -187,7 +194,7 @@ namespace SuspectsRepository
             string absoluteFilePath = filePath;
             if (!PathHelper.IsValidAbsolutePath(filePath, out reason))
             {
-                absoluteFilePath = System.IO.Path.Combine(System.IO.Directory.GetCurrentDirectory(), filePath);
+                absoluteFilePath = Path.Combine(Directory.GetCurrentDirectory(), filePath);
             }
 
             XDocument xDoc = new XDocument();
@@ -195,7 +202,7 @@ namespace SuspectsRepository
             foreach (var person in this.Peoples)
             {
                 xDoc.Root.Add(new XElement("person",
-                                           new XAttribute("id", person.ID),
+                                           new XAttribute("id", person.Guid),
                                            new XAttribute("name", person.Name),
                                            new XAttribute("sex", person.Gender),
                                            new XAttribute("age", person.Age),
@@ -242,12 +249,15 @@ namespace SuspectsRepository
 
             string badGuyColorFilePath = Path.Combine(GetBadGuyColorDirectoryAbsolute(), newImageFileName);
 
-            var roi = p.Ipl.ROI;
-            p.Ipl.ResetROI();
-            p.Ipl.SaveImage(badGuyColorFilePath);
-            p.Ipl.ROI = roi;
+            if (!File.Exists(badGuyColorFilePath))
+            {
+                var roi = p.Ipl.ROI;
+                p.Ipl.ResetROI();
+                p.Ipl.SaveImage(badGuyColorFilePath);
+                p.Ipl.ROI = roi;
 
-            p.ImageFilePath = badGuyColorFilePath;
+                p.ImageFilePath = badGuyColorFilePath;
+            }
 
             this.storage[p.Guid] = p;
         }
@@ -257,7 +267,6 @@ namespace SuspectsRepository
             //FaceProcessingWrapper.SVM.Train(this.RootDirectoryPathAbsolute);
 
             //FaceProcessingWrapper.PCA.Train(this.RootDirectoryPathAbsolute);
-
         }
 
         public int Count
