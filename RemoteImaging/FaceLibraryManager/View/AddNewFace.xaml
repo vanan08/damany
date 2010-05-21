@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        Height="458" Width="588" 
+        Height="493" Width="588" 
         ResizeMode="CanMinimize"
         AllowDrop="True"
         DragOver="Window_DragOver" Drop="Window_Drop">
@@ -16,12 +16,15 @@
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="328*" />
-            <RowDefinition Height="119*" />
+            <RowDefinition Height="86*" />
+            <RowDefinition Height="311*" />
+            <RowDefinition Height="57*" />
         </Grid.RowDefinitions>
-        <my:SuspectInfo DataContext="{Binding CurrentSuspect}" Height="279" HorizontalAlignment="Left" Margin="20,26,0,0" x:Name="suspectInfo1" VerticalAlignment="Top" Width="526" />
-        <Button Command="{Binding AddCommand}" Content="添加" Grid.Row="1" Height="23" HorizontalAlignment="Left" Margin="471,67,0,0" Name="button1" VerticalAlignment="Top" Width="75" />
-        <Label Content="文件：" Grid.Row="1" Height="28" HorizontalAlignment="Left" Margin="20,17,0,0" Name="label1" VerticalAlignment="Top" />
-        <TextBox  Text="{Binding Path=ImageFile}" Grid.Row="1" Height="26" HorizontalAlignment="Left" Margin="75,17,0,0" Name="imageFile" VerticalAlignment="Top" Width="471" />
+        <my:SuspectInfo DataContext="{Binding CurrentSuspect}" Height="279" HorizontalAlignment="Left" Margin="21,16,0,0" x:Name="suspectInfo1" VerticalAlignment="Top" Width="526" Grid.Row="1" />
+        <Button Command="{Binding AddCommand}" Content="添加" Grid.Row="2" Height="23" HorizontalAlignment="Left" Margin="471,9,0,0" Name="button1" VerticalAlignment="Top" Width="75" />
+        <Border Background="White" BorderBrush="Silver" BorderThickness="1" Height="86" HorizontalAlignment="Left" Name="border1" VerticalAlignment="Top" Width="584">
+            <Image Margin="20,0" Height="55" Name="image1" Stretch="None" Width="47" HorizontalAlignment="Left" Source="/FaceLibraryManager;component/Images/AddNew.png" />
+        </Border>
+        <TextBlock  HorizontalAlignment="Left" Margin="91,0,0,0" Name="textBlock2" VerticalAlignment="Center" >1. 拖动一副图片到本窗口。<LineBreak/>2. 录入人像信息。<LineBreak/>3. 点击“添加”按钮完成添加。<LineBreak/>4. 重复1-3，可添加多幅人像。</TextBlock>
     </Grid>
 </Window>
