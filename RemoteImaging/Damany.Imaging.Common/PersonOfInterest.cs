@@ -4,37 +4,31 @@ using OpenCvSharp;
 
 namespace Damany.Imaging.Common
 {
-    public class PersonOfInterest
+    public class PersonOfInterest : IEquatable<PersonOfInterest>
     {
-        public static PersonOfInterest FromIplImage(IplImage image)
-        {
-            return new PersonOfInterest(image);
-        }
+        private OpenCvSharp.IplImage _ipl;
 
         public PersonOfInterest()
         {
             this.Guid = System.Guid.NewGuid();
         }
 
-        public PersonOfInterest(IplImage image)
-            :this()
-        {
-            if (image == null) throw new ArgumentNullException("image");
-            if (image.ROI.Size.Width > image.Size.Height || image.ROI.Height > image.Size.Height)
-            {
-                throw new ArgumentException("ROI is invlid");
-            }
-
-            this.Ipl = image;
-            
-        }
 
         public System.Drawing.Image GetImage()
         {
-            return this.Ipl.ToBitmap();
+            return System.Drawing.Image.FromFile(ImageFilePath);
         }
 
-        public IplImage Ipl { get; set; }
+        public IplImage GetIpl()
+        {
+            if (_ipl == null)
+            {
+                _ipl = OpenCvSharp.IplImage.FromFile(ImageFilePath);
+                _ipl.ROI = FaceRect;
+            }
+            return _ipl;
+        }
+
         public string ID { get; set; }
         public string Name { get; set; }
         public string SN { get; set; }
@@ -42,7 +36,12 @@ namespace Damany.Imaging.Common
         public Gender Gender { get; set; }
         public int Age { get; set; }
         public string ImageFilePath { get; set; }
+        public OpenCvSharp.CvRect FaceRect { get; set; }
 
 
+        public bool Equals(PersonOfInterest other)
+        {
+            return this.Guid.Equals(other.Guid);
+        }
     }
 }

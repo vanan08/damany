@@ -97,7 +97,7 @@ namespace Damany.RemoteImaging.Common.Presenters
                 var portraits = this.repository.GetPortraits(-1, range);
                 int count = 0;
 
-                var repo = new PersonOfInterest[] {new PersonOfInterest(targetImage)};
+                var repo = new PersonOfInterest[] {new PersonOfInterest()};
                 this._comparer.Load( repo.ToList() );
 
                 foreach (var p in portraits)

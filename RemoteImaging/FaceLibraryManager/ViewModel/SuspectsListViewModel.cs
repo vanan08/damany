@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
+using Damany.Imaging.Common;
 using SuspectsRepository;
 
 namespace FaceLibraryManager.ViewModel
@@ -11,6 +13,8 @@ namespace FaceLibraryManager.ViewModel
         private RelayCommand _saveCommand;
         private RelayCommand _reloadCommand;
         private RelayCommand _addNewFaceCommand;
+        private System.Collections.Generic.List<Damany.Imaging.Common.PersonOfInterest>
+            deletedPersons = new List<PersonOfInterest>();
 
         public SuspectsCollection AllSuspects { get; private set; }
 
@@ -104,13 +108,19 @@ namespace FaceLibraryManager.ViewModel
 
         void Delete()
         {
-            AllSuspects.Remove(SelectedSuspect);
-            ZoomFactor *= 1.2;
+            var delete = SelectedSuspect;
+            AllSuspects.Remove(delete);
+            deletedPersons.Add(delete);
         }
 
         void Save()
         {
             _repositoryManager.Clear();
+
+            foreach (var personOfInterest in deletedPersons)
+            {
+                _repositoryManager.RemovePerson(personOfInterest);
+            }
 
             foreach (var suspect in AllSuspects)
             {
@@ -135,6 +145,7 @@ namespace FaceLibraryManager.ViewModel
         void Reload()
         {
             AllSuspects.Clear();
+            deletedPersons.Clear();
 
             _repositoryManager.Clear();
             _repositoryManager.Load();

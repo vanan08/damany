@@ -21,12 +21,12 @@ namespace Damany.Imaging.PlugIns
             if (persons == null) throw new ArgumentNullException("persons");
             foreach (var personOfInterest in persons)
             {
-                if ( personOfInterest.Ipl.BoundsRect().Equals(personOfInterest.Ipl.ROI) )
+                if ( personOfInterest.GetIpl().BoundsRect().Equals(personOfInterest.GetIpl().ROI) )
                 {
                     throw new System.ArgumentException("Roi is same as bouding rect");
                 }
 
-                if (personOfInterest.Ipl.NChannels == 1)
+                if (personOfInterest.GetIpl().NChannels == 1)
                 {
                     throw new System.ArgumentException("gray image is not supported");
                 }
@@ -36,12 +36,12 @@ namespace Damany.Imaging.PlugIns
 
             foreach (var p in persons)
             {
-                p.Ipl.CheckWithBmp();
+                p.GetIpl().CheckWithBmp();
             } 
 
 
             var ipls = from p in persons
-                       select p.Ipl.CvtToGray().GetSub(p.Ipl.ROI);
+                       select p.GetIpl().CvtToGray().GetSub(p.GetIpl().ROI);
 
 
 
