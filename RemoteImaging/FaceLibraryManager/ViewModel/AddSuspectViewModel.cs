@@ -65,14 +65,17 @@ namespace FaceLibraryManager.ViewModel
 
         void Add()
         {
-            
-           
-           
+            _allSuspects.Add(CurrentSuspect);
+
+            CurrentSuspect = new PersonOfInterest();
+            CurrentFaceRect = new CvRect();
+
         }
 
         bool CanAdd()
         {
-            return !string.IsNullOrEmpty(CurrentSuspect.ImageFilePath);
+            return !string.IsNullOrEmpty(CurrentSuspect.ImageFilePath)
+                   && CurrentFaceRect.Width != 0 && CurrentFaceRect.Height != 0;
         }
 
 

@@ -157,16 +157,15 @@ namespace SuspectsRepository
                 var absolutePath = GetFilePathAbsoluteFrom(GetWantedXMlPathAbsolute(), n.Attributes["filename"].Value.ToString());
                 if (!File.Exists(absolutePath)) continue;
 
-                var ipl = IplImage.FromFile(absolutePath);
 
                 var x = int.Parse(n.Attributes["X"].Value);
                 var y = int.Parse(n.Attributes["Y"].Value);
                 var w = int.Parse(n.Attributes["W"].Value);
                 var h = int.Parse(n.Attributes["H"].Value);
 
-                ipl.ROI = new CvRect(x, y, w, h);
 
-                var p = new PersonOfInterest(ipl);
+                var p = new PersonOfInterest();
+                p.FaceRect = new CvRect(x, y, w, h);
 
                 Guid guid;
                 if (Guid.TryParse(n.Attributes["id"].Value, out guid))
@@ -206,10 +205,10 @@ namespace SuspectsRepository
                                            new XAttribute("name", person.Name),
                                            new XAttribute("sex", person.Gender),
                                            new XAttribute("age", person.Age),
-                                           new XAttribute("X", person.Ipl.ROI.X),
-                                           new XAttribute("Y", person.Ipl.ROI.Y),
-                                           new XAttribute("W", person.Ipl.ROI.Width),
-                                           new XAttribute("H", person.Ipl.ROI.Height),
+                                           new XAttribute("X", person.FaceRect.X),
+                                           new XAttribute("Y", person.FaceRect.Y),
+                                           new XAttribute("W", person.FaceRect.Width),
+                                           new XAttribute("H", person.FaceRect.Height),
                                            new XAttribute("filename", GetFilePathRelativeFrom(absoluteFilePath, person.ImageFilePath))
                                 ));
             }
@@ -232,10 +231,26 @@ namespace SuspectsRepository
             }
         }
 
+        public void RemovePerson(PersonOfInterest personOfInterest)
+        {
+            var fileName = MapGuidToFile(personOfInterest.Guid);
+            if (File.Exists(fileName))
+            {
+                File.Delete(fileName);
+            }
+
+            if (this.storage.ContainsKey(personOfInterest.Guid))
+            {
+                this.storage.Remove(personOfInterest.Guid);
+            }
+        }
+
         private void AddPerson(PersonOfInterest p)
         {
             this.storage[p.Guid] = p;
         }
+
+
 
         public void Clear()
         {
@@ -244,22 +259,25 @@ namespace SuspectsRepository
 
         public void AddNewPerson(PersonOfInterest p)
         {
-            String newImageFileName =
-                p.Guid.ToString().ToUpper() + ".jpg";
-
-            string badGuyColorFilePath = Path.Combine(GetBadGuyColorDirectoryAbsolute(), newImageFileName);
+            string badGuyColorFilePath = MapGuidToFile(p.Guid);
 
             if (!File.Exists(badGuyColorFilePath))
             {
-                var roi = p.Ipl.ROI;
-                p.Ipl.ResetROI();
-                p.Ipl.SaveImage(badGuyColorFilePath);
-                p.Ipl.ROI = roi;
-
+                File.Copy(p.ImageFilePath, badGuyColorFilePath);
                 p.ImageFilePath = badGuyColorFilePath;
             }
 
             this.storage[p.Guid] = p;
+        }
+
+        
+
+        private string MapGuidToFile(Guid guid)
+        {
+            String newImageFileName =
+                guid.ToString().ToUpper() + ".jpg";
+
+            return Path.Combine(GetBadGuyColorDirectoryAbsolute(), newImageFileName);
         }
 
         public void UpdateRepository()

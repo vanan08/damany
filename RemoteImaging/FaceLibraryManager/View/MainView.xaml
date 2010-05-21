@@ -8,7 +8,7 @@
         Height="666" Width="768"
         xmlns:vm="clr-namespace:FaceLibraryManager.ViewModel"
         xmlns:vw="clr-namespace:FaceLibraryManager.View" 
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen" WindowState="Maximized">
     <Window.Resources>
         <ResourceDictionary Source="MainWindowResources.xaml" />
         

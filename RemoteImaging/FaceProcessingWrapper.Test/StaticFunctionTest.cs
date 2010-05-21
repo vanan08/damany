@@ -41,7 +41,7 @@ namespace FaceProcessingWrapper.Test
 
             var comparer = new Damany.Imaging.PlugIns.LbpFaceComparer();
             var repo = new PersonOfInterest[1];
-            repo[0] = new PersonOfInterest(x);
+            repo[0] = new PersonOfInterest();
             comparer.Load( repo.ToList());
 
             foreach (var file in System.IO.Directory.GetFiles(@"D:\ImageOutput\Images\2010\4\4\14", "*.jpg"))
