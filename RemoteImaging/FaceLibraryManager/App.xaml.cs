@@ -17,8 +17,26 @@ namespace FaceLibraryManager
         {
             base.OnStartup(e);
 
-            var manager = SuspectsRepository.SuspectsRepositoryManager.LoadFrom(@"d:\imglib");
-            var vm = new ViewModel.SuspectsListViewModel(manager);
+            var args = Environment.GetCommandLineArgs();
+            if (args.Length == 1)
+            {
+                MessageBox.Show("请指定人脸特征库目录!", "", MessageBoxButton.OK, MessageBoxImage.Stop);
+                Application.Current.Shutdown(0);
+                return;
+            }
+
+            var repositoryDirectory = args[1];
+            SuspectsRepository.SuspectsRepositoryManager repositoryManager;
+            if (System.IO.Directory.Exists(repositoryDirectory))
+            {
+                repositoryManager = SuspectsRepository.SuspectsRepositoryManager.LoadFrom(repositoryDirectory);
+            }
+            else
+            {
+                repositoryManager = SuspectsRepository.SuspectsRepositoryManager.CreateNewIn(repositoryDirectory);
+            }
+
+            var vm = new ViewModel.SuspectsListViewModel(repositoryManager);
 
             var mainView = new MainView();
             mainView.DataContext = vm;
