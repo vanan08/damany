@@ -14,6 +14,11 @@
         
     </Window.Resources>
     <Grid  Name="grid1" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="322" />
+            <RowDefinition Height="5" />
+            <RowDefinition Height="289*" />
+        </Grid.RowDefinitions>
         <Grid.Resources>
             <TextBox x:Key="scaleFactor" Text="50" />
             <ScaleTransform x:Key="scaleTrans" ScaleX="1" ScaleY="1" />
@@ -23,7 +28,7 @@
             <ColumnDefinition Width="6" />
             <ColumnDefinition Width="359*" />
         </Grid.ColumnDefinitions>
-        <Border CornerRadius="5" Background="White" >
+        <Border CornerRadius="5" Background="White" Grid.RowSpan="3">
             <HeaderedContentControl Header="控制面板" Style="{StaticResource MainHCCStyle}" >
                 <Grid>
                     <Border >
@@ -34,8 +39,6 @@
                                     <TextBlock Text="添加新人像" />
                                 </StackPanel>
                             </Button>
-
-
                             <Button Margin="5" Width="110" Height="auto" Command="{Binding SaveCommand}" >
                                 <StackPanel>
                                     <Image Height="32" Source="/FaceLibraryManager;component/Images/Update.png" />
@@ -56,7 +59,7 @@
         </Border>
         <Border Grid.Column="2" Background="White" CornerRadius="5" >
             <HeaderedContentControl 
-                Header="工作区" 
+                Header="人像详情" 
                 Content="{Binding}"
                 Style="{StaticResource MainHCCStyle}"
                 >
@@ -68,15 +71,35 @@
                                     <RowDefinition Height="auto" />
                                     <RowDefinition />
                                 </Grid.RowDefinitions>
-                                <vw:SuspectInfo DataContext="{Binding ElementName=SuspectsList, Path=SelectedItem}" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                <DockPanel Margin="0,5,0,0" Grid.Row="1">
+                                <vw:SuspectInfo DataContext="{Binding Path=SelectedSuspect}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Grid>
+                        </Border>
+
+                    </DataTemplate>
+                </HeaderedContentControl.ContentTemplate>
+            </HeaderedContentControl>
+        </Border>
+        <Border Grid.Column="2" Grid.Row="2" Background="White" CornerRadius="5">
+            <HeaderedContentControl 
+                Header="人像列表" 
+                Content="{Binding}"
+                Style="{StaticResource MainHCCStyle}">
+                <HeaderedContentControl.ContentTemplate>
+                    <DataTemplate>
+                        <Border>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <DockPanel Grid.Row="1">
                                     <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
                                         <Button Margin="5"  x:Name="deleteButton" DataContext="{Binding}" Command="{Binding Path=DeleteSuspect}" Click="deleteButton_Click">
                                             <Image Height="22" Source="/FaceLibraryManager;component/Images/delete.gif" />
                                         </Button>
                                         <Slider Margin="5" Minimum="25" Maximum="100" VerticalAlignment="Center" Width="100" Value="{Binding Source={StaticResource scaleFactor}, Path=Text}" />
                                     </StackPanel>
-                                    <ListView 
+                                    <ListView Margin="3,0"
                                         SelectedItem="{Binding SelectedSuspect, Mode=OneWayToSource}"  
                                         Name="SuspectsList" 
                                         SelectionMode="Extended" 
@@ -115,7 +138,6 @@
 
                     </DataTemplate>
                 </HeaderedContentControl.ContentTemplate>
-
 
             </HeaderedContentControl>
         </Border>
