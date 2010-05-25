@@ -161,6 +161,12 @@
     <Resource Include="Images\Reload.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy "$(SolutionDir)..\library\opencv\*.*"  "$(TargetDir)"
+copy "$(SolutionDir)$(ConfigurationName)\*.dll"   "$(TargetDir)"
+copy "$(SolutionDir)$(ConfigurationName)\*.pdb"   "$(TargetDir)"
+</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
