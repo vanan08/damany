@@ -126,6 +126,7 @@
     <ProjectReference Include="..\..\Damany.Library\CameraWrappers\CameraWrappers.vcxproj">
       <Project>{477A59D8-2EC6-4C25-B111-A38B1C9856A6}</Project>
       <Name>Damany.Cameras.Wrappers</Name>
+      <Private>True</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\Damany.Library\Damany.Windows.Form\Damany.Windows.Form.csproj">
       <Project>{8AA0E208-9EC2-477B-BE96-00E4C7B7F827}</Project>
