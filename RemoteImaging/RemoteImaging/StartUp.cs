@@ -22,7 +22,7 @@ namespace RemoteImaging
 
         public void Start()
         {
-            CheckImportantFiles();
+            //CheckImportantFiles();
 
             this.builder = new Autofac.ContainerBuilder();
 

@@ -27,7 +27,17 @@ namespace RemoteImaging
         {
             try
             {
+                bool isFirst = false;
 
+                System.Threading.Mutex mutex =
+                    new Mutex(true, "5685FE28-6805-4F62-8851-F0DFDD2A9EBD", out isFirst);
+                if (!isFirst)
+                {
+                    MessageBox.Show("程序已经在运行中！ 点击确认后程序将退出。", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    return;
+                }
+
+                GC.KeepAlive(mutex);
 
                 if (!Util.VerifyKey())
                 {
@@ -61,7 +71,7 @@ namespace RemoteImaging
                 mainForm.AttachController(controller);
 
                 mainForm.ButtonsVisible =
-                    (ButtonsVisibleSectionHandler) System.Configuration.ConfigurationManager.GetSection("FaceDetector.ButtonsVisible");
+                    (ButtonsVisibleSectionHandler)System.Configuration.ConfigurationManager.GetSection("FaceDetector.ButtonsVisible");
 
                 Application.Run(mainForm);
 
