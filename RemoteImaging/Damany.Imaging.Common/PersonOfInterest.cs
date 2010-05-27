@@ -13,6 +13,11 @@ namespace Damany.Imaging.Common
             this.Guid = System.Guid.NewGuid();
         }
 
+        public PersonOfInterest(IplImage iplImage)
+            : this()
+        {
+            _ipl = iplImage;
+        }
 
         public System.Drawing.Image GetImage()
         {
@@ -23,7 +28,7 @@ namespace Damany.Imaging.Common
         {
             if (_ipl == null)
             {
-                _ipl = OpenCvSharp.IplImage.FromFile(ImageFilePath);
+                _ipl = IplImage.FromFile(ImageFilePath);
                 _ipl.ROI = FaceRect;
             }
             return _ipl;
@@ -36,7 +41,7 @@ namespace Damany.Imaging.Common
         public Gender Gender { get; set; }
         public int Age { get; set; }
         public string ImageFilePath { get; set; }
-        public OpenCvSharp.CvRect FaceRect { get; set; }
+        public CvRect FaceRect { get; set; }
 
 
         public bool Equals(PersonOfInterest other)

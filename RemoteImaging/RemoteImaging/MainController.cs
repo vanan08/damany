@@ -38,7 +38,7 @@ namespace RemoteImaging
 
             this._comparer.PersonOfInterestDected += _comparer_PersonOfInterestDected;
             this._comparer.Threshold = Properties.Settings.Default.RealTimeFaceCompareSensitivity;
-            this._comparer.Comparer.SetSensitivity( Properties.Settings.Default.LbpThreshold );
+            this._comparer.Comparer.SetSensitivity(Properties.Settings.Default.LbpThreshold);
 
             this._mainForm.Cameras = this._configManager.GetCameras().ToArray();
             var camToStart = this._configManager.GetCameras();
@@ -63,7 +63,11 @@ namespace RemoteImaging
         public void StartCamera()
         {
             var selected = this._mainForm.GetSelectedCamera();
-            if (selected == null) return;
+            if (selected == null)
+            {
+                this._mainForm.ShowMessage("请选择一个摄像头。");
+                return;
+            }
 
             if (_currentController != null)
             {

@@ -37,8 +37,6 @@ namespace RemoteImaging
                         return;
                     }
 
-                    GC.KeepAlive(mutex);
-
                     if (!Util.VerifyKey())
                     {
                         RegisterForm form = new RegisterForm();

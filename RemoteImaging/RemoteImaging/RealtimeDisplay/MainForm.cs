@@ -89,9 +89,6 @@ namespace RemoteImaging.RealtimeDisplay
         }
 
 
-
-        CameraInfo allCamera = new CameraInfo() { Id = -1 };
-
         private TreeNode getTopCamera(TreeNode node)
         {
             if (node.Parent == null) return node;
@@ -117,7 +114,7 @@ namespace RemoteImaging.RealtimeDisplay
             if (this.cameraTree.SelectedNode == null
                 || this.cameraTree.SelectedNode.Level == 0)
             {
-                return allCamera;
+                return null;
             }
 
             TreeNode nd = getTopCamera(this.cameraTree.SelectedNode);
