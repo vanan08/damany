@@ -81,7 +81,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>BK_NetClientSDK.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>l:\Documents and Settings\benny\My Documents\Visual Studio 2008\Projects\Damany\Damany.Library\CameraWrappers\library\ClisentSDK\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\library\AipStarCameraSDK\lib</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
