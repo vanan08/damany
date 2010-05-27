@@ -27,53 +27,54 @@ namespace RemoteImaging
         {
             try
             {
-                bool isFirst = false;
+                var isFirst = false;
 
-                System.Threading.Mutex mutex =
-                    new Mutex(true, "5685FE28-6805-4F62-8851-F0DFDD2A9EBD", out isFirst);
-                if (!isFirst)
+                using (var mutex = new Mutex(true, "5685FE28-6805-4F62-8851-F0DFDD2A9EBD", out isFirst))
                 {
-                    MessageBox.Show("程序已经在运行中！ 点击确认后程序将退出。", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                    return;
-                }
-
-                GC.KeepAlive(mutex);
-
-                if (!Util.VerifyKey())
-                {
-                    RegisterForm form = new RegisterForm();
-                    DialogResult res = form.ShowDialog();
-                    if (res == DialogResult.OK)
+                    if (!isFirst)
                     {
-                        Application.Restart();
+                        MessageBox.Show("程序已经在运行中！ 点击确认后程序将退出。", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        return;
                     }
 
-                    return;
+                    GC.KeepAlive(mutex);
+
+                    if (!Util.VerifyKey())
+                    {
+                        RegisterForm form = new RegisterForm();
+                        DialogResult res = form.ShowDialog();
+                        if (res == DialogResult.OK)
+                        {
+                            Application.Restart();
+                        }
+
+                        return;
+                    }
+
+
+                    AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
+                    Application.ThreadException += Application_ThreadException;
+
+
+                    Application.EnableVisualStyles();
+                    Application.SetCompatibleTextRenderingDefault(false);
+
+                    var strapper = new StartUp();
+                    strapper.Start();
+
+                    var remover = strapper.Container.Resolve<OutDatedDataRemover>();
+                    System.GC.KeepAlive(remover);
+
+                    var mainForm = strapper.Container.Resolve<RemoteImaging.RealtimeDisplay.MainForm>();
+                    var controller = strapper.Container.Resolve<MainController>();
+                    mainForm.AttachController(controller);
+
+                    mainForm.ButtonsVisible =
+                        (ButtonsVisibleSectionHandler)System.Configuration.ConfigurationManager.GetSection("FaceDetector.ButtonsVisible");
+
+                    Application.Run(mainForm);
                 }
 
-
-
-                AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
-                Application.ThreadException += Application_ThreadException;
-
-
-                Application.EnableVisualStyles();
-                Application.SetCompatibleTextRenderingDefault(false);
-
-                var strapper = new StartUp();
-                strapper.Start();
-
-                var remover = strapper.Container.Resolve<OutDatedDataRemover>();
-                System.GC.KeepAlive(remover);
-
-                var mainForm = strapper.Container.Resolve<RemoteImaging.RealtimeDisplay.MainForm>();
-                var controller = strapper.Container.Resolve<MainController>();
-                mainForm.AttachController(controller);
-
-                mainForm.ButtonsVisible =
-                    (ButtonsVisibleSectionHandler)System.Configuration.ConfigurationManager.GetSection("FaceDetector.ButtonsVisible");
-
-                Application.Run(mainForm);
 
             }
             catch (Exception e)
