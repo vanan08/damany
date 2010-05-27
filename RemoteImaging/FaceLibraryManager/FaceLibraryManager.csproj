@@ -59,6 +59,8 @@
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+    <Compile Include="EnumBooleanConverter.cs" />
+    <Compile Include="GenderConverter.cs" />
     <Compile Include="ImageConverter.cs" />
     <Compile Include="RelayCommand.cs" />
     <Compile Include="ViewModel\SuspectsCollection.cs" />

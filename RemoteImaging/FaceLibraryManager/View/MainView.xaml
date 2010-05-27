@@ -8,6 +8,7 @@
         Height="666" Width="768"
         xmlns:vm="clr-namespace:FaceLibraryManager.ViewModel"
         xmlns:vw="clr-namespace:FaceLibraryManager.View" 
+        xmlns:local="clr-namespace:FaceLibraryManager"
         WindowStartupLocation="CenterScreen" WindowState="Maximized" Icon="/FaceLibraryManager;component/Images/Reload.png">
     <Window.Resources>
         <ResourceDictionary Source="MainWindowResources.xaml" />
@@ -108,6 +109,9 @@
                                         Grid.Row="1" 
                                         IsSynchronizedWithCurrentItem="True"
                                         LayoutTransform="{StaticResource scaleTrans}">
+                                        <ListView.Resources>
+                                            <local:GenderConverter x:Key="genderConverter" />
+                                        </ListView.Resources>
                                         <ListView.View>
                                             <GridView>
                                                 <GridViewColumn Header="头像" Width="100">
@@ -123,7 +127,7 @@
                                                     </GridViewColumn.CellTemplate>
                                                 </GridViewColumn>
                                                 <GridViewColumn Header="姓名" Width="100" DisplayMemberBinding="{Binding Name}" />
-                                                <GridViewColumn Header="性别" Width="100" DisplayMemberBinding="{Binding Gender}" />
+                                                <GridViewColumn Header="性别" Width="100" DisplayMemberBinding="{Binding Gender, Converter={StaticResource genderConverter}, Mode=OneWay}" />
                                                 <GridViewColumn Header="年龄" Width="100" DisplayMemberBinding="{Binding Age}" />
                                             </GridView>
                                         </ListView.View>
