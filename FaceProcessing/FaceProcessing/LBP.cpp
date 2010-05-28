@@ -15,6 +15,12 @@ Damany::Imaging::FaceCompare::LBP::LBP(int width, int height, int blockWidth, in
 
 	SetCoeff();
 	faceCount = 0; 
+	enableMultiRetinex = true;
+}
+
+void Damany::Imaging::FaceCompare::LBP::EnableMultiRetinex(bool enable)
+{
+	enableMultiRetinex = enable;
 }
 
 void Damany::Imaging::FaceCompare::LBP::SetThreshold(int value)
@@ -872,8 +878,15 @@ void Damany::Imaging::FaceCompare::LBP::CalcBlockLBP(IplImage* img, float** hst)
 	IplImage* imgDst=cvCreateImage(cvSize(widthsize, heightsize), IPL_DEPTH_8U, 1);
 	imgDst = cvCloneImage(imgSource);
 	cvSmooth(imgSource, imgSource, CV_GAUSSIAN, 5); 
-	MultiRetinex(imgSource, imgDst);
-	//imgDst = cvCloneImage(imgSource);
+
+	if(enableMultiRetinex)
+	{
+		MultiRetinex(imgSource, imgDst);
+	}
+	else
+	{
+		imgDst = cvCloneImage(imgSource);
+	}
 
 	IplImage* ipatch=cvCreateImage(cvSize(blockwidth,blockheight),IPL_DEPTH_8U,1);
 

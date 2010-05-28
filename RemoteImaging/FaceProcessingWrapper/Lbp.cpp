@@ -20,6 +20,14 @@ namespace FaceProcessingWrapper {
 			pLbp = NULL;
 		}
 
+		property bool MultiRetinexEnabled
+		{
+			void set(bool enable)
+			{
+				pLbp->EnableMultiRetinex(enable);
+			}
+		}
+
 		void Load( array<OpenCvSharp::IplImage^>^ images )
 		{
 
