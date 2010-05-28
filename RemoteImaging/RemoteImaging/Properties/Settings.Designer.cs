@@ -718,5 +718,32 @@ namespace RemoteImaging.Properties {
                 this["HistoryFaceCompareSensitivityHi"] = value;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool UseDirectoryRepository {
+            get {
+                return ((bool)(this["UseDirectoryRepository"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string DirectoryRepositoryPath {
+            get {
+                return ((string)(this["DirectoryRepositoryPath"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool EnableMultiRetinex {
+            get {
+                return ((bool)(this["EnableMultiRetinex"]));
+            }
+        }
     }
 }

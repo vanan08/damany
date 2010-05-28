@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using Damany.Imaging.Common;
@@ -74,20 +75,30 @@ namespace RemoteImaging
                 System.IO.Directory.CreateDirectory(Properties.Settings.Default.OutputPath);
             }
 
-            var repository = new LocalDb4oProvider(Properties.Settings.Default.OutputPath);
-            repository.Start();
+            if (Properties.Settings.Default.UseDirectoryRepository)
+            {
+                if (!System.IO.Directory.Exists(Properties.Settings.Default.DirectoryRepositoryPath))
+                {
+                    throw new DirectoryNotFoundException("Directory Repository Path not found");
+                }
+
+                var dirRepository = new Damany.PortraitCapturer.DAL.DirectoryRepository(@"M:\imageSearch");
+
+                this.builder.RegisterInstance(dirRepository)
+                            .As<IRepository>()
+                            .ExternallyOwned();
+            }
+            else
+            {
+                var repository = new LocalDb4oProvider(Properties.Settings.Default.OutputPath);
+                repository.Start();
 
 
+                this.builder.RegisterInstance(repository)
+                    .As<IRepository>()
+                    .ExternallyOwned();
+            }
 
-            this.builder.RegisterInstance(repository)
-                .As<IRepository>()
-                .ExternallyOwned();
-
-            //var dirRepository = new Damany.PortraitCapturer.DAL.DirectoryRepository(@"M:\imageSearch");
-
-            //this.builder.RegisterInstance(dirRepository)
-            //            .As<Damany.PortraitCapturer.DAL.IRepository>()
-            //            .ExternallyOwned();
         }
 
         private void InitConfigManager()

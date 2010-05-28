@@ -23,10 +23,12 @@ public:
 	void CmpFace(IplImage* destImg, CvRect& destRect, float score[]); 
 	void SetThreshold(int value);
 	void LoadImages(IplImage* imgs[], int count);
+	void EnableMultiRetinex(bool enable);
 
 private:
 	int threshold;
 
+	bool enableMultiRetinex;
 	float weightCoeff[49]; 
 	int widthsize; 
 	int heightsize;	

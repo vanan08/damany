@@ -37,7 +37,10 @@ namespace RemoteImaging
                         .ExternallyOwned();
                 }
 
+
+
                 builder.RegisterType<LbpFaceComparer>()
+                       .WithProperty("EnableMultiRetinex", Properties.Settings.Default.EnableMultiRetinex)
                        .As<IRepositoryFaceComparer>();
             }
             else
