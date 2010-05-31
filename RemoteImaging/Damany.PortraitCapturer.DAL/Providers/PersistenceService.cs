@@ -56,6 +56,7 @@ namespace Damany.PortraitCapturer.DAL.Providers
         {
             this.CheckStarted();
 
+            portrait.Frame.CapturedAt = portrait.Frame.CapturedAt.ToUniversalTime();
             portrait.CapturedAt = portrait.CapturedAt.ToUniversalTime();
 
             var dto = Mapper.Map<Portrait, DAL.DTO.Portrait>(portrait);
@@ -64,6 +65,7 @@ namespace Damany.PortraitCapturer.DAL.Providers
             portrait.GetIpl().SaveImage(absolutePath);
 
             portrait.CapturedAt = portrait.CapturedAt.ToLocalTime();
+            portrait.CapturedAt = portrait.Frame.CapturedAt.ToLocalTime();
 
         }
 
@@ -143,7 +145,7 @@ namespace Damany.PortraitCapturer.DAL.Providers
                                                              var utc = Mapper.Map<DAL.DTO.Portrait, Portrait>(dto);
                                                              utc.CapturedAt = utc.CapturedAt.ToLocalTime();
                                                              return utc;
-                                                         } );
+                                                         });
             return portraits;
 
         }
@@ -180,7 +182,7 @@ namespace Damany.PortraitCapturer.DAL.Providers
                         System.IO.File.Delete(path);
                     }
                 }
-                catch (System.IO.IOException){}
+                catch (System.IO.IOException) { }
             }
 
             dataProvider.DeletePortraits(ps);
@@ -206,7 +208,7 @@ namespace Damany.PortraitCapturer.DAL.Providers
                         System.IO.File.Delete(path);
                     }
                 }
-                catch (System.IO.IOException){}
+                catch (System.IO.IOException) { }
             }
 
             dataProvider.DeleteFrames(fs);
