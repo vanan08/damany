@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Damany.PortraitCapturer.DAL;
+using Db4objects.Db4o.Linq;
+using Db4objects.Db4o;
 
 namespace Damany.PortraitCapturer.DAL.Providers
 {
@@ -77,22 +79,24 @@ namespace Damany.PortraitCapturer.DAL.Providers
 
         }
 
+
+
         public IList<DTO.Portrait> GetPortraits(int cameraId, Damany.Util.DateTimeRange range)
         {
             var container = OpenContainer();
-            var portraits = container.Query<DTO.Portrait>(portrait =>
+
+            var portraitQuery = from DTO.Portrait p in container
+                                where p.CapturedAt >= range.From && p.CapturedAt <= range.To
+                                select p;
+
+            if (cameraId != -1)
             {
-                bool flag = portrait.CapturedAt >= range.From && portrait.CapturedAt <= range.To;
-                if (cameraId != -1)
-                {
-                    flag = flag && portrait.SourceId == cameraId;
-                }
+                portraitQuery = from p in portraitQuery
+                                where p.SourceId == cameraId
+                                select p;
+            }
 
-                return flag;
-            });
-
-
-            return portraits;
+            return portraitQuery.ToList();
 
         }
 
@@ -145,12 +149,19 @@ namespace Damany.PortraitCapturer.DAL.Providers
 
         private static DTO.Portrait GetPortraitInternal(Guid portraitId, Db4objects.Db4o.IObjectContainer container)
         {
-            return container.Query<DTO.Portrait>(portrait => portrait.Guid.Equals(portraitId)).SingleOrDefault();
+            var portraitQuery = from DTO.Portrait p in container
+                                where p.Guid.Equals(portraitId)
+                                select p;
+            return portraitQuery.SingleOrDefault();
         }
 
         private static DTO.Frame GetFrameInternal(Guid frameId, Db4objects.Db4o.IObjectContainer container)
         {
-            return container.Query<DTO.Frame>(frame => frame.Guid.Equals(frameId)).SingleOrDefault();
+            var frameQuery = from DTO.Frame f in container
+                             where f.Guid.Equals(frameId)
+                             select f;
+
+            return frameQuery.SingleOrDefault();
         }
 
         private Db4objects.Db4o.IObjectContainer OpenContainer()
