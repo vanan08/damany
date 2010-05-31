@@ -65,7 +65,7 @@ namespace RemoteImaging
 
             this.screen.CurrentPortrait = item;
 
-            var frame = repository.GetFrame(item.FrameId);
+            var frame = item.Frame;
 
             if (frame != null)
             {

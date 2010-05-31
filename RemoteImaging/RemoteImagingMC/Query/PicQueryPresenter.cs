@@ -32,7 +32,7 @@ namespace RemoteImaging.Query
 
         }
 
-      
+
         void view_PageSizeChanged(object sender, EventArgs e)
         {
             this.CalcPagesCount();
@@ -42,7 +42,7 @@ namespace RemoteImaging.Query
         {
             if (this.view.SelectedPortrait == null) return;
 
-            var frame = this.repository.GetFrame(this.view.SelectedPortrait.FrameId);
+            var frame = this.view.SelectedPortrait.Frame;
 
             this.view.WholeImage = frame.GetImage().ToBitmap();
             frame.Dispose();
@@ -56,7 +56,7 @@ namespace RemoteImaging.Query
 
         void view_LastPageClick(object sender, EventArgs e)
         {
-            if ( !IsPagesDownloaded() ) return;
+            if (!IsPagesDownloaded()) return;
 
             this.CurrentPage = this.totalPages - 1;
             this.ShowCurrentPageAsync();
@@ -64,7 +64,7 @@ namespace RemoteImaging.Query
 
         void view_FirstPageClick(object sender, EventArgs e)
         {
-            if ( !IsPagesDownloaded() ) return;
+            if (!IsPagesDownloaded()) return;
 
             this.CurrentPage = 0;
             this.ShowCurrentPageAsync();
@@ -92,7 +92,7 @@ namespace RemoteImaging.Query
 
         private void ClearViewAsync()
         {
-             this.view.ClearCurPageList();
+            this.view.ClearCurPageList();
         }
 
 
@@ -110,10 +110,10 @@ namespace RemoteImaging.Query
         }
 
         public void DownloadVideoFileAt(
-                                        System.Net.IPAddress ip, 
-                                        int cameraId, 
-                                        DateTime time, 
-                                        System.IO.Stream destStream, 
+                                        System.Net.IPAddress ip,
+                                        int cameraId,
+                                        DateTime time,
+                                        System.IO.Stream destStream,
                                         Damany.RemoteImaging.Common.IProgress progress
                                         )
         {
@@ -124,7 +124,7 @@ namespace RemoteImaging.Query
             }
 
             long size = Gateways.Search.Instance.GetFileSizeInBytes(ip, cameraId, path);
-            
+
             var buffer = new byte[64 * 1024];
             using (progress)
             using (System.IO.Stream fs = Gateways.Search.Instance.DownloadFile(ip, path))
@@ -142,10 +142,10 @@ namespace RemoteImaging.Query
                     destStream.Write(buffer, 0, bytesRead);
                     bytesCount += bytesRead;
 
-                    double percent = (double) bytesCount / size;
+                    double percent = (double)bytesCount / size;
                     percent *= 100;
 
-                    progress.Percent = (int)  percent;
+                    progress.Percent = (int)percent;
                     System.Diagnostics.Debug.WriteLine(percent);
 
                 }
@@ -157,14 +157,14 @@ namespace RemoteImaging.Query
 
         void ShowCurrentPageAsync()
         {
-          this.DoShowCurrent();
+            this.DoShowCurrent();
         }
 
         void view_QueryClick(object sender, EventArgs e)
         {
 
             this.imagesFound =
-                repository.GetPortraits(-1, 
+                repository.GetPortraits(-1,
                 new Damany.Util.DateTimeRange(this.view.SearchFrom, this.view.SearchTo));
 
             if (imagesFound.Count == 0)
@@ -187,7 +187,7 @@ namespace RemoteImaging.Query
             }
 
             ShowCurrentPageAsync();
-            
+
         }
 
         public int CurrentPage
@@ -199,7 +199,7 @@ namespace RemoteImaging.Query
             set
             {
                 currentPage = value;
-                this.view.CurrentPage = value+1;
+                this.view.CurrentPage = value + 1;
             }
         }
 

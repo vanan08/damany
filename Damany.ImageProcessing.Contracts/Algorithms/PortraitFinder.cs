@@ -124,7 +124,7 @@ namespace Damany.Imaging.Processors
             {
                 faceFrames.ToList().ForEach(f => this.Repository.SaveFrame(f));
             }
-            
+
         }
 
         private static OpenCvSharp.CvRect FrameToPortrait(OpenCvSharp.CvRect bounds, OpenCvSharp.CvRect faceBounds)
@@ -147,7 +147,7 @@ namespace Damany.Imaging.Processors
                                    select new Portrait(p.Face)
                                    {
                                        FaceBounds = FrameToPortrait(p.FacesRect, p.FacesRectForCompare),
-                                       FrameId = frame.Frame.Guid,
+                                       Frame = frame.Frame,
                                        CapturedAt = frame.Frame.CapturedAt,
                                        CapturedFrom = frame.Frame.CapturedFrom,
                                    };
