@@ -10,7 +10,7 @@ namespace RemoteImaging
 {
     public class PicQueryFormPresenter : IPicQueryPresenter
     {
-        public PicQueryFormPresenter( IPicQueryScreen screen, 
+        public PicQueryFormPresenter(IPicQueryScreen screen,
                                       IRepository repository,
                                       ConfigurationManager configManager)
         {
@@ -31,21 +31,23 @@ namespace RemoteImaging
                 return;
             }
 
-            Action disableUI = delegate {
-                EnableScreen(false); 
-                this.screen.ShowStatus("开始搜索"); 
+            Action disableUI = delegate
+            {
+                EnableScreen(false);
+                this.screen.ShowStatus("开始搜索");
             };
 
-            Action enableUI = delegate {
+            Action enableUI = delegate
+            {
                 EnableScreen(true);
-                this.screen.ShowStatus("搜索完毕"); 
+                this.screen.ShowStatus("搜索完毕");
             };
 
-            this.DoActionsAsync(disableUI, enableUI, 
-                (Action)SearchInternal, 
-                (Action)CalculatePaging, 
+            this.DoActionsAsync(disableUI, enableUI,
+                (Action)SearchInternal,
+                (Action)CalculatePaging,
                 (Action)ShowCurrentPage);
-            
+
         }
 
         public void PlayVideo()
@@ -65,8 +67,12 @@ namespace RemoteImaging
 
             var frame = repository.GetFrame(item.FrameId);
 
-            this.screen.CurrentBigPicture = frame.GetImage().ToBitmap();
-            
+            if (frame != null)
+            {
+                this.screen.CurrentBigPicture = frame.GetImage().ToBitmap();
+            }
+
+
         }
 
         public void Start()
@@ -100,17 +106,17 @@ namespace RemoteImaging
             if (this.currentPageIndex > 0)
             {
                 this.currentPageIndex--;
-                
+
                 UpdateCurrentPageAsync();
             }
-            
+
         }
 
         public void NavigateToNext()
         {
             if (this.portraits == null) return;
 
-            if (this.currentPageIndex < this.totalPagesCount-1)
+            if (this.currentPageIndex < this.totalPagesCount - 1)
             {
                 this.currentPageIndex++;
                 UpdateCurrentPageAsync();
@@ -124,7 +130,7 @@ namespace RemoteImaging
 
             this.currentPageIndex = this.totalPagesCount - 1;
             UpdateCurrentPageAsync();
-            
+
         }
 
         public void NavigateToFirst()
@@ -146,18 +152,18 @@ namespace RemoteImaging
             Action pre = delegate { this.screen.Clear(); this.EnableScreen(false); };
             Action after = delegate { this.EnableScreen(true); };
 
-            this.DoActionsAsync(pre, after,  this.ShowCurrentPage);
+            this.DoActionsAsync(pre, after, this.ShowCurrentPage);
         }
 
         #endregion
-       
+
         private void DoActionsAsync(Action entryAction, Action exitAction, params Action[] actions)
         {
-            if (entryAction !=null)
+            if (entryAction != null)
             {
                 entryAction();
             }
-            
+
 
             System.Threading.ThreadPool.QueueUserWorkItem(delegate
             {
@@ -174,7 +180,7 @@ namespace RemoteImaging
                     {
                         exitAction();
                     }
-                    
+
                 }
             });
         }
@@ -185,7 +191,7 @@ namespace RemoteImaging
             {
                 this.totalPagesCount = (this.portraits.Count + this.screen.PageSize - 1) / this.screen.PageSize;
 
-                if (this.currentPageIndex > this.totalPagesCount-1)
+                if (this.currentPageIndex > this.totalPagesCount - 1)
                 {
                     this.currentPageIndex = this.totalPagesCount - 1;
                 }
