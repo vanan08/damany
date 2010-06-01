@@ -5,7 +5,7 @@ namespace SearchCamera
 
         public override void AppendData(PacketAssembler assembler)
         {
-            assembler.AppendShort(this.Data);
+            assembler.AppendData(this.Data);
         }
 
     }
