@@ -1,0 +1,12 @@
+﻿<Window x:Class="CameraSearcher.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="相机搜索工具" Loaded="Window_Loaded" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" Height="350" Width="525" WindowStyle="ToolWindow">
+    <Grid>
+        <ListBox Height="183" HorizontalAlignment="Left" Margin="13,46,0,0" Name="listBoxCamera" VerticalAlignment="Top" Width="478" SelectionMode="Single" />
+        <Label Content="相机列表：" Height="28" HorizontalAlignment="Left" Margin="50,12,0,0" Name="label1" VerticalAlignment="Top" />
+        <Image Height="28" HorizontalAlignment="Left" Margin="13,12,0,0" Name="image1" Stretch="Uniform" VerticalAlignment="Top" Width="31" Source="/CameraSearcher;component/Images/Camera32.gif" />
+        <ProgressBar Height="14" HorizontalAlignment="Left" Margin="13,285,0,0" Name="progressBar1" VerticalAlignment="Top" Width="478" IsIndeterminate="True" />
+        <Label Content="搜索中..." Height="28" HorizontalAlignment="Left" Margin="13,251,0,0" Name="label2" VerticalAlignment="Top" />
+    </Grid>
+</Window>
