@@ -27,12 +27,12 @@ namespace SearchCamera
             _streamWriter.Write(header.ReserverByte);
         }
 
-        public void AppendInt(int data)
+        public void AppendData(int data)
         {
             _streamWriter.Write(data);
         }
 
-        public void AppendShort(short data)
+        public void AppendData(short data)
         {
             _streamWriter.Write(IPAddress.HostToNetworkOrder(data));
         }
