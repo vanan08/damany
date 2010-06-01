@@ -31,7 +31,17 @@ namespace CameraSearcher
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             searcher.CameraFound += (o, args) => this.AddToList(args.CameraIp);
-            searcher.Search();
+
+            try
+            {
+                searcher.Search();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+
 
         }
 
