@@ -30,11 +30,12 @@ namespace CameraSearcher
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            searcher.CameraFound += (o, args) => this.AddToList(args.CameraIp);
+
 
             try
             {
-                searcher.Search();
+                var vm = Resources["viewModel"] as ViewModels.CamerasViewModel;
+                vm.Start();
             }
             catch (Exception ex)
             {
