@@ -30,8 +30,6 @@ namespace CameraSearcher
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-
-
             try
             {
                 var vm = Resources["viewModel"] as ViewModels.CamerasViewModel;
@@ -41,21 +39,8 @@ namespace CameraSearcher
             {
                 MessageBox.Show(ex.Message, "错误", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-
-
-
         }
 
-        private void AddToList(string cameraIp)
-        {
-            if (!CheckAccess())
-            {
-                Action<string> action = this.AddToList;
-                this.Dispatcher.BeginInvoke(action, cameraIp);
-                return;
-            }
 
-            this.listBoxCamera.Items.Insert(0, cameraIp + " - " + DateTime.Now.ToLongTimeString());
-        }
     }
 }
