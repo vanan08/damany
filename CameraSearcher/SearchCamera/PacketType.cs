@@ -1,7 +1,7 @@
 namespace SearchCamera
 {
-    public enum PacketType
+    internal enum PacketType
     {
-        DistributionStart, DistributionRequest,
+        DistributionStart = 0, DistributionRequest,
     }
 }

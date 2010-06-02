@@ -2,7 +2,7 @@ using System;
 
 namespace SearchCamera
 {
-    public static class PacketFactory
+    internal static class PacketFactory
     {
         public static Packet<short> CreateDistributionStart(PacketType type)
         {

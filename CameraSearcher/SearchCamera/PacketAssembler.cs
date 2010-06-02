@@ -4,7 +4,7 @@ using System.Net;
 
 namespace SearchCamera
 {
-    public class PacketAssembler
+    internal class PacketAssembler
     {
         private readonly MemoryStream _memStream;
         private readonly BinaryWriter _streamWriter;

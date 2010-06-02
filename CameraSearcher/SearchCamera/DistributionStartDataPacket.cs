@@ -1,6 +1,6 @@
 namespace SearchCamera
 {
-    public class DistributionStartDataPacket : Packet<short>
+    internal class DistributionStartDataPacket : Packet<short>
     {
 
         public override void AppendData(PacketAssembler assembler)
