@@ -12,7 +12,7 @@ namespace SearchCamera
         private UdpClient _socket;
         private List<IPAddress> _ips = new List<IPAddress>();
 
-        public EventHandler<CameraFoundArgs> CameraFound;
+        public event EventHandler<CameraFoundArgs> CameraFound;
 
 
         public CameraSearcher()
@@ -56,8 +56,6 @@ namespace SearchCamera
                 var remoteEndpoint = new IPEndPoint(IPAddress.Any, 0);
                 _socket.Receive(ref remoteEndpoint);
 
-                if (_ips.Contains(remoteEndpoint.Address)) continue;
-
                 if (CameraFound != null)
                 {
                     var args = new CameraFoundArgs();
@@ -65,7 +63,6 @@ namespace SearchCamera
                     CameraFound(this, args);
                 }
 
-                _ips.Add(remoteEndpoint.Address);
             }
         }
     }
