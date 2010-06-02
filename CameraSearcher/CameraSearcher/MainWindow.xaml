@@ -6,7 +6,7 @@
         <ListBox Height="183" HorizontalAlignment="Left" Margin="13,46,0,0" Name="listBoxCamera" VerticalAlignment="Top" Width="343" SelectionMode="Single" />
         <Label Content="相机列表：" Height="28" HorizontalAlignment="Left" Margin="50,12,0,0" Name="label1" VerticalAlignment="Top" />
         <Image Height="28" HorizontalAlignment="Left" Margin="13,12,0,0" Name="image1" Stretch="Uniform" VerticalAlignment="Top" Width="31" Source="/CameraSearcher;component/Images/Camera32.gif" />
-        <Viewbox Height="32" HorizontalAlignment="Left" Margin="297,10,0,0" Name="viewbox1" VerticalAlignment="Top" Width="40">
+        <Viewbox Height="32" HorizontalAlignment="Left" Margin="324,8,0,0" Name="viewbox1" VerticalAlignment="Top" Width="32">
             <my:CircularProgressBar />
         </Viewbox>
     </Grid>
