@@ -54,7 +54,7 @@ namespace CameraSearcher
                 return;
             }
 
-            this.listBoxCamera.Items.Insert(0, cameraIp);
+            this.listBoxCamera.Items.Insert(0, cameraIp + " - " + DateTime.Now.ToLongTimeString());
         }
     }
 }
