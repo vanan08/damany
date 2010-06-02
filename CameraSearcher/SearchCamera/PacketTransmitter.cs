@@ -4,7 +4,7 @@ using System.Net.Sockets;
 
 namespace SearchCamera
 {
-    public class PacketTransmitter
+    internal class PacketTransmitter
     {
         private readonly UdpClient _socket;
 

@@ -2,7 +2,7 @@ using System.IO;
 
 namespace SearchCamera
 {
-    public class Packet<T>
+    internal class Packet<T>
     {
 
         public Packet()

@@ -1,6 +1,6 @@
 ﻿namespace SearchCamera
 {
-    public class Header
+    internal class Header
     {
         public Header()
         {
