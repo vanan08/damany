@@ -10,11 +10,11 @@
 
 namespace Kings {
 	namespace Imaging {
-		class DLL_API CBkg//找目标的类
+		class DLL_API CObjectDetector//找目标的类
 		{
 		public:
-			CBkg( void );
-			virtual ~CBkg(void);
+			CObjectDetector( void );
+			virtual ~CObjectDetector(void);
 			void SetBkg( IplImage* pFrame );//设置pFrame进入背景，请确保SetBkg与FrameProcess不会同时被调用
 			void FrameProcess( IplImage* pFrame );//处理当前帧
 			void GetObjRects( CvSeq* &objRects )//获取目标框，该CvSeq中存放的是CvRect型变量，该指针的内存由类进行管理，请勿在外部释放

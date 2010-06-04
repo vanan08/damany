@@ -3,7 +3,7 @@
 #include "stdio.h" 
 
 
-Kings::Imaging::CBkg::CBkg( void )
+Kings::Imaging::CObjectDetector::CObjectDetector( void )
 {
 	m_pFrImg = 0;
 	m_pBkImg = 0;
@@ -43,7 +43,7 @@ Kings::Imaging::CBkg::CBkg( void )
 	m_pDifBetFrmsMat = 0;
 }
 
-Kings::Imaging::CBkg::~CBkg(void)
+Kings::Imaging::CObjectDetector::~CObjectDetector(void)
 {
 	cvReleaseImage(&m_pFrImg);
 	cvReleaseImage(&m_pBkImg);
@@ -79,7 +79,7 @@ Kings::Imaging::CBkg::~CBkg(void)
 	cvReleaseMat( &m_pDifBetFrmsMat );
 }
 
-CvMat* Kings::Imaging::CBkg::SerializeMat(IplImage *pSrcImg, IplImage *pMask)
+CvMat* Kings::Imaging::CObjectDetector::SerializeMat(IplImage *pSrcImg, IplImage *pMask)
 {
 	int iCnt = 0;
 	int iNum = CountPts(pMask);
@@ -97,7 +97,7 @@ CvMat* Kings::Imaging::CBkg::SerializeMat(IplImage *pSrcImg, IplImage *pMask)
 		return pSrlMat;
 }
 
-bool Kings::Imaging::CBkg::ShadowJudge(CvRect r, IplImage *pDiffImg, IplImage *pBkgImg, IplImage *pCurImg)
+bool Kings::Imaging::CObjectDetector::ShadowJudge(CvRect r, IplImage *pDiffImg, IplImage *pBkgImg, IplImage *pCurImg)
 {
 	bool bResult;
 	float fResulta, fResultb;
@@ -186,7 +186,7 @@ bool Kings::Imaging::CBkg::ShadowJudge(CvRect r, IplImage *pDiffImg, IplImage *p
 	return true;
 }
 
-void Kings::Imaging::CBkg::FrameProcess( IplImage* pFrame )
+void Kings::Imaging::CObjectDetector::FrameProcess( IplImage* pFrame )
 {
 	IplImage* pProcFrame = NULL;
 	
@@ -230,7 +230,7 @@ void Kings::Imaging::CBkg::FrameProcess( IplImage* pFrame )
 	cvReleaseImage( &pProcFrame );
 }
 
-void Kings::Imaging::CBkg::InitEnvironment( IplImage* pFrame )
+void Kings::Imaging::CObjectDetector::InitEnvironment( IplImage* pFrame )
 {
 	m_pBkImg = cvCloneImage(pFrame);//Color Background Image
 	m_pDifImg = cvCreateImage( cvSize(pFrame->width, pFrame->height), IPL_DEPTH_8U,1 );
@@ -248,7 +248,7 @@ void Kings::Imaging::CBkg::InitEnvironment( IplImage* pFrame )
 	cvConvert(m_pBkImg, m_pBkMat);
 }
 
-void Kings::Imaging::CBkg::SetBkg( IplImage* pFrame )//设置pFrame进入背景，请确保SetBkg与FrameProcess不会同时被调用
+void Kings::Imaging::CObjectDetector::SetBkg( IplImage* pFrame )//设置pFrame进入背景，请确保SetBkg与FrameProcess不会同时被调用
 {
 	if( m_nFrmNum == 0 )
 	{
@@ -266,7 +266,7 @@ void Kings::Imaging::CBkg::SetBkg( IplImage* pFrame )//设置pFrame进入背景�
 	}
 }
 
-void Kings::Imaging::CBkg::Process(IplImage* pFrame)
+void Kings::Imaging::CObjectDetector::Process(IplImage* pFrame)
 {
 	if( m_nFrmNum == 0)
 	{
@@ -366,7 +366,7 @@ void Kings::Imaging::CBkg::Process(IplImage* pFrame)
 	}
 }
 
-IplImage* Kings::Imaging::CBkg::GetSubImage(IplImage* pOriImage, CvRect roi)
+IplImage* Kings::Imaging::CObjectDetector::GetSubImage(IplImage* pOriImage, CvRect roi)
 {
 	IplImage * pSubImage = NULL;   
 
@@ -379,7 +379,7 @@ IplImage* Kings::Imaging::CBkg::GetSubImage(IplImage* pOriImage, CvRect roi)
 	return pSubImage;   
 }
 
-bool Kings::Imaging::CBkg::JudgeNonShadow( IplImage* imgDifRes, CvRect roi )
+bool Kings::Imaging::CObjectDetector::JudgeNonShadow( IplImage* imgDifRes, CvRect roi )
 {
 	bool bNonShadow = true;
 
@@ -405,7 +405,7 @@ bool Kings::Imaging::CBkg::JudgeNonShadow( IplImage* imgDifRes, CvRect roi )
 	return bNonShadow;
 }
 
-bool Kings::Imaging::CBkg::transferLocalRc2SceneRc( CvRect* rcInScene, CvRect* rcLocal, CvRect* rcRgn )
+bool Kings::Imaging::CObjectDetector::transferLocalRc2SceneRc( CvRect* rcInScene, CvRect* rcLocal, CvRect* rcRgn )
 {
 	if( !rcInScene || !rcLocal || !rcRgn ) return false;
 
@@ -417,7 +417,7 @@ bool Kings::Imaging::CBkg::transferLocalRc2SceneRc( CvRect* rcInScene, CvRect* r
 	return true;
 }
 
-void Kings::Imaging::CBkg::RemoveIntersectedRects( CvSeq* pObjRects )
+void Kings::Imaging::CObjectDetector::RemoveIntersectedRects( CvSeq* pObjRects )
 {
 	float fThreRatio = 0.6f;
 	for( int ii = 0; ii < (pObjRects?pObjRects->total:0); ii++ )
@@ -457,7 +457,7 @@ void Kings::Imaging::CBkg::RemoveIntersectedRects( CvSeq* pObjRects )
 	}
 }
 
-int Kings::Imaging::CBkg::CountPts( IplImage* pSrcImg )
+int Kings::Imaging::CObjectDetector::CountPts( IplImage* pSrcImg )
 {
 	int iCnt = 0;
 	for (int i=0; i<pSrcImg->height; i++)
@@ -472,7 +472,7 @@ int Kings::Imaging::CBkg::CountPts( IplImage* pSrcImg )
 	return iCnt;
 }
 
-bool Kings::Imaging::CBkg::DynThreshold( const CvMat* src, const CvMat* refer, IplImage* dst, float fThRatio, float fThMin, float fThMax )
+bool Kings::Imaging::CObjectDetector::DynThreshold( const CvMat* src, const CvMat* refer, IplImage* dst, float fThRatio, float fThMin, float fThMax )
 {
 	int w = dst->width;
 	int h = dst->height;
@@ -513,7 +513,7 @@ bool Kings::Imaging::CBkg::DynThreshold( const CvMat* src, const CvMat* refer, I
 
 
 
-void Kings::Imaging::CBkg::RemoveShadow(IplImage* pDiffImg, CvMat *pBkgMat, CvMat *pCurMat)
+void Kings::Imaging::CObjectDetector::RemoveShadow(IplImage* pDiffImg, CvMat *pBkgMat, CvMat *pCurMat)
 {
 	double dRB, dGB, dBB, dRF, dGF, dBF, dMax, dLF, dLB;
 	double dCF1, dCF2, dCF3, dCB1, dCB2, dCB3;
@@ -610,7 +610,7 @@ void Kings::Imaging::CBkg::RemoveShadow(IplImage* pDiffImg, CvMat *pBkgMat, CvMa
 
 
 #ifdef CODEREF_OLDPROC
-void Kings::Imaging::CBkg::Process( IplImage* pFrame )
+void Kings::Imaging::CObjectDetector::Process( IplImage* pFrame )
 {
 	bool bDetShadow = false;
 	bool bProcWholeIllumChange = false;
