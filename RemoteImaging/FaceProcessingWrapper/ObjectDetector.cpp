@@ -1,6 +1,7 @@
 #pragma once
 
 #include <stdafx.h>
+#include <cxcore.h>
 #include "../../FaceProcessing/FaceProcessing/ObjDetect.h"
 
 
@@ -20,14 +21,37 @@ namespace FaceProcessingWrapper
 		}
 
 		//设置pFrame进入背景，请确保SetBkg与FrameProcess不会同时被调用
-		void UpdateBackground( OpenCvSharp::IplImage background )
+		void UpdateBackground( OpenCvSharp::IplImage^ background )
 		{
-			pDetector->SetBkg( (IplImage*) background.CvPtr.ToPointer());
+			pDetector->SetBkg( (IplImage*) background->CvPtr.ToPointer());
 		}
 
-		array<OpenCvSharp::CvRect>^ ProcessFrame( IplImage* pFrame )//处理当前帧
+		array<OpenCvSharp::CvRect>^ ProcessFrame( OpenCvSharp::IplImage^ frame )//处理当前帧
 		{
-		    return gcnew array<OpenCvSharp::CvRect>(0);
+			pDetector->FrameProcess( (IplImage*) frame->CvPtr.ToPointer() );
+			
+			CvSeq *Rects = NULL;
+			pDetector->GetObjRects( Rects );
+
+			if (Rects == NULL)
+			{
+				return gcnew array<OpenCvSharp::CvRect>(0);
+			}
+
+			array<OpenCvSharp::CvRect>^ managed = gcnew array<OpenCvSharp::CvRect>(Rects->total);
+			for (int i=0; i<Rects->total; ++i)
+			{
+				CvRect *native = (CvRect*) cvGetSeqElem( Rects, i);
+				OpenCvSharp::CvRect mr;
+				mr.X = native->x;
+				mr.Y = native->y;
+				mr.Width = native->width;
+				mr.Height = native->height;
+
+				managed[i] = mr;
+			}
+
+		    return managed;
 		}
 		
 		void SetBkgUpRatio( float fUpRatio )//设置背景更新系数
