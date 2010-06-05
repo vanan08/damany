@@ -3,7 +3,7 @@
 
 using namespace System::Runtime::InteropServices;
 
-Frame FaceProcessingWrapper::FrameConverter::ToUnManaged(Damany::Imaging::Common::Frame^ managed)
+Frame FaceProcessingWrapper::Converter::ToUnManaged(Damany::Imaging::Common::Frame^ managed)
 {
 	Frame unmanaged;
 
@@ -15,5 +15,26 @@ Frame FaceProcessingWrapper::FrameConverter::ToUnManaged(Damany::Imaging::Common
 	return unmanaged;
 }
 
+CvRect FaceProcessingWrapper::Converter::ToNativeRect( OpenCvSharp::CvRect managedRect )
+{
+	CvRect rect;
+	rect.x = managedRect.X;
+	rect.y = managedRect.Y;
+	rect.width = managedRect.Width;
+	rect.height = managedRect.Height;
 
+	return rect;
+}
+
+OpenCvSharp::CvRect FaceProcessingWrapper::Converter::ToManagedRect( CvRect nativeRect )
+{
+	OpenCvSharp::CvRect managed;
+	managed.X = nativeRect.x;
+	managed.Y = nativeRect.y;
+	managed.Width = nativeRect.width;
+	managed.Height = nativeRect.height;
+
+	return managed;
+
+}
 
