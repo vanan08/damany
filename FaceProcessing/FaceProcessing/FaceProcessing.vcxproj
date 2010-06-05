@@ -134,6 +134,7 @@
     <ClCompile Include="LightCorrect.cpp" />
     <ClCompile Include="MotionDetector.cpp" />
     <ClCompile Include="ObjDetect.cpp" />
+    <ClCompile Include="ObjStableDetect.cpp" />
     <ClCompile Include="similay.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -156,6 +157,7 @@
     <ClInclude Include="LightCorrect.h" />
     <ClInclude Include="MotionDetector.h" />
     <ClInclude Include="ObjDetect.h" />
+    <ClInclude Include="ObjStableDetect.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="similay.h" />
     <ClInclude Include="stdafx.h" />

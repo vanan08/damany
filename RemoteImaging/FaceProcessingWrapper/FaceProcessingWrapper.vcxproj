@@ -143,6 +143,7 @@
     <ClCompile Include="Lbp.cpp" />
     <ClCompile Include="MotionDetector.cpp" />
     <ClCompile Include="ObjectDetector.cpp" />
+    <ClCompile Include="StableObjectDetector.cpp" />
     <ClCompile Include="StaticFunctions.cpp" />
     <ClCompile Include="Stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
