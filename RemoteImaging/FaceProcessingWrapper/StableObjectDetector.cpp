@@ -26,17 +26,19 @@ namespace FaceProcessingWrapper
 
 		array<OpenCvSharp::CvRect>^ DetectStableObjects(array<OpenCvSharp::CvRect>^ objects)
 		{
-			CvSeq seq;
+			CvMemStorage *pCurrentImageObjRectSeqMem = cvCreateMemStorage(0);
+	        CvSeq *seq = cvCreateSeq( 0, sizeof(CvSeq), sizeof(CvRect), pCurrentImageObjRectSeqMem);
 
+			
 			for (int i=0;i<objects->Length; ++i)
 			{
-				CvRect *pNative = new CvRect();
-				*pNative =  Converter::ToNativeRect(objects[i]);
+				CvRect native;
+				native =  Converter::ToNativeRect(objects[i]);
 
-				cvSeqPush(&seq, pNative);
+				cvSeqPush(seq, &native);
 			}
 
-			pDetector->StableDetect(&seq);
+			pDetector->StableDetect(seq);
 
 			list<CvRect> stable;
 			pDetector->GetStableObjRects(stable);
@@ -51,6 +53,8 @@ namespace FaceProcessingWrapper
 				++i;
 			}
 			
+			cvClearSeq( seq );
+
 			return returnRects;
 		}
 
