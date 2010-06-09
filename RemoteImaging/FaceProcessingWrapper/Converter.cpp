@@ -18,9 +18,9 @@ Frame FaceProcessingWrapper::Converter::ToUnManaged(Damany::Imaging::Common::Fra
 CvRect FaceProcessingWrapper::Converter::ToNativeRect( OpenCvSharp::CvRect managedRect )
 {
 	CvRect rect;
-	rect.x = managedRect.X;
-	rect.y = managedRect.Y;
-	rect.width = managedRect.Width;
+	rect.x      = managedRect.X;
+	rect.y      = managedRect.Y;
+	rect.width  = managedRect.Width;
 	rect.height = managedRect.Height;
 
 	return rect;
@@ -29,9 +29,9 @@ CvRect FaceProcessingWrapper::Converter::ToNativeRect( OpenCvSharp::CvRect manag
 OpenCvSharp::CvRect FaceProcessingWrapper::Converter::ToManagedRect( CvRect nativeRect )
 {
 	OpenCvSharp::CvRect managed;
-	managed.X = nativeRect.x;
-	managed.Y = nativeRect.y;
-	managed.Width = nativeRect.width;
+	managed.X      = nativeRect.x;
+	managed.Y      = nativeRect.y;
+	managed.Width  = nativeRect.width;
 	managed.Height = nativeRect.height;
 
 	return managed;

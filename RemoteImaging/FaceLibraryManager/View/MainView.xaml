@@ -94,11 +94,12 @@
                                     <RowDefinition />
                                 </Grid.RowDefinitions>
                                 <DockPanel Grid.Row="1">
-                                    <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
+                                    <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Center">
                                         <Button Margin="5"  x:Name="deleteButton" DataContext="{Binding}" Command="{Binding Path=DeleteSuspect}" Click="deleteButton_Click">
                                             <Image Height="22" Source="/FaceLibraryManager;component/Images/delete.gif" />
                                         </Button>
-                                        <Slider Margin="5" Minimum="25" Maximum="100" VerticalAlignment="Center" Width="100" Value="{Binding Source={StaticResource scaleFactor}, Path=Text}" />
+                                        <Label Content="缩放比例:" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5,0,0,0"/>
+                                        <Slider Margin="5" Minimum="25" Maximum="100" VerticalAlignment="Center" Width="100" Value="{Binding Text, Source={StaticResource scaleFactor}}" />
                                     </StackPanel>
                                     <ListView Margin="3,0"
                                         SelectedItem="{Binding SelectedSuspect, Mode=OneWayToSource}"  

@@ -23,11 +23,11 @@ namespace RemoteImaging
                               SearchLineBuilder.SearchLineFactory searchLineFactory,
                               FaceComparer comparer)
         {
-            this._mainForm = mainForm;
+            this._mainForm      = mainForm;
             this._configManager = configManager;
-            _repository = repository;
-            _searchLineFactory = searchLineFactory;
-            _comparer = comparer;
+            _repository         = repository;
+            _searchLineFactory  = searchLineFactory;
+            _comparer           = comparer;
 
         }
 
@@ -41,7 +41,7 @@ namespace RemoteImaging
             this._comparer.Comparer.SetSensitivity(Properties.Settings.Default.LbpThreshold);
 
             this._mainForm.Cameras = this._configManager.GetCameras().ToArray();
-            var camToStart = this._configManager.GetCameras();
+            var camToStart         = this._configManager.GetCameras();
 
             if (camToStart.Count == 1)
             {
@@ -107,7 +107,7 @@ namespace RemoteImaging
             {
                 try
                 {
-                    var builder = _searchLineFactory(cam);
+                    var builder       = _searchLineFactory(cam);
                     var camController = builder.Build();
 
                     camController.Start();

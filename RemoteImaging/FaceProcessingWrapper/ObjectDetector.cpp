@@ -43,9 +43,9 @@ namespace FaceProcessingWrapper
 			{
 				CvRect *native = (CvRect*) cvGetSeqElem( Rects, i);
 				OpenCvSharp::CvRect mr;
-				mr.X = native->x;
-				mr.Y = native->y;
-				mr.Width = native->width;
+				mr.X      = native->x;
+				mr.Y      = native->y;
+				mr.Width  = native->width;
 				mr.Height = native->height;
 
 				managed[i] = mr;
@@ -62,9 +62,9 @@ namespace FaceProcessingWrapper
 		void SetROI( OpenCvSharp::CvRect roi )//请在第一次调用FrameProcess前进行设置，否则该设置不生效
 		{
 			CvRect native;
-			native.x = roi.X;
-			native.y = roi.Y;
-			native.width = roi.Width;
+			native.x      = roi.X;
+			native.y      = roi.Y;
+			native.width  = roi.Width;
 			native.height = roi.Height;
 
 			pDetector->SetROI(native);
