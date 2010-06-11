@@ -7,9 +7,9 @@ namespace SearchCamera
     {
         public ParseResult<CameraInfo> ParsePacket(System.Net.IPEndPoint sender, byte[] buffer)
         {
-            var netOrder = BitConverter.ToUInt16(buffer, 0);
+            var netOrder = BitConverter.ToInt16(buffer, 0);
 
-            var packetType = IPAddress.NetworkToHostOrder( (short) netOrder );
+            var packetType = IPAddress.NetworkToHostOrder(  netOrder );
             if (packetType == PacketType.DistributionRequest)
             {
                 var builder = new System.Text.StringBuilder();
