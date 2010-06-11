@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Sockets;
 using System.Net;
 using System.Text;
+using MiscUtil;
 
 namespace SearchCamera
 {
@@ -11,8 +12,9 @@ namespace SearchCamera
     {
         private UdpClient _socket;
         private List<IPAddress> _ips = new List<IPAddress>();
+        private readonly DistributionRequestParser CameraInfoParser = new DistributionRequestParser();
 
-        public event EventHandler<CameraFoundArgs> CameraFound;
+        public event EventHandler< MiscUtil.EventArgs<CameraInfo> > NewCamera;
 
 
         public CameraSearcher()
@@ -54,15 +56,29 @@ namespace SearchCamera
             while (true)
             {
                 var remoteEndpoint = new IPEndPoint(IPAddress.Any, 0);
-                _socket.Receive(ref remoteEndpoint);
+                var buffer = _socket.Receive(ref remoteEndpoint);
 
-                if (CameraFound != null)
+                var result = CameraInfoParser.ParsePacket(remoteEndpoint, buffer);
+                if (result.Handled)
                 {
-                    var args = new CameraFoundArgs();
-                    args.CameraIp = remoteEndpoint.Address.ToString();
-                    CameraFound(this, args);
+                    FireNewCameraEvent(result.Data);
                 }
+               
 
+            }
+        }
+
+        private void HandlePacket(System.Net.IPEndPoint sender, byte[] buffer)
+        {
+           
+        }
+
+        private void FireNewCameraEvent( CameraInfo cameraInfo )
+        {
+            if (NewCamera != null)
+            {
+                var args = new MiscUtil.EventArgs<CameraInfo>(cameraInfo);
+                NewCamera(this, args);
             }
         }
     }

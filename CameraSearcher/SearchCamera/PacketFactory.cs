@@ -4,7 +4,7 @@ namespace SearchCamera
 {
     internal static class PacketFactory
     {
-        public static Packet<short> CreateDistributionStart(PacketType type)
+        public static Packet<short> CreateDistributionStart(short type)
         {
             var p = new DistributionStartDataPacket();
             p.Header.Command = 0x4031;

@@ -22,6 +22,17 @@ namespace CameraSearcher.Models
             }
         }
 
+        private string _mac;
+        public string Mac
+        {
+            get { return _mac; }
+            set
+            {
+                _mac = value;
+                FirePropertyChanged("Mac");
+            }
+        }
+
         private DateTime _lastSeenActive;
         public DateTime LastSeenActive
         {

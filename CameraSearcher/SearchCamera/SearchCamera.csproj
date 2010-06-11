@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MiscUtil">
+      <HintPath>..\..\Library\MiscUtil\MiscUtil.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -40,15 +43,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CameraFoundArgs.cs" />
     <Compile Include="CameraSearcher.cs" />
+    <Compile Include="DistributionRequest.cs" />
+    <Compile Include="DistributionRequestParser.cs" />
+    <Compile Include="DistributionStartDataPacket.cs" />
+    <Compile Include="IPacketParser.cs" />
     <Compile Include="PacketAssembler.cs" />
     <Compile Include="PacketFactory.cs" />
     <Compile Include="Header.cs" />
-    <Compile Include="DistributionStartDataPacket.cs" />
+    <Compile Include="CameraInfo.cs" />
     <Compile Include="Packet.cs" />
     <Compile Include="PacketTransmitter.cs" />
     <Compile Include="PacketType.cs" />
+    <Compile Include="ParseResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
