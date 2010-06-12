@@ -11,7 +11,7 @@ Damany::Imaging::FaceCompare::LBP::LBP(int width, int height, int blockWidth, in
 	flagwidth = widthsize/blockwidth;
 	flagheight = heightsize/blockheight;
 	num1 = flagheight*flagwidth;
-	num2 = 26;
+	num2 = dim;
 
 	SetCoeff();
 	faceCount = 0; 
@@ -810,8 +810,8 @@ int Damany::Imaging::FaceCompare::LBP::LBP243(IplImage* imgDst, int blockwidth, 
 			{
 				cvSetImageROI(imgDst, cvRect(i*blockwidth,j*blockheight,blockwidth,blockheight));
 				cvCopy(imgDst, ipatch);	
-				RotateInvariantLBP(ipatch, hst[j*flagheight+i]); 
-				cvResetImageROI(imgDst);
+				RotateInvariantLBP(ipatch, hst[j*flagwidth+i]);
+				cvResetImageROI(imgDst); 
 			}
 		}
 	}
@@ -918,6 +918,12 @@ void Damany::Imaging::FaceCompare::LBP::CalcFace(IplImage* destImg, float score[
 void Damany::Imaging::FaceCompare::LBP::CmpFace(IplImage* destImg, CvRect& destRect, float score[])
 {
 	cvSetImageROI(destImg, destRect);
+	IplImage* pImg = cvCreateImage(cvSize(destRect.width,destRect.height), 8, 1);
+	cvCopy(destImg, pImg);
+	LightAdjuest(pImg);
+	cvCopy(pImg, destImg);
+	cvReleaseImage(&pImg);
+
 	CalcFace(destImg, score);
 	cvResetImageROI(destImg); 
 }
@@ -944,6 +950,7 @@ void Damany::Imaging::FaceCompare::LBP::LoadImages(IplImage* imgs[], int count)
 	int colIndex = 0; 
 	for (int k=0; k<faceCount; k++)
 	{
+		LightAdjuest(imgs[k]);
 		CalcBlockLBP(imgs[k], hst); 
 		CalcAvg(hst, num1, num2); 
 
@@ -965,4 +972,37 @@ void Damany::Imaging::FaceCompare::LBP::LoadImages(IplImage* imgs[], int count)
 		delete[] hst[i];
 	}
 	delete[] hst; 
+}
+
+void Damany::Imaging::FaceCompare::LBP::LightAdjuest(IplImage* grayImg)
+{
+	CvScalar avg = cvAvg(grayImg);
+	float avgVal = avg.val[0];
+
+	IplImage* temp = cvCreateImage(cvGetSize(grayImg), 8, 1);
+	IplImage* img = cvCreateImage(cvGetSize(grayImg), 8, 1);
+
+	if (avgVal < 50)
+	{
+		cvSmooth(grayImg, temp, CV_GAUSSIAN, 7, 7);
+		cvEqualizeHist(temp, img); 
+	}
+	else if (avgVal < 100)
+	{
+		cvSmooth(grayImg, temp, CV_GAUSSIAN, 7, 7);
+		cvEqualizeHist(temp, img); 
+	}
+	else if (avgVal < 150)
+	{
+		cvSmooth(grayImg, img, CV_GAUSSIAN, 5, 5);
+	}
+	else 
+	{
+		GammaCorrect(grayImg, img, 0, 0.9, 0.1, 0.6, 2); 
+	}
+
+	cvCopy(img, grayImg); 
+
+	cvReleaseImage(&temp);
+	cvReleaseImage(&img);
 }
