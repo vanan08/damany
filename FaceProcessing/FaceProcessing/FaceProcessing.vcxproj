@@ -59,6 +59,10 @@
     <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
     <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
     <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Program Files\OpenCV\lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Program Files\OpenCV\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Program Files\OpenCV\otherlibs\highgui;C:\Program Files\OpenCV\cxcore\include;C:\Program Files\OpenCV\cv\include;C:\Program Files\OpenCV\cvaux\include;$(IncludePath)</IncludePath>
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Program Files\OpenCV\otherlibs\highgui;C:\Program Files\OpenCV\cxcore\include;C:\Program Files\OpenCV\cv\include;C:\Program Files\OpenCV\cvaux\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Midl>
@@ -133,6 +137,8 @@
     <ClCompile Include="LBP.cpp" />
     <ClCompile Include="LightCorrect.cpp" />
     <ClCompile Include="MotionDetector.cpp" />
+    <ClCompile Include="ObjDetect.cpp" />
+    <ClCompile Include="ObjStableDetect.cpp" />
     <ClCompile Include="similay.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -154,6 +160,8 @@
     <ClInclude Include="LBP.h" />
     <ClInclude Include="LightCorrect.h" />
     <ClInclude Include="MotionDetector.h" />
+    <ClInclude Include="ObjDetect.h" />
+    <ClInclude Include="ObjStableDetect.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="similay.h" />
     <ClInclude Include="stdafx.h" />
