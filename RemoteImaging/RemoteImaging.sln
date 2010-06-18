@@ -43,7 +43,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuspectsRepository", "Suspe
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FaceProcessingWrapper", "FaceProcessingWrapper\FaceProcessingWrapper.vcxproj", "{02B00EA5-D734-429C-BF58-44769501B940}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FaceProcessingWrapper.Test", "FaceProcessingWrapper.Test\FaceProcessingWrapper.Test.csproj", "{7F738107-2BE8-474F-B375-BAFD537018EA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Imaging.Test", "FaceProcessingWrapper.Test\Imaging.Test.csproj", "{7F738107-2BE8-474F-B375-BAFD537018EA}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FaceProcessing", "..\FaceProcessing\FaceProcessing\FaceProcessing.vcxproj", "{62BA9C03-0951-40C4-B2B9-EDABC8815177}"
 EndProject
