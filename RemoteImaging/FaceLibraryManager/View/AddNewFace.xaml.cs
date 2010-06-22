@@ -24,7 +24,7 @@ namespace FaceLibraryManager.View
     /// </summary>
     public partial class AddNewFace : Window
     {
-        private static FaceSearchWrapper.FaceSearch searcher 
+        private static FaceSearchWrapper.FaceSearch searcher
             = new FaceSearch();
 
 
@@ -47,11 +47,11 @@ namespace FaceLibraryManager.View
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
-                string[] files = (string[]) e.Data.GetData(DataFormats.FileDrop);
+                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
                 string extenstion = System.IO.Path.GetExtension(files[0]);
-                if (string.Compare(extenstion, ".jpg", false) == 0)
+                if (string.Compare(extenstion, ".jpg", true) == 0)
                 {
-                    var vm = (ViewModel.AddSuspectViewModel) this.DataContext;
+                    var vm = (ViewModel.AddSuspectViewModel)this.DataContext;
                     vm.CurrentSuspect.ImageFilePath = files[0];
 
                     using (var ipl = IplImage.FromFile(files[0]))
@@ -89,6 +89,6 @@ namespace FaceLibraryManager.View
             DialogResult = true;
         }
 
-    
+
     }
 }
