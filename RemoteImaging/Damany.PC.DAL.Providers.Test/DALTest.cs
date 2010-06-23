@@ -39,7 +39,6 @@ namespace Damany.PC.DAL.Providers.Test
 
             var portrait = new Portrait(Data.GetPortrait());
             portrait.FaceBounds = new OpenCvSharp.CvRect(0, 0, 100, 100);
-            portrait.FrameId = frame.Guid;
             portrait.CapturedFrom = mockCamera;
 
             repository.SavePortrait(portrait);

@@ -13,8 +13,7 @@ namespace Damany.PortraitCapturer.DAL.DTO
         public System.Guid Guid { get; set; }
 
         public OpenCvSharp.CvRect FaceBounds { get; set; }
-        public Guid FrameId { get; set; }
-
+        public Frame Frame { get; set; }
         public string Path { get; set; }
     }
 }

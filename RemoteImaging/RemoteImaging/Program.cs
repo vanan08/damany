@@ -64,10 +64,18 @@ namespace RemoteImaging
                 mainForm.ButtonsVisible =
                     (ButtonsVisibleSectionHandler) System.Configuration.ConfigurationManager.GetSection("FaceDetector.ButtonsVisible");
 
-                StartLicensePlateMonitor(strapper.Container);
-                WireupNavigation(strapper.Container);
+                try
+                {
+                    StartLicensePlateMonitor(strapper.Container);
+                    WireupNavigation(strapper.Container);
 
-                RegisterLicensePlateRepository(strapper);
+                    RegisterLicensePlateRepository(strapper);
+                }
+                catch (Exception e)
+                {
+                    HandleException(e);
+                    
+                }
 
                 Application.Run(mainForm);
 
@@ -99,6 +107,11 @@ namespace RemoteImaging
             {
                 if (cam.LicensePlateUploadDirectory != null)
                 {
+                    if (!System.IO.Directory.Exists(cam.LicensePlateUploadDirectory))
+                    {
+                        throw new System.IO.DirectoryNotFoundException(@"车牌上传目录 """ + cam.LicensePlateUploadDirectory + "\"不存在，请重新配置系统！");
+                    }
+
                     var m = factory.Invoke(cam.LicensePlateUploadDirectory);
                     m.CameraId = cam.Id;
                     m.Configuration = (LicenseParsingConfig) System.Configuration.ConfigurationManager.GetSection("LicenseParsingConfig");

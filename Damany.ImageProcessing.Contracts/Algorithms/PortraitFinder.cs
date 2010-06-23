@@ -147,7 +147,7 @@ namespace Damany.Imaging.Processors
                                    select new Portrait(p.Face)
                                    {
                                        FaceBounds = FrameToPortrait(p.FacesRect, p.FacesRectForCompare),
-                                       FrameId = frame.Frame.Guid,
+                                       Frame = frame.Frame,
                                        CapturedAt = frame.Frame.CapturedAt,
                                        CapturedFrom = frame.Frame.CapturedFrom,
                                    };

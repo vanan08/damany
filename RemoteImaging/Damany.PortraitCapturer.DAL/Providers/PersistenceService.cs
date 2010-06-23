@@ -56,6 +56,7 @@ namespace Damany.PortraitCapturer.DAL.Providers
         {
             this.CheckStarted();
 
+            portrait.Frame.CapturedAt = portrait.Frame.CapturedAt.ToUniversalTime();
             portrait.CapturedAt = portrait.CapturedAt.ToUniversalTime();
 
             var dto = Mapper.Map<Portrait, DAL.DTO.Portrait>(portrait);
@@ -64,6 +65,7 @@ namespace Damany.PortraitCapturer.DAL.Providers
             portrait.GetIpl().SaveImage(absolutePath);
 
             portrait.CapturedAt = portrait.CapturedAt.ToLocalTime();
+            portrait.CapturedAt = portrait.Frame.CapturedAt.ToLocalTime();
 
         }
 
@@ -236,12 +238,12 @@ namespace Damany.PortraitCapturer.DAL.Providers
                 System.IO.Directory.CreateDirectory(image_dir);
 
                 var storePath = System.IO.Path.Combine(root_dir, "images.db4o");
-                this.dataProvider = new Db4oProvider(storePath);
+                this.dataProvider = new Damany.PortraitCapturer.DAL.Providers.Db4oProvider(storePath);
                 this.dataProvider.StartServer();
             }
         }
 
-        private string ObjToPathMapper(CapturedObject obj)
+        private string ObjToPathMapper(Damany.Imaging.Common.CapturedObject obj)
         {
             var relativePath = string.Format("{0}\\{1}\\{2}\\{3}\\{4}.jpg",
                 obj.CapturedAt.Year,

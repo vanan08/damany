@@ -42,7 +42,7 @@ namespace RemoteImaging.Query
         {
             if (this.view.SelectedPortrait == null) return;
 
-            var frame = this.repository.GetFrame(this.view.SelectedPortrait.FrameId);
+            var frame = this.view.SelectedPortrait.Frame;
 
             this.view.WholeImage = frame.GetImage().ToBitmap();
             frame.Dispose();
