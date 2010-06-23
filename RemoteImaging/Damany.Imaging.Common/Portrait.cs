@@ -87,7 +87,7 @@ namespace Damany.Imaging.Common
 
 
         public OpenCvSharp.CvRect FaceBounds { get; set; }
-        public Guid FrameId { get; set; }
+        public Frame Frame { get; set; }
 
         IplImage portraitImage;
         string path;

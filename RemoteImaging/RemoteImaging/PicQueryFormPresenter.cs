@@ -63,10 +63,14 @@ namespace RemoteImaging
 
             this.screen.CurrentPortrait = item;
 
-            var frame = repository.GetFrame(item.FrameId);
+            var frame = item.Frame;
 
-            this.screen.CurrentBigPicture = frame.GetImage().ToBitmap();
-            
+            if (frame != null)
+            {
+                this.screen.CurrentBigPicture = frame.GetImage().ToBitmap();
+            }
+
+
         }
 
         public void Start()

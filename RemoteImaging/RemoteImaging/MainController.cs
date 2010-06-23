@@ -66,7 +66,7 @@ namespace RemoteImaging
 
             System.Threading.ThreadPool.QueueUserWorkItem(delegate
                                                               {
-                                                                  var f = _repository.GetFrame(p.FrameId);
+                                                                  var f = p.Frame;
                                                                   _mainForm.BigImage = f;
 
                                                               });
