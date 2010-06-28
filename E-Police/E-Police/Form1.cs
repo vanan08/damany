@@ -14,6 +14,7 @@ namespace E_Police
         public Form1()
         {
             InitializeComponent();
+            var i = 3;
         }
 
         #region ITrafficEventInputScreen Members
