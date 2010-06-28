@@ -5861,12 +5861,16 @@ bool CFaceSelect::JudgeFaceByColor( IplImage* pImg )
     int h = pImg->height;
     int w = pImg->width;
 
+    int nMRThre = 60;
     float fRcRat = 0.15f;
     float fGcRat = 0.15f;
-    float fGBcRat = 0.1f;
+    float fGBcRat = 0.15f;
     int nOverThr = 240;
-    int nMmThre = 10;
+    int nMmThre = 5;
     int nAbNorm = 0;
+    int nAbNormR = 0;
+    int nAbNormG = 0;
+    int nAbNormB = 0;
     int nNorm = 0;
     int nOvers = 0;
     for( i = 0; i < h; i++ )
@@ -5878,56 +5882,75 @@ bool CFaceSelect::JudgeFaceByColor( IplImage* pImg )
             int G = ptr[ 3 * j + 1 ];
             int R = ptr[ 3 * j + 2 ];
 
-            if( R > G && R > B )
+            if( R > G 
+                //&& R > B
+                )
             {
                 nNorm++;
             }
 
-            if( ( R - G ) > int( (float)R * fRcRat )
-                && ( R - B ) > int( (float)R * fRcRat ) )
+            if( ( R - G ) > nMRThre 
+                && ( R - B ) > nMRThre 
+                )
             {
                 nAbNorm++;
+                nAbNormR++;
+            }
+
+            if( ( R - G ) > int( (float)R * fRcRat )
+                && ( R - B ) > int( (float)R * fRcRat )
+                && B > G )
+            {
+                nAbNorm++;
+                nAbNormR++;
             }
 
             if( ( G - R ) > int( (float)G * fGcRat ) )
             {
                 nAbNorm++;
+                nAbNormG++;
             }
 
-            if( R > nOverThr || G > nOverThr || B > nOverThr )
+            if( R > nOverThr && G > nOverThr && B > nOverThr )
             {
                 nAbNorm++;
             }
 
-            if( ( B - R ) > int( (float)B * fGBcRat ) )
+            if( ( B - R ) > int( (float)B * fGBcRat ) 
+                && B > 150 )
             {
                 nAbNorm++;
+                nAbNormB++;
             }
 
             int nMinVal = min( R, G );
             nMinVal = min( nMinVal, B );
             int nMaxVal = max( R, G );
             nMaxVal = max( nMaxVal, B );
-            if( nMaxVal - nMinVal < nMmThre )
+            if( nMaxVal - nMinVal < nMmThre 
+                && nMinVal > 200 )
             {
                 nOvers++;
             }
         }
     }
 
-    if( nAbNorm > int( (float)( w * h ) * 0.4f )
-        || nOvers > int( (float)( w * h )  * 0.5f ) 
-        )
+    if( nAbNorm > int( (float)( w * h ) * 0.5f ) )
     {
         bFace = false;
     }
 
-    //if( ( nAbNorm + nOvers ) > (float)(w * h) * 0.75f )
-    //{
-    //	bFace = false;
-    //}
+    if( nOvers > int( (float)( w * h )  * 0.5f ) )
+    {
+        bFace = false;
+    }
 
-    if( nNorm < (float)(w*h) * 0.5f )
+    if( ( nAbNorm + nOvers ) > (float)(w * h) * 0.8f )
+    {
+        bFace = false;
+    }
+
+    if( nNorm < (float)(w*h) * 0.6f )
     {
         bFace = false;
     }
