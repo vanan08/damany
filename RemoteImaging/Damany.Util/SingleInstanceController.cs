@@ -19,7 +19,7 @@ namespace Damany.Util
         {
             MainForm = new T();
             
-            int i = 0;
+           
         }
     }
 }
