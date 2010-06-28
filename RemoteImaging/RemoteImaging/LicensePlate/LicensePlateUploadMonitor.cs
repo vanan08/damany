@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Timers;
 using Damany.Util.Extensions;
 
 namespace RemoteImaging.LicensePlate
@@ -26,37 +27,50 @@ namespace RemoteImaging.LicensePlate
 
         public void Start()
         {
-            var watcher = new System.IO.FileSystemWatcher(_pathToMonitor);
-            watcher.IncludeSubdirectories = Configuration.IncludeSubdirectories;
-            watcher.Filter = Configuration.Filter;
-            watcher.Created += watcher_Created;
-            watcher.EnableRaisingEvents = true;
+            if (_timer == null)
+            {
+                _timer = new Timer();
+                _timer.Interval = Configuration.ScanInterval*1000;
+                _timer.AutoReset = false;
+                _timer.Elapsed += new ElapsedEventHandler(_timer_Elapsed);
+                _timer.Enabled = true;
+            }
             
         }
 
+        void _timer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            ScanDirectory();
+        }
+
+        private void ScanDirectory()
+        {
+            var files = System.IO.Directory.GetFiles(_pathToMonitor, Configuration.Filter);
+            foreach (var file in files)
+            {
+                ProcessFile(file);
+            }
+
+            _timer.Enabled = true;
+        }
    
 
-        void watcher_Created(object sender, FileSystemEventArgs e)
+        private void ProcessFile(string  filePath)
         {
-            if (!IsInterestedEvent(e)) return;
-
             try
             {
-                System.Threading.Thread.Sleep(2000);
-
-                var licensePlateInfo = ParsePath(e.FullPath);
+                var licensePlateInfo = ParsePath(filePath);
                 licensePlateInfo.CapturedFrom = CameraId;
-                licensePlateInfo.ImageData = File.ReadAllBytes(e.FullPath);
+                licensePlateInfo.ImageData = File.ReadAllBytes(filePath);
                 _plateEventPublisher.PublishLicensePlate(licensePlateInfo);
 
-                File.Delete(e.FullPath);
-
+                File.Delete(filePath);
             }
             catch (FormatException)
-            {
-                //should log exception here
-            }
-
+            {}
+            catch(System.IO.IOException)
+            {}
+            
         }
 
         private LicensePlateInfo ParsePath(string fullPath)
@@ -97,6 +111,7 @@ namespace RemoteImaging.LicensePlate
 
         private readonly ILicensePlateEventPublisher _plateEventPublisher;
         private readonly string _pathToMonitor;
+        private System.Timers.Timer _timer;
 
 
     }

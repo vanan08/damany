@@ -14,6 +14,7 @@ namespace RemoteImaging.LicensePlate
         private const string TimeSectionIndexName = "TimeSectionIndex";
         private const string SeparateCharName = "SeparateChar";
         private const string FilterName = "Filter";
+        private const string ScanIntervalName = "ScanInterval";
 
 
         [ConfigurationProperty(IncludeSubdirectoriesName, DefaultValue=true)]
@@ -97,6 +98,19 @@ namespace RemoteImaging.LicensePlate
             set
             {
                 this[FilterName] = value;
+            }
+        }
+
+        [ConfigurationProperty(ScanIntervalName, DefaultValue=30)]
+        public int ScanInterval
+        {
+            get
+            {
+                return (int) this[ScanIntervalName];
+            }
+            set
+            {
+                this[ScanIntervalName] = value;
             }
         }
     }
