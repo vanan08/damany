@@ -234,5 +234,8 @@ public:
 	bool CheckImageROI( IplImage* img, CvRect roi );
 	void FaceReDraw(IplImage *pImage, CvRect *rRealFace);
 //End -- 20090929 Add for Face Recognition Research
+
+private:
+	bool JudgeFaceByColor( IplImage* pImg );
 };
 
