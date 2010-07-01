@@ -49,10 +49,8 @@ namespace RemoteImaging.Query
             var type = this._screen.SearchScope;
 
 
-            Core.Video[] videos =
+            var videos =
                 new FileSystemStorage(Properties.Settings.Default.OutputPath).VideoFilesBetween(selectedCamera.Id, range.From, range.To);
-
-            if (videos.Length == 0) return;
 
             var frameQuery = _portraitRepository.GetFrames(selectedCamera.Id, range).ToArray();
             var portraitQuery = _portraitRepository.GetPortraits(selectedCamera.Id, range).ToArray();
@@ -62,8 +60,8 @@ namespace RemoteImaging.Query
             foreach (var v in videos)
             {
                 var queryTime = new DateTimeRange(v.CapturedAt, v.CapturedAt);
-                v.HasMotionDetected = frameQuery.FirstOrDefault(f => f.CapturedAt.RoundToMinute() == v.CapturedAt.RoundToMinute()) != null;
-                v.HasFaceCaptured = portraitQuery.FirstOrDefault(p => p.CapturedAt.RoundToMinute() == v.CapturedAt.RoundToMinute()) != null;
+                v.HasMotionDetected = _portraitRepository.FrameExists(selectedCamera.Id, v.CapturedAt);
+                v.HasFaceCaptured = _portraitRepository.PortraitExists(selectedCamera.Id, v.CapturedAt);
 
 
                 if (( type & SearchScope.FaceCapturedVideo)

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Damany.Imaging.Common
 {
@@ -12,6 +13,9 @@ namespace Damany.Imaging.Common
 
         IList<Frame> GetFrames(int cameraId, Damany.Util.DateTimeRange range);
         IList<Portrait> GetPortraits(int dameraId, Damany.Util.DateTimeRange range);
+
+        bool FrameExists(int cameraId, DateTime time);
+        bool PortraitExists(int cameraId, DateTime time);
 
         void DeletePortrait(System.Guid portraitId);
         void DeleteFrame(System.Guid frameId);
