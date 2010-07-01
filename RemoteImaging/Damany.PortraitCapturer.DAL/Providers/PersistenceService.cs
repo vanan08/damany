@@ -150,6 +150,16 @@ namespace Damany.PortraitCapturer.DAL.Providers
 
         }
 
+        public bool FrameExists(int cameraId, DateTime time)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool PortraitExists(int cameraId, DateTime time)
+        {
+            throw new NotImplementedException();
+        }
+
         public void DeletePortrait(System.Guid portraitId)
         {
             this.CheckStarted();

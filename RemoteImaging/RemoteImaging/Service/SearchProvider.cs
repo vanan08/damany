@@ -51,7 +51,7 @@ namespace RemoteImaging.Service
 
         public Video[] SearchVideos(int cameraID, DateTime from, DateTime to)
         {
-            RemoteImaging.Core.Video[] videos = new FileSystemStorage(Properties.Settings.Default.OutputPath).VideoFilesBetween(cameraID, from, to);
+            RemoteImaging.Core.Video[] videos = new FileSystemStorage(Properties.Settings.Default.OutputPath).VideoFilesBetween(cameraID, from, to).ToArray();
 
             Video[] serviceVideos = new Video[videos.Length];
 

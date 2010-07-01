@@ -211,7 +211,7 @@ namespace RemoteImaging
             }
         }
 
-        public RemoteImaging.Core.Video[] VideoFilesBetween(int cameraID, DateTime startLocalTime, DateTime endLocalTime)
+        public IEnumerable<RemoteImaging.Core.Video> VideoFilesBetween(int cameraID, DateTime startLocalTime, DateTime endLocalTime)
         {
             string rootFolder = Path.Combine(_outputRoot, cameraID.ToString("D2"));
 
