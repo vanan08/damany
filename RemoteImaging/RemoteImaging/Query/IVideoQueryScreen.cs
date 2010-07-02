@@ -16,6 +16,8 @@ namespace RemoteImaging.Query
         Damany.PC.Domain.CameraInfo SelectedCamera { get; }
         Damany.PC.Domain.CameraInfo[] Cameras { set; }
 
+        bool Busy { set; }
+
         void ClearAll();
         void ClearFacesList();
 

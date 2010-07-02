@@ -9,6 +9,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using Damany.PC.Domain;
+using Damany.RemoteImaging.Common.Forms;
 using Damany.Util;
 using RemoteImaging.Core;
 using Microsoft.Practices.EnterpriseLibrary.ExceptionHandling;
@@ -135,8 +136,55 @@ namespace RemoteImaging.Query
             }
         }
 
+        public bool Busy
+        {
+            set
+            {
+                if (InvokeRequired)
+                {
+                    Action<bool> ac = this.ShowBusyIndicator;
+                    this.BeginInvoke(ac, value);
+                }
+                else
+                {
+                    this.ShowBusyIndicator(value);
+                }
+
+                
+            }
+        }
+
+        private void ShowBusyIndicator(bool isbusy)
+        {
+            if (isbusy)
+            {
+                if (_busyIndicator == null)
+                {
+                    _busyIndicator = new ProgressForm();
+                    _busyIndicator.Text = "请稍候...";
+                    _busyIndicator.ShowDialog(this);
+                }
+               
+            }
+            else
+            {
+                if (_busyIndicator != null)
+                {
+                    _busyIndicator.Close();
+                    _busyIndicator = null;
+                }
+            }
+        }
+
         public void ClearAll()
         {
+            if (InvokeRequired)
+            {
+                Action ac = ClearAll;
+                this.BeginInvoke(ac);
+                return;
+            }
+
             this.videoList.Items.Clear();
             this.ClearFacesList();
         }
@@ -171,6 +219,13 @@ namespace RemoteImaging.Query
 
         public void AddVideo(RemoteImaging.Core.Video v)
         {
+            if (InvokeRequired)
+            {
+                Action<RemoteImaging.Core.Video> ac = AddVideo;
+                this.BeginInvoke(ac, v);
+                return;
+            }
+
             string videoPath = v.Path;
             DateTime dTime = ImageSearch.getDateTimeStr(v.Path);//"2009-6-29 14:00:00"
             var item = new ListViewItem();
@@ -242,5 +297,7 @@ namespace RemoteImaging.Query
         }
 
         #endregion
+
+        private Damany.RemoteImaging.Common.Forms.ProgressForm _busyIndicator;
     }
 }
