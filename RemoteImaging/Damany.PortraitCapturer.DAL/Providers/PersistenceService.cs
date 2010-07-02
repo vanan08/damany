@@ -65,7 +65,7 @@ namespace Damany.PortraitCapturer.DAL.Providers
             portrait.GetIpl().SaveImage(absolutePath);
 
             portrait.CapturedAt = portrait.CapturedAt.ToLocalTime();
-            portrait.CapturedAt = portrait.Frame.CapturedAt.ToLocalTime();
+            portrait.Frame.CapturedAt = portrait.Frame.CapturedAt.ToLocalTime();
 
         }
 
