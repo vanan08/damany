@@ -83,7 +83,7 @@ namespace RemoteImaging.LicensePlate
 
             try
             {
-                var time = strings[Configuration.TimeSectionIndex].Parse();
+                var time = strings[Configuration.TimeSectionIndex].Parse(); 
                 var number = strings[Configuration.LicensePlateSectionIndex];
 
                 licensePlateInfo.CaptureTime = time;

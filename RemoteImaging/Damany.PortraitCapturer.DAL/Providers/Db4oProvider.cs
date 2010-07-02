@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Damany.PortraitCapturer.DAL;
+using Db4objects.Db4o;
+using Db4objects.Db4o.CS;
+using Db4objects.Db4o.Config;
+using Db4objects.Db4o.Activation;
+using Db4objects.Db4o.Linq;
+using Db4objects.Db4o.TA;
 
 namespace Damany.PortraitCapturer.DAL.Providers
 {
@@ -17,7 +23,13 @@ namespace Damany.PortraitCapturer.DAL.Providers
         {
             if (this.server == null)
             {
-                this.server = Db4objects.Db4o.CS.Db4oClientServer.OpenServer(this.uriOfDb, 0);
+                var config = Db4oClientServer.NewServerConfiguration();
+                config.Common.Add(new TransparentActivationSupport());
+
+                var embconfig = Db4oEmbedded.NewConfiguration();
+                embconfig.Common.Add(new TransparentActivationSupport());
+                server = Db4oClientServer.OpenServer(config, this.uriOfDb, 0);
+
             }
         }
 
@@ -57,6 +69,15 @@ namespace Damany.PortraitCapturer.DAL.Providers
             return GetPortraitInternal(portraitId, container);
         }
 
+
+        public IEnumerable<DTO.Frame> GetFramesQuery()
+        {
+            var frameQuery = from DTO.Frame frame in OpenContainer()
+                             select frame;
+
+            return frameQuery;
+        }
+
         public IList<DTO.Frame> GetFrames(int cameraId, Damany.Util.DateTimeRange range)
         {
             var container = OpenContainer();
@@ -71,7 +92,6 @@ namespace Damany.PortraitCapturer.DAL.Providers
 
                 return flag;
             });
-
 
             return frames;
 
@@ -139,6 +159,17 @@ namespace Damany.PortraitCapturer.DAL.Providers
             {
                 container.Delete(p);
             }
+        }
+
+        public void DeleteFrame(DTO.Frame frame)
+        {
+            var container = OpenContainer();
+            container.Delete(frame);
+        }
+
+        public void Commit()
+        {
+            OpenContainer().Commit();
         }
 
         #endregion
