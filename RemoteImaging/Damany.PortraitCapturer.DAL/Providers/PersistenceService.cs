@@ -150,14 +150,19 @@ namespace Damany.PortraitCapturer.DAL.Providers
 
         }
 
+        public IEnumerable<Frame> GetFramesQuery()
+        {
+            return dataProvider.GetFramesQuery().Select(dto=>Mapper.Map<DTO.Frame, Frame>(dto));
+        }
+
         public bool FrameExists(int cameraId, DateTime time)
         {
-            throw new NotImplementedException();
+            return true;
         }
 
         public bool PortraitExists(int cameraId, DateTime time)
         {
-            throw new NotImplementedException();
+            return true;
         }
 
         public void DeletePortrait(System.Guid portraitId)

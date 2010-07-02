@@ -228,19 +228,15 @@ namespace RemoteImaging
 
                 if (File.Exists(path))
                 {
-
-                    videos.Add(new RemoteImaging.Core.Video
+                    yield return new RemoteImaging.Core.Video
                     {
                         Path = path,
                         CapturedAt = time.ToLocalTime(),
-                    });
+                    };
                 }
 
                 time = time.AddMinutes(1);
-
             }
-
-            return videos.ToArray();
 
         }
 

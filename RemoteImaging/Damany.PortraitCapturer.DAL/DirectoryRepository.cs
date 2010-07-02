@@ -48,6 +48,11 @@ namespace Damany.PortraitCapturer.DAL
             return portraits.ToList();
         }
 
+        public IEnumerable<Frame> GetFramesQuery()
+        {
+            throw new NotImplementedException();
+        }
+
         public bool FrameExists(int cameraId, DateTime time)
         {
             throw new NotImplementedException();
