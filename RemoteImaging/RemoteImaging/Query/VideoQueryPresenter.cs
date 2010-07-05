@@ -56,6 +56,14 @@ namespace RemoteImaging.Query
 
             _currentRange = new DateTimeRange(_range.From, _range.From.AddHours(1));
 
+            var videos = FindFirstVideo();
+            if (videos.Count <= 0)
+            {
+                return;
+            }
+
+            UpdateCurrentRange(videos);
+
             SearchAsync();
                                                              
         }
@@ -100,8 +108,10 @@ namespace RemoteImaging.Query
             if (_selectedCamera == null)
                 return;
 
-            _currentRange.From.AddHours(1);
-            _currentRange.To.AddHours(1);
+            _currentRange.From = _currentRange.From.AddHours(1);
+            _currentRange.To = _currentRange.To.AddHours(1);
+
+            SearchAsync();
         }
 
         public void PreviousPage()
@@ -111,6 +121,8 @@ namespace RemoteImaging.Query
 
             _currentRange.From.AddHours(-1);
             _currentRange.To.AddHours(-1);
+
+            SearchAsync();
         }
 
         public void FirstPage()
@@ -129,84 +141,112 @@ namespace RemoteImaging.Query
         {
             _screen.Busy = true;
 
+            try
+            {
+                List<Video> videos = 
+                new FileSystemStorage(
+                    Properties.Settings.Default.OutputPath).
+                    VideoFilesBetween(_selectedCamera.Id,
+                                      _currentRange.From, _currentRange.To).ToList(); ;
+
+                var watch = System.Diagnostics.Stopwatch.StartNew();
+                var frameQuery = _portraitRepository.GetFrames(_selectedCamera.Id, _currentRange);
+
+                var frameHash = new HashSet<DateTime>();
+                foreach (var g in frameQuery)
+                {
+                    var round = g.CapturedAt.RoundToMinute();
+                    frameHash.Add(round);
+                }
+
+                watch.Stop();
+                System.Diagnostics.Debug.WriteLine("frames search took " + watch.Elapsed);
+
+                watch.Start();
+
+                var portraitQuery =
+                    _portraitRepository.GetPortraits(
+                        _selectedCamera.Id, _currentRange).ToArray();
+                var portraitHash = new HashSet<DateTime>();
+                foreach (var portrait in portraitQuery)
+                {
+                    var round = portrait.CapturedAt.RoundToMinute();
+                    portraitHash.Add(round);
+                }
+
+                watch.Stop();
+                System.Diagnostics.Debug.WriteLine("portraits search took " + watch.Elapsed);
+
+                this._screen.ClearAll();
+
+                foreach (var v in videos)
+                {
+                    if (v.CapturedAt < _currentRange.From || v.CapturedAt > _currentRange.To)
+                    {
+                        continue;
+                    }
+
+                    v.HasMotionDetected =
+                        frameHash.Contains(v.CapturedAt);
+                    v.HasFaceCaptured =
+                        portraitHash.Contains(v.CapturedAt);
+
+
+                    if ((_scope & SearchScope.FaceCapturedVideo)
+                        == SearchScope.FaceCapturedVideo)
+                    {
+                        if (v.HasFaceCaptured)
+                        {
+                            _screen.AddVideo(v);
+                        }
+                    }
+
+                    if ((_scope & SearchScope.MotionWithoutFaceVideo)
+                        == SearchScope.MotionWithoutFaceVideo)
+                    {
+                        if (v.HasMotionDetected && !v.HasFaceCaptured)
+                        {
+                            _screen.AddVideo(v);
+                        }
+                    }
+
+                    if ((_scope & SearchScope.MotionLessVideo)
+                        == SearchScope.MotionLessVideo)
+                    {
+                        if (!v.HasFaceCaptured &&
+                            !v.HasMotionDetected)
+                        {
+                            _screen.AddVideo(v);
+                        }
+                    }
+
+                }
+
+            }
+            finally
+            {
+                _screen.Busy = false;
+            }
+          
+            
+        }
+
+        private List<Video> FindFirstVideo()
+        {
             var videos =
                 new FileSystemStorage(
                     Properties.Settings.Default.OutputPath).
                     VideoFilesBetween(_selectedCamera.Id,
-                                      _currentRange.From, _currentRange.To);
-
-            if (videos.Count() < 0)
-            {
-                return;
-            }
-
-            var frameQuery = _portraitRepository.GetFramesQuery()
-                .Where(
-                    frame =>
-                    frame.CapturedFrom.Id == _selectedCamera.Id
-                    && frame.CapturedAt >= _currentRange.From &&
-                    frame.CapturedAt <= _currentRange.To);
-
-            var frameHash = new HashSet<DateTime>();
-            foreach (var g in frameQuery)
-            {
-                var round = g.CapturedAt.RoundToMinute();
-                frameHash.Add(round);
-            }
+                                      _range.From, _range.To).ToList();
 
 
-            var portraitQuery =
-                _portraitRepository.GetPortraits(
-                    _selectedCamera.Id, _currentRange).ToArray();
-            var portraitHash = new HashSet<DateTime>();
-            foreach (var portrait in portraitQuery)
-            {
-                var round = portrait.CapturedAt.RoundToMinute();
-                portraitHash.Add(round);
-            }
+            return videos;
+        }
 
-
-            this._screen.ClearAll();
-
-            foreach (var v in videos)
-            {
-                v.HasMotionDetected =
-                    frameHash.Contains(v.CapturedAt);
-                v.HasFaceCaptured =
-                    portraitHash.Contains(v.CapturedAt);
-
-
-                if ((_scope & SearchScope.FaceCapturedVideo)
-                    == SearchScope.FaceCapturedVideo)
-                {
-                    if (v.HasFaceCaptured)
-                    {
-                        _screen.AddVideo(v);
-                    }
-                }
-
-                if ((_scope & SearchScope.MotionWithoutFaceVideo)
-                    == SearchScope.MotionWithoutFaceVideo)
-                {
-                    if (v.HasMotionDetected && !v.HasFaceCaptured)
-                    {
-                        _screen.AddVideo(v);
-                    }
-                }
-
-                if ((_scope & SearchScope.MotionLessVideo)
-                    == SearchScope.MotionLessVideo)
-                {
-                    if (!v.HasFaceCaptured &&
-                        !v.HasMotionDetected)
-                    {
-                        _screen.AddVideo(v);
-                    }
-                }
-
-            }
-
-            _screen.Busy = false;
+        private void UpdateCurrentRange(List<Video> videos)
+        {
+            _currentRange.From = videos.First().CapturedAt;
+            _currentRange.To = _currentRange.From.AddHours(1);
         }
     }
 }

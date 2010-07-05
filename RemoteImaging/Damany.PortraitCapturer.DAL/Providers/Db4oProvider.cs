@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Damany.PortraitCapturer.DAL;
+using Damany.Util;
 using Db4objects.Db4o;
 using Db4objects.Db4o.CS;
 using Db4objects.Db4o.Config;
@@ -12,6 +13,8 @@ using Db4objects.Db4o.TA;
 
 namespace Damany.PortraitCapturer.DAL.Providers
 {
+    using DTO;
+
     public class Db4oProvider
     {
         public Db4oProvider(string dataBaseFile)
@@ -70,9 +73,10 @@ namespace Damany.PortraitCapturer.DAL.Providers
         }
 
 
-        public IEnumerable<DTO.Frame> GetFramesQuery()
+        public IEnumerable<DTO.Frame> GetFramesQuery(int cameraId, DateTimeRange range)
         {
             var frameQuery = from DTO.Frame frame in OpenContainer()
+                             where cameraId == frame.SourceId && frame.CapturedAt >= range.From && frame.CapturedAt <= range.To
                              select frame;
 
             return frameQuery;
@@ -80,39 +84,27 @@ namespace Damany.PortraitCapturer.DAL.Providers
 
         public IList<DTO.Frame> GetFrames(int cameraId, Damany.Util.DateTimeRange range)
         {
+            var queryHistory = new HashSet<DateTime>();
             var container = OpenContainer();
-            var frames = container.Query<DTO.Frame>(frame =>
-            {
-                bool flag = frame.CapturedAt >= range.From && frame.CapturedAt <= range.To;
+            var frames = from DTO.Frame frame in container
+                         where
+                             frame.CapturedAt >= range.From && frame.CapturedAt <= range.To &&
+                             frame.SourceId == cameraId
+                         select frame;
 
-                if (cameraId != -1)
-                {
-                    flag = flag && frame.SourceId == cameraId;
-                }
-
-                return flag;
-            });
-
-            return frames;
+            return frames.ToList();
 
         }
 
         public IList<DTO.Portrait> GetPortraits(int cameraId, Damany.Util.DateTimeRange range)
         {
             var container = OpenContainer();
-            var portraits = container.Query<DTO.Portrait>(portrait =>
-            {
-                bool flag = portrait.CapturedAt >= range.From && portrait.CapturedAt <= range.To;
-                if (cameraId != -1)
-                {
-                    flag = flag && portrait.SourceId == cameraId;
-                }
-
-                return flag;
-            });
-
-
-            return portraits;
+            var portraits = from Portrait portrait in container
+                            where
+                                portrait.CapturedAt >= range.From && portrait.CapturedAt <= range.To &&
+                                portrait.SourceId == cameraId
+                            select portrait;
+            return portraits.ToList();
 
         }
 
