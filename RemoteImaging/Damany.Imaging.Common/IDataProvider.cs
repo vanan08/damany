@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Damany.Util;
 
 namespace Damany.Imaging.Common
 {
@@ -13,8 +14,6 @@ namespace Damany.Imaging.Common
 
         IList<Frame> GetFrames(int cameraId, Damany.Util.DateTimeRange range);
         IList<Portrait> GetPortraits(int dameraId, Damany.Util.DateTimeRange range);
-
-        IEnumerable<Frame> GetFramesQuery();
 
         bool FrameExists(int cameraId, DateTime time);
         bool PortraitExists(int cameraId, DateTime time);
