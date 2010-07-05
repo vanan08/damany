@@ -50,6 +50,7 @@ namespace RemoteImaging.Query
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.controlNavigator1 = new DevExpress.XtraEditors.ControlNavigator();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.axVLCPlugin21 = new AxAXVLC.AxVLCPlugin2();
             this.groupBox3.SuspendLayout();
@@ -183,7 +184,7 @@ namespace RemoteImaging.Query
             this.videoList.HideSelection = false;
             this.videoList.Location = new System.Drawing.Point(0, 12);
             this.videoList.Name = "videoList";
-            this.videoList.Size = new System.Drawing.Size(154, 504);
+            this.videoList.Size = new System.Drawing.Size(189, 504);
             this.videoList.SmallImageList = this.imageListIcon;
             this.videoList.TabIndex = 25;
             this.videoList.UseCompatibleStateImageBehavior = false;
@@ -215,7 +216,7 @@ namespace RemoteImaging.Query
             this.faceList.Location = new System.Drawing.Point(0, 12);
             this.faceList.MultiSelect = false;
             this.faceList.Name = "faceList";
-            this.faceList.Size = new System.Drawing.Size(746, 116);
+            this.faceList.Size = new System.Drawing.Size(711, 116);
             this.faceList.TabIndex = 22;
             this.faceList.UseCompatibleStateImageBehavior = false;
             this.faceList.DoubleClick += new System.EventHandler(this.picList_DoubleClick);
@@ -248,6 +249,7 @@ namespace RemoteImaging.Query
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.controlNavigator1);
             this.splitContainer1.Panel1.Controls.Add(this.videoList);
             this.splitContainer1.Panel1.Controls.Add(this.label1);
             // 
@@ -255,8 +257,25 @@ namespace RemoteImaging.Query
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
             this.splitContainer1.Size = new System.Drawing.Size(904, 516);
-            this.splitContainer1.SplitterDistance = 154;
+            this.splitContainer1.SplitterDistance = 189;
             this.splitContainer1.TabIndex = 30;
+            // 
+            // controlNavigator1
+            // 
+            this.controlNavigator1.Buttons.Append.Visible = false;
+            this.controlNavigator1.Buttons.CancelEdit.Visible = false;
+            this.controlNavigator1.Buttons.Edit.Visible = false;
+            this.controlNavigator1.Buttons.EndEdit.Visible = false;
+            this.controlNavigator1.Buttons.Next.Visible = false;
+            this.controlNavigator1.Buttons.Prev.Visible = false;
+            this.controlNavigator1.Buttons.Remove.Visible = false;
+            this.controlNavigator1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.controlNavigator1.Location = new System.Drawing.Point(0, 492);
+            this.controlNavigator1.Name = "controlNavigator1";
+            this.controlNavigator1.Size = new System.Drawing.Size(189, 24);
+            this.controlNavigator1.TabIndex = 31;
+            this.controlNavigator1.Text = "controlNavigator1";
+            this.controlNavigator1.ButtonClick += new DevExpress.XtraEditors.NavigatorButtonClickEventHandler(this.controlNavigator1_ButtonClick);
             // 
             // splitContainer2
             // 
@@ -274,7 +293,7 @@ namespace RemoteImaging.Query
             // 
             this.splitContainer2.Panel2.Controls.Add(this.faceList);
             this.splitContainer2.Panel2.Controls.Add(this.label5);
-            this.splitContainer2.Size = new System.Drawing.Size(746, 516);
+            this.splitContainer2.Size = new System.Drawing.Size(711, 516);
             this.splitContainer2.SplitterDistance = 384;
             this.splitContainer2.TabIndex = 0;
             // 
@@ -285,7 +304,7 @@ namespace RemoteImaging.Query
             this.axVLCPlugin21.Location = new System.Drawing.Point(0, 12);
             this.axVLCPlugin21.Name = "axVLCPlugin21";
             this.axVLCPlugin21.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axVLCPlugin21.OcxState")));
-            this.axVLCPlugin21.Size = new System.Drawing.Size(746, 372);
+            this.axVLCPlugin21.Size = new System.Drawing.Size(711, 372);
             this.axVLCPlugin21.TabIndex = 30;
             // 
             // VideoQueryForm
@@ -342,5 +361,6 @@ namespace RemoteImaging.Query
         private System.Windows.Forms.ComboBox searchType;
         private DevExpress.XtraEditors.TimeEdit timeTO;
         private DevExpress.XtraEditors.TimeEdit timeFrom;
+        private DevExpress.XtraEditors.ControlNavigator controlNavigator1;
     }
 }
