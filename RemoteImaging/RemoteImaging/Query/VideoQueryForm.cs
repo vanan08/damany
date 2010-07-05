@@ -11,6 +11,7 @@ using System.IO;
 using Damany.PC.Domain;
 using Damany.RemoteImaging.Common.Forms;
 using Damany.Util;
+using DevExpress.XtraEditors;
 using RemoteImaging.Core;
 using Microsoft.Practices.EnterpriseLibrary.ExceptionHandling;
 using Damany.RemoteImaging.Common;
@@ -30,6 +31,11 @@ namespace RemoteImaging.Query
             var now = DateTime.Now;
             this.timeTO.EditValue = now;
             this.timeFrom.EditValue = now.AddDays(-1);
+
+            var videoNavigator = new VideoNavigator();
+
+            this.controlNavigator1.NavigatableControl = videoNavigator;
+
         }
 
 
@@ -299,5 +305,48 @@ namespace RemoteImaging.Query
         #endregion
 
         private Damany.RemoteImaging.Common.Forms.ProgressForm _busyIndicator;
+
+        private void dataNavigator1_ButtonClick(object sender, DevExpress.XtraEditors.NavigatorButtonClickEventArgs e)
+        {
+            
+           
+        }
+
+        private void controlNavigator1_ButtonClick(object sender, DevExpress.XtraEditors.NavigatorButtonClickEventArgs e)
+        {
+            switch (e.Button.ButtonType)
+            {
+                case NavigatorButtonType.Custom:
+                    break;
+                case NavigatorButtonType.First:
+                    break;
+                case NavigatorButtonType.PrevPage:
+                    _presenter.PreviousPage();
+                    e.Handled = true;
+                    break;
+                case NavigatorButtonType.Prev:
+                    break;
+                case NavigatorButtonType.Next:
+                    break;
+                case NavigatorButtonType.NextPage:
+                    _presenter.NextPage();
+                    e.Handled = true;
+                    break;
+                case NavigatorButtonType.Last:
+                    break;
+                case NavigatorButtonType.Append:
+                    break;
+                case NavigatorButtonType.Remove:
+                    break;
+                case NavigatorButtonType.Edit:
+                    break;
+                case NavigatorButtonType.EndEdit:
+                    break;
+                case NavigatorButtonType.CancelEdit:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
     }
 }
