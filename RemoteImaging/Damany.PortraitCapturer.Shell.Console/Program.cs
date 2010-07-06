@@ -24,23 +24,7 @@ namespace Damany.PortraitCapturer.Shell.CmdLine
 
             try
             {
-                var db = new Db4oProvider(@"d:\imageoutput\images.db4o");
-                db.StartServer();
-                
-                var query = db.GetFramesQuery();
-                foreach (var frame in query)
-                {
-                    var path = frame.Path;
-                    if (path == null)
-                    {
-                        db.DeleteFrame(frame);
-                    }
-
-                    System.Diagnostics.Debug.WriteLine(path);
-                   
-                }
-
-                db.Commit();
+               
 
                 //exit.WaitOne();
 

@@ -10,6 +10,7 @@ using Db4objects.Db4o.Config;
 using Db4objects.Db4o.Activation;
 using Db4objects.Db4o.Linq;
 using Db4objects.Db4o.TA;
+using Damany.Util.Extensions;
 
 namespace Damany.PortraitCapturer.DAL.Providers
 {
@@ -82,12 +83,26 @@ namespace Damany.PortraitCapturer.DAL.Providers
             return frameQuery;
         }
 
-        public IList<DTO.Frame> GetFrames(int cameraId, Damany.Util.DateTimeRange range)
+        public IList<Frame> GetFrames(int cameraId, DateTimeRange range)
         {
-            var queryHistory = new HashSet<DateTime>();
+            var history = new HashSet<DateTime>();
+
+            Func<Frame, bool> searched = p =>
+            {
+                var round = p.CapturedAt.RoundToMinute();
+                var inHistory = history.Contains(round);
+                if (inHistory)
+                {
+                    return true;
+                }
+                history.Add(round);
+                return false;
+            };
+
             var container = OpenContainer();
             var frames = from DTO.Frame frame in container
                          where
+                             !searched(frame) &&
                              frame.CapturedAt >= range.From && frame.CapturedAt <= range.To &&
                              frame.SourceId == cameraId
                          select frame;
@@ -98,13 +113,28 @@ namespace Damany.PortraitCapturer.DAL.Providers
 
         public IList<DTO.Portrait> GetPortraits(int cameraId, Damany.Util.DateTimeRange range)
         {
+            var history = new HashSet<DateTime>();
             var container = OpenContainer();
-            var portraits = from Portrait portrait in container
-                            where
-                                portrait.CapturedAt >= range.From && portrait.CapturedAt <= range.To &&
-                                portrait.SourceId == cameraId
-                            select portrait;
-            return portraits.ToList();
+            Func<Portrait, bool> searched = p =>
+                                                {
+                                                    var round = p.CapturedAt.RoundToMinute();
+                                                    var inHistory = history.Contains(round);
+                                                    if (inHistory)
+                                                    {
+                                                        return true;
+                                                    }
+                                                    history.Add(round);
+                                                    return false;
+                                                };
+
+            var query = from Portrait portrait in container
+                        where 
+                            !searched(portrait) && 
+                            portrait.CapturedAt >= range.From && portrait.CapturedAt <= range.To &&
+                            portrait.SourceId == cameraId
+                        select portrait;
+                            
+            return query.ToList();
 
         }
 
