@@ -2,14 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Damany.Util;
 
 namespace RemoteImaging.Query
 {
     public interface IVideoQueryScreen
     {
-        Damany.Util.DateTimeRange TimeRange { get; }
+        DateTimeRange TimeRange { get; }
 
-        RemoteImaging.Core.Video SelectedVideoFile { get; }
+        DateTimeRange CurrentRange { set; }
+
+        
+
+        Core.Video SelectedVideoFile { get; }
 
         SearchScope SearchScope { get; }
 
