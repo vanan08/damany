@@ -150,7 +150,8 @@ namespace RemoteImaging.Query
                                       _currentRange.From, _currentRange.To).ToList(); ;
 
                 var watch = System.Diagnostics.Stopwatch.StartNew();
-                var frameQuery = _portraitRepository.GetFrames(_selectedCamera.Id, _currentRange);
+                var range = new DateTimeRange(_currentRange.From, _currentRange.To.AddMinutes(1));
+                var frameQuery = _portraitRepository.GetFrames(_selectedCamera.Id, range);
 
                 var frameHash = new HashSet<DateTime>();
                 foreach (var g in frameQuery)
@@ -166,7 +167,7 @@ namespace RemoteImaging.Query
 
                 var portraitQuery =
                     _portraitRepository.GetPortraits(
-                        _selectedCamera.Id, _currentRange).ToArray();
+                        _selectedCamera.Id, range).ToArray();
                 var portraitHash = new HashSet<DateTime>();
                 foreach (var portrait in portraitQuery)
                 {
@@ -181,7 +182,7 @@ namespace RemoteImaging.Query
 
                 foreach (var v in videos)
                 {
-                    if (v.CapturedAt < _currentRange.From || v.CapturedAt > _currentRange.To)
+                    if (v.CapturedAt.Ticks < _currentRange.From.Ticks || v.CapturedAt.Ticks > _currentRange.To.Ticks)
                     {
                         continue;
                     }

@@ -8,6 +8,7 @@ using System.IO;
 using Damany.Imaging.Common;
 using OpenCvSharp;
 using RemoteControlService;
+using Damany.Util.Extensions;
 
 namespace RemoteImaging
 {
@@ -231,7 +232,7 @@ namespace RemoteImaging
                     yield return new RemoteImaging.Core.Video
                     {
                         Path = path,
-                        CapturedAt = time.ToLocalTime(),
+                        CapturedAt = time.ToLocalTime().RoundToMinute(),
                     };
                 }
 
