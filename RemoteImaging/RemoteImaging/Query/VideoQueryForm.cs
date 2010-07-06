@@ -54,10 +54,10 @@ namespace RemoteImaging.Query
         private void PopulateSearchScope()
         {
             var searchTypes = new List<SearchCategory>();
-            searchTypes.Add( new SearchCategory{ Name = "全部",  Scope= SearchScope.All }  );
+            searchTypes.Add(new SearchCategory { Name = "全部", Scope = SearchScope.All });
             searchTypes.Add(new SearchCategory { Name = "有人像视频", Scope = SearchScope.FaceCapturedVideo });
-            searchTypes.Add( new SearchCategory{ Name = "有动态无人像视频",  Scope= SearchScope.MotionWithoutFaceVideo } );
-            searchTypes.Add( new SearchCategory{ Name = "无动态视频",  Scope= SearchScope.MotionLessVideo } );
+            searchTypes.Add(new SearchCategory { Name = "有动态无人像视频", Scope = SearchScope.MotionWithoutFaceVideo });
+            searchTypes.Add(new SearchCategory { Name = "无动态视频", Scope = SearchScope.MotionLessVideo });
 
             this.searchType.DataSource = searchTypes;
             this.searchType.DisplayMember = "Name";
@@ -117,19 +117,35 @@ namespace RemoteImaging.Query
 
         public Damany.Util.DateTimeRange TimeRange
         {
-            get {  return new DateTimeRange((DateTime) this.timeFrom.EditValue, (DateTime) this.timeTO.EditValue);  }
+            get { return new DateTimeRange((DateTime)this.timeFrom.EditValue, (DateTime)this.timeTO.EditValue); }
+        }
+
+        public DateTimeRange CurrentRange
+        {
+            set
+            {
+                if (InvokeRequired)
+                {
+                    Action<DateTimeRange> action = range => { this.CurrentRange = range; };
+                    this.BeginInvoke(action, value);
+                    return;
+                }
+
+                var s = string.Format("视频列表:[{0}-{1}]", value.From.ToString("yy.MM.dd hh:mm"), value.To.ToString("yy.MM.dd hh:mm"));
+                label1.Text = s;
+            }
         }
 
         public SearchScope SearchScope
         {
-            get {  return (SearchScope) this.searchType.SelectedValue; }
+            get { return (SearchScope)this.searchType.SelectedValue; }
         }
 
         public CameraInfo SelectedCamera
         {
             get
             {
-                return (CameraInfo) this.cameraComboBox.SelectedValue;
+                return (CameraInfo)this.cameraComboBox.SelectedValue;
             }
         }
 
@@ -146,22 +162,15 @@ namespace RemoteImaging.Query
         {
             set
             {
-                if (InvokeRequired)
-                {
-                    Action<bool> ac = this.ShowBusyIndicator;
-                    this.BeginInvoke(ac, value);
-                }
-                else
-                {
-                    this.ShowBusyIndicator(value);
-                }
+                Action<bool> ac = this.ShowBusyIndicator;
+                this.BeginInvoke(ac, value);
 
-                
             }
         }
 
         private void ShowBusyIndicator(bool isbusy)
         {
+            Application.UseWaitCursor = isbusy;
             if (isbusy)
             {
                 if (_busyIndicator == null)
@@ -170,10 +179,11 @@ namespace RemoteImaging.Query
                     _busyIndicator.Text = "请稍候...";
                     _busyIndicator.ShowDialog(this);
                 }
-               
+
             }
             else
             {
+
                 if (_busyIndicator != null)
                 {
                     _busyIndicator.Close();
@@ -298,7 +308,7 @@ namespace RemoteImaging.Query
                     return null;
                 }
 
-                return (Video) this.videoList.SelectedItems[0].Tag;
+                return (Video)this.videoList.SelectedItems[0].Tag;
             }
         }
 
@@ -308,8 +318,8 @@ namespace RemoteImaging.Query
 
         private void dataNavigator1_ButtonClick(object sender, DevExpress.XtraEditors.NavigatorButtonClickEventArgs e)
         {
-            
-           
+
+
         }
 
         private void controlNavigator1_ButtonClick(object sender, DevExpress.XtraEditors.NavigatorButtonClickEventArgs e)
@@ -319,6 +329,8 @@ namespace RemoteImaging.Query
                 case NavigatorButtonType.Custom:
                     break;
                 case NavigatorButtonType.First:
+                    _presenter.FirstPage();
+                    e.Handled = true;
                     break;
                 case NavigatorButtonType.PrevPage:
                     _presenter.PreviousPage();
@@ -333,6 +345,8 @@ namespace RemoteImaging.Query
                     e.Handled = true;
                     break;
                 case NavigatorButtonType.Last:
+                    _presenter.LastPage();
+                    e.Handled = true;
                     break;
                 case NavigatorButtonType.Append:
                     break;

@@ -43,7 +43,6 @@ namespace RemoteImaging.Query
 
         public void Search()
         {
-
             var selectedCamera = this._screen.SelectedCamera;
             if (selectedCamera == null)
             {
@@ -62,7 +61,12 @@ namespace RemoteImaging.Query
                 return;
             }
 
+            _range.From = videos.First().CapturedAt;
+            _range.To = videos.Last().CapturedAt;
+
             UpdateCurrentRange(videos);
+
+            _screen.Busy = true;
 
             SearchAsync();
                                                              
@@ -108,9 +112,15 @@ namespace RemoteImaging.Query
             if (_selectedCamera == null)
                 return;
 
+            if (_currentRange.To.AddHours(1) > _range.To)
+            {
+                return;
+            }
+
             _currentRange.From = _currentRange.From.AddHours(1);
             _currentRange.To = _currentRange.To.AddHours(1);
 
+            UpdateScreenTimeRange();
             SearchAsync();
         }
 
@@ -119,9 +129,15 @@ namespace RemoteImaging.Query
             if (_selectedCamera == null)
                 return;
 
-            _currentRange.From.AddHours(-1);
-            _currentRange.To.AddHours(-1);
+            if (_currentRange.From.AddHours(-1) < _range.From)
+            {
+                return;
+            }
 
+            _currentRange.From = _currentRange.From.AddHours(-1);
+            _currentRange.To = _currentRange.To.AddHours(-1);
+
+            UpdateScreenTimeRange();
             SearchAsync();
         }
 
@@ -129,25 +145,39 @@ namespace RemoteImaging.Query
         {
             if (_selectedCamera == null)
                 return;
+
+            _currentRange.From = _range.From;
+            _currentRange.To = _currentRange.From.AddHours(1);
+
+            UpdateScreenTimeRange();
+
+            SearchAsync();
         }
 
         public void LastPage()
         {
             if (_selectedCamera == null)
                 return;
+
+            
+            _currentRange.To = _range.To;
+            _currentRange.From = _range.To.AddHours(-1);
+
+            UpdateScreenTimeRange();
+            SearchAsync();
         }
 
         private void DoSearch()
         {
-            _screen.Busy = true;
 
             try
             {
-                List<Video> videos = 
+                _screen.Busy = true;
+                var  videos = 
                 new FileSystemStorage(
                     Properties.Settings.Default.OutputPath).
                     VideoFilesBetween(_selectedCamera.Id,
-                                      _currentRange.From, _currentRange.To).ToList(); ;
+                                      _currentRange.From, _currentRange.To).ToList();
 
                 var watch = System.Diagnostics.Stopwatch.StartNew();
                 var range = new DateTimeRange(_currentRange.From, _currentRange.To.AddMinutes(1));
@@ -226,10 +256,15 @@ namespace RemoteImaging.Query
             }
             finally
             {
-                _screen.Busy = false;
+                _screen.Busy  = false;
             }
           
             
+        }
+
+        private void UpdateScreenTimeRange()
+        {
+            _screen.CurrentRange = _currentRange;
         }
 
         private List<Video> FindFirstVideo()
@@ -248,6 +283,8 @@ namespace RemoteImaging.Query
         {
             _currentRange.From = videos.First().CapturedAt;
             _currentRange.To = _currentRange.From.AddHours(1);
+
+            UpdateScreenTimeRange();
         }
     }
 }

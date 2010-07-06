@@ -182,9 +182,9 @@ namespace RemoteImaging.Query
             this.videoList.FullRowSelect = true;
             this.videoList.GridLines = true;
             this.videoList.HideSelection = false;
-            this.videoList.Location = new System.Drawing.Point(0, 12);
+            this.videoList.Location = new System.Drawing.Point(0, 22);
             this.videoList.Name = "videoList";
-            this.videoList.Size = new System.Drawing.Size(189, 504);
+            this.videoList.Size = new System.Drawing.Size(293, 470);
             this.videoList.SmallImageList = this.imageListIcon;
             this.videoList.TabIndex = 25;
             this.videoList.UseCompatibleStateImageBehavior = false;
@@ -201,45 +201,48 @@ namespace RemoteImaging.Query
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
             this.label1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label1.Location = new System.Drawing.Point(0, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(65, 12);
+            this.label1.Size = new System.Drawing.Size(293, 22);
             this.label1.TabIndex = 26;
             this.label1.Text = "视频列表：";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // faceList
             // 
             this.faceList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.faceList.LargeImageList = this.faceImageList;
-            this.faceList.Location = new System.Drawing.Point(0, 12);
+            this.faceList.Location = new System.Drawing.Point(0, 21);
             this.faceList.MultiSelect = false;
             this.faceList.Name = "faceList";
-            this.faceList.Size = new System.Drawing.Size(711, 116);
+            this.faceList.Size = new System.Drawing.Size(607, 189);
             this.faceList.TabIndex = 22;
             this.faceList.UseCompatibleStateImageBehavior = false;
             this.faceList.DoubleClick += new System.EventHandler(this.picList_DoubleClick);
             // 
             // label5
             // 
-            this.label5.AutoSize = true;
             this.label5.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label5.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label5.Location = new System.Drawing.Point(0, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(65, 12);
+            this.label5.Size = new System.Drawing.Size(607, 21);
             this.label5.TabIndex = 27;
             this.label5.Text = "相关图片：";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label6
             // 
-            this.label6.AutoSize = true;
             this.label6.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label6.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label6.Location = new System.Drawing.Point(0, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(65, 12);
+            this.label6.Size = new System.Drawing.Size(607, 22);
             this.label6.TabIndex = 29;
             this.label6.Text = "视频播放：";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // splitContainer1
             // 
@@ -249,15 +252,15 @@ namespace RemoteImaging.Query
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.controlNavigator1);
             this.splitContainer1.Panel1.Controls.Add(this.videoList);
+            this.splitContainer1.Panel1.Controls.Add(this.controlNavigator1);
             this.splitContainer1.Panel1.Controls.Add(this.label1);
             // 
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
             this.splitContainer1.Size = new System.Drawing.Size(904, 516);
-            this.splitContainer1.SplitterDistance = 189;
+            this.splitContainer1.SplitterDistance = 293;
             this.splitContainer1.TabIndex = 30;
             // 
             // controlNavigator1
@@ -266,13 +269,17 @@ namespace RemoteImaging.Query
             this.controlNavigator1.Buttons.CancelEdit.Visible = false;
             this.controlNavigator1.Buttons.Edit.Visible = false;
             this.controlNavigator1.Buttons.EndEdit.Visible = false;
+            this.controlNavigator1.Buttons.First.Hint = "跳至第1页";
+            this.controlNavigator1.Buttons.Last.Hint = "跳至最后一页";
             this.controlNavigator1.Buttons.Next.Visible = false;
+            this.controlNavigator1.Buttons.NextPage.Hint = "后一页";
             this.controlNavigator1.Buttons.Prev.Visible = false;
+            this.controlNavigator1.Buttons.PrevPage.Hint = "前一页";
             this.controlNavigator1.Buttons.Remove.Visible = false;
             this.controlNavigator1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.controlNavigator1.Location = new System.Drawing.Point(0, 492);
             this.controlNavigator1.Name = "controlNavigator1";
-            this.controlNavigator1.Size = new System.Drawing.Size(189, 24);
+            this.controlNavigator1.Size = new System.Drawing.Size(293, 24);
             this.controlNavigator1.TabIndex = 31;
             this.controlNavigator1.Text = "controlNavigator1";
             this.controlNavigator1.ButtonClick += new DevExpress.XtraEditors.NavigatorButtonClickEventHandler(this.controlNavigator1_ButtonClick);
@@ -293,18 +300,18 @@ namespace RemoteImaging.Query
             // 
             this.splitContainer2.Panel2.Controls.Add(this.faceList);
             this.splitContainer2.Panel2.Controls.Add(this.label5);
-            this.splitContainer2.Size = new System.Drawing.Size(711, 516);
-            this.splitContainer2.SplitterDistance = 384;
+            this.splitContainer2.Size = new System.Drawing.Size(607, 516);
+            this.splitContainer2.SplitterDistance = 302;
             this.splitContainer2.TabIndex = 0;
             // 
             // axVLCPlugin21
             // 
             this.axVLCPlugin21.Dock = System.Windows.Forms.DockStyle.Fill;
             this.axVLCPlugin21.Enabled = true;
-            this.axVLCPlugin21.Location = new System.Drawing.Point(0, 12);
+            this.axVLCPlugin21.Location = new System.Drawing.Point(0, 22);
             this.axVLCPlugin21.Name = "axVLCPlugin21";
             this.axVLCPlugin21.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axVLCPlugin21.OcxState")));
-            this.axVLCPlugin21.Size = new System.Drawing.Size(711, 372);
+            this.axVLCPlugin21.Size = new System.Drawing.Size(607, 280);
             this.axVLCPlugin21.TabIndex = 30;
             // 
             // VideoQueryForm
@@ -326,13 +333,10 @@ namespace RemoteImaging.Query
             ((System.ComponentModel.ISupportInitialize)(this.timeTO.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.timeFrom.Properties)).EndInit();
             this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.ResumeLayout(false);
             this.splitContainer2.Panel1.ResumeLayout(false);
-            this.splitContainer2.Panel1.PerformLayout();
             this.splitContainer2.Panel2.ResumeLayout(false);
-            this.splitContainer2.Panel2.PerformLayout();
             this.splitContainer2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.axVLCPlugin21)).EndInit();
             this.ResumeLayout(false);
