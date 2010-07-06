@@ -102,7 +102,6 @@ namespace Damany.PortraitCapturer.DAL.Providers
             var container = OpenContainer();
             var frames = from DTO.Frame frame in container
                          where
-                             !searched(frame) &&
                              frame.CapturedAt >= range.From && frame.CapturedAt <= range.To &&
                              frame.SourceId == cameraId
                          select frame;
@@ -129,7 +128,6 @@ namespace Damany.PortraitCapturer.DAL.Providers
 
             var query = from Portrait portrait in container
                         where 
-                            !searched(portrait) && 
                             portrait.CapturedAt >= range.From && portrait.CapturedAt <= range.To &&
                             portrait.SourceId == cameraId
                         select portrait;
