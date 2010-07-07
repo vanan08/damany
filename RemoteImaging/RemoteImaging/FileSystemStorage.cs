@@ -8,7 +8,6 @@ using System.IO;
 using Damany.Imaging.Common;
 using OpenCvSharp;
 using RemoteControlService;
-using Damany.Util.Extensions;
 
 namespace RemoteImaging
 {
@@ -212,7 +211,7 @@ namespace RemoteImaging
             }
         }
 
-        public IEnumerable<RemoteImaging.Core.Video> VideoFilesBetween(int cameraID, DateTime startLocalTime, DateTime endLocalTime)
+        public RemoteImaging.Core.Video[] VideoFilesBetween(int cameraID, DateTime startLocalTime, DateTime endLocalTime)
         {
             string rootFolder = Path.Combine(_outputRoot, cameraID.ToString("D2"));
 
@@ -229,15 +228,19 @@ namespace RemoteImaging
 
                 if (File.Exists(path))
                 {
-                    yield return new RemoteImaging.Core.Video
+
+                    videos.Add(new RemoteImaging.Core.Video
                     {
                         Path = path,
-                        CapturedAt = time.ToLocalTime().RoundToMinute(),
-                    };
+                        CapturedAt = time.ToLocalTime(),
+                    });
                 }
 
                 time = time.AddMinutes(1);
+
             }
+
+            return videos.ToArray();
 
         }
 
@@ -318,7 +321,7 @@ namespace RemoteImaging
                 Directory.Delete(videoToDelete.AbsoluteDirectory, true);
                 videoToDelete.Deleted = true;
             }
-            
+
         }
 
         public void DeleteMostOutDatedDataForDay(int days, int cameraId)

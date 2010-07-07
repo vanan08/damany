@@ -1,7 +1,7 @@
 #include "Stdafx.h"
 #include <windows.h>
-#include "library/ClisentSDK/include/BK_NetClientSDK.h"
-#include "library/ClisentSDK/include/mpeg_define.h"
+#include "../../Library/AipStarCameraSDK/include/BK_NetClientSDK.h"
+#include "../../Library/AipStarCameraSDK/include/mpeg_define.h"
 
 using namespace System;
 using namespace System::Runtime::InteropServices;

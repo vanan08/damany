@@ -23,11 +23,11 @@ namespace RemoteImaging
                               SearchLineBuilder.SearchLineFactory searchLineFactory,
                               FaceComparer comparer)
         {
-            this._mainForm = mainForm;
+            this._mainForm      = mainForm;
             this._configManager = configManager;
-            _repository = repository;
-            _searchLineFactory = searchLineFactory;
-            _comparer = comparer;
+            _repository         = repository;
+            _searchLineFactory  = searchLineFactory;
+            _comparer           = comparer;
 
         }
 
@@ -41,11 +41,12 @@ namespace RemoteImaging
             this._comparer.Comparer.SetSensitivity(Properties.Settings.Default.LbpThreshold);
 
             this._mainForm.Cameras = this._configManager.GetCameras().ToArray();
-            var camToStart = this._configManager.GetCameras();
+            var camToStart         = this._configManager.GetCameras();
 
-            if (camToStart.Count <= 2)
+            if (camToStart.Count == 1)
             {
-                this.StartCameras();
+                var single = this._configManager.GetCameras().Single();
+                this.StartCameraInternal(single);
             }
 
         }
@@ -57,6 +58,23 @@ namespace RemoteImaging
         void _comparer_PersonOfInterestDected(object sender, MiscUtil.EventArgs<PersonOfInterestDetectionResult> e)
         {
             this._mainForm.ShowSuspects(e.Value);
+        }
+
+        public void StartCamera()
+        {
+            var selected = this._mainForm.GetSelectedCamera();
+            if (selected == null)
+            {
+                this._mainForm.ShowMessage("请选择一个摄像头。");
+                return;
+            }
+
+            if (_currentController != null)
+            {
+                _currentController.Stop();
+            }
+
+            this.StartCameraInternal(selected);
         }
 
         public void SelectedPortraitChanged()
@@ -83,33 +101,28 @@ namespace RemoteImaging
 
 
 
-        private void StartCameras()
+        private void StartCameraInternal(CameraInfo cam)
         {
             System.Threading.WaitCallback action = delegate
             {
-                foreach (var cameraInfo in _configManager.GetCameras())
+                try
                 {
-                    try
+                    var builder       = _searchLineFactory(cam);
+                    var camController = builder.Build();
+
+                    camController.Start();
+
+                    _currentController = camController;
+                    if (cam.Provider == CameraProvider.Sanyo)
                     {
-                        var builder = _searchLineFactory(cameraInfo);
-                        var camController = builder.Build();
-
-                        camController.Start();
-
-                        if (cameraInfo.Provider == CameraProvider.Sanyo)
-                        {
-                            this._mainForm.StartRecord(cameraInfo);
-                        }
-
-
-                    }
-                    catch (System.Net.WebException)
-                    {
-                        var msg = string.Format("无法连接 {0}", cameraInfo.Location.Host);
-                        _mainForm.ShowMessage(msg);
-
+                        this._mainForm.StartRecord(cam);
                     }
 
+                }
+                catch (System.Net.WebException ex)
+                {
+                    var msg = string.Format("无法连接 {0}", cam.Location.Host);
+                    _mainForm.ShowMessage(msg);
                 }
 
             };

@@ -30,7 +30,7 @@ namespace FaceProcessingWrapper
 			virtual bool Detect(Damany::Imaging::Common::Frame^ frame, 
 				Damany::Imaging::Common::MotionDetectionResult ^% result)
 			{
-				Frame f = FaceProcessingWrapper::FrameConverter::ToUnManaged(frame);
+				Frame f = FaceProcessingWrapper::Converter::ToUnManaged(frame);
 				Frame frameToDispose;
 				bool groupCaptured = this->pDetector->PreProcessFrame(f, frameToDispose);
 

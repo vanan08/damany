@@ -7,7 +7,6 @@ using System.ServiceModel;
 using RemoteControlService;
 using Autofac;
 using RemoteImaging.ConfigurationSectionHandlers;
-using RemoteImaging.LicensePlate;
 
 
 namespace RemoteImaging
@@ -28,96 +27,57 @@ namespace RemoteImaging
         {
             try
             {
+                var isFirst = false;
 
-
-                if (!Util.VerifyKey())
+                using (var mutex = new Mutex(true, "5685FE28-6805-4F62-8851-F0DFDD2A9EBD", out isFirst))
                 {
-                    RegisterForm form = new RegisterForm();
-                    DialogResult res = form.ShowDialog();
-                    if (res == DialogResult.OK)
+                    if (!isFirst)
                     {
-                        Application.Restart();
+                        MessageBox.Show("程序已经在运行中！ 点击确认后程序将退出。", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        return;
                     }
 
-                    return;
+                    if (!Util.VerifyKey())
+                    {
+                        RegisterForm form = new RegisterForm();
+                        DialogResult res = form.ShowDialog();
+                        if (res == DialogResult.OK)
+                        {
+                            Application.Restart();
+                        }
+
+                        return;
+                    }
+
+
+                    AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
+                    Application.ThreadException += Application_ThreadException;
+
+
+                    Application.EnableVisualStyles();
+                    Application.SetCompatibleTextRenderingDefault(false);
+
+                    var strapper = new StartUp();
+                    strapper.Start();
+
+                    var remover = strapper.Container.Resolve<OutDatedDataRemover>();
+                    System.GC.KeepAlive(remover);
+
+                    var mainForm = strapper.Container.Resolve<RemoteImaging.RealtimeDisplay.MainForm>();
+                    var controller = strapper.Container.Resolve<MainController>();
+                    mainForm.AttachController(controller);
+
+                    mainForm.ButtonsVisible =
+                        (ButtonsVisibleSectionHandler)System.Configuration.ConfigurationManager.GetSection("FaceDetector.ButtonsVisible");
+
+                    Application.Run(mainForm);
                 }
 
-
-
-                AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
-                Application.ThreadException += Application_ThreadException;
-
-
-                Application.EnableVisualStyles();
-                Application.SetCompatibleTextRenderingDefault(false);
-
-                var strapper = new StartUp();
-                strapper.Start();
-
-                var remover = strapper.Container.Resolve<OutDatedDataRemover>();
-                System.GC.KeepAlive(remover);
-
-                var mainForm = strapper.Container.Resolve<RemoteImaging.RealtimeDisplay.MainForm>();
-                var controller = strapper.Container.Resolve<MainController>();
-                mainForm.AttachController(controller);
-
-                mainForm.ButtonsVisible =
-                    (ButtonsVisibleSectionHandler) System.Configuration.ConfigurationManager.GetSection("FaceDetector.ButtonsVisible");
-
-                try
-                {
-                    StartLicensePlateMonitor(strapper.Container);
-                    WireupNavigation(strapper.Container);
-
-                    RegisterLicensePlateRepository(strapper);
-                }
-                catch (Exception e)
-                {
-                    HandleException(e);
-                    
-                }
-
-                Application.Run(mainForm);
 
             }
             catch (Exception e)
             {
                 HandleException(e);
-            }
-        }
-
-        private static void RegisterLicensePlateRepository(StartUp strapper)
-        {
-            var repository = strapper.Container.Resolve<LicensePlateRepository>();
-        }
-
-
-        private static void WireupNavigation(Autofac.IContainer container)
-        {
-            var navController = container.Resolve<YunTai.NavigationController>();
-            navController.Start();
-        }
-
-        private static void StartLicensePlateMonitor(Autofac.IContainer container)
-        {
-            var factory = container.Resolve<LicensePlate.LicensePlateUploadMonitor.Factory>();
-
-            var manager = container.Resolve<Damany.RemoteImaging.Common.ConfigurationManager>();
-            foreach (var cam in manager.GetCameras())
-            {
-                if (cam.LicensePlateUploadDirectory != null)
-                {
-                    if (!System.IO.Directory.Exists(cam.LicensePlateUploadDirectory))
-                    {
-                        throw new System.IO.DirectoryNotFoundException(@"车牌上传目录 """ + cam.LicensePlateUploadDirectory + "\"不存在，请重新配置系统！");
-                    }
-
-                    var m = factory.Invoke(cam.LicensePlateUploadDirectory);
-                    m.CameraId = cam.Id;
-                    m.Configuration = (LicenseParsingConfig) System.Configuration.ConfigurationManager.GetSection("LicenseParsingConfig");
-                    m.Start();
-                    System.GC.KeepAlive(m);
-                }
             }
         }
 
@@ -134,7 +94,7 @@ namespace RemoteImaging
 
         private static void ShowException(System.Exception e)
         {
-            MessageBox.Show(e.Message, "发生异常", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show(e.ToString(), "发生异常", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)

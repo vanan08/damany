@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using Damany.Imaging.Common;
@@ -22,7 +23,7 @@ namespace RemoteImaging
 
         public void Start()
         {
-            CheckImportantFiles();
+            //CheckImportantFiles();
 
             this.builder = new Autofac.ContainerBuilder();
 
@@ -74,20 +75,30 @@ namespace RemoteImaging
                 System.IO.Directory.CreateDirectory(Properties.Settings.Default.OutputPath);
             }
 
-            var repository = new LocalDb4oProvider(Properties.Settings.Default.OutputPath);
-            repository.Start();
+            if (Properties.Settings.Default.UseDirectoryRepository)
+            {
+                if (!System.IO.Directory.Exists(Properties.Settings.Default.DirectoryRepositoryPath))
+                {
+                    throw new DirectoryNotFoundException("Directory Repository Path not found");
+                }
+
+                var dirRepository = new Damany.PortraitCapturer.DAL.DirectoryRepository(@"M:\imageSearch");
+
+                this.builder.RegisterInstance(dirRepository)
+                            .As<IRepository>()
+                            .ExternallyOwned();
+            }
+            else
+            {
+                var repository = new LocalDb4oProvider(Properties.Settings.Default.OutputPath);
+                repository.Start();
 
 
+                this.builder.RegisterInstance(repository)
+                    .As<IRepository>()
+                    .ExternallyOwned();
+            }
 
-            builder.RegisterInstance(repository)
-                .As<IRepository>()
-                .ExternallyOwned();
-
-            //var dirRepository = new Damany.PortraitCapturer.DAL.DirectoryRepository(@"M:\imageSearch");
-
-            //this.builder.RegisterInstance(dirRepository)
-            //            .As<Damany.PortraitCapturer.DAL.IRepository>()
-            //            .ExternallyOwned();
         }
 
         private void InitConfigManager()
@@ -137,46 +148,12 @@ namespace RemoteImaging
 
             this.builder.RegisterType<MainController>();
 
-            RegisterLicensePlateTypes();
-            RegisterNavControlTypes();
-
             builder.RegisterType<SearchLineBuilder>();
 
             builder.RegisterModule(new Autofac.Configuration.ConfigurationSettingsReader());
 
-
             this.Container = this.builder.Build();
 
-        }
-
-        private void RegisterLicensePlateTypes()
-        {
-            builder.RegisterType<LicensePlate.LicensePlateEventPublisher>()
-                .As<LicensePlate.ILicensePlateEventPublisher>()
-                .SingleInstance();
-
-            builder.RegisterType<LicensePlate.LicensePlateUploadMonitor>();
-
-            builder.RegisterType<LicensePlate.LicensePlateDataProvider>()
-                .As<LicensePlate.ILicensePlateDataProvider>()
-                .WithParameter("outputDirectory", Properties.Settings.Default.OutputPath)
-                .SingleInstance();
-
-            builder.RegisterType<LicensePlate.LicensePlateRepository>()
-                .WithParameter("outputDirectory", Properties.Settings.Default.OutputPath)
-                .PropertiesAutowired()
-                .SingleInstance();
-
-            builder.RegisterType<LicensePlate.FormLicensePlateQuery>()
-                .As<LicensePlate.ILicenseplateSearchScreen>();
-
-            builder.RegisterType<LicensePlate.LicensePlateSearchPresenter>()
-                .As<LicensePlate.ILicensePlateSearchPresenter>();
-        }
-
-        private void RegisterNavControlTypes()
-        {
-            builder.RegisterType<YunTai.NavigationController>();
         }
 
 

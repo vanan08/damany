@@ -153,7 +153,12 @@ namespace RemoteImaging.Query
         {
             this.pageSize = (int)this.pageSizeCombo.SelectedItem;
 
-            this.presenter.PageSizeChanged();
+            if (presenter != null)
+            {
+                this.presenter.PageSizeChanged();
+            }
+
+            
 
         }
 

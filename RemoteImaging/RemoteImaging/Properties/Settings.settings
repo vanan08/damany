@@ -179,5 +179,14 @@
     <Setting Name="HistoryFaceCompareSensitivityHi" Type="System.Single" Scope="User">
       <Value Profile="(Default)">63</Value>
     </Setting>
+    <Setting Name="UseDirectoryRepository" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="DirectoryRepositoryPath" Type="System.String" Scope="Application">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="EnableMultiRetinex" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -1,0 +1,18 @@
+﻿<Application x:Class="FaceLibraryManager.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:FaceLibraryManager"
+             >
+    <Application.Resources>
+    	<ResourceDictionary>
+    		<ResourceDictionary.MergedDictionaries>
+    			<ResourceDictionary Source="Simple Styles.xaml"/>
+    		</ResourceDictionary.MergedDictionaries>
+    		<LinearGradientBrush x:Key="Brush_HeaderBackground" StartPoint="0.5,0" EndPoint="0.5,1">
+    			<GradientStop Color="#66000088" Offset="0" />
+    			<GradientStop Color="#BB000088" Offset="1" />
+    		</LinearGradientBrush>
+    		<local:ImageConverter x:Key="imgConverter" />
+    	</ResourceDictionary>
+    </Application.Resources>
+</Application>

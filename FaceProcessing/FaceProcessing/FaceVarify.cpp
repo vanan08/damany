@@ -42,10 +42,22 @@ bool Damany::Imaging::FaceVarify::IsFaceImg(IplImage* smallFaceImg)
 	mouthRect.height = 40;
 	SearchMouth(temp2, mouthRect, mouth);
 
+	CvScalar *meanVal = new CvScalar;
+	CvScalar *stdVal = new CvScalar;
+	cvAvgSdv(faceResize, meanVal, stdVal);
+	float temp = stdVal->val[0];
+	delete meanVal;
+	delete stdVal;
+
 	cvReleaseImage(&faceGray);
 	cvReleaseImage(&faceResize);   
 	cvReleaseImage(&temp1);
 	cvReleaseImage(&temp2); 
+
+	if (temp < 15)
+	{
+		return false;
+	}
 
 	float eyeDist  = sqrt(float((leftEye.x-rightEye.x)*(leftEye.x-rightEye.x) + 
 		(leftEye.y-rightEye.y)*(leftEye.y-rightEye.y)));

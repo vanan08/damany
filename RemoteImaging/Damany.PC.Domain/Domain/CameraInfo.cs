@@ -17,10 +17,5 @@ namespace Damany.PC.Domain
         public string LoginUserName { get; set; }
         public string LoginPassword { get; set; }
 
-        public string LicensePlateUploadDirectory { get; set; }
-
-        public int YunTaiId { get; set; }
-        public Uri YunTaiUri { get; set; }
-
     }
 }

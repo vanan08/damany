@@ -196,12 +196,19 @@ namespace Damany.PortraitCapturer.DAL.Providers
 
         private static DTO.Portrait GetPortraitInternal(Guid portraitId, Db4objects.Db4o.IObjectContainer container)
         {
-            return container.Query<DTO.Portrait>(portrait => portrait.Guid.Equals(portraitId)).SingleOrDefault();
+            var portraitQuery = from DTO.Portrait p in container
+                                where p.Guid.Equals(portraitId)
+                                select p;
+            return portraitQuery.SingleOrDefault();
         }
 
         private static DTO.Frame GetFrameInternal(Guid frameId, Db4objects.Db4o.IObjectContainer container)
         {
-            return container.Query<DTO.Frame>(frame => frame.Guid.Equals(frameId)).SingleOrDefault();
+            var frameQuery = from DTO.Frame f in container
+                             where f.Guid.Equals(frameId)
+                             select f;
+
+            return frameQuery.SingleOrDefault();
         }
 
         private Db4objects.Db4o.IObjectContainer OpenContainer()
