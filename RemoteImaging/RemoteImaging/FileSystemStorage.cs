@@ -321,7 +321,7 @@ namespace RemoteImaging
                 Directory.Delete(videoToDelete.AbsoluteDirectory, true);
                 videoToDelete.Deleted = true;
             }
-            
+
         }
 
         public void DeleteMostOutDatedDataForDay(int days, int cameraId)
@@ -398,6 +398,8 @@ namespace RemoteImaging
         {
 
             string dayAbsoluteDir = GetAbsoluteDirectoryForDay(id);
+            if (!Directory.Exists(dayAbsoluteDir)) return;
+
             foreach (var dayDir in Directory.GetDirectories(dayAbsoluteDir))
             {
                 var date = GetDayFromPath(dayDir);

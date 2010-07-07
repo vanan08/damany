@@ -9,7 +9,9 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using Damany.PC.Domain;
+using Damany.RemoteImaging.Common.Forms;
 using Damany.Util;
+using DevExpress.XtraEditors;
 using RemoteImaging.Core;
 using Microsoft.Practices.EnterpriseLibrary.ExceptionHandling;
 using Damany.RemoteImaging.Common;
@@ -28,6 +30,11 @@ namespace RemoteImaging.Query
             var now = DateTime.Now;
             this.timeTO.EditValue = now;
             this.timeFrom.EditValue = now.AddDays(-1);
+
+            var videoNavigator = new VideoNavigator();
+
+            this.controlNavigator1.NavigatableControl = videoNavigator;
+
         }
 
 
@@ -46,10 +53,10 @@ namespace RemoteImaging.Query
         private void PopulateSearchScope()
         {
             var searchTypes = new List<SearchCategory>();
-            searchTypes.Add( new SearchCategory{ Name = "全部",  Scope= SearchScope.All }  );
+            searchTypes.Add(new SearchCategory { Name = "全部", Scope = SearchScope.All });
             searchTypes.Add(new SearchCategory { Name = "有人像视频", Scope = SearchScope.FaceCapturedVideo });
-            searchTypes.Add( new SearchCategory{ Name = "有动态无人像视频",  Scope= SearchScope.MotionWithoutFaceVideo } );
-            searchTypes.Add( new SearchCategory{ Name = "无动态视频",  Scope= SearchScope.MotionLessVideo } );
+            searchTypes.Add(new SearchCategory { Name = "有动态无人像视频", Scope = SearchScope.MotionWithoutFaceVideo });
+            searchTypes.Add(new SearchCategory { Name = "无动态视频", Scope = SearchScope.MotionLessVideo });
 
             this.searchType.DataSource = searchTypes;
             this.searchType.DisplayMember = "Name";
@@ -117,19 +124,35 @@ namespace RemoteImaging.Query
 
         public Damany.Util.DateTimeRange TimeRange
         {
-            get {  return new DateTimeRange((DateTime) this.timeFrom.EditValue, (DateTime) this.timeTO.EditValue);  }
+            get { return new DateTimeRange((DateTime)this.timeFrom.EditValue, (DateTime)this.timeTO.EditValue); }
+        }
+
+        public DateTimeRange CurrentRange
+        {
+            set
+            {
+                if (InvokeRequired)
+                {
+                    Action<DateTimeRange> action = range => { this.CurrentRange = range; };
+                    this.BeginInvoke(action, value);
+                    return;
+                }
+
+                var s = string.Format("视频列表:[{0}-{1}]", value.From.ToString("yy.MM.dd hh:mm"), value.To.ToString("yy.MM.dd hh:mm"));
+                label1.Text = s;
+            }
         }
 
         public SearchScope SearchScope
         {
-            get {  return (SearchScope) this.searchType.SelectedValue; }
+            get { return (SearchScope)this.searchType.SelectedValue; }
         }
 
         public CameraInfo SelectedCamera
         {
             get
             {
-                return (CameraInfo) this.cameraComboBox.SelectedValue;
+                return (CameraInfo)this.cameraComboBox.SelectedValue;
             }
         }
 
@@ -142,8 +165,49 @@ namespace RemoteImaging.Query
             }
         }
 
+        public bool Busy
+        {
+            set
+            {
+                Action<bool> ac = this.ShowBusyIndicator;
+                this.BeginInvoke(ac, value);
+
+            }
+        }
+
+        private void ShowBusyIndicator(bool isbusy)
+        {
+            Application.UseWaitCursor = isbusy;
+            if (isbusy)
+            {
+                if (_busyIndicator == null)
+                {
+                    _busyIndicator = new ProgressForm();
+                    _busyIndicator.Text = "请稍候...";
+                    _busyIndicator.ShowDialog(this);
+                }
+
+            }
+            else
+            {
+
+                if (_busyIndicator != null)
+                {
+                    _busyIndicator.Close();
+                    _busyIndicator = null;
+                }
+            }
+        }
+
         public void ClearAll()
         {
+            if (InvokeRequired)
+            {
+                Action ac = ClearAll;
+                this.BeginInvoke(ac);
+                return;
+            }
+
             this.videoList.Items.Clear();
             this.ClearFacesList();
         }
@@ -178,6 +242,13 @@ namespace RemoteImaging.Query
 
         public void AddVideo(RemoteImaging.Core.Video v)
         {
+            if (InvokeRequired)
+            {
+                Action<RemoteImaging.Core.Video> ac = AddVideo;
+                this.BeginInvoke(ac, v);
+                return;
+            }
+
             string videoPath = v.Path;
             DateTime dTime = ImageSearch.getDateTimeStr(v.Path);//"2009-6-29 14:00:00"
             var item = new ListViewItem();
@@ -252,10 +323,59 @@ namespace RemoteImaging.Query
                     return null;
                 }
 
-                return (Video) this.videoList.SelectedItems[0].Tag;
+                return (Video)this.videoList.SelectedItems[0].Tag;
             }
         }
 
         #endregion
+
+        private Damany.RemoteImaging.Common.Forms.ProgressForm _busyIndicator;
+
+        private void dataNavigator1_ButtonClick(object sender, DevExpress.XtraEditors.NavigatorButtonClickEventArgs e)
+        {
+
+
+        }
+
+        private void controlNavigator1_ButtonClick(object sender, DevExpress.XtraEditors.NavigatorButtonClickEventArgs e)
+        {
+            switch (e.Button.ButtonType)
+            {
+                case NavigatorButtonType.Custom:
+                    break;
+                case NavigatorButtonType.First:
+                    _presenter.FirstPage();
+                    e.Handled = true;
+                    break;
+                case NavigatorButtonType.PrevPage:
+                    _presenter.PreviousPage();
+                    e.Handled = true;
+                    break;
+                case NavigatorButtonType.Prev:
+                    break;
+                case NavigatorButtonType.Next:
+                    break;
+                case NavigatorButtonType.NextPage:
+                    _presenter.NextPage();
+                    e.Handled = true;
+                    break;
+                case NavigatorButtonType.Last:
+                    _presenter.LastPage();
+                    e.Handled = true;
+                    break;
+                case NavigatorButtonType.Append:
+                    break;
+                case NavigatorButtonType.Remove:
+                    break;
+                case NavigatorButtonType.Edit:
+                    break;
+                case NavigatorButtonType.EndEdit:
+                    break;
+                case NavigatorButtonType.CancelEdit:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
     }
 }

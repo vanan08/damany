@@ -7,5 +7,10 @@ namespace RemoteImaging.Query
 
         void PlayVideo();
         void ShowRelatedFaces();
+
+        void NextPage();
+        void PreviousPage();
+        void FirstPage();
+        void LastPage();
     }
 }

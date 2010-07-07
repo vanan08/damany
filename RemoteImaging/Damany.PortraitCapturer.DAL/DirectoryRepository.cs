@@ -17,12 +17,12 @@ namespace Damany.PortraitCapturer.DAL
 
         public void SavePortrait(Portrait portrait)
         {
-
+            
         }
 
         public void SaveFrame(Frame frame)
         {
-
+            
         }
 
         public Frame GetFrame(Guid frameId)
@@ -42,20 +42,30 @@ namespace Damany.PortraitCapturer.DAL
 
         public IList<Portrait> GetPortraits(int cameraId, DateTimeRange range)
         {
-            var files = System.IO.Directory.GetFiles(this._directoryPath, "*.jpg");
-
-            var portraits = new List<Portrait>();
-
-            foreach (var file in files)
-            {
-                var portrait = new Portrait(file);
-                portrait.CapturedAt = DateTime.Now;
-                portrait.CapturedFrom = new MockFrameSource();
-
-                portraits.Add(portrait);
-            }
+            var portraits = from f in System.IO.Directory.GetFiles(this._directoryPath, "*.jpg")
+                            select new Portrait(f);
 
             return portraits.ToList();
+        }
+
+        public IEnumerable<Frame> GetFramesQuery(int cameraId, DateTimeRange range)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Frame> GetFramesQuery()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool FrameExists(int cameraId, DateTime time)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool PortraitExists(int cameraId, DateTime time)
+        {
+            throw new NotImplementedException();
         }
 
         public void DeletePortrait(Guid portraitId)
