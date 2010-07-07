@@ -40,13 +40,13 @@ namespace Damany.RemoteImaging.Common.Forms
         {
             InitializeComponent();
 
-            this.worker.ProgressChanged += new ProgressChangedEventHandler(worker_ProgressChanged);
-            this.worker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(worker_RunWorkerCompleted);
+//             this.worker.ProgressChanged += new ProgressChangedEventHandler(worker_ProgressChanged);
+//             this.worker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(worker_RunWorkerCompleted);
         }
 
         void worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            this.Close();
+            //this.Close();
         }
 
         void worker_ProgressChanged(object sender, ProgressChangedEventArgs e)

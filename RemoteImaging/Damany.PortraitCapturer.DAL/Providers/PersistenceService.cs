@@ -65,7 +65,7 @@ namespace Damany.PortraitCapturer.DAL.Providers
             portrait.GetIpl().SaveImage(absolutePath);
 
             portrait.CapturedAt = portrait.CapturedAt.ToLocalTime();
-            portrait.CapturedAt = portrait.Frame.CapturedAt.ToLocalTime();
+            portrait.Frame.CapturedAt = portrait.Frame.CapturedAt.ToLocalTime();
 
         }
 
@@ -115,8 +115,7 @@ namespace Damany.PortraitCapturer.DAL.Providers
             var utcRange = new DateTimeRange(range.From.ToUniversalTime(), range.To.ToUniversalTime());
 
             var dtos = dataProvider.GetFrames(cameraId, utcRange);
-            var frames = dtos.ToList().ConvertAll<Frame>(dto =>
-                                                       {
+            var frames = dtos.Select(dto =>{
                                                            try
                                                            {
                                                                var frame = Mapper.Map<DAL.DTO.Frame, Frame>(dto);
@@ -140,14 +139,29 @@ namespace Damany.PortraitCapturer.DAL.Providers
             var utcRange = new DateTimeRange(range.From.ToUniversalTime(), range.To.ToUniversalTime());
 
             var dtos = dataProvider.GetPortraits(cameraId, utcRange);
-            var portraits = dtos.ToList().ConvertAll(dto =>
+            var portraits = dtos.Select(dto =>
                                                          {
                                                              var utc = Mapper.Map<DAL.DTO.Portrait, Portrait>(dto);
                                                              utc.CapturedAt = utc.CapturedAt.ToLocalTime();
                                                              return utc;
-                                                         });
-            return portraits;
+                                                         } );
+            return portraits.ToList();
 
+        }
+
+        public IEnumerable<Frame> GetFramesQuery(int cameraId, DateTimeRange range)
+        {
+            return dataProvider.GetFramesQuery(cameraId, range).Select(dto=>Mapper.Map<DTO.Frame, Frame>(dto));
+        }
+
+        public bool FrameExists(int cameraId, DateTime time)
+        {
+            return true;
+        }
+
+        public bool PortraitExists(int cameraId, DateTime time)
+        {
+            return true;
         }
 
         public void DeletePortrait(System.Guid portraitId)
@@ -182,7 +196,7 @@ namespace Damany.PortraitCapturer.DAL.Providers
                         System.IO.File.Delete(path);
                     }
                 }
-                catch (System.IO.IOException) { }
+                catch (System.IO.IOException){}
             }
 
             dataProvider.DeletePortraits(ps);
@@ -208,7 +222,7 @@ namespace Damany.PortraitCapturer.DAL.Providers
                         System.IO.File.Delete(path);
                     }
                 }
-                catch (System.IO.IOException) { }
+                catch (System.IO.IOException){}
             }
 
             dataProvider.DeleteFrames(fs);
