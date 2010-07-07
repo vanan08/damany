@@ -15,7 +15,6 @@ using DevExpress.XtraEditors;
 using RemoteImaging.Core;
 using Microsoft.Practices.EnterpriseLibrary.ExceptionHandling;
 using Damany.RemoteImaging.Common;
-using RemoteImaging.Extensions;
 
 namespace RemoteImaging.Query
 {
@@ -91,7 +90,11 @@ namespace RemoteImaging.Query
 
         private void VideoQueryForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            axVLCPlugin21.StopPlaying();
+            if (this.axVLCPlugin21.playlist.isPlaying)
+            {
+                this.axVLCPlugin21.playlist.stop();
+                System.Threading.Thread.Sleep(1000);
+            }
 
         }
 
@@ -103,6 +106,10 @@ namespace RemoteImaging.Query
 
         private void ShowDetailPic(ImageDetail img)
         {
+            FormDetailedPic detail = new FormDetailedPic();
+            detail.Img = img;
+            detail.ShowDialog(this);
+            detail.Dispose();
         }
 
         internal class SearchCategory
@@ -291,7 +298,15 @@ namespace RemoteImaging.Query
 
         public void PlayVideoInPlace(string videoPath)
         {
-            axVLCPlugin21.PlayFile(videoPath);
+            if (this.axVLCPlugin21.playlist.isPlaying)
+            {
+                this.axVLCPlugin21.playlist.stop();
+            }
+            this.axVLCPlugin21.playlist.items.clear();
+
+
+            int idx = this.axVLCPlugin21.playlist.add(videoPath, null, null);
+            this.axVLCPlugin21.playlist.playItem(idx);
         }
 
         #endregion

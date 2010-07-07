@@ -23,10 +23,12 @@ public:
 	void CmpFace(IplImage* destImg, CvRect& destRect, float score[]); 
 	void SetThreshold(int value);
 	void LoadImages(IplImage* imgs[], int count);
+	void EnableMultiRetinex(bool enable);
 
 private:
 	int threshold;
 
+	bool enableMultiRetinex;
 	float weightCoeff[49]; 
 	int widthsize; 
 	int heightsize;	
@@ -53,7 +55,8 @@ private:
 	void CalcBlockLBP(IplImage* img, float** hst);
 	void CalcFace(IplImage* destImg, float score[]);
 	void CalcAvg(float** arr, int num1, int num2);
-
+	//int GammaCorrect(IplImage* src, IplImage* dst, double low, double high, double bottom, double top, double gamma);
+	void LightAdjuest(IplImage* grayImg);
 };
 
 		}

@@ -18,6 +18,8 @@ namespace Damany.Util
         protected override void OnCreateMainForm()
         {
             MainForm = new T();
+            
+           
         }
     }
 }

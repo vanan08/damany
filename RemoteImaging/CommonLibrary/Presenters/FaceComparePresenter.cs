@@ -18,7 +18,7 @@ namespace Damany.RemoteImaging.Common.Presenters
             _comparer = comparer;
             this.exit = false;
 
-            this.Thresholds = new float[] {55, 58, 60} ;
+            this.Thresholds = new float[] { 55, 58, 60 };
         }
 
         public float ComparerSensitivity
@@ -33,7 +33,7 @@ namespace Damany.RemoteImaging.Common.Presenters
         {
             var acc = this.view.SelectedAccuracy;
 
-            this.ThresholdIndex = (int) acc;
+            this.ThresholdIndex = (int)acc;
 
         }
 
@@ -47,8 +47,8 @@ namespace Damany.RemoteImaging.Common.Presenters
             }
             else
             {
-                this.Exit = false; 
-                
+                this.Exit = false;
+
                 var from = this.view.SearchFrom;
                 var to = this.view.SearchTo;
 
@@ -64,9 +64,9 @@ namespace Damany.RemoteImaging.Common.Presenters
 
             }
 
-         
 
-           
+
+
         }
 
         public void Start()
@@ -89,7 +89,7 @@ namespace Damany.RemoteImaging.Common.Presenters
             OpenCvSharp.IplImage targetImage, OpenCvSharp.CvRect rect)
         {
             try
-            { 
+            {
                 IsRunning = true;
                 this.view.EnableStartButton(false);
 
@@ -97,8 +97,10 @@ namespace Damany.RemoteImaging.Common.Presenters
                 var portraits = this.repository.GetPortraits(-1, range);
                 int count = 0;
 
-                var repo = new PersonOfInterest[] {new PersonOfInterest(targetImage)};
-                this._comparer.Load( repo.ToList() );
+                var target = new PersonOfInterest(targetImage) { FaceRect = rect };
+
+                var repo = new PersonOfInterest[] { target };
+                this._comparer.Load(repo.ToList());
 
                 foreach (var p in portraits)
                 {
@@ -121,7 +123,7 @@ namespace Damany.RemoteImaging.Common.Presenters
                             this.view.AddPortrait(p);
                             this.view.SetStatusText(string.Format("检索到 {0} 个目标", count));
                         }
-                        
+
                     }
                 }
 
@@ -131,18 +133,18 @@ namespace Damany.RemoteImaging.Common.Presenters
                 IsRunning = false;
                 this.view.EnableStartButton(true);
             }
-            
+
         }
 
         private int ThresholdIndex
-        { 
+        {
             get
             {
                 lock (locker)
                 {
                     return _thresholdIndex;
                 }
-                
+
             }
             set
             {
@@ -150,7 +152,7 @@ namespace Damany.RemoteImaging.Common.Presenters
                 {
                     _thresholdIndex = value;
                 }
-                
+
             }
         }
 

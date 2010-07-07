@@ -92,7 +92,7 @@ namespace Damany.RemoteImaging.Common
 
             if (single == null)
             {
-                return null;
+                return string.Empty;
             }
             return single.Name;
         }

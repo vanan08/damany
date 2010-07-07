@@ -24,9 +24,9 @@ namespace Damany.PortraitCapturer.Shell.CmdLine
 
             try
             {
-               
+                //System.Threading.ThreadPool.QueueUserWorkItem(uri => RunPumper(uri), args);
 
-                //exit.WaitOne();
+                exit.WaitOne();
 
             }
             catch (System.Exception ex)
