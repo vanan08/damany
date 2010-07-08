@@ -31,7 +31,7 @@ const int nRgnBound_mouth[4] = { 0, 50, 100, 100 };//ÔÚÈËÁ³µÄ¶à´ó·¶Î§ÄÚËÑË÷£¬°Ù·
 
 
 //////////////////////Yuki Add Upperbody Analysis/////////////////////////////////////////
-const char* cascade_name_upperbody = "./data/haarcascade_upperbody.xml";
+const char* cascade_name_upperbody = "c:/data/haarcascade_upperbody.xml";
 //////////////////////End--Yuki Add Upperbody Analysis/////////////////////////////////////////
 
 

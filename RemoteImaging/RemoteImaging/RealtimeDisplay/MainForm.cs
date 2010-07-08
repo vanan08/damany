@@ -594,7 +594,10 @@ namespace RemoteImaging.RealtimeDisplay
         }
         private void cameraTree_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
-
+            if (e.Node != null)
+            {
+                cameraTree.SelectedNode = e.Node;
+            }
 
         }
 
@@ -737,6 +740,7 @@ namespace RemoteImaging.RealtimeDisplay
             {
                 this.liveFace.Image = last.GetIpl().ToBitmap();
             }
+
         }
 
         public void Stop()

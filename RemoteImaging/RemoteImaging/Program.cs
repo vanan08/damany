@@ -50,7 +50,7 @@ namespace RemoteImaging
                     }
 
 
-                    AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
+                    AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
                     Application.ThreadException += Application_ThreadException;
 
 
@@ -89,7 +89,11 @@ namespace RemoteImaging
         private static void HandleException(Exception e)
         {
             LogException(e);
-            ShowException(e);
+
+
+            Microsoft.Practices.EnterpriseLibrary.Logging.Logger.Write("--------\r\nException Occurred, restart application at " + DateTime.Now + "-----------\r\n");
+
+            Application.Restart();
         }
 
         private static void ShowException(System.Exception e)
@@ -109,12 +113,5 @@ namespace RemoteImaging
                 );
         }
 
-
-        static void watcher_ImagesUploaded(object Sender, ImageUploadEventArgs args)
-        {
-            DateTime time = args.Images[0].CaptureTime;
-            string msg = string.Format("camID={0} count={1} time={2}", args.CameraID, args.Images.Length, time);
-            System.Diagnostics.Debug.WriteLine(msg);
-        }
     }
 }
