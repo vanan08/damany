@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="gb2312"?>
+<persons>
+  <person id="23" name="wh" sex="男" age="23" card="23" filename="A90C7F6B-8FB4-410C-B147-40E3CC79CE84.jpg" similarity="0" />
+  <person id="23" name="guo hui" sex="男" age="23" card="122" filename="A2BF43DE-9EE5-4D17-B7DF-FA4742787ADF.jpg" similarity="0" />
+</persons>
