@@ -64,6 +64,9 @@ namespace WatchDog
                     if (DateTime.Now - LastActive > TimeToReport)
                     {
                         InvokeHeartBeatStopped(EventArgs.Empty);
+
+                        //暂时停止报告一段时间
+                        LastActive = DateTime.Now + HoldTimeAfterReport;
                     }
                 }
 

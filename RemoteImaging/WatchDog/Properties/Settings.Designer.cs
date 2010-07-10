@@ -31,5 +31,68 @@ namespace WatchDog.Properties {
                 return ((int)(this["SecondsToReport"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("60")]
+        public int SecondsToHoldAfterReport {
+            get {
+                return ((int)(this["SecondsToHoldAfterReport"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("3:00")]
+        public string HourToReboot {
+            get {
+                return ((string)(this["HourToReboot"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Program Files\\Damany\\人像抓拍2010\\RemoteImaging.exe")]
+        public string ApplicationToReboot {
+            get {
+                return ((string)(this["ApplicationToReboot"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Windows\\System32\\shutdown.exe")]
+        public string ShutDownCommand {
+            get {
+                return ((string)(this["ShutDownCommand"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("9999")]
+        public int PortToListen {
+            get {
+                return ((int)(this["PortToListen"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(" -r -t 0")]
+        public string ShutDownCommandParameter {
+            get {
+                return ((string)(this["ShutDownCommandParameter"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool EnableReboot {
+            get {
+                return ((bool)(this["EnableReboot"]));
+            }
+        }
     }
 }
