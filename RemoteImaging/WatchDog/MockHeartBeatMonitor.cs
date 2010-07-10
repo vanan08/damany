@@ -12,6 +12,7 @@ namespace WatchDog
                 token.ThrowIfCancellationRequested();
                 Thread.Sleep(TimeToReport);
                 InvokeHeartBeatStopped(EventArgs.Empty);
+
             }
         }
     }

@@ -7,6 +7,9 @@ namespace WatchDog
     public abstract class HeartBeatMonitorBase : IHeartBeatMonitor
     {
         public TimeSpan TimeToReport { get; set; }
+
+        public TimeSpan HoldTimeAfterReport { get; set; }
+
         public event EventHandler HeartBeatStopped;
         public event EventHandler OnStart;
         public event EventHandler OnStop;
