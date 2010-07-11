@@ -102,8 +102,10 @@ namespace WatchDog
                         process.CloseMainWindow();
                         closeAttempts++;
                         _logger.Info("close process succeed");
-                        System.Threading.Thread.Sleep(SecondsToWait);
                     }
+
+                    System.Threading.Thread.Sleep(SecondsToWait);
+
                 }
                 else
                 {
