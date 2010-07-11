@@ -25,15 +25,6 @@ namespace WatchDog.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("30")]
-        public int SecondsToReport {
-            get {
-                return ((int)(this["SecondsToReport"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("60")]
         public int SecondsToHoldAfterReport {
             get {
@@ -79,7 +70,7 @@ namespace WatchDog.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute(" -r -t 0")]
+        [global::System.Configuration.DefaultSettingValueAttribute(" -r -t 90")]
         public string ShutDownCommandParameter {
             get {
                 return ((string)(this["ShutDownCommandParameter"]));
@@ -92,6 +83,33 @@ namespace WatchDog.Properties {
         public bool EnableReboot {
             get {
                 return ((bool)(this["EnableReboot"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(".m4v;.jpg")]
+        public string FileExtensionsToMonitor {
+            get {
+                return ((string)(this["FileExtensionsToMonitor"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("d:\\imageoutput")]
+        public string DirectoryToWatch {
+            get {
+                return ((string)(this["DirectoryToWatch"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("90")]
+        public int SecondsToReport {
+            get {
+                return ((int)(this["SecondsToReport"]));
             }
         }
     }

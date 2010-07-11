@@ -2,9 +2,6 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="WatchDog.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="SecondsToReport" Type="System.Int32" Scope="Application">
-      <Value Profile="(Default)">30</Value>
-    </Setting>
     <Setting Name="SecondsToHoldAfterReport" Type="System.Int32" Scope="Application">
       <Value Profile="(Default)">60</Value>
     </Setting>
@@ -21,10 +18,19 @@
       <Value Profile="(Default)">9999</Value>
     </Setting>
     <Setting Name="ShutDownCommandParameter" Type="System.String" Scope="Application">
-      <Value Profile="(Default)"> -r -t 0</Value>
+      <Value Profile="(Default)"> -r -t 90</Value>
     </Setting>
     <Setting Name="EnableReboot" Type="System.Boolean" Scope="Application">
       <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="FileExtensionsToMonitor" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">.m4v;.jpg</Value>
+    </Setting>
+    <Setting Name="DirectoryToWatch" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">d:\imageoutput</Value>
+    </Setting>
+    <Setting Name="SecondsToReport" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">90</Value>
     </Setting>
   </Settings>
 </SettingsFile>
