@@ -18,7 +18,7 @@
       <Value Profile="(Default)">9999</Value>
     </Setting>
     <Setting Name="ShutDownCommandParameter" Type="System.String" Scope="Application">
-      <Value Profile="(Default)"> -r -t 90</Value>
+      <Value Profile="(Default)"> -r -t 0</Value>
     </Setting>
     <Setting Name="EnableReboot" Type="System.Boolean" Scope="Application">
       <Value Profile="(Default)">True</Value>
