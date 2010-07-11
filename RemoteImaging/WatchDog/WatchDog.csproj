@@ -52,6 +52,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FileSystemMonitor.cs" />
     <Compile Include="IHeartbeatMonitor.cs" />
     <Compile Include="HeartBeatMonitorListener.cs" />
     <Compile Include="HeartBeatMonitorBase.cs" />
@@ -69,8 +70,9 @@
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="log4net.config">
+    <None Include="watchdog.log4net.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

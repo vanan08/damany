@@ -16,9 +16,9 @@ namespace WatchDog
             {
                 x.ConfigureService<HeartBeatMonitorListener>(s =>
                 {
-                    var monitor = new UdpHeartBeatMonitor(Properties.Settings.Default.PortToListen);
-                    monitor.TimeToReport = new TimeSpan(0, 0, Properties.Settings.Default.SecondsToReport);
-                    monitor.HoldTimeAfterReport = new TimeSpan(0, 0, Properties.Settings.Default.SecondsToHoldAfterReport);
+                    IHeartBeatMonitor monitor;
+
+                    monitor = CreateFileMonitor();
 
                     var timeString = Properties.Settings.Default.HourToReboot.Split(':');
                     var h = int.Parse(timeString[0]);
@@ -47,5 +47,35 @@ namespace WatchDog
             Runner.Host(cfg, args);
 
         }
+
+        private static IHeartBeatMonitor CreateUdpMonitor()
+        {
+            var monitor = new UdpHeartBeatMonitor(Properties.Settings.Default.PortToListen);
+            InitializeMonitor(monitor);
+
+            return monitor;
+        }
+
+
+        private static IHeartBeatMonitor CreateFileMonitor()
+        {
+            var m = new FileSystemMonitor(Properties.Settings.Default.DirectoryToWatch);
+            InitializeMonitor(m);
+
+            var extensions = Properties.Settings.Default.FileExtensionsToMonitor.Split(new[] { ';' },
+                                                                                       StringSplitOptions.
+                                                                                           RemoveEmptyEntries);
+
+            Array.ForEach(extensions, e => m.ExtensionsToMonitor.Add(e));
+
+            return m;
+        }
+
+        private static void InitializeMonitor(IHeartBeatMonitor monitor)
+        {
+            monitor.TimeToReport = new TimeSpan(0, 0, Properties.Settings.Default.SecondsToReport);
+            monitor.HoldTimeAfterReport = new TimeSpan(0, 0, Properties.Settings.Default.SecondsToHoldAfterReport);
+        }
+
     }
 }

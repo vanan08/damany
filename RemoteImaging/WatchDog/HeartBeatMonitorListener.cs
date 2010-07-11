@@ -30,7 +30,8 @@ namespace WatchDog
                                           {
                                               var time = DateTime.Now;
 
-                                              if (time.Hour == HourToReboot.Hour && time.Minute <= HourToReboot.Minute + 10)
+                                              if (time.Hour == HourToReboot.Hour &&
+                                                  time.Minute >= HourToReboot.Minute && time.Minute <= HourToReboot.Minute + 1)
                                               {
                                                   try
                                                   {
@@ -44,7 +45,7 @@ namespace WatchDog
 
                                               }
 
-                                              System.Threading.Thread.Sleep(60 * 1000);
+                                              System.Threading.Thread.Sleep(30 * 1000);
                                           }
                                       });
             }
@@ -83,15 +84,26 @@ namespace WatchDog
 
         private void EnsureKillProcess()
         {
+            var closeAttempts = 0;
             while (true)
             {
                 var process = GetProcess();
                 if (process != null)
                 {
-                    _logger.Info("issue command to kill process");
-                    KillProcess(process);
-                    _logger.Info("kill process succeed");
-                    System.Threading.Thread.Sleep(SecondsToWait);
+                    if (closeAttempts >= 3)
+                    {
+                        process.Kill();
+                        _logger.Info("close process failed after retries, kill it brutally");
+                    }
+                    else
+                    {
+                        _logger.Info("issue command to close process");
+                        CloseProcess(process);
+                        process.CloseMainWindow();
+                        closeAttempts++;
+                        _logger.Info("close process succeed");
+                        System.Threading.Thread.Sleep(SecondsToWait);
+                    }
                 }
                 else
                 {
@@ -106,7 +118,15 @@ namespace WatchDog
             while (true)
             {
                 _logger.Info("issue command to start process");
-                Process.Start(ApplicationToReboot);
+
+                var workingDir = System.IO.Path.GetDirectoryName(ApplicationToReboot);
+
+                var info = new ProcessStartInfo();
+                info.FileName = ApplicationToReboot;
+                info.WorkingDirectory = workingDir;
+
+                Process.Start(info);
+
                 _logger.Info("start process succeed");
                 System.Threading.Thread.Sleep(SecondsToWait);
 
@@ -143,10 +163,10 @@ namespace WatchDog
 
         }
 
-        private void KillProcess(Process process)
+        private void CloseProcess(Process process)
         {
-            process.Kill();
-            _logger.Info("issued command to kill " + process.ProcessName);
+            process.CloseMainWindow();
+            _logger.Info("issued command to close " + process.ProcessName);
         }
     }
 }
