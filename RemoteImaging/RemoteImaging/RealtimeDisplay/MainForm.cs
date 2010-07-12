@@ -368,7 +368,7 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void aboutButton_Click(object sender, EventArgs e)
         {
-            AboutBox about = new AboutBox();
+            var about = new AboutBox();
             about.ShowDialog();
             about.Dispose();
         }
