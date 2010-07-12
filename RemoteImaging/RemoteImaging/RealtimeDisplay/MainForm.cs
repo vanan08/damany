@@ -61,6 +61,13 @@ namespace RemoteImaging.RealtimeDisplay
             _videoRepository = videoRepository;
             this._createOptionsForm = createOptionsForm;
 
+            Damany.RemoteImaging.Common.ConfigurationManager.GetDefault().ConfigurationChanged += MainForm_ConfigurationChanged;
+
+        }
+
+        void MainForm_ConfigurationChanged(object sender, EventArgs e)
+        {
+            this.Cameras = Damany.RemoteImaging.Common.ConfigurationManager.GetDefault().GetCameras().ToArray();
         }
 
         public void ShowMessage(string msg)

@@ -13,6 +13,8 @@ namespace Damany.RemoteImaging.Common
 
         public void InvokeConfigurationChanged()
         {
+            if (_isUpdating) return;
+
             EventHandler handler = ConfigurationChanged;
             if (handler != null) handler(this, EventArgs.Empty);
         }
@@ -26,7 +28,18 @@ namespace Damany.RemoteImaging.Common
             }
 
             return instance;
-            
+
+        }
+
+        public void BeginUpdate()
+        {
+            _isUpdating = true;
+        }
+
+        public void EndUpdate()
+        {
+            _isUpdating = false;
+            InvokeConfigurationChanged();
         }
 
         private void Initialize()
@@ -35,7 +48,7 @@ namespace Damany.RemoteImaging.Common
             {
                 objContainer = Db4oEmbedded.OpenFile("config.db4o");
             }
-            
+
         }
 
         public IList<CameraInfo> GetCameras()
@@ -77,7 +90,7 @@ namespace Damany.RemoteImaging.Common
             {
                 this.objContainer.Delete(cameraInfo);
             }
-            
+
         }
 
         public string GetName(int id)
@@ -96,10 +109,10 @@ namespace Damany.RemoteImaging.Common
             }
             return single.Name;
         }
-        private ConfigurationManager() {}
+        private ConfigurationManager() { }
 
-        private  Db4objects.Db4o.IObjectContainer objContainer;
-
+        private Db4objects.Db4o.IObjectContainer objContainer;
         private static ConfigurationManager instance;
+        private bool _isUpdating;
     }
 }
