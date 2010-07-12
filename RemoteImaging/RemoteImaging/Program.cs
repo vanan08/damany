@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using System.ServiceModel;
+using Damany.RemoteImaging.Common.Forms;
 using RemoteControlService;
 using Autofac;
 using RemoteImaging.ConfigurationSectionHandlers;
@@ -64,6 +65,8 @@ namespace RemoteImaging
                     System.GC.KeepAlive(remover);
 
                     var mainForm = strapper.Container.Resolve<RemoteImaging.RealtimeDisplay.MainForm>();
+                    mainForm.Text = Properties.Settings.Default.ApplicationName;
+
                     var controller = strapper.Container.Resolve<MainController>();
                     mainForm.AttachController(controller);
 
@@ -90,10 +93,21 @@ namespace RemoteImaging
         {
             LogException(e);
 
-
             Microsoft.Practices.EnterpriseLibrary.Logging.Logger.Write("--------\r\nException Occurred, restart application at " + DateTime.Now + "-----------\r\n");
 
-            Application.Restart();
+            var form = new CountDownForm();
+            form.Text = Properties.Settings.Default.ApplicationName;
+            form.SecondsToCount = Properties.Settings.Default.RestartCountDown;
+            form.Message = "系统发生了异常，系统已经将该异常记录在 exception.log 文件中，数秒后系统将自动重启。" +
+                           "\r\n\r\n点击 \"确定\" 立即重启，点击 \"取消\" 将不重启。";
+
+            var result = form.ShowDialog();
+
+            if (result == DialogResult.OK)
+            {
+                Application.Restart();
+            }
+
         }
 
         private static void ShowException(System.Exception e)

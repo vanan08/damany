@@ -745,5 +745,23 @@ namespace RemoteImaging.Properties {
                 return ((bool)(this["EnableMultiRetinex"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("人像自动抓拍系统")]
+        public string ApplicationName {
+            get {
+                return ((string)(this["ApplicationName"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("10")]
+        public int RestartCountDown {
+            get {
+                return ((int)(this["RestartCountDown"]));
+            }
+        }
     }
 }
