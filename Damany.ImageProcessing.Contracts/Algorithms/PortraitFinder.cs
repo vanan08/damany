@@ -9,28 +9,45 @@ namespace Damany.Imaging.Processors
 {
     using Damany.Imaging.Common;
 
-    public class PortraitFinder : IConvertor<Frame, Portrait>
+    public class PortraitFinder
     {
-        public event Action<IList<Portrait>> PortraitCaptured;
 
         public IRepository Repository { get; set; }
+        public IEnumerable<Damany.Imaging.Common.IFacePostFilter> PostFilters { get; set; }
 
         public PortraitFinder()
         {
             this.listeners = new List<IPortraitHandler>();
             this.searcher = new FaceSearchWrapper.FaceSearch();
+
+            PostFilters = new List<IFacePostFilter>(0);
         }
 
-        public IEnumerable<Portrait> Execute(IEnumerable<Frame> inputs)
+        public List<Portrait> ProcessFrames(List<Frame> motionFrames)
         {
-            PersistentFrames(inputs);
+            PersistentFrames(motionFrames);
 
-            var portraits = HandleMotionFrame(inputs);
+            var portraits = HandleMotionFrame(motionFrames);
 
-            PersistPortraits(portraits);
+            var filtered = PostProcessPortraits(portraits);
 
+            PersistPortraits(filtered);
 
             return portraits;
+        }
+
+        private List<Portrait> PostProcessPortraits(List<Portrait> portraits)
+        {
+            for (var i = 0; i < portraits.Count; i++)
+            {
+                if (!IsFace(portraits[i]))
+                {
+                    portraits[i].Dispose();
+                    portraits[i] = null;
+                }
+            }
+
+            return portraits.Where(p => p != null).ToList();
         }
 
 
@@ -44,6 +61,21 @@ namespace Damany.Imaging.Processors
                 this.listeners.Add(l);
             }
 
+        }
+
+
+
+        bool IsFace(Portrait portrait)
+        {
+            foreach (var facePostFilter in PostFilters)
+            {
+                if (!facePostFilter.IsFace(portrait))
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         IEnumerable<IPortraitHandler> GetListenersCopy()
@@ -77,17 +109,15 @@ namespace Damany.Imaging.Processors
         }
 
 
-        #region IMotionFrameHandler Members
 
-        public IEnumerable<Portrait> HandleMotionFrame(IEnumerable<Frame> motionFrames)
+        public List<Portrait> HandleMotionFrame(List<Frame> motionFrames)
         {
             return this.SearchIn(motionFrames);
         }
 
-        #endregion
 
 
-        private IEnumerable<Portrait> SearchIn(IEnumerable<Frame> motionFrames)
+        private List<Portrait> SearchIn(List<Frame> motionFrames)
         {
             var mList = motionFrames;
             foreach (var item in mList)
@@ -135,7 +165,7 @@ namespace Damany.Imaging.Processors
             return faceBounds;
         }
 
-        private static IEnumerable<Portrait> ExpandPortraitsList(IEnumerable<Frame> motionFrames, IEnumerable<Target> portraits)
+        private static List<Portrait> ExpandPortraitsList(IEnumerable<Frame> motionFrames, IEnumerable<Target> portraits)
         {
             var portraitFoundFrameQuery = from m in motionFrames
                                           join p in portraits
@@ -153,7 +183,7 @@ namespace Damany.Imaging.Processors
                                    };
 
 
-            return expanedPortraits;
+            return expanedPortraits.ToList();
         }
 
         private static IEnumerable<Frame> GetFacelessFrames(IEnumerable<Frame> motionFrames, IEnumerable<Target> portraits)
@@ -196,14 +226,6 @@ namespace Damany.Imaging.Processors
         }
 
 
-        private void FirePortraitCapturedEvent(IList<Portrait> portraitList)
-        {
-            //event listener
-            if (this.PortraitCaptured != null)
-            {
-                this.PortraitCaptured(portraitList);
-            }
-        }
 
         private void NotifyListeners(IList<Frame> motionFrames, IList<Portrait> portraitList)
         {
@@ -225,19 +247,6 @@ namespace Damany.Imaging.Processors
             }
         }
 
-        private void Dispatch(IList<Frame> motionFrames, IList<Portrait> portraitList)
-        {
-            try
-            {
-                FirePortraitCapturedEvent(portraitList);
-                NotifyListeners(motionFrames, portraitList);
-            }
-            finally
-            {
-                portraitList.ToList().ForEach(p => p.Dispose());
-                motionFrames.ToList().ForEach(f => f.Dispose());
-            }
-        }
 
         List<IPortraitHandler> listeners;
         FaceSearchWrapper.FaceSearch searcher;

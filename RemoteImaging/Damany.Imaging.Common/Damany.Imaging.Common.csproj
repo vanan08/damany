@@ -75,6 +75,8 @@
     <Compile Include="IConfigurable.cs" />
     <Compile Include="IConvertor.cs" />
     <Compile Include="IDataProvider.cs" />
+    <Compile Include="IFaceFilter.cs" />
+    <Compile Include="IFacePreFilter.cs" />
     <Compile Include="IMotionDetector.cs" />
     <Compile Include="IOperation.cs" />
     <Compile Include="IRepositoryFaceComparer.cs" />

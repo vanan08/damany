@@ -7,7 +7,7 @@ using Damany.Imaging.Common;
 namespace Damany.Imaging.Processors
 {
 
-    public class MotionDetector : IOperation<Frame>
+    public class MotionDetector
     {
         private readonly IMotionDetector _detector;
         OpenCvSharp.CvSize lastImageSize;
@@ -21,25 +21,8 @@ namespace Damany.Imaging.Processors
             _detector = detector;
         }
 
-        #region IOperation<Frame> Members
 
-        public IEnumerable<Frame> Execute(IEnumerable<Frame> input)
-        {
-            foreach (var frame in input)
-            {
-                var motionFrames = DetectMotion(frame);
-
-                foreach (var motionFrame in motionFrames)
-                {
-                    yield return motionFrame;
-                }
-            }
-
-        }
-
-        #endregion
-
-        private IEnumerable<Frame> DetectMotion(Frame frame)
+        public bool ProcessFrame(Frame frame)
         {
             try
             {
@@ -47,7 +30,7 @@ namespace Damany.Imaging.Processors
             }
             catch (System.ArgumentException ex)
             {
-                yield break;
+                return false;
             }
 
             this._manager.AddNewFrame(frame);
@@ -58,15 +41,13 @@ namespace Damany.Imaging.Processors
 
             ProcessOldFrame(oldFrameMotionResult);
 
-            if (groupCaptured)
-            {
-                var frames = _manager.RetrieveMotionFrames();
-                foreach (var f in frames)
-                {
-                    yield return f;
-                }
-            }
+            return groupCaptured;
 
+        }
+
+        public List<Frame> GetMotionFrames()
+        {
+            return _manager.RetrieveMotionFrames();
         }
 
 
