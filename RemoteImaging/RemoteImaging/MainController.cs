@@ -20,14 +20,12 @@ namespace RemoteImaging
         public MainController(RealtimeDisplay.MainForm mainForm,
                               ConfigurationManager configManager,
                               IRepository repository,
-                              SearchLineBuilder.SearchLineFactory searchLineFactory,
                               FaceComparer comparer)
         {
-            this._mainForm      = mainForm;
+            this._mainForm = mainForm;
             this._configManager = configManager;
-            _repository         = repository;
-            _searchLineFactory  = searchLineFactory;
-            _comparer           = comparer;
+            _repository = repository;
+            _comparer = comparer;
 
         }
 
@@ -41,7 +39,7 @@ namespace RemoteImaging
             this._comparer.Comparer.SetSensitivity(Properties.Settings.Default.LbpThreshold);
 
             this._mainForm.Cameras = this._configManager.GetCameras().ToArray();
-            var camToStart         = this._configManager.GetCameras();
+            var camToStart = this._configManager.GetCameras();
 
             if (camToStart.Count == 1)
             {
@@ -51,9 +49,6 @@ namespace RemoteImaging
 
         }
 
-        private void InitializeHandlers()
-        {
-        }
 
         void _comparer_PersonOfInterestDected(object sender, MiscUtil.EventArgs<PersonOfInterestDetectionResult> e)
         {
@@ -69,10 +64,6 @@ namespace RemoteImaging
                 return;
             }
 
-            if (_currentController != null)
-            {
-                _currentController.Stop();
-            }
 
             this.StartCameraInternal(selected);
         }
@@ -107,12 +98,6 @@ namespace RemoteImaging
             {
                 try
                 {
-                    var builder       = _searchLineFactory(cam);
-                    var camController = builder.Build();
-
-                    camController.Start();
-
-                    _currentController = camController;
                     if (cam.Provider == CameraProvider.Sanyo)
                     {
                         this._mainForm.StartRecord(cam);
@@ -129,16 +114,11 @@ namespace RemoteImaging
             System.Threading.ThreadPool.QueueUserWorkItem(action);
         }
 
-        private void RegisterHandlers(FaceSearchController camController)
-        {
-        }
 
 
         private RealtimeDisplay.MainForm _mainForm;
         private ConfigurationManager _configManager;
         private readonly IRepository _repository;
-        private readonly SearchLineBuilder.SearchLineFactory _searchLineFactory;
         private readonly FaceComparer _comparer;
-        private Damany.Imaging.Processors.FaceSearchController _currentController;
     }
 }

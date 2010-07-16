@@ -14,6 +14,7 @@ namespace Damany.Imaging.Processors
 
         public IRepository Repository { get; set; }
         public IEnumerable<Damany.Imaging.Common.IFacePostFilter> PostFilters { get; set; }
+        public IEventAggregator EventAggregator { get; set; }
 
         public PortraitFinder()
         {
@@ -21,6 +22,7 @@ namespace Damany.Imaging.Processors
             this.searcher = new FaceSearchWrapper.FaceSearch();
 
             PostFilters = new List<IFacePostFilter>(0);
+            EventAggregator = new NullEventAggregator();
         }
 
         public List<Portrait> ProcessFrames(List<Frame> motionFrames)
@@ -30,6 +32,11 @@ namespace Damany.Imaging.Processors
             var portraits = HandleMotionFrame(motionFrames);
 
             var filtered = PostProcessPortraits(portraits);
+
+            foreach (var portrait in filtered)
+            {
+                EventAggregator.Publish(portrait);
+            }
 
             PersistPortraits(filtered);
 

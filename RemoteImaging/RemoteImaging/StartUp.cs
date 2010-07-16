@@ -136,8 +136,7 @@ namespace RemoteImaging
             builder.RegisterType<FaceProcessingWrapper.MotionDetector>()
                 .As<IMotionDetector>();
 
-            builder.RegisterType<Damany.Imaging.Processors.MotionDetector>()
-                .As<IOperation<Frame>>();
+            builder.RegisterType<Damany.Imaging.Processors.MotionDetector>();
 
             builder.RegisterType<Damany.Imaging.Processors.PortraitFinder>()
                 .As<IConvertor<Frame, Portrait>>()
@@ -148,7 +147,10 @@ namespace RemoteImaging
 
             this.builder.RegisterType<MainController>();
 
-            builder.RegisterType<SearchLineBuilder>();
+            builder.RegisterType<Damany.Imaging.Common.EventAggregator>().SingleInstance();
+
+            builder.RegisterType<RealtimeDisplay.MainForm>().SingleInstance();
+
 
             builder.RegisterModule(new Autofac.Configuration.ConfigurationSettingsReader());
 

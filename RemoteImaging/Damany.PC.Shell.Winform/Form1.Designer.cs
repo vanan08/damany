@@ -78,7 +78,6 @@
             this.slowDown.Name = "slowDown";
             this.slowDown.Size = new System.Drawing.Size(88, 22);
             this.slowDown.Text = "降低速度";
-            this.slowDown.Click += new System.EventHandler(this.slowDown_Click);
             // 
             // speedUp
             // 
@@ -87,7 +86,6 @@
             this.speedUp.Name = "speedUp";
             this.speedUp.Size = new System.Drawing.Size(88, 22);
             this.speedUp.Text = "加快速度";
-            this.speedUp.Click += new System.EventHandler(this.speedUp_Click);
             // 
             // toolStripButton1
             // 

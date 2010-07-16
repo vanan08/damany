@@ -8,8 +8,6 @@ namespace Damany.RemoteImaging.Common
     public class BootLoader
     {
         public Action<int, object> ReportProgress { get; set; }
-        public IList<Damany.Imaging.Processors.FaceSearchController> controllers
-            = new List<Damany.Imaging.Processors.FaceSearchController>();
         public Damany.PortraitCapturer.DAL.Providers.LocalDb4oProvider repository;
 
         public BootLoader()
@@ -19,7 +17,7 @@ namespace Damany.RemoteImaging.Common
 
         public void Load(string databaseRoot)
         {
-           
+
         }
     }
 }

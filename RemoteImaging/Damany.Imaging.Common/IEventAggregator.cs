@@ -5,8 +5,9 @@ using System.Text;
 
 namespace Damany.Imaging.Common
 {
-    public interface IOperation<T>
+    public interface IEventAggregator
     {
-        IEnumerable<T> Execute(IEnumerable<T> inputs);
+        void Subscribe(Action<Portrait> subscriber);
+        void Publish(Portrait portrait);
     }
 }
