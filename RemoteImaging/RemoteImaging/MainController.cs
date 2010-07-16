@@ -20,13 +20,14 @@ namespace RemoteImaging
         public MainController(RealtimeDisplay.MainForm mainForm,
                               ConfigurationManager configManager,
                               IRepository repository,
-                              FaceComparer comparer)
+                              FaceComparer comparer,
+                              FaceSearchFacade faceSearchFacade)
         {
             this._mainForm = mainForm;
             this._configManager = configManager;
             _repository = repository;
             _comparer = comparer;
-
+            _faceSearchFacade = faceSearchFacade;
         }
 
         public void Start()
@@ -64,8 +65,7 @@ namespace RemoteImaging
                 return;
             }
 
-
-            this.StartCameraInternal(selected);
+            _faceSearchFacade.StartWith(selected);
         }
 
         public void SelectedPortraitChanged()
@@ -120,5 +120,6 @@ namespace RemoteImaging
         private ConfigurationManager _configManager;
         private readonly IRepository _repository;
         private readonly FaceComparer _comparer;
+        private readonly FaceSearchFacade _faceSearchFacade;
     }
 }

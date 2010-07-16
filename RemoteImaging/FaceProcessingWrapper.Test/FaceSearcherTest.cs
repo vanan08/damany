@@ -32,9 +32,9 @@ namespace FaceProcessingWrapper.Test
                 if (frame == null)
                     break;
 
-                frame.MotionRectangles.Add(new CvRect(0, 0, frame.GetImage().Width, frame.GetImage().Height));
+                //frame.MotionRectangles.Add(new CvRect(0, 0, frame.GetImage().Width, frame.GetImage().Height));
 
-                searcher.AddInFrame(frame);
+                //searcher.AddInFrame(frame);
                 var faces = searcher.SearchFaces();
 
                 foreach (var face in faces)
@@ -46,7 +46,7 @@ namespace FaceProcessingWrapper.Test
                     }
                 }
 
-            } 
+            }
 
         }
     }

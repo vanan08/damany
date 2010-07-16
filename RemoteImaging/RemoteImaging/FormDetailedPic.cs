@@ -98,17 +98,7 @@ namespace RemoteImaging
             }
         }
 
-        private void Contrast_Click(object sender, EventArgs e)
-        {
-            IPLab.ContrastForm frm = new IPLab.ContrastForm();
-            frm.Image = (Bitmap)this.pictureEdit1.Image;
-            if (frm.ShowDialog() == DialogResult.OK)
-            {
-                this.ApplyFilter(frm.Filter);
-            }
 
-            frm.Dispose();
-        }
 
         private void Save_Click(object sender, EventArgs e)
         {
