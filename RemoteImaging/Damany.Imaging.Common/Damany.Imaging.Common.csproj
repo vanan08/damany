@@ -68,6 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CapturedObject.cs" />
+    <Compile Include="EventAggregator.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="FaceCompareResult.cs" />
     <Compile Include="Frame.cs" />
@@ -75,10 +76,10 @@
     <Compile Include="IConfigurable.cs" />
     <Compile Include="IConvertor.cs" />
     <Compile Include="IDataProvider.cs" />
+    <Compile Include="IEventAggregator.cs" />
     <Compile Include="IFaceFilter.cs" />
     <Compile Include="IFacePreFilter.cs" />
     <Compile Include="IMotionDetector.cs" />
-    <Compile Include="IOperation.cs" />
     <Compile Include="IRepositoryFaceComparer.cs" />
     <Compile Include="ISimpleFaceComparer.cs" />
     <Compile Include="IFrameHandler.cs" />
@@ -88,15 +89,13 @@
     <Compile Include="IPortraitHandler.cs" />
     <Compile Include="LazyIplImage.cs" />
     <Compile Include="MotionDetectResult.cs" />
+    <Compile Include="NullEventAggregator.cs" />
     <Compile Include="NullRepositoryFaceComparer.cs" />
     <Compile Include="PersonOfInterest.cs" />
-    <Compile Include="Operations.cs" />
     <Compile Include="Portrait.cs" />
     <Compile Include="PortraitBounds.cs" />
-    <Compile Include="PortraitHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RepositoryCompareResult.cs" />
-    <Compile Include="SearchLineFilters.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Damany.Util\Damany.Util.csproj">

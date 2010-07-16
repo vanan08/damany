@@ -22,9 +22,24 @@ using Damany.PC.Domain;
 
 namespace RemoteImaging.RealtimeDisplay
 {
-    public partial class MainForm : Form, IImageScreen, Damany.Imaging.Common.IOperation<Portrait>
+    public partial class MainForm : Form, IImageScreen
     {
         public Func<FaceComparePresenter> CreateFaceCompare { get; set; }
+
+        private IEventAggregator _eventAggregator;
+        public IEventAggregator EventAggregator
+        {
+            get
+            {
+                return _eventAggregator;
+            }
+            set
+            {
+                _eventAggregator = value;
+                _eventAggregator.Subscribe(HandlePortrait);
+            }
+        }
+
         private SplashForm splash = new SplashForm();
         public MainForm()
         {
@@ -732,54 +747,18 @@ namespace RemoteImaging.RealtimeDisplay
         {
         }
 
-        public void HandlePortraits(IEnumerable<Portrait> portraits)
+        public void HandlePortrait(Portrait portrait)
         {
-            var imgCells = portraits.Select(p => new ImageCell()
-                                                     {
-                                                         Image = p.GetIpl().ToBitmap(),
-                                                         Text = p.CapturedAt.ToString(),
-                                                         Tag = p
-                                                     }).ToArray();
+            var imgCells = new[]{ new ImageCell(){
+                                                         Image = portrait.GetIpl().ToBitmap(),
+                                                         Text = portrait.CapturedAt.ToString(),
+                                                         Tag = portrait
+                                                 }
+                                };
 
             this.squareListView1.ShowImages(imgCells);
-            var last = portraits.LastOrDefault();
-            if (last != null)
-            {
-                this.liveFace.Image = last.GetIpl().ToBitmap();
-            }
-
+            this.liveFace.Image = portrait.GetIpl().ToBitmap();
         }
-
-        public void Stop()
-        {
-        }
-
-        public string Description
-        {
-            get { throw new NotImplementedException(); }
-        }
-
-        public string Author
-        {
-            get { throw new NotImplementedException(); }
-        }
-
-        public Version Version
-        {
-            get { throw new NotImplementedException(); }
-        }
-
-        public bool WantCopy
-        {
-            get { return true; }
-        }
-
-        public bool WantFrame
-        {
-            get { return false; }
-        }
-
-        public event EventHandler<EventArgs<Exception>> Stopped;
 
         private MainController controller;
         private Func<OptionsPresenter> _createOptionsPresenter;
@@ -815,12 +794,6 @@ namespace RemoteImaging.RealtimeDisplay
             this.alertForm.Show(this);
         }
 
-        public IEnumerable<Portrait> Execute(IEnumerable<Portrait> inputs)
-        {
-            this.HandlePortraits(inputs);
-
-            return inputs;
-        }
 
         public ConfigurationSectionHandlers.ButtonsVisibleSectionHandler ButtonsVisible
         {
