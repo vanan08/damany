@@ -139,7 +139,6 @@
             this.Contrast.Name = "Contrast";
             this.Contrast.Size = new System.Drawing.Size(57, 22);
             this.Contrast.Text = "对比度";
-            this.Contrast.Click += new System.EventHandler(this.Contrast_Click);
             // 
             // Brightness
             // 

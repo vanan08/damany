@@ -29,7 +29,7 @@ namespace Damany.PC.DAL.Providers.Test
             var frame = new Frame(Data.GetFrame());
             var mockCamera = new Damany.Cameras.DirectoryFilesCamera(@"c:\", "*.jpg");
             mockCamera.Id = 3;
-            frame.CapturedFrom = mockCamera;
+            //frame.CapturedFrom = mockCamera;
 
             repository.SaveFrame(frame);
 
@@ -39,7 +39,7 @@ namespace Damany.PC.DAL.Providers.Test
 
             var portrait = new Portrait(Data.GetPortrait());
             portrait.FaceBounds = new OpenCvSharp.CvRect(0, 0, 100, 100);
-            portrait.CapturedFrom = mockCamera;
+            //portrait.CapturedFrom = mockCamera;
 
             repository.SavePortrait(portrait);
 

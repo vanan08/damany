@@ -27,7 +27,7 @@ namespace Damany.Imaging.Processors
 
         public List<Portrait> ProcessFrames(List<Frame> motionFrames)
         {
-            PersistentFrames(motionFrames);
+            //PersistentFrames(motionFrames);
 
             var portraits = HandleMotionFrame(motionFrames);
 
@@ -38,7 +38,7 @@ namespace Damany.Imaging.Processors
                 EventAggregator.Publish(portrait);
             }
 
-            PersistPortraits(filtered);
+            //PersistPortraits(filtered);
 
             return portraits;
         }

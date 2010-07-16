@@ -64,5 +64,10 @@ namespace Damany.RemoteImaging.Common.Forms
 
         private const int Interval = 1000;
         private const string Format = "({0})确定";
+
+        private void buttonCancel_Click(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.Cancel;
+        }
     }
 }
