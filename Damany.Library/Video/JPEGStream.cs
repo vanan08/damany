@@ -2,7 +2,7 @@
 // AForge.NET framework
 // http://www.aforgenet.com/framework/
 //
-// Copyright © Andrew Kirillov, 2005-2009
+// Copyright ?Andrew Kirillov, 2005-2009
 // andrew.kirillov@aforgenet.com
 //
 
@@ -70,7 +70,7 @@ namespace AForge.Video
         // use separate HTTP connection group or use default
 		private bool useSeparateConnectionGroup = false;
         // prevent cashing or not
-		private bool preventCaching = true;
+		private bool preventCaching = false;
         // frame interval in milliseconds
 		private int frameInterval = 0;
         // timeout value for web request
@@ -83,6 +83,8 @@ namespace AForge.Video
 
 		private Thread thread = null;
 		private ManualResetEvent stopEvent = null;
+
+	    private CookieContainer _cookie;
 
         /// <summary>
         /// New frame event.
@@ -263,6 +265,11 @@ namespace AForge.Video
 			}
 		}
 
+        public bool RequireCookie { get; set; }
+
+
+
+
         /// <summary>
         /// Initializes a new instance of the <see cref="JPEGStream"/> class.
         /// </summary>
@@ -305,7 +312,16 @@ namespace AForge.Video
 				stopEvent = new ManualResetEvent( false );
 
                 // create and start new thread
-				thread = new Thread( new ThreadStart( WorkerThread ) );
+
+			    if (RequireCookie)
+			    {
+			        thread = new Thread(CookieWorkerThread);
+			    }
+			    else
+			    {
+			        thread = new Thread( WorkerThread );
+			    }
+
 				thread.Name = source; // mainly for debugging
 				thread.Start( );
 			}
@@ -381,6 +397,79 @@ namespace AForge.Video
 			stopEvent = null;
 		}
 
+
+        private void CookieWorkerThread( )
+        {
+            while (true)
+            {
+                HttpWebRequest request = null;
+                Stream stream = null;
+                HttpWebResponse response = null;
+
+                try
+                {
+                    //first to obtain cookie from camera
+                    var uri = new Uri(source);
+                    request = CreateRequest(string.Format("http://{0}", uri.Host), null, new Random());
+                    request.CookieContainer = new CookieContainer();
+
+                    response = (HttpWebResponse) request.GetResponse();
+                    stream = response.GetResponseStream();
+
+                    _cookie = request.CookieContainer;
+
+                    WorkerThread();
+
+                }
+                catch ( WebException exception )
+				{
+                    // provide information to clients
+                    if ( VideoSourceError != null )
+                    {
+                        VideoSourceError( this, new VideoSourceErrorEventArgs( exception.Message ) );
+                    }
+					// wait for a while before the next try
+					Thread.Sleep( 250 );
+				}
+				catch ( Exception )
+				{
+				}
+				finally
+				{
+					// abort request
+					if ( request != null)
+					{
+                        request.Abort( );
+                        request = null;
+					}
+					// close response stream
+					if ( stream != null )
+					{
+						stream.Close( );
+						stream = null;
+					}
+					// close response
+					if ( response != null )
+					{
+                        response.Close( );
+                        response = null;
+					}
+				}
+
+				// need to stop ?
+				if ( stopEvent.WaitOne( 0, true ) )
+					break;
+			}
+
+            if ( PlayingFinished != null )
+            {
+                PlayingFinished( this, ReasonToFinishPlaying.StoppedByUser );
+            }
+                
+        }
+
+
+
         // Worker thread
         private void WorkerThread( )
 		{
@@ -407,25 +496,7 @@ namespace AForge.Video
                     // set dowbload start time
 					start = DateTime.Now;
 
-					// create request
-					if ( !preventCaching )
-					{
-                        // request without cache prevention
-                        request = (HttpWebRequest) WebRequest.Create( source );
-					}
-					else
-					{
-                        // request with cache prevention
-                        request = (HttpWebRequest) WebRequest.Create( source + ( ( source.IndexOf( '?' ) == -1 ) ? '?' : '&' ) + "fake=" + rand.Next( ).ToString( ) );
-					}
-                    // set timeout value for the request
-                    request.Timeout = requestTimeout;
-					// set login and password
-					if ( ( login != null ) && ( password != null ) && ( login != string.Empty ) )
-                        request.Credentials = new NetworkCredential( login, password );
-					// set connection group name
-					if ( useSeparateConnectionGroup )
-                        request.ConnectionGroupName = GetHashCode( ).ToString( );
+                    request = CreateRequest(source, _cookie, rand);
 					// get response
                     response = request.GetResponse( );
 					// get response stream
@@ -528,5 +599,39 @@ namespace AForge.Video
                 PlayingFinished( this, ReasonToFinishPlaying.StoppedByUser );
             }
 		}
+
+        private HttpWebRequest CreateRequest(string uri, CookieContainer cookie, Random rand )
+        {
+            HttpWebRequest request = null;
+
+            // create request
+            if (!preventCaching)
+            {
+                // request without cache prevention
+                request = (HttpWebRequest)WebRequest.Create(uri);
+            }
+            else
+            {
+                // request with cache prevention
+                request = (HttpWebRequest)WebRequest.Create(uri + ((uri.IndexOf('?') == -1) ? '?' : '&') + "fake=" + rand.Next().ToString());
+            }
+            // set timeout value for the request
+            request.Timeout = requestTimeout;
+
+
+            if (RequireCookie)
+            {
+                request.CookieContainer = cookie;
+            }
+
+            // set login and password
+            if ((login != null) && (password != null) && (login != string.Empty))
+                request.Credentials = new NetworkCredential(login, password);
+            // set connection group name
+            if (useSeparateConnectionGroup)
+                request.ConnectionGroupName = GetHashCode().ToString();
+
+            return request;
+        }
 	}
 }
