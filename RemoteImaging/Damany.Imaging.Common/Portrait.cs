@@ -25,6 +25,11 @@ namespace Damany.Imaging.Common
 
             this.CopyPropertiesTo(clone);
 
+            if (this.Frame != null)
+            {
+                clone.Frame = this.Frame.Clone();
+            }
+
             return clone;
         }
 
@@ -68,9 +73,15 @@ namespace Damany.Imaging.Common
                 {
                     this.portraitImage.Dispose();
                 }
+
+                if (this.Frame != null)
+                {
+                    this.Frame.Dispose();
+                }
             }
 
             this.portraitImage = null;
+            this.Frame = null;
             this.disposed = true;
         }
 
