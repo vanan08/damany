@@ -151,7 +151,7 @@ namespace RemoteImaging
 
             builder.RegisterType<RealtimeDisplay.MainForm>().SingleInstance().PropertiesAutowired();
 
-            builder.RegisterType<FaceSearchFacade>();
+            builder.RegisterType<FaceSearchFacade>().WithProperty("MotionQueueSize", Properties.Settings.Default.MaxFrameQueueLength);
 
 
             builder.RegisterModule(new Autofac.Configuration.ConfigurationSettingsReader());

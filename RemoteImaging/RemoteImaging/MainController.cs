@@ -17,17 +17,20 @@ namespace RemoteImaging
 {
     public class MainController
     {
+        private FaceSearchFacade _currentFaceSearchFacade;
+        private Func<FaceSearchFacade> _faceSearchFacadeFactory;
+
         public MainController(RealtimeDisplay.MainForm mainForm,
                               ConfigurationManager configManager,
                               IRepository repository,
                               FaceComparer comparer,
-                              FaceSearchFacade faceSearchFacade)
+                              Func<FaceSearchFacade> faceSearchFacadeFactory)
         {
             this._mainForm = mainForm;
             this._configManager = configManager;
             _repository = repository;
             _comparer = comparer;
-            _faceSearchFacade = faceSearchFacade;
+            _faceSearchFacadeFactory = faceSearchFacadeFactory;
         }
 
         public void Start()
@@ -50,6 +53,11 @@ namespace RemoteImaging
 
         }
 
+        public void Stop()
+        {
+            StopSearchFaceFacade();
+        }
+
 
         void _comparer_PersonOfInterestDected(object sender, MiscUtil.EventArgs<PersonOfInterestDetectionResult> e)
         {
@@ -65,7 +73,27 @@ namespace RemoteImaging
                 return;
             }
 
-            _faceSearchFacade.StartWith(selected);
+            StopSearchFaceFacade();
+
+            var facade = _faceSearchFacadeFactory();
+            facade.StartWith(selected);
+
+            if (selected.Provider == CameraProvider.Sanyo)
+            {
+                _mainForm.StartRecord(selected);
+            }
+
+            _currentFaceSearchFacade = facade;
+
+        }
+
+        private void StopSearchFaceFacade()
+        {
+            if (_currentFaceSearchFacade != null)
+            {
+                _currentFaceSearchFacade.SignalToStop();
+                _currentFaceSearchFacade.WaitForStop();
+            }
         }
 
         public void SelectedPortraitChanged()

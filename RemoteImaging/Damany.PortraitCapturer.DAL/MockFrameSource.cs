@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Damany.PortraitCapturer.DAL
 {
-    class MockFrameSource : Damany.Imaging.Common.IFrameStream
+    public class MockFrameSource : Damany.Imaging.Common.IFrameStream
     {
         #region IFrameStream Members
 
@@ -31,7 +31,8 @@ namespace Damany.PortraitCapturer.DAL
 
         public int Id
         {
-            get;set;
+            get;
+            set;
         }
 
         public string Description

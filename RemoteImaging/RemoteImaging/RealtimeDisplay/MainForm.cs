@@ -675,6 +675,11 @@ namespace RemoteImaging.RealtimeDisplay
 
             Properties.Settings.Default.Save();
 
+            if (this.controller != null)
+            {
+                this.controller.Stop();
+            }
+
         }
 
         private void tsbMonitoring_Click(object sender, EventArgs e)
@@ -749,15 +754,25 @@ namespace RemoteImaging.RealtimeDisplay
 
         public void HandlePortrait(Portrait portrait)
         {
+            Portrait clone = portrait.Clone();
+
+            if (InvokeRequired)
+            {
+                Action<Portrait> ac = HandlePortrait;
+
+                this.BeginInvoke(ac, clone);
+                return;
+            }
+
             var imgCells = new[]{ new ImageCell(){
-                                                         Image = portrait.GetIpl().ToBitmap(),
-                                                         Text = portrait.CapturedAt.ToString(),
-                                                         Tag = portrait
+                                                         Image = clone.GetIpl().ToBitmap(),
+                                                         Text = clone.CapturedAt.ToString(),
+                                                         Tag = clone
                                                  }
                                 };
 
             this.squareListView1.ShowImages(imgCells);
-            this.liveFace.Image = portrait.GetIpl().ToBitmap();
+            this.liveFace.Image = clone.GetIpl().ToBitmap();
         }
 
         private MainController controller;
