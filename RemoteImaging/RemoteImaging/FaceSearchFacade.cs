@@ -1,12 +1,15 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using AForge.Video;
 using Damany.Imaging.Common;
 using Damany.Imaging.Processors;
 using Damany.PC.Domain;
 using Damany.Cameras;
+using Damany.PortraitCapturer.DAL;
 
 namespace RemoteImaging
 {
@@ -15,15 +18,33 @@ namespace RemoteImaging
         private readonly MotionDetector _motionDetector;
         private readonly PortraitFinder _portraitFinder;
         private readonly IEnumerable<IFacePostFilter> _facePostFilters;
+        private readonly IRepository _repository;
+        private readonly IEventAggregator _eventAggregator;
         private AForge.Video.IVideoSource _jpegStream;
+        private readonly ConcurrentQueue<List<Frame>> _motionFramesQueue = new ConcurrentQueue<List<Frame>>();
+        private System.Threading.Thread _faceSearchThread;
+        private readonly AutoResetEvent _signal = new AutoResetEvent(false);
+        private Damany.PC.Domain.CameraInfo _cameraInfo;
+        private bool _run;
+
+
+        public int MotionQueueSize { get; set; }
 
         public FaceSearchFacade(Damany.Imaging.Processors.MotionDetector motionDetector,
-                                 Damany.Imaging.Processors.PortraitFinder portraitFinder,
-                                 IEnumerable<Damany.Imaging.Common.IFacePostFilter> facePostFilters)
+                                Damany.Imaging.Processors.PortraitFinder portraitFinder,
+                                IEnumerable<Damany.Imaging.Common.IFacePostFilter> facePostFilters,
+                                IRepository repository,
+                                IEventAggregator eventAggregator)
         {
             _motionDetector = motionDetector;
             _portraitFinder = portraitFinder;
             _facePostFilters = facePostFilters;
+            _repository = repository;
+            _eventAggregator = eventAggregator;
+
+            MotionQueueSize = 10;
+
+            _eventAggregator.Subscribe(p => _repository.SavePortrait(p));
         }
 
 
@@ -56,8 +77,21 @@ namespace RemoteImaging
                         throw new ArgumentOutOfRangeException();
                 }
 
+                _cameraInfo = cameraInfo;
+
                 _jpegStream.NewFrame += JpegStreamNewFrame;
                 _jpegStream.Start();
+
+                if (_faceSearchThread == null)
+                {
+                    _faceSearchThread = new Thread(FaceSearchWorkerThread);
+                    _faceSearchThread.IsBackground = true;
+                    _faceSearchThread.Start();
+                }
+
+                _run = true;
+
+
             }
         }
 
@@ -66,6 +100,11 @@ namespace RemoteImaging
             if (_jpegStream != null)
             {
                 _jpegStream.SignalToStop();
+
+                _run = false;
+                _signal.Set();
+
+
             }
         }
 
@@ -75,10 +114,29 @@ namespace RemoteImaging
             {
                 _jpegStream.WaitForStop();
             }
+
+            if (_faceSearchThread != null)
+            {
+                _faceSearchThread.Join();
+            }
+
+            foreach (List<Frame> frames in _motionFramesQueue)
+            {
+                frames.ForEach(f =>
+                                   {
+                                       f.Dispose();
+                                       f = null;
+                                   });
+            }
         }
 
         void JpegStreamNewFrame(object sender, NewFrameEventArgs eventArgs)
         {
+            if (_motionFramesQueue.Count > MotionQueueSize)
+            {
+                return;
+            }
+
             var bmp = (System.Drawing.Bitmap)eventArgs.Frame.Clone();
 
             var ipl = OpenCvSharp.IplImage.FromBitmap(bmp);
@@ -90,7 +148,34 @@ namespace RemoteImaging
             if (grouped)
             {
                 var motionFrames = _motionDetector.GetMotionFrames();
-                _portraitFinder.ProcessFrames(motionFrames);
+
+                foreach (var motionFrame in motionFrames)
+                {
+                    var source = new MockFrameSource();
+                    source.Id = _cameraInfo.Id;
+                    motionFrame.CapturedFrom = source;
+                }
+
+                motionFrames.ForEach(f => _repository.SaveFrame(f));
+
+                _motionFramesQueue.Enqueue(motionFrames);
+                _signal.Set();
+            }
+        }
+
+        void FaceSearchWorkerThread()
+        {
+            while (_run)
+            {
+                List<Frame> frames = null;
+                if (_motionFramesQueue.TryDequeue(out frames))
+                {
+                    _portraitFinder.ProcessFrames(frames);
+                }
+                else
+                {
+                    _signal.WaitOne();
+                }
             }
         }
     }
