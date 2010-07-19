@@ -43,6 +43,7 @@ namespace RemoteImaging
             _eventAggregator = eventAggregator;
 
             MotionQueueSize = 10;
+            _run = true;
 
             _eventAggregator.Subscribe(p => _repository.SavePortrait(p));
         }
@@ -89,7 +90,7 @@ namespace RemoteImaging
                     _faceSearchThread.Start();
                 }
 
-                _run = true;
+
 
 
             }
