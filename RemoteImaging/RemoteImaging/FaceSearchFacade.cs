@@ -45,7 +45,6 @@ namespace RemoteImaging
             MotionQueueSize = 10;
             _run = true;
 
-            _eventAggregator.Subscribe(p => _repository.SavePortrait(p));
         }
 
 
@@ -104,7 +103,6 @@ namespace RemoteImaging
 
                 _run = false;
                 _signal.Set();
-
 
             }
         }
@@ -171,7 +169,23 @@ namespace RemoteImaging
                 List<Frame> frames = null;
                 if (_motionFramesQueue.TryDequeue(out frames))
                 {
-                    _portraitFinder.ProcessFrames(frames);
+                    var portraits = _portraitFinder.ProcessFrames(frames);
+
+                    if (_repository != null)
+                    {
+                        portraits.ForEach(p => _repository.SavePortrait(p));
+                    }
+
+                    if (_eventAggregator != null)
+                    {
+                        portraits.ForEach(p =>
+                                              {
+                                                  _eventAggregator.Publish(p);
+                                                  p.Dispose();
+                                              });
+
+                    }
+
                 }
                 else
                 {
