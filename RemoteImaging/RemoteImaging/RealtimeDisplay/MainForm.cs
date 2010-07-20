@@ -820,6 +820,11 @@ namespace RemoteImaging.RealtimeDisplay
             }
         }
 
+        private void realTimer_Tick(object sender, EventArgs e)
+        {
+            this.statusTime.Text = DateTime.Now.ToString();
+        }
+
 
     }
 }
