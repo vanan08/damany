@@ -52,7 +52,7 @@ namespace Damany.Imaging.PlugIns
 
         public void Start()
         {
-            if (!_started)
+            if (!_started && _personsOfInterests.Count() > 0)
             {
                 this._worker.Start(null);
                 _started = true;
@@ -62,8 +62,12 @@ namespace Damany.Imaging.PlugIns
 
         public void ProcessPortraits(IList<Portrait> portraits)
         {
-            var clone = portraits.Select(p => p.Clone()).ToList();
-            this.Enqueue(clone);
+            if (_personsOfInterests.Count() > 0)
+            {
+                var clone = portraits.Select(p => p.Clone()).ToList();
+                this.Enqueue(clone);
+            }
+
         }
 
         public void SignalToStop()
@@ -74,7 +78,7 @@ namespace Damany.Imaging.PlugIns
 
         public void WaitForStop()
         {
-            if (_worker != null)
+            if (_worker != null && _started)
             {
                 _worker.Join();
 
