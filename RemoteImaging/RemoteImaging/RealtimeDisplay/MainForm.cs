@@ -36,8 +36,21 @@ namespace RemoteImaging.RealtimeDisplay
             set
             {
                 _eventAggregator = value;
-                _eventAggregator.Subscribe(HandlePortrait);
+                _eventAggregator.PortraitFound += HandlePortrait;
+                _eventAggregator.FaceMatchFound += EventAggregatorFaceMatchFound;
             }
+        }
+
+        void EventAggregatorFaceMatchFound(object sender, EventArgs<PersonOfInterestDetectionResult> e)
+        {
+            if (InvokeRequired)
+            {
+                Action<PersonOfInterestDetectionResult> ac = ShowSuspects;
+                this.Invoke(ac, e.Value);
+                return;
+            }
+
+            this.ShowSuspects(e.Value);
         }
 
         private SplashForm splash = new SplashForm();
@@ -719,11 +732,11 @@ namespace RemoteImaging.RealtimeDisplay
         #region IImageScreen Members
 
 
-        public void ShowSuspects(Damany.Imaging.PlugIns.PersonOfInterestDetectionResult result)
+        public void ShowSuspects(PersonOfInterestDetectionResult result)
         {
             if (InvokeRequired)
             {
-                Action<Damany.Imaging.PlugIns.PersonOfInterestDetectionResult> action = this.ShowSuspects;
+                Action<PersonOfInterestDetectionResult> action = this.ShowSuspects;
 
                 this.BeginInvoke(action, result);
                 return;
@@ -752,22 +765,27 @@ namespace RemoteImaging.RealtimeDisplay
         {
         }
 
-        public void HandlePortrait(Portrait portrait)
+        public void HandlePortrait(object sender, EventArgs<Portrait> e)
         {
-            Portrait clone = portrait.Clone();
+            Portrait clone = e.Value.Clone();
 
             if (InvokeRequired)
             {
-                Action<Portrait> ac = HandlePortrait;
+                Action<Portrait> ac = ShowPortrait;
 
                 this.BeginInvoke(ac, clone);
                 return;
             }
 
+            ShowPortrait(clone);
+        }
+
+        private void ShowPortrait(Portrait clone)
+        {
             var imgCells = new[]{ new ImageCell(){
-                                                         Image = clone.GetIpl().ToBitmap(),
-                                                         Text = clone.CapturedAt.ToString(),
-                                                         Tag = clone
+                                                     Image = clone.GetIpl().ToBitmap(),
+                                                     Text = clone.CapturedAt.ToString(),
+                                                     Tag = clone
                                                  }
                                 };
 

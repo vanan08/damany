@@ -7,7 +7,10 @@ namespace Damany.Imaging.Common
 {
     public interface IEventAggregator
     {
-        void Subscribe(Action<Portrait> subscriber);
-        void Publish(Portrait portrait);
+        event EventHandler<MiscUtil.EventArgs<Portrait>> PortraitFound;
+        event EventHandler<MiscUtil.EventArgs<PersonOfInterestDetectionResult>> FaceMatchFound;
+
+        void PublishPortrait(Portrait portrait);
+        void PublishFaceMatchEvent(PersonOfInterestDetectionResult matchResult);
     }
 }

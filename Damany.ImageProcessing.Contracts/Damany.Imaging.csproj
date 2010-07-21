@@ -85,7 +85,6 @@
     <Compile Include="Handlers\GUIUpdater.cs" />
     <Compile Include="Handlers\IWantedRepository.cs" />
     <Compile Include="Handlers\PortraitsLogger.cs" />
-    <Compile Include="PlugIns\PersonOfInterestDetectionResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

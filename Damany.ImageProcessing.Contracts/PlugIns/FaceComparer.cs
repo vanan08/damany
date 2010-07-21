@@ -12,19 +12,24 @@ namespace Damany.Imaging.PlugIns
 {
     public class FaceComparer
     {
+        private readonly IEnumerable<PersonOfInterest> _personsOfInterests;
+        private readonly IRepositoryFaceComparer _comparer;
+        private bool _initialized = false;
+        private bool _started = false;
+        private float _sensitivity = 0;
+
+
         public IEnumerable<IFaceSatisfyCompareCretia> FacePreFilter { get; set; }
         public float Threshold { get; set; }
-        public IRepositoryFaceComparer Comparer { get; set; }
+        public IEventAggregator EventAggregator { get; set; }
 
-
-        private readonly IEnumerable<PersonOfInterest> _personsOfInterests;
 
         public FaceComparer(IEnumerable<PersonOfInterest> personsOfInterests, IRepositoryFaceComparer comparer)
         {
             _personsOfInterests = personsOfInterests;
+            _comparer = comparer;
             if (comparer == null) throw new ArgumentNullException("comparer");
 
-            this.Comparer = comparer;
             FacePreFilter = new List<IFaceSatisfyCompareCretia>(0);
 
         }
@@ -32,28 +37,51 @@ namespace Damany.Imaging.PlugIns
 
         public void Initialize()
         {
-            this.Comparer.Load(this._personsOfInterests.ToList());
+            if (!_initialized)
+            {
+                _comparer.Load(this._personsOfInterests.ToList());
 
-            this.worker = new Thread(this.DoComare);
-            this.worker.IsBackground = true;
-            this.goSignal = new AutoResetEvent(false);
-            this.Run = true;
+                this._worker = new Thread(this.DoComare);
+                this._worker.IsBackground = true;
+                this.goSignal = new AutoResetEvent(false);
+                this.Run = true;
+                _initialized = true;
+            }
         }
 
 
         public void Start()
         {
-            this.worker.Start(null);
+            if (!_started)
+            {
+                this._worker.Start(null);
+                _started = true;
+            }
+
         }
 
-        public void HandlePortraits(IList<Portrait> portraits)
+        public void ProcessPortraits(IList<Portrait> portraits)
         {
-            this.Enqueue(portraits);
+            var clone = portraits.Select(p => p.Clone()).ToList();
+            this.Enqueue(clone);
         }
 
-        public void Stop()
+        public void SignalToStop()
         {
             Run = false;
+            goSignal.Set();
+        }
+
+        public void WaitForStop()
+        {
+            if (_worker != null)
+            {
+                _worker.Join();
+
+                var list = portraitsQueue.ToList();
+                portraitsQueue.Clear();
+                list.ForEach(l => l.ToList().ForEach(p => p.Dispose()));
+            }
         }
 
 
@@ -61,7 +89,11 @@ namespace Damany.Imaging.PlugIns
         {
             set
             {
-                this.Comparer.SetSensitivity(value);
+                if (_sensitivity != value)
+                {
+                    _comparer.SetSensitivity(value);
+                    _sensitivity = value;
+                }
             }
         }
 
@@ -95,7 +127,7 @@ namespace Damany.Imaging.PlugIns
                 foreach (var portrait in filtered)
                 {
 
-                    var compareResults = this.Comparer.CompareTo(portrait.GetIpl());
+                    var compareResults = _comparer.CompareTo(portrait.GetIpl());
 
                     var matches = from r in compareResults
                                   where r.Similarity > Threshold
@@ -110,8 +142,11 @@ namespace Damany.Imaging.PlugIns
                             Portrait = portrait,
                             Similarity = match.Similarity
                         };
-                        this.InvokePersonOfInterestDected(args);
 
+                        if (EventAggregator != null)
+                        {
+                            EventAggregator.PublishFaceMatchEvent(args);
+                        }
                     }
                 }
             }
@@ -202,19 +237,10 @@ namespace Damany.Imaging.PlugIns
         private Queue<IList<Portrait>> portraitsQueue = new Queue<IList<Portrait>>();
         private object queueLocker = new object();
 
-        private System.Threading.Thread worker;
+        private System.Threading.Thread _worker;
         private AutoResetEvent goSignal;
 
         private bool run;
         private object runLocker = new object();
-
-
-        public void ProcessPortraits(List<Portrait> portraits)
-        {
-            var clone = from p in portraits
-                        select p.Clone();
-
-            HandlePortraits(clone.ToList());
-        }
     }
 }

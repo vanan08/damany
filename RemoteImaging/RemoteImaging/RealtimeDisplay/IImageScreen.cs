@@ -39,6 +39,6 @@ namespace RemoteImaging.RealtimeDisplay
         bool ShowProgress { set; }
         void StepProgress();
 
-        void ShowSuspects( Damany.Imaging.PlugIns.PersonOfInterestDetectionResult result );
+        void ShowSuspects(PersonOfInterestDetectionResult result);
     }
 }
