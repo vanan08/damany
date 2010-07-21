@@ -92,6 +92,7 @@
     <Compile Include="NullEventAggregator.cs" />
     <Compile Include="NullRepositoryFaceComparer.cs" />
     <Compile Include="PersonOfInterest.cs" />
+    <Compile Include="PersonOfInterestDetectionResult.cs" />
     <Compile Include="Portrait.cs" />
     <Compile Include="PortraitBounds.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading;
 using AForge.Video;
 using Damany.Imaging.Common;
+using Damany.Imaging.PlugIns;
 using Damany.Imaging.Processors;
 using Damany.PC.Domain;
 using Damany.Cameras;
@@ -15,6 +16,7 @@ namespace RemoteImaging
 {
     public class FaceSearchFacade
     {
+        private readonly FaceComparer _faceComparer;
         private readonly MotionDetector _motionDetector;
         private readonly PortraitFinder _portraitFinder;
         private readonly IEnumerable<IFacePostFilter> _facePostFilters;
@@ -33,6 +35,7 @@ namespace RemoteImaging
         public FaceSearchFacade(Damany.Imaging.Processors.MotionDetector motionDetector,
                                 Damany.Imaging.Processors.PortraitFinder portraitFinder,
                                 IEnumerable<Damany.Imaging.Common.IFacePostFilter> facePostFilters,
+                                Damany.Imaging.PlugIns.FaceComparer faceComparer,
                                 IRepository repository,
                                 IEventAggregator eventAggregator)
         {
@@ -41,10 +44,10 @@ namespace RemoteImaging
             _facePostFilters = facePostFilters;
             _repository = repository;
             _eventAggregator = eventAggregator;
+            _faceComparer = faceComparer;
 
             MotionQueueSize = 10;
             _run = true;
-
         }
 
 
@@ -89,8 +92,11 @@ namespace RemoteImaging
                     _faceSearchThread.Start();
                 }
 
+                _faceComparer.Initialize();
+                _faceComparer.Start();
 
-
+                _faceComparer.Threshold = Properties.Settings.Default.RealTimeFaceCompareSensitivity;
+                _faceComparer.Sensitivity = Properties.Settings.Default.LbpThreshold;
 
             }
         }
@@ -99,11 +105,13 @@ namespace RemoteImaging
         {
             if (_jpegStream != null)
             {
+                _jpegStream.NewFrame -= JpegStreamNewFrame;
                 _jpegStream.SignalToStop();
 
                 _run = false;
                 _signal.Set();
 
+                _faceComparer.SignalToStop();
             }
         }
 
@@ -111,11 +119,13 @@ namespace RemoteImaging
         {
             if (_jpegStream != null)
             {
+                _jpegStream.SignalToStop();
                 _jpegStream.WaitForStop();
             }
 
             if (_faceSearchThread != null)
             {
+                _run = false;
                 _faceSearchThread.Join();
             }
 
@@ -126,6 +136,11 @@ namespace RemoteImaging
                                        f.Dispose();
                                        f = null;
                                    });
+            }
+
+            if (_faceComparer != null)
+            {
+                _faceComparer.WaitForStop();
             }
         }
 
@@ -171,6 +186,8 @@ namespace RemoteImaging
                 {
                     var portraits = _portraitFinder.ProcessFrames(frames);
 
+                    frames.ForEach(f => f.Dispose());
+
                     if (_repository != null)
                     {
                         portraits.ForEach(p => _repository.SavePortrait(p));
@@ -178,13 +195,16 @@ namespace RemoteImaging
 
                     if (_eventAggregator != null)
                     {
-                        portraits.ForEach(p =>
-                                              {
-                                                  _eventAggregator.Publish(p);
-                                                  p.Dispose();
-                                              });
+                        portraits.ForEach(p => _eventAggregator.PublishPortrait(p));
 
                     }
+
+                    if (_faceComparer != null)
+                    {
+                        _faceComparer.ProcessPortraits(portraits);
+                    }
+
+                    portraits.ForEach(p => p.Dispose());
 
                 }
                 else

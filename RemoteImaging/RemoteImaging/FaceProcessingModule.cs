@@ -23,7 +23,7 @@ namespace RemoteImaging
         {
             builder.RegisterType<FaceComparer>()
                     .As<FaceComparer>()
-                    .SingleInstance();
+                    .PropertiesAutowired();
 
 
             if (EnableFaceComparer)

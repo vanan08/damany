@@ -23,25 +23,16 @@ namespace RemoteImaging
         public MainController(RealtimeDisplay.MainForm mainForm,
                               ConfigurationManager configManager,
                               IRepository repository,
-                              FaceComparer comparer,
                               Func<FaceSearchFacade> faceSearchFacadeFactory)
         {
             this._mainForm = mainForm;
             this._configManager = configManager;
             _repository = repository;
-            _comparer = comparer;
             _faceSearchFacadeFactory = faceSearchFacadeFactory;
         }
 
         public void Start()
         {
-            _comparer.Initialize();
-            _comparer.Start();
-
-            this._comparer.PersonOfInterestDected += _comparer_PersonOfInterestDected;
-            this._comparer.Threshold = Properties.Settings.Default.RealTimeFaceCompareSensitivity;
-            this._comparer.Comparer.SetSensitivity(Properties.Settings.Default.LbpThreshold);
-
             this._mainForm.Cameras = this._configManager.GetCameras().ToArray();
             var camToStart = this._configManager.GetCameras();
 
@@ -58,11 +49,6 @@ namespace RemoteImaging
             StopSearchFaceFacade();
         }
 
-
-        void _comparer_PersonOfInterestDected(object sender, MiscUtil.EventArgs<PersonOfInterestDetectionResult> e)
-        {
-            this._mainForm.ShowSuspects(e.Value);
-        }
 
         public void StartCamera()
         {
@@ -119,7 +105,6 @@ namespace RemoteImaging
         }
 
 
-
         private void StartCameraInternal(CameraInfo cam)
         {
             System.Threading.WaitCallback action = delegate
@@ -147,7 +132,6 @@ namespace RemoteImaging
         private RealtimeDisplay.MainForm _mainForm;
         private ConfigurationManager _configManager;
         private readonly IRepository _repository;
-        private readonly FaceComparer _comparer;
         private readonly FaceSearchFacade _faceSearchFacade;
     }
 }
