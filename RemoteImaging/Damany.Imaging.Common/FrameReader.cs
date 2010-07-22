@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Damany.Imaging.Common
 {
-    public class FrameReader : IOperation<Frame>
+    public class FrameReader
     {
         private readonly IFrameStream _source;
 
@@ -18,7 +18,7 @@ namespace Damany.Imaging.Common
         {
             var f = _source.RetrieveFrame();
             yield return f;
-         
+
         }
     }
 }

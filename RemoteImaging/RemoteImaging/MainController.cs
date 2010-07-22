@@ -17,31 +17,24 @@ namespace RemoteImaging
 {
     public class MainController
     {
+        private FaceSearchFacade _currentFaceSearchFacade;
+        private Func<FaceSearchFacade> _faceSearchFacadeFactory;
+
         public MainController(RealtimeDisplay.MainForm mainForm,
                               ConfigurationManager configManager,
                               IRepository repository,
-                              SearchLineBuilder.SearchLineFactory searchLineFactory,
-                              FaceComparer comparer)
+                              Func<FaceSearchFacade> faceSearchFacadeFactory)
         {
-            this._mainForm      = mainForm;
+            this._mainForm = mainForm;
             this._configManager = configManager;
-            _repository         = repository;
-            _searchLineFactory  = searchLineFactory;
-            _comparer           = comparer;
-
+            _repository = repository;
+            _faceSearchFacadeFactory = faceSearchFacadeFactory;
         }
 
         public void Start()
         {
-            _comparer.Initialize();
-            _comparer.Start();
-
-            this._comparer.PersonOfInterestDected += _comparer_PersonOfInterestDected;
-            this._comparer.Threshold = Properties.Settings.Default.RealTimeFaceCompareSensitivity;
-            this._comparer.Comparer.SetSensitivity(Properties.Settings.Default.LbpThreshold);
-
             this._mainForm.Cameras = this._configManager.GetCameras().ToArray();
-            var camToStart         = this._configManager.GetCameras();
+            var camToStart = this._configManager.GetCameras();
 
             if (camToStart.Count == 1)
             {
@@ -51,14 +44,11 @@ namespace RemoteImaging
 
         }
 
-        private void InitializeHandlers()
+        public void Stop()
         {
+            StopSearchFaceFacade();
         }
 
-        void _comparer_PersonOfInterestDected(object sender, MiscUtil.EventArgs<PersonOfInterestDetectionResult> e)
-        {
-            this._mainForm.ShowSuspects(e.Value);
-        }
 
         public void StartCamera()
         {
@@ -69,12 +59,27 @@ namespace RemoteImaging
                 return;
             }
 
-            if (_currentController != null)
+            StopSearchFaceFacade();
+
+            var facade = _faceSearchFacadeFactory();
+            facade.StartWith(selected);
+
+            if (selected.Provider == CameraProvider.Sanyo)
             {
-                _currentController.Stop();
+                _mainForm.StartRecord(selected);
             }
 
-            this.StartCameraInternal(selected);
+            _currentFaceSearchFacade = facade;
+
+        }
+
+        private void StopSearchFaceFacade()
+        {
+            if (_currentFaceSearchFacade != null)
+            {
+                _currentFaceSearchFacade.SignalToStop();
+                _currentFaceSearchFacade.WaitForStop();
+            }
         }
 
         public void SelectedPortraitChanged()
@@ -100,19 +105,12 @@ namespace RemoteImaging
         }
 
 
-
         private void StartCameraInternal(CameraInfo cam)
         {
             System.Threading.WaitCallback action = delegate
             {
                 try
                 {
-                    var builder       = _searchLineFactory(cam);
-                    var camController = builder.Build();
-
-                    camController.Start();
-
-                    _currentController = camController;
                     if (cam.Provider == CameraProvider.Sanyo)
                     {
                         this._mainForm.StartRecord(cam);
@@ -129,16 +127,11 @@ namespace RemoteImaging
             System.Threading.ThreadPool.QueueUserWorkItem(action);
         }
 
-        private void RegisterHandlers(FaceSearchController camController)
-        {
-        }
 
 
         private RealtimeDisplay.MainForm _mainForm;
         private ConfigurationManager _configManager;
         private readonly IRepository _repository;
-        private readonly SearchLineBuilder.SearchLineFactory _searchLineFactory;
-        private readonly FaceComparer _comparer;
-        private Damany.Imaging.Processors.FaceSearchController _currentController;
+        private readonly FaceSearchFacade _faceSearchFacade;
     }
 }

@@ -76,8 +76,6 @@
     <Compile Include="Handlers\FrontFaceVerifier.cs" />
     <Compile Include="PlugIns\LbpConfiguration.cs" />
     <Compile Include="PlugIns\LBPFaceComparer.cs" />
-    <Compile Include="FaceSearchController.cs" />
-    <Compile Include="FaceSearchFactory.cs" />
     <Compile Include="Algorithms\FrameManager.cs" />
     <Compile Include="Algorithms\MotionDetector.cs" />
     <Compile Include="Algorithms\PortraitFinder.cs" />
@@ -87,7 +85,6 @@
     <Compile Include="Handlers\GUIUpdater.cs" />
     <Compile Include="Handlers\IWantedRepository.cs" />
     <Compile Include="Handlers\PortraitsLogger.cs" />
-    <Compile Include="PlugIns\PersonOfInterestDetectionResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

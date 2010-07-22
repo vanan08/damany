@@ -6,7 +6,7 @@ using Damany.Imaging.Common;
 
 namespace Damany.Imaging.Handlers
 {
-    public class FrontFaceVerifier : IOperation<Portrait>
+    public class FrontFaceVerifier : IFaceSatisfyCompareCretia
     {
         public FrontFaceVerifier(string template)
         {
@@ -26,23 +26,11 @@ namespace Damany.Imaging.Handlers
         }
 
 
-
-        public IEnumerable<Portrait> Execute(IEnumerable<Portrait> inputs)
-        {
-            foreach (var portrait in inputs)
-            {
-                if (_verifier.IsFrontFace(portrait.GetIpl().GetSub(portrait.FaceBounds)))
-                {
-                    yield return portrait;
-                }
-                else
-                {
-                    portrait.Dispose();
-                }
-            }
-        }
-
         private FaceProcessingWrapper.FrontFaceVerifier _verifier;
 
+        public bool CanSatisfy(Portrait portrait)
+        {
+            return _verifier.IsFrontFace(portrait.GetIpl().GetSub(portrait.FaceBounds));
+        }
     }
 }

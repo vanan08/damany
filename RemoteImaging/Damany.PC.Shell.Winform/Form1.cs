@@ -21,10 +21,10 @@ namespace Damany.PC.Shell.Winform
             InitializeComponent();
 
 
-            for (int i = 0; i < 9;++i )
+            for (int i = 0; i < 9; ++i)
             {
                 var pip = new Damany.Windows.Form.PipPictureBox();
-                pip.Text = (i+1).ToString();
+                pip.Text = (i + 1).ToString();
                 pip.Tag = i;
                 pip.Image = TestDataProvider.Data.GetFrame().ToBitmap();
                 pip.SmallImage = TestDataProvider.Data.GetPortrait().ToBitmap();
@@ -49,7 +49,7 @@ namespace Damany.PC.Shell.Winform
 
             foreach (var pip in this.Pips)
             {
-                int id = (int) pip.Tag ;
+                int id = (int)pip.Tag;
                 if (id == cameraId)
                 {
                     pip.SmallImage = img;
@@ -105,7 +105,7 @@ namespace Damany.PC.Shell.Winform
                     using (Graphics g = Graphics.FromImage(frame))
                     using (Font font = new Font(FontFamily.GenericSansSerif, 150))
                     {
-                        g.DrawString(p.CapturedFrom.Id.ToString() +"-" + p.CapturedAt.ToShortTimeString() , font, Brushes.Black, 0, 0);
+                        g.DrawString(p.CapturedFrom.Id.ToString() + "-" + p.CapturedAt.ToShortTimeString(), font, Brushes.Black, 0, 0);
                     }
 
                     //this.SetFrame(frame);
@@ -121,7 +121,7 @@ namespace Damany.PC.Shell.Winform
                     var g = Graphics.FromImage(portrait);
                     g.DrawRectangle(Pens.Black, p.FaceBounds.ToRectangle());
                     g.Dispose();
-                   // this.SetPortrait(portrait);
+                    // this.SetPortrait(portrait);
                     p.Dispose();
                 });
             }
@@ -169,7 +169,6 @@ namespace Damany.PC.Shell.Winform
 
         }
 
-        public Damany.Imaging.Processors.FaceSearchController controller { get; set; }
         public IRepository repository { get; set; }
 
         public void ShowMessage(string msg)
@@ -231,11 +230,6 @@ namespace Damany.PC.Shell.Winform
             System.Net.Sockets.TcpClient socket = listener.EndAcceptTcpClient(result);
 
             Damany.RemoteImaging.Common.ObjectSender sender = new Damany.RemoteImaging.Common.ObjectSender(socket);
-            
-            foreach (var c in this.controllers)
-            {
-
-            }
 
         }
 
@@ -249,15 +243,8 @@ namespace Damany.PC.Shell.Winform
             loader.Load(@".\data");
             this.repository = loader.repository;
 
-            foreach (var c in loader.controllers)
-            {
-                this.controllers.Add(c);
-            }
-
         }
 
-        private IList<Damany.Imaging.Processors.FaceSearchController> controllers
-            = new List<Damany.Imaging.Processors.FaceSearchController>();
 
         private void helpToolStripButton_Click(object sender, EventArgs e)
         {
@@ -268,10 +255,6 @@ namespace Damany.PC.Shell.Winform
 
         private void startButton_Click(object sender, EventArgs e)
         {
-            foreach (var c in this.controllers)
-            {
-                c.Start();
-            }
         }
 
         private void options_Click(object sender, EventArgs e)
@@ -287,27 +270,6 @@ namespace Damany.PC.Shell.Winform
             options.ShowDialog(this);
         }
 
-        private void slowDown_Click(object sender, EventArgs e)
-        {
-            foreach (var c in this.controllers)
-            {
-                c.SlowDown();
-            }
-
-            Frequency /= 2;
-
-        }
-
-        private void speedUp_Click(object sender, EventArgs e)
-        {
-            foreach (var c in this.controllers)
-            {
-                c.SpeedUp();
-            }
-
-            Frequency *= 2;
-
-        }
 
         public float Frequency
         {
@@ -328,7 +290,7 @@ namespace Damany.PC.Shell.Winform
             this.repository.GetFrames(-1, new Damany.Util.DateTimeRange(DateTime.Now.AddDays(-1), DateTime.Now));
         }
 
-        List<Damany.Windows.Form.PipPictureBox> Pips = 
+        List<Damany.Windows.Form.PipPictureBox> Pips =
             new List<Damany.Windows.Form.PipPictureBox>();
 
     }

@@ -5,8 +5,8 @@ using System.Text;
 
 namespace Damany.Imaging.Common
 {
-    public interface IOperation<T>
+    public interface IFaceSatisfyCompareCretia
     {
-        IEnumerable<T> Execute(IEnumerable<T> inputs);
+        bool CanSatisfy(Portrait portrait);
     }
 }

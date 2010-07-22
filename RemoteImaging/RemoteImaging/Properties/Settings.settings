@@ -140,8 +140,8 @@
     <Setting Name="FreeDiskspaceCheckIntervalMs" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">60000</Value>
     </Setting>
-    <Setting Name="MaxFrameQueueLength" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">40</Value>
+    <Setting Name="MaxFrameQueueLength" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">10</Value>
     </Setting>
     <Setting Name="HostId" Type="System.String" Scope="User">
       <Value Profile="(Default)">-1</Value>

@@ -10,90 +10,98 @@ using OpenCvSharp;
 
 namespace Damany.Imaging.PlugIns
 {
-    public class FaceComparer : IOperation<Portrait>
+    public class FaceComparer
     {
         private readonly IEnumerable<PersonOfInterest> _personsOfInterests;
+        private readonly IRepositoryFaceComparer _comparer;
+        private bool _initialized = false;
+        private bool _started = false;
+        private float _sensitivity = 0;
+
+
+        public IEnumerable<IFaceSatisfyCompareCretia> FacePreFilter { get; set; }
+        public float Threshold { get; set; }
+        public IEventAggregator EventAggregator { get; set; }
+
 
         public FaceComparer(IEnumerable<PersonOfInterest> personsOfInterests, IRepositoryFaceComparer comparer)
         {
             _personsOfInterests = personsOfInterests;
+            _comparer = comparer;
             if (comparer == null) throw new ArgumentNullException("comparer");
 
-            this.Comparer = comparer;
+            FacePreFilter = new List<IFaceSatisfyCompareCretia>(0);
 
         }
 
-        public float Threshold { get; set; }
 
         public void Initialize()
         {
-            this.Comparer.Load(this._personsOfInterests.ToList());
+            if (!_initialized)
+            {
+                _comparer.Load(this._personsOfInterests.ToList());
 
-            this.worker = new Thread(this.DoComare);
-            this.worker.IsBackground = true;
-            this.goSignal = new AutoResetEvent(false);
-            this.Run = true;
+                this._worker = new Thread(this.DoComare);
+                this._worker.IsBackground = true;
+                this.goSignal = new AutoResetEvent(false);
+                this.Run = true;
+                _initialized = true;
+            }
         }
 
-        public IRepositoryFaceComparer Comparer { get; set; }
 
         public void Start()
         {
-            this.worker.Start(null);
+            if (!_started && _personsOfInterests.Count() > 0)
+            {
+                this._worker.Start(null);
+                _started = true;
+            }
+
         }
 
-        public void HandlePortraits(IList<Frame> motionFrames, IList<Portrait> portraits)
+        public void ProcessPortraits(IList<Portrait> portraits)
         {
-            this.Enqueue(portraits);
+            if (_personsOfInterests.Count() > 0)
+            {
+                var clone = portraits.Select(p => p.Clone()).ToList();
+                this.Enqueue(clone);
+            }
 
         }
 
-        public void Stop()
+        public void SignalToStop()
         {
             Run = false;
+            goSignal.Set();
         }
 
-        public string Name
+        public void WaitForStop()
         {
-            get { return "FaceComparer"; }
+            if (_worker != null && _started)
+            {
+                _worker.Join();
+
+                var list = portraitsQueue.ToList();
+                portraitsQueue.Clear();
+                list.ForEach(l => l.ToList().ForEach(p => p.Dispose()));
+            }
         }
 
-        public string Description
-        {
-            get { return "Damany FaceCompare Module"; }
-        }
-
-        public string Author
-        {
-            get { return "Damany Technology"; }
-        }
-
-        public Version Version
-        {
-            get { return new Version(1, 0); }
-        }
-
-        public bool WantCopy
-        {
-            get { return true; }
-        }
-
-        public bool WantFrame
-        {
-            get { return false; }
-        }
 
         public float Sensitivity
         {
             set
             {
-                this.Comparer.SetSensitivity(value);
+                if (_sensitivity != value)
+                {
+                    _comparer.SetSensitivity(value);
+                    _sensitivity = value;
+                }
             }
         }
 
-
-        public event EventHandler< EventArgs<Exception> > Stopped;
-        public event EventHandler< EventArgs<PersonOfInterestDetectionResult> > PersonOfInterestDected;
+        public event EventHandler<EventArgs<PersonOfInterestDetectionResult>> PersonOfInterestDected;
 
         private void InvokePersonOfInterestDected(PersonOfInterestDetectionResult e)
         {
@@ -118,14 +126,16 @@ namespace Damany.Imaging.PlugIns
                     return;
                 }
 
-                foreach (var portrait in portraits)
+                IEnumerable<Portrait> filtered = FiltPortraits(portraits);
+
+                foreach (var portrait in filtered)
                 {
 
-                    var compareResults = this.Comparer.CompareTo(portrait.GetIpl());
+                    var compareResults = _comparer.CompareTo(portrait.GetIpl());
 
                     var matches = from r in compareResults
                                   where r.Similarity > Threshold
-                                  orderby r.Similarity descending 
+                                  orderby r.Similarity descending
                                   select r;
 
                     foreach (var match in matches)
@@ -136,12 +146,43 @@ namespace Damany.Imaging.PlugIns
                             Portrait = portrait,
                             Similarity = match.Similarity
                         };
-                        this.InvokePersonOfInterestDected(args);
 
+                        if (EventAggregator != null)
+                        {
+                            EventAggregator.PublishFaceMatchEvent(args);
+                        }
                     }
                 }
             }
-            
+
+        }
+
+        private IEnumerable<Portrait> FiltPortraits(IList<Portrait> portraits)
+        {
+            for (var i = 0; i < portraits.Count; i++)
+            {
+                var current = portraits[i];
+                if (!this.CanProceedToCompare(current))
+                {
+                    current.Dispose();
+                    current = null;
+                }
+            }
+
+            return portraits.Where(p => p != null);
+        }
+
+        private bool CanProceedToCompare(Portrait portrait)
+        {
+            foreach (var facePreFilter in FacePreFilter)
+            {
+                if (!facePreFilter.CanSatisfy(portrait))
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         private void Enqueue(IList<Portrait> portraits)
@@ -150,7 +191,7 @@ namespace Damany.Imaging.PlugIns
             {
                 return;
             }
-            
+
 
             lock (queueLocker)
             {
@@ -196,26 +237,14 @@ namespace Damany.Imaging.PlugIns
         }
 
 
-        private IEnumerable<PersonOfInterest> personsOfInterests;
 
         private Queue<IList<Portrait>> portraitsQueue = new Queue<IList<Portrait>>();
         private object queueLocker = new object();
 
-        private System.Threading.Thread worker;
+        private System.Threading.Thread _worker;
         private AutoResetEvent goSignal;
 
         private bool run;
         private object runLocker = new object();
-
-
-        public IEnumerable<Portrait> Execute(IEnumerable<Portrait> inputs)
-        {
-            var clone = from p in inputs
-                        select p.Clone();
-
-            HandlePortraits(null, clone.ToList());
-
-            return inputs;
-        }
     }
 }

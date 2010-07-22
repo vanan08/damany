@@ -41,9 +41,9 @@ namespace FaceProcessingWrapper.Test
 
             while (true)
             {
-                detector.Execute(null);
-            } 
-            
+                detector.ProcessFrame(null);
+            }
+
         }
     }
 }
