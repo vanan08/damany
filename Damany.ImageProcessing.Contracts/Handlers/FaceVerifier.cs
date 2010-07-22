@@ -6,25 +6,12 @@ using Damany.Imaging.Common;
 
 namespace Damany.Imaging.Handlers
 {
-    public class FaceVerifier : IOperation<Portrait>
+    public class FaceVerifier : IFacePostFilter
     {
-
-        public IEnumerable<Portrait> Execute(IEnumerable<Portrait> inputs)
+        readonly FaceProcessingWrapper.FaceVerifier _verifier = new FaceProcessingWrapper.FaceVerifier();
+        public bool IsFace(Portrait portrait)
         {
-            foreach (var portrait in inputs)
-            {
-                if (_verifier.IsFace(portrait.GetIpl().GetSub(portrait.FaceBounds)))
-                {
-                    yield return portrait;
-                }
-                else
-                {
-                    portrait.Dispose();
-                }
-            }
-            
+            return _verifier.IsFace(portrait.GetIpl().GetSub(portrait.FaceBounds));
         }
-
-        FaceProcessingWrapper.FaceVerifier _verifier = new FaceProcessingWrapper.FaceVerifier();
     }
 }

@@ -42,7 +42,6 @@
             treeNode5});
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.statusOutputFolder = new System.Windows.Forms.ToolStripStatusLabel();
-            this.statusCPUMemUsage = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusProgressBar = new System.Windows.Forms.ToolStripProgressBar();
             this.statusTime = new System.Windows.Forms.ToolStripStatusLabel();
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
@@ -147,7 +146,6 @@
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.statusOutputFolder,
-            this.statusCPUMemUsage,
             this.statusProgressBar,
             this.statusTime});
             this.statusStrip1.Location = new System.Drawing.Point(0, 581);
@@ -167,15 +165,6 @@
             this.statusOutputFolder.Text = "toolStripStatusLabel2";
             this.statusOutputFolder.Click += new System.EventHandler(this.statusOutputFolder_Click);
             // 
-            // statusCPUMemUsage
-            // 
-            this.statusCPUMemUsage.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top)
-                        | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)
-                        | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
-            this.statusCPUMemUsage.Name = "statusCPUMemUsage";
-            this.statusCPUMemUsage.Size = new System.Drawing.Size(145, 23);
-            this.statusCPUMemUsage.Text = "toolStripStatusLabel1";
-            // 
             // statusProgressBar
             // 
             this.statusProgressBar.Name = "statusProgressBar";
@@ -191,7 +180,7 @@
             this.statusTime.Image = ((System.Drawing.Image)(resources.GetObject("statusTime.Image")));
             this.statusTime.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.statusTime.Name = "statusTime";
-            this.statusTime.Size = new System.Drawing.Size(627, 23);
+            this.statusTime.Size = new System.Drawing.Size(539, 23);
             this.statusTime.Spring = true;
             this.statusTime.Text = "toolStripStatusLabel1";
             // 
@@ -435,8 +424,8 @@
             this.cameraTree.SelectedImageIndex = 0;
             this.cameraTree.Size = new System.Drawing.Size(177, 106);
             this.cameraTree.TabIndex = 1;
-            this.cameraTree.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.cameraTree_NodeMouseDoubleClick);
             this.cameraTree.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.cameraTree_NodeMouseClick);
+            this.cameraTree.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.cameraTree_NodeMouseDoubleClick);
             // 
             // contextMenuStripForCamTreeView
             // 
@@ -689,6 +678,12 @@
             this.toolTip1.ReshowDelay = 100;
             this.toolTip1.UseFading = false;
             // 
+            // realTimer
+            // 
+            this.realTimer.Enabled = true;
+            this.realTimer.Interval = 1000;
+            this.realTimer.Tick += new System.EventHandler(this.realTimer_Tick);
+            // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
@@ -852,9 +847,9 @@
             this.Name = "MainForm";
             this.Text = "智能人像抓拍系统";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.Shown += new System.EventHandler(this.MainForm_Shown);
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
@@ -936,7 +931,6 @@
         private System.Windows.Forms.ToolStripStatusLabel statusTime;
         private System.Windows.Forms.Timer realTimer;
         private System.Windows.Forms.ToolStripProgressBar statusProgressBar;
-        private System.Windows.Forms.ToolStripStatusLabel statusCPUMemUsage;
         private AxIMGCTRLLib.AxCamImgCtrl axCamImgCtrl1;
         private System.Windows.Forms.ToolStripButton searchPic;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;

@@ -18,7 +18,7 @@ namespace Damany.Windows.Form
             this.DoubleBuffered = true;
 
             refreshTimer = new Timer();
-            refreshTimer.Interval = 1000;
+            refreshTimer.Interval = 50;
             refreshTimer.Tick += refreshTimer_Tick;
 
             this.AutoDisposeImage = true;
@@ -142,6 +142,12 @@ namespace Damany.Windows.Form
                 if (this.AutoDisposeImage && dstCell.Image != null)
                 {
                     dstCell.Image.Dispose();
+
+                    var disposable = dstCell.Tag as IDisposable;
+                    if (disposable != null)
+                    {
+                        disposable.Dispose();
+                    }
                 }
 
                 dstCell.Image = imgToShow.Image;

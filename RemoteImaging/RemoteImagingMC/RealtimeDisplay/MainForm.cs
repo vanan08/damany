@@ -25,7 +25,7 @@ using Microsoft.Practices.EnterpriseLibrary.ExceptionHandling;
 
 namespace RemoteImaging.RealtimeDisplay
 {
-    public partial class MainForm : Form, IHostsPoolObserver, Damany.Imaging.Common.IPortraitHandler
+    public partial class MainForm : Form, IHostsPoolObserver
     {
         private OptionsForm optionsForm;
         Configuration config = Configuration.Instance;
@@ -49,7 +49,7 @@ namespace RemoteImaging.RealtimeDisplay
             {
                 var pip = new Damany.Windows.Form.PipPictureBox();
                 pip.Text = (i + 1).ToString();
-                pip.Tag = i+1;
+                pip.Tag = i + 1;
                 pip.Image = TestDataProvider.Data.GetFrame().ToBitmap();
                 pip.SmallImage = TestDataProvider.Data.GetPortrait().ToBitmap();
 
@@ -222,7 +222,7 @@ namespace RemoteImaging.RealtimeDisplay
             get
             {
                 ImageDetail img = null;
-               
+
                 return img;
             }
 
@@ -452,27 +452,27 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void column1by1_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void column2by2_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void column3by3_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void column4by4_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void column5by5_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void InitStatusBar()
@@ -520,7 +520,7 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void ShowPic()
         {
-            
+
         }
 
 
@@ -534,7 +534,7 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void playRelateVideo_Click(object sender, EventArgs e)
         {
-            
+
         }
 
 
@@ -627,17 +627,17 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void AddLayoutMenuItem(string text, int i)
         {
-           
+
         }
         private void squareViewContextMenu_Opening(object sender, CancelEventArgs e)
         {
-           
+
 
         }
 
         void layoutMode_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void ConnectCallback(IAsyncResult ar)
@@ -700,12 +700,12 @@ namespace RemoteImaging.RealtimeDisplay
 
         void lc_ImageReceived(object sender, ImageCapturedEventArgs e)
         {
-            
+
         }
 
         private void squareListView1_MouseDown(object sender, MouseEventArgs e)
         {
-           
+
         }
 
         public void AddHost(Host h)
@@ -753,7 +753,7 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void testButton_Click(object sender, EventArgs e)
         {
-           
+
 
         }
 
@@ -783,16 +783,16 @@ namespace RemoteImaging.RealtimeDisplay
 
             foreach (var pip in Pips)
             {
-                int id = (int) pip.Tag;
+                int id = (int)pip.Tag;
 
                 if (id == cameraId)
                 {
-                    pip.Image = (Image) img.Clone();
+                    pip.Image = (Image)img.Clone();
                 }
             }
 
             img.Dispose();
-            
+
         }
 
         HostsPool hostsPool;
@@ -803,13 +803,6 @@ namespace RemoteImaging.RealtimeDisplay
             hostsPool.Observer = this;
 
             hostsPool.Start();
-
-            foreach (var c in loader.controllers)
-            {
-
-                c.Start();
-
-            }
 
             this.Cameras = ConfigurationManager.GetDefault().GetCameras();
 
@@ -835,7 +828,7 @@ namespace RemoteImaging.RealtimeDisplay
 
             try
             {
-                Gateways.HostConfig.Instance.SetHostName( this.SelectedHost.Ip , hostConfig1.HostName);
+                Gateways.HostConfig.Instance.SetHostName(this.SelectedHost.Ip, hostConfig1.HostName);
             }
             catch (System.ServiceModel.CommunicationException)
             {
@@ -880,7 +873,7 @@ namespace RemoteImaging.RealtimeDisplay
             catch (System.ServiceModel.CommunicationException)
             {
                 this.ShowInformationBox("通讯错误，请重试！");
-            	
+
             }
 
 
@@ -902,7 +895,7 @@ namespace RemoteImaging.RealtimeDisplay
             {
                 this.ShowInformationBox("通讯错误，请重试！");
             }
-            
+
         }
 
         private void sanyoNetCamera1_ApplyShutterClick(object sender, EventArgs e)
@@ -947,10 +940,10 @@ namespace RemoteImaging.RealtimeDisplay
                     var img = p.GetIpl().ToBitmap();
                     foreach (var pip in this.Pips)
                     {
-                        int index = (int) pip.Tag;
+                        int index = (int)pip.Tag;
                         if (index == p.CapturedFrom.Id)
                         {
-                            pip.SmallImage = (Image) img.Clone();
+                            pip.SmallImage = (Image)img.Clone();
                         }
                     }
 
@@ -976,7 +969,7 @@ namespace RemoteImaging.RealtimeDisplay
         {
         }
 
-        public void HandlePortraits(IList<Damany.Imaging.Common.Frame> motionFrames, 
+        public void HandlePortrait(IList<Damany.Imaging.Common.Frame> motionFrames,
             IList<Damany.Imaging.Common.Portrait> portraits)
         {
             this.ShowPortrait(portraits.ToList());

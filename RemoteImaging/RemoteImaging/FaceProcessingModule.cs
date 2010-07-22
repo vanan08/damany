@@ -22,9 +22,8 @@ namespace RemoteImaging
         protected override void Load(Autofac.ContainerBuilder builder)
         {
             builder.RegisterType<FaceComparer>()
-                    .As<IOperation<Portrait>>()
                     .As<FaceComparer>()
-                    .SingleInstance();
+                    .PropertiesAutowired();
 
 
             if (EnableFaceComparer)
@@ -54,20 +53,15 @@ namespace RemoteImaging
             if (EnableFrontFaceComparer)
             {
                 builder.RegisterType<Damany.Imaging.Handlers.FrontFaceVerifier>()
-                        .WithParameter("template", FaceTemplatePath)
-                        .As<IOperation<Portrait>>();
+                    .WithParameter("template", FaceTemplatePath);
             }
 
 
-            builder.RegisterType<RealtimeDisplay.MainForm>()
-                    .As<IOperation<Portrait>>()
-                    .As<RealtimeDisplay.MainForm>()
-                    .SingleInstance();
 
             if (EnableBackgroundComparer)
             {
                 builder.RegisterType<Damany.Imaging.Handlers.FaceVerifier>()
-                .As<IOperation<Portrait>>();
+                .As<IFacePostFilter>();
             }
 
         }

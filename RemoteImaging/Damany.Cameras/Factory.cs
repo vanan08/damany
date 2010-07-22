@@ -15,8 +15,6 @@ namespace Damany.Cameras
             switch (cameraInfo.Provider)
             {
                 case Damany.PC.Domain.CameraProvider.LocalDirectory:
-                    var dir = new Damany.Cameras.DirectoryFilesCamera(cameraInfo.Location.LocalPath, "*.jpg");
-                    source = dir;
                     break;
                 case Damany.PC.Domain.CameraProvider.Sanyo:
                     var sanyo = new SanyoNetCamera();

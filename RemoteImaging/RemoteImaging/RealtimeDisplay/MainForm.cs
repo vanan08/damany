@@ -22,9 +22,37 @@ using Damany.PC.Domain;
 
 namespace RemoteImaging.RealtimeDisplay
 {
-    public partial class MainForm : Form, IImageScreen, Damany.Imaging.Common.IOperation<Portrait>
+    public partial class MainForm : Form, IImageScreen
     {
         public Func<FaceComparePresenter> CreateFaceCompare { get; set; }
+
+        private IEventAggregator _eventAggregator;
+        public IEventAggregator EventAggregator
+        {
+            get
+            {
+                return _eventAggregator;
+            }
+            set
+            {
+                _eventAggregator = value;
+                _eventAggregator.PortraitFound += HandlePortrait;
+                _eventAggregator.FaceMatchFound += EventAggregatorFaceMatchFound;
+            }
+        }
+
+        void EventAggregatorFaceMatchFound(object sender, EventArgs<PersonOfInterestDetectionResult> e)
+        {
+            if (InvokeRequired)
+            {
+                Action<PersonOfInterestDetectionResult> ac = ShowSuspects;
+                this.Invoke(ac, e.Value);
+                return;
+            }
+
+            this.ShowSuspects(e.Value);
+        }
+
         private SplashForm splash = new SplashForm();
         public MainForm()
         {
@@ -660,6 +688,11 @@ namespace RemoteImaging.RealtimeDisplay
 
             Properties.Settings.Default.Save();
 
+            if (this.controller != null)
+            {
+                this.controller.Stop();
+            }
+
         }
 
         private void tsbMonitoring_Click(object sender, EventArgs e)
@@ -699,11 +732,11 @@ namespace RemoteImaging.RealtimeDisplay
         #region IImageScreen Members
 
 
-        public void ShowSuspects(Damany.Imaging.PlugIns.PersonOfInterestDetectionResult result)
+        public void ShowSuspects(PersonOfInterestDetectionResult result)
         {
             if (InvokeRequired)
             {
-                Action<Damany.Imaging.PlugIns.PersonOfInterestDetectionResult> action = this.ShowSuspects;
+                Action<PersonOfInterestDetectionResult> action = this.ShowSuspects;
 
                 this.BeginInvoke(action, result);
                 return;
@@ -732,54 +765,33 @@ namespace RemoteImaging.RealtimeDisplay
         {
         }
 
-        public void HandlePortraits(IEnumerable<Portrait> portraits)
+        public void HandlePortrait(object sender, EventArgs<Portrait> e)
         {
-            var imgCells = portraits.Select(p => new ImageCell()
-                                                     {
-                                                         Image = p.GetIpl().ToBitmap(),
-                                                         Text = p.CapturedAt.ToString(),
-                                                         Tag = p
-                                                     }).ToArray();
+            Portrait clone = e.Value.Clone();
 
-            this.squareListView1.ShowImages(imgCells);
-            var last = portraits.LastOrDefault();
-            if (last != null)
+            if (InvokeRequired)
             {
-                this.liveFace.Image = last.GetIpl().ToBitmap();
+                Action<Portrait> ac = ShowPortrait;
+
+                this.BeginInvoke(ac, clone);
+                return;
             }
 
+            ShowPortrait(clone);
         }
 
-        public void Stop()
+        private void ShowPortrait(Portrait clone)
         {
-        }
+            var imgCells = new[]{ new ImageCell(){
+                                                     Image = clone.GetIpl().ToBitmap(),
+                                                     Text = clone.CapturedAt.ToString(),
+                                                     Tag = clone
+                                                 }
+                                };
 
-        public string Description
-        {
-            get { throw new NotImplementedException(); }
+            this.squareListView1.ShowImages(imgCells);
+            this.liveFace.Image = clone.GetIpl().ToBitmap();
         }
-
-        public string Author
-        {
-            get { throw new NotImplementedException(); }
-        }
-
-        public Version Version
-        {
-            get { throw new NotImplementedException(); }
-        }
-
-        public bool WantCopy
-        {
-            get { return true; }
-        }
-
-        public bool WantFrame
-        {
-            get { return false; }
-        }
-
-        public event EventHandler<EventArgs<Exception>> Stopped;
 
         private MainController controller;
         private Func<OptionsPresenter> _createOptionsPresenter;
@@ -815,12 +827,6 @@ namespace RemoteImaging.RealtimeDisplay
             this.alertForm.Show(this);
         }
 
-        public IEnumerable<Portrait> Execute(IEnumerable<Portrait> inputs)
-        {
-            this.HandlePortraits(inputs);
-
-            return inputs;
-        }
 
         public ConfigurationSectionHandlers.ButtonsVisibleSectionHandler ButtonsVisible
         {
@@ -830,6 +836,11 @@ namespace RemoteImaging.RealtimeDisplay
                 this.faceCompare.Visible = value.CompareFaceButtonVisible;
                 this.alermForm.Visible = value.ShowAlermFormButtonVisible;
             }
+        }
+
+        private void realTimer_Tick(object sender, EventArgs e)
+        {
+            this.statusTime.Text = DateTime.Now.ToString();
         }
 
 

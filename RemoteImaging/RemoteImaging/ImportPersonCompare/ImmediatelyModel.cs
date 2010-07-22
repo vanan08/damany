@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
+using Damany.Imaging.Common;
 using Damany.Imaging.PlugIns;
 using RemoteImaging.Query;
 using FaceRecognition;
@@ -21,7 +22,7 @@ namespace RemoteImaging.ImportPersonCompare
             btnOK.Enabled = false;
         }
 
-        public void AddSuspects(Damany.Imaging.PlugIns.PersonOfInterestDetectionResult compareResult)
+        public void AddSuspects(PersonOfInterestDetectionResult compareResult)
         {
 
             this.listPersons.Add(compareResult);
@@ -64,7 +65,7 @@ namespace RemoteImaging.ImportPersonCompare
         }
 
 
-       
+
         private void btnOK_Click(object sender, EventArgs e)
         {
             //将比对好的图片 另外存入一个文件夹中
@@ -115,7 +116,7 @@ namespace RemoteImaging.ImportPersonCompare
         {
             foreach (var item in suspectsList.SelectedItems)
             {
-                this.suspectsList.Items.Remove((ListViewItem) item);
+                this.suspectsList.Items.Remove((ListViewItem)item);
             }
         }
 
@@ -124,7 +125,7 @@ namespace RemoteImaging.ImportPersonCompare
             if (suspectsList.SelectedItems.Count > 0)
             {
                 var lvi = suspectsList.SelectedItems[0];
-                var result = (Damany.Imaging.PlugIns.PersonOfInterestDetectionResult) lvi.Tag;
+                var result = (PersonOfInterestDetectionResult)lvi.Tag;
 
                 lblTextSim.Text = string.Format("相似度: {0:F0}%", result.Similarity);
                 //犯罪分子图片显示
@@ -150,7 +151,7 @@ namespace RemoteImaging.ImportPersonCompare
 
         }
 
-        private readonly List<Damany.Imaging.PlugIns.PersonOfInterestDetectionResult> listPersons 
+        private readonly List<PersonOfInterestDetectionResult> listPersons
             = new List<PersonOfInterestDetectionResult>();
 
         private void ImmediatelyModel_FormClosing(object sender, FormClosingEventArgs e)

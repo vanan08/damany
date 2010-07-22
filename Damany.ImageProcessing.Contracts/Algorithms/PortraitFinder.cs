@@ -9,85 +9,69 @@ namespace Damany.Imaging.Processors
 {
     using Damany.Imaging.Common;
 
-    public class PortraitFinder : IConvertor<Frame, Portrait>
+    public class PortraitFinder
     {
-        public event Action<IList<Portrait>> PortraitCaptured;
 
-        public IRepository Repository { get; set; }
+        public IEnumerable<Damany.Imaging.Common.IFacePostFilter> PostFilters { get; set; }
 
         public PortraitFinder()
         {
-            this.listeners = new List<IPortraitHandler>();
             this.searcher = new FaceSearchWrapper.FaceSearch();
+
+            PostFilters = new List<IFacePostFilter>(0);
         }
 
-        public IEnumerable<Portrait> Execute(IEnumerable<Frame> inputs)
+        public List<Portrait> ProcessFrames(List<Frame> motionFrames)
         {
-            PersistentFrames(inputs);
 
-            var portraits = HandleMotionFrame(inputs);
+            var portraits = HandleMotionFrame(motionFrames);
 
-            PersistPortraits(portraits);
+            var filtered = PostProcessPortraits(portraits);
 
-
-            return portraits;
+            return filtered;
         }
 
-
-        public void AddListener(IPortraitHandler l)
+        private List<Portrait> PostProcessPortraits(List<Portrait> portraits)
         {
-            if (l == null)
-                throw new ArgumentNullException("l", "l is null.");
-
-            lock (this.locker)
+            for (var i = 0; i < portraits.Count; i++)
             {
-                this.listeners.Add(l);
+                if (!IsFace(portraits[i]))
+                {
+                    portraits[i].Dispose();
+                    portraits[i] = null;
+                }
             }
 
+            return portraits.Where(p => p != null).ToList();
         }
 
-        IEnumerable<IPortraitHandler> GetListenersCopy()
+
+
+
+
+        bool IsFace(Portrait portrait)
         {
-            lock (this.locker)
+            foreach (var facePostFilter in PostFilters)
             {
-                return this.listeners.ToList();
-            }
-        }
-
-        void l_Stopped(object sender, MiscUtil.EventArgs<Exception> e)
-        {
-            IPortraitHandler handler = sender as IPortraitHandler;
-
-            this.RemoveListener(handler);
-
-            if (e.Value != null)
-            {
-                System.Diagnostics.Debug.WriteLine(handler.Name + " Exception:" + e.Value.Message);
-            }
-        }
-
-        public void RemoveListener(IPortraitHandler l)
-        {
-            lock (this.locker)
-            {
-                this.listeners.Remove(l);
-                System.Diagnostics.Debug.WriteLine("listener: " + l.Name + " removed");
+                if (!facePostFilter.IsFace(portrait))
+                {
+                    return false;
+                }
             }
 
+            return true;
         }
 
 
-        #region IMotionFrameHandler Members
 
-        public IEnumerable<Portrait> HandleMotionFrame(IEnumerable<Frame> motionFrames)
+        public List<Portrait> HandleMotionFrame(List<Frame> motionFrames)
         {
             return this.SearchIn(motionFrames);
         }
 
-        #endregion
 
 
-        private IEnumerable<Portrait> SearchIn(IEnumerable<Frame> motionFrames)
+        private List<Portrait> SearchIn(List<Frame> motionFrames)
         {
             var mList = motionFrames;
             foreach (var item in mList)
@@ -110,22 +94,6 @@ namespace Damany.Imaging.Processors
 
         }
 
-        private void PersistPortraits(IEnumerable<Portrait> portraitList)
-        {
-            if (Repository != null)
-            {
-                portraitList.ToList().ForEach(p => this.Repository.SavePortrait(p));
-            }
-        }
-
-        private void PersistentFrames(IEnumerable<Frame> faceFrames)
-        {
-            if (Repository != null)
-            {
-                faceFrames.ToList().ForEach(f => this.Repository.SaveFrame(f));
-            }
-
-        }
 
         private static OpenCvSharp.CvRect FrameToPortrait(OpenCvSharp.CvRect bounds, OpenCvSharp.CvRect faceBounds)
         {
@@ -135,7 +103,7 @@ namespace Damany.Imaging.Processors
             return faceBounds;
         }
 
-        private static IEnumerable<Portrait> ExpandPortraitsList(IEnumerable<Frame> motionFrames, IEnumerable<Target> portraits)
+        private static List<Portrait> ExpandPortraitsList(IEnumerable<Frame> motionFrames, IEnumerable<Target> portraits)
         {
             var portraitFoundFrameQuery = from m in motionFrames
                                           join p in portraits
@@ -147,13 +115,13 @@ namespace Damany.Imaging.Processors
                                    select new Portrait(p.Face)
                                    {
                                        FaceBounds = FrameToPortrait(p.FacesRect, p.FacesRectForCompare),
-                                       Frame = frame.Frame,
+                                       Frame = frame.Frame.Clone(),
                                        CapturedAt = frame.Frame.CapturedAt,
                                        CapturedFrom = frame.Frame.CapturedFrom,
                                    };
 
 
-            return expanedPortraits;
+            return expanedPortraits.ToList();
         }
 
         private static IEnumerable<Frame> GetFacelessFrames(IEnumerable<Frame> motionFrames, IEnumerable<Target> portraits)
@@ -175,72 +143,7 @@ namespace Damany.Imaging.Processors
         }
 
 
-        private static void NotifyAListenerWithCopy(
-            IEnumerable<Frame> motionFrames,
-            IEnumerable<Portrait> portraitList,
-            IPortraitHandler listener)
-        {
-            var frameCpy = listener.WantFrame ? motionFrames.ToList().ConvertAll(m => m.Clone()) : null;
-            var portraitCpy = portraitList.ToList().ConvertAll(p => p.Clone());
 
-            try
-            {
-                listener.HandlePortraits(frameCpy, portraitCpy);
-            }
-            catch (System.Exception ex)
-            {
-                frameCpy.ToList().ForEach(f => f.Dispose());
-                portraitCpy.ToList().ForEach(p => p.Dispose());
-                throw;
-            }
-        }
-
-
-        private void FirePortraitCapturedEvent(IList<Portrait> portraitList)
-        {
-            //event listener
-            if (this.PortraitCaptured != null)
-            {
-                this.PortraitCaptured(portraitList);
-            }
-        }
-
-        private void NotifyListeners(IList<Frame> motionFrames, IList<Portrait> portraitList)
-        {
-            foreach (var listener in this.GetListenersCopy())
-            {
-                try
-                {
-                    if (listener.WantCopy)
-                        NotifyAListenerWithCopy(motionFrames, portraitList, listener);
-                    else
-                        listener.HandlePortraits(motionFrames, portraitList);
-                }
-                catch (System.Exception ex)//exception occurred, remove listener
-                {
-                    this.RemoveListener(listener);
-                    System.Diagnostics.Debug.WriteLine(ex);
-                    throw;
-                }
-            }
-        }
-
-        private void Dispatch(IList<Frame> motionFrames, IList<Portrait> portraitList)
-        {
-            try
-            {
-                FirePortraitCapturedEvent(portraitList);
-                NotifyListeners(motionFrames, portraitList);
-            }
-            finally
-            {
-                portraitList.ToList().ForEach(p => p.Dispose());
-                motionFrames.ToList().ForEach(f => f.Dispose());
-            }
-        }
-
-        List<IPortraitHandler> listeners;
         FaceSearchWrapper.FaceSearch searcher;
-        object locker = new object();
     }
 }

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Damany.Imaging.Common;
-
-namespace Damany.Imaging.PlugIns
+﻿namespace Damany.Imaging.Common
 {
     public class PersonOfInterestDetectionResult
     {
