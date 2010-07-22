@@ -39,7 +39,7 @@ namespace RemoteImaging
             if (camToStart.Count == 1)
             {
                 var single = this._configManager.GetCameras().Single();
-                this.StartCameraInternal(single);
+                this.StartCamera(single);
             }
 
         }
@@ -50,23 +50,26 @@ namespace RemoteImaging
         }
 
 
-        public void StartCamera()
+        public void StartCamera(CameraInfo cameraInfo = null)
         {
-            var selected = this._mainForm.GetSelectedCamera();
-            if (selected == null)
+            if (cameraInfo == null)
             {
-                this._mainForm.ShowMessage("请选择一个摄像头。");
+                cameraInfo = _mainForm.GetSelectedCamera();
+            }
+
+            if (cameraInfo == null)
+            {
                 return;
             }
 
             StopSearchFaceFacade();
 
             var facade = _faceSearchFacadeFactory();
-            facade.StartWith(selected);
+            facade.StartWith(cameraInfo);
 
-            if (selected.Provider == CameraProvider.Sanyo)
+            if (cameraInfo.Provider == CameraProvider.Sanyo)
             {
-                _mainForm.StartRecord(selected);
+                _mainForm.StartRecord(cameraInfo);
             }
 
             _currentFaceSearchFacade = facade;
