@@ -77,8 +77,8 @@
     <Compile Include="IConvertor.cs" />
     <Compile Include="IDataProvider.cs" />
     <Compile Include="IEventAggregator.cs" />
-    <Compile Include="IFaceFilter.cs" />
-    <Compile Include="IFacePreFilter.cs" />
+    <Compile Include="IFacePostFilter.cs" />
+    <Compile Include="IFaceSatisfyCompareCretia.cs" />
     <Compile Include="IMotionDetector.cs" />
     <Compile Include="IRepositoryFaceComparer.cs" />
     <Compile Include="ISimpleFaceComparer.cs" />
