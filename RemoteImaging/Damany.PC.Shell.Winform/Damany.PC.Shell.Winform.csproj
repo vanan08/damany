@@ -42,6 +42,13 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Damany.Cameras">
+      <HintPath>..\lib\Damany.Cameras.dll</HintPath>
+    </Reference>
+    <Reference Include="Damany.Cameras.Wrappers, Version=1.0.3862.25953, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\Damany.Cameras.Wrappers.dll</HintPath>
+    </Reference>
     <Reference Include="Damany.Component, Version=2.2.47.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Damany.Library\Damany.Component\bin\Debug\Damany.Component.dll</HintPath>
@@ -49,6 +56,19 @@
     <Reference Include="Damany.Drawing, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Damany.Library\Damany.Drawing\bin\Debug\Damany.Drawing.dll</HintPath>
+    </Reference>
+    <Reference Include="Damany.Imaging, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>l:\Documents and Settings\benny\My Documents\Visual Studio 2010\Projects\FaceCapture_working\RemoteImaging\lib\Damany.Imaging.dll</HintPath>
+    </Reference>
+    <Reference Include="Damany.Imaging.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>l:\Documents and Settings\benny\My Documents\Visual Studio 2010\Projects\FaceCapture_working\RemoteImaging\lib\Damany.Imaging.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Damany.PC.Domain, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="Damany.Util, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>l:\Documents and Settings\benny\My Documents\Visual Studio 2010\Projects\FaceCapture_working\RemoteImaging\lib\Damany.Util.dll</HintPath>
+    </Reference>
+    <Reference Include="Damany.Windows.Form, Version=1.4.50.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>l:\Documents and Settings\benny\My Documents\Visual Studio 2010\Projects\FaceCapture_working\RemoteImaging\lib\Damany.Windows.Form.dll</HintPath>
     </Reference>
     <Reference Include="MiscUtil, Version=1.0.0.0, Culture=neutral, PublicKeyToken=d3c42c4bfacf7596, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -119,34 +139,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Damany.ImageProcessing.Contracts\Damany.Imaging.csproj">
-      <Project>{B8F7A553-6295-4F0B-B48A-7C85DA5118BB}</Project>
-      <Name>Damany.Imaging</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Damany.Library\CameraWrappers\CameraWrappers.vcxproj">
-      <Project>{477A59D8-2EC6-4C25-B111-A38B1C9856A6}</Project>
-      <Name>Damany.Cameras.Wrappers</Name>
-      <Private>True</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Damany.Library\Damany.Windows.Form\Damany.Windows.Form.csproj">
-      <Project>{8AA0E208-9EC2-477B-BE96-00E4C7B7F827}</Project>
-      <Name>Damany.Windows.Form</Name>
-    </ProjectReference>
     <ProjectReference Include="..\CommonLibrary\RemoteImaging.Common.csproj">
       <Project>{683B173B-831E-494D-A6FE-965934D3D315}</Project>
       <Name>RemoteImaging.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Damany.Cameras\Damany.Cameras.csproj">
-      <Project>{BCB72517-49DF-4EDE-B84A-55E870B069EF}</Project>
-      <Name>Damany.Cameras</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Damany.Imaging.Common\Damany.Imaging.Common.csproj">
-      <Project>{1546E91B-1045-42BA-9CAA-D5215EF3C792}</Project>
-      <Name>Damany.Imaging.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Damany.PC.Domain\Damany.PC.csproj">
-      <Project>{A3D29CCA-AC43-45A0-8651-74A3C51D005D}</Project>
-      <Name>Damany.PC</Name>
     </ProjectReference>
     <ProjectReference Include="..\Damany.PortraitCapturer.DAL\Damany.PortraitCapturer.DAL.csproj">
       <Project>{85DF7A03-E0AF-4A50-B257-0DB136AED335}</Project>
@@ -155,14 +150,6 @@
     <ProjectReference Include="..\Damany.PortraitCapturer.Shell.Console\Damany.PC.Shell.CmdLine.csproj">
       <Project>{8E1A64E7-2CA6-4F72-B2B2-C8B24657FEB5}</Project>
       <Name>Damany.PC.Shell.CmdLine</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Damany.Util\Damany.Util.csproj">
-      <Project>{FA6DEBE0-D78D-437E-B05D-0923896290C9}</Project>
-      <Name>Damany.Util</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\FaceProcessingWrapper\FaceProcessingWrapper.vcxproj">
-      <Project>{02B00EA5-D734-429C-BF58-44769501B940}</Project>
-      <Name>FaceProcessingWrapper</Name>
     </ProjectReference>
     <ProjectReference Include="..\TestDataProvider\TestDataProvider.csproj">
       <Project>{5783AFA7-05AD-4B52-8A0F-C120EADCCB9C}</Project>

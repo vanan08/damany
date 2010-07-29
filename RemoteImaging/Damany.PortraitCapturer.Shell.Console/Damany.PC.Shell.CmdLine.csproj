@@ -42,6 +42,25 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Damany.Cameras">
+      <HintPath>..\lib\Damany.Cameras.dll</HintPath>
+    </Reference>
+    <Reference Include="Damany.Cameras.Wrappers, Version=1.0.3862.25953, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\Damany.Cameras.Wrappers.dll</HintPath>
+    </Reference>
+    <Reference Include="Damany.Imaging, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>l:\Documents and Settings\benny\My Documents\Visual Studio 2010\Projects\FaceCapture_working\RemoteImaging\lib\Damany.Imaging.dll</HintPath>
+    </Reference>
+    <Reference Include="Damany.Imaging.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>l:\Documents and Settings\benny\My Documents\Visual Studio 2010\Projects\FaceCapture_working\RemoteImaging\lib\Damany.Imaging.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Damany.PC.Domain">
+      <HintPath>..\lib\Damany.PC.Domain.dll</HintPath>
+    </Reference>
+    <Reference Include="Damany.Util, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>l:\Documents and Settings\benny\My Documents\Visual Studio 2010\Projects\FaceCapture_working\RemoteImaging\lib\Damany.Util.dll</HintPath>
+    </Reference>
     <Reference Include="MiscUtil, Version=1.0.0.0, Culture=neutral, PublicKeyToken=d3c42c4bfacf7596, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Library\MiscUtil\MiscUtil.dll</HintPath>
@@ -74,33 +93,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Damany.ImageProcessing.Contracts\Damany.Imaging.csproj">
-      <Project>{B8F7A553-6295-4F0B-B48A-7C85DA5118BB}</Project>
-      <Name>Damany.Imaging</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Damany.Library\CameraWrappers.Test\CameraWrappers.Test.csproj">
-      <Project>{6FA66571-1E49-42D8-83B8-6A38B75A85DC}</Project>
-      <Name>CameraWrappers.Test</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Damany.Library\CameraWrappers\CameraWrappers.vcxproj">
-      <Project>{477A59D8-2EC6-4C25-B111-A38B1C9856A6}</Project>
-      <Name>Damany.Cameras.Wrappers</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Damany.Cameras\Damany.Cameras.csproj">
-      <Project>{BCB72517-49DF-4EDE-B84A-55E870B069EF}</Project>
-      <Name>Damany.Cameras</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Damany.Imaging.Common\Damany.Imaging.Common.csproj">
-      <Project>{1546E91B-1045-42BA-9CAA-D5215EF3C792}</Project>
-      <Name>Damany.Imaging.Common</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Damany.PortraitCapturer.DAL\Damany.PortraitCapturer.DAL.csproj">
       <Project>{85DF7A03-E0AF-4A50-B257-0DB136AED335}</Project>
       <Name>Damany.PortraitCapturer.DAL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Damany.Util\Damany.Util.csproj">
-      <Project>{FA6DEBE0-D78D-437E-B05D-0923896290C9}</Project>
-      <Name>Damany.Util</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
