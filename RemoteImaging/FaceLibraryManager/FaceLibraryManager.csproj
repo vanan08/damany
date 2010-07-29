@@ -38,9 +38,24 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Damany.Imaging, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>l:\Documents and Settings\benny\My Documents\Visual Studio 2010\Projects\FaceCapture_working\RemoteImaging\lib\Damany.Imaging.dll</HintPath>
+    </Reference>
+    <Reference Include="Damany.Imaging.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>l:\Documents and Settings\benny\My Documents\Visual Studio 2010\Projects\FaceCapture_working\RemoteImaging\lib\Damany.Imaging.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Damany.Util, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>l:\Documents and Settings\benny\My Documents\Visual Studio 2010\Projects\FaceCapture_working\RemoteImaging\lib\Damany.Util.dll</HintPath>
+    </Reference>
+    <Reference Include="FaceSearchWrapper, Version=1.0.28.0, Culture=neutral, processorArchitecture=x86">
+      <HintPath>l:\Documents and Settings\benny\My Documents\Visual Studio 2010\Projects\FaceCapture_working\RemoteImaging\lib\FaceSearchWrapper.dll</HintPath>
+    </Reference>
     <Reference Include="OpenCvSharp, Version=2.0.3497.28493, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Library\OpenCvSharp\OpenCvSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="SuspectsRepository, Version=2.3.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>l:\Documents and Settings\benny\My Documents\Visual Studio 2010\Projects\FaceCapture_working\RemoteImaging\lib\SuspectsRepository.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -126,28 +141,6 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Damany.ImageProcessing.Contracts\Damany.Imaging.csproj">
-      <Project>{B8F7A553-6295-4F0B-B48A-7C85DA5118BB}</Project>
-      <Name>Damany.Imaging</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Damany.Imaging.Common\Damany.Imaging.Common.csproj">
-      <Project>{1546E91B-1045-42BA-9CAA-D5215EF3C792}</Project>
-      <Name>Damany.Imaging.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Damany.Util\Damany.Util.csproj">
-      <Project>{FA6DEBE0-D78D-437E-B05D-0923896290C9}</Project>
-      <Name>Damany.Util</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\FaceSearchWrapper\FaceSearchWrapper.vcxproj">
-      <Project>{F6F410AA-5D72-49BE-9FFE-6EBECF718EAA}</Project>
-      <Name>FaceSearchWrapper</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SuspectsRepository\SuspectsRepository.csproj">
-      <Project>{B942C0AF-0BE0-4655-A1DE-B63782D67F2F}</Project>
-      <Name>SuspectsRepository</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\delete.gif" />
