@@ -110,7 +110,7 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>copy "$(SolutionDir)$(ConfigurationName)\*.dll"   "$(TargetDir)"
-copy "$(SolutionDir)$(ConfigurationName)\*.pdb"   "$(TargetDir)"</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
 </Project>
