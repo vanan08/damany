@@ -11,7 +11,7 @@
     		<RowDefinition Height="0.917*"/>
     	</Grid.RowDefinitions>
     	<Image Grid.Row="1" Source="{Binding Image}"/>
-    	<TextBlock Margin="0,-1,0,0" TextWrapping="Wrap" Text="工作正常..." Foreground="#FFF9F3F3" VerticalAlignment="Center"/>
+    	<TextBlock Margin="0"  TextWrapping="Wrap" Text="工作正常..." Foreground="White" Background="#FF3D3B3B" VerticalAlignment="Center" Height="22.964"/>
             
     </Grid>
 </UserControl>

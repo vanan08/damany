@@ -26,6 +26,10 @@ namespace RemoteImaging
         [STAThread]
         static void Main(string[] argv)
         {
+            DevExpress.UserSkins.OfficeSkins.Register();
+            DevExpress.UserSkins.BonusSkins.Register();
+            DevExpress.Skins.SkinManager.EnableFormSkins();
+
             try
             {
                 var isFirst = false;

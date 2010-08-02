@@ -843,6 +843,16 @@ namespace RemoteImaging.RealtimeDisplay
             this.statusTime.Text = DateTime.Now.ToString();
         }
 
+        private void barButtonItem2_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+
+        }
+
+        private void gridControl1_Click(object sender, EventArgs e)
+        {
+
+        }
+
 
     }
 }
