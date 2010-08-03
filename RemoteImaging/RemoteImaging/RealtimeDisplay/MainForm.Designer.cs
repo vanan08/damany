@@ -50,7 +50,6 @@
             this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlRight = new DevExpress.XtraBars.BarDockControl();
             this.dockManager1 = new DevExpress.XtraBars.Docking.DockManager(this.components);
-            this.panelContainer2 = new DevExpress.XtraBars.Docking.DockPanel();
             this.cameraControl = new DevExpress.XtraBars.Docking.DockPanel();
             this.dockPanel1_Container = new DevExpress.XtraBars.Docking.ControlContainer();
             this.dockPanel3 = new DevExpress.XtraBars.Docking.DockPanel();
@@ -68,10 +67,18 @@
             this.dockPanel2_Container = new DevExpress.XtraBars.Docking.ControlContainer();
             this.barButtonItem1 = new DevExpress.XtraBars.BarButtonItem();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
+            this.barDockControl1 = new DevExpress.XtraBars.BarDockControl();
+            this.barDockControl2 = new DevExpress.XtraBars.BarDockControl();
+            this.barDockControl3 = new DevExpress.XtraBars.BarDockControl();
+            this.barDockControl4 = new DevExpress.XtraBars.BarDockControl();
+            this.barDockControl5 = new DevExpress.XtraBars.BarDockControl();
+            this.barDockControl6 = new DevExpress.XtraBars.BarDockControl();
+            this.barDockControl7 = new DevExpress.XtraBars.BarDockControl();
+            this.barDockControl8 = new DevExpress.XtraBars.BarDockControl();
+            this.panelContainer2 = new DevExpress.XtraBars.Docking.DockPanel();
             this.contextMenuStripForCamTreeView.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.barManager1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dockManager1)).BeginInit();
-            this.panelContainer2.SuspendLayout();
             this.cameraControl.SuspendLayout();
             this.dockPanel3.SuspendLayout();
             this.panelContainer1.SuspendLayout();
@@ -81,6 +88,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             this.dockPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
+            this.panelContainer2.SuspendLayout();
             this.SuspendLayout();
             // 
             // contextMenuStripForCamTreeView
@@ -89,19 +97,19 @@
             this.ViewCameraToolStripMenuItem,
             this.SetupCameraToolStripMenuItem});
             this.contextMenuStripForCamTreeView.Name = "contextMenuStripForCamTreeView";
-            this.contextMenuStripForCamTreeView.Size = new System.Drawing.Size(105, 52);
+            this.contextMenuStripForCamTreeView.Size = new System.Drawing.Size(107, 48);
             // 
             // ViewCameraToolStripMenuItem
             // 
             this.ViewCameraToolStripMenuItem.Name = "ViewCameraToolStripMenuItem";
-            this.ViewCameraToolStripMenuItem.Size = new System.Drawing.Size(104, 24);
+            this.ViewCameraToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
             this.ViewCameraToolStripMenuItem.Text = "查看";
             this.ViewCameraToolStripMenuItem.Click += new System.EventHandler(this.ViewCameraToolStripMenuItem_Click);
             // 
             // SetupCameraToolStripMenuItem
             // 
             this.SetupCameraToolStripMenuItem.Name = "SetupCameraToolStripMenuItem";
-            this.SetupCameraToolStripMenuItem.Size = new System.Drawing.Size(104, 24);
+            this.SetupCameraToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
             this.SetupCameraToolStripMenuItem.Text = "设置";
             this.SetupCameraToolStripMenuItem.Click += new System.EventHandler(this.SetupCameraToolStripMenuItem_Click);
             // 
@@ -230,34 +238,23 @@
             "DevExpress.XtraBars.Ribbon.RibbonStatusBar",
             "DevExpress.XtraBars.Ribbon.RibbonControl"});
             // 
-            // panelContainer2
-            // 
-            this.panelContainer2.Controls.Add(this.cameraControl);
-            this.panelContainer2.Controls.Add(this.dockPanel3);
-            this.panelContainer2.Dock = DevExpress.XtraBars.Docking.DockingStyle.Left;
-            this.panelContainer2.ID = new System.Guid("c38fc82a-6631-4dc0-9ef9-dcb677980e98");
-            this.panelContainer2.Location = new System.Drawing.Point(0, 57);
-            this.panelContainer2.Name = "panelContainer2";
-            this.panelContainer2.OriginalSize = new System.Drawing.Size(181, 200);
-            this.panelContainer2.Size = new System.Drawing.Size(181, 530);
-            this.panelContainer2.Text = "panelContainer2";
-            // 
             // cameraControl
             // 
             this.cameraControl.Controls.Add(this.dockPanel1_Container);
             this.cameraControl.Dock = DevExpress.XtraBars.Docking.DockingStyle.Fill;
+            this.cameraControl.FloatVertical = true;
             this.cameraControl.ID = new System.Guid("0360a8c6-c090-4315-a3d3-179b435f24b8");
-            this.cameraControl.Location = new System.Drawing.Point(0, 0);
+            this.cameraControl.Location = new System.Drawing.Point(3, 29);
             this.cameraControl.Name = "cameraControl";
             this.cameraControl.OriginalSize = new System.Drawing.Size(200, 200);
-            this.cameraControl.Size = new System.Drawing.Size(181, 295);
+            this.cameraControl.Size = new System.Drawing.Size(198, 482);
             this.cameraControl.Text = "摄像头控制";
             // 
             // dockPanel1_Container
             // 
-            this.dockPanel1_Container.Location = new System.Drawing.Point(2, 24);
+            this.dockPanel1_Container.Location = new System.Drawing.Point(0, 0);
             this.dockPanel1_Container.Name = "dockPanel1_Container";
-            this.dockPanel1_Container.Size = new System.Drawing.Size(177, 269);
+            this.dockPanel1_Container.Size = new System.Drawing.Size(198, 482);
             this.dockPanel1_Container.TabIndex = 0;
             // 
             // dockPanel3
@@ -265,17 +262,17 @@
             this.dockPanel3.Controls.Add(this.dockPanel3_Container);
             this.dockPanel3.Dock = DevExpress.XtraBars.Docking.DockingStyle.Fill;
             this.dockPanel3.ID = new System.Guid("f85b502d-6086-4081-8fd5-697944c58cf6");
-            this.dockPanel3.Location = new System.Drawing.Point(0, 295);
+            this.dockPanel3.Location = new System.Drawing.Point(3, 29);
             this.dockPanel3.Name = "dockPanel3";
-            this.dockPanel3.OriginalSize = new System.Drawing.Size(200, 200);
-            this.dockPanel3.Size = new System.Drawing.Size(181, 235);
-            this.dockPanel3.Text = "dockPanel3";
+            this.dockPanel3.OriginalSize = new System.Drawing.Size(204, 200);
+            this.dockPanel3.Size = new System.Drawing.Size(198, 482);
+            this.dockPanel3.Text = "放大图片";
             // 
             // dockPanel3_Container
             // 
-            this.dockPanel3_Container.Location = new System.Drawing.Point(2, 24);
+            this.dockPanel3_Container.Location = new System.Drawing.Point(0, 0);
             this.dockPanel3_Container.Name = "dockPanel3_Container";
-            this.dockPanel3_Container.Size = new System.Drawing.Size(177, 209);
+            this.dockPanel3_Container.Size = new System.Drawing.Size(198, 482);
             this.dockPanel3_Container.TabIndex = 0;
             // 
             // panelContainer1
@@ -286,10 +283,10 @@
             this.panelContainer1.Dock = DevExpress.XtraBars.Docking.DockingStyle.Bottom;
             this.panelContainer1.FloatVertical = true;
             this.panelContainer1.ID = new System.Guid("e2e532dd-4492-4160-86b7-82d03e984b04");
-            this.panelContainer1.Location = new System.Drawing.Point(181, 361);
+            this.panelContainer1.Location = new System.Drawing.Point(204, 361);
             this.panelContainer1.Name = "panelContainer1";
             this.panelContainer1.OriginalSize = new System.Drawing.Size(200, 226);
-            this.panelContainer1.Size = new System.Drawing.Size(767, 226);
+            this.panelContainer1.Size = new System.Drawing.Size(744, 226);
             this.panelContainer1.Tabbed = true;
             this.panelContainer1.Text = "panelContainer1";
             // 
@@ -299,10 +296,10 @@
             this.dockPanel1.Dock = DevExpress.XtraBars.Docking.DockingStyle.Fill;
             this.dockPanel1.FloatVertical = true;
             this.dockPanel1.ID = new System.Guid("4b6796ec-e0e6-426d-a590-4e2faeed66b3");
-            this.dockPanel1.Location = new System.Drawing.Point(2, 24);
+            this.dockPanel1.Location = new System.Drawing.Point(3, 29);
             this.dockPanel1.Name = "dockPanel1";
-            this.dockPanel1.OriginalSize = new System.Drawing.Size(744, 115);
-            this.dockPanel1.Size = new System.Drawing.Size(763, 175);
+            this.dockPanel1.OriginalSize = new System.Drawing.Size(738, 176);
+            this.dockPanel1.Size = new System.Drawing.Size(738, 173);
             this.dockPanel1.Text = "车牌列表";
             // 
             // controlContainer1
@@ -310,7 +307,7 @@
             this.controlContainer1.Controls.Add(this.gridControl1);
             this.controlContainer1.Location = new System.Drawing.Point(0, 0);
             this.controlContainer1.Name = "controlContainer1";
-            this.controlContainer1.Size = new System.Drawing.Size(763, 175);
+            this.controlContainer1.Size = new System.Drawing.Size(738, 173);
             this.controlContainer1.TabIndex = 0;
             // 
             // gridControl1
@@ -320,7 +317,7 @@
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.MenuManager = this.barManager1;
             this.gridControl1.Name = "gridControl1";
-            this.gridControl1.Size = new System.Drawing.Size(763, 175);
+            this.gridControl1.Size = new System.Drawing.Size(738, 173);
             this.gridControl1.TabIndex = 0;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -372,17 +369,17 @@
             this.dockPanel2.Dock = DevExpress.XtraBars.Docking.DockingStyle.Fill;
             this.dockPanel2.FloatVertical = true;
             this.dockPanel2.ID = new System.Guid("d97ea736-9e04-4289-8b27-b7f02e2dc018");
-            this.dockPanel2.Location = new System.Drawing.Point(2, 24);
+            this.dockPanel2.Location = new System.Drawing.Point(3, 29);
             this.dockPanel2.Name = "dockPanel2";
-            this.dockPanel2.OriginalSize = new System.Drawing.Size(744, 115);
-            this.dockPanel2.Size = new System.Drawing.Size(763, 175);
+            this.dockPanel2.OriginalSize = new System.Drawing.Size(738, 176);
+            this.dockPanel2.Size = new System.Drawing.Size(738, 173);
             this.dockPanel2.Text = "人像列表";
             // 
             // dockPanel2_Container
             // 
             this.dockPanel2_Container.Location = new System.Drawing.Point(0, 0);
             this.dockPanel2_Container.Name = "dockPanel2_Container";
-            this.dockPanel2_Container.Size = new System.Drawing.Size(763, 175);
+            this.dockPanel2_Container.Size = new System.Drawing.Size(738, 173);
             this.dockPanel2_Container.TabIndex = 0;
             // 
             // barButtonItem1
@@ -394,11 +391,26 @@
             // groupControl1
             // 
             this.groupControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupControl1.Location = new System.Drawing.Point(181, 57);
+            this.groupControl1.Location = new System.Drawing.Point(204, 52);
             this.groupControl1.Name = "groupControl1";
-            this.groupControl1.Size = new System.Drawing.Size(767, 304);
+            this.groupControl1.Size = new System.Drawing.Size(744, 309);
             this.groupControl1.TabIndex = 8;
             this.groupControl1.Text = "实时图像";
+            // 
+            // panelContainer2
+            // 
+            this.panelContainer2.ActiveChild = this.cameraControl;
+            this.panelContainer2.Controls.Add(this.dockPanel3);
+            this.panelContainer2.Controls.Add(this.cameraControl);
+            this.panelContainer2.Dock = DevExpress.XtraBars.Docking.DockingStyle.Left;
+            this.panelContainer2.FloatVertical = true;
+            this.panelContainer2.ID = new System.Guid("1f31619e-b2ff-45b5-a880-5edf2bddb051");
+            this.panelContainer2.Location = new System.Drawing.Point(0, 52);
+            this.panelContainer2.Name = "panelContainer2";
+            this.panelContainer2.OriginalSize = new System.Drawing.Size(204, 657);
+            this.panelContainer2.Size = new System.Drawing.Size(204, 535);
+            this.panelContainer2.Tabbed = true;
+            this.panelContainer2.Text = "panelContainer2";
             // 
             // MainForm
             // 
@@ -408,6 +420,14 @@
             this.Controls.Add(this.groupControl1);
             this.Controls.Add(this.panelContainer1);
             this.Controls.Add(this.panelContainer2);
+            this.Controls.Add(this.barDockControl3);
+            this.Controls.Add(this.barDockControl4);
+            this.Controls.Add(this.barDockControl2);
+            this.Controls.Add(this.barDockControl1);
+            this.Controls.Add(this.barDockControl7);
+            this.Controls.Add(this.barDockControl8);
+            this.Controls.Add(this.barDockControl6);
+            this.Controls.Add(this.barDockControl5);
             this.Controls.Add(this.barDockControlLeft);
             this.Controls.Add(this.barDockControlRight);
             this.Controls.Add(this.barDockControlBottom);
@@ -423,7 +443,6 @@
             this.contextMenuStripForCamTreeView.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.barManager1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dockManager1)).EndInit();
-            this.panelContainer2.ResumeLayout(false);
             this.cameraControl.ResumeLayout(false);
             this.dockPanel3.ResumeLayout(false);
             this.panelContainer1.ResumeLayout(false);
@@ -433,6 +452,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             this.dockPanel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
+            this.panelContainer2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -474,9 +494,17 @@
         private DevExpress.XtraGrid.Columns.GridColumn time;
         private DevExpress.XtraGrid.Columns.GridColumn licenseNumber;
         private DevExpress.XtraGrid.Columns.GridColumn picture;
-        private DevExpress.XtraBars.Docking.DockPanel panelContainer2;
         private DevExpress.XtraBars.Docking.DockPanel dockPanel3;
         private DevExpress.XtraBars.Docking.ControlContainer dockPanel3_Container;
+        private DevExpress.XtraBars.BarDockControl barDockControl3;
+        private DevExpress.XtraBars.BarDockControl barDockControl4;
+        private DevExpress.XtraBars.BarDockControl barDockControl2;
+        private DevExpress.XtraBars.BarDockControl barDockControl1;
+        private DevExpress.XtraBars.BarDockControl barDockControl7;
+        private DevExpress.XtraBars.BarDockControl barDockControl8;
+        private DevExpress.XtraBars.BarDockControl barDockControl6;
+        private DevExpress.XtraBars.BarDockControl barDockControl5;
+        private DevExpress.XtraBars.Docking.DockPanel panelContainer2;
 
     }
 }
