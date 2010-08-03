@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<componentModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm5="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/dsltools/LogicalClassDesigner" dslVersion="0.3.0.0" Id="1dc69cae-eb01-4919-bf86-99e540e1c4ed" name="Components" linkedPackageId="80392c62-69ed-4ac1-b477-191a14a4e8cc" xmlns="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ComponentDesigner">
+  <profileInstances>
+    <packageHasProfileInstances Id="c7cc7ea5-711c-4553-aa07-16c19eb0bcd1">
+      <profileInstance Id="409885b3-5148-4bd4-ac72-45fa546bb39d" name="StandardProfileL2">
+        <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+      </profileInstance>
+      <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances Id="e5487534-7404-4ddc-89ee-e4ee9a919095">
+      <profileInstance Id="f55bd03c-160a-4f15-9c50-ee8e677df7d9" name="StandardProfileL3">
+        <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+      </profileInstance>
+      <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <packagedElements>
+    <componentModelHasComponents>
+      <component Id="c3f39d25-7ac7-4531-a9f7-45e8c5527bc4" name="Presentation" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="52e5525b-06c1-4c31-8d3d-7686fde961cb" />
+        <suppliersInternal>
+          <dependency Id="7f12716b-7c50-43b8-8300-6554e2cadb33">
+            <componentMoniker Id="5f9d8d39-487b-4819-8475-9c1d5002e4ba" LastKnownName="Presenter" />
+            <elementDefinition Id="90f7680e-8096-45b0-8d4f-835229234980" />
+          </dependency>
+          <dependency Id="073cba43-e250-4ef1-8f0a-25a27594fa99">
+            <componentMoniker Id="b5bbde70-aca1-4661-a60b-2287f4448dfd" LastKnownName="Routine" />
+            <elementDefinition Id="ce7d6253-43b1-4fac-90a2-d1875b07716e" />
+          </dependency>
+        </suppliersInternal>
+      </component>
+    </componentModelHasComponents>
+    <componentModelHasComponents>
+      <component Id="5f9d8d39-487b-4819-8475-9c1d5002e4ba" name="Presenter" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="58690023-9453-4cf8-8928-b1e0fbaec84d" />
+        <suppliersInternal>
+          <dependency Id="69681ff1-ffd2-402b-a4f1-26c362dea284">
+            <componentMoniker Id="d0f91991-20c8-4f7d-8de5-1568176add9a" LastKnownName="Image Processing" />
+            <elementDefinition Id="8bbf895a-9791-4284-ae58-b93e0809317e" />
+          </dependency>
+          <dependency Id="310dd20f-4845-45da-9ea8-c7c2d3df1a51">
+            <componentMoniker Id="3a847e0e-109b-4a06-8353-0e247ef70111" LastKnownName="Repositories" />
+            <elementDefinition Id="1ace2601-3843-43b0-a504-d03574eccc2d" />
+          </dependency>
+          <dependency Id="37cb6677-6d7a-4f81-a11f-548d6adc9100">
+            <componentMoniker Id="1e463d37-8588-4a42-ac3e-8e2c2a248b9d" LastKnownName="Services" />
+            <elementDefinition Id="19dec4c7-23ce-4a37-bd30-7841bb5295b8" />
+          </dependency>
+        </suppliersInternal>
+      </component>
+    </componentModelHasComponents>
+    <componentModelHasComponents>
+      <component Id="d0f91991-20c8-4f7d-8de5-1568176add9a" name="Image Processing" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="459d85ff-de5a-420e-96d0-ca2dd5a8545d" />
+      </component>
+    </componentModelHasComponents>
+    <componentModelHasComponents>
+      <component Id="3a847e0e-109b-4a06-8353-0e247ef70111" name="Repositories" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="052e3d1b-75dc-44e5-b8e7-eb875f25a912" />
+        <suppliersInternal>
+          <dependency Id="12a96207-3038-4471-b736-8de534ceaa42">
+            <componentMoniker Id="7e9c0d92-a14b-48c5-b98e-2f730fe85e3d" LastKnownName="Persistence" />
+            <elementDefinition Id="848e6813-60d8-4bee-9a10-92b0353d65df" />
+          </dependency>
+        </suppliersInternal>
+      </component>
+    </componentModelHasComponents>
+    <componentModelHasComponents>
+      <component Id="7e9c0d92-a14b-48c5-b98e-2f730fe85e3d" name="Persistence" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="e283a98c-52ec-44ba-9ba2-9cd871c12543" />
+      </component>
+    </componentModelHasComponents>
+    <componentModelHasComponents>
+      <component Id="b5bbde70-aca1-4661-a60b-2287f4448dfd" name="Routine" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="77ca8c36-0252-408d-8a99-565822451338" />
+        <suppliersInternal>
+          <dependency Id="b87809c1-c794-492e-99ec-889becd828eb">
+            <componentMoniker Id="3a847e0e-109b-4a06-8353-0e247ef70111" LastKnownName="Repositories" />
+            <elementDefinition Id="705dbadf-69b2-4ff6-825d-584a5b19c2db" />
+          </dependency>
+        </suppliersInternal>
+      </component>
+    </componentModelHasComponents>
+    <componentModelHasComponents>
+      <component Id="01be3551-cb19-4d94-adf4-52f2c2461561" name="Net" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="33ed3a7c-f8b7-4026-b5e8-7cd051e4de05" />
+      </component>
+    </componentModelHasComponents>
+    <componentModelHasComponents>
+      <component Id="1e463d37-8588-4a42-ac3e-8e2c2a248b9d" name="Services" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="88590c62-7f3b-4afb-8f8f-87d493a34504" />
+        <suppliersInternal>
+          <dependency Id="67e8cf93-3272-4874-99eb-241e41f9461f">
+            <componentMoniker Id="01be3551-cb19-4d94-adf4-52f2c2461561" LastKnownName="Net" />
+            <elementDefinition Id="fa200795-7469-4f64-825c-f51018858ce9" />
+          </dependency>
+        </suppliersInternal>
+      </component>
+    </componentModelHasComponents>
+  </packagedElements>
+  <package Id="80392c62-69ed-4ac1-b477-191a14a4e8cc" name="Design">
+    <elementDefinition Id="08018057-a7d5-4664-b9f0-08ebae6580b2" />
+  </package>
+</componentModel>
