@@ -760,5 +760,41 @@ namespace RemoteImaging.Properties {
                 return ((int)(this["RestartCountDown"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("6")]
+        public uint FaceListColumns {
+            get {
+                return ((uint)(this["FaceListColumns"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("3")]
+        public uint FaceListRows {
+            get {
+                return ((uint)(this["FaceListRows"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("800")]
+        public uint LiveImgWidth {
+            get {
+                return ((uint)(this["LiveImgWidth"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("600")]
+        public uint LiveImgHeight {
+            get {
+                return ((uint)(this["LiveImgHeight"]));
+            }
+        }
     }
 }
