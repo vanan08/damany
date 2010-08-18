@@ -25,6 +25,7 @@ namespace RemoteImaging.RealtimeDisplay
     public partial class MainForm : Form, IImageScreen
     {
         public Func<FaceComparePresenter> CreateFaceCompare { get; set; }
+        private bool _isFullScreen;
 
         private IEventAggregator _eventAggregator;
         public IEventAggregator EventAggregator
@@ -68,6 +69,12 @@ namespace RemoteImaging.RealtimeDisplay
             }
 
             InitStatusBar();
+
+            this.axCamImgCtrl1.OrgImageHeight = (int) Properties.Settings.Default.LiveImgHeight;
+            this.axCamImgCtrl1.OrgImageWidth = (int) Properties.Settings.Default.LiveImgWidth;
+
+            squareListView1.NumberOfColumns = (int) Properties.Settings.Default.FaceListColumns;
+            squareListView1.NumberofRows = (int) Properties.Settings.Default.FaceListRows;
 
             Application.Idle += new EventHandler(Application_Idle);
         }
@@ -843,6 +850,19 @@ namespace RemoteImaging.RealtimeDisplay
             this.statusTime.Text = DateTime.Now.ToString();
         }
 
+        private void fullScreenSwitch_Click(object sender, EventArgs e)
+        {
+            _isFullScreen = !_isFullScreen;
+            EnableFullScreen(_isFullScreen);
+        }
 
+
+
+        private void EnableFullScreen(bool enable)
+        {
+            this.WindowState = FormWindowState.Normal;
+            this.FormBorderStyle = enable ? FormBorderStyle.None : FormBorderStyle.Sizable;
+            this.WindowState = FormWindowState.Maximized;
+        }
     }
 }
