@@ -30,6 +30,8 @@ namespace RemoteImaging
             DevExpress.UserSkins.BonusSkins.Register();
             DevExpress.Skins.SkinManager.EnableFormSkins();
 
+            DevExpress.LookAndFeel.UserLookAndFeel.Default.SetSkinStyle("Blue");
+
             try
             {
                 var isFirst = false;
