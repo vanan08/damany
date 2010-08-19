@@ -56,6 +56,8 @@
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.wholePicture = new System.Windows.Forms.PictureBox();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.status = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonFirstPage = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonPrePage = new System.Windows.Forms.ToolStripButton();
@@ -68,8 +70,6 @@
             this.toolStripButtonPlayVideo = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.saveToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.status = new System.Windows.Forms.ToolStripStatusLabel();
             ((System.ComponentModel.ISupportInitialize)(this.timeFrom.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.timeTo.Properties)).BeginInit();
             this.groupBox3.SuspendLayout();
@@ -81,16 +81,18 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.wholePicture)).BeginInit();
-            this.toolStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
+            this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // queryBtn
@@ -148,7 +150,7 @@
             this.timeFrom.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
             this.timeFrom.Properties.Mask.EditMask = "F";
-            this.timeFrom.Size = new System.Drawing.Size(166, 21);
+            this.timeFrom.Size = new System.Drawing.Size(166, 23);
             this.timeFrom.TabIndex = 7;
             // 
             // timeTo
@@ -159,7 +161,7 @@
             this.timeTo.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
             this.timeTo.Properties.Mask.EditMask = "F";
-            this.timeTo.Size = new System.Drawing.Size(170, 21);
+            this.timeTo.Size = new System.Drawing.Size(170, 23);
             this.timeTo.TabIndex = 8;
             // 
             // faceImageList
@@ -180,11 +182,11 @@
             this.facesListView.AutoArrange = false;
             this.facesListView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.facesListView.HideSelection = false;
-            this.facesListView.Location = new System.Drawing.Point(0, 27);
+            this.facesListView.Location = new System.Drawing.Point(0, 25);
             this.facesListView.MultiSelect = false;
             this.facesListView.Name = "facesListView";
             this.facesListView.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.facesListView.Size = new System.Drawing.Size(930, 251);
+            this.facesListView.Size = new System.Drawing.Size(930, 253);
             this.facesListView.TabIndex = 10;
             this.facesListView.UseCompatibleStateImageBehavior = false;
             this.facesListView.ItemActivate += new System.EventHandler(this.secPicListView_ItemActive);
@@ -251,27 +253,27 @@
             // 
             // currentFace
             // 
-            this.currentFace.Location = new System.Drawing.Point(12, 12);
+            this.currentFace.Location = new System.Drawing.Point(7, 7);
             this.currentFace.Name = "currentFace";
-            this.currentFace.Size = new System.Drawing.Size(282, 81);
+            this.currentFace.Size = new System.Drawing.Size(292, 91);
             this.currentFace.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.currentFace.TabIndex = 19;
             this.currentFace.TabStop = false;
             // 
             // captureLocation
             // 
-            this.captureLocation.Location = new System.Drawing.Point(12, 97);
+            this.captureLocation.Location = new System.Drawing.Point(7, 108);
             this.captureLocation.Name = "captureLocation";
-            this.captureLocation.Size = new System.Drawing.Size(282, 28);
+            this.captureLocation.Size = new System.Drawing.Size(292, 22);
             this.captureLocation.TabIndex = 17;
             this.captureLocation.Text = "抓拍地点：";
             this.captureLocation.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // captureTime
             // 
-            this.captureTime.Location = new System.Drawing.Point(12, 129);
+            this.captureTime.Location = new System.Drawing.Point(7, 140);
             this.captureTime.Name = "captureTime";
-            this.captureTime.Size = new System.Drawing.Size(282, 29);
+            this.captureTime.Size = new System.Drawing.Size(292, 23);
             this.captureTime.TabIndex = 18;
             this.captureTime.Text = "抓拍时间：";
             this.captureTime.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -294,11 +296,11 @@
             // 
             this.layoutControlItem1.Control = this.captureTime;
             this.layoutControlItem1.CustomizationFormText = "layoutControlItem1";
-            this.layoutControlItem1.Location = new System.Drawing.Point(0, 117);
+            this.layoutControlItem1.Location = new System.Drawing.Point(0, 133);
             this.layoutControlItem1.MaxSize = new System.Drawing.Size(0, 33);
             this.layoutControlItem1.MinSize = new System.Drawing.Size(31, 33);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(286, 33);
+            this.layoutControlItem1.Size = new System.Drawing.Size(302, 33);
             this.layoutControlItem1.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.layoutControlItem1.Text = "layoutControlItem1";
             this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
@@ -309,11 +311,11 @@
             // 
             this.layoutControlItem2.Control = this.captureLocation;
             this.layoutControlItem2.CustomizationFormText = "layoutControlItem2";
-            this.layoutControlItem2.Location = new System.Drawing.Point(0, 85);
+            this.layoutControlItem2.Location = new System.Drawing.Point(0, 101);
             this.layoutControlItem2.MaxSize = new System.Drawing.Size(0, 32);
             this.layoutControlItem2.MinSize = new System.Drawing.Size(31, 32);
             this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(286, 32);
+            this.layoutControlItem2.Size = new System.Drawing.Size(302, 32);
             this.layoutControlItem2.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.layoutControlItem2.Text = "layoutControlItem2";
             this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
@@ -326,7 +328,7 @@
             this.layoutControlItem3.CustomizationFormText = "layoutControlItem3";
             this.layoutControlItem3.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem3.Name = "layoutControlItem3";
-            this.layoutControlItem3.Size = new System.Drawing.Size(286, 85);
+            this.layoutControlItem3.Size = new System.Drawing.Size(302, 101);
             this.layoutControlItem3.Text = "layoutControlItem3";
             this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem3.TextToControlDistance = 0;
@@ -390,6 +392,22 @@
             this.wholePicture.TabIndex = 16;
             this.wholePicture.TabStop = false;
             // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.status});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 256);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(930, 22);
+            this.statusStrip1.TabIndex = 14;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // status
+            // 
+            this.status.Name = "status";
+            this.status.Size = new System.Drawing.Size(29, 17);
+            this.status.Text = "就绪";
+            // 
             // toolStrip1
             // 
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -406,7 +424,7 @@
             this.saveToolStripButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(930, 27);
+            this.toolStrip1.Size = new System.Drawing.Size(930, 25);
             this.toolStrip1.TabIndex = 13;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -415,7 +433,7 @@
             this.toolStripButtonFirstPage.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonFirstPage.Image")));
             this.toolStripButtonFirstPage.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonFirstPage.Name = "toolStripButtonFirstPage";
-            this.toolStripButtonFirstPage.Size = new System.Drawing.Size(55, 24);
+            this.toolStripButtonFirstPage.Size = new System.Drawing.Size(49, 22);
             this.toolStripButtonFirstPage.Text = "首页";
             this.toolStripButtonFirstPage.Click += new System.EventHandler(this.toolStripButtonFirstPage_Click);
             // 
@@ -424,7 +442,7 @@
             this.toolStripButtonPrePage.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonPrePage.Image")));
             this.toolStripButtonPrePage.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonPrePage.Name = "toolStripButtonPrePage";
-            this.toolStripButtonPrePage.Size = new System.Drawing.Size(55, 24);
+            this.toolStripButtonPrePage.Size = new System.Drawing.Size(49, 22);
             this.toolStripButtonPrePage.Text = "上页";
             this.toolStripButtonPrePage.Click += new System.EventHandler(this.toolStripButtonPrePage_Click);
             // 
@@ -433,7 +451,7 @@
             this.toolStripButtonNextPage.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonNextPage.Image")));
             this.toolStripButtonNextPage.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonNextPage.Name = "toolStripButtonNextPage";
-            this.toolStripButtonNextPage.Size = new System.Drawing.Size(55, 24);
+            this.toolStripButtonNextPage.Size = new System.Drawing.Size(49, 22);
             this.toolStripButtonNextPage.Text = "下页";
             this.toolStripButtonNextPage.Click += new System.EventHandler(this.toolStripButtonNextPage_Click);
             // 
@@ -442,72 +460,56 @@
             this.toolStripButtonLastPage.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonLastPage.Image")));
             this.toolStripButtonLastPage.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonLastPage.Name = "toolStripButtonLastPage";
-            this.toolStripButtonLastPage.Size = new System.Drawing.Size(55, 24);
+            this.toolStripButtonLastPage.Size = new System.Drawing.Size(49, 22);
             this.toolStripButtonLastPage.Text = "末页";
             this.toolStripButtonLastPage.Click += new System.EventHandler(this.toolStripButtonLastPage_Click);
             // 
             // toolStripLabelCurPage
             // 
             this.toolStripLabelCurPage.Name = "toolStripLabelCurPage";
-            this.toolStripLabelCurPage.Size = new System.Drawing.Size(57, 24);
+            this.toolStripLabelCurPage.Size = new System.Drawing.Size(47, 22);
             this.toolStripLabelCurPage.Text = "第1/1页";
             // 
             // pageSizeCombo
             // 
             this.pageSizeCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.pageSizeCombo.Name = "pageSizeCombo";
-            this.pageSizeCombo.Size = new System.Drawing.Size(121, 27);
+            this.pageSizeCombo.Size = new System.Drawing.Size(121, 25);
             this.pageSizeCombo.SelectedIndexChanged += new System.EventHandler(this.toolStripComboBoxPageSize_SelectedIndexChanged);
             // 
             // toolStripLabel1
             // 
             this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(41, 24);
+            this.toolStripLabel1.Size = new System.Drawing.Size(35, 22);
             this.toolStripLabel1.Text = "张/页";
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 27);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
             // 
             // toolStripButtonPlayVideo
             // 
             this.toolStripButtonPlayVideo.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonPlayVideo.Image")));
             this.toolStripButtonPlayVideo.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonPlayVideo.Name = "toolStripButtonPlayVideo";
-            this.toolStripButtonPlayVideo.Size = new System.Drawing.Size(81, 24);
+            this.toolStripButtonPlayVideo.Size = new System.Drawing.Size(73, 22);
             this.toolStripButtonPlayVideo.Text = "相关视频";
             this.toolStripButtonPlayVideo.Click += new System.EventHandler(this.toolStripButtonPlayVideo_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 27);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
             // 
             // saveToolStripButton
             // 
             this.saveToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("saveToolStripButton.Image")));
             this.saveToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.saveToolStripButton.Name = "saveToolStripButton";
-            this.saveToolStripButton.Size = new System.Drawing.Size(97, 24);
+            this.saveToolStripButton.Size = new System.Drawing.Size(91, 22);
             this.saveToolStripButton.Text = "保存图片(&S)";
             this.saveToolStripButton.Click += new System.EventHandler(this.saveToolStripButton_Click);
-            // 
-            // statusStrip1
-            // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.status});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 254);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(930, 24);
-            this.statusStrip1.TabIndex = 14;
-            this.statusStrip1.Text = "statusStrip1";
-            // 
-            // status
-            // 
-            this.status.Name = "status";
-            this.status.Size = new System.Drawing.Size(35, 19);
-            this.status.Text = "就绪";
             // 
             // PicQueryForm
             // 
@@ -517,11 +519,11 @@
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.groupBox3);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "PicQueryForm";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "搜索图片";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.PicQueryForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.timeFrom.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.timeTo.Properties)).EndInit();
@@ -538,16 +540,18 @@
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.splitContainer2.Panel1.ResumeLayout(false);
             this.splitContainer2.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.wholePicture)).EndInit();
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
 
         }
