@@ -25,7 +25,7 @@ namespace RemoteImaging.RealtimeDisplay
     public partial class MainForm : Form, IImageScreen
     {
         public Func<FaceComparePresenter> CreateFaceCompare { get; set; }
-        private bool _isFullScreen;
+        private bool _isFullScreen = true;
 
         private IEventAggregator _eventAggregator;
         public IEventAggregator EventAggregator
@@ -70,11 +70,17 @@ namespace RemoteImaging.RealtimeDisplay
 
             InitStatusBar();
 
-            this.axCamImgCtrl1.OrgImageHeight = (int) Properties.Settings.Default.LiveImgHeight;
-            this.axCamImgCtrl1.OrgImageWidth = (int) Properties.Settings.Default.LiveImgWidth;
+            var liveWidth = (int) Properties.Settings.Default.LiveImgWidth;
+            var liveHeight = (int) Properties.Settings.Default.LiveImgHeight;
 
-            squareListView1.NumberOfColumns = (int) Properties.Settings.Default.FaceListColumns;
-            squareListView1.NumberofRows = (int) Properties.Settings.Default.FaceListRows;
+            //this.axCamImgCtrl1.Width = liveWidth;
+            //this.axCamImgCtrl1.Height = liveHeight;
+
+            //this.axCamImgCtrl1.OrgImageHeight = liveWidth;
+            //this.axCamImgCtrl1.OrgImageWidth = liveHeight;
+
+            //squareListView1.NumberOfColumns = (int) Properties.Settings.Default.FaceListColumns;
+            //squareListView1.NumberofRows = (int) Properties.Settings.Default.FaceListRows;
 
             Application.Idle += new EventHandler(Application_Idle);
         }
@@ -655,6 +661,8 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void CenterLiveControl()
         {
+            return;
+
             int height = this.panelControl1.Height - this.axCamImgCtrl1.Height;
             int x = (this.panelControl1.Width - this.axCamImgCtrl1.Width) / 2;
             this.axCamImgCtrl1.Left = x;
@@ -852,8 +860,7 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void fullScreenSwitch_Click(object sender, EventArgs e)
         {
-            _isFullScreen = !_isFullScreen;
-            EnableFullScreen(_isFullScreen);
+            this.Close();
         }
 
 
@@ -863,6 +870,11 @@ namespace RemoteImaging.RealtimeDisplay
             this.WindowState = FormWindowState.Normal;
             this.FormBorderStyle = enable ? FormBorderStyle.None : FormBorderStyle.Sizable;
             this.WindowState = FormWindowState.Maximized;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.axCamImgCtrl1.Left += 50;
         }
     }
 }

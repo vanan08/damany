@@ -11,7 +11,7 @@
     <ROW Property="ProductCode" Value="2052:{43BEA35C-617C-43DC-837A-344CD13CDF9E} " Type="16"/>
     <ROW Property="ProductLanguage" Value="2052"/>
     <ROW Property="ProductName" Value="人像抓拍2010" ValueLocId="*"/>
-    <ROW Property="ProductVersion" Value="1.0.0"/>
+    <ROW Property="ProductVersion" Value="2.3.2.1"/>
     <ROW Property="RUNAPPLICATION" Value="1" Type="4"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND"/>
     <ROW Property="UpgradeCode" Value="{8CDFE220-A140-40CF-B11B-83514CE525B0}"/>
@@ -315,8 +315,6 @@
     <ROW Fragment="StaticUIStrings.aip" Path="&lt;AI_FRAGS&gt;StaticUIStrings.aip"/>
     <ROW Fragment="UI.aip" Path="&lt;AI_THEMES&gt;classic\fragments\UI.aip"/>
     <ROW Fragment="Validation.aip" Path="&lt;AI_FRAGS&gt;Validation.aip"/>
-    <ROW Fragment="Visual_C_2005_SP1_1.aip" Path="&lt;AI_REPOSITORY&gt;Prerequisites\Visual C++ 2005 SP1 _1\Visual C++ 2005 SP1 _1.aip"/>
-    <ROW Fragment="Visual_C_2008_SP1_1.aip" Path="&lt;AI_REPOSITORY&gt;Prerequisites\Visual C++ 2008 SP1 _1\Visual C++ 2008 SP1 _1.aip"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiActionTextComponent">
     <ROW Action="AI_DownloadPrereq" Description="正在下载运行环境软件" Template="正在下载 [1]{已完成 [2]}" DescriptionLocId="ActionText.Description.AI_DownloadPrereq" TemplateLocId="ActionText.Template.AI_DownloadPrereq"/>
@@ -410,11 +408,11 @@
     <ROW UpgradeCode="[|UpgradeCode]" VersionMin="[|ProductVersion]" Attributes="2" ActionProperty="AI_NEWERPRODUCTFOUND"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.PreReqComponent">
-    <ROW PrereqKey="NET_Framework_4.0" DisplayName=".NET Framework 4.0" SetupFileUrl="M:\software\编程开发\Microsoft\dotNetFx40_Full_x86.exe" Location="0" ExactSize="0" MinWin9xVer="47" MinWinNTVer="25" Operator="1" TargetName="dotNetFx40_Full_x86.exe" Type="1" Feature="NET_Framework_4.0"/>
-    <ROW PrereqKey="SanyoSDK" DisplayName="SanyoSDK" SetupFileUrl="M:\Remoteimaging needed\Sanyo.exe" Location="0" ExactSize="0" Operator="1" TargetName="Sanyo.exe"/>
-    <ROW PrereqKey="VLC" DisplayName="VLC" SetupFileUrl="M:\Remoteimaging needed\vlc-0.9.8a-win32.exe" Location="0" ExactSize="0" Operator="1" TargetName="vlc-0.9.8a-win32.exe"/>
-    <ROW PrereqKey="Visual_C_2010_Redi" DisplayName="Visual C++ 2010 Redistributable" SetupFileUrl="M:\software\编程开发\Microsoft\vc++ 2010 redist_x86.exe" Location="0" ExactSize="0" MinWin9xVer="47" MinWinNTVer="25" MinWinNT64Ver="38" Operator="1" TargetName="vc++ 2010 redist_x86.exe" Type="1" Feature="Visual_C_2010_Redistributable"/>
-    <ATTRIBUTE name="PrereqsOrder" value="VLC SanyoSDK E55947C6_5669_4E82_87AD_AD77D9B6E42C CED1100_560D_4294_91C1_B08F812D811B NET_Framework_4.0 Visual_C_2010_Redi"/>
+    <ROW PrereqKey="NET_Framework_4.0" DisplayName=".NET Framework 4.0" SetupFileUrl="F:\software\编程开发\Microsoft\dotNetFx40_Full_x86.exe" Location="0" ExactSize="0" MinWin9xVer="47" MinWinNTVer="25" Operator="1" TargetName="dotNetFx40_Full_x86.exe" Type="1" Feature="NET_Framework_4.0"/>
+    <ROW PrereqKey="SanyoSDK" DisplayName="SanyoSDK" SetupFileUrl="F:\Remoteimaging needed\Sanyo.exe" Location="0" ExactSize="0" Operator="1" TargetName="Sanyo.exe"/>
+    <ROW PrereqKey="VLC" DisplayName="VLC" SetupFileUrl="F:\Remoteimaging needed\vlc-0.9.8a-win32.exe" Location="0" ExactSize="0" Operator="1" TargetName="vlc-0.9.8a-win32.exe"/>
+    <ROW PrereqKey="Visual_C_2010_Redi" DisplayName="Visual C++ 2010 Redistributable" SetupFileUrl="F:\software\编程开发\Microsoft\vc++ 2010 redist_x86.exe" Location="0" ExactSize="0" MinWin9xVer="47" MinWinNTVer="25" MinWinNT64Ver="38" Operator="1" TargetName="vc++ 2010 redist_x86.exe" Type="1" Feature="Visual_C_2010_Redistributable"/>
+    <ATTRIBUTE name="PrereqsOrder" value="VLC SanyoSDK NET_Framework_4.0 Visual_C_2010_Redi"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.PreReqSearchComponent">
     <ROW SearchKey="Install" Prereq="NET_Framework_4.0" SearchType="9" SearchString="HKLM\SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full\Install" RefContent="M1" Order="1" Property="PreReqSearch"/>
