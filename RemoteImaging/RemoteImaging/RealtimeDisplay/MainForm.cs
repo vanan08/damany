@@ -145,7 +145,6 @@ namespace RemoteImaging.RealtimeDisplay
                 return (CameraInfo)this.Invoke(new Func<CameraInfo>(() => this.GetSelectedCamera()));
             }
 
-
             return null;
         }
 
@@ -348,28 +347,14 @@ namespace RemoteImaging.RealtimeDisplay
         {
             set
             {
-                if (this.InvokeRequired)
-                {
-                    //this.Invoke(ac);
-                }
-                else
-                {
-                    //this.statusProgressBar.Visible = value;
-                }
+
 
             }
         }
 
         public void StepProgress()
         {
-            if (InvokeRequired)
-            {
 
-            }
-            else
-            {
-
-            }
 
         }
 
@@ -502,9 +487,7 @@ namespace RemoteImaging.RealtimeDisplay
         }
         private void cameraTree_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
-            if (e.Node != null)
-            {
-            }
+
 
         }
 
@@ -697,6 +680,11 @@ namespace RemoteImaging.RealtimeDisplay
         }
 
         private void gridControl1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }

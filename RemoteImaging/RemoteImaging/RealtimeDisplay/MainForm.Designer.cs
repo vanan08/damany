@@ -54,19 +54,20 @@
             this.dockPanel1_Container = new DevExpress.XtraBars.Docking.ControlContainer();
             this.dockPanel3 = new DevExpress.XtraBars.Docking.DockPanel();
             this.dockPanel3_Container = new DevExpress.XtraBars.Docking.ControlContainer();
+            this.pictureEdit1 = new DevExpress.XtraEditors.PictureEdit();
             this.panelContainer1 = new DevExpress.XtraBars.Docking.DockPanel();
             this.dockPanel1 = new DevExpress.XtraBars.Docking.DockPanel();
             this.controlContainer1 = new DevExpress.XtraBars.Docking.ControlContainer();
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.number = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.time = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.licenseNumber = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.picture = new DevExpress.XtraGrid.Columns.GridColumn();
             this.dockPanel2 = new DevExpress.XtraBars.Docking.DockPanel();
             this.dockPanel2_Container = new DevExpress.XtraBars.Docking.ControlContainer();
+            this.gridControl2 = new DevExpress.XtraGrid.GridControl();
+            this.layoutView1 = new DevExpress.XtraGrid.Views.Layout.LayoutView();
+            this.layoutViewCard1 = new DevExpress.XtraGrid.Views.Layout.LayoutViewCard();
             this.barButtonItem1 = new DevExpress.XtraBars.BarButtonItem();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
+            this.pictureEdit2 = new DevExpress.XtraEditors.PictureEdit();
             this.barDockControl1 = new DevExpress.XtraBars.BarDockControl();
             this.barDockControl2 = new DevExpress.XtraBars.BarDockControl();
             this.barDockControl3 = new DevExpress.XtraBars.BarDockControl();
@@ -321,47 +322,11 @@
             this.gridControl1.TabIndex = 0;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
-            this.gridControl1.Click += new System.EventHandler(this.gridControl1_Click);
             // 
             // gridView1
             // 
-            this.gridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
-            this.number,
-            this.time,
-            this.licenseNumber,
-            this.picture});
             this.gridView1.GridControl = this.gridControl1;
             this.gridView1.Name = "gridView1";
-            // 
-            // number
-            // 
-            this.number.Caption = "序号";
-            this.number.Name = "number";
-            this.number.Visible = true;
-            this.number.VisibleIndex = 1;
-            // 
-            // time
-            // 
-            this.time.Caption = "时间";
-            this.time.Name = "time";
-            this.time.Visible = true;
-            this.time.VisibleIndex = 2;
-            // 
-            // licenseNumber
-            // 
-            this.licenseNumber.Caption = "车牌号";
-            this.licenseNumber.Name = "licenseNumber";
-            this.licenseNumber.Visible = true;
-            this.licenseNumber.VisibleIndex = 3;
-            // 
-            // picture
-            // 
-            this.picture.AppearanceCell.Image = global::RemoteImaging.Properties.Resources.Camera;
-            this.picture.AppearanceCell.Options.UseImage = true;
-            this.picture.Caption = "图片";
-            this.picture.Name = "picture";
-            this.picture.Visible = true;
-            this.picture.VisibleIndex = 0;
             // 
             // dockPanel2
             // 
@@ -377,10 +342,34 @@
             // 
             // dockPanel2_Container
             // 
+            this.dockPanel2_Container.Controls.Add(this.gridControl2);
             this.dockPanel2_Container.Location = new System.Drawing.Point(0, 0);
             this.dockPanel2_Container.Name = "dockPanel2_Container";
             this.dockPanel2_Container.Size = new System.Drawing.Size(738, 173);
             this.dockPanel2_Container.TabIndex = 0;
+            // 
+            // gridControl2
+            // 
+            this.gridControl2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gridControl2.Location = new System.Drawing.Point(0, 0);
+            this.gridControl2.MainView = this.layoutView1;
+            this.gridControl2.MenuManager = this.barManager1;
+            this.gridControl2.Name = "gridControl2";
+            this.gridControl2.Size = new System.Drawing.Size(733, 175);
+            this.gridControl2.TabIndex = 0;
+            this.gridControl2.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.layoutView1});
+            // 
+            // layoutView1
+            // 
+            this.layoutView1.GridControl = this.gridControl2;
+            this.layoutView1.Name = "layoutView1";
+            this.layoutView1.TemplateCard = this.layoutViewCard1;
+            // 
+            // layoutViewCard1
+            // 
+            this.layoutViewCard1.ExpandButtonLocation = DevExpress.Utils.GroupElementLocation.AfterText;
+            this.layoutViewCard1.Name = "layoutViewCard1";
             // 
             // barButtonItem1
             // 
@@ -417,9 +406,12 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(948, 609);
+            this.Controls.Add(this.simpleButton3);
             this.Controls.Add(this.groupControl1);
             this.Controls.Add(this.panelContainer1);
             this.Controls.Add(this.panelContainer2);
+            this.Controls.Add(this.barDockControl1);
+            this.Controls.Add(this.barDockControl2);
             this.Controls.Add(this.barDockControl3);
             this.Controls.Add(this.barDockControl4);
             this.Controls.Add(this.barDockControl2);
@@ -432,6 +424,10 @@
             this.Controls.Add(this.barDockControlRight);
             this.Controls.Add(this.barDockControlBottom);
             this.Controls.Add(this.barDockControlTop);
+            this.Controls.Add(this.barDockControl19);
+            this.Controls.Add(this.barDockControl20);
+            this.Controls.Add(this.barDockControl18);
+            this.Controls.Add(this.barDockControl17);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
@@ -488,6 +484,12 @@
         private DevExpress.XtraBars.BarSubItem barSubItem2;
         private DevExpress.XtraBars.BarButtonItem barButtonItem3;
         private DevExpress.XtraBars.Docking.DockPanel panelContainer1;
+        private DevExpress.XtraBars.Docking.DockPanel panelContainer2;
+        private DevExpress.XtraBars.Docking.DockPanel dockPanel3;
+        private DevExpress.XtraBars.Docking.ControlContainer dockPanel3_Container;
+        private DevExpress.XtraEditors.PictureEdit pictureEdit1;
+        private Damany.RemoteImaging.Common.Controls.PanTiltControl panTiltControl1;
+        private DevExpress.XtraEditors.PictureEdit pictureEdit2;
         private DevExpress.XtraGrid.GridControl gridControl1;
         private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
         private DevExpress.XtraGrid.Columns.GridColumn number;
