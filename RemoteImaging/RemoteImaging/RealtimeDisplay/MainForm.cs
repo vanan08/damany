@@ -858,7 +858,7 @@ namespace RemoteImaging.RealtimeDisplay
             this.statusTime.Text = DateTime.Now.ToString();
         }
 
-        private void fullScreenSwitch_Click(object sender, EventArgs e)
+        private void exitProgram_Click(object sender, EventArgs e)
         {
             this.Close();
         }

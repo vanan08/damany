@@ -94,7 +94,7 @@ namespace RemoteImaging.Query
             this.timeTO.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
             this.timeTO.Properties.Mask.EditMask = "F";
-            this.timeTO.Size = new System.Drawing.Size(188, 23);
+            this.timeTO.Size = new System.Drawing.Size(204, 23);
             this.timeTO.TabIndex = 22;
             // 
             // timeFrom
@@ -105,7 +105,7 @@ namespace RemoteImaging.Query
             this.timeFrom.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
             this.timeFrom.Properties.Mask.EditMask = "F";
-            this.timeFrom.Size = new System.Drawing.Size(188, 23);
+            this.timeFrom.Size = new System.Drawing.Size(204, 23);
             this.timeFrom.TabIndex = 21;
             // 
             // searchType
