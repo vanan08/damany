@@ -171,31 +171,16 @@ namespace RemoteImaging.Query
         private void SaveSelectedImage()
         {
             if ((this.facesListView.Items.Count <= 0) || (this.facesListView.FocusedItem == null)) return;
-            string filePath = this.facesListView.FocusedItem.Tag as string;
-
-            if (File.Exists(filePath))
-            {
-                this.currentFace.Image = Damany.Util.Extensions.MiscHelper.FromFileBuffered(filePath);
-            }
-            ImageDetail imgInfo = ImageDetail.FromPath(filePath);
-            string bigImgPath = _videoRepository.BigImgPathForFace(imgInfo);
+            var portrait = this.facesListView.FocusedItem.Tag as Damany.Imaging.Common.Portrait;
 
             using (SaveFileDialog saveDialog = new SaveFileDialog())
             {
                 saveDialog.RestoreDirectory = true;
                 saveDialog.Filter = "Jpeg 文件|*.jpg";
-                //saveDialog.FileName = filePath.Substring(filePath.Length - 27, 27);
-                string fileName = Path.GetFileName(filePath);
-                saveDialog.FileName = fileName;
                 if (saveDialog.ShowDialog() == DialogResult.OK)
                 {
-                    if (currentFace.Image != null)
-                    {
-                        string path = saveDialog.FileName;
-                        currentFace.Image.Save(path);
-                        path = path.Replace(fileName, Path.GetFileName(bigImgPath));
-                        wholePicture.Image.Save(path);
-                    }
+                    portrait.GetIpl().SaveImage(saveDialog.FileName);
+
                 }
             }
         }
