@@ -16,6 +16,7 @@ namespace Damany.Windows.Form
             InitializeComponent();
 
             this.DoubleBuffered = true;
+            this.ResizeRedraw = true;
 
             refreshTimer = new Timer();
             refreshTimer.Interval = 50;
@@ -297,20 +298,20 @@ namespace Damany.Windows.Form
 
         void SquareListView_Resize(object sender, EventArgs e)
         {
-            var c = this.ClientSize.Width/64;
+            var c = this.ClientSize.Width/64.0;
             if (c <= 0)
             {
                 c = 1;
             }
 
-            this.NumberOfColumns = c;
+            this.NumberOfColumns = (int) c;
 
-            var r = this.ClientSize.Height/80;
+            var r = this.ClientSize.Height/80.0;
             if (r <= 0)
             {
                 r = 1;
             }
-            this.NumberofRows = r;
+            this.NumberofRows = (int) r;
         }
 
         void RepositionCursor()
