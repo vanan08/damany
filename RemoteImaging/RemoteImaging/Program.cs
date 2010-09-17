@@ -26,6 +26,12 @@ namespace RemoteImaging
         [STAThread]
         static void Main(string[] argv)
         {
+            DevExpress.UserSkins.OfficeSkins.Register();
+            DevExpress.UserSkins.BonusSkins.Register();
+            DevExpress.Skins.SkinManager.EnableFormSkins();
+
+            DevExpress.LookAndFeel.UserLookAndFeel.Default.SetSkinStyle("Darkroom");
+
             try
             {
                 var isFirst = false;
@@ -37,7 +43,7 @@ namespace RemoteImaging
                         MessageBox.Show("程序已经在运行中！ 点击确认后程序将退出。", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Stop);
                         return;
                     }
-
+#if  RELEASE
                     if (!Util.VerifyKey())
                     {
                         RegisterForm form = new RegisterForm();
@@ -49,6 +55,9 @@ namespace RemoteImaging
 
                         return;
                     }
+
+#endif
+
 
 
                     AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
