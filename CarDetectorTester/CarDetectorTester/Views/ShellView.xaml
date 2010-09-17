@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:CarDetectorTester"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions" xmlns:System="clr-namespace:System;assembly=mscorlib" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Classic" x:Name="window" mc:Ignorable="d" x:Class="CarDetectorTester.Views.ShellView"
-        Title="MainWindow" Height="410" Width="560" xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/charts">
+        Title="MainWindow" Height="410" Width="624" xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/charts">
 	<Window.Resources>
 		<Storyboard x:Key="OnLoaded1">
 			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="window">
@@ -55,7 +55,7 @@
 				</Label.RenderTransform>
 			</Label>
 			<TextBox x:Name="CommandToSend" TextWrapping="Wrap" VerticalAlignment="Top" Margin="108,91,93,0" Opacity="0.815" Text="AA 55 03 00 02 00" d:IsLocked="True" />
-			<Button x:Name="Start" Content="{Binding CommandName}" HorizontalAlignment="Right" VerticalAlignment="Top" Width="71" Margin="0,90,8,0" Height="20.687" />
+			<Button x:Name="SendCmd" HorizontalAlignment="Right" VerticalAlignment="Top" Width="71" Margin="0,90,8,0" Height="20.687" Content="SendCmd" />
 			<GroupBox Header="串口设置" Height="71" Margin="8,8,8,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" d:IsLocked="True">
 				<Grid>
 					<Grid.ColumnDefinitions>
@@ -69,32 +69,32 @@
 				</Grid>
 			</GroupBox>
 			<StatusBar VerticalAlignment="Bottom">
-				<StatusBarItem>
-					<Grid Height="23">
+				<StatusBarItem FontSize="20">
+					<Grid Height="23" Width="Auto">
 						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="0.497*"/>
-							<ColumnDefinition Width="0.503*"/>
+							<ColumnDefinition Width="178*"/>
+							<ColumnDefinition Width="254*"/>
 						</Grid.ColumnDefinitions>
-						<StackPanel Margin="0,0,0.001,0" Orientation="Horizontal">
+						<StackPanel Orientation="Horizontal">
 							<StackPanel Orientation="Horizontal">
 								<Label Content="通道1--" VerticalContentAlignment="Center" Padding="0" HorizontalAlignment="Left" Height="23"/>
 								<Label Content="出:" VerticalContentAlignment="Center" Padding="0" Margin="0" d:LayoutOverrides="Width" Height="23"/>
 								<Label x:Name="ch1OutCount" Content="{Binding CarOutCountCh1}" VerticalContentAlignment="Center" Padding="0" HorizontalAlignment="Right" Margin="0" Height="23"/>
 								<Label Content="入:" VerticalContentAlignment="Center" Padding="10,0,0,0" HorizontalAlignment="Right" Margin="0" Height="23" />
 								<Label x:Name="ch1CarInCount" Content="{Binding CarInCountCh1}" VerticalContentAlignment="Center" Padding="0"  Height="23" />
-                                <Label Content="车速:" VerticalContentAlignment="Center" Padding="10,0,0,0" HorizontalAlignment="Right" Margin="0" Height="23" />
-                                <Label x:Name="ch1CarSpeed" Content="{Binding CarSpeedCh1}" VerticalContentAlignment="Center" Padding="0"  Height="23" />
-							</StackPanel>
+                            </StackPanel>
 						</StackPanel>
-						<StackPanel Grid.Column="1" Margin="30,0,0,0" Orientation="Horizontal">
+						<StackPanel Grid.Column="1" Margin="67,0,0,0" Orientation="Horizontal">
 							<StackPanel Orientation="Horizontal">
-								<Label Content="通道2--" VerticalContentAlignment="Center" Padding="0" HorizontalAlignment="Left" Height="23"/>
+								<Label Content="通道2--" VerticalContentAlignment="Center" Padding="0" HorizontalAlignment="Left" Height="23" Width="72" />
 								<Label Content="出:" VerticalContentAlignment="Center" Padding="0" Margin="0" d:LayoutOverrides="Width" Height="23"/>
-								<Label x:Name="ch1OutCount1" Content="{Binding CarOutCountCh2}" VerticalContentAlignment="Center" Padding="0" HorizontalAlignment="Right" Margin="0" Height="23"/>
+								<Label x:Name="ch2OutCount1" Content="{Binding CarOutCountCh2}" VerticalContentAlignment="Center" Padding="0" HorizontalAlignment="Right" Margin="0" Height="23"/>
 								<Label Content="入:" VerticalContentAlignment="Center" Padding="10,0,0,0" HorizontalAlignment="Right" Height="23" />
 								<Label x:Name="ch1CarInCount1" Content="{Binding CarInCountCh2}" VerticalContentAlignment="Center" Padding="0" HorizontalAlignment="Right" Height="23"/>
 							</StackPanel>
-						</StackPanel>
+                            <Label Content="车速:" VerticalContentAlignment="Center" Padding="10,0,0,0" Height="23" Width="56" FontSize="20" FontWeight="Bold" FontStyle="Normal" />
+                            <Label x:Name="ch1CarSpeed" Content="{Binding CarSpeedCh1}" VerticalContentAlignment="Center" Padding="0" Height="23" FontSize="20" />
+                        </StackPanel>
 					</Grid>
 				</StatusBarItem>
 			</StatusBar>
@@ -128,6 +128,8 @@
 				</dxc:ChartControl>
 				<Label Content="数据接收列表：" Width="95" HorizontalAlignment="Left"/>
 			</Grid>
+            <Button Content="Connect" Height="23" HorizontalAlignment="Right" Margin="0,117,6,0" Name="Connect" VerticalAlignment="Top" Width="75" />
+            <TextBox Text="AA 55 07 01 02 ww ww dd dd sum" Height="24" HorizontalAlignment="Left" Margin="108,112,0,0" Name="label1" VerticalAlignment="Top" Width="234" />
         </Grid>
 	</Grid>
 </Window>
