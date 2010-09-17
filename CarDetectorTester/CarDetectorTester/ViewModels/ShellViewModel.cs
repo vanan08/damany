@@ -167,7 +167,7 @@ namespace CarDetectorTester.ViewModels
             }
         }
 
-        private string _commandToSend = "AA 55 03 00 02 00";
+        private string _commandToSend = "AA 55 04 01 01 01 03";
         public string CommandToSend
         {
             get { return _commandToSend; }
@@ -195,7 +195,43 @@ namespace CarDetectorTester.ViewModels
 
         }
 
-        public void Start()
+        public void Connect()
+        {
+#if DEBUG
+            stream = new StreamMock();
+#else
+            _logger.Info(_comPort);
+            _logger.Info(_baundRate);
+
+
+            serialPort = new SerialPort(_comPort);
+            serialPort.BaudRate = _baundRate;
+            serialPort.Parity = Parity.None;
+            serialPort.StopBits = StopBits.One;
+            serialPort.DataBits = 8;
+            serialPort.DtrEnable = true;
+            serialPort.Open();
+            stream = serialPort.BaseStream;
+#endif
+
+            RunRecv();
+        }
+
+        public void SendCmd()
+        {
+            Task.Factory.StartNew(() =>
+            {
+                    var rawData = "";
+
+                    var hexData = Converter.StringToByteArray(CommandToSend.Replace(" ", ""));
+                    writer.Write(hexData);
+                    serialPort.BaseStream.Flush();
+
+            });
+
+        }
+
+        public void RunRecv()
         {
             if (IsRunning)
             {
@@ -222,36 +258,11 @@ namespace CarDetectorTester.ViewModels
 
                                                        try
                                                        {
-#if DEBUG
-                                                           stream = new StreamMock();
-#else
-                                                           _logger.Info(_comPort);
-                                                           _logger.Info(_baundRate);
 
-
-                                                           serialPort = new SerialPort(_comPort);
-                                                           serialPort.BaudRate = _baundRate;
-                                                           serialPort.Parity = Parity.None;
-                                                           serialPort.StopBits = StopBits.One;
-                                                           serialPort.DataBits = 8;
-                                                           serialPort.Open();
-                                                           stream = serialPort.BaseStream;
-#endif
                                                            reader = new BinaryReader(stream);
                                                            writer = new BinaryWriter(stream);
 
-                                                           Task.Factory.StartNew(() =>
-                                                               {
-                                                                   while (true)
-                                                                   {
-                                                                       var rawData = "";
-
-                                                                       var hexData = Converter.StringToByteArray(CommandToSend.Replace(" ", ""));
-                                                                       writer.Write(hexData);
-                                                                       Thread.Sleep(1000);
-                                                                   }
-                                                               });
-
+                                                          
                                                            while (true)
                                                            {
                                                                if (_cancelTokenSource.Token.IsCancellationRequested)
@@ -262,26 +273,26 @@ namespace CarDetectorTester.ViewModels
                                                                var hexResponse = new byte[4];
                                                                //skip header
                                                                ReadLength(hexResponse, 0, 2);
-                                                               if ((hexResponse[0] != 0x55)||(hexResponse[0] != 0xaa))
+                                                               if ((hexResponse[0] != 0x55)||(hexResponse[1] != 0xaa))
                                                                {
                                                                    serialPort.BaseStream.Flush();
                                                                    continue;
                                                                }
 
                                                                ReadLength(hexResponse, 0, 2);
-                                                               var length = hexResponse[0];
+                                                               var length = hexResponse[0]-1;
+                                                               var commandType = hexResponse[1];
 
                                                                var packet = new byte[length];
                                                                ReadLength(packet, 0, packet.Length);
 
-                                                               var commandType = packet[0];
 
                                                                switch (commandType)
                                                                {
                                                                        //car in,out
                                                                    case 0x11:
                                                                    case 0x10:
-                                                                       HandleCarInOut(packet);
+                                                                       HandleCarInOut(commandType, packet);
                                                                        break;
                                                                        //speed
                                                                    case 0x12:
@@ -339,41 +350,46 @@ namespace CarDetectorTester.ViewModels
 
         private void HandleSpeed(byte[] packet)
         {
+            int speed = packet[0];
+            speed = speed << 8;
+            speed += packet[1];
+
+            Execute.OnUIThread(() => CarSpeedCh1 = speed);
             
         }
 
-        private void HandleCarInOut(byte[] packet)
+        private void HandleCarInOut(byte command, byte[] packet)
         {
-            if (packet[0] == 0x11)//in
+            if (command == 0x11)//in
             {
                 Execute.OnUIThread( ()=>
                                         {
-                                            var ch1In = packet[1] == 1;
+                                            var ch1In = packet[0] == 1;
                                             IsCarInChannel1 = ch1In;
                                             if (ch1In)
                                             {
                                                 CarInCountCh1++;
                                             }
 
-                                            var ch2In = packet[2] == 1;
+                                            var ch2In = packet[1] == 1;
                                             IsCarInChannel2 = ch2In;
                                             if (ch2In)
                                             {
-                                                CarInCountCh1++;
+                                                CarInCountCh2++;
                                             }
                                         });
             }
-            else if (packet[1] == 0x10)//out
+            else if (command == 0x10)//out
             {
                 Execute.OnUIThread(()=>
                                        {
-                                           var ch1Out = packet[1] == 1;
+                                           var ch1Out = packet[0] == 1;
                                            if (ch1Out)
                                            {
                                                CarOutCountCh1++;
                                            }
 
-                                           var ch2Out = packet[2] == 1;
+                                           var ch2Out = packet[1] == 1;
                                            if (ch2Out)
                                            {
                                                CarOutCountCh2++;
@@ -456,7 +472,6 @@ namespace CarDetectorTester.ViewModels
                                        RemoveOldData();
                                    });
 
-            Thread.Sleep(1000);
         }
 
         private void RemoveOldData()
