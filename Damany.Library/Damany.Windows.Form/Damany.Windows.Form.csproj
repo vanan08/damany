@@ -115,18 +115,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\RemoteImaging\CommonLibrary\RemoteImaging.Common.csproj">
-      <Project>{683B173B-831E-494D-A6FE-965934D3D315}</Project>
-      <Name>RemoteImaging.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\RemoteImaging\Damany.PC.Domain\Damany.PC.csproj">
-      <Project>{A3D29CCA-AC43-45A0-8651-74A3C51D005D}</Project>
-      <Name>Damany.PC</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\RemoteImaging\Damany.PortraitCapturer.DAL\Damany.PortraitCapturer.DAL.csproj">
-      <Project>{85DF7A03-E0AF-4A50-B257-0DB136AED335}</Project>
-      <Name>Damany.PortraitCapturer.DAL</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Damany.Component\Damany.Component.csproj">
       <Project>{80DC56F4-DB48-4AF2-B1BE-6B944A81B293}</Project>
       <Name>Damany.Component</Name>
@@ -154,7 +142,7 @@
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_BuildAction="ReBuild" BuildVersion_ConfigurationName="Release" BuildVersion_UpdateFileVersion="True" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_BuildVersioningStyle="None.None.Increment.None" />
+      <UserProperties BuildVersion_BuildVersioningStyle="None.None.Increment.None" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_UpdateFileVersion="True" BuildVersion_ConfigurationName="Release" BuildVersion_BuildAction="ReBuild" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

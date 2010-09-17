@@ -16,6 +16,7 @@ namespace Damany.Windows.Form
             InitializeComponent();
 
             this.DoubleBuffered = true;
+            this.ResizeRedraw = true;
 
             refreshTimer = new Timer();
             refreshTimer.Interval = 50;
@@ -23,7 +24,7 @@ namespace Damany.Windows.Form
 
             this.AutoDisposeImage = true;
 
-            this.MaxCountOfCells = 25;
+            this.MaxCountOfCells = 500;
             this.cells = new List<Cell>(this.MaxCountOfCells);
             this.numOfColumns = 2;
             this.numOfRows = 2;
@@ -211,6 +212,7 @@ namespace Damany.Windows.Form
 
         private void CalcLayout()
         {
+
             int width = this.ClientRectangle.Width / this.NumberOfColumns;
             int height = this.ClientRectangle.Height / this.NumberofRows;
 
@@ -296,8 +298,20 @@ namespace Damany.Windows.Form
 
         void SquareListView_Resize(object sender, EventArgs e)
         {
-            this.CalcLayout();
-            this.Invalidate();
+            var c = this.ClientSize.Width/64.0;
+            if (c <= 0)
+            {
+                c = 1;
+            }
+
+            this.NumberOfColumns = (int) c;
+
+            var r = this.ClientSize.Height/80.0;
+            if (r <= 0)
+            {
+                r = 1;
+            }
+            this.NumberofRows = (int) r;
         }
 
         void RepositionCursor()
@@ -319,12 +333,6 @@ namespace Damany.Windows.Form
             {
                 if (numOfRows == value)
                     return;
-
-                if (value * numOfColumns > this.MaxCountOfCells)
-                {
-                    throw new ArgumentOutOfRangeException(@"NumberOfRows",
-                        @"Total Number of Cells > Max Number of cells");
-                }
 
                 numOfRows = value;
 
@@ -350,11 +358,6 @@ namespace Damany.Windows.Form
                 if (numOfColumns == value)
                     return;
 
-                if (value * numOfRows > this.MaxCountOfCells)
-                {
-                    throw new ArgumentOutOfRangeException(@"NumberOfColumns",
-                        @"Total Number of Cells > Max Number of cells");
-                }
 
                 numOfColumns = value;
 

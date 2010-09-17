@@ -46,7 +46,29 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AForge.Imaging, Version=1.1.0.0, Culture=neutral, PublicKeyToken=d604c8342bbdeba9, processorArchitecture=MSIL" />
+    <Reference Include="Damany.Component, Version=2.2.47.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>l:\Documents and Settings\benny\My Documents\Visual Studio 2010\Projects\FaceCapture_working\RemoteImaging\lib\Damany.Component.dll</HintPath>
+    </Reference>
     <Reference Include="Damany.Drawing, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+    <Reference Include="Damany.Imaging.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>l:\Documents and Settings\benny\My Documents\Visual Studio 2010\Projects\FaceCapture_working\RemoteImaging\lib\Damany.Imaging.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Damany.PC.Domain, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="Damany.RemoteImaging.Net.Discovery, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>l:\Documents and Settings\benny\My Documents\Visual Studio 2010\Projects\FaceCapture_working\RemoteImaging\lib\Damany.RemoteImaging.Net.Discovery.dll</HintPath>
+    </Reference>
+    <Reference Include="Damany.RemoteImaging.Net.Messages, Version=2.3.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>l:\Documents and Settings\benny\My Documents\Visual Studio 2010\Projects\FaceCapture_working\RemoteImaging\lib\Damany.RemoteImaging.Net.Messages.dll</HintPath>
+    </Reference>
+    <Reference Include="Damany.Security, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>l:\Documents and Settings\benny\My Documents\Visual Studio 2010\Projects\FaceCapture_working\RemoteImaging\lib\Damany.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Damany.Util, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>l:\Documents and Settings\benny\My Documents\Visual Studio 2010\Projects\FaceCapture_working\RemoteImaging\lib\Damany.Util.dll</HintPath>
+    </Reference>
+    <Reference Include="Damany.Windows.Form, Version=1.4.50.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>l:\Documents and Settings\benny\My Documents\Visual Studio 2010\Projects\FaceCapture_working\RemoteImaging\lib\Damany.Windows.Form.dll</HintPath>
+    </Reference>
     <Reference Include="DevExpress.BonusSkins.v9.2, Version=9.2.9.0, Culture=neutral, PublicKeyToken=95fc6c5621878f0a" />
     <Reference Include="DevExpress.Data.v9.2, Version=9.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.OfficeSkins.v9.2, Version=9.2.9.0, Culture=neutral, PublicKeyToken=95fc6c5621878f0a" />
@@ -63,6 +85,9 @@
     <Reference Include="Emcaster, Version=0.1.5.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Library\Emcaster.0.1.5\Emcaster.dll</HintPath>
+    </Reference>
+    <Reference Include="Encryptor, Version=1.0.29.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>l:\Documents and Settings\benny\My Documents\Visual Studio 2010\Projects\FaceCapture_working\RemoteImaging\lib\Encryptor.dll</HintPath>
     </Reference>
     <Reference Include="EnvDTE, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -81,6 +106,9 @@
     <Reference Include="OpenCvSharp, Version=2.0.3497.28493, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Library\OpenCvSharp\OpenCvSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="RemoteControlService, Version=2.3.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>l:\Documents and Settings\benny\My Documents\Visual Studio 2010\Projects\FaceCapture_working\RemoteImaging\lib\RemoteControlService.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -421,73 +449,17 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Damany.ImageProcessing.Contracts\Damany.Imaging.csproj">
-      <Project>{B8F7A553-6295-4F0B-B48A-7C85DA5118BB}</Project>
-      <Name>Damany.Imaging</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Damany.Library\Damany.Component\Damany.Component.csproj">
-      <Project>{80DC56F4-DB48-4AF2-B1BE-6B944A81B293}</Project>
-      <Name>Damany.Component</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Damany.Library\Damany.Windows.Form\Damany.Windows.Form.csproj">
-      <Project>{8AA0E208-9EC2-477B-BE96-00E4C7B7F827}</Project>
-      <Name>Damany.Windows.Form</Name>
-    </ProjectReference>
     <ProjectReference Include="..\CommonLibrary\RemoteImaging.Common.csproj">
       <Project>{683B173B-831E-494D-A6FE-965934D3D315}</Project>
       <Name>RemoteImaging.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Damany.Imaging.Common\Damany.Imaging.Common.csproj">
-      <Project>{1546E91B-1045-42BA-9CAA-D5215EF3C792}</Project>
-      <Name>Damany.Imaging.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Damany.PC.Domain\Damany.PC.csproj">
-      <Project>{A3D29CCA-AC43-45A0-8651-74A3C51D005D}</Project>
-      <Name>Damany.PC</Name>
     </ProjectReference>
     <ProjectReference Include="..\Damany.PortraitCapturer.DAL\Damany.PortraitCapturer.DAL.csproj">
       <Project>{85DF7A03-E0AF-4A50-B257-0DB136AED335}</Project>
       <Name>Damany.PortraitCapturer.DAL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Damany.Util\Damany.Util.csproj">
-      <Project>{FA6DEBE0-D78D-437E-B05D-0923896290C9}</Project>
-      <Name>Damany.Util</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Discovery\Discovery.csproj">
-      <Project>{105AB30D-A893-4E2C-B149-764A80C1FDCE}</Project>
-      <Name>Discovery</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Encryptor\Encryptor.csproj">
-      <Project>{B377F693-4975-4BB6-A6DC-C0C3844517B1}</Project>
-      <Name>Encryptor</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\FaceProcessingWrapper\FaceProcessingWrapper.vcxproj">
-      <Project>{02B00EA5-D734-429C-BF58-44769501B940}</Project>
-      <Name>FaceProcessingWrapper</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\FaceSearchWrapper\FaceSearchWrapper.vcxproj">
-      <Project>{F6F410AA-5D72-49BE-9FFE-6EBECF718EAA}</Project>
-      <Name>FaceSearchWrapper</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\IconExtractor\ImageProcessing.csproj">
-      <Project>{C917EC7F-9A59-4845-9108-87056AC61D4F}</Project>
-      <Name>ImageProcessing</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Messages\Messages.csproj">
-      <Project>{80A13967-C4D2-4B5A-909D-FA595F57F88D}</Project>
-      <Name>Messages</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RemoteControlService\RemoteControlService.csproj">
-      <Project>{3F01A85F-C1C4-4060-AA37-57AB6F0C90AB}</Project>
-      <Name>RemoteControlService</Name>
-    </ProjectReference>
     <ProjectReference Include="..\TestDataProvider\TestDataProvider.csproj">
       <Project>{5783AFA7-05AD-4B52-8A0F-C120EADCCB9C}</Project>
       <Name>TestDataProvider</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\UsersAdmin\Damany.Security.csproj">
-      <Project>{7C6269E8-3954-4451-8F33-67F3916231AF}</Project>
-      <Name>Damany.Security</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
@@ -504,7 +476,7 @@
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>
-    <PostBuildEvent>copy "$(SolutionDir)$(ConfigurationName)\*.dll"   "$(TargetDir)"
-copy "$(SolutionDir)$(ConfigurationName)\*.pdb"   "$(TargetDir)"</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
 </Project>

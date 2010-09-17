@@ -61,17 +61,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="VideoRepositoryTest.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Damany.Imaging.Common\Damany.Imaging.Common.csproj">
-      <Project>{1546E91B-1045-42BA-9CAA-D5215EF3C792}</Project>
-      <Name>Damany.Imaging.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RemoteImaging\RemoteImaging.csproj">
-      <Project>{E0F855A2-D8FA-4D2F-9645-C6E8DE8AACD4}</Project>
-      <Name>RemoteImaging</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
