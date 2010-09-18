@@ -211,9 +211,11 @@ namespace CarDetectorTester.ViewModels
 #if DEBUG
             Channel1Stat.CarInCount+=1;
             Channel1Stat.CarOutCount+=2;
+            Channel1Stat.IsCarIn = !Channel1Stat.IsCarIn;
 
             Channel2Stat.CarInCount+=3;
             Channel2Stat.CarOutCount+=4;
+            Channel2Stat.IsCarIn = !Channel2Stat.IsCarIn;
 
             CarSpeedCh1 = DateTime.Now.Millisecond;
             return;
@@ -382,14 +384,15 @@ namespace CarDetectorTester.ViewModels
                                             if (ch1In)
                                             {
                                                 Channel1Stat.CarInCount++;
+                                                Channel1Stat.IsCarIn = true;
                                             }
 
                                             var ch2In = packet[1] == 1;
                                             IsCarInChannel2 = ch2In;
                                             if (ch2In)
                                             {
-                                                
                                                 Channel2Stat.CarInCount++;
+                                                Channel2Stat.IsCarIn = true;
                                             }
                                         });
             }
@@ -401,12 +404,14 @@ namespace CarDetectorTester.ViewModels
                                            if (ch1Out)
                                            {
                                                Channel1Stat.CarOutCount++;
+                                               Channel1Stat.IsCarIn = false;
                                            }
 
                                            var ch2Out = packet[1] == 1;
                                            if (ch2Out)
                                            {
                                                Channel2Stat.CarOutCount++;
+                                               Channel1Stat.IsCarIn = false;
                                            }
                                        });
             }

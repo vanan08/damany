@@ -36,5 +36,17 @@ namespace CarDetectorTester.Models
                 NotifyOfPropertyChange(()=>CarOutCount);
             }
         }
+
+
+        private bool _isCarIn;
+        public bool IsCarIn
+        {
+            get { return _isCarIn; }
+            set
+            {
+                _isCarIn = value;
+                NotifyOfPropertyChange(()=>IsCarIn);
+            }
+        }
     }
 }
