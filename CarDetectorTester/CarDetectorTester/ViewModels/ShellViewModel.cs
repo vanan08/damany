@@ -181,6 +181,17 @@ namespace CarDetectorTester.ViewModels
 
         public void SendCmd()
         {
+#if DEBUG
+            Channel1Stat.CarInCount+=1;
+            Channel1Stat.CarOutCount+=2;
+
+            Channel2Stat.CarInCount+=3;
+            Channel2Stat.CarOutCount+=4;
+
+            CarSpeedCh1 = DateTime.Now.Millisecond;
+            return;
+#endif
+
             Task.Factory.StartNew(() =>
             {
                     var rawData = "";
@@ -302,7 +313,7 @@ namespace CarDetectorTester.ViewModels
                 TaskContinuationOptions.None,
                 taskScheduler);
 
-            worker.ContinueWith(result => Status = result.Exception.InnerExceptions[0].Message,
+            worker.ContinueWith(result => MessageBox.Show(result.Exception.InnerExceptions[0].Message+Environment.NewLine + result.Exception.ToString(), "", MessageBoxButton.OK, MessageBoxImage.Error ),
                     CancellationToken.None,
                     TaskContinuationOptions.OnlyOnFaulted,
                     taskScheduler

@@ -1,5 +1,5 @@
 ﻿using System.Windows;
-using DevExpress.Wpf.Charts;
+using DevExpress.Xpf.Charts;
 
 namespace CarDetectorTester.Views
 {
