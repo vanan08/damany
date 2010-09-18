@@ -79,9 +79,9 @@
                         <RowDefinition Height="0.76*" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width=".5*"/>
                     </Grid.ColumnDefinitions>
                     <local:ChannelStatistics DataContext="{Binding Channel1Stat}" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" d:LayoutOverrides="Width, GridBox, HorizontalMargin" />
                     <local:ChannelStatistics DataContext="{Binding Channel2Stat}" Grid.Column="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
