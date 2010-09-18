@@ -24,28 +24,9 @@ namespace CarDetectorTester.ViewModels
         BinaryWriter writer = null;
         SerialPort serialPort = null;
 
+        public Models.ChannelStatistics Channel1Stat { get; set; }
+        public Models.ChannelStatistics Channel2Stat { get; set; }
 
-        private int _carInCountCh1;
-        public int CarInCountCh1
-        {
-            get { return _carInCountCh1; }
-            set
-            {
-                _carInCountCh1 = value;
-                NotifyOfPropertyChange(()=>CarInCountCh1);
-            }
-        }
-
-        private int _carOutCountCh1;
-        public int CarOutCountCh1
-        {
-            get { return _carOutCountCh1; }
-            set
-            {
-                _carOutCountCh1 = value;
-                NotifyOfPropertyChange(()=>CarOutCountCh1);
-            }
-        }
 
         private int _carSpeedCh1;
         public int CarSpeedCh1
@@ -55,29 +36,6 @@ namespace CarDetectorTester.ViewModels
             {
                 _carSpeedCh1 = value;
                 NotifyOfPropertyChange(() => CarSpeedCh1);
-            }
-        }
-
-
-        private int _carInCountCh2;
-        public int CarInCountCh2
-        {
-            get { return _carInCountCh2; }
-            set
-            {
-                _carInCountCh2 = value;
-                NotifyOfPropertyChange(()=>CarInCountCh2);
-            }
-        }
-
-        private int _carOutCountCh2;
-        public int CarOutCountCh2
-        {
-            get { return _carOutCountCh2; }
-            set
-            {
-                _carOutCountCh2 = value;
-                NotifyOfPropertyChange(()=>CarOutCountCh2);
             }
         }
 
@@ -189,6 +147,10 @@ namespace CarDetectorTester.ViewModels
             Responses = new ObservableCollection<ResponseData>();
             Responses1 = new ObservableCollection<ResponseData>();
             Responses2 = new ObservableCollection<ResponseData>();
+
+            Channel1Stat = new Models.ChannelStatistics() { ChannelName = "1通道" };
+            Channel2Stat = new Models.ChannelStatistics() { ChannelName = "2通道" };
+
 
             _commandName = "开始";
             _logger = log4net.LogManager.GetLogger(typeof(ShellViewModel));
@@ -368,14 +330,15 @@ namespace CarDetectorTester.ViewModels
                                             IsCarInChannel1 = ch1In;
                                             if (ch1In)
                                             {
-                                                CarInCountCh1++;
+                                                Channel1Stat.CarInCount++;
                                             }
 
                                             var ch2In = packet[1] == 1;
                                             IsCarInChannel2 = ch2In;
                                             if (ch2In)
                                             {
-                                                CarInCountCh2++;
+                                                
+                                                Channel2Stat.CarInCount++;
                                             }
                                         });
             }
@@ -386,13 +349,13 @@ namespace CarDetectorTester.ViewModels
                                            var ch1Out = packet[0] == 1;
                                            if (ch1Out)
                                            {
-                                               CarOutCountCh1++;
+                                               Channel1Stat.CarOutCount++;
                                            }
 
                                            var ch2Out = packet[1] == 1;
                                            if (ch2Out)
                                            {
-                                               CarOutCountCh2++;
+                                               Channel2Stat.CarOutCount++;
                                            }
                                        });
             }
