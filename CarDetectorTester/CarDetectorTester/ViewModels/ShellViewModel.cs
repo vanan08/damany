@@ -137,6 +137,21 @@ namespace CarDetectorTester.ViewModels
             }
         }
 
+
+        private bool _canSendCmd;
+        public bool CanSendCmd
+        {
+            get
+            {
+                return _canSendCmd;
+            }
+            set
+            {
+                _canSendCmd = value;
+                NotifyOfPropertyChange(()=>CanSendCmd);
+            }
+        }
+
         public ObservableCollection<Models.ResponseData> Responses { get; set; }
         public ObservableCollection<Models.ResponseData> Responses1 { get; set; }
         public ObservableCollection<Models.ResponseData> Responses2 { get; set; }
@@ -159,25 +174,37 @@ namespace CarDetectorTester.ViewModels
 
         public void Connect()
         {
+            try
+            {
 #if DEBUG
             stream = new StreamMock();
 #else
-            _logger.Info(_comPort);
-            _logger.Info(_baundRate);
+                _logger.Info(_comPort);
+                _logger.Info(_baundRate);
 
 
-            serialPort = new SerialPort(_comPort);
-            serialPort.BaudRate = _baundRate;
-            serialPort.Parity = Parity.None;
-            serialPort.StopBits = StopBits.One;
-            serialPort.DataBits = 8;
-            serialPort.DtrEnable = true;
-            serialPort.Open();
-            stream = serialPort.BaseStream;
+                serialPort = new SerialPort(_comPort);
+                serialPort.BaudRate = _baundRate;
+                serialPort.Parity = Parity.None;
+                serialPort.StopBits = StopBits.One;
+                serialPort.DataBits = 8;
+                serialPort.DtrEnable = true;
+                serialPort.Open();
+                stream = serialPort.BaseStream;
 #endif
+                CanSendCmd = true;
 
-            RunRecv();
+                RunRecv();
+
+            }
+            catch (Exception ex)
+            {
+                Execute.OnUIThread(()=> MessageBox.Show(ex.Message) );
+            }
         }
+
+
+
 
         public void SendCmd()
         {
@@ -248,7 +275,14 @@ namespace CarDetectorTester.ViewModels
                                                                ReadLength(hexResponse, 0, 2);
                                                                if ((hexResponse[0] != 0x55)||(hexResponse[1] != 0xaa))
                                                                {
-                                                                   serialPort.BaseStream.Flush();
+                                                                   if (serialPort != null)
+                                                                   {
+                                                                        serialPort.BaseStream.Flush();
+                                                                   }
+#if DEBUG
+                                                                   Thread.Sleep(1000);
+#endif
+
                                                                    continue;
                                                                }
 
@@ -277,6 +311,12 @@ namespace CarDetectorTester.ViewModels
                                                                        break;
                                                                }
                                                            }
+
+#if DEBUG
+                                                           Thread.Sleep(1000);
+#endif
+
+
                                                        }
                                                        finally
                                                        {
