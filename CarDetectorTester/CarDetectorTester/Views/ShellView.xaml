@@ -1,128 +1,119 @@
-﻿<Window
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:local="clr-namespace:CarDetectorTester"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions" xmlns:System="clr-namespace:System;assembly=mscorlib" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Classic" x:Name="window" mc:Ignorable="d" x:Class="CarDetectorTester.Views.ShellView"
-        Title="MainWindow" Height="552" Width="773" xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/charts">
+﻿<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="clr-namespace:CarDetectorTester" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions" xmlns:System="clr-namespace:System;assembly=mscorlib" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Classic" x:Name="window" mc:Ignorable="d" x:Class="CarDetectorTester.Views.ShellView" Title="车检器控制台" Height="552" Width="773" xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/charts" xmlns:lc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol" Icon="/CarDetectorTester;component/Images/CarRepairBlue2-32.png">
 	<Window.Resources>
 		<Storyboard x:Key="OnLoaded1">
 			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="window">
-				<EasingDoubleKeyFrame KeyTime="0" Value="157"/>
+				<EasingDoubleKeyFrame KeyTime="0" Value="157" />
 			</DoubleAnimationUsingKeyFrames>
 		</Storyboard>
 		<Style x:Key="ColumnHeaderGripperStyle" TargetType="{x:Type Thumb}">
-			<Setter Property="Width" Value="8"/>
-			<Setter Property="Background" Value="Transparent"/>
-			<Setter Property="Cursor" Value="SizeWE"/>
+			<Setter Property="Width" Value="8" />
+			<Setter Property="Background" Value="Transparent" />
+			<Setter Property="Cursor" Value="SizeWE" />
 			<Setter Property="Template">
 				<Setter.Value>
 					<ControlTemplate TargetType="{x:Type Thumb}">
-						<Border Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}"/>
+						<Border Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" />
 					</ControlTemplate>
 				</Setter.Value>
 			</Setter>
 		</Style>
 		<Style x:Key="DataGridColumnHeaderStyle1" TargetType="{x:Type DataGridColumnHeader}">
-			<Setter Property="VerticalContentAlignment" Value="Center"/>
+			<Setter Property="VerticalContentAlignment" Value="Center" />
 			<Setter Property="Template">
 				<Setter.Value>
 					<ControlTemplate TargetType="{x:Type DataGridColumnHeader}">
 						<Grid>
 							<Microsoft_Windows_Themes:DataGridHeaderBorder BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" IsClickable="{TemplateBinding CanUserSort}" IsPressed="{TemplateBinding IsPressed}" IsHovered="{TemplateBinding IsMouseOver}" Padding="{TemplateBinding Padding}" SortDirection="{TemplateBinding SortDirection}" SeparatorBrush="{TemplateBinding SeparatorBrush}" SeparatorVisibility="{TemplateBinding SeparatorVisibility}">
-								<ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+								<ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
 							</Microsoft_Windows_Themes:DataGridHeaderBorder>
-							<Thumb x:Name="PART_LeftHeaderGripper" HorizontalAlignment="Left" Style="{StaticResource ColumnHeaderGripperStyle}"/>
-							<Thumb x:Name="PART_RightHeaderGripper" HorizontalAlignment="Right" Style="{StaticResource ColumnHeaderGripperStyle}"/>
+							<Thumb x:Name="PART_LeftHeaderGripper" HorizontalAlignment="Left" Style="{StaticResource ColumnHeaderGripperStyle}" />
+							<Thumb x:Name="PART_RightHeaderGripper" HorizontalAlignment="Right" Style="{StaticResource ColumnHeaderGripperStyle}" />
 						</Grid>
 					</ControlTemplate>
 				</Setter.Value>
 			</Setter>
 		</Style>
 	</Window.Resources>
-    <Grid RenderTransformOrigin="0.5,0.5" d:DataContext="{d:DesignData /SampleData/ShellViewModelSampleData.xaml}"  >
-		<Grid >
+    <Grid RenderTransformOrigin="0.5,0.5" d:DataContext="{d:DesignData /SampleData/ShellViewModelSampleData.xaml}">
+		<Grid>
 			<Grid.RowDefinitions>
-				<RowDefinition Height="0.267*"/>
-				<RowDefinition Height="0.243*"/>
-				<RowDefinition Height="0.433*"/>
-				<RowDefinition Height="0.057*"/>
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="*" />
 			</Grid.RowDefinitions>
 			<Grid.Background>
-				<ImageBrush ImageSource="/CarDetectorTester;component/Properties/background.png"/>
+				<ImageBrush ImageSource="/CarDetectorTester;component/Properties/background.png" />
 			</Grid.Background>
-			<Grid x:Name="RealTimeData" Grid.Row="2">
-				<Grid.RowDefinitions>
-					<RowDefinition Height="auto"/>
-					<RowDefinition Height="*"/>
-				</Grid.RowDefinitions>
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="1*"/>
-					<ColumnDefinition Width="1*"/>
-				</Grid.ColumnDefinitions>
-				<Label HorizontalAlignment="Left" Width="95" Grid.Column="1" Margin="4,0,0,0" Content="实时图"/>
-				<DataGrid AutoGenerateColumns="False" ItemsSource="{Binding Responses}" SelectionChanged="DataGrid_SelectionChanged" Grid.Row="1">
-					<DataGrid.Columns>
-						<DataGridTextColumn Binding="{Binding ChannelId}" Header="Channel No"/>
-						<DataGridTextColumn Binding="{Binding Data1}" Header="Data1"/>
-						<DataGridTextColumn Binding="{Binding Data2}" Header="Data2"/>
-						<DataGridTextColumn Binding="{Binding Data3}" Header="Frequency"/>
-						<DataGridTextColumn Binding="{Binding Time}" Header="Time"/>
-					</DataGrid.Columns>
-				</DataGrid>
-				<dxc:ChartControl  Margin="4,0,0,0" x:Name="realtimeChart" Loaded="realtimeChart_Loaded" Grid.Column="1" Grid.Row="1">
-					<dxc:ChartControl.Diagram>
-						<dxc:XYDiagram2D>
-							<dxc:XYDiagram2D.Series>
-								<dxc:LineSeries2D DataSource="{Binding Responses1}" ArgumentDataMember="Time"  ValueDataMember="Data3" ColorEach="True" />
-                                <dxc:LineSeries2D DataSource="{Binding Responses2}" ArgumentDataMember="Time"  ValueDataMember="Data3" ColorEach="True" />
-							</dxc:XYDiagram2D.Series>
-						</dxc:XYDiagram2D></dxc:ChartControl.Diagram>
-				</dxc:ChartControl>
-				<Label Content="数据接收列表：" Width="95" HorizontalAlignment="Left"/>
-			</Grid>
-			<Grid x:Name="Controls">
-				<Label x:Name="label" Content="发送数据(Hex)：" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,0,0,24.31" RenderTransformOrigin="0.5,0.5">
-					<Label.RenderTransform>
-						<TransformGroup>
-							<ScaleTransform/>
-							<SkewTransform/>
-							<RotateTransform/>
-							<TranslateTransform/>
-						</TransformGroup>
-					</Label.RenderTransform>
-				</Label>
-				<TextBox x:Name="CommandToSend" TextWrapping="Wrap" VerticalAlignment="Bottom" Margin="100,0,87,27.31" Opacity="0.815" Text="AA 55 03 00 02 00" />
-				<Button x:Name="SendCmd" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="71" Margin="0,0,2,29.313" Height="20.687" Content="SendCmd" />
-				<GroupBox Header="串口设置" Margin="0,0,2,61" RenderTransformOrigin="0.5,0.5">
-					<Grid>
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="0.057*"/>
-							<ColumnDefinition Width="0.943*"/>
-						</Grid.ColumnDefinitions>
-						<Label Content="串口：" d:LayoutOverrides="Width" VerticalAlignment="Center" Background="#00000000" Margin="0,0,-8,0"/>
-						<TextBox x:Name="ComPort" HorizontalAlignment="Left" TextWrapping="Wrap" Width="151" VerticalAlignment="Center" Margin="10,0,0,0" Grid.Column="1" Opacity="0.815" TextChanged="ComPort_TextChanged" Text="com1" />
-						<Label Content="波特率：" HorizontalAlignment="Left" d:LayoutOverrides="HorizontalAlignment" VerticalAlignment="Center" Margin="180,0,0,0" Grid.Column="1"/>
-						<TextBox x:Name="BaundRate" TextWrapping="Wrap" VerticalAlignment="Center" Margin="241,0,8,0" Grid.Column="1" Opacity="0.815" Text="9600" />
-					</Grid>
-				</GroupBox>
-				<Button Content="Connect" Height="23" HorizontalAlignment="Right" x:Name="Connect" VerticalAlignment="Bottom" Width="75" />
-				<TextBox Text="AA 55 07 01 02 ww ww dd dd sum" Height="24" HorizontalAlignment="Left" Margin="100,0,0,4" x:Name="label1" VerticalAlignment="Bottom" Width="234" />
-			</Grid>
-            <GroupBox x:Name="Channels1" Header="通道统计" Grid.Row="1">
-            	<Grid x:Name="Channels">
-            		<Grid.RowDefinitions>
-            			<RowDefinition Height="0.76*"/>
-            		</Grid.RowDefinitions>
-            		<Grid.ColumnDefinitions>
-            			<ColumnDefinition/>
-            			<ColumnDefinition/>
-            			<ColumnDefinition/>
-            		</Grid.ColumnDefinitions>
-                    <local:ChannelStatistics DataContext="{Binding Channel1Stat}" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" d:LayoutOverrides="Width, GridBox, HorizontalMargin"/>
-                    <local:ChannelStatistics DataContext="{Binding Channel2Stat}" Grid.Column="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-            		<local:TitledLed Speed="123.4" Grid.Column="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-            	</Grid>
-            </GroupBox>
+            <Grid x:Name="Controls">
+                <lc:LayoutControl Name="layoutControl1">
+                    <lc:LayoutGroup Header="串口" Name="layoutGroup1" View="GroupBox">
+                        <lc:LayoutGroup Orientation="Vertical">
+                            <lc:LayoutItem Label="串口号：" Name="layoutItem1">
+                                <TextBox x:Name="ComPort" TextWrapping="Wrap" Opacity="0.815" TextChanged="ComPort_TextChanged" Text="com1" />
+                            </lc:LayoutItem>
+                            <lc:LayoutItem Label="波特率：" Name="layoutItem2">
+                                <TextBox x:Name="BaundRate" TextWrapping="Wrap" Opacity="0.815" Text="9600" />
+                            </lc:LayoutItem>
+                        </lc:LayoutGroup>
+                        <Button Content="打开" HorizontalAlignment="Right" x:Name="Connect" Width="75" Height="49" />
+                    </lc:LayoutGroup>
+                    <lc:LayoutGroup Header="命令" Name="layoutGroup2" View="GroupBox">
+                        <lc:LayoutGroup Orientation="Vertical">
+                            <lc:LayoutItem Label="命令(Hex)" Name="layoutItem3">
+                                <TextBox x:Name="CommandToSend" TextWrapping="Wrap" Opacity="0.815" Text="AA 55 03 00 02 00" />
+                            </lc:LayoutItem>
+                            <lc:LayoutItem Label="layoutItem4" Name="layoutItem4">
+                                <TextBox Text="AA 55 07 01 02 ww ww dd dd sum" x:Name="label1" />
+                            </lc:LayoutItem>
+                        </lc:LayoutGroup>
+                        <lc:LayoutGroup Orientation="Vertical">
+                            <Button x:Name="SendCmd" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="75" Height="49" Content="发送" />
+                        </lc:LayoutGroup>
+                    </lc:LayoutGroup>
+                </lc:LayoutControl>
+
+            </Grid>
+            <lc:GroupBox Grid.Row="1" Header="通道"  Name="groupBox1" VerticalAlignment="Top" Margin="10,0">
+                <Grid x:Name="Channels">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.76*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <local:ChannelStatistics DataContext="{Binding Channel1Stat}" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" d:LayoutOverrides="Width, GridBox, HorizontalMargin" />
+                    <local:ChannelStatistics DataContext="{Binding Channel2Stat}" Grid.Column="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
+                    <local:TitledLed Speed="{Binding CarSpeedCh1}" Grid.Column="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
+                </Grid>
+                
+            </lc:GroupBox>
+            <lc:LayoutControl Grid.Row="2"   Name="layoutControl2" >
+                <lc:LayoutGroup Header="实时数据" Name="layoutGroup3" View="GroupBox" >
+                    <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding Responses}" SelectionChanged="DataGrid_SelectionChanged" >
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding ChannelId}" Header="Channel No" />
+                            <DataGridTextColumn Binding="{Binding Data1}" Header="Data1" />
+                            <DataGridTextColumn Binding="{Binding Data2}" Header="Data2" />
+                            <DataGridTextColumn Binding="{Binding Data3}" Header="Frequency" />
+                            <DataGridTextColumn Binding="{Binding Time}" Header="Time" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </lc:LayoutGroup>
+                <lc:LayoutGroup Header="实时曲线图" Name="layoutGroup4" View="GroupBox">
+                    <dxc:ChartControl x:Name="realtimeChart" Loaded="realtimeChart_Loaded">
+                        <dxc:ChartControl.Diagram>
+                            <dxc:XYDiagram2D>
+                                <dxc:XYDiagram2D.Series>
+                                    <dxc:LineSeries2D DataSource="{Binding Responses1}" ArgumentDataMember="Time" ValueDataMember="Data3" ColorEach="True" />
+                                    <dxc:LineSeries2D DataSource="{Binding Responses2}" ArgumentDataMember="Time" ValueDataMember="Data3" ColorEach="True" />
+                                </dxc:XYDiagram2D.Series>
+                            </dxc:XYDiagram2D>
+                        </dxc:ChartControl.Diagram>
+                    </dxc:ChartControl>
+                </lc:LayoutGroup>
+            </lc:LayoutControl>
         </Grid>
-	</Grid>
+    </Grid>
 </Window>
