@@ -1,4 +1,4 @@
-﻿<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="clr-namespace:CarDetectorTester" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions" xmlns:System="clr-namespace:System;assembly=mscorlib" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Classic" x:Name="window" mc:Ignorable="d" x:Class="CarDetectorTester.Views.ShellView" Title="车检器控制台" xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/charts" xmlns:lc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol" Icon="/CarDetectorTester;component/Images/CarRepairBlue2-32.png" xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" d:DesignHeight="610" d:DesignWidth="773" SizeToContent="WidthAndHeight">
+﻿<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="clr-namespace:CarDetectorTester" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions" xmlns:System="clr-namespace:System;assembly=mscorlib" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Classic" x:Name="window" mc:Ignorable="d" x:Class="CarDetectorTester.Views.ShellView" Title="车检器控制台" xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/charts" xmlns:lc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol" Icon="/CarDetectorTester;component/Images/CarRepairBlue2-32.png" xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" Height="610" Width="773">
 	<Window.Resources>
 		<Storyboard x:Key="OnLoaded1">
 			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="window">
@@ -96,7 +96,7 @@
                         <DataGridTextColumn Binding="{Binding Time}" Header="Time" />
                     </DataGrid.Columns>
                 </DataGrid>
-                <dxe:CheckEdit Content="实时刷新" Height="29"  />
+                <dxe:CheckEdit Content="实时刷新" Height="29" IsChecked="{Binding UpdateRealtimeData}"  />
             </lc:LayoutGroup>
         </lc:LayoutControl>
     </Grid>

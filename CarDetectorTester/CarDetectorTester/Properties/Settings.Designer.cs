@@ -22,5 +22,23 @@ namespace CarDetectorTester.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("AA 55 03 00 02 00")]
+        public string FrequencyQueryCmd {
+            get {
+                return ((string)(this["FrequencyQueryCmd"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("200")]
+        public int FrequencyQueryIntervalInMs {
+            get {
+                return ((int)(this["FrequencyQueryIntervalInMs"]));
+            }
+        }
     }
 }
