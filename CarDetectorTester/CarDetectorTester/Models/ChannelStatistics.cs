@@ -48,5 +48,12 @@ namespace CarDetectorTester.Models
                 NotifyOfPropertyChange(()=>IsCarIn);
             }
         }
+
+        public void Reset()
+        {
+            IsCarIn = false;
+            CarInCount = 0;
+            CarOutCount = 0;
+        }
     }
 }
