@@ -34,8 +34,8 @@
 			<RowDefinition/>
 		</Grid.RowDefinitions>
 
-		<Label x:Name="EnterCount" FontSize="64" FontFamily="/CarDetectorTester;component/Fonts/#Digital-7 Mono" Content="{Binding CarOutCount}" VerticalContentAlignment="Center" Grid.Column="2" Grid.Row="1" />
-		<Label x:Name="LeftCount" FontSize="64" FontFamily="/CarDetectorTester;component/Fonts/#Digital-7 Mono" Content="{Binding CarInCount}" VerticalContentAlignment="Center" Grid.Column="4" Grid.Row="1" HorizontalContentAlignment="Stretch" />
+		<Label x:Name="EnterCount" FontSize="64" FontFamily="/CarDetectorTester;component/Fonts/#Digital-7 Mono" Content="{Binding CarInCount}" VerticalContentAlignment="Center" Grid.Column="2" Grid.Row="1" />
+		<Label x:Name="LeftCount" FontSize="64" FontFamily="/CarDetectorTester;component/Fonts/#Digital-7 Mono" Content="{Binding CarOutCount}" VerticalContentAlignment="Center" Grid.Column="4" Grid.Row="1" HorizontalContentAlignment="Stretch" />
 
 		<Label x:Name="title" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="21.333" Background="#00FFFCFC" BorderBrush="White" Content="{Binding ChannelName}" Grid.ColumnSpan="5" />
 		<Label Content="进入" FontSize="21.333" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="#00FFFCFC" BorderBrush="White" Grid.Row="2" Grid.Column="2" />
