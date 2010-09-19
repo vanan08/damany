@@ -120,10 +120,10 @@
             		<lc:LayoutItem Label="命令(Hex)" x:Name="layoutItem3">
                         <TextBox x:Name="CommandToSend" Text="{Binding CommandToSend}" Opacity="0.815" TextWrapping="Wrap"/>
             		</lc:LayoutItem>
-            		<Button Content="发送" HorizontalAlignment="Left" x:Name="SendCmd" VerticalAlignment="Top" />
+            		<Button Content="发送" HorizontalAlignment="Left" x:Name="SendCmd" VerticalAlignment="Top" Width="40" />
             	</lc:LayoutGroup>
             	<StackPanel HorizontalAlignment="Left" x:Name="stackPanel2" VerticalAlignment="Top" Width="200" Orientation="Horizontal">
-            		<Button x:Name="SetRect" Content="长宽"/>
+            		<Button x:Name="SetRect" Content="长宽" Width="40"/>
                 </StackPanel>
             </lc:LayoutGroup>
         </lc:LayoutControl>

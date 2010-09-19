@@ -178,6 +178,8 @@ namespace CarDetectorTester.ViewModels
             Channel1Stat = new Models.ChannelStatistics() { ChannelName = "1通道" };
             Channel2Stat = new Models.ChannelStatistics() { ChannelName = "2通道" };
 
+            CommandToSend = Properties.Settings.Default.LastCommand;
+
 
             _commandName = "开始";
             _logger = log4net.LogManager.GetLogger(typeof(ShellViewModel));
@@ -267,15 +269,12 @@ namespace CarDetectorTester.ViewModels
             return;
 #endif
 
-            Task.Factory.StartNew(() =>
-            {
-                    var rawData = "";
+            var rawData = "";
 
-                    var hexData = Converter.StringToByteArray(CommandToSend.Replace(" ", ""));
-                    writer.Write(hexData);
-                    serialPort.BaseStream.Flush();
+            var hexData = Converter.StringToByteArray(CommandToSend.Replace(" ", ""));
+            writer.Write(hexData);
+            serialPort.BaseStream.Flush();
 
-            });
 
         }
 
