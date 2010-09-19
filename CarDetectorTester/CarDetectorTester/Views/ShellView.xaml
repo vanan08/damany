@@ -1,10 +1,5 @@
-﻿<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="clr-namespace:CarDetectorTester" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions" xmlns:System="clr-namespace:System;assembly=mscorlib" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Classic" x:Name="window" mc:Ignorable="d" x:Class="CarDetectorTester.Views.ShellView" Title="车检器控制台" xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/charts" xmlns:lc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol" Icon="/CarDetectorTester;component/Images/CarRepairBlue2-32.png" xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" Height="610" Width="773">
+﻿<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="clr-namespace:CarDetectorTester" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions" xmlns:System="clr-namespace:System;assembly=mscorlib" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Classic" xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/charts" xmlns:lc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol" xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" x:Name="window" mc:Ignorable="d" x:Class="CarDetectorTester.Views.ShellView" Title="车检器控制台" Icon="/CarDetectorTester;component/Images/CarRepairBlue2-32.png" Height="610" Width="773">
 	<Window.Resources>
-		<Storyboard x:Key="OnLoaded1">
-			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="window">
-				<EasingDoubleKeyFrame KeyTime="0" Value="157" />
-			</DoubleAnimationUsingKeyFrames>
-		</Storyboard>
 		<Style x:Key="ColumnHeaderGripperStyle" TargetType="{x:Type Thumb}">
 			<Setter Property="Width" Value="8" />
 			<Setter Property="Background" Value="Transparent" />
@@ -33,67 +28,110 @@
 				</Setter.Value>
 			</Setter>
 		</Style>
+		<Storyboard x:Key="Load">
+			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="ChannelStat">
+				<EasingDoubleKeyFrame KeyTime="0" Value="-785"/>
+				<EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
+			</DoubleAnimationUsingKeyFrames>
+			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="Controls">
+				<EasingDoubleKeyFrame KeyTime="0" Value="-139"/>
+				<EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
+			</DoubleAnimationUsingKeyFrames>
+			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="RealTimeData">
+				<EasingDoubleKeyFrame KeyTime="0" Value="255"/>
+				<EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
+			</DoubleAnimationUsingKeyFrames>
+		</Storyboard>
 	</Window.Resources>
-    <Grid  d:DataContext="{d:DesignData /SampleData/ShellViewModelSampleData.xaml}" >
+	<Window.Triggers>
+		<EventTrigger RoutedEvent="FrameworkElement.Loaded">
+			<BeginStoryboard Storyboard="{StaticResource Load}"/>
+		</EventTrigger>
+	</Window.Triggers>
+    <Grid x:Name="grid"  d:DataContext="{d:DesignData /SampleData/ShellViewModelSampleData.xaml}" >
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="144*" />
+        	<RowDefinition Height="Auto" />
+        	<RowDefinition Height="Auto" />
+        	<RowDefinition Height="144*" />
         </Grid.RowDefinitions>
-        <lc:LayoutControl  x:Name="ChannelStat" Grid.Row="1" Orientation="Vertical" >
-            <lc:LayoutGroup Orientation="Vertical" Header="通道" Name="layoutGroup5" View="GroupBox">
-                <Grid Name="Channels">
+        <lc:LayoutControl  x:Name="ChannelStat" Grid.Row="1" Orientation="Vertical" RenderTransformOrigin="0.5,0.5" >
+        	<lc:LayoutControl.RenderTransform>
+        		<TransformGroup>
+        			<ScaleTransform/>
+        			<SkewTransform/>
+        			<RotateTransform/>
+        			<TranslateTransform X="-785"/>
+        		</TransformGroup>
+        	</lc:LayoutControl.RenderTransform>
+            <lc:LayoutGroup Orientation="Vertical" Header="通道" x:Name="layoutGroup5" View="GroupBox">
+                <Grid x:Name="Channels">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*" />
-                        <ColumnDefinition Width="1*" />
-                        <ColumnDefinition Width=".5*" />
+                    	<ColumnDefinition Width="1*" />
+                    	<ColumnDefinition Width="1*" />
+                    	<ColumnDefinition Width=".5*" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="0.76*" />
+                    	<RowDefinition Height="0.76*" />
                     </Grid.RowDefinitions>
                     <local:ChannelStatistics DataContext="{Binding Channel1Stat}" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
                     <local:ChannelStatistics DataContext="{Binding Channel2Stat}" Grid.Column="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
                     <local:TitledLed Grid.Column="2" Height="119" HorizontalContentAlignment="Center" Speed="{Binding CarSpeedCh1}" VerticalContentAlignment="Bottom" />
                 </Grid>
             </lc:LayoutGroup>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Name="stackPanel1" VerticalAlignment="Top" Width="200">
-                <Button Width="auto" Height="auto" Name="ResetStatistics" Content="重置计数器" />
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" x:Name="stackPanel1" VerticalAlignment="Top" Width="200">
+                <Button Width="auto" Height="auto" x:Name="ResetStatistics" Content="重置计数器" />
             </StackPanel>
 
         </lc:LayoutControl>
-        <lc:LayoutControl  x:Name="Controls" >
-            <lc:LayoutGroup Header="串口" Name="layoutGroup1" View="GroupBox">
+        <lc:LayoutControl  x:Name="Controls" RenderTransformOrigin="0.5,0.5" >
+        	<lc:LayoutControl.RenderTransform>
+        		<TransformGroup>
+        			<ScaleTransform/>
+        			<SkewTransform/>
+        			<RotateTransform/>
+        			<TranslateTransform Y="-139"/>
+        		</TransformGroup>
+        	</lc:LayoutControl.RenderTransform>
+            <lc:LayoutGroup Header="串口" x:Name="layoutGroup1" View="GroupBox">
                 <lc:LayoutGroup Orientation="Vertical">
-                    <lc:LayoutItem Label="串口号：" Name="layoutItem1">
-                        <TextBox Name="ComPort" Opacity="0.815" Text="com1" TextChanged="ComPort_TextChanged" TextWrapping="Wrap" />
+                    <lc:LayoutItem Label="串口号：" x:Name="layoutItem1">
+                        <TextBox x:Name="ComPort" Opacity="0.815" Text="com1" TextChanged="ComPort_TextChanged" TextWrapping="Wrap" />
                     </lc:LayoutItem>
-                    <lc:LayoutItem Label="波特率：" Name="layoutItem2">
-                        <TextBox Name="BaundRate" Opacity="0.815" Text="9600" TextWrapping="Wrap" />
+                    <lc:LayoutItem Label="波特率：" x:Name="layoutItem2">
+                        <TextBox x:Name="BaundRate" Opacity="0.815" Text="9600" TextWrapping="Wrap" />
                     </lc:LayoutItem>
                 </lc:LayoutGroup>
-                <Button Content="打开" Height="49" HorizontalAlignment="Right" Name="Connect" Width="75" />
+                <Button Content="打开" Height="49" HorizontalAlignment="Right" x:Name="Connect" Width="75" />
             </lc:LayoutGroup>
-            <lc:LayoutGroup Header="命令" Name="layoutGroup2" View="GroupBox">
+            <lc:LayoutGroup Header="命令" x:Name="layoutGroup2" View="GroupBox">
                 <lc:LayoutGroup Orientation="Vertical">
-                    <lc:LayoutItem Label="命令(Hex)" Name="layoutItem3">
-                        <TextBox Name="CommandToSend" Opacity="0.815" Text="AA 55 03 00 02 00" TextWrapping="Wrap" />
+                    <lc:LayoutItem Label="命令(Hex)" x:Name="layoutItem3">
+                        <TextBox x:Name="CommandToSend" Opacity="0.815" Text="AA 55 03 00 02 00" TextWrapping="Wrap" />
                     </lc:LayoutItem>
-                    <lc:LayoutItem Label="layoutItem4" Name="layoutItem4">
-                        <TextBox Name="label1" Text="AA 55 07 01 02 ww ww dd dd sum" />
+                    <lc:LayoutItem Label="layoutItem4" x:Name="layoutItem4">
+                        <TextBox x:Name="label1" Text="AA 55 07 01 02 ww ww dd dd sum" />
                     </lc:LayoutItem>
                 </lc:LayoutGroup>
-                <Button Content="发送" Height="49" HorizontalAlignment="Left" Name="SendCmd" VerticalAlignment="Bottom" Width="75" />
+                <Button Content="发送" Height="49" HorizontalAlignment="Left" x:Name="SendCmd" VerticalAlignment="Bottom" Width="75" />
             </lc:LayoutGroup>
         </lc:LayoutControl>
-        <lc:LayoutControl  Grid.Row="2"  x:Name="RealTimeData">
-            <lc:LayoutGroup Orientation="Vertical" Header="实时数据" Name="layoutGroup3" View="GroupBox">
+        <lc:LayoutControl  Grid.Row="2"  x:Name="RealTimeData" RenderTransformOrigin="0.5,0.5">
+        	<lc:LayoutControl.RenderTransform>
+        		<TransformGroup>
+        			<ScaleTransform/>
+        			<SkewTransform/>
+        			<RotateTransform/>
+        			<TranslateTransform Y="255"/>
+        		</TransformGroup>
+        	</lc:LayoutControl.RenderTransform>
+            <lc:LayoutGroup Orientation="Vertical" Header="实时数据" x:Name="layoutGroup3" View="GroupBox">
                 <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding Responses}" SelectionChanged="DataGrid_SelectionChanged">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Binding="{Binding ChannelId}" Header="Channel No" />
-                        <DataGridTextColumn Binding="{Binding Data1}" Header="Data1" />
-                        <DataGridTextColumn Binding="{Binding Data2}" Header="Data2" />
-                        <DataGridTextColumn Binding="{Binding Data3}" Header="Frequency" />
-                        <DataGridTextColumn Binding="{Binding Time}" Header="Time" />
+                    	<DataGridTextColumn Binding="{Binding ChannelId}" Header="Channel No" />
+                    	<DataGridTextColumn Binding="{Binding Data1}" Header="Data1" />
+                    	<DataGridTextColumn Binding="{Binding Data2}" Header="Data2" />
+                    	<DataGridTextColumn Binding="{Binding Data3}" Header="Frequency" />
+                    	<DataGridTextColumn Binding="{Binding Time}" Header="Time" />
                     </DataGrid.Columns>
                 </DataGrid>
                 <dxe:CheckEdit Content="实时刷新" Height="29" IsChecked="{Binding UpdateRealtimeData}"  />
