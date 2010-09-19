@@ -219,6 +219,8 @@ namespace CarDetectorTester.ViewModels
         {
             Channel1Stat.Reset();
             Channel2Stat.Reset();
+
+            CarSpeedCh1 = 0;
         }
 
 
@@ -280,12 +282,11 @@ namespace CarDetectorTester.ViewModels
                                                            {
                                                                if (UpdateRealtimeData)
                                                                {
-                                                                   var rawData = "";
-                                                                   var hexData = Converter.StringToByteArray(CommandToSend.Replace(" ", ""));
+                                                                   var hexData = Converter.StringToByteArray(Properties.Settings.Default.FrequencyQueryCmd.Replace(" ", ""));
                                                                    writer.Write(hexData);
                                                                }
                                                               
-                                                               Thread.Sleep(1000);
+                                                               Thread.Sleep(Properties.Settings.Default.FrequencyQueryIntervalInMs);
                                                            }
                                                        });
 
@@ -306,7 +307,7 @@ namespace CarDetectorTester.ViewModels
 
                                                                var hexResponse = new byte[4];
                                                                //skip header
-                                                               ReadLength(hexResponse, 0, 2);
+                                                               ReadLength(reader, hexResponse, 0, 2);
                                                                if ((hexResponse[0] != 0x55)||(hexResponse[1] != 0xaa))
                                                                {
                                                                    if (serialPort != null)
@@ -320,12 +321,12 @@ namespace CarDetectorTester.ViewModels
                                                                    continue;
                                                                }
 
-                                                               ReadLength(hexResponse, 0, 2);
+                                                               ReadLength(reader, hexResponse, 0, 2);
                                                                var length = hexResponse[0]-1;
                                                                var commandType = hexResponse[1];
 
                                                                var packet = new byte[length];
-                                                               ReadLength(packet, 0, packet.Length);
+                                                               ReadLength(reader, packet, 0, packet.Length);
 
 
                                                                switch (commandType)
@@ -440,32 +441,32 @@ namespace CarDetectorTester.ViewModels
                                            if (ch2Out)
                                            {
                                                Channel2Stat.CarOutCount++;
-                                               Channel1Stat.IsCarIn = false;
+                                               Channel2Stat.IsCarIn = false;
                                            }
                                        });
             }
         }
 
-        private void HandleFrequency(byte[] hexResponse)
+        private void HandleFrequency(byte[] packet)
         {
             var rawData = "";
 
-            rawData += Converter.ByteArrayToString(hexResponse, hexFormat);
+            rawData += Converter.ByteArrayToString(packet, hexFormat);
 
             var responseGroup = new List<ResponseData>();
+            var br = new BinaryReader(new MemoryStream(packet));
 
             for (int i = 0; i < 4; i++)
             {
                 var dataBuffer = new byte[2];
 
-
-                var data1 = ReadChannelData(reader,
+                var data1 = ReadChannelData(br,
                                             dataBuffer, "{0:d2} ");
 
                 rawData += Converter.ByteArrayToString(dataBuffer,
                                                        hexFormat);
 
-                var data2 = ReadChannelData(reader,
+                var data2 = ReadChannelData(br,
                                             dataBuffer, "{0:d2} ");
 
                 rawData += Converter.ByteArrayToString(dataBuffer,
@@ -483,7 +484,7 @@ namespace CarDetectorTester.ViewModels
                 responseGroup.Add(responseData);
             }
             //skip checksum
-            var checkSum = reader.ReadByte();
+            var checkSum = br.ReadByte();
             rawData += checkSum.ToString("x2");
 
             _logger.Info(rawData);
@@ -535,20 +536,20 @@ namespace CarDetectorTester.ViewModels
             }
         }
 
-        private void ReadLength(byte[] hexResponse, int offset, int length)
+        private void ReadLength(BinaryReader rdr, byte[] hexResponse, int offset, int length)
         {
             var count = 0;
             var readAttemp = 0;
             while (count < length)
             {
-                var readCount = reader.Read(hexResponse, offset + count, length - count);
+                var readCount = rdr.Read(hexResponse, offset + count, length - count);
                 count += readCount;
             }
         }
 
         private string ReadChannelData(BinaryReader binaryReader, byte[] dataBuffer, string formatString)
         {
-            ReadLength(dataBuffer, 0, dataBuffer.Length);
+            ReadLength(binaryReader, dataBuffer, 0, dataBuffer.Length);
 
             var netData = BitConverter.ToUInt16(dataBuffer, 0);
             var hostData = (ushort)System.Net.IPAddress.NetworkToHostOrder((short)netData);
