@@ -32,7 +32,6 @@ namespace CarDetectorTester.Views
 
         private void window_Loaded(object sender, RoutedEventArgs e)
         {
-           CommandToSend.Text = Properties.Settings.Default.LastCommand;
         }
 
         private void window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
