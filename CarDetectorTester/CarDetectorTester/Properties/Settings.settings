@@ -8,5 +8,11 @@
     <Setting Name="FrequencyQueryIntervalInMs" Type="System.Int32" Scope="Application">
       <Value Profile="(Default)">200</Value>
     </Setting>
+    <Setting Name="SetLongAndWidthCommand" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">AA 55 07 01 02 {0:X4} {1:X4} 00</Value>
+    </Setting>
+    <Setting Name="LastCommand" Type="System.String" Scope="User">
+      <Value Profile="(Default)">AA 55 04 01 01 01 03</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

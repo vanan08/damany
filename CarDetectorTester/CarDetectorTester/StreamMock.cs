@@ -44,6 +44,8 @@ namespace CarDetectorTester
                 buffer[offset + i] = _buffer[idx++%_buffer.Length];
             }
 
+            System.Threading.Thread.Sleep(500);
+
             return count;
         }
 
