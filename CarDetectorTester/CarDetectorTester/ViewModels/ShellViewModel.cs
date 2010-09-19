@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using Caliburn.Micro;
 using CarDetectorTester.Models;
+using CarDetectorTester.Views;
 
 namespace CarDetectorTester.ViewModels
 {
@@ -136,7 +137,7 @@ namespace CarDetectorTester.ViewModels
             }
         }
 
-        private string _commandToSend = "AA 55 04 01 01 01 03";
+        private string _commandToSend ;
         public string CommandToSend
         {
             get { return _commandToSend; }
@@ -205,6 +206,7 @@ namespace CarDetectorTester.ViewModels
 #endif
                 CanSendCmd = true;
                 CanUpdateRealtimeData = true;
+                CanSetRect = true;
 
                 RunRecv();
 
@@ -221,6 +223,32 @@ namespace CarDetectorTester.ViewModels
             Channel2Stat.Reset();
 
             CarSpeedCh1 = 0;
+        }
+
+        private bool _canSetRect;
+        public bool CanSetRect
+        {
+            get { return _canSetRect; }
+            set
+            { 
+                _canSetRect = value;
+                NotifyOfPropertyChange(()=>CanSetRect);
+            }
+        }
+
+        public void SetRect()
+        {
+            var form = new WidthAndHeight();
+            var result = form.ShowDialog();
+
+            if (result.HasValue && result.Value == true)
+            {
+                var l = form.RectLength;
+                var w = form.RectWidth;
+
+                var cmd = string.Format(Properties.Settings.Default.SetLongAndWidthCommand, l, w);
+                SendHexCommand(cmd);
+            }
         }
 
 
@@ -282,8 +310,7 @@ namespace CarDetectorTester.ViewModels
                                                            {
                                                                if (UpdateRealtimeData)
                                                                {
-                                                                   var hexData = Converter.StringToByteArray(Properties.Settings.Default.FrequencyQueryCmd.Replace(" ", ""));
-                                                                   writer.Write(hexData);
+                                                                   SendHexCommand(Properties.Settings.Default.FrequencyQueryCmd);
                                                                }
                                                               
                                                                Thread.Sleep(Properties.Settings.Default.FrequencyQueryIntervalInMs);
@@ -392,7 +419,12 @@ namespace CarDetectorTester.ViewModels
                     TaskContinuationOptions.OnlyOnFaulted,
                     taskScheduler
                     );
+        }
 
+        private void SendHexCommand(string cmdString)
+        {
+            var hexData = Converter.StringToByteArray(cmdString.Replace(" ", ""));
+            writer.Write(hexData);
         }
 
         private void HandleSpeed(byte[] packet)
@@ -407,43 +439,34 @@ namespace CarDetectorTester.ViewModels
 
         private void HandleCarInOut(byte command, byte[] packet)
         {
-            if (command == 0x11)//in
+            if (command == 0x10)//in
             {
                 Execute.OnUIThread( ()=>
                                         {
-                                            var ch1In = packet[0] == 1;
-                                            if (ch1In)
+                                            var ch1 = packet[0] & 0x03;
+                                            if (ch1==2)
                                             {
                                                 Channel1Stat.CarInCount++;
                                                 Channel1Stat.IsCarIn = true;
                                             }
+                                            else if (ch1 == 1)
+                                            {
+                                                Channel1Stat.CarOutCount++;
+                                                Channel1Stat.IsCarIn = false;
+                                            }
 
-                                            var ch2In = packet[1] == 1;
-                                            if (ch2In)
+                                            var ch2 = (packet[0]>>2) & 0x03;
+                                            if (ch2 == 2)
                                             {
                                                 Channel2Stat.CarInCount++;
                                                 Channel2Stat.IsCarIn = true;
                                             }
+                                            else if (ch2 == 1)
+                                            {
+                                                Channel2Stat.CarOutCount++;
+                                                Channel2Stat.IsCarIn = false;
+                                            }
                                         });
-            }
-            else if (command == 0x10)//out
-            {
-                Execute.OnUIThread(()=>
-                                       {
-                                           var ch1Out = packet[0] == 1;
-                                           if (ch1Out)
-                                           {
-                                               Channel1Stat.CarOutCount++;
-                                               Channel1Stat.IsCarIn = false;
-                                           }
-
-                                           var ch2Out = packet[1] == 1;
-                                           if (ch2Out)
-                                           {
-                                               Channel2Stat.CarOutCount++;
-                                               Channel2Stat.IsCarIn = false;
-                                           }
-                                       });
             }
         }
 

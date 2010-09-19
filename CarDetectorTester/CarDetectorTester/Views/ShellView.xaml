@@ -1,4 +1,4 @@
-﻿<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="clr-namespace:CarDetectorTester" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions" xmlns:System="clr-namespace:System;assembly=mscorlib" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Classic" xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/charts" xmlns:lc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol" xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" x:Name="window" mc:Ignorable="d" x:Class="CarDetectorTester.Views.ShellView" Title="车检器控制台" Icon="/CarDetectorTester;component/Images/CarRepairBlue2-32.png" Height="610" Width="773">
+﻿<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="clr-namespace:CarDetectorTester" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions" xmlns:System="clr-namespace:System;assembly=mscorlib" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Classic" xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/charts" xmlns:lc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol" xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" x:Name="window" mc:Ignorable="d" x:Class="CarDetectorTester.Views.ShellView" Title="车检器控制台" Icon="/CarDetectorTester;component/Images/CarRepairBlue2-32.png" Height="610" Width="773" Loaded="window_Loaded" Closing="window_Closing">
 	<Window.Resources>
 		<Style x:Key="ColumnHeaderGripperStyle" TargetType="{x:Type Thumb}">
 			<Setter Property="Width" Value="8" />
@@ -115,16 +115,16 @@
                 </lc:LayoutGroup>
                 <Button Content="打开" Height="49" HorizontalAlignment="Right" x:Name="Connect" Width="75" />
             </lc:LayoutGroup>
-            <lc:LayoutGroup Header="命令" x:Name="layoutGroup2" View="GroupBox">
-                <lc:LayoutGroup Orientation="Vertical">
-                    <lc:LayoutItem Label="命令(Hex)" x:Name="layoutItem3">
-                        <TextBox x:Name="CommandToSend" Opacity="0.815" Text="AA 55 03 00 02 00" TextWrapping="Wrap" />
-                    </lc:LayoutItem>
-                    <lc:LayoutItem Label="layoutItem4" x:Name="layoutItem4">
-                        <TextBox x:Name="label1" Text="AA 55 07 01 02 ww ww dd dd sum" />
-                    </lc:LayoutItem>
-                </lc:LayoutGroup>
-                <Button Content="发送" Height="49" HorizontalAlignment="Left" x:Name="SendCmd" VerticalAlignment="Bottom" Width="75" />
+            <lc:LayoutGroup Orientation="Vertical" Header="命令" x:Name="layoutGroup2" View="GroupBox">
+            	<lc:LayoutGroup>
+            		<lc:LayoutItem Label="命令(Hex)" x:Name="layoutItem3">
+                        <TextBox x:Name="CommandToSend" Text="{Binding CommandToSend}" Opacity="0.815" TextWrapping="Wrap"/>
+            		</lc:LayoutItem>
+            		<Button Content="发送" HorizontalAlignment="Left" x:Name="SendCmd" VerticalAlignment="Top" />
+            	</lc:LayoutGroup>
+            	<StackPanel HorizontalAlignment="Left" x:Name="stackPanel2" VerticalAlignment="Top" Width="200" Orientation="Horizontal">
+            		<Button x:Name="SetRect" Content="长宽"/>
+                </StackPanel>
             </lc:LayoutGroup>
         </lc:LayoutControl>
         <lc:LayoutControl  Grid.Row="2"  x:Name="RealTimeData" RenderTransformOrigin="0.5,0.5">

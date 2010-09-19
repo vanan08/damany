@@ -40,5 +40,26 @@ namespace CarDetectorTester.Properties {
                 return ((int)(this["FrequencyQueryIntervalInMs"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("AA 55 07 01 02 {0:X4} {1:X4} 00")]
+        public string SetLongAndWidthCommand {
+            get {
+                return ((string)(this["SetLongAndWidthCommand"]));
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("AA 55 04 01 01 01 03")]
+        public string LastCommand {
+            get {
+                return ((string)(this["LastCommand"]));
+            }
+            set {
+                this["LastCommand"] = value;
+            }
+        }
     }
 }
