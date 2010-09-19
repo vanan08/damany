@@ -15,6 +15,8 @@ namespace CarDetectorTester.ViewModels
     {
         private CancellationTokenSource _cancelTokenSource = new CancellationTokenSource();
         private log4net.ILog _logger;
+        private Task frequencyQueryWorker;
+        private object _updateRealtimeDataLock = new object();
 
         private const string hexFormat = "{0:x2} ";
         private const string decFormat = "{0:d2} ";
@@ -51,33 +53,42 @@ namespace CarDetectorTester.ViewModels
             }
         }
 
-        private bool _isCarInCh1;
-        public bool IsCarInChannel1
+
+        private bool _canUpdateRealtimeData=true;
+        public bool CanUpdateRealtimeData
         {
             get
             {
-                return _isCarInCh1;
+                return _canUpdateRealtimeData;
             }
             set
             {
-                _isCarInCh1 = value;
-                NotifyOfPropertyChange(()=>IsCarInChannel1);
+                _canUpdateRealtimeData = value;
+                NotifyOfPropertyChange(()=>CanUpdateRealtimeData);
             }
         }
 
-        private bool _isCarInCh2;
-        public bool IsCarInChannel2
+        private bool _updateRealtimeData;
+        public bool UpdateRealtimeData
         {
             get
             {
-                return _isCarInCh2;
+                lock (_updateRealtimeDataLock)
+                {
+                    return _updateRealtimeData;
+                }
+                
             }
             set
             {
-                _isCarInCh1 = value;
-                NotifyOfPropertyChange(() => IsCarInChannel2);
+                lock (_updateRealtimeDataLock)
+                {
+                    _updateRealtimeData = value;
+                }
+                
             }
         }
+
 
         private string _commandName;
         public string CommandName
@@ -193,6 +204,7 @@ namespace CarDetectorTester.ViewModels
                 stream = serialPort.BaseStream;
 #endif
                 CanSendCmd = true;
+                CanUpdateRealtimeData = true;
 
                 RunRecv();
 
@@ -203,7 +215,11 @@ namespace CarDetectorTester.ViewModels
             }
         }
 
-
+        public void ResetStatistics()
+        {
+            Channel1Stat.Reset();
+            Channel2Stat.Reset();
+        }
 
 
         public void SendCmd()
@@ -257,6 +273,22 @@ namespace CarDetectorTester.ViewModels
                                                                                   IsRunning = true;
                                                                                   CommandName = "停止";
                                                                               });
+
+                                                       Task.Factory.StartNew(() =>
+                                                       {
+                                                           while (true)
+                                                           {
+                                                               if (UpdateRealtimeData)
+                                                               {
+                                                                   var rawData = "";
+                                                                   var hexData = Converter.StringToByteArray(CommandToSend.Replace(" ", ""));
+                                                                   writer.Write(hexData);
+                                                               }
+                                                              
+                                                               Thread.Sleep(1000);
+                                                           }
+                                                       });
+
 
                                                        try
                                                        {
@@ -317,7 +349,6 @@ namespace CarDetectorTester.ViewModels
 #if DEBUG
                                                            Thread.Sleep(1000);
 #endif
-
 
                                                        }
                                                        finally
@@ -380,7 +411,6 @@ namespace CarDetectorTester.ViewModels
                 Execute.OnUIThread( ()=>
                                         {
                                             var ch1In = packet[0] == 1;
-                                            IsCarInChannel1 = ch1In;
                                             if (ch1In)
                                             {
                                                 Channel1Stat.CarInCount++;
@@ -388,7 +418,6 @@ namespace CarDetectorTester.ViewModels
                                             }
 
                                             var ch2In = packet[1] == 1;
-                                            IsCarInChannel2 = ch2In;
                                             if (ch2In)
                                             {
                                                 Channel2Stat.CarInCount++;
