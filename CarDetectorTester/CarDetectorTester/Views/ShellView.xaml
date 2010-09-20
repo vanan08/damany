@@ -55,6 +55,12 @@
 			</DoubleAnimationUsingKeyFrames>
 		</Storyboard>
 	</Window.Resources>
+	<Window.Background>
+		<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+			<GradientStop Color="#FF64A4EB" Offset="0"/>
+			<GradientStop Color="#FF28328B" Offset="1"/>
+		</LinearGradientBrush>
+	</Window.Background>
 	<Window.Triggers>
 		<EventTrigger RoutedEvent="FrameworkElement.Loaded">
 			<BeginStoryboard Storyboard="{StaticResource Load}"/>
