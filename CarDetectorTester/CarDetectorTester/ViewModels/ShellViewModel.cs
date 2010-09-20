@@ -412,7 +412,7 @@ namespace CarDetectorTester.ViewModels
 
         private void HandleSpeed(byte[] packet)
         {
-            var r = new EndianBinaryReader(EndianBitConverter.Little, new MemoryStream(packet));
+            var r = new EndianBinaryReader(_endianConverter, new MemoryStream(packet));
             var speed = r.ReadInt16();
 
             Execute.OnUIThread(() => CarSpeedCh1 = speed);
