@@ -20,14 +20,15 @@ namespace CarDetectorTester.ViewModels
         private log4net.ILog _logger;
         private Task frequencyQueryWorker;
         private object _updateRealtimeDataLock = new object();
+        private EndianBitConverter _endianConverter = EndianBitConverter.Big;
 
         private const string hexFormat = "{0:x2} ";
         private const string decFormat = "{0:d2} ";
 
-        Stream stream = null;
-        EndianBinaryReader reader = null;
-        EndianBinaryWriter writer = null;
-        SerialPort serialPort = null;
+        Stream _stream = null;
+        EndianBinaryReader _reader = null;
+        EndianBinaryWriter _writer = null;
+        SerialPort _serialPort = null;
 
         public Models.ChannelStatistics Channel1Stat { get; set; }
         public Models.ChannelStatistics Channel2Stat { get; set; }
@@ -192,22 +193,20 @@ namespace CarDetectorTester.ViewModels
         {
             try
             {
-#if DEBUG
-            stream = new StreamMock();
-#else
+
                 _logger.Info(_comPort);
                 _logger.Info(_baundRate);
 
 
-                serialPort = new SerialPort(_comPort);
-                serialPort.BaudRate = _baundRate;
-                serialPort.Parity = Parity.None;
-                serialPort.StopBits = StopBits.One;
-                serialPort.DataBits = 8;
-                serialPort.DtrEnable = true;
-                serialPort.Open();
-                stream = serialPort.BaseStream;
-#endif
+                _serialPort = new SerialPort(_comPort);
+                _serialPort.BaudRate = _baundRate;
+                _serialPort.Parity = Parity.None;
+                _serialPort.StopBits = StopBits.One;
+                _serialPort.DataBits = 8;
+                //serialPort.DtrEnable = true;
+                _serialPort.Open();
+                _stream = _serialPort.BaseStream;
+
                 CanSendCmd = true;
                 CanUpdateRealtimeData = true;
                 CanSetRect = true;
@@ -258,24 +257,12 @@ namespace CarDetectorTester.ViewModels
 
         public void SendCmd()
         {
-#if DEBUG
-            Channel1Stat.CarInCount+=1;
-            Channel1Stat.CarOutCount+=2;
-            Channel1Stat.IsCarIn = !Channel1Stat.IsCarIn;
-
-            Channel2Stat.CarInCount+=3;
-            Channel2Stat.CarOutCount+=4;
-            Channel2Stat.IsCarIn = !Channel2Stat.IsCarIn;
-
-            CarSpeedCh1 = DateTime.Now.Millisecond;
-            return;
-#endif
 
             var rawData = "";
 
             var hexData = Converter.StringToByteArray(CommandToSend.Replace(" ", ""));
-            writer.Write(hexData);
-            serialPort.BaseStream.Flush();
+            _writer.Write(hexData);
+            _serialPort.BaseStream.Flush();
 
 
         }
@@ -284,9 +271,9 @@ namespace CarDetectorTester.ViewModels
         {
             if (IsRunning)
             {
-                if (serialPort != null)
+                if (_serialPort != null)
                 {
-                    serialPort.Dispose();
+                    _serialPort.Dispose();
                 }
 
                 _cancelTokenSource.Cancel();
@@ -322,8 +309,8 @@ namespace CarDetectorTester.ViewModels
                                                        try
                                                        {
 
-                                                           reader = new EndianBinaryReader(EndianBitConverter.Little, stream);
-                                                           writer = new EndianBinaryWriter(EndianBitConverter.Little, stream);
+                                                           _reader = new EndianBinaryReader(_endianConverter, _stream);
+                                                           _writer = new EndianBinaryWriter(_endianConverter, _stream);
 
                                                            while (true)
                                                            {
@@ -332,43 +319,40 @@ namespace CarDetectorTester.ViewModels
                                                                    break;
                                                                }
 
-                                                               var hexResponse = new byte[4];
                                                                //skip header
-                                                               var flag55 = reader.ReadByte();
-                                                               var flagAA = reader.ReadByte();
-                                                               if ( (flag55 != 0x55) || ( flagAA != 0xaa) )
-                                                               {
-#if DEBUG
-                                                                   Thread.Sleep(1000);
-#endif
-
-                                                                   continue;
-                                                               }
-
-                                                               var length = reader.ReadByte();
+                                                               var flag55 = _reader.ReadByte();
+                                                               if ( flag55 != 0x55) continue;
+                                                               
+                                                               var flagAA = _reader.ReadByte();
+                                                               if (flagAA != 0xaa) continue;
+                                                               
+                                                               var length = _reader.ReadByte();
                                                                if (length > Properties.Settings.Default.MaxPackLength)
                                                                {
                                                                    continue;
                                                                }
 
-                                                               var commandType = reader.ReadByte();
+                                                               var packet  = _reader.ReadBytes(length);
 
-                                                               var packet  = reader.ReadBytes(length);
+                                                               var commandType = packet[0];
+
+                                                               var payLoad = new byte[packet.Length - 1];
+                                                               Array.Copy(packet, 1, payLoad, 0, payLoad.Length);
 
                                                                switch (commandType)
                                                                {
                                                                        //car in,out
                                                                    case 0x11:
                                                                    case 0x10:
-                                                                       HandleCarInOut(commandType, packet);
+                                                                       HandleCarInOut(commandType, payLoad);
                                                                        break;
                                                                        //speed
                                                                    case 0x12:
-                                                                       HandleSpeed(packet);
+                                                                       HandleSpeed(payLoad);
                                                                        break;
                                                                        //frequency
                                                                    case 0x02:
-                                                                       HandleFrequency(packet);
+                                                                       HandleFrequency(payLoad);
                                                                        break;
                                                                }
                                                            }
@@ -380,23 +364,23 @@ namespace CarDetectorTester.ViewModels
                                                        }
                                                        finally
                                                        {
-                                                           if (reader != null)
+                                                           if (_reader != null)
                                                            {
-                                                               reader.Dispose();
+                                                               _reader.Dispose();
                                                            }
-                                                           if (writer != null)
+                                                           if (_writer != null)
                                                            {
-                                                               writer.Dispose();
-                                                           }
-
-                                                           if (stream != null)
-                                                           {
-                                                               stream.Dispose();
+                                                               _writer.Dispose();
                                                            }
 
-                                                           if (serialPort != null)
+                                                           if (_stream != null)
                                                            {
-                                                               serialPort.Dispose();
+                                                               _stream.Dispose();
+                                                           }
+
+                                                           if (_serialPort != null)
+                                                           {
+                                                               _serialPort.Dispose();
                                                            }
 
                                                            IsRunning = false;
@@ -423,13 +407,13 @@ namespace CarDetectorTester.ViewModels
         private void SendHexCommand(string cmdString)
         {
             var hexData = Converter.StringToByteArray(cmdString.Replace(" ", ""));
-            writer.Write(hexData);
+            _writer.Write(hexData);
         }
 
         private void HandleSpeed(byte[] packet)
         {
             var r = new EndianBinaryReader(EndianBitConverter.Little, new MemoryStream(packet));
-            var speed = reader.ReadInt16();
+            var speed = r.ReadInt16();
 
             Execute.OnUIThread(() => CarSpeedCh1 = speed);
             
@@ -475,37 +459,27 @@ namespace CarDetectorTester.ViewModels
             rawData += Converter.ByteArrayToString(packet, hexFormat);
 
             var responseGroup = new List<ResponseData>();
-            var br = new BinaryReader(new MemoryStream(packet));
+            var reader = new EndianBinaryReader(_endianConverter, new MemoryStream(packet));
 
             for (int i = 0; i < 4; i++)
             {
-                var dataBuffer = new byte[2];
 
-                var data1 = ReadChannelData(br,
-                                            dataBuffer, "{0:d2} ");
+                var data1 = reader.ReadUInt16();
 
-                rawData += Converter.ByteArrayToString(dataBuffer,
-                                                       hexFormat);
-
-                var data2 = ReadChannelData(br,
-                                            dataBuffer, "{0:d2} ");
-
-                rawData += Converter.ByteArrayToString(dataBuffer,
-                                                       hexFormat);
-
+                var data2 = reader.ReadUInt16();
 
                 var responseData = new ResponseData
                                        {
                                            ChannelId = (i + 1).ToString(),
-                                           Data1 = data1,
-                                           Data2 = data2,
-                                           Data3 = (int.Parse(data1) * 25000.0 / int.Parse(data2)).ToString("f3"),
+                                           Data1 = data1.ToString("d2"),
+                                           Data2 = data2.ToString("d2"),
+                                           Data3 = (data1 * 25000.0 / data2).ToString("f3"),
                                        };
 
                 responseGroup.Add(responseData);
             }
             //skip checksum
-            var checkSum = br.ReadByte();
+            var checkSum = reader.ReadByte();
             rawData += checkSum.ToString("x2");
 
             _logger.Info(rawData);
@@ -557,26 +531,7 @@ namespace CarDetectorTester.ViewModels
             }
         }
 
-        private void ReadLength(BinaryReader rdr, byte[] hexResponse, int offset, int length)
-        {
-            var count = 0;
-            var readAttemp = 0;
-            while (count < length)
-            {
-                var readCount = rdr.Read(hexResponse, offset + count, length - count);
-                count += readCount;
-            }
-        }
-
-        private string ReadChannelData(BinaryReader binaryReader, byte[] dataBuffer, string formatString)
-        {
-            ReadLength(binaryReader, dataBuffer, 0, dataBuffer.Length);
-
-            var netData = BitConverter.ToUInt16(dataBuffer, 0);
-            var hostData = (ushort)System.Net.IPAddress.NetworkToHostOrder((short)netData);
-
-            return hostData.ToString();
-        }
+     
 
         public bool CanStart
         {
