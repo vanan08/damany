@@ -61,5 +61,14 @@ namespace CarDetectorTester.Properties {
                 this["LastCommand"] = value;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("18")]
+        public int MaxPackLength {
+            get {
+                return ((int)(this["MaxPackLength"]));
+            }
+        }
     }
 }

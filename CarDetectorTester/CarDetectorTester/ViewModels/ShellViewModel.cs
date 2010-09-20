@@ -9,6 +9,8 @@ using System.Windows;
 using Caliburn.Micro;
 using CarDetectorTester.Models;
 using CarDetectorTester.Views;
+using MiscUtil.Conversion;
+using MiscUtil.IO;
 
 namespace CarDetectorTester.ViewModels
 {
@@ -23,8 +25,8 @@ namespace CarDetectorTester.ViewModels
         private const string decFormat = "{0:d2} ";
 
         Stream stream = null;
-        BinaryReader reader = null;
-        BinaryWriter writer = null;
+        EndianBinaryReader reader = null;
+        EndianBinaryWriter writer = null;
         SerialPort serialPort = null;
 
         public Models.ChannelStatistics Channel1Stat { get; set; }
@@ -320,10 +322,9 @@ namespace CarDetectorTester.ViewModels
                                                        try
                                                        {
 
-                                                           reader = new BinaryReader(stream);
-                                                           writer = new BinaryWriter(stream);
+                                                           reader = new EndianBinaryReader(EndianBitConverter.Little, stream);
+                                                           writer = new EndianBinaryWriter(EndianBitConverter.Little, stream);
 
-                                                          
                                                            while (true)
                                                            {
                                                                if (_cancelTokenSource.Token.IsCancellationRequested)
@@ -333,13 +334,10 @@ namespace CarDetectorTester.ViewModels
 
                                                                var hexResponse = new byte[4];
                                                                //skip header
-                                                               ReadLength(reader, hexResponse, 0, 2);
-                                                               if ((hexResponse[0] != 0x55)||(hexResponse[1] != 0xaa))
+                                                               var flag55 = reader.ReadByte();
+                                                               var flagAA = reader.ReadByte();
+                                                               if ( (flag55 != 0x55) || ( flagAA != 0xaa) )
                                                                {
-                                                                   if (serialPort != null)
-                                                                   {
-                                                                        serialPort.BaseStream.Flush();
-                                                                   }
 #if DEBUG
                                                                    Thread.Sleep(1000);
 #endif
@@ -347,13 +345,15 @@ namespace CarDetectorTester.ViewModels
                                                                    continue;
                                                                }
 
-                                                               ReadLength(reader, hexResponse, 0, 2);
-                                                               var length = hexResponse[0]-1;
-                                                               var commandType = hexResponse[1];
+                                                               var length = reader.ReadByte();
+                                                               if (length > Properties.Settings.Default.MaxPackLength)
+                                                               {
+                                                                   continue;
+                                                               }
 
-                                                               var packet = new byte[length];
-                                                               ReadLength(reader, packet, 0, packet.Length);
+                                                               var commandType = reader.ReadByte();
 
+                                                               var packet  = reader.ReadBytes(length);
 
                                                                switch (commandType)
                                                                {
@@ -428,9 +428,8 @@ namespace CarDetectorTester.ViewModels
 
         private void HandleSpeed(byte[] packet)
         {
-            int speed = packet[0];
-            speed = speed << 8;
-            speed += packet[1];
+            var r = new EndianBinaryReader(EndianBitConverter.Little, new MemoryStream(packet));
+            var speed = reader.ReadInt16();
 
             Execute.OnUIThread(() => CarSpeedCh1 = speed);
             
