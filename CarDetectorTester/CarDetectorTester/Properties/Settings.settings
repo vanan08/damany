@@ -14,5 +14,8 @@
     <Setting Name="LastCommand" Type="System.String" Scope="User">
       <Value Profile="(Default)">AA 55 04 01 01 01 03</Value>
     </Setting>
+    <Setting Name="MaxPackLength" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">18</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
