@@ -42,8 +42,8 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Damany.Imaging.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>l:\Documents and Settings\benny\My Documents\Visual Studio 2010\Projects\FaceCapture_working\RemoteImaging\lib\Damany.Imaging.Common.dll</HintPath>
+    <Reference Include="Damany.Imaging.Common">
+      <HintPath>..\RemoteImaging\lib\Damany.Imaging.Common.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition, Version=2010.2.11.0, Culture=neutral, processorArchitecture=MSIL">
