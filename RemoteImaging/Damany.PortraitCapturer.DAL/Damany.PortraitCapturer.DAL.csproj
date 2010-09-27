@@ -46,11 +46,11 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Library\AutoMapper.dll</HintPath>
     </Reference>
-    <Reference Include="Damany.Imaging.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>l:\Documents and Settings\benny\My Documents\Visual Studio 2010\Projects\FaceCapture_working\RemoteImaging\lib\Damany.Imaging.Common.dll</HintPath>
+    <Reference Include="Damany.Imaging.Common">
+      <HintPath>..\lib\Damany.Imaging.Common.dll</HintPath>
     </Reference>
-    <Reference Include="Damany.Util, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>l:\Documents and Settings\benny\My Documents\Visual Studio 2010\Projects\FaceCapture_working\RemoteImaging\lib\Damany.Util.dll</HintPath>
+    <Reference Include="Damany.Util">
+      <HintPath>..\lib\Damany.Util.dll</HintPath>
     </Reference>
     <Reference Include="Db4objects.Db4o, Version=7.12.132.14217, Culture=neutral, PublicKeyToken=6199cd4f203aa8eb, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

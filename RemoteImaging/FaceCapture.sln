@@ -28,6 +28,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WatchDog", "WatchDog\WatchD
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FaceSearcherTester", "FaceSearcherTester\FaceSearcherTester.csproj", "{33D2297F-76D8-4F3B-B1A0-C6B2E4B1C9A7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemoteImaging", "RemoteImaging\RemoteImaging.csproj", "{E0F855A2-D8FA-4D2F-9645-C6E8DE8AACD4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -172,6 +174,18 @@ Global
 		{33D2297F-76D8-4F3B-B1A0-C6B2E4B1C9A7}.Release|Win32.ActiveCfg = Release|x86
 		{33D2297F-76D8-4F3B-B1A0-C6B2E4B1C9A7}.Release|x86.ActiveCfg = Release|x86
 		{33D2297F-76D8-4F3B-B1A0-C6B2E4B1C9A7}.Release|x86.Build.0 = Release|x86
+		{E0F855A2-D8FA-4D2F-9645-C6E8DE8AACD4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0F855A2-D8FA-4D2F-9645-C6E8DE8AACD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0F855A2-D8FA-4D2F-9645-C6E8DE8AACD4}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{E0F855A2-D8FA-4D2F-9645-C6E8DE8AACD4}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{E0F855A2-D8FA-4D2F-9645-C6E8DE8AACD4}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{E0F855A2-D8FA-4D2F-9645-C6E8DE8AACD4}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{E0F855A2-D8FA-4D2F-9645-C6E8DE8AACD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0F855A2-D8FA-4D2F-9645-C6E8DE8AACD4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0F855A2-D8FA-4D2F-9645-C6E8DE8AACD4}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{E0F855A2-D8FA-4D2F-9645-C6E8DE8AACD4}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{E0F855A2-D8FA-4D2F-9645-C6E8DE8AACD4}.Release|Win32.ActiveCfg = Release|Any CPU
+		{E0F855A2-D8FA-4D2F-9645-C6E8DE8AACD4}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
