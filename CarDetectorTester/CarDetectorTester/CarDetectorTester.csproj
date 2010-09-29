@@ -48,6 +48,9 @@
     <Reference Include="Ciloci.Flee">
       <HintPath>..\..\Library\Flee-0.9.26.0\lib\Ciloci.Flee.dll</HintPath>
     </Reference>
+    <Reference Include="Cinch.WPF">
+      <HintPath>..\Lib\Cinch.WPF.dll</HintPath>
+    </Reference>
     <Reference Include="DevExpress.Charts.v10.1.Core, Version=10.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
       <Private>True</Private>
     </Reference>
@@ -72,6 +75,9 @@
     </Reference>
     <Reference Include="log4net">
       <HintPath>..\Lib\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="MEFedMVVM.WPF">
+      <HintPath>..\Lib\MEFedMVVM.WPF.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Expression.Interactions" />
     <Reference Include="MiscUtil">
