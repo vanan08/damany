@@ -9,6 +9,7 @@ using System.Windows;
 using Caliburn.Micro;
 using CarDetectorTester.Models;
 using CarDetectorTester.Views;
+using Ciloci.Flee;
 using MiscUtil.Conversion;
 using MiscUtil.IO;
 
@@ -21,6 +22,9 @@ namespace CarDetectorTester.ViewModels
         private Task frequencyQueryWorker;
         private object _updateRealtimeDataLock = new object();
         private EndianBitConverter _endianConverter = EndianBitConverter.Big;
+
+        private IGenericExpression<double> _expression;
+        private ExpressionContext _context;
 
         private const string hexFormat = "{0:x2} ";
         private const string decFormat = "{0:d2} ";
@@ -167,6 +171,45 @@ namespace CarDetectorTester.ViewModels
             }
         }
 
+        private bool _reportSpeed = false;
+        public bool ReportSpeed
+        {
+            get { return _reportSpeed; }
+            set
+            {
+                _reportSpeed = value;
+                NotifyOfPropertyChange(()=>ReportSpeed);
+                if (_reportSpeed)
+                {
+                   SendHexCommand(Properties.Settings.Default.EnableSpeedReportCommand); 
+                }
+                else
+                {
+                    SendHexCommand(Properties.Settings.Default.DisableSpeedReportCommand);
+                }
+            }
+        }
+
+
+        private bool _useDfaProtocol=true;
+        public bool UseDfaProtocol
+        {
+            get { return _useDfaProtocol; }
+            set
+            {
+                _useDfaProtocol = value;
+                NotifyOfPropertyChange(()=>UseDfaProtocol);
+                if (_useDfaProtocol)
+                {
+                    SendHexCommand(Properties.Settings.Default.EnableDFAProtocol);
+                }
+                else
+                {
+                    SendHexCommand(Properties.Settings.Default.DisableDFAProtocol);
+                }
+            }
+        }
+
         public ObservableCollection<Models.ResponseData> Responses { get; set; }
         public ObservableCollection<Models.ResponseData> Responses1 { get; set; }
         public ObservableCollection<Models.ResponseData> Responses2 { get; set; }
@@ -187,7 +230,16 @@ namespace CarDetectorTester.ViewModels
             _commandName = "开始";
             _logger = log4net.LogManager.GetLogger(typeof(ShellViewModel));
 
+            _context = new ExpressionContext();
+            _context.Imports.AddType(typeof (Math));
+
+            _context.Variables["data1"] = 0.0;
+            _context.Variables["data2"] = 0.0;
+
+            _expression = _context.CompileGeneric<double>(Properties.Settings.Default.Data3Expression);
         }
+
+       
 
         public void Connect()
         {
@@ -203,7 +255,7 @@ namespace CarDetectorTester.ViewModels
                 _serialPort.Parity = Parity.None;
                 _serialPort.StopBits = StopBits.One;
                 _serialPort.DataBits = 8;
-                //serialPort.DtrEnable = true;
+                _serialPort.DtrEnable = true;
                 _serialPort.Open();
                 _stream = _serialPort.BaseStream;
 
@@ -452,6 +504,8 @@ namespace CarDetectorTester.ViewModels
             }
         }
 
+
+
         private void HandleFrequency(byte[] packet)
         {
             var rawData = "";
@@ -465,15 +519,19 @@ namespace CarDetectorTester.ViewModels
             {
 
                 var data1 = reader.ReadUInt16();
-
                 var data2 = reader.ReadUInt16();
+
+                _context.Variables["data1"] = (double)data1;
+                _context.Variables["data2"] = (double) data2;
+
+                var data3 = _expression.Evaluate();
 
                 var responseData = new ResponseData
                                        {
                                            ChannelId = (i + 1).ToString(),
                                            Data1 = data1.ToString("d2"),
                                            Data2 = data2.ToString("d2"),
-                                           Data3 = (data1 * 25000.0 / data2).ToString("f3"),
+                                           Data3 = data3.ToString("f3"),
                                        };
 
                 responseGroup.Add(responseData);
@@ -520,6 +578,11 @@ namespace CarDetectorTester.ViewModels
 
         private void RemoveOldData()
         {
+            if (Responses.Count >20)
+            {
+                Responses.RemoveAt(Responses.Count-1);
+            }
+
             if (Responses1.Count > 20)
             {
                 Responses1.RemoveAt(0);

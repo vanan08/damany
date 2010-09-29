@@ -25,7 +25,7 @@ namespace CarDetectorTester.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("AA 55 03 00 02 00")]
+        [global::System.Configuration.DefaultSettingValueAttribute("AA 55 03 00 04 00")]
         public string FrequencyQueryCmd {
             get {
                 return ((string)(this["FrequencyQueryCmd"]));
@@ -68,6 +68,51 @@ namespace CarDetectorTester.Properties {
         public int MaxPackLength {
             get {
                 return ((int)(this["MaxPackLength"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("data2 - data1")]
+        public string Data3Expression {
+            get {
+                return ((string)(this["Data3Expression"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("AA 55 04 01 01 01 03")]
+        public string EnableSpeedReportCommand {
+            get {
+                return ((string)(this["EnableSpeedReportCommand"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("AA 55 04 01 01 00 03")]
+        public string DisableSpeedReportCommand {
+            get {
+                return ((string)(this["DisableSpeedReportCommand"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("AA 55 04 01 03 01 03")]
+        public string EnableDFAProtocol {
+            get {
+                return ((string)(this["EnableDFAProtocol"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("AA 55 04 01 03 00 03")]
+        public string DisableDFAProtocol {
+            get {
+                return ((string)(this["DisableDFAProtocol"]));
             }
         }
     }

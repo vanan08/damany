@@ -45,6 +45,9 @@
     <Reference Include="Caliburn.Micro">
       <HintPath>..\Lib\Caliburn.Micro.dll</HintPath>
     </Reference>
+    <Reference Include="Ciloci.Flee">
+      <HintPath>..\..\Library\Flee-0.9.26.0\lib\Ciloci.Flee.dll</HintPath>
+    </Reference>
     <Reference Include="DevExpress.Charts.v10.1.Core, Version=10.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
       <Private>True</Private>
     </Reference>
@@ -58,7 +61,13 @@
     <Reference Include="DevExpress.Xpf.Core.v10.1, Version=10.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
       <Private>True</Private>
     </Reference>
+    <Reference Include="DevExpress.Xpf.Grid.v10.1, Version=10.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
     <Reference Include="DevExpress.Xpf.LayoutControl.v10.1, Version=10.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Xpf.Printing.v10.1, Version=10.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
       <Private>True</Private>
     </Reference>
     <Reference Include="log4net">
@@ -72,6 +81,8 @@
     <Reference Include="PresentationFramework.Classic" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Printing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity" />
     <Reference Include="System.Xml" />
@@ -82,6 +93,8 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="UIAutomationTypes" />
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
