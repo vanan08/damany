@@ -31,25 +31,25 @@
 		<Storyboard x:Key="Load">
 			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="ChannelStat">
 				<EasingDoubleKeyFrame KeyTime="0" Value="-785"/>
-				<EasingDoubleKeyFrame KeyTime="0:0:1" Value="0">
+				<EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0">
 					<EasingDoubleKeyFrame.EasingFunction>
-						<CircleEase EasingMode="EaseInOut"/>
+						<CircleEase EasingMode="EaseOut"/>
 					</EasingDoubleKeyFrame.EasingFunction>
 				</EasingDoubleKeyFrame>
 			</DoubleAnimationUsingKeyFrames>
 			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="Controls">
 				<EasingDoubleKeyFrame KeyTime="0" Value="-139"/>
-				<EasingDoubleKeyFrame KeyTime="0:0:1" Value="0">
+				<EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0">
 					<EasingDoubleKeyFrame.EasingFunction>
-						<CircleEase EasingMode="EaseInOut"/>
+						<CircleEase EasingMode="EaseOut"/>
 					</EasingDoubleKeyFrame.EasingFunction>
 				</EasingDoubleKeyFrame>
 			</DoubleAnimationUsingKeyFrames>
 			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="RealTimeData">
 				<EasingDoubleKeyFrame KeyTime="0" Value="255"/>
-				<EasingDoubleKeyFrame KeyTime="0:0:1" Value="0">
+				<EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0">
 					<EasingDoubleKeyFrame.EasingFunction>
-						<CircleEase EasingMode="EaseInOut"/>
+						<CircleEase EasingMode="EaseOut"/>
 					</EasingDoubleKeyFrame.EasingFunction>
 				</EasingDoubleKeyFrame>
 			</DoubleAnimationUsingKeyFrames>
