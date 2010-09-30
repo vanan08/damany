@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Linq;
+using System.Reflection;
 using System.Windows;
+using Cinch;
 
 namespace CarDetectorTester
 {
@@ -14,7 +16,8 @@ namespace CarDetectorTester
     {
         public App()
         {
-            var i = 3;
+            CinchBootStrapper.Initialise(new List<Assembly> { typeof(App).Assembly });
+            InitializeComponent();
         }
     }
 }

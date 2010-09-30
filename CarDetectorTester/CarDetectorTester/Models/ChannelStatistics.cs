@@ -1,6 +1,6 @@
 namespace CarDetectorTester.Models
 {
-    public class ChannelStatistics : Caliburn.Micro.PropertyChangedBase
+    public class ChannelStatistics : Cinch.EditableValidatingObject
     {
         private string _channelName;
         public string ChannelName
@@ -9,7 +9,7 @@ namespace CarDetectorTester.Models
             set
             {
                 _channelName = value;
-                NotifyOfPropertyChange(()=>ChannelName);
+                NotifyPropertyChanged("ChannelName");
             }
         }
 
@@ -21,7 +21,8 @@ namespace CarDetectorTester.Models
             set
             {
                 _carInCount = value;
-                NotifyOfPropertyChange(()=>CarInCount);
+                NotifyPropertyChanged("CarInCount");
+
             }
         }
 
@@ -33,7 +34,7 @@ namespace CarDetectorTester.Models
             set
             {
                 _carOutCount = value;
-                NotifyOfPropertyChange(()=>CarOutCount);
+                NotifyPropertyChanged("CarOutCount");
             }
         }
 
@@ -45,7 +46,7 @@ namespace CarDetectorTester.Models
             set
             {
                 _isCarIn = value;
-                NotifyOfPropertyChange(()=>IsCarIn);
+                NotifyPropertyChanged("IsCarIn");
             }
         }
 
