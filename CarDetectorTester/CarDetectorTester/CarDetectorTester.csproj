@@ -42,9 +42,6 @@
     <ApplicationIcon>CarRepairBlue2.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Caliburn.Micro">
-      <HintPath>..\Lib\Caliburn.Micro.dll</HintPath>
-    </Reference>
     <Reference Include="Ciloci.Flee">
       <HintPath>..\..\Library\Flee-0.9.26.0\lib\Ciloci.Flee.dll</HintPath>
     </Reference>
@@ -86,6 +83,7 @@
     <Reference Include="PresentationFramework.Aero" />
     <Reference Include="PresentationFramework.Classic" />
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Printing" />
@@ -110,20 +108,20 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Bootstrapper.cs" />
     <Compile Include="ChannelStatistics.xaml.cs">
       <DependentUpon>ChannelStatistics.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converter.cs" />
     <Compile Include="Models\ChannelStatistics.cs" />
+    <Compile Include="Models\LengthAndWidth.cs" />
     <Compile Include="Models\ResponseData.cs" />
     <Compile Include="StreamMock.cs" />
     <Compile Include="TitledLed.xaml.cs">
       <DependentUpon>TitledLed.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\ShellViewModel.cs" />
-    <Compile Include="Views\WidthAndHeight.xaml.cs">
-      <DependentUpon>WidthAndHeight.xaml</DependentUpon>
+    <Compile Include="Views\WidthAndHeightPopup.xaml.cs">
+      <DependentUpon>WidthAndHeightPopup.xaml</DependentUpon>
     </Compile>
     <Page Include="ChannelStatistics.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -145,7 +143,7 @@
       <DependentUpon>ShellView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\WidthAndHeight.xaml">
+    <Page Include="Views\WidthAndHeightPopup.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -10,13 +10,16 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Cinch;
 
 namespace CarDetectorTester.Views
 {
     /// <summary>
-    /// Interaction logic for WidthAndHeight.xaml
+    /// Interaction logic for WidthAndHeightPopup.xaml
     /// </summary>
-    public partial class WidthAndHeight : Window
+
+    [PopupNameToViewLookupKeyMetadata("WidthAndHeightPopup", typeof(WidthAndHeightPopup))]
+    public partial class WidthAndHeightPopup : Window
     {
         public int RectWidth
         {
@@ -28,7 +31,7 @@ namespace CarDetectorTester.Views
             get { return int.Parse((string) length.EditValue); }
         }
 
-        public WidthAndHeight()
+        public WidthAndHeightPopup()
         {
             InitializeComponent();
         }

@@ -1,4 +1,23 @@
-﻿<Window xmlns:my="clr-namespace:DevExpress.Xpf.Grid;assembly=DevExpress.Xpf.Grid.v10.1"  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="clr-namespace:CarDetectorTester" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions" xmlns:System="clr-namespace:System;assembly=mscorlib" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Classic" xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/charts" xmlns:lc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol" xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" x:Name="window" mc:Ignorable="d" x:Class="CarDetectorTester.Views.ShellView" Title="车检器控制台" Icon="/CarDetectorTester;component/Images/CarRepairBlue2-32.png" Height="610" Width="773" Loaded="window_Loaded" Closing="window_Closing">
+﻿<Window xmlns:my="clr-namespace:DevExpress.Xpf.Grid;assembly=DevExpress.Xpf.Grid.v10.1"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+        xmlns:local="clr-namespace:CarDetectorTester" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions" 
+        xmlns:System="clr-namespace:System;assembly=mscorlib"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
+        xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Classic" 
+        xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/charts" 
+        xmlns:lc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol" 
+        xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" 
+        xmlns:mef="http:\\www.codeplex.com\MEFedMVVM"
+        xmlns:Cinch="clr-namespace:Cinch;assembly=Cinch.WPF"
+        x:Name="window" mc:Ignorable="d" x:Class="CarDetectorTester.Views.ShellView" 
+        Title="车检器控制台" Icon="/CarDetectorTester;component/Images/CarRepairBlue2-32.png" 
+        Height="610" Width="773"
+        mef:ViewModelLocator.ViewModel="ShellViewModel"
+        >
 	<Window.Resources>
 		<Style x:Key="ColumnHeaderGripperStyle" TargetType="{x:Type Thumb}">
 			<Setter Property="Width" Value="8" />
@@ -113,7 +132,7 @@
             <lc:LayoutGroup Header="串口" x:Name="layoutGroup1" View="GroupBox">
                 <lc:LayoutGroup Orientation="Vertical">
                     <lc:LayoutItem Label="串口号：" x:Name="layoutItem1">
-                        <TextBox x:Name="ComPort" Opacity="0.815" Text="com1" TextChanged="ComPort_TextChanged" TextWrapping="Wrap" />
+                        <TextBox x:Name="ComPort" Opacity="0.815" Text="com1"  TextWrapping="Wrap" />
                     </lc:LayoutItem>
                     <lc:LayoutItem Label="波特率：" x:Name="layoutItem2">
                         <TextBox x:Name="BaundRate" Opacity="0.815" Text="9600" TextWrapping="Wrap" />
@@ -129,7 +148,13 @@
             		<Button Content="发送" HorizontalAlignment="Left" x:Name="SendCmd" VerticalAlignment="Top" Width="40" />
             	</lc:LayoutGroup>
             	<StackPanel HorizontalAlignment="Left" x:Name="stackPanel2" VerticalAlignment="Top" Width="200" Orientation="Horizontal">
-            		<Button x:Name="SetRect" Content="长宽" Width="40"/>
+                    <Button x:Name="SetRect"  Content="长宽" Width="40">
+                    	<i:Interaction.Triggers>
+                    		<i:EventTrigger EventName="Click">
+                    			<Cinch:EventToCommandTrigger Command="{Binding SetLengthAndWidthCommand}"/>
+                    		</i:EventTrigger>
+                    	</i:Interaction.Triggers>
+                    </Button>
                     <dxe:CheckEdit Content="车速报告" IsChecked="{Binding ReportSpeed}" Margin="10,0,0,0" />
                     <dxe:CheckEdit Content="NIF 协议" IsChecked="{Binding UseDfaProtocol}"  Margin="10,0,0,0" />
                 </StackPanel>

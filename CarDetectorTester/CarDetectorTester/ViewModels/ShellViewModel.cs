@@ -1,22 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel.Composition;
 using System.IO;
 using System.IO.Ports;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using Caliburn.Micro;
 using CarDetectorTester.Models;
 using CarDetectorTester.Views;
 using Ciloci.Flee;
+using MEFedMVVM.Services.Contracts;
+using MEFedMVVM.ViewModelLocator;
 using MiscUtil.Conversion;
 using MiscUtil.IO;
+using Cinch;
 
 namespace CarDetectorTester.ViewModels
 {
-    public class ShellViewModel : Caliburn.Micro.PropertyChangedBase
+    [ExportViewModel("ShellViewModel")]
+    public class ShellViewModel : Cinch.EditableValidatingViewModelBase
     {
+        private readonly IMessageBoxService _messageBoxService;
+        private readonly IUIVisualizerService _uiVisualizerService;
+        private readonly IViewAwareStatusWindow _viewStatusWindow;
         private CancellationTokenSource _cancelTokenSource = new CancellationTokenSource();
         private log4net.ILog _logger;
         private Task frequencyQueryWorker;
@@ -37,6 +44,8 @@ namespace CarDetectorTester.ViewModels
         public Models.ChannelStatistics Channel1Stat { get; set; }
         public Models.ChannelStatistics Channel2Stat { get; set; }
 
+        public SimpleCommand<object, object> SetLengthAndWidthCommand { get; private set; }
+
 
         private int _carSpeedCh1;
         public int CarSpeedCh1
@@ -45,7 +54,7 @@ namespace CarDetectorTester.ViewModels
             set
             {
                 _carSpeedCh1 = value;
-                NotifyOfPropertyChange(() => CarSpeedCh1);
+                NotifyPropertyChanged("CarSpeedCh1");
             }
         }
 
@@ -56,8 +65,8 @@ namespace CarDetectorTester.ViewModels
             set
             {
                 _isRunning = value;
-                NotifyOfPropertyChange(() => IsRunning);
-                NotifyOfPropertyChange(() => CanStart);
+                NotifyPropertyChanged("IsRunning");
+                NotifyPropertyChanged("CanStart");
             }
         }
 
@@ -72,7 +81,7 @@ namespace CarDetectorTester.ViewModels
             set
             {
                 _canUpdateRealtimeData = value;
-                NotifyOfPropertyChange(()=>CanUpdateRealtimeData);
+                NotifyPropertyChanged("CanUpdateRealtimeData");
             }
         }
 
@@ -105,7 +114,7 @@ namespace CarDetectorTester.ViewModels
             set
             {
                 _commandName = value;
-                NotifyOfPropertyChange(() => CommandName);
+                NotifyPropertyChanged("CommandName");
             }
         }
 
@@ -116,7 +125,7 @@ namespace CarDetectorTester.ViewModels
             set
             {
                 _status = value;
-                NotifyOfPropertyChange(() => Status);
+                NotifyPropertyChanged("Status");
             }
         }
 
@@ -127,8 +136,8 @@ namespace CarDetectorTester.ViewModels
             set
             {
                 _comPort = value;
-                NotifyOfPropertyChange(() => ComPort);
-                NotifyOfPropertyChange(() => CanStart);
+                NotifyPropertyChanged("ComPort");
+                NotifyPropertyChanged("CanStart");
             }
         }
 
@@ -139,8 +148,8 @@ namespace CarDetectorTester.ViewModels
             set
             {
                 _baundRate = value;
-                NotifyOfPropertyChange(() => BaundRate);
-                NotifyOfPropertyChange(() => CanStart);
+                NotifyPropertyChanged("BaundRate");
+                NotifyPropertyChanged("CanStart");
             }
         }
 
@@ -151,8 +160,8 @@ namespace CarDetectorTester.ViewModels
             set
             {
                 _commandToSend = value;
-                NotifyOfPropertyChange(() => CommandToSend);
-                NotifyOfPropertyChange(() => CanStart);
+                NotifyPropertyChanged("CommandToSend");
+                NotifyPropertyChanged("CanStart");
             }
         }
 
@@ -167,7 +176,7 @@ namespace CarDetectorTester.ViewModels
             set
             {
                 _canSendCmd = value;
-                NotifyOfPropertyChange(()=>CanSendCmd);
+                NotifyPropertyChanged("CanSendCmd");
             }
         }
 
@@ -178,7 +187,7 @@ namespace CarDetectorTester.ViewModels
             set
             {
                 _reportSpeed = value;
-                NotifyOfPropertyChange(()=>ReportSpeed);
+                NotifyPropertyChanged("ReportSpeed");
                 if (_reportSpeed)
                 {
                    SendHexCommand(Properties.Settings.Default.EnableSpeedReportCommand); 
@@ -198,7 +207,7 @@ namespace CarDetectorTester.ViewModels
             set
             {
                 _useDfaProtocol = value;
-                NotifyOfPropertyChange(()=>UseDfaProtocol);
+                NotifyPropertyChanged("UseDfaProtocol");
                 if (_useDfaProtocol)
                 {
                     SendHexCommand(Properties.Settings.Default.EnableDFAProtocol);
@@ -210,16 +219,22 @@ namespace CarDetectorTester.ViewModels
             }
         }
 
-        public ObservableCollection<Models.ResponseData> Responses { get; set; }
-        public ObservableCollection<Models.ResponseData> Responses1 { get; set; }
-        public ObservableCollection<Models.ResponseData> Responses2 { get; set; }
+        public DispatcherNotifiedObservableCollection<Models.ResponseData> Responses { get; set; }
+        public DispatcherNotifiedObservableCollection<Models.ResponseData> Responses1 { get; set; }
+        public DispatcherNotifiedObservableCollection<Models.ResponseData> Responses2 { get; set; }
 
-
-        public ShellViewModel()
+        [ImportingConstructor]
+        public ShellViewModel(IMessageBoxService messageBoxService,
+                              IUIVisualizerService uiVisualizerService,
+                              IViewAwareStatusWindow viewStatusWindow)
         {
-            Responses = new ObservableCollection<ResponseData>();
-            Responses1 = new ObservableCollection<ResponseData>();
-            Responses2 = new ObservableCollection<ResponseData>();
+            _messageBoxService = messageBoxService;
+            _uiVisualizerService = uiVisualizerService;
+            _viewStatusWindow = viewStatusWindow;
+
+            Responses = new DispatcherNotifiedObservableCollection<ResponseData>();
+            Responses1 = new DispatcherNotifiedObservableCollection<ResponseData>();
+            Responses2 = new DispatcherNotifiedObservableCollection<ResponseData>();
 
             Channel1Stat = new Models.ChannelStatistics() { ChannelName = "1通道" };
             Channel2Stat = new Models.ChannelStatistics() { ChannelName = "2通道" };
@@ -237,18 +252,26 @@ namespace CarDetectorTester.ViewModels
             _context.Variables["data2"] = 0.0;
 
             _expression = _context.CompileGeneric<double>(Properties.Settings.Default.Data3Expression);
+
+            SetLengthAndWidthCommand = new SimpleCommand<object, object>(x=>SetRect());
+
+            _viewStatusWindow.ViewWindowClosing += _viewStatusWindow_ViewWindowClosing;
+
         }
 
-       
+        void _viewStatusWindow_ViewWindowClosing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            Properties.Settings.Default.LastCommand = CommandToSend;
+            Properties.Settings.Default.Save();
+        }
+
 
         public void Connect()
         {
             try
             {
-
                 _logger.Info(_comPort);
                 _logger.Info(_baundRate);
-
 
                 _serialPort = new SerialPort(_comPort);
                 _serialPort.BaudRate = _baundRate;
@@ -268,7 +291,7 @@ namespace CarDetectorTester.ViewModels
             }
             catch (Exception ex)
             {
-                Execute.OnUIThread(()=> MessageBox.Show(ex.Message) );
+                _messageBoxService.ShowError(ex.Message);
             }
         }
 
@@ -287,21 +310,18 @@ namespace CarDetectorTester.ViewModels
             set
             { 
                 _canSetRect = value;
-                NotifyOfPropertyChange(()=>CanSetRect);
+                NotifyPropertyChanged("CanSetRect");
             }
         }
 
         public void SetRect()
         {
-            var form = new WidthAndHeight();
-            var result = form.ShowDialog();
+            var size = new Models.LengthAndWidth();
+            var result = _uiVisualizerService.ShowDialog("WidthAndHeightPopup", size);
 
             if (result.HasValue && result.Value == true)
             {
-                var l = form.RectLength;
-                var w = form.RectWidth;
-
-                var cmd = string.Format(Properties.Settings.Default.SetLongAndWidthCommand, l, w);
+                var cmd = string.Format(Properties.Settings.Default.SetLongAndWidthCommand, size.Length, size.Width);
                 SendHexCommand(cmd);
             }
         }
@@ -309,14 +329,11 @@ namespace CarDetectorTester.ViewModels
 
         public void SendCmd()
         {
-
             var rawData = "";
 
             var hexData = Converter.StringToByteArray(CommandToSend.Replace(" ", ""));
             _writer.Write(hexData);
             _serialPort.BaseStream.Flush();
-
-
         }
 
         public void RunRecv()
@@ -338,11 +355,8 @@ namespace CarDetectorTester.ViewModels
 
             var worker = Task.Factory.StartNew(() =>
                                                    {
-                                                       Execute.OnUIThread(() =>
-                                                                              {
-                                                                                  IsRunning = true;
-                                                                                  CommandName = "停止";
-                                                                              });
+                                                       IsRunning = true;
+                                                       CommandName = "停止";
 
                                                        Task.Factory.StartNew(() =>
                                                        {
@@ -439,7 +453,7 @@ namespace CarDetectorTester.ViewModels
                                                        }
                                                    }, _cancelTokenSource.Token);
 
-            worker.ContinueWith(
+                worker.ContinueWith(
                 result =>
                 {
                     IsRunning = false;
@@ -449,7 +463,7 @@ namespace CarDetectorTester.ViewModels
                 TaskContinuationOptions.None,
                 taskScheduler);
 
-            worker.ContinueWith(result => MessageBox.Show(result.Exception.InnerExceptions[0].Message+Environment.NewLine + result.Exception.ToString(), "", MessageBoxButton.OK, MessageBoxImage.Error ),
+            worker.ContinueWith(result => _messageBoxService.ShowError(result.Exception.InnerExceptions[0].Message),
                     CancellationToken.None,
                     TaskContinuationOptions.OnlyOnFaulted,
                     taskScheduler
@@ -458,8 +472,16 @@ namespace CarDetectorTester.ViewModels
 
         private void SendHexCommand(string cmdString)
         {
-            var hexData = Converter.StringToByteArray(cmdString.Replace(" ", ""));
-            _writer.Write(hexData);
+            try
+            {
+                var hexData = Converter.StringToByteArray(cmdString.Replace(" ", ""));
+                _writer.Write(hexData);
+            }
+            catch (Exception ex)
+            {
+                _messageBoxService.ShowError(ex.Message);
+            }
+            
         }
 
         private void HandleSpeed(byte[] packet)
@@ -467,7 +489,7 @@ namespace CarDetectorTester.ViewModels
             var r = new EndianBinaryReader(_endianConverter, new MemoryStream(packet));
             var speed = r.ReadInt16();
 
-            Execute.OnUIThread(() => CarSpeedCh1 = speed);
+             CarSpeedCh1 = speed;
             
         }
 
@@ -475,32 +497,30 @@ namespace CarDetectorTester.ViewModels
         {
             if (command == 0x10)//in
             {
-                Execute.OnUIThread( ()=>
-                                        {
-                                            var ch1 = packet[0] & 0x03;
-                                            if (ch1==2)
-                                            {
-                                                Channel1Stat.CarInCount++;
-                                                Channel1Stat.IsCarIn = true;
-                                            }
-                                            else if (ch1 == 1)
-                                            {
-                                                Channel1Stat.CarOutCount++;
-                                                Channel1Stat.IsCarIn = false;
-                                            }
+                var ch1 = packet[0] & 0x03;
+                if (ch1==2)
+                {
+                    Channel1Stat.CarInCount++;
+                    Channel1Stat.IsCarIn = true;
+                }
+                else if (ch1 == 1)
+                {
+                    Channel1Stat.CarOutCount++;
+                    Channel1Stat.IsCarIn = false;
+                }
 
-                                            var ch2 = (packet[0]>>2) & 0x03;
-                                            if (ch2 == 2)
-                                            {
-                                                Channel2Stat.CarInCount++;
-                                                Channel2Stat.IsCarIn = true;
-                                            }
-                                            else if (ch2 == 1)
-                                            {
-                                                Channel2Stat.CarOutCount++;
-                                                Channel2Stat.IsCarIn = false;
-                                            }
-                                        });
+                var ch2 = (packet[0]>>2) & 0x03;
+                if (ch2 == 2)
+                {
+                    Channel2Stat.CarInCount++;
+                    Channel2Stat.IsCarIn = true;
+                }
+                else if (ch2 == 1)
+                {
+                    Channel2Stat.CarOutCount++;
+                    Channel2Stat.IsCarIn = false;
+                }
+                
             }
         }
 
@@ -546,33 +566,23 @@ namespace CarDetectorTester.ViewModels
             foreach (var responseData in responseGroup)
             {
                 var copy = responseData;
-                Execute.OnUIThread(() =>
-                                       {
-                                           Responses.Insert(0, copy);
-                                           if (copy.ChannelId == "1")
-                                           {
-                                               Responses1.Add(copy);
-                                           }
-                                           if (copy.ChannelId == "2")
-                                           {
-                                               Responses2.Add(copy);
-                                           }
-                                           RemoveOldData();
-                                       }
-                    );
+                Responses.Insert(0, copy);
+                if (copy.ChannelId == "1")
+                {
+                    Responses1.Add(copy);
+                }
+                if (copy.ChannelId == "2")
+                {
+                    Responses2.Add(copy);
+                }
+                RemoveOldData();
+                    
             }
 
-            Execute.OnUIThread(() =>
-                                   {
-                                       Responses.Insert(0,
-                                                        new ResponseData
-                                                            {
-                                                                Time
-                                                                    =
-                                                                    null
-                                                            });
-                                       RemoveOldData();
-                                   });
+                                   
+            Responses.Insert(0, new ResponseData{Time = null});
+            RemoveOldData();
+                                  
 
         }
 
@@ -618,8 +628,6 @@ namespace CarDetectorTester.ViewModels
 
                 return true;
             }
-
-
         }
     }
 }
