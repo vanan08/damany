@@ -114,7 +114,7 @@ namespace Damany.Windows.Form
 
             Cell c = this.cells[prevIdx];
             c.HightLight = false;
-            this.Invalidate(c.Bound);
+            this.Invalidate(c.Bound.ToRectangle());
         }
 
         void refreshTimer_Tick(object sender, EventArgs e)
@@ -157,7 +157,7 @@ namespace Damany.Windows.Form
                 dstCell.Tag = imgToShow.Tag;
                 dstCell.HightLight = true;
 
-                this.Invalidate(dstCell.Bound);
+                this.Invalidate(dstCell.Bound.ToRectangle());
                 cursor++;
             }
             catch (InvalidOperationException)// the queue is empty
@@ -213,16 +213,16 @@ namespace Damany.Windows.Form
         private void CalcLayout()
         {
 
-            int width = this.ClientRectangle.Width / this.NumberOfColumns;
-            int height = this.ClientRectangle.Height / this.NumberofRows;
+            float width = (float)this.ClientRectangle.Width / this.NumberOfColumns;
+            float height = (float)this.ClientRectangle.Height / this.NumberofRows;
 
             for (int i = 0; i < this.numOfRows; i++)
             {
                 for (int j = 0; j < this.numOfColumns; j++)
                 {
                     int idx = j + i * this.numOfColumns;
-                    this.cells[idx].Bound = new Rectangle(j * width, i * height, width, height);
-                    this.cells[idx].Rec = new Rectangle(j * width + this.Padding.Left,
+                    this.cells[idx].Bound = new RectangleF(j * width, i * height, width, height);
+                    this.cells[idx].Rec = new RectangleF(j * width + this.Padding.Left,
                         i * height + this.Padding.Top,
                         width - this.Padding.Horizontal,
                         height - this.Padding.Vertical);
@@ -245,7 +245,7 @@ namespace Damany.Windows.Form
             for (int i = 0; i < this.CellsCount; i++)
             {
                 Cell c = this.cells[i];
-                if (e.ClipRectangle.IntersectsWith(c.Bound))
+                if (e.ClipRectangle.IntersectsWith(new Rectangle((int) c.Bound.X, (int) c.Bound.Y, (int) c.Bound.Width, (int) c.Bound.Height)))
                 {
                     c.Paint(e.Graphics);
                 }
@@ -271,10 +271,10 @@ namespace Damany.Windows.Form
         private void PaintSelectedCell(Cell c)
         {
             LastSelectedCell.Selected = false;
-            this.Invalidate(LastSelectedCell.Bound);
+            this.Invalidate(LastSelectedCell.Bound.ToRectangle());
 
             c.Selected = true;
-            this.Invalidate(c.Bound);
+            this.Invalidate(c.Bound.ToRectangle());
         }
 
 

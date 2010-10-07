@@ -11,8 +11,8 @@ namespace Damany.Windows.Form
 {
     public class Cell
     {
-        public Rectangle Rec { get; set; }
-        public Rectangle Bound { get; set; }
+        public RectangleF Rec { get; set; }
+        public RectangleF Bound { get; set; }
         public int Row { get; set; }
         public int Column { get; set; }
         public int Index { get; set; }
@@ -76,17 +76,17 @@ namespace Damany.Windows.Form
 
 
 
-        public void CenterRectangleRelativeTo(Rectangle destRectangle, ref Rectangle srcRectangle)
+        public void CenterRectangleRelativeTo(RectangleF destRectangle, ref RectangleF srcRectangle)
         {
-            int x = destRectangle.X + (destRectangle.Width - srcRectangle.Width) / 2;
-            int y = destRectangle.Y + (destRectangle.Height - srcRectangle.Height) / 2;
+            var x = destRectangle.X + (destRectangle.Width - srcRectangle.Width) / 2;
+            var y = destRectangle.Y + (destRectangle.Height - srcRectangle.Height) / 2;
 
             srcRectangle.Offset(x, y);
         }
 
-        public Rectangle CalculateAutoFitRectangle(Rectangle destRectangle, Rectangle srcRectangle)
+        public RectangleF CalculateAutoFitRectangle(RectangleF destRectangle, RectangleF srcRectangle)
         {
-            Rectangle resultRec = srcRectangle;
+            var resultRec = srcRectangle;
 
             //scale the rectangle
             if (srcRectangle.Width > destRectangle.Width
@@ -104,7 +104,7 @@ namespace Damany.Windows.Form
             return resultRec;
         }
 
-        private void DrawOverlayText(Graphics g, Rectangle rectangle)
+        private void DrawOverlayText(Graphics g, RectangleF rectangle)
         {
             if (this.EnableOverlayText && !string.IsNullOrEmpty(this.OverlayText))
             {
@@ -138,23 +138,23 @@ namespace Damany.Windows.Form
                 g.DrawStringInCenterOfRectangle("未指定图片",
                                                 this.Font,
                                                 this.Selected ? Brushes.White : SystemBrushes.ControlText,
-                                                this.Rec);
+                                                this.Rec.ToRectangle());
 
 
-                g.DrawRectangle(Pens.Gray, this.Rec);
+                g.DrawRectangle(Pens.Gray, this.Rec.ToRectangle());
             }
             else
             {
                 SizeF sizeOfText = SizeF.Empty;
                 int space = 3;
 
-                Rectangle recOfImg = this.Rec;
+                RectangleF recOfImg = this.Rec;
 
                 if (!string.IsNullOrEmpty(this.Text))
                 {
                     sizeOfText = g.MeasureString(this.Text, this.Font);
-                    Rectangle recText = this.Rec;
-                    int h = this.Rec.Height - (int)sizeOfText.Height - space;
+                    RectangleF recText = this.Rec;
+                    int h = (int) (this.Rec.Height - (int)sizeOfText.Height - space);
                     recText.Offset(0, h);
                     recText.Height -= h;
 
@@ -168,15 +168,14 @@ namespace Damany.Windows.Form
                 }
 
 
-                Rectangle rectangleOfImagePart = CalculateAutoFitRectangle(
-                                                            recOfImg,
-                                                            new Rectangle(0, 0, this.Image.Width, this.Image.Height) );
+                var rectangleOfImagePart = CalculateAutoFitRectangle(recOfImg,
+                                                            new RectangleF(0, 0, this.Image.Width, this.Image.Height) );
 
                 g.DrawImage(this.Image, rectangleOfImagePart);
 
                 DrawOverlayText(g, this.Rec);
 
-                g.DrawRectangle(Pens.Gray, recOfImg);
+                g.DrawRectangle(Pens.Gray, recOfImg.ToRectangle());
             }
         }
 

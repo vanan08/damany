@@ -17,7 +17,7 @@ namespace Damany.Drawing
             g.DrawString(textToDraw, font, Brushes.White, x, y);
         }
 
-        public static void DrawStringInCenterOfRectangle(this Graphics g, string str, Font font, Brush brush, Rectangle rec)
+        public static void DrawStringInCenterOfRectangle(this Graphics g, string str, Font font, Brush brush, RectangleF rec)
         {
             SizeF sizeOfPrompt = g.MeasureString(str, font);
             float x = rec.X + (rec.Width - sizeOfPrompt.Width) / 2;
