@@ -114,7 +114,9 @@ namespace Damany.Windows.Form
 
             Cell c = this.cells[prevIdx];
             c.HightLight = false;
-            this.Invalidate(c.Bound.ToRectangle());
+            var rec = new Rectangle();
+            
+            this.Invalidate(Rectangle.Round(c.Bound));
         }
 
         void refreshTimer_Tick(object sender, EventArgs e)
@@ -157,7 +159,7 @@ namespace Damany.Windows.Form
                 dstCell.Tag = imgToShow.Tag;
                 dstCell.HightLight = true;
 
-                this.Invalidate(dstCell.Bound.ToRectangle());
+                this.Invalidate( Rectangle.Round(dstCell.Bound));
                 cursor++;
             }
             catch (InvalidOperationException)// the queue is empty
@@ -271,10 +273,10 @@ namespace Damany.Windows.Form
         private void PaintSelectedCell(Cell c)
         {
             LastSelectedCell.Selected = false;
-            this.Invalidate(LastSelectedCell.Bound.ToRectangle());
+            this.Invalidate( Rectangle.Round(LastSelectedCell.Bound) );
 
             c.Selected = true;
-            this.Invalidate(c.Bound.ToRectangle());
+            this.Invalidate( Rectangle.Round(c.Bound));
         }
 
 

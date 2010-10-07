@@ -138,10 +138,10 @@ namespace Damany.Windows.Form
                 g.DrawStringInCenterOfRectangle("未指定图片",
                                                 this.Font,
                                                 this.Selected ? Brushes.White : SystemBrushes.ControlText,
-                                                this.Rec.ToRectangle());
+                                                Rectangle.Round(this.Rec));
 
 
-                g.DrawRectangle(Pens.Gray, this.Rec.ToRectangle());
+                g.DrawRectangle(Pens.Gray, Rectangle.Round(this.Rec));
             }
             else
             {
@@ -175,7 +175,7 @@ namespace Damany.Windows.Form
 
                 DrawOverlayText(g, this.Rec);
 
-                g.DrawRectangle(Pens.Gray, recOfImg.ToRectangle());
+                g.DrawRectangle(Pens.Gray, Rectangle.Round(recOfImg));
             }
         }
 
