@@ -50,7 +50,7 @@ namespace WindowsFormsApplication1
 
         void Form1_MouseMove(object sender, MouseEventArgs e)
         {
-            //this.mousePosition.Text = "Screen: " + e.Location + " World: " + BacktrackPoint(e.Location).ToString();
+            //this.mousePosition.Text = "Screen: " + e.Location + " World: " + ScreenToWorld(e.Location).ToString();
 
 
 
@@ -77,7 +77,7 @@ namespace WindowsFormsApplication1
 
                 var inflated = _drawingRectangle;
 
-                inflated.Inflate(25, 25);
+                inflated.Inflate(50, 50);
                 this.Invalidate(inflated);
 
                 _lastPoint = e.Location;
@@ -99,7 +99,7 @@ namespace WindowsFormsApplication1
                     return;
                 }
 
-               var rec = this.BacktrackRectangle(recScreen);
+               var rec = this.ScreenToWorld(recScreen);
 
                 System.Diagnostics.Debug.WriteLine(rec.ToString());
 
@@ -158,13 +158,13 @@ namespace WindowsFormsApplication1
             e.Graphics.Transform = new Matrix();
             var color = Color.FromArgb(125, Color.Yellow);
 
-            //e.Graphics.DrawString("hello there", this.Font, new SolidBrush(Color.White), this.TrackPoint(_positionOfString) );
+            //e.Graphics.DrawString("hello there", this.Font, new SolidBrush(Color.White), this.WorldToScreen(_positionOfString) );
 
             if (showCoilToolStripMenuItem.Checked)
             {
                  _rectangles.ForEach(r =>
                                     {
-                                        var t = TrackRectangle(r);
+                                        var t = WorldToScreen(r);
                                         DrawMarkedRectangle(e.Graphics, this.Font, new Pen(color, 3), t, r);
                                         
                                     });
@@ -175,7 +175,7 @@ namespace WindowsFormsApplication1
             if (_isDrag)
             {
                 e.Graphics.Transform = new Matrix();
-                DrawMarkedRectangle(e.Graphics, this.Font, Pens.Yellow, _drawingRectangle, BacktrackRectangle(_drawingRectangle));
+                DrawMarkedRectangle(e.Graphics, this.Font, Pens.Yellow, _drawingRectangle, ScreenToWorld(_drawingRectangle));
             }
         }
 
@@ -229,16 +229,16 @@ namespace WindowsFormsApplication1
 
         }
 
-        protected Rectangle TrackRectangle(Rectangle rectangle)
+        protected Rectangle WorldToScreen(Rectangle rectangle)
         {
-            var start = this.TrackPoint(rectangle.Location);
-            var end = this.TrackPoint(new Point(rectangle.Right, rectangle.Bottom));
+            var start = this.WorldToScreen(rectangle.Location);
+            var end = this.WorldToScreen(new Point(rectangle.Right, rectangle.Bottom));
 
             var rec = new Rectangle(start, new Size(end.X - start.X, end.Y - start.Y));
             return rec;
         }
 
-        protected Point TrackPoint(Point pt)
+        protected Point WorldToScreen(Point pt)
         {
             //Creates the drawing matrix with the right zoom;
             var mx = new Matrix(_zoom, 0, 0, _zoom, 0, 0);
@@ -253,7 +253,7 @@ namespace WindowsFormsApplication1
 
 
 
-        protected Point BacktrackPoint(Point point)
+        protected Point ScreenToWorld(Point point)
         {
             //Creates the drawing matrix with the right zoom;
             var mx = new Matrix(_zoom, 0, 0, _zoom, 0, 0);
@@ -267,12 +267,12 @@ namespace WindowsFormsApplication1
             return pa[0];
         }
 
-        protected Rectangle BacktrackRectangle(Rectangle rectangle)
+        protected Rectangle ScreenToWorld(Rectangle rectangle)
         {
-            var start = BacktrackPoint(rectangle.Location);
+            var start = ScreenToWorld(rectangle.Location);
 
             var endpoint = new Point(rectangle.Right, rectangle.Bottom);
-            var tracked = BacktrackPoint(endpoint);
+            var tracked = ScreenToWorld(endpoint);
 
             return new Rectangle(start.X, start.Y, tracked.X-start.X, tracked.Y-start.Y);
             
