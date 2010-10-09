@@ -50,7 +50,12 @@ namespace WindowsFormsApplication1
 
         void Form1_MouseMove(object sender, MouseEventArgs e)
         {
-            //this.mousePosition.Text = "Screen: " + e.Location + " World: " + ScreenToWorld(e.Location).ToString();
+            var imgW = _image == null ? 0 : _image.Width;
+            var imgH = _image == null ? 0 : _image.Height;
+
+            var worldPos = ScreenToWorld(e.Location);
+
+            Text = string.Format("Img Size: {0}X{1}, Cur Pos: {2},{3}", imgW, imgH, worldPos.X, worldPos.Y);
 
 
 
@@ -359,6 +364,30 @@ namespace WindowsFormsApplication1
 
             }
 
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == (Keys.Control | Keys.Z))
+            {
+                if (_rectangles.Count > 0)
+                {
+                     _rectangles.RemoveAt( _rectangles.Count -1 );
+                    this.Invalidate();
+                }
+
+                return true;
+            }
+
+            if (keyData == (Keys.Control | Keys.S))
+            {
+                if (_image != null)
+                {
+               
+                }
+            }
+
+            return base.ProcessCmdKey(ref msg, keyData);
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
