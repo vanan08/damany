@@ -10,10 +10,7 @@ using System.Windows.Forms;
 
 namespace Damany.Windows.Form
 {
-    public class DrawFigureEventArgs : EventArgs
-    {
-        public Rectangle Rectangle { get; set; }
-    }
+  
 
     public partial class PictureBox : UserControl
     {
@@ -64,6 +61,7 @@ namespace Damany.Windows.Form
                 Invalidate();
             }
         }
+
 
         public event EventHandler<DrawFigureEventArgs> FigureDrawn;
 
@@ -156,6 +154,8 @@ namespace Damany.Windows.Form
 
         protected override void OnPaintBackground(PaintEventArgs e)
         {
+            e.Graphics.Clear(this.BackColor);
+
             if (_image == null) return;
 
             _scaleRatio = Math.Max((double)_image.Width / this.ClientSize.Width, (double)_image.Height / this.ClientSize.Height);
@@ -343,5 +343,10 @@ namespace Damany.Windows.Form
             }
 
         }
+    }
+
+    public class DrawFigureEventArgs : EventArgs
+    {
+        public Rectangle Rectangle { get; set; }
     }
 }
