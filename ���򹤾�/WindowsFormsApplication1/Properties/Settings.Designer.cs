@@ -22,5 +22,29 @@ namespace WindowsFormsApplication1.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string CameraIp {
+            get {
+                return ((string)(this["CameraIp"]));
+            }
+            set {
+                this["CameraIp"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string PeerIpPort {
+            get {
+                return ((string)(this["PeerIpPort"]));
+            }
+            set {
+                this["PeerIpPort"] = value;
+            }
+        }
     }
 }

@@ -7,12 +7,16 @@ using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Damany.Windows.Form;
 
 namespace WindowsFormsApplication1
 {
     public partial class Form1 : Form
     {
-        private List<Rectangle> _rectangles = new List<Rectangle>();
+        private Rectangle _rectangle = Rectangle.Empty;
+        private ISetRectangle _rectangleSetter;
+        private string _lastPeerAddress = string.Empty;
+        private Damany.Cameras.JPEGExtendStream _camera;
 
         public Form1()
         {
@@ -22,70 +26,86 @@ namespace WindowsFormsApplication1
 
         private System.Threading.Tasks.Task _t;
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            _rectangles.Clear();
-            this.Invalidate();
-
-            //if (_t == null)
-            //{
-            //    _t = System.Threading.Tasks.Task.Factory.StartNew(() =>
-            //                                                         {
-            //                                                             while (true)
-            //                                                             {
-            //                                                                 var files =
-            //                                                                 System.IO.Directory.EnumerateFiles(
-            //                                                                     @"D:\testpic");
-            //                                                             foreach (var file in files)
-            //                                                             {
-            //                                                                 var img =
-            //                                                                     System.Drawing.Image.FromFile(file);
-
-            //                                                                 _image = img;
-            //                                                                 this.Invalidate();
-
-            //                                                                 System.Threading.Thread.Sleep(500);
-            //                                                             }
-            //                                                             }
-
-            //                                                         });
-
-            //}
-
-        }
 
         void camera_NewFrame(object sender, AForge.Video.NewFrameEventArgs eventArgs)
         {
-            this.Invalidate();
+            var img = eventArgs.Frame.Clone();
+            this.BeginInvoke(new Action(() => pictureBox1.Image = (Image) img));
 
-            //_cam.SignalToStop();
         }
 
-        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
-        {
-            if (keyData == (Keys.Control | Keys.Z))
-            {
-                if (_rectangles.Count > 0)
-                {
-                    _rectangles.RemoveAt(_rectangles.Count - 1);
-                    this.Invalidate();
-                }
-
-                return true;
-            }
-
-           
-
-            return base.ProcessCmdKey(ref msg, keyData);
-        }
 
         private void pictureBox1_FigureDrawn(object sender, Damany.Windows.Form.DrawFigureEventArgs e)
         {
             pictureBox1.Clear();
             pictureBox1.AddRectangle(e.Rectangle);
+
+            _rectangle = e.Rectangle;
+            UpdateStatusLabel(e);
         }
 
+        private void UpdateStatusLabel(DrawFigureEventArgs e)
+        {
+            var status = string.Format("线圈位置：{0},{1}  线圈大小：{2}x{3}",
+                                       e.Rectangle.Left, e.Rectangle.Top, e.Rectangle.Width, e.Rectangle.Height);
+            //statusLabel.Caption = status;
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+
+            Properties.Settings.Default.Save();
+
+            if (_camera != null)
+            {
+                _camera.SignalToStop();
+            }
+        }
+
+        private void applyButton_Click(object sender, EventArgs e)
+        {
+            var ipport = (string)peerAddress.EditValue;
+            if (string.IsNullOrWhiteSpace(ipport)) return;
+            if (_rectangle == Rectangle.Empty) return;
 
 
+            if (ipport != _lastPeerAddress)
+            {
+                _lastPeerAddress = ipport.Replace(" ", "");
+                var add = _lastPeerAddress.Split(new[] { ':' });
+                _rectangleSetter = new TcpSetRectangle(add[0], int.Parse(add[1]));
+
+            }
+
+
+            _rectangleSetter.Set(_rectangle, error =>
+                                                 {
+                                                     string msg = error == null ? "设置成功" : "设置失败\r\n\r\n" + error.Message;
+                                                     var icon = error == null
+                                                                    ? MessageBoxIcon.Information
+                                                                    : MessageBoxIcon.Error;
+
+                                                     MessageBox.Show(this, msg, this.Text, MessageBoxButtons.OK, icon);
+
+                                                 });
+
+        }
+
+        private void connectButton_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace((string)cameraIp.EditValue)) return;
+
+            if (_camera == null)
+            {
+                var uri = string.Format("http://{0}/liveimg.cgi", cameraIp.EditValue);
+                _camera = new Damany.Cameras.JPEGExtendStream(uri);
+                _camera.Login = "guest";
+                _camera.Password = "guest";
+                _camera.FrameInterval = 500;
+                _camera.RequireCookie = true;
+                _camera.NewFrame += this.camera_NewFrame;
+                _camera.Start();
+            }
+        }
     }
 }
