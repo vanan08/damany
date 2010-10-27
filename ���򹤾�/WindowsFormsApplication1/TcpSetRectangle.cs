@@ -11,7 +11,7 @@ namespace WindowsFormsApplication1
         private readonly string _ip;
         private readonly int _port;
         private TcpClient _tcpClient;
-        private MiscUtil.IO.EndianBinaryWriter _writer;
+        private EndianBinaryWriter _writer;
 
         public TcpSetRectangle(string ip, int port)
         {
@@ -21,7 +21,6 @@ namespace WindowsFormsApplication1
 
         public void Set(Rectangle rectangle, Action<Exception> callBack)
         {
-            var scheduler = TaskScheduler.FromCurrentSynchronizationContext();
             var w = Task.Factory.StartNew(() =>
                                               {
 
@@ -53,7 +52,7 @@ namespace WindowsFormsApplication1
                                        ex = ant.Exception.InnerException;
                                    }
                                    callBack(ex);
-                               }, scheduler);
+                               });
 
         }
     }

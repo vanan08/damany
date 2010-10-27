@@ -30,7 +30,7 @@ namespace WindowsFormsApplication1
         void camera_NewFrame(object sender, AForge.Video.NewFrameEventArgs eventArgs)
         {
             var img = eventArgs.Frame.Clone();
-            this.BeginInvoke(new Action(() => pictureBox1.Image = (Image) img));
+            this.BeginInvoke(new Action(() => pictureBox1.Image = (Image)img));
 
         }
 
@@ -64,6 +64,7 @@ namespace WindowsFormsApplication1
 
         private void applyButton_Click(object sender, EventArgs e)
         {
+
             var ipport = (string)peerAddress.EditValue;
             if (string.IsNullOrWhiteSpace(ipport)) return;
             if (_rectangle == Rectangle.Empty) return;
@@ -77,16 +78,23 @@ namespace WindowsFormsApplication1
 
             }
 
-
             _rectangleSetter.Set(_rectangle, error =>
                                                  {
-                                                     string msg = error == null ? "设置成功" : "设置失败\r\n\r\n" + error.Message;
-                                                     var icon = error == null
-                                                                    ? MessageBoxIcon.Information
-                                                                    : MessageBoxIcon.Error;
+                                                     Action ac = () =>
+                                                                     {
+                                                                         string msg = error == null
+                                                                                          ? "设置成功"
+                                                                                          : "设置失败\r\n\r\n" +
+                                                                                            error.Message;
+                                                                         var icon = error == null
+                                                                                        ? MessageBoxIcon.Information
+                                                                                        : MessageBoxIcon.Error;
 
-                                                     MessageBox.Show(this, msg, this.Text, MessageBoxButtons.OK, icon);
+                                                                         MessageBox.Show(this, msg, Text,
+                                                                                         MessageBoxButtons.OK, icon);
+                                                                     };
 
+                                                     this.BeginInvoke(ac);
                                                  });
 
         }
