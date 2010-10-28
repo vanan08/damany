@@ -35,15 +35,21 @@ namespace WindowsFormsApplication1.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("192.168.1.29:6000")]
         public string PeerIpPort {
             get {
                 return ((string)(this["PeerIpPort"]));
             }
-            set {
-                this["PeerIpPort"] = value;
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("3000")]
+        public int FrameIntervalMs {
+            get {
+                return ((int)(this["FrameIntervalMs"]));
             }
         }
     }

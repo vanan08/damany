@@ -30,7 +30,7 @@ namespace WindowsFormsApplication1
         void camera_NewFrame(object sender, AForge.Video.NewFrameEventArgs eventArgs)
         {
             var img = eventArgs.Frame.Clone();
-            this.BeginInvoke(new Action(() => pictureBox1.Image = (Image)img));
+            this.BeginInvoke(new Action(() => liveImg.Image = (Image)img));
 
         }
 
@@ -65,18 +65,19 @@ namespace WindowsFormsApplication1
         private void applyButton_Click(object sender, EventArgs e)
         {
 
-            var ipport = (string)peerAddress.EditValue;
-            if (string.IsNullOrWhiteSpace(ipport)) return;
+            if (string.IsNullOrWhiteSpace(Properties.Settings.Default.PeerIpPort)) return;
             if (_rectangle == Rectangle.Empty) return;
 
-
-            if (ipport != _lastPeerAddress)
+            if (_rectangleSetter == null)
             {
+                var ipport = Properties.Settings.Default.PeerIpPort;
                 _lastPeerAddress = ipport.Replace(" ", "");
                 var add = _lastPeerAddress.Split(new[] { ':' });
                 _rectangleSetter = new TcpSetRectangle(add[0], int.Parse(add[1]));
 
             }
+
+            applyButton.Enabled = false;
 
             _rectangleSetter.Set(_rectangle, error =>
                                                  {
@@ -92,6 +93,7 @@ namespace WindowsFormsApplication1
 
                                                                          MessageBox.Show(this, msg, Text,
                                                                                          MessageBoxButtons.OK, icon);
+                                                                         applyButton.Enabled = true;
                                                                      };
 
                                                      this.BeginInvoke(ac);
@@ -109,10 +111,18 @@ namespace WindowsFormsApplication1
                 _camera = new Damany.Cameras.JPEGExtendStream(uri);
                 _camera.Login = "guest";
                 _camera.Password = "guest";
-                _camera.FrameInterval = 500;
+                _camera.FrameInterval = Properties.Settings.Default.FrameIntervalMs;
                 _camera.RequireCookie = true;
                 _camera.NewFrame += this.camera_NewFrame;
                 _camera.Start();
+            }
+        }
+
+        private void captureImage_Click(object sender, EventArgs e)
+        {
+            if (liveImg.Image != null)
+            {
+                pictureBox1.Image = (Image)liveImg.Image.Clone();
             }
         }
     }
