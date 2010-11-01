@@ -135,6 +135,7 @@
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
     <ClCompile Include="Converter.cpp" />
+    <ClCompile Include="FaceAlignment.cpp" />
     <ClCompile Include="FacePCA.cpp" />
     <ClCompile Include="FaceVerifier.cpp" />
     <ClCompile Include="FrontFaceChecker.cpp" />
