@@ -125,7 +125,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AAM_Basic.cpp" />
+    <ClCompile Include="AAM_CAM.cpp" />
+    <ClCompile Include="AAM_IC.cpp" />
+    <ClCompile Include="AAM_MovieAVI.cpp" />
+    <ClCompile Include="AAM_PAW.cpp" />
+    <ClCompile Include="AAM_PDM.cpp" />
+    <ClCompile Include="AAM_Shape.cpp" />
+    <ClCompile Include="AAM_TDM.cpp" />
+    <ClCompile Include="AAM_Util.cpp" />
     <ClCompile Include="cvgabor.cpp" />
+    <ClCompile Include="FaceAlignment.cpp" />
     <ClCompile Include="FacePCA.cpp" />
     <ClCompile Include="FaceSvm.cpp" />
     <ClCompile Include="FaceSvmApp.cpp" />
@@ -145,9 +155,20 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="svm.cpp" />
+    <ClCompile Include="VJfacedetect.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AAM_Basic.h" />
+    <ClInclude Include="AAM_CAM.h" />
+    <ClInclude Include="AAM_IC.h" />
+    <ClInclude Include="AAM_MovieAVI.h" />
+    <ClInclude Include="AAM_PAW.h" />
+    <ClInclude Include="AAM_PDM.h" />
+    <ClInclude Include="AAM_Shape.h" />
+    <ClInclude Include="AAM_TDM.h" />
+    <ClInclude Include="AAM_Util.h" />
     <ClInclude Include="cvgabor.h" />
+    <ClInclude Include="FaceAlignment.h" />
     <ClInclude Include="FacePCA.h" />
     <ClInclude Include="faceSVM.h" />
     <ClInclude Include="FaceSvmApp.h" />
@@ -167,6 +188,7 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="svm.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="VJfacedetect.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="FaceSvm.rc" />
