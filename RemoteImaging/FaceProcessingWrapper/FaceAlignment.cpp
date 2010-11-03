@@ -39,12 +39,7 @@ namespace FaceProcessingWrapper {
 
 		bool LibFaceAlignment(OpenCvSharp::IplImage^ faceImg, OpenCvSharp::IplImage^ faceLbpImg, array<OpenCvSharp::CvPoint>^ featurePt)
 		{
-			CvPoint* pPoint = new CvPoint[featurePt->Length];
-			for (int i=0; i<featurePt->Length; ++i)
-			{
-				pPoint->x = featurePt[i].X;
-				pPoint->y = featurePt[i].Y;
-			}
+			CvPoint* pPoint =  CvPointsToUnmanaged(featurePt);
 
 			try
 			{
@@ -55,6 +50,18 @@ namespace FaceProcessingWrapper {
 				delete[] pPoint;
 			}
 			
+		}
+
+		CvPoint* CvPointsToUnmanaged( array<OpenCvSharp::CvPoint>^ featurePt ) 
+		{
+			CvPoint* pPoint = new CvPoint[featurePt->Length];
+			for (int i=0; i<featurePt->Length; ++i)
+			{
+				pPoint[i].x = featurePt[i].X;
+				pPoint[i].y = featurePt[i].Y;
+			}
+
+			return pPoint;
 		}
 
 
