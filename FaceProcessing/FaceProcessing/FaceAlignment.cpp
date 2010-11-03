@@ -594,7 +594,7 @@ void Damany::Imaging::FaceCompare::FaceAlignment::GetLBPimg(IplImage* scaleImg, 
 		{
 			for (int j=0; j<scaleWidth; j++)
 			{
-				yImgData[i*scaleStep+j] = yImgData[yOff*scaleStep+j];
+				yImgData[i*scaleStep+j] = 0;//yImgData[yOff*scaleStep+j];
 			}
 		}
 	}
@@ -632,7 +632,7 @@ void Damany::Imaging::FaceCompare::FaceAlignment::GetLBPimg(IplImage* scaleImg, 
 		{
 			for (int j=0; j<xOff; j++)
 			{
-				xImgData[i*xImg->widthStep+j] = xImgData[i*xImg->widthStep+xOff];
+				xImgData[i*xImg->widthStep+j] = 0;//xImgData[i*xImg->widthStep+xOff];
 			}
 		}
 	}
@@ -659,7 +659,7 @@ void Damany::Imaging::FaceCompare::FaceAlignment::GetLBPimg(IplImage* scaleImg, 
 		{
 			for (int j=xImg->width; j<wImg->width; j++)
 			{
-				wImgData[i*wImg->widthStep+j] = wImgData[i*wImg->widthStep+(xImg->width-1)];
+				wImgData[i*wImg->widthStep+j] = 0;//wImgData[i*wImg->widthStep+(xImg->width-1)];
 			}
 		}
 	}
@@ -705,7 +705,7 @@ void Damany::Imaging::FaceCompare::FaceAlignment::GetLBPimg(IplImage* scaleImg, 
 		{
 			for (int j=0; j<wImg->width; j++)
 			{
-				lbpData[i*lbpStep+j] = lbpData[(wImg->height-1)*lbpStep+j];
+				lbpData[i*lbpStep+j] = 0;//lbpData[(wImg->height-1)*lbpStep+j];
 			}
 		}
 	}
