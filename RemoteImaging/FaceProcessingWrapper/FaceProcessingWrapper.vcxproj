@@ -140,6 +140,7 @@
     <ClCompile Include="FaceVerifier.cpp" />
     <ClCompile Include="FrontFaceChecker.cpp" />
     <ClCompile Include="FrontFaceVerifier.cpp" />
+    <ClCompile Include="Illumination.cpp" />
     <ClCompile Include="Lbp.cpp" />
     <ClCompile Include="MotionDetector.cpp" />
     <ClCompile Include="ObjectDetector.cpp" />

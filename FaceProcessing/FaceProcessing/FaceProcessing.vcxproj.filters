@@ -99,6 +99,9 @@
     <ClCompile Include="VJfacedetect.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Illumination.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cvgabor.h">
@@ -192,6 +195,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="VJfacedetect.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Illumination.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
