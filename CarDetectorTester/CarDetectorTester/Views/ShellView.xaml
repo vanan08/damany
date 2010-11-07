@@ -132,13 +132,16 @@
             <lc:LayoutGroup Header="串口" x:Name="layoutGroup1" View="GroupBox">
                 <lc:LayoutGroup Orientation="Vertical">
                     <lc:LayoutItem Label="串口号：" x:Name="layoutItem1">
-                        <TextBox x:Name="ComPort" Opacity="0.815" Text="com1"  TextWrapping="Wrap" />
+                        <dxe:TextEdit x:Name="portName" EditValue="{Binding SerialportConf.PortName, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}" />
+                        
                     </lc:LayoutItem>
                     <lc:LayoutItem Label="波特率：" x:Name="layoutItem2">
-                        <TextBox x:Name="BaundRate" Opacity="0.815" Text="9600" TextWrapping="Wrap" />
+                        <dxe:TextEdit  Name="baundRate" EditValue="{Binding SerialportConf.BaundRate, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" MaskType="Numeric" Mask="d" />
                     </lc:LayoutItem>
                 </lc:LayoutGroup>
-                <Button Content="打开" Height="49" HorizontalAlignment="Right" x:Name="Connect" Width="75" />
+                <Button Content="{Binding ButtonDisplayText}" Height="49" HorizontalAlignment="Right" x:Name="Connect" Width="75" Command="{Binding OpenSerialportCommand}">
+                	
+                </Button>
             </lc:LayoutGroup>
             <lc:LayoutGroup Orientation="Vertical" Header="命令" x:Name="layoutGroup2" View="GroupBox">
             	<lc:LayoutGroup>

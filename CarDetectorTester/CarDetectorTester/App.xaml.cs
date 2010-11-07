@@ -16,7 +16,7 @@ namespace CarDetectorTester
     {
         public App()
         {
-            CinchBootStrapper.Initialise(new List<Assembly> { typeof(App).Assembly });
+            //CinchBootStrapper.Initialise(new List<Assembly> { typeof(App).Assembly });
             InitializeComponent();
         }
     }

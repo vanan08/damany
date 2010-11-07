@@ -84,9 +84,11 @@
     <Reference Include="PresentationFramework.Classic" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.CoreEx, Version=1.0.2698.104, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Printing" />
+    <Reference Include="System.Reactive, Version=1.0.2698.104, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity" />
     <Reference Include="System.Xml" />
@@ -108,26 +110,29 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ChannelStatistics.xaml.cs">
+    <Compile Include="Controls\ChannelStatistics.xaml.cs">
       <DependentUpon>ChannelStatistics.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converter.cs" />
+    <Compile Include="ICarDetector.cs" />
     <Compile Include="Models\ChannelStatistics.cs" />
     <Compile Include="Models\LengthAndWidth.cs" />
     <Compile Include="Models\ResponseData.cs" />
+    <Compile Include="Models\SerialportConfig.cs" />
+    <Compile Include="PacketSplitter.cs" />
     <Compile Include="StreamMock.cs" />
-    <Compile Include="TitledLed.xaml.cs">
+    <Compile Include="Controls\TitledLed.xaml.cs">
       <DependentUpon>TitledLed.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="Views\WidthAndHeightPopup.xaml.cs">
       <DependentUpon>WidthAndHeightPopup.xaml</DependentUpon>
     </Compile>
-    <Page Include="ChannelStatistics.xaml">
+    <Page Include="Controls\ChannelStatistics.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="TitledLed.xaml">
+    <Page Include="Controls\TitledLed.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
