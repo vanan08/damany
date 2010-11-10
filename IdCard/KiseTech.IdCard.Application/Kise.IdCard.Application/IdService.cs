@@ -10,12 +10,12 @@ namespace Kise.IdCard.Application
 
     public class IdService
     {
-        public IdcardInfo ReadCard()
+        public IdCardInfo ReadCard()
         {
             throw new NotImplementedException();
         }
 
-        public void Query(IdcardInfo cardToQuery,
+        public void Query(IdCardInfo cardToQuery,
             Action<bool> deliveryCallback, Action<IdQueryResponse> responseCallBack)
         {
             throw new NotImplementedException();

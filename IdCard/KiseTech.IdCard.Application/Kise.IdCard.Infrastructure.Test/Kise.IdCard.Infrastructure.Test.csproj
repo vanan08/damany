@@ -33,7 +33,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AsyncCtpLibrary">
-      <HintPath>C:\Users\Benny\Documents\Microsoft Visual Studio Async CTP\Samples\AsyncCtpLibrary.dll</HintPath>
+      <HintPath>..\lib\AsyncCtpLibrary.dll</HintPath>
     </Reference>
     <Reference Include="Gallio" />
     <Reference Include="MbUnit" />
