@@ -6,18 +6,8 @@ using DevExpress.Xpo;
 
 namespace Kise.IdCard.Model
 {
-    public class IdQuery : XPObject
+    public class IdQuery : EntityBase
     {
-        public IdcardInfo IdcardInfo
-        {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-            set
-            {
-            }
-        }
 
         public IdQueryResponse IdQueryResponse
         {
