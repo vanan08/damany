@@ -35,7 +35,8 @@
       <HintPath>..\lib\AsyncCtpLibrary.dll</HintPath>
     </Reference>
     <Reference Include="mCoreLib, Version=1.2.20.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>E:\Users\Benny\Documents\Visual Studio 2010\Projects\Damany\IdCard\KiseTech.IdCard.Application\lib\mCoreLib.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\mCoreLib.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
