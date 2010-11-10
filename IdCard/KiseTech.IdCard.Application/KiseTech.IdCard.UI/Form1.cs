@@ -10,9 +10,9 @@ using Kise.IdCard.Infrastructure.Sms;
 
 namespace KiseTech.IdCard.UI
 {
-    public partial class Form1 : Form
+    public partial class Form1 : DevExpress.XtraEditors.XtraForm
     {
-        ISmsService sms = new SmsService("com3", 9600);
+        //ISmsService sms = new SmsService("com3", 9600);
 
         public Form1()
         {
@@ -21,13 +21,6 @@ namespace KiseTech.IdCard.UI
 
         private async void button1_Click(object sender, EventArgs e)
         {
-            response.Text = "";
-            button1.Enabled = false;
-
-            var res = await sms.QueryAsync(destinationNo.Text, msgToSend.Text);
-            response.Text = res;
-
-            button1.Enabled = true;
         }
     }
 }
