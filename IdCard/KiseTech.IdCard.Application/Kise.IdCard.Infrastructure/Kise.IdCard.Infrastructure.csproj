@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AsyncCtpLibrary">
+      <HintPath>..\lib\AsyncCtpLibrary.dll</HintPath>
+    </Reference>
     <Reference Include="mCoreLib, Version=1.2.20.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>E:\Users\Benny\Documents\Visual Studio 2010\Projects\Damany\IdCard\KiseTech.IdCard.Application\lib\mCoreLib.dll</HintPath>
     </Reference>
@@ -46,8 +49,8 @@
     <Compile Include="CardReader\CardReaderWrapper.cs" />
     <Compile Include="CardReader\IdCardData.cs" />
     <Compile Include="CardReader\IdInfo.cs" />
-    <Compile Include="CardReader\IdReader.cs" />
-    <Compile Include="CardReader\IIdReader.cs" />
+    <Compile Include="CardReader\IdCardReader.cs" />
+    <Compile Include="CardReader\IIdCardReader.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="Sms\ISmsService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

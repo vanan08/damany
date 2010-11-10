@@ -1,10 +1,10 @@
 using System;
+using System.Threading.Tasks;
 
 namespace Kise.IdCard.Infrastructure.Sms
 {
     public interface ISmsService
     {
-        void Send(string destinationNumber, string message,
-                    Action<bool> deliverCallback, Action<string> responseCallback);
+        Task<string> QueryAsync(string destinationNumber, string message);
     }
 }

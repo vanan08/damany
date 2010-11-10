@@ -8,6 +8,7 @@ using MbUnit.Framework.ContractVerifiers;
 namespace Kise.IdCard.Infrastructure.Test
 {
     using CardReader;
+    using System.Threading.Tasks;
 
     [TestFixture]
     public class CardReaderTest
@@ -18,7 +19,7 @@ namespace Kise.IdCard.Infrastructure.Test
             //
             // TODO: Add test logic here
             //
-            IdInfo info = ReadInfo(1001);
+            var info = ReadInfoAsync(1001).Result;
 
             Assert.IsNotNull(info.Address);
             Assert.IsNotNull(info.BornDate);
@@ -37,20 +38,22 @@ namespace Kise.IdCard.Infrastructure.Test
         [ExpectedException(typeof(Exception))]
         public void ReadReaderDisconnected()
         {
-            var info = ReadInfo(1001);
+            var info = ReadInfoAsync(1001);
         }
 
         [Test]
         [ExpectedException(typeof(Exception))]
         public void ReadWithWrongPortNumber()
         {
-            var info = ReadInfo(9999);
+            var info = ReadInfoAsync(9999);
+            var result = info.Result;
         }
 
-        private IdInfo ReadInfo(int port)
+        private async Task<IdInfo> ReadInfoAsync(int port)
         {
             var reader = new IdCardReader(port);
-            return reader.Read();
+            var info = await reader.ReadAsync();
+            return info;
         }
 
     }
