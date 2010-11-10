@@ -28,68 +28,59 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.destinationNo = new System.Windows.Forms.TextBox();
-            this.msgToSend = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.response = new System.Windows.Forms.TextBox();
+            this.navBarControl1 = new DevExpress.XtraNavBar.NavBarControl();
+            this.navBarGroup1 = new DevExpress.XtraNavBar.NavBarGroup();
+            this.idCardControl1 = new KiseTech.IdCard.UI.IdCardControl();
+            ((System.ComponentModel.ISupportInitialize)(this.navBarControl1)).BeginInit();
             this.SuspendLayout();
             // 
-            // destinationNo
+            // navBarControl1
             // 
-            this.destinationNo.Location = new System.Drawing.Point(55, 22);
-            this.destinationNo.Name = "destinationNo";
-            this.destinationNo.Size = new System.Drawing.Size(100, 21);
-            this.destinationNo.TabIndex = 0;
-            this.destinationNo.Text = "10086";
+            this.navBarControl1.ActiveGroup = this.navBarGroup1;
+            this.navBarControl1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.navBarControl1.Groups.AddRange(new DevExpress.XtraNavBar.NavBarGroup[] {
+            this.navBarGroup1});
+            this.navBarControl1.Location = new System.Drawing.Point(0, 0);
+            this.navBarControl1.Name = "navBarControl1";
+            this.navBarControl1.OptionsNavPane.ExpandedWidth = 140;
+            this.navBarControl1.Size = new System.Drawing.Size(140, 404);
+            this.navBarControl1.TabIndex = 0;
+            this.navBarControl1.Text = "navBarControl1";
             // 
-            // msgToSend
+            // navBarGroup1
             // 
-            this.msgToSend.Location = new System.Drawing.Point(55, 61);
-            this.msgToSend.Name = "msgToSend";
-            this.msgToSend.Size = new System.Drawing.Size(274, 21);
-            this.msgToSend.TabIndex = 1;
-            this.msgToSend.Text = "0000";
+            this.navBarGroup1.Caption = "navBarGroup1";
+            this.navBarGroup1.Expanded = true;
+            this.navBarGroup1.Name = "navBarGroup1";
             // 
-            // button1
+            // idCardControl1
             // 
-            this.button1.Location = new System.Drawing.Point(361, 61);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // response
-            // 
-            this.response.Location = new System.Drawing.Point(55, 109);
-            this.response.Multiline = true;
-            this.response.Name = "response";
-            this.response.Size = new System.Drawing.Size(274, 184);
-            this.response.TabIndex = 3;
+            this.idCardControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.idCardControl1.Location = new System.Drawing.Point(140, 0);
+            this.idCardControl1.Name = "idCardControl1";
+            this.idCardControl1.Size = new System.Drawing.Size(494, 404);
+            this.idCardControl1.TabIndex = 1;
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(476, 321);
-            this.Controls.Add(this.response);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.msgToSend);
-            this.Controls.Add(this.destinationNo);
+            this.ClientSize = new System.Drawing.Size(634, 404);
+            this.Controls.Add(this.idCardControl1);
+            this.Controls.Add(this.navBarControl1);
             this.Name = "Form1";
             this.Text = "Form1";
+            ((System.ComponentModel.ISupportInitialize)(this.navBarControl1)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.TextBox destinationNo;
-        private System.Windows.Forms.TextBox msgToSend;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox response;
+        private DevExpress.XtraNavBar.NavBarControl navBarControl1;
+        private DevExpress.XtraNavBar.NavBarGroup navBarGroup1;
+        private IdCardControl idCardControl1;
+
     }
 }
 
