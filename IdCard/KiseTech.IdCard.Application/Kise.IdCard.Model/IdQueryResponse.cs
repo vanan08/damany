@@ -6,7 +6,7 @@ using DevExpress.Xpo;
 
 namespace Kise.IdCard.Model
 {
-    public class IdQueryResponse : XPObject
+    public class IdQueryResponse : EntityBase
     {
     }
 }

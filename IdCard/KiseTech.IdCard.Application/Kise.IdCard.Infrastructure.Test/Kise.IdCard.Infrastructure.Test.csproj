@@ -3,13 +3,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{EB33B4DE-F864-47F8-A828-8C69DFCD39B4}</ProjectGuid>
+    <ProjectGuid>{3E6A7E64-87B6-480E-A3DB-CC82F71D50B5}</ProjectGuid>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Kise.IdCard.Infrastructure</RootNamespace>
-    <AssemblyName>Kise.IdCard.Infrastructure</AssemblyName>
+    <RootNamespace>Kise.IdCard.Infrastructure.Test</RootNamespace>
+    <AssemblyName>Kise.IdCard.Infrastructure.Test</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,27 +32,33 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="mCoreLib, Version=1.2.20.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>E:\Users\Benny\Documents\Visual Studio 2010\Projects\Damany\IdCard\KiseTech.IdCard.Application\lib\mCoreLib.dll</HintPath>
-    </Reference>
+    <Reference Include="Gallio" />
+    <Reference Include="MbUnit" />
     <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="Gallio35" />
+    <Reference Include="MbUnit35" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CardReader\CardReaderWrapper.cs" />
-    <Compile Include="CardReader\IdCardData.cs" />
-    <Compile Include="CardReader\IdInfo.cs" />
-    <Compile Include="CardReader\IdReader.cs" />
-    <Compile Include="CardReader\IIdReader.cs" />
-    <Compile Include="IRepository.cs" />
-    <Compile Include="Sms\ISmsService.cs" />
+    <Compile Include="CardReaderTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Sms\SmsService.cs" />
+    <Compile Include="SmsServiceTest.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Kise.IdCard.Infrastructure\Kise.IdCard.Infrastructure.csproj">
+      <Project>{EB33B4DE-F864-47F8-A828-8C69DFCD39B4}</Project>
+      <Name>Kise.IdCard.Infrastructure</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
