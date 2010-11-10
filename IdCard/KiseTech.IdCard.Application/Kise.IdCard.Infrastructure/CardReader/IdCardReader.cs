@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace Kise.IdCard.Infrastructure.CardReader
 {
@@ -16,7 +17,7 @@ namespace Kise.IdCard.Infrastructure.CardReader
 
         public int Port { get; private set; }
 
-        public IdInfo Read()
+        public async Task<IdInfo> ReadAsync()
         {
             var cardData = new IdCardData();
             var success = 1;
@@ -62,22 +63,23 @@ namespace Kise.IdCard.Infrastructure.CardReader
             }
 
             var info = new IdInfo()
-            {
-                Address = cardData.Address,
-                BornDate = cardData.Born,
-                GrantDept = cardData.GrantDept,
-                Minority = cardData.Nation,
-                Name = cardData.Name,
-                PhotoFilePath = cardData.PhotoFileName,
-                Sex = cardData.Sex,
-                ValidateFrom = cardData.UserLifeBegin,
-                ValidateUntil = cardData.UserLifeEnd,
-                IdCardNo = cardData.IDCardNo
-            };
+                           {
+                               Address = cardData.Address,
+                               BornDate = cardData.Born,
+                               GrantDept = cardData.GrantDept,
+                               Minority = cardData.Nation,
+                               Name = cardData.Name,
+                               PhotoFilePath = cardData.PhotoFileName,
+                               Sex = cardData.Sex,
+                               ValidateFrom = cardData.UserLifeBegin,
+                               ValidateUntil = cardData.UserLifeEnd,
+                               IdCardNo = cardData.IDCardNo
+                           };
             return info;
 
         Error:
             throw new Exception("read idcard error");
+
 
         }
     }

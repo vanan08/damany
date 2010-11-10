@@ -1,8 +1,9 @@
+using System.Threading.Tasks;
 namespace Kise.IdCard.Infrastructure.CardReader
 {
     public interface IIdCardReader
     {
-        IdInfo Read();
+        Task<IdInfo> ReadAsync();
     }
 
 }

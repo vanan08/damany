@@ -19,7 +19,20 @@ namespace Kise.IdCard.Infrastructure.Test
             // TODO: Add test logic here
             //
 
-            var smsService = new SmsService("com1", 9600);
+            var waitFor =
+            new System.Threading.AutoResetEvent(false);
+            bool receivedResponse = false;
+
+            var smsService = new SmsService("COM3", 9600);
+            var task = smsService.QueryAsync("10086", "0000");
+
+            var response = task.Result;
+
+            System.Diagnostics.Debug.WriteLine(response);
+            receivedResponse = true;
+            waitFor.Set();
+
+
         }
     }
 }
