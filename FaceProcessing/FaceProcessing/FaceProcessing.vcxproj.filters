@@ -36,9 +36,6 @@
     <ClCompile Include="FrontalFaceVarify.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="FrontFaceChecker.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ImageRotate.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -126,9 +123,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="FrontalFaceVarify.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="FrontFaceChecker.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ImageRotate.h">

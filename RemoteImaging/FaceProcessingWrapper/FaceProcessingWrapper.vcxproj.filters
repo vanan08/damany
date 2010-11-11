@@ -27,9 +27,6 @@
     <ClCompile Include="FaceVerifier.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="FrontFaceChecker.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="FrontFaceVerifier.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

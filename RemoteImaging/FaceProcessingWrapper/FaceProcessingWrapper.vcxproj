@@ -138,7 +138,6 @@
     <ClCompile Include="FaceAlignment.cpp" />
     <ClCompile Include="FacePCA.cpp" />
     <ClCompile Include="FaceVerifier.cpp" />
-    <ClCompile Include="FrontFaceChecker.cpp" />
     <ClCompile Include="FrontFaceVerifier.cpp" />
     <ClCompile Include="Illumination.cpp" />
     <ClCompile Include="Lbp.cpp" />
