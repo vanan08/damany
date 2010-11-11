@@ -8,7 +8,7 @@
     <ProjectGuid>{0BC49370-6B06-4EF6-A532-516DBFB5819B}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>KiseTech.IdCard.UI</RootNamespace>
+    <RootNamespace>Kise.IdCard.UI</RootNamespace>
     <AssemblyName>KiseTech.IdCard.Application</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
@@ -34,6 +34,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AForge.Imaging, Version=2.1.3.0, Culture=neutral, PublicKeyToken=ba8ddea9676ca48b, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Library\AForge\AForge.Imaging.dll</HintPath>
+    </Reference>
     <Reference Include="AsyncCtpLibrary">
       <HintPath>..\lib\AsyncCtpLibrary.dll</HintPath>
     </Reference>
@@ -41,6 +45,7 @@
     <Reference Include="DevExpress.Data.v10.1, Version=10.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.OfficeSkins.v10.1, Version=10.1.6.0, Culture=neutral, PublicKeyToken=95fc6c5621878f0a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Utils.v10.1, Version=10.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Xpo.v10.1, Version=10.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraBars.v10.1, Version=10.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraEditors.v10.1, Version=10.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.XtraLayout.v10.1, Version=10.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
@@ -102,6 +107,10 @@
     <ProjectReference Include="..\Kise.IdCard.Infrastructure\Kise.IdCard.Infrastructure.csproj">
       <Project>{EB33B4DE-F864-47F8-A828-8C69DFCD39B4}</Project>
       <Name>Kise.IdCard.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Kise.IdCard.Model\Kise.IdCard.Model.csproj">
+      <Project>{711B9849-8E84-49C8-9549-91B1922530AF}</Project>
+      <Name>Kise.IdCard.Model</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -1,4 +1,4 @@
-﻿namespace KiseTech.IdCard.UI
+﻿namespace Kise.IdCard.UI
 {
     partial class Form1
     {
@@ -35,13 +35,14 @@
             this.navBarItem1 = new DevExpress.XtraNavBar.NavBarItem();
             this.navBarItem2 = new DevExpress.XtraNavBar.NavBarItem();
             this.navBarItem3 = new DevExpress.XtraNavBar.NavBarItem();
-            this.idCardControl1 = new KiseTech.IdCard.UI.IdCardControl();
+            this.idCardControl1 = new Kise.IdCard.UI.IdCardControl();
             this.barManager1 = new DevExpress.XtraBars.BarManager(this.components);
             this.bar3 = new DevExpress.XtraBars.Bar();
             this.barDockControlTop = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlRight = new DevExpress.XtraBars.BarDockControl();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.navBarControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.barManager1)).BeginInit();
             this.SuspendLayout();
@@ -96,6 +97,7 @@
             // 
             this.idCardControl1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("idCardControl1.BackgroundImage")));
             this.idCardControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.idCardControl1.IdCardInfo = null;
             this.idCardControl1.Location = new System.Drawing.Point(136, 0);
             this.idCardControl1.Name = "idCardControl1";
             this.idCardControl1.Size = new System.Drawing.Size(658, 473);
@@ -166,6 +168,7 @@
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "二代身份证自动查询系统";
+            this.Shown += new System.EventHandler(this.Form1_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.navBarControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.barManager1)).EndInit();
             this.ResumeLayout(false);
@@ -186,6 +189,7 @@
         private DevExpress.XtraNavBar.NavBarItem navBarItem1;
         private DevExpress.XtraNavBar.NavBarItem navBarItem2;
         private DevExpress.XtraNavBar.NavBarItem navBarItem3;
+        private System.Windows.Forms.Timer timer1;
 
     }
 }
