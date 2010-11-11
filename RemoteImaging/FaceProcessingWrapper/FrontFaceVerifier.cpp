@@ -20,7 +20,7 @@ namespace FaceProcessingWrapper
 
 		bool IsFrontFace(OpenCvSharp::IplImage^ face)
 		{
-			return true;
+			return  pVerifier->IsFrontal((IplImage*) face->CvPtr.ToPointer());
 
 		}
 

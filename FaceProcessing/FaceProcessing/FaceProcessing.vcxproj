@@ -142,7 +142,6 @@
     <ClCompile Include="FaceVarify.cpp" />
     <ClCompile Include="Frame.cpp" />
     <ClCompile Include="FrontalFaceVarify.cpp" />
-    <ClCompile Include="FrontFaceChecker.cpp" />
     <ClCompile Include="Illumination.cpp" />
     <ClCompile Include="ImageRotate.cpp" />
     <ClCompile Include="LBP.cpp" />
@@ -177,7 +176,6 @@
     <ClInclude Include="FaceVarify.h" />
     <ClInclude Include="Frame.h" />
     <ClInclude Include="FrontalFaceVarify.h" />
-    <ClInclude Include="FrontFaceChecker.h" />
     <ClInclude Include="Illumination.h" />
     <ClInclude Include="ImageRotate.h" />
     <ClInclude Include="LBP.h" />
