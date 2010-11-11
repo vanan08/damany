@@ -1,15 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using Kise.IdCard.Infrastructure.Sms;
 
-namespace KiseTech.IdCard.UI
+namespace Kise.IdCard.UI
 {
+    using Model;
+
     public partial class Form1 : DevExpress.XtraEditors.XtraForm
     {
         //ISmsService sms = new SmsService("com3", 9600);
@@ -21,6 +15,27 @@ namespace KiseTech.IdCard.UI
 
         private async void button1_Click(object sender, EventArgs e)
         {
+        }
+
+        private async void Form1_Shown(object sender, EventArgs e)
+        {
+            var idReader = new Infrastructure.CardReader.IdCardReader(1001);
+            while (true)
+            {
+                Infrastructure.CardReader.IdInfo info = null;
+
+                await System.Threading.Tasks.TaskEx.Delay(3000);
+                try
+                {
+                    info = await idReader.ReadAsync();
+                }
+                catch (Exception)
+                {
+                    continue;
+                }
+
+                idCardControl1.IdCardInfo = info.ToModelIdCardInfo();
+            }
         }
     }
 }
