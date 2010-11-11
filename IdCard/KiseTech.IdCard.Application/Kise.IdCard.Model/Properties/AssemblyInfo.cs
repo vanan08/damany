@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Kise.IdCard.Model")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Company")]
+[assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Kise.IdCard.Model")]
-[assembly: AssemblyCopyright("Copyright © Company 2010")]
+[assembly: AssemblyCopyright("Copyright ©  2010")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("04923bb1-9afe-4e13-9f5a-10f0aeadd964")]
+[assembly: Guid("0dfc41b5-5c55-4435-ace3-2b5060464a7d")]
 
 // Version information for an assembly consists of the following four values:
 //

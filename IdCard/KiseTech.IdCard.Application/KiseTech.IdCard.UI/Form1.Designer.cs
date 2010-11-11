@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.navBarControl1 = new DevExpress.XtraNavBar.NavBarControl();
             this.navBarGroup1 = new DevExpress.XtraNavBar.NavBarGroup();
@@ -35,7 +36,7 @@
             this.navBarItem2 = new DevExpress.XtraNavBar.NavBarItem();
             this.navBarItem3 = new DevExpress.XtraNavBar.NavBarItem();
             this.idCardControl1 = new KiseTech.IdCard.UI.IdCardControl();
-            this.barManager1 = new DevExpress.XtraBars.BarManager();
+            this.barManager1 = new DevExpress.XtraBars.BarManager(this.components);
             this.bar3 = new DevExpress.XtraBars.Bar();
             this.barDockControlTop = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
@@ -58,7 +59,7 @@
             this.navBarControl1.Location = new System.Drawing.Point(0, 0);
             this.navBarControl1.Name = "navBarControl1";
             this.navBarControl1.OptionsNavPane.ExpandedWidth = 140;
-            this.navBarControl1.Size = new System.Drawing.Size(140, 438);
+            this.navBarControl1.Size = new System.Drawing.Size(136, 473);
             this.navBarControl1.TabIndex = 0;
             this.navBarControl1.Text = "控制面板";
             // 
@@ -95,9 +96,9 @@
             // 
             this.idCardControl1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("idCardControl1.BackgroundImage")));
             this.idCardControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.idCardControl1.Location = new System.Drawing.Point(140, 0);
+            this.idCardControl1.Location = new System.Drawing.Point(136, 0);
             this.idCardControl1.Name = "idCardControl1";
-            this.idCardControl1.Size = new System.Drawing.Size(611, 438);
+            this.idCardControl1.Size = new System.Drawing.Size(658, 473);
             this.idCardControl1.TabIndex = 1;
             // 
             // barManager1
@@ -128,33 +129,33 @@
             // 
             this.barDockControlTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.barDockControlTop.Location = new System.Drawing.Point(0, 0);
-            this.barDockControlTop.Size = new System.Drawing.Size(751, 0);
+            this.barDockControlTop.Size = new System.Drawing.Size(794, 0);
             // 
             // barDockControlBottom
             // 
             this.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.barDockControlBottom.Location = new System.Drawing.Point(0, 438);
-            this.barDockControlBottom.Size = new System.Drawing.Size(751, 22);
+            this.barDockControlBottom.Location = new System.Drawing.Point(0, 473);
+            this.barDockControlBottom.Size = new System.Drawing.Size(794, 22);
             // 
             // barDockControlLeft
             // 
             this.barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left;
             this.barDockControlLeft.Location = new System.Drawing.Point(0, 0);
-            this.barDockControlLeft.Size = new System.Drawing.Size(0, 438);
+            this.barDockControlLeft.Size = new System.Drawing.Size(0, 473);
             // 
             // barDockControlRight
             // 
             this.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right;
-            this.barDockControlRight.Location = new System.Drawing.Point(751, 0);
-            this.barDockControlRight.Size = new System.Drawing.Size(0, 438);
+            this.barDockControlRight.Location = new System.Drawing.Point(794, 0);
+            this.barDockControlRight.Size = new System.Drawing.Size(0, 473);
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayoutStore = System.Windows.Forms.ImageLayout.Stretch;
             this.BackgroundImageStore = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImageStore")));
-            this.ClientSize = new System.Drawing.Size(751, 460);
+            this.ClientSize = new System.Drawing.Size(794, 495);
             this.Controls.Add(this.idCardControl1);
             this.Controls.Add(this.navBarControl1);
             this.Controls.Add(this.barDockControlLeft);
