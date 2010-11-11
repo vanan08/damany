@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{064F4195-8CEC-4E9F-8EE8-6CE086F0BD84}</ProjectGuid>
+    <ProjectGuid>{711B9849-8E84-49C8-9549-91B1922530AF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Kise.IdCard.Application</RootNamespace>
-    <AssemblyName>Kise.IdCard.Application</AssemblyName>
+    <RootNamespace>Kise.IdCard.Model</RootNamespace>
+    <AssemblyName>Kise.IdCard.Model</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,6 +31,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DevExpress.Data.v10.1, Version=10.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Xpo.v10.1, Version=10.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -41,18 +42,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IdService.cs" />
+    <Compile Include="BlacklistItem.cs" />
+    <Compile Include="EntityBase.cs" />
+    <Compile Include="IdcardInfo.cs" />
+    <Compile Include="IdQuery.cs" />
+    <Compile Include="IdQueryResponse.cs" />
+    <Compile Include="Minority.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Kise.IdCard.Infrastructure\Kise.IdCard.Infrastructure.csproj">
-      <Project>{EB33B4DE-F864-47F8-A828-8C69DFCD39B4}</Project>
-      <Name>Kise.IdCard.Infrastructure</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Kise.IdCard.Model\Kise.IdCard.Model.csproj">
-      <Project>{711B9849-8E84-49C8-9549-91B1922530AF}</Project>
-      <Name>Kise.IdCard.Model</Name>
-    </ProjectReference>
+    <Compile Include="Sex.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
