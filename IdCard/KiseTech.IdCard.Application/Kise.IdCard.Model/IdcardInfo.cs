@@ -17,7 +17,7 @@ namespace Kise.IdCard.Model
         public string GrantDept { get; set; }
         public DateTime ValidateFrom { get; set; }
         public DateTime ValidateUntil { get; set; }
-        public string PhotoFilePath { get; set; }
+        public byte[] PhotoData { get; set; }
 
         public IdQuery IdQuery
         {

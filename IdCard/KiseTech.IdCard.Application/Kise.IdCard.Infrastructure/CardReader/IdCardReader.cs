@@ -69,7 +69,7 @@ namespace Kise.IdCard.Infrastructure.CardReader
                                GrantDept = cardData.GrantDept.Trim(),
                                Minority = cardData.Nation.Trim().TrimStart('0'),
                                Name = cardData.Name.Trim(),
-                               PhotoFilePath = cardData.PhotoFileName.Trim(),
+                               PhotoData = System.IO.File.ReadAllBytes(cardData.PhotoFileName),
                                Sex = cardData.Sex.Trim().TrimStart('0'),
                                ValidateFrom = cardData.UserLifeBegin.Trim(),
                                ValidateUntil = cardData.UserLifeEnd.Trim(),

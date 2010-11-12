@@ -20,7 +20,7 @@ namespace Kise.IdCard.Infrastructure.CardReader
                                IdCardNo = "510403197309112610",
                                Minority = random.Next(1, 56).ToString(),
                                Name = "benny" + DateTime.Now.ToString(),
-                               PhotoFilePath = @"F:\测试图片\正脸\face_0.jpg",
+                               PhotoData = Properties.Resources.Image0001,
                                Sex = random.Next(1, 2).ToString(),
                                ValidateFrom = "19781231",
                                ValidateUntil = "20121231",

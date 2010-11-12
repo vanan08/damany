@@ -11,7 +11,7 @@
         public string GrantDept { get; set; }
         public string ValidateFrom { get; set; }
         public string ValidateUntil { get; set; }
-        public string PhotoFilePath { get; set; }
+        public byte[] PhotoData { get; set; }
 
     }
 }
