@@ -67,6 +67,10 @@
       <Project>{EB33B4DE-F864-47F8-A828-8C69DFCD39B4}</Project>
       <Name>Kise.IdCard.Infrastructure</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Kise.IdCard.Model\Kise.IdCard.Model.csproj">
+      <Project>{711B9849-8E84-49C8-9549-91B1922530AF}</Project>
+      <Name>Kise.IdCard.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

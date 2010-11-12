@@ -33,6 +33,7 @@
   <ItemGroup>
     <Reference Include="DevExpress.Data.v10.1, Version=10.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Xpo.v10.1, Version=10.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="FileHelpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=3e0c08d59cc3d657, processorArchitecture=MSIL" />
     <Reference Include="MiscUtil">
       <HintPath>..\..\..\Library\MiscUtil\MiscUtil.dll</HintPath>
     </Reference>
@@ -48,6 +49,7 @@
     <Compile Include="BlacklistItem.cs" />
     <Compile Include="Converter.cs" />
     <Compile Include="EntityBase.cs" />
+    <Compile Include="FileMinorityDictionary.cs" />
     <Compile Include="Helper.cs" />
     <Compile Include="IdcardInfo.cs" />
     <Compile Include="IdQuery.cs" />
@@ -61,6 +63,11 @@
       <Project>{EB33B4DE-F864-47F8-A828-8C69DFCD39B4}</Project>
       <Name>Kise.IdCard.Infrastructure</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="MinorityCode.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

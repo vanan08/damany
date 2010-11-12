@@ -78,10 +78,7 @@ namespace Kise.IdCard.Infrastructure.Sms
             var tcs = new TaskCompletionSource<string>();
 
             _curRefNumber = _sms.SendSMS(destinationNumber, message);
-            _sms.NewMessageReceived += (s, e) =>
-                                           {
-                                               tcs.TrySetResult(e.TextMessage);
-                                           };
+            _sms.NewMessageReceived += (s, e) => tcs.TrySetResult(e.TextMessage);
             return tcs.Task;
         }
     }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Gallio.Framework;
+using Kise.IdCard.Model;
 using MbUnit.Framework;
 using MbUnit.Framework.ContractVerifiers;
 

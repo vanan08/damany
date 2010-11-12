@@ -15,7 +15,7 @@ namespace Kise.IdCard.Infrastructure.Sms
         public async Task<string> QueryAsync(string destination, string message)
         {
             var rndDelay = new Random(DateTime.Now.Millisecond);
-            await TaskEx.Delay(rndDelay.Next(2000, 5000));
+            await TaskEx.Delay(rndDelay.Next(1, 100));
 
             var reply = _replyMethod(message);
             return reply;
