@@ -26,7 +26,7 @@ namespace Kise.IdCard.Infrastructure.Test
             Assert.IsTrue(dictionary[27] == "纳西");
             Assert.IsTrue(dictionary[98] == "外国血统中国籍人士");
 
-
+            Assert.IsFalse(dictionary[1] == "藏");
         }
     }
 }

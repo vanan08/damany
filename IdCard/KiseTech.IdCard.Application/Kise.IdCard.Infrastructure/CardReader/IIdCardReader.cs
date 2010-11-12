@@ -5,5 +5,4 @@ namespace Kise.IdCard.Infrastructure.CardReader
     {
         Task<IdInfo> ReadAsync();
     }
-
 }
