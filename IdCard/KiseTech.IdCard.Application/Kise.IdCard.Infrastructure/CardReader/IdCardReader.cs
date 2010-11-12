@@ -64,16 +64,16 @@ namespace Kise.IdCard.Infrastructure.CardReader
 
             var info = new IdInfo()
                            {
-                               Address = cardData.Address,
-                               BornDate = cardData.Born,
-                               GrantDept = cardData.GrantDept,
-                               Minority = cardData.Nation,
-                               Name = cardData.Name,
-                               PhotoFilePath = cardData.PhotoFileName,
-                               Sex = cardData.Sex,
-                               ValidateFrom = cardData.UserLifeBegin,
-                               ValidateUntil = cardData.UserLifeEnd,
-                               IdCardNo = cardData.IDCardNo
+                               Address = cardData.Address.Trim(),
+                               BornDate = cardData.Born.Trim(),
+                               GrantDept = cardData.GrantDept.Trim(),
+                               Minority = cardData.Nation.Trim().TrimStart('0'),
+                               Name = cardData.Name.Trim(),
+                               PhotoFilePath = cardData.PhotoFileName.Trim(),
+                               Sex = cardData.Sex.Trim().TrimStart('0'),
+                               ValidateFrom = cardData.UserLifeBegin.Trim(),
+                               ValidateUntil = cardData.UserLifeEnd.Trim(),
+                               IdCardNo = cardData.IDCardNo.Trim()
                            };
             return info;
 

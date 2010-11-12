@@ -11,6 +11,9 @@ namespace Kise.IdCard.UI
         public Form1()
         {
             InitializeComponent();
+
+            var path = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "MinorityCode.txt");
+            idCardControl1.MinorityDictionary = Infrastructure.FileMinorityDictionary.LoadDictionary(path);
         }
 
         private async void button1_Click(object sender, EventArgs e)

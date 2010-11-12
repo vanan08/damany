@@ -9,8 +9,8 @@ namespace Kise.IdCard.Model
     public class IdCardInfo : EntityBase
     {
         public string Name { get; set; }
-        public Sex Sex { get; set; }
-        public Minority Minority { get; set; }
+        public int SexCode { get; set; }
+        public int MinorityCode { get; set; }
         public DateTime BornDate { get; set; }
         public string Address { get; set; }
         public string IdCardNo { get; set; }

@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CardReaderTest.cs" />
+    <Compile Include="FileMinorityDictionaryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SmsServiceTest.cs" />
   </ItemGroup>
