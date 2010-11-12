@@ -1,9 +1,13 @@
-﻿namespace Kise.IdCard.UI
+﻿using System;
+using System.Collections.Generic;
+
+namespace Kise.IdCard.UI
 {
     using Model;
 
     public partial class IdCardControl : DevExpress.XtraEditors.XtraUserControl
     {
+        private readonly IDictionary<int, string> _minorityDictionary;
         private IdCardInfo _idCardInfo;
         public IdCardInfo IdCardInfo
         {
@@ -32,7 +36,7 @@
 
         public string BirthDayFormat { get; set; }
 
-        public System.Collections.Generic.IDictionary<int, string> MinorityDictionary { get; set; }
+        public IDictionary<int, string> MinorityDictionary { get; set; }
 
         public IdCardControl()
         {
@@ -41,6 +45,11 @@
             BirthDayFormat = "{0} 年 {1} 月 {2} 日";
         }
 
+        public IdCardControl(IDictionary<int, string> minorityDictionary)
+        {
+            if (minorityDictionary == null) throw new ArgumentNullException("minorityDictionary");
+            _minorityDictionary = minorityDictionary;
+        }
 
         private static string FormatDate(System.DateTime dt)
         {

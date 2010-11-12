@@ -51,12 +51,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CardReader\CardReaderWrapper.cs" />
+    <Compile Include="CardReader\FakeIdCardReader.cs" />
     <Compile Include="CardReader\IdCardData.cs" />
     <Compile Include="CardReader\IdInfo.cs" />
     <Compile Include="CardReader\IdCardReader.cs" />
     <Compile Include="CardReader\IIdCardReader.cs" />
     <Compile Include="FileMinorityDictionary.cs" />
-    <Compile Include="IMinorityDictionary.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="Sms\ISmsService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
