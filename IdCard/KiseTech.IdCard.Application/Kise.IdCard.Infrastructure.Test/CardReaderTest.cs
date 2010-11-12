@@ -27,7 +27,7 @@ namespace Kise.IdCard.Infrastructure.Test
             Assert.IsNotNull(info.IdCardNo);
             Assert.IsNotNull(info.Minority);
             Assert.IsNotNull(info.Name);
-            Assert.IsNotNull(info.PhotoFilePath);
+            Assert.IsNotNull(info.PhotoData);
             Assert.IsNotNull(info.Sex);
             Assert.IsNotNull(info.ValidateFrom);
             Assert.IsNotNull(info.ValidateUntil);

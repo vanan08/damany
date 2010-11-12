@@ -45,7 +45,7 @@ namespace Kise.IdCard.Model
                             SexCode = int.Parse(info.Sex),
                             ValidateFrom = info.ValidateFrom.ParseIntoDateTime(),
                             ValidateUntil = info.ValidateUntil.ParseIntoDateTime(),
-                            PhotoFilePath = info.PhotoFilePath
+                            PhotoData =  info.PhotoData
                         };
 
             return v;

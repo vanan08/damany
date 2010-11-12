@@ -4,7 +4,7 @@ using mCore;
 
 namespace Kise.IdCard.Infrastructure.Sms
 {
-    public class SmsService : ISmsService
+    public class SmsTransport : ITransport
     {
         private readonly string _comPort;
         private readonly int _baundRate;
@@ -13,30 +13,41 @@ namespace Kise.IdCard.Infrastructure.Sms
         private Action<bool> _deliveryCallback;
         private Action<string> _responseCallback;
 
-        public SmsService(string comPort, int baundRate)
+        public SmsTransport(string comPort, int baundRate)
         {
             _comPort = comPort;
             _baundRate = baundRate;
-
-
-            InitSmsModule();
         }
 
-        private void InitSmsModule()
+        public void Start()
         {
-            _sms = new SMS();
-            _sms.Port = _comPort;
-            _sms.Encoding = Encoding.Unicode_16Bit;
-            _sms.BaudRate = BaudRate.BaudRate_9600;
-            _sms.DataBits = DataBits.Eight;
-            _sms.Parity = Parity.None;
-            _sms.StopBits = StopBits.One;
-            _sms.FlowControl = FlowControl.None;
-            _sms.NewMessageConcatenate = true;
-
+            if (_sms == null)
+            {
+                _sms = new SMS();
+                _sms.Port = _comPort;
+                _sms.Encoding = Encoding.Unicode_16Bit;
+                _sms.BaudRate = BaudRate.BaudRate_9600;
+                _sms.DataBits = DataBits.Eight;
+                _sms.Parity = Parity.None;
+                _sms.StopBits = StopBits.One;
+                _sms.FlowControl = FlowControl.None;
+                _sms.NewMessageConcatenate = true;
+            }
         }
 
-        void _sms_NewMessageReceived(object sender, NewMessageReceivedEventArgs e)
+        public async Task<string> QueryAsync(string destinationNumber, string message)
+        {
+            await TaskEx.Run(() =>
+            {
+                _sms.AutoDeleteNewMessage = true;
+                _sms.DeliveryReport = true;
+                _sms.NewMessageIndication = true;
+            });
+
+            return await SendAsync(destinationNumber, message);
+        }
+
+        private void _sms_NewMessageReceived(object sender, NewMessageReceivedEventArgs e)
         {
             if (_responseCallback != null)
             {
@@ -50,7 +61,7 @@ namespace Kise.IdCard.Infrastructure.Sms
             return referenceNumber == int.Parse(_curRefNumber);
         }
 
-        void _sms_NewDeliveryReport(object sender, NewDeliveryReportEventArgs e)
+        private void _sms_NewDeliveryReport(object sender, NewDeliveryReportEventArgs e)
         {
             if (!ShouldDoCallBack(e.MessageReference)) return;
 
@@ -60,19 +71,7 @@ namespace Kise.IdCard.Infrastructure.Sms
             }
         }
 
-        public async Task<string> QueryAsync(string destinationNumber, string message)
-        {
 
-            await TaskEx.Run(() =>
-                           {
-                               _sms.AutoDeleteNewMessage = true;
-                               _sms.DeliveryReport = true;
-                               _sms.NewMessageIndication = true;
-                           });
-
-            return await SendAsync(destinationNumber, message);
-
-        }
 
         private Task<string> SendAsync(string destinationNumber, string message)
         {

@@ -27,7 +27,7 @@ namespace Kise.IdCard.UI
                     this.expiry.Text = FormatDate(_idCardInfo.ValidateFrom) + " — " + FormatDate(_idCardInfo.ValidateUntil);
                     this.idCardNo.Text = _idCardInfo.IdCardNo;
 
-                    this.image.Image = AForge.Imaging.Image.FromFile(_idCardInfo.PhotoFilePath);
+                    this.image.Image = System.Drawing.Image.FromStream( new System.IO.MemoryStream(_idCardInfo.PhotoData));
 
                 }
 
