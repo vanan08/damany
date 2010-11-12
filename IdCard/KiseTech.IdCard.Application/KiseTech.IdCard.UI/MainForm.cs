@@ -21,7 +21,7 @@ namespace Kise.IdCard.UI
             InitializeComponent();
 
 
-            idCardControl1.MinorityDictionary = Infrastructure.FileMinorityDictionary.LoadDictionary("MinorityCode.txt");
+            idCardControl1.MinorityDictionary = FileMinorityDictionary.LoadDictionary("MinorityCode.txt");
 
             _idService = new IdService(new FakeIdCardReader());
             _idService.AttachView(this);

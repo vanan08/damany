@@ -7,6 +7,7 @@ namespace Kise.IdCard.Infrastructure.Sms
     {
         private readonly ITransport _transport;
 
+        private object _locker = new object();
         private int _nextSequenceNumber;
 
         public QueryService(ITransport transport)
@@ -33,7 +34,7 @@ namespace Kise.IdCard.Infrastructure.Sms
             {
                 if (echoSn == sn)
                 {
-                    return reply.Substring(tokens[0].Length+1);
+                    return reply.Substring(tokens[0].Length + 1);
                 }
             }
 
@@ -49,7 +50,11 @@ namespace Kise.IdCard.Infrastructure.Sms
         private int GetNextSequenceNumber()
         {
             var v = _nextSequenceNumber;
-            _nextSequenceNumber = ++_nextSequenceNumber % 16;
+
+            lock (_locker)
+            {
+                _nextSequenceNumber = ++_nextSequenceNumber % 16;
+            }
 
             return v;
         }

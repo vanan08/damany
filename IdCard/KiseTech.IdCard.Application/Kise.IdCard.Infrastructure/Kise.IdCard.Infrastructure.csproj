@@ -57,7 +57,6 @@
     <Compile Include="CardReader\IdInfo.cs" />
     <Compile Include="CardReader\IdCardReader.cs" />
     <Compile Include="CardReader\IIdCardReader.cs" />
-    <Compile Include="FileMinorityDictionary.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -71,9 +70,6 @@
     <Compile Include="Sms\SmsTransport.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="MinorityCode.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <None Include="Resources\Image0001.data" />
   </ItemGroup>
   <ItemGroup>

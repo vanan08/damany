@@ -41,6 +41,8 @@ namespace Kise.IdCard.Infrastructure.Test
             CallMethodGetNextSequenceNumber(qs);
             sn = GetFieldNextSN(qs);
             Assert.AreEqual(0, sn);
+
+
         }
 
         [Test]
@@ -67,6 +69,41 @@ namespace Kise.IdCard.Infrastructure.Test
             result = qs.QueryAsync("", message).Result;
             Assert.AreEqual("def", result);
 
+            fakeT.Return(q =>
+                             {
+                                 var idx = q.IndexOf("*");
+                                 var sn = q.Substring(0, idx);
+                                 return sn.ToString() + "*" + DateTime.Now.Millisecond;
+                             });
+
+            for (int i = 0; i < 100; i++)
+            {
+                var t1 = qs.QueryAsync("", message);
+                System.Threading.Thread.Sleep(5);
+                var t2 = qs.QueryAsync("", message);
+                System.Threading.Thread.Sleep(10);
+                var t3 = qs.QueryAsync("", message);
+                System.Threading.Thread.Sleep(15);
+                var t4 = qs.QueryAsync("", message);
+                System.Threading.Thread.Sleep(20);
+
+
+                var all = TaskEx.WhenAll(t1, t2, t3, t4).ContinueWith(ant =>
+                                                        {
+                                                            AssertAndPrint(t1);
+                                                            AssertAndPrint(t2);
+                                                            AssertAndPrint(t3);
+                                                            AssertAndPrint(t4);
+                                                        });
+                all.Wait();
+            }
+
+        }
+
+        private void AssertAndPrint(Task<string> t1)
+        {
+            Assert.IsNotEmpty(t1.Result);
+            System.Diagnostics.Debug.WriteLine(t1.Result);
         }
 
 

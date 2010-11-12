@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using FileHelpers;
 
-
-namespace Kise.IdCard.Infrastructure
+namespace Kise.IdCard.Model
 {
     public class FileMinorityDictionary
     {
