@@ -64,7 +64,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Sms\FakeQueryService.cs" />
+    <Compile Include="Sms\FakeTransport.cs" />
     <Compile Include="Sms\QueryService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sms\ITransport.cs" />

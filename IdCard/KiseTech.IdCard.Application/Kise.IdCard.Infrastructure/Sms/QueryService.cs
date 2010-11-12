@@ -23,16 +23,17 @@ namespace Kise.IdCard.Infrastructure.Sms
         public async Task<string> QueryAsync(string destinationNumber, string message)
         {
             var sn = GetNextSequenceNumber();
-            var packedMessage = sn.ToString() + GetToken() + message;
+            var packedMessage = sn.ToString() + GetToken()[0] + message;
 
             string reply = await _transport.QueryAsync(destinationNumber, packedMessage);
+
             var tokens = reply.Split(GetToken());
             int echoSn = -1;
             if (int.TryParse(tokens[0], out echoSn))
             {
                 if (echoSn == sn)
                 {
-                    return reply.Substring(tokens[0].Length);
+                    return reply.Substring(tokens[0].Length+1);
                 }
             }
 
