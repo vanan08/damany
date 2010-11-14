@@ -21,8 +21,8 @@ namespace Kise.IdCard.Infrastructure.Test
             //
             // TODO: Add test logic here
             //
-            var t = new FakeTransport();
-            t.Return(q => "");
+            var t = new FakeLink();
+            t.Return(q => new IncomingMessage());
             QueryService qs = GetQs(t);
 
             var message = "123456";
@@ -51,32 +51,33 @@ namespace Kise.IdCard.Infrastructure.Test
             var message = "1*123456";
             var reply = "0*1*987654";
 
-            var moq = new Mock<ITransport>();
-            moq.Setup(t => t.QueryAsync("", message)).Returns(TaskEx.Run(() => reply));
 
 
-            var fakeT = new FakeTransport();
-            fakeT.Return(q => "0*abc");
+            var fakeT = new FakeLink();
+            fakeT.Return(q => new IncomingMessage("0*abc"));
             var qs = GetQs(fakeT);
             var result = qs.QueryAsync("", message).Result;
-            Assert.AreEqual("abc", result);
+            Assert.AreEqual("abc", result.Message);
+            Assert.IsFalse(result.IsTimedOut);
 
-            fakeT.Return(q => "0*abc");
+            fakeT.Return(q => new IncomingMessage("0*abc"));
             result = qs.QueryAsync("", message).Result;
-            Assert.AreEqual(string.Empty, result);
+            Assert.IsTrue(string.IsNullOrEmpty(result.Message));
+            Assert.IsTrue(result.IsTimedOut);
 
-            fakeT.Return(q => "2*def");
+
+            fakeT.Return(q => new IncomingMessage("2*def"));
             result = qs.QueryAsync("", message).Result;
-            Assert.AreEqual("def", result);
+            Assert.AreEqual("def", result.Message);
 
             fakeT.Return(q =>
                              {
                                  var idx = q.IndexOf("*");
                                  var sn = q.Substring(0, idx);
-                                 return sn.ToString() + "*" + DateTime.Now.Millisecond;
+                                 return new IncomingMessage(sn.ToString() + "*" + DateTime.Now.Millisecond);
                              });
 
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 10; i++)
             {
                 var t1 = qs.QueryAsync("", message);
                 System.Threading.Thread.Sleep(5);
@@ -100,10 +101,30 @@ namespace Kise.IdCard.Infrastructure.Test
 
         }
 
-        private void AssertAndPrint(Task<string> t1)
+        [Test]
+        public void QueryTimeOutTest()
         {
-            Assert.IsNotEmpty(t1.Result);
-            System.Diagnostics.Debug.WriteLine(t1.Result);
+            var fl = new FakeLink();
+            fl.Return(q => new IncomingMessage("0*123"));
+            fl.DelayInMs = 30000;
+
+            var qs = GetQs(fl);
+            qs.TimeOutInSeconds = 2;
+
+            var reply = qs.QueryAsync("", "").Result;
+            Assert.IsTrue(reply.IsTimedOut);
+
+            fl.DelayInMs = 1000;
+            fl.Return(q=> new IncomingMessage("1*123"));
+            reply = qs.QueryAsync("", "dfdf").Result;
+            Assert.IsFalse(reply.IsTimedOut);
+            Assert.AreEqual("123", reply.Message);
+        }
+
+        private void AssertAndPrint(Task<ReplyMessage> t1)
+        {
+            Assert.IsNotEmpty(t1.Result.Message);
+            System.Diagnostics.Debug.WriteLine(t1.Result.Message);
         }
 
 
@@ -117,7 +138,7 @@ namespace Kise.IdCard.Infrastructure.Test
             return (int)Reflector.GetField(qs, "_nextSequenceNumber");
         }
 
-        private QueryService GetQs(ITransport t)
+        private QueryService GetQs(ILink t)
         {
             return new QueryService(t);
         }

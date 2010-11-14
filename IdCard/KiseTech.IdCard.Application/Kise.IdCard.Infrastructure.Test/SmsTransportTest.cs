@@ -23,7 +23,7 @@ namespace Kise.IdCard.Infrastructure.Test
             new System.Threading.AutoResetEvent(false);
             bool receivedResponse = false;
 
-            var smsService = new SmsTransport("COM3", 9600);
+            var smsService = new SmsLink("COM3", 9600);
             var task = smsService.QueryAsync("10086", "0000");
 
             var response = task.Result;
