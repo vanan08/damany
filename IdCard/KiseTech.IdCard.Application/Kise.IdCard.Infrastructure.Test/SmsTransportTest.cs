@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 using Gallio.Framework;
+using Kise.IdCard.Messaging;
+using Kise.IdCard.Messaging.Link;
 using MbUnit.Framework;
 using MbUnit.Framework.ContractVerifiers;
 
 namespace Kise.IdCard.Infrastructure.Test
 {
-    using Sms;
-
     [TestFixture]
     public class SmsTransportTest
     {
@@ -24,15 +24,9 @@ namespace Kise.IdCard.Infrastructure.Test
             bool receivedResponse = false;
 
             var smsService = new SmsLink("COM3", 9600);
-            var task = smsService.QueryAsync("10086", "0000");
+            smsService.SendAsync("10086", "0000");
 
-            var response = task.Result;
-
-            System.Diagnostics.Debug.WriteLine(response);
-            receivedResponse = true;
-            waitFor.Set();
-
-
+            throw new NotImplementedException();
         }
     }
 }

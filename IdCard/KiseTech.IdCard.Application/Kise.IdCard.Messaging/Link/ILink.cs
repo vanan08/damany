@@ -1,7 +1,6 @@
 using System;
-using System.Threading.Tasks;
 
-namespace Kise.IdCard.Infrastructure.Sms
+namespace Kise.IdCard.Messaging.Link
 {
     public interface ILink
     {

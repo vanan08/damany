@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Threading.Tasks;
 using mCore;
 
-namespace Kise.IdCard.Infrastructure.Sms
+namespace Kise.IdCard.Messaging.Link
 {
     public class SmsLink : ILink
     {
@@ -32,61 +31,42 @@ namespace Kise.IdCard.Infrastructure.Sms
                 _sms.StopBits = StopBits.One;
                 _sms.FlowControl = FlowControl.None;
                 _sms.NewMessageConcatenate = true;
+
+                _sms.NewMessageReceived += _sms_NewMessageReceived;
             }
         }
 
-        void ILink.SendAsync(string destination, string message)
+        public void SendAsync(string destination, string message)
         {
-            throw new NotImplementedException();
+            if (_sms == null)
+            {
+                throw new InvalidOperationException("Start() must be called first");
+            }
+
+            _curRefNumber = _sms.SendSMSToQueue(destination, message);
         }
 
         public event EventHandler<MiscUtil.EventArgs<IncomingMessage>> NewMessageReceived;
 
-        public async Task<string> QueryAsync(string destinationNumber, string message)
+        public void RaiseNewMessageReceived(MiscUtil.EventArgs<IncomingMessage> e)
         {
-            await TaskEx.Run(() =>
-            {
-                _sms.AutoDeleteNewMessage = true;
-                _sms.DeliveryReport = true;
-                _sms.NewMessageIndication = true;
-            });
-
-            return await SendAsync(destinationNumber, message);
+            EventHandler<MiscUtil.EventArgs<IncomingMessage>> handler = NewMessageReceived;
+            if (handler != null) handler(this, e);
         }
 
         private void _sms_NewMessageReceived(object sender, NewMessageReceivedEventArgs e)
         {
-            if (_responseCallback != null)
-            {
-                _responseCallback(e.TextMessage);
-            }
-
-        }
-
-        private bool ShouldDoCallBack(int referenceNumber)
-        {
-            return referenceNumber == int.Parse(_curRefNumber);
+            var incommingMsg = new IncomingMessage(e.TextMessage);
+            RaiseNewMessageReceived(new MiscUtil.EventArgs<IncomingMessage>(incommingMsg));
         }
 
         private void _sms_NewDeliveryReport(object sender, NewDeliveryReportEventArgs e)
         {
-            if (!ShouldDoCallBack(e.MessageReference)) return;
-
             if (_deliveryCallback != null)
             {
                 _deliveryCallback(true);
             }
         }
 
-
-
-        private Task<string> SendAsync(string destinationNumber, string message)
-        {
-            var tcs = new TaskCompletionSource<string>();
-
-            _curRefNumber = _sms.SendSMS(destinationNumber, message);
-            _sms.NewMessageReceived += (s, e) => tcs.TrySetResult(e.TextMessage);
-            return tcs.Task;
-        }
     }
 }
