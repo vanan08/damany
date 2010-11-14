@@ -11,5 +11,6 @@ namespace Kise.IdCard.Messaging
         public static int Killer = 1;
         public static int PrisonBreaker = 2;
         public static int Wanted = 3;
+        public static int Undefined = 4;
     }
 }

@@ -19,15 +19,18 @@ namespace Kise.IdCard.Model
         public DateTime ValidateUntil { get; set; }
         public byte[] PhotoData { get; set; }
 
-        public IdQuery IdQuery
+        private bool _isSuspect;
+        public bool IsSuspect
         {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-            set
-            {
-            }
+            get { return _isSuspect; }
+            set { SetPropertyValue("IsSuspect", ref _isSuspect, value); }
+        }
+
+        private IdStatus _idStatus;
+        public IdStatus IdStatus
+        {
+            get { return _idStatus; }
+            set { SetPropertyValue("IdStatus", ref _idStatus, value); }
         }
 
 

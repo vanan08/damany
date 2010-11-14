@@ -28,6 +28,7 @@ namespace Kise.IdCard.Messaging
         public DateTime ReceiveTime { get; set; }
         public string Message { get; set; }
         public string Sender { get; set; }
+
         public bool IsTimedOut { get; set; }
     }
 

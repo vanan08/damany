@@ -54,6 +54,7 @@
     <Compile Include="IdcardInfo.cs" />
     <Compile Include="IdQuery.cs" />
     <Compile Include="IdQueryResponse.cs" />
+    <Compile Include="IdStatus.cs" />
     <Compile Include="Minority.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sex.cs" />
