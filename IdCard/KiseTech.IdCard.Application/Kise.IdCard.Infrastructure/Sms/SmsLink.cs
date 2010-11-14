@@ -4,7 +4,7 @@ using mCore;
 
 namespace Kise.IdCard.Infrastructure.Sms
 {
-    public class SmsTransport : ITransport
+    public class SmsLink : ILink
     {
         private readonly string _comPort;
         private readonly int _baundRate;
@@ -13,7 +13,7 @@ namespace Kise.IdCard.Infrastructure.Sms
         private Action<bool> _deliveryCallback;
         private Action<string> _responseCallback;
 
-        public SmsTransport(string comPort, int baundRate)
+        public SmsLink(string comPort, int baundRate)
         {
             _comPort = comPort;
             _baundRate = baundRate;
@@ -34,6 +34,13 @@ namespace Kise.IdCard.Infrastructure.Sms
                 _sms.NewMessageConcatenate = true;
             }
         }
+
+        void ILink.SendAsync(string destination, string message)
+        {
+            throw new NotImplementedException();
+        }
+
+        public event EventHandler<MiscUtil.EventArgs<IncomingMessage>> NewMessageReceived;
 
         public async Task<string> QueryAsync(string destinationNumber, string message)
         {
