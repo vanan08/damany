@@ -8,6 +8,8 @@ using System.Windows.Forms;
 using DevExpress.XtraBars;
 using Kise.IdCard.Application;
 using Kise.IdCard.Infrastructure.CardReader;
+using Kise.IdCard.Messaging;
+using Kise.IdCard.Messaging.Link;
 using Kise.IdCard.Model;
 
 namespace Kise.IdCard.UI
@@ -20,10 +22,9 @@ namespace Kise.IdCard.UI
         {
             InitializeComponent();
 
-
             idCardControl1.MinorityDictionary = FileMinorityDictionary.LoadDictionary("MinorityCode.txt");
 
-            _idService = new IdService(new FakeIdCardReader());
+            _idService = new IdService(new FakeIdCardReader(), new TcpClientLink());
             _idService.AttachView(this);
 
         }

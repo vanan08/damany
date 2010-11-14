@@ -12,6 +12,7 @@ namespace Kise.IdCard.Messaging
         private object _locker = new object();
         private int _nextSequenceNumber;
         private int _currentSequenceNumber;
+        private DateTime _sendQueryTime;
 
         private ConcurrentDictionary<int, IncomingMessage> _messagesReceived
             = new ConcurrentDictionary<int, IncomingMessage>();
@@ -39,6 +40,7 @@ namespace Kise.IdCard.Messaging
             var sn = GetNextSequenceNumber();
             string packedMessage = Helper.PackMessage(message, sn);
 
+            _sendQueryTime = DateTime.Now;
             _link.SendAsync(destinationNumber, packedMessage);
 
             var reply = await GetReplyMessage(sn);
@@ -52,7 +54,7 @@ namespace Kise.IdCard.Messaging
             {
                 await TaskEx.Delay(3000);
                 var msg = FindReply(sn);
-                if (msg != null && msg.ReceiveTime > beginTime)
+                if (msg != null && msg.ReceiveTime > _sendQueryTime)
                 {
                     var rm = new ReplyMessage()
                                  {
