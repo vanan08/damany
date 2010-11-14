@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace Kise.IdCard.Infrastructure.Sms
+namespace Kise.IdCard.Messaging.Link
 {
     public class FakeLink : ILink
     {

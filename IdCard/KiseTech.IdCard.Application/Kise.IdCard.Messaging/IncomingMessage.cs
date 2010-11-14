@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Kise.IdCard.Infrastructure.Sms
+namespace Kise.IdCard.Messaging
 {
     public class IncomingMessage
     {

@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
+using Kise.IdCard.Messaging.Link;
 
-namespace Kise.IdCard.Infrastructure.Sms
+namespace Kise.IdCard.Messaging
 {
     public class QueryService
     {
@@ -35,8 +36,8 @@ namespace Kise.IdCard.Infrastructure.Sms
 
         public async Task<ReplyMessage> QueryAsync(string destinationNumber, string message)
         {
-            string packedMessage;
-            int sn = PackMessage(message, out packedMessage);
+            var sn = GetNextSequenceNumber();
+            string packedMessage = Helper.PackMessage(message, sn);
 
             _link.SendAsync(destinationNumber, packedMessage);
 
@@ -81,19 +82,6 @@ namespace Kise.IdCard.Infrastructure.Sms
             return msg;
         }
 
-        private int PackMessage(string message, out string packedMessage)
-        {
-            var sn = GetNextSequenceNumber();
-            packedMessage = sn.ToString() + GetToken() + message;
-            return sn;
-        }
-
-        private char GetToken()
-        {
-            return '*';
-        }
-
-
         private int GetNextSequenceNumber()
         {
             var v = _nextSequenceNumber;
@@ -111,7 +99,7 @@ namespace Kise.IdCard.Infrastructure.Sms
         {
             int sequenceNumber = -1;
             string payload = null;
-            if (TryUnpackMessage(e.Value.Message, out sequenceNumber, out payload))
+            if (Helper.TryUnpackMessage(e.Value.Message, out sequenceNumber, out payload))
             {
                 var msg = new IncomingMessage()
                 {
@@ -123,26 +111,6 @@ namespace Kise.IdCard.Infrastructure.Sms
                 _messagesReceived.AddOrUpdate(sequenceNumber, msg, (s, i) => msg);
             }
 
-        }
-
-        private bool TryUnpackMessage(string message, out int sequenceNumber, out string payload)
-        {
-            if (message == null) throw new ArgumentNullException("message");
-
-            sequenceNumber = -1;
-            payload = null;
-
-            var tokens = message.Split(GetToken());
-            if (tokens.Length >= 2)
-            {
-                if (int.TryParse(tokens[0], out sequenceNumber))
-                {
-                    payload = string.Join(new string(new char[] { GetToken() }), tokens, 1, tokens.Length - 1);
-                    return true;
-                }
-            }
-
-            return false;
         }
 
     }
