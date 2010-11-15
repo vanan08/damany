@@ -22,5 +22,17 @@ namespace FaceSearcherTester.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string abc {
+            get {
+                return ((string)(this["abc"]));
+            }
+            set {
+                this["abc"] = value;
+            }
+        }
     }
 }

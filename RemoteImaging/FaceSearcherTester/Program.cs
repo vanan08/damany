@@ -13,10 +13,9 @@ namespace FaceSearcherTester
         [STAThread]
         static void Main()
         {
-            DevExpress.UserSkins.BonusSkins.Register();
             DevExpress.Skins.SkinManager.EnableFormSkins();
 
-            DevExpress.LookAndFeel.UserLookAndFeel.Default.SetSkinStyle("Darkroom");
+            DevExpress.LookAndFeel.UserLookAndFeel.Default.SetSkinStyle("Blue");
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

@@ -11,18 +11,25 @@ namespace FaceSearcherTester
 {
     public partial class Form1 : DevExpress.XtraEditors.XtraForm
     {
-        FaceSearchController _controller = new FaceSearchController();
+        FaceSearchController _controller;
+
+
+        public string Status
+        {
+            set { statusLabel.Caption = value; }
+        }
 
         public Form1()
         {
             InitializeComponent();
+
+            _controller = new FaceSearchController(this);
 
             pictureEdit1.DataBindings.Add("EditValue", _controller, "ResultImage");
             faceCount.DataBindings.Add("EditValue", _controller, "FaceCount");
             minFaceWidth.DataBindings.Add("EditValue", _controller, "MinFaceWidth");
             maxFaceWidth.DataBindings.Add("EditValue", _controller, "MaxFaceWidth");
             drawFaceSizeMark.DataBindings.Add("EditValue", _controller, "DrawFaceSize", true, DataSourceUpdateMode.OnPropertyChanged);
-
 
         }
 
