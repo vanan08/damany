@@ -37,6 +37,7 @@
     </Reference>
     <Reference Include="Gallio" />
     <Reference Include="MbUnit" />
+    <Reference Include="MiscUtil, Version=1.0.0.0, Culture=neutral, PublicKeyToken=d3c42c4bfacf7596, processorArchitecture=MSIL" />
     <Reference Include="Moq">
       <HintPath>..\..\..\Library\Moq.dll</HintPath>
     </Reference>
@@ -60,7 +61,7 @@
     <Compile Include="FileMinorityDictionaryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryServiceTest.cs" />
-    <Compile Include="SmsTransportTest.cs" />
+    <Compile Include="SmsLinkTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Kise.IdCard.Infrastructure\Kise.IdCard.Infrastructure.csproj">

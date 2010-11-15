@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Forms;
-using Kise.IdCard.UI;
 
-namespace KiseTech.IdCard.UI
+namespace Kise.IdCard.UI
 {
     static class Program
     {
@@ -12,7 +8,7 @@ namespace KiseTech.IdCard.UI
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
             DevExpress.UserSkins.OfficeSkins.Register();
             DevExpress.UserSkins.BonusSkins.Register();
@@ -20,10 +16,16 @@ namespace KiseTech.IdCard.UI
 
             DevExpress.LookAndFeel.UserLookAndFeel.Default.SetSkinStyle("McSkin");
 
+            if (args.Length > 0)
+            {
+                IsDebug = true;
+            }
 
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
+            System.Windows.Forms.Application.EnableVisualStyles();
+            System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
+            System.Windows.Forms.Application.Run(new MainForm());
         }
+
+        public static bool IsDebug = false;
     }
 }

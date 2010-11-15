@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using Kise.IdCard.Infrastructure.CardReader;
 using Kise.IdCard.Messaging;
 using Kise.IdCard.Messaging.Link;
+using System.Threading;
 
 
 namespace Kise.IdCard.Application
@@ -50,19 +52,50 @@ namespace Kise.IdCard.Application
             _view = view;
         }
 
-        public async void Start()
+        public async void Start(IProgress<ProgressIndicator> progressReport)
         {
             _queryService.Start();
-
+            var indicator = new ProgressIndicator();
             while (true)
             {
-                var v = await _idCardReader.ReadAsync();
+                IdInfo v = null;
+                try
+                {
+                    await TaskEx.Delay(3000);
+
+                    indicator.Status = "读取身份证...";
+                    progressReport.Report(indicator);
+
+                    await TaskEx.Delay(1000);
+
+                    v = await _idCardReader.ReadAsync();
+                }
+                catch (Exception)
+                {
+                    indicator.Status = "身份证读取失败!";
+                    progressReport.Report(indicator);
+
+                    continue;
+                }
+
+                indicator.Status = "身份证读取成功";
+                progressReport.Report(indicator);
 
                 CurrentIdCard = v.ToModelIdCardInfo();
 
                 _view.CurrentIdCardInfo = CurrentIdCard;
 
-                var reply = await _queryService.QueryAsync("", CurrentIdCard.IdCardNo);
+                indicator.Status = "查询身份证，请稍候...";
+                indicator.LongOperation = true;
+                progressReport.Report(indicator);
+
+                var reply = await _queryService.QueryAsync("15928044631", CurrentIdCard.IdCardNo);
+
+                indicator.Status = reply.IsTimedOut ? "查询身份证失败（超时）!" : "查询身份证成功";
+                indicator.LongOperation = false;
+                progressReport.Report(indicator);
+
+
                 if (!reply.IsTimedOut)
                 {
                     var statusCode = int.Parse(reply.Message);
@@ -71,6 +104,7 @@ namespace Kise.IdCard.Application
                 else
                 {
                     CurrentIdCard.IdStatus = IdStatus.UnKnown;
+                    await TaskEx.Delay(3000);
                 }
 
                 IdCardList.Add(CurrentIdCard);
