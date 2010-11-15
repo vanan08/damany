@@ -32,7 +32,7 @@
             this.ribbon = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.barButtonItem1 = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem2 = new DevExpress.XtraBars.BarButtonItem();
-            this.progressIndicator = new DevExpress.XtraBars.BarEditItem();
+            this.progressBar = new DevExpress.XtraBars.BarEditItem();
             this.repositoryItemMarqueeProgressBar1 = new DevExpress.XtraEditors.Repository.RepositoryItemMarqueeProgressBar();
             this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -40,6 +40,7 @@
             this.ribbonStatusBar = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
             this.clientPanel = new DevExpress.XtraEditors.PanelControl();
             this.idCardControl1 = new Kise.IdCard.UI.IdCardControl();
+            this.statusLabel = new DevExpress.XtraBars.BarStaticItem();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemMarqueeProgressBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemProgressBar1)).BeginInit();
@@ -60,9 +61,10 @@
             this.ribbon.ExpandCollapseItem,
             this.barButtonItem1,
             this.barButtonItem2,
-            this.progressIndicator});
+            this.progressBar,
+            this.statusLabel});
             this.ribbon.Location = new System.Drawing.Point(0, 0);
-            this.ribbon.MaxItemId = 8;
+            this.ribbon.MaxItemId = 9;
             this.ribbon.Name = "ribbon";
             this.ribbon.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage1});
@@ -70,7 +72,7 @@
             this.repositoryItemProgressBar1,
             this.repositoryItemMarqueeProgressBar1});
             this.ribbon.SelectedPage = this.ribbonPage1;
-            this.ribbon.Size = new System.Drawing.Size(612, 148);
+            this.ribbon.Size = new System.Drawing.Size(714, 147);
             this.ribbon.StatusBar = this.ribbonStatusBar;
             // 
             // barButtonItem1
@@ -87,14 +89,14 @@
             this.barButtonItem2.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem2.LargeGlyph")));
             this.barButtonItem2.Name = "barButtonItem2";
             // 
-            // progressIndicator
+            // progressBar
             // 
-            this.progressIndicator.Alignment = DevExpress.XtraBars.BarItemLinkAlignment.Right;
-            this.progressIndicator.Edit = this.repositoryItemMarqueeProgressBar1;
-            this.progressIndicator.Id = 7;
-            this.progressIndicator.Name = "progressIndicator";
-            this.progressIndicator.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
-            this.progressIndicator.Width = 100;
+            this.progressBar.Alignment = DevExpress.XtraBars.BarItemLinkAlignment.Right;
+            this.progressBar.Edit = this.repositoryItemMarqueeProgressBar1;
+            this.progressBar.Id = 7;
+            this.progressBar.Name = "progressBar";
+            this.progressBar.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
+            this.progressBar.Width = 100;
             // 
             // repositoryItemMarqueeProgressBar1
             // 
@@ -121,20 +123,21 @@
             // 
             // ribbonStatusBar
             // 
-            this.ribbonStatusBar.ItemLinks.Add(this.progressIndicator);
-            this.ribbonStatusBar.Location = new System.Drawing.Point(0, 511);
+            this.ribbonStatusBar.ItemLinks.Add(this.progressBar);
+            this.ribbonStatusBar.ItemLinks.Add(this.statusLabel);
+            this.ribbonStatusBar.Location = new System.Drawing.Point(0, 549);
             this.ribbonStatusBar.Name = "ribbonStatusBar";
             this.ribbonStatusBar.Ribbon = this.ribbon;
-            this.ribbonStatusBar.Size = new System.Drawing.Size(612, 23);
+            this.ribbonStatusBar.Size = new System.Drawing.Size(714, 26);
             // 
             // clientPanel
             // 
             this.clientPanel.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.clientPanel.Controls.Add(this.idCardControl1);
             this.clientPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.clientPanel.Location = new System.Drawing.Point(0, 148);
+            this.clientPanel.Location = new System.Drawing.Point(0, 147);
             this.clientPanel.Name = "clientPanel";
-            this.clientPanel.Size = new System.Drawing.Size(612, 363);
+            this.clientPanel.Size = new System.Drawing.Size(714, 402);
             this.clientPanel.TabIndex = 2;
             // 
             // idCardControl1
@@ -145,14 +148,21 @@
             this.idCardControl1.Location = new System.Drawing.Point(0, 0);
             this.idCardControl1.MinorityDictionary = null;
             this.idCardControl1.Name = "idCardControl1";
-            this.idCardControl1.Size = new System.Drawing.Size(612, 363);
+            this.idCardControl1.Size = new System.Drawing.Size(714, 402);
             this.idCardControl1.TabIndex = 0;
+            // 
+            // statusLabel
+            // 
+            this.statusLabel.Caption = "就绪";
+            this.statusLabel.Id = 8;
+            this.statusLabel.Name = "statusLabel";
+            this.statusLabel.TextAlignment = System.Drawing.StringAlignment.Near;
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(612, 534);
+            this.ClientSize = new System.Drawing.Size(714, 575);
             this.Controls.Add(this.clientPanel);
             this.Controls.Add(this.ribbonStatusBar);
             this.Controls.Add(this.ribbon);
@@ -180,8 +190,9 @@
         private DevExpress.XtraBars.BarButtonItem barButtonItem1;
         private IdCardControl idCardControl1;
         private DevExpress.XtraBars.BarButtonItem barButtonItem2;
-        private DevExpress.XtraBars.BarEditItem progressIndicator;
+        private DevExpress.XtraBars.BarEditItem progressBar;
         private DevExpress.XtraEditors.Repository.RepositoryItemMarqueeProgressBar repositoryItemMarqueeProgressBar1;
         private DevExpress.XtraEditors.Repository.RepositoryItemProgressBar repositoryItemProgressBar1;
+        private DevExpress.XtraBars.BarStaticItem statusLabel;
     }
 }

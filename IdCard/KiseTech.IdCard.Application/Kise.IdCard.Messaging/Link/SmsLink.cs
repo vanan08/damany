@@ -31,6 +31,7 @@ namespace Kise.IdCard.Messaging.Link
                 _sms.StopBits = StopBits.One;
                 _sms.FlowControl = FlowControl.None;
                 _sms.NewMessageConcatenate = true;
+                _sms.NewMessageIndication = true;
 
                 _sms.NewMessageReceived += _sms_NewMessageReceived;
             }
@@ -43,7 +44,7 @@ namespace Kise.IdCard.Messaging.Link
                 throw new InvalidOperationException("Start() must be called first");
             }
 
-            _curRefNumber = _sms.SendSMSToQueue(destination, message);
+            _curRefNumber = _sms.SendSMS(destination, message);
         }
 
         public event EventHandler<MiscUtil.EventArgs<IncomingMessage>> NewMessageReceived;

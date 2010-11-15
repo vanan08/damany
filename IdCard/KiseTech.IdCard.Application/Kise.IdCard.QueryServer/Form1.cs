@@ -42,18 +42,16 @@ namespace Kise.IdCard.QueryServer
         public void AppendText(string text)
         {
             this.listView1.Items.Add(text);
-            this.listView1.EnsureVisible(this.listView1.Items.Count-1);
+            this.listView1.EnsureVisible(this.listView1.Items.Count - 1);
         }
 
         private void serverSend_Click(object sender, EventArgs e)
         {
-
             _server.SendAsync("", this.serverText.Text);
         }
 
         private void clientSend_Click(object sender, EventArgs e)
         {
-            _client.SendAsync("", this.clientText.Text);
         }
     }
 }

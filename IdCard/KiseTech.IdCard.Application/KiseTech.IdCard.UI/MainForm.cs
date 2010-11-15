@@ -11,6 +11,7 @@ using Kise.IdCard.Infrastructure.CardReader;
 using Kise.IdCard.Messaging;
 using Kise.IdCard.Messaging.Link;
 using Kise.IdCard.Model;
+using Kise.IdCard.UI;
 
 namespace Kise.IdCard.UI
 {
@@ -24,14 +25,37 @@ namespace Kise.IdCard.UI
 
             idCardControl1.MinorityDictionary = FileMinorityDictionary.LoadDictionary("MinorityCode.txt");
 
-            _idService = new IdService(new FakeIdCardReader(), new TcpClientLink());
+            ILink lnk = null;
+            IIdCardReader cardReader = null;
+
+            if (Program.IsDebug)
+            {
+                lnk = new TcpClientLink();
+                cardReader = new FakeIdCardReader();
+            }
+            else
+            {
+                lnk = new SmsLink("com3", 9600);
+                cardReader = new IdCardReader(1001);
+            }
+
+            _idService = new IdService(cardReader, lnk);
             _idService.AttachView(this);
 
         }
 
         private async void MainForm_Shown(object sender, EventArgs e)
         {
-            _idService.Start();
+            var progress = new System.Threading.EventProgress<ProgressIndicator>();
+            progress.ProgressChanged += (s, arg) =>
+                                            {
+                                                statusLabel.Caption = arg.Value.Status;
+                                                progressBar.Visibility = arg.Value.LongOperation
+                                                                             ? BarItemVisibility.Always
+                                                                             : BarItemVisibility.Never;
+                                            };
+
+            _idService.Start(progress);
         }
 
         public IdCardInfo CurrentIdCardInfo
