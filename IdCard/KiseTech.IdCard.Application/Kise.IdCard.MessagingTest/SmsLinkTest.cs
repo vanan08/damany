@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Gallio.Framework;
-using Kise.IdCard.Messaging;
 using Kise.IdCard.Messaging.Link;
 using MbUnit.Framework;
-using MbUnit.Framework.ContractVerifiers;
 
-namespace Kise.IdCard.Infrastructure.Test
+namespace Kise.IdCard.Messaging.Test
 {
     [TestFixture]
     public class SmsLinkTest

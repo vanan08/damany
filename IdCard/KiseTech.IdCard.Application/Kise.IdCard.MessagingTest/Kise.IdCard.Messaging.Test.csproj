@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SmsLinkTest.cs" />
     <Compile Include="TcpLinkTest.cs" />
   </ItemGroup>
   <ItemGroup>
