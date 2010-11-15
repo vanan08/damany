@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 
 namespace Kise.IdCard.UI
 {
@@ -8,6 +9,8 @@ namespace Kise.IdCard.UI
 
     public partial class IdCardControl : DevExpress.XtraEditors.XtraUserControl
     {
+        private System.Drawing.Color _originalBkColor;
+
         private readonly IDictionary<int, string> _minorityDictionary;
         private IdCardInfo _idCardInfo;
         public IdCardInfo IdCardInfo
@@ -29,7 +32,9 @@ namespace Kise.IdCard.UI
                     this.idCardNo.Text = _idCardInfo.IdCardNo;
                     this.idStatus.Text = _idCardInfo.IdStatus.ToString();
 
-                    this.image.Image = System.Drawing.Image.FromStream( new System.IO.MemoryStream(_idCardInfo.PhotoData));
+                    SetColor();
+
+                    this.image.Image = Image.FromStream( new System.IO.MemoryStream(_idCardInfo.PhotoData));
 
                     var inpc = (INotifyPropertyChanged) _idCardInfo;
                     inpc.PropertyChanged += new PropertyChangedEventHandler(inpc_PropertyChanged);
@@ -42,6 +47,14 @@ namespace Kise.IdCard.UI
         void inpc_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             idStatus.Text = _idCardInfo.IdStatus.ToString();
+
+            SetColor();
+        }
+
+        private void SetColor()
+        {
+            var isNormal = _idCardInfo.IdStatus == IdStatus.UnKnown || _idCardInfo.IdStatus == IdStatus.Normal;
+            this.idStatus.BackColor = isNormal ? _originalBkColor : Color.Red;
         }
 
         public string BirthDayFormat { get; set; }
@@ -53,6 +66,7 @@ namespace Kise.IdCard.UI
             InitializeComponent();
 
             BirthDayFormat = "{0} 年 {1} 月 {2} 日";
+            _originalBkColor = idStatus.BackColor;
         }
 
         public IdCardControl(IDictionary<int, string> minorityDictionary)
