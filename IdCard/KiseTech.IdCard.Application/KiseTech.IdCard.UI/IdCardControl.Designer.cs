@@ -30,11 +30,11 @@
         {
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
             this.issuedBy = new DevExpress.XtraEditors.LabelControl();
-            this.image = new DevExpress.XtraEditors.PictureEdit();
             this.idCardNo = new DevExpress.XtraEditors.LabelControl();
             this.expiry = new DevExpress.XtraEditors.LabelControl();
             this.idStatus = new DevExpress.XtraEditors.LabelControl();
             this.birthDay = new DevExpress.XtraEditors.LabelControl();
+            this.image = new DevExpress.XtraEditors.PictureEdit();
             this.minority = new DevExpress.XtraEditors.LabelControl();
             this.sex = new DevExpress.XtraEditors.LabelControl();
             this.name = new DevExpress.XtraEditors.LabelControl();
@@ -101,17 +101,6 @@
             this.issuedBy.StyleController = this.layoutControl1;
             this.issuedBy.TabIndex = 12;
             // 
-            // image
-            // 
-            this.image.Location = new System.Drawing.Point(474, 12);
-            this.image.Name = "image";
-            this.image.Properties.Appearance.BackColor = System.Drawing.Color.Transparent;
-            this.image.Properties.Appearance.Options.UseBackColor = true;
-            this.image.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Office2003;
-            this.image.Size = new System.Drawing.Size(178, 203);
-            this.image.StyleController = this.layoutControl1;
-            this.image.TabIndex = 11;
-            // 
             // idCardNo
             // 
             this.idCardNo.Appearance.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Bold);
@@ -144,7 +133,6 @@
             this.idStatus.Size = new System.Drawing.Size(178, 26);
             this.idStatus.StyleController = this.layoutControl1;
             this.idStatus.TabIndex = 13;
-            this.idStatus.Text = "labelControl1";
             // 
             // birthDay
             // 
@@ -155,6 +143,17 @@
             this.birthDay.Size = new System.Drawing.Size(370, 56);
             this.birthDay.StyleController = this.layoutControl1;
             this.birthDay.TabIndex = 7;
+            // 
+            // image
+            // 
+            this.image.Location = new System.Drawing.Point(474, 12);
+            this.image.Name = "image";
+            this.image.Properties.Appearance.BackColor = System.Drawing.Color.Transparent;
+            this.image.Properties.Appearance.Options.UseBackColor = true;
+            this.image.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Office2003;
+            this.image.Size = new System.Drawing.Size(178, 203);
+            this.image.StyleController = this.layoutControl1;
+            this.image.TabIndex = 11;
             // 
             // minority
             // 
