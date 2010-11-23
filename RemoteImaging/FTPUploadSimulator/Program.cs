@@ -14,27 +14,36 @@ namespace FTPUploadSimulator
             string sourceFolder = args[0];
             //int camID = int.Parse(args[1]);
 
-
-            string[] files = Directory.GetFiles(sourceFolder);
-
-            int count = 0;
-            foreach (string file in files)
+            while (true)
             {
-                var ext = Path.GetExtension(file);
-                if (!string.IsNullOrEmpty(ext) && ext.Equals(".jpg", StringComparison.OrdinalIgnoreCase))
-                {
-                    continue;
-                }
+                string[] files = Directory.GetFiles(sourceFolder);
 
-                string destPathName = Path.Combine(targetFolder, Path.GetFileName(file));
-                File.Copy(file, destPathName);
-                ++count;
-                System.Threading.Thread.Sleep(500);
-                if (count % 6 == 0)
+                int count = 0;
+                foreach (string file in files)
                 {
-                    System.Threading.Thread.Sleep(1000);
+                    var ext = Path.GetExtension(file);
+                    if (string.IsNullOrEmpty(ext) || !ext.Equals(".jpg", StringComparison.OrdinalIgnoreCase))
+                    {
+                        continue;
+                    }
+
+                    string destPathName = Path.Combine(targetFolder, Path.GetFileName(file));
+                    try
+                    {
+                        File.Copy(file, destPathName);
+                    }
+                    catch (Exception e) { Console.WriteLine(e.Message); }
+
+                    ++count;
+                    System.Threading.Thread.Sleep(500);
+                    if (count % 6 == 0)
+                    {
+                        System.Threading.Thread.Sleep(1000);
+                    }
                 }
             }
+
+
 
         }
     }
