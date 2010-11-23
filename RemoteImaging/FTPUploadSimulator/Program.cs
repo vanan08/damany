@@ -10,20 +10,23 @@ namespace FTPUploadSimulator
     {
         static void Main(string[] args)
         {
-            string targetFolder = args[0];
-            int camID = int.Parse(args[1]);
+            string targetFolder = args[1];
+            string sourceFolder = args[0];
+            //int camID = int.Parse(args[1]);
 
 
-            string[] files = Directory.GetFiles(@"d:\20090505");
+            string[] files = Directory.GetFiles(sourceFolder);
 
             int count = 0;
             foreach (string file in files)
             {
-                if (!Path.GetExtension(file).Equals(".jpg", StringComparison.OrdinalIgnoreCase))
+                var ext = Path.GetExtension(file);
+                if (!string.IsNullOrEmpty(ext) && ext.Equals(".jpg", StringComparison.OrdinalIgnoreCase))
                 {
                     continue;
                 }
-                string destPathName = Path.Combine(@"d:\UploadPool\02", Path.GetFileName(file));
+
+                string destPathName = Path.Combine(targetFolder, Path.GetFileName(file));
                 File.Copy(file, destPathName);
                 ++count;
                 System.Threading.Thread.Sleep(500);
