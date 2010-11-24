@@ -69,5 +69,13 @@ namespace Kise.IdCard.UI
             var form = new FormIdQuery();
             form.ShowDialog(this);
         }
+
+        private void barButtonItem2_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var report = new XtraReport1();
+            report.DataSource = xpCollection1;
+
+            report.ShowPreviewDialog();
+        }
     }
 }
