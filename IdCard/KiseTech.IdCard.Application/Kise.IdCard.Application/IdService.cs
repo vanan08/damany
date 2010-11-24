@@ -108,6 +108,7 @@ namespace Kise.IdCard.Application
                 }
 
                 IdCardList.Add(CurrentIdCard);
+                CurrentIdCard.Save();
             }
         }
 

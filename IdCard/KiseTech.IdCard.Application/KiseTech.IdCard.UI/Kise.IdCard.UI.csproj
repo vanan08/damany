@@ -63,7 +63,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GroupControl.cs" />
+    <Compile Include="FormIdQuery.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormIdQuery.Designer.cs">
+      <DependentUpon>FormIdQuery.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GroupControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="IdCardControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -78,6 +86,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FormIdQuery.resx">
+      <DependentUpon>FormIdQuery.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="IdCardControl.resx">
       <DependentUpon>IdCardControl.cs</DependentUpon>
     </EmbeddedResource>

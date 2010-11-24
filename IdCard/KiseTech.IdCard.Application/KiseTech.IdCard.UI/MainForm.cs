@@ -63,5 +63,11 @@ namespace Kise.IdCard.UI
             get { return idCardControl1.IdCardInfo; }
             set { idCardControl1.IdCardInfo = value; }
         }
+
+        private void buttonQuery_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var form = new FormIdQuery();
+            form.ShowDialog(this);
+        }
     }
 }
