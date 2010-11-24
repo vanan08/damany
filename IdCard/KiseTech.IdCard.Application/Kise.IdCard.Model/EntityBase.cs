@@ -11,7 +11,6 @@ namespace Kise.IdCard.Model
         {
             // This constructor is used when an object is loaded from a persistent storage.
             // Do not place any code here.
-            CreationDate = DateTime.Now;
         }
 
         public EntityBase(Session session)
@@ -19,16 +18,23 @@ namespace Kise.IdCard.Model
         {
             // This constructor is used when an object is loaded from a persistent storage.
             // Do not place any code here.
-            CreationDate = DateTime.Now;
         }
 
         public override void AfterConstruction()
         {
             base.AfterConstruction();
             // Place here your initialization code.
+            CreationDate = DateTime.Now;
+
         }
 
-        public DateTime CreationDate { get; set; }
+
+        private DateTime _creationDate;
+        public DateTime CreationDate
+        {
+            get { return _creationDate; }
+            set { SetPropertyValue("CreationDate", ref _creationDate, value); }
+        }
     }
 
 }

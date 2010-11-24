@@ -30,17 +30,17 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.ribbon = new DevExpress.XtraBars.Ribbon.RibbonControl();
-            this.barButtonItem1 = new DevExpress.XtraBars.BarButtonItem();
+            this.buttonQuery = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem2 = new DevExpress.XtraBars.BarButtonItem();
             this.progressBar = new DevExpress.XtraBars.BarEditItem();
             this.repositoryItemMarqueeProgressBar1 = new DevExpress.XtraEditors.Repository.RepositoryItemMarqueeProgressBar();
+            this.statusLabel = new DevExpress.XtraBars.BarStaticItem();
             this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.repositoryItemProgressBar1 = new DevExpress.XtraEditors.Repository.RepositoryItemProgressBar();
             this.ribbonStatusBar = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
             this.clientPanel = new DevExpress.XtraEditors.PanelControl();
             this.idCardControl1 = new Kise.IdCard.UI.IdCardControl();
-            this.statusLabel = new DevExpress.XtraBars.BarStaticItem();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemMarqueeProgressBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemProgressBar1)).BeginInit();
@@ -59,7 +59,7 @@
             this.ribbon.ExpandCollapseItem.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithoutText;
             this.ribbon.Items.AddRange(new DevExpress.XtraBars.BarItem[] {
             this.ribbon.ExpandCollapseItem,
-            this.barButtonItem1,
+            this.buttonQuery,
             this.barButtonItem2,
             this.progressBar,
             this.statusLabel});
@@ -75,12 +75,13 @@
             this.ribbon.Size = new System.Drawing.Size(714, 147);
             this.ribbon.StatusBar = this.ribbonStatusBar;
             // 
-            // barButtonItem1
+            // buttonQuery
             // 
-            this.barButtonItem1.Caption = "查询";
-            this.barButtonItem1.Id = 1;
-            this.barButtonItem1.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem1.LargeGlyph")));
-            this.barButtonItem1.Name = "barButtonItem1";
+            this.buttonQuery.Caption = "查询";
+            this.buttonQuery.Id = 1;
+            this.buttonQuery.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("buttonQuery.LargeGlyph")));
+            this.buttonQuery.Name = "buttonQuery";
+            this.buttonQuery.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.buttonQuery_ItemClick);
             // 
             // barButtonItem2
             // 
@@ -102,6 +103,13 @@
             // 
             this.repositoryItemMarqueeProgressBar1.Name = "repositoryItemMarqueeProgressBar1";
             // 
+            // statusLabel
+            // 
+            this.statusLabel.Caption = "就绪";
+            this.statusLabel.Id = 8;
+            this.statusLabel.Name = "statusLabel";
+            this.statusLabel.TextAlignment = System.Drawing.StringAlignment.Near;
+            // 
             // ribbonPage1
             // 
             this.ribbonPage1.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
@@ -111,7 +119,7 @@
             // 
             // ribbonPageGroup1
             // 
-            this.ribbonPageGroup1.ItemLinks.Add(this.barButtonItem1);
+            this.ribbonPageGroup1.ItemLinks.Add(this.buttonQuery);
             this.ribbonPageGroup1.ItemLinks.Add(this.barButtonItem2);
             this.ribbonPageGroup1.Name = "ribbonPageGroup1";
             this.ribbonPageGroup1.ShowCaptionButton = false;
@@ -151,13 +159,6 @@
             this.idCardControl1.Size = new System.Drawing.Size(714, 402);
             this.idCardControl1.TabIndex = 0;
             // 
-            // statusLabel
-            // 
-            this.statusLabel.Caption = "就绪";
-            this.statusLabel.Id = 8;
-            this.statusLabel.Name = "statusLabel";
-            this.statusLabel.TextAlignment = System.Drawing.StringAlignment.Near;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
@@ -187,7 +188,7 @@
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup1;
         private DevExpress.XtraBars.Ribbon.RibbonStatusBar ribbonStatusBar;
         private DevExpress.XtraEditors.PanelControl clientPanel;
-        private DevExpress.XtraBars.BarButtonItem barButtonItem1;
+        private DevExpress.XtraBars.BarButtonItem buttonQuery;
         private IdCardControl idCardControl1;
         private DevExpress.XtraBars.BarButtonItem barButtonItem2;
         private DevExpress.XtraBars.BarEditItem progressBar;

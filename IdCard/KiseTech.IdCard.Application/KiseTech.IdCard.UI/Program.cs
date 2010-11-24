@@ -14,7 +14,7 @@ namespace Kise.IdCard.UI
             DevExpress.UserSkins.BonusSkins.Register();
             DevExpress.Skins.SkinManager.EnableFormSkins();
 
-            DevExpress.LookAndFeel.UserLookAndFeel.Default.SetSkinStyle("McSkin");
+            DevExpress.LookAndFeel.UserLookAndFeel.Default.SetSkinStyle("Black");
 
             if (args.Length > 0)
             {
