@@ -112,7 +112,15 @@ namespace Kise.IdCard.Application
             if (!reply.IsTimedOut)
             {
                 var statusCode = int.Parse(reply.Message);
-                CurrentIdCard.IdStatus = _statusDict[statusCode];
+                if (_statusDict.ContainsKey(statusCode))
+                {
+                    CurrentIdCard.IdStatus =  _statusDict[statusCode];
+                }
+                else
+                {
+                    CurrentIdCard.IdStatus = IdStatus.UnKnown;
+                }
+                
             }
             else
             {
