@@ -8,17 +8,22 @@ namespace Kise.IdCard.Model
     {
         private static Dictionary<int, string> _dict;
 
-        public static IDictionary<int, string> LoadDictionary(string filePath)
+        public static IDictionary<int, string> Instance
         {
-            if (_dict == null)
+            get
             {
-                var reader = new FileHelperEngine<Minority>();
-                var codes = reader.ReadFile(filePath);
+                if (_dict == null)
+                {
+                    var reader = new FileHelperEngine<Minority>();
+                    var path = System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "MinorityCode.txt");
+                    var codes = reader.ReadFile(path);
 
-                _dict = codes.ToDictionary(mc => mc.Code, mc => mc.Name);
+                    _dict = codes.ToDictionary(mc => mc.Code, mc => mc.Name);
+                }
+
+                return _dict;
             }
 
-            return _dict;
         }
 
         [DelimitedRecord("-")]

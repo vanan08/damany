@@ -18,7 +18,7 @@ namespace Kise.IdCard.Infrastructure.Test
             // TODO: Add test logic here
             //
 
-            var dictionary = FileMinorityDictionary.LoadDictionary("MinorityCode.txt");
+            var dictionary = FileMinorityDictionary.Instance;
 
             
             Assert.IsTrue(dictionary.Values.Count == 58);
