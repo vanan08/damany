@@ -30,13 +30,13 @@ namespace Kise.IdCard.UI
                     this.issuedBy.Text = _idCardInfo.GrantDept;
                     this.expiry.Text = FormatDate(_idCardInfo.ValidateFrom) + " — " + FormatDate(_idCardInfo.ValidateUntil);
                     this.idCardNo.Text = _idCardInfo.IdCardNo;
-                    this.idStatus.Text = _idCardInfo.IdStatus.ToString();
+                    this.idStatus.Text = _idCardInfo.IdStatusName;
 
                     SetColor();
 
-                    this.image.Image = Image.FromStream( new System.IO.MemoryStream(_idCardInfo.PhotoData));
+                    this.image.Image = Image.FromStream(new System.IO.MemoryStream(_idCardInfo.PhotoData));
 
-                    var inpc = (INotifyPropertyChanged) _idCardInfo;
+                    var inpc = (INotifyPropertyChanged)_idCardInfo;
                     inpc.PropertyChanged += new PropertyChangedEventHandler(inpc_PropertyChanged);
 
                 }
@@ -46,7 +46,7 @@ namespace Kise.IdCard.UI
 
         void inpc_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            idStatus.Text = _idCardInfo.IdStatus.ToString();
+            idStatus.Text = _idCardInfo.IdStatusName;
 
             SetColor();
         }

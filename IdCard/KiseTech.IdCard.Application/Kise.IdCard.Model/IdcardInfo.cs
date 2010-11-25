@@ -152,9 +152,22 @@ namespace Kise.IdCard.Model
         public IdStatus IdStatus
         {
             get { return _idStatus; }
-            set { SetPropertyValue("IdStatus", ref _idStatus, value); }
+            set
+            {
+                SetPropertyValue("IdStatus", ref _idStatus, value);
+                OnChanged("IdStatusName");
+            }
         }
 
+
+        [NonPersistent]
+        public string IdStatusName
+        {
+            get
+            {
+                return Helper.GetIdStatusName(IdStatus);
+            }
+        }
 
 
         public IdCardInfo()

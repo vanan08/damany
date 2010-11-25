@@ -31,12 +31,17 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.ribbon = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.buttonQuery = new DevExpress.XtraBars.BarButtonItem();
-            this.barButtonItem2 = new DevExpress.XtraBars.BarButtonItem();
+            this.settingsButton = new DevExpress.XtraBars.BarButtonItem();
             this.progressBar = new DevExpress.XtraBars.BarEditItem();
             this.repositoryItemMarqueeProgressBar1 = new DevExpress.XtraEditors.Repository.RepositoryItemMarqueeProgressBar();
             this.statusLabel = new DevExpress.XtraBars.BarStaticItem();
+            this.reportButton = new DevExpress.XtraBars.BarButtonItem();
+            this.startButton = new DevExpress.XtraBars.BarButtonItem();
+            this.stopButton = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.ribbonPageGroup2 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.ribbonPageGroup3 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.repositoryItemProgressBar1 = new DevExpress.XtraEditors.Repository.RepositoryItemProgressBar();
             this.ribbonStatusBar = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
             this.clientPanel = new DevExpress.XtraEditors.PanelControl();
@@ -62,11 +67,14 @@
             this.ribbon.Items.AddRange(new DevExpress.XtraBars.BarItem[] {
             this.ribbon.ExpandCollapseItem,
             this.buttonQuery,
-            this.barButtonItem2,
+            this.settingsButton,
             this.progressBar,
-            this.statusLabel});
+            this.statusLabel,
+            this.reportButton,
+            this.startButton,
+            this.stopButton});
             this.ribbon.Location = new System.Drawing.Point(0, 0);
-            this.ribbon.MaxItemId = 9;
+            this.ribbon.MaxItemId = 12;
             this.ribbon.Name = "ribbon";
             this.ribbon.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage1});
@@ -85,13 +93,13 @@
             this.buttonQuery.Name = "buttonQuery";
             this.buttonQuery.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.buttonQuery_ItemClick);
             // 
-            // barButtonItem2
+            // settingsButton
             // 
-            this.barButtonItem2.Caption = "设置";
-            this.barButtonItem2.Id = 5;
-            this.barButtonItem2.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem2.LargeGlyph")));
-            this.barButtonItem2.Name = "barButtonItem2";
-            this.barButtonItem2.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem2_ItemClick);
+            this.settingsButton.Caption = "设置";
+            this.settingsButton.Id = 5;
+            this.settingsButton.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("settingsButton.LargeGlyph")));
+            this.settingsButton.Name = "settingsButton";
+            this.settingsButton.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.settingsButton_ItemClick);
             // 
             // progressBar
             // 
@@ -113,20 +121,59 @@
             this.statusLabel.Name = "statusLabel";
             this.statusLabel.TextAlignment = System.Drawing.StringAlignment.Near;
             // 
+            // reportButton
+            // 
+            this.reportButton.Caption = "报表";
+            this.reportButton.Id = 9;
+            this.reportButton.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("reportButton.LargeGlyph")));
+            this.reportButton.Name = "reportButton";
+            this.reportButton.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.reportButton_ItemClick);
+            // 
+            // startButton
+            // 
+            this.startButton.Caption = "启动";
+            this.startButton.Id = 10;
+            this.startButton.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("startButton.LargeGlyph")));
+            this.startButton.Name = "startButton";
+            this.startButton.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.startButton_ItemClick);
+            // 
+            // stopButton
+            // 
+            this.stopButton.Caption = "停止";
+            this.stopButton.Id = 11;
+            this.stopButton.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("stopButton.LargeGlyph")));
+            this.stopButton.Name = "stopButton";
+            this.stopButton.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.stopButton_ItemClick);
+            // 
             // ribbonPage1
             // 
             this.ribbonPage1.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
-            this.ribbonPageGroup1});
+            this.ribbonPageGroup1,
+            this.ribbonPageGroup2,
+            this.ribbonPageGroup3});
             this.ribbonPage1.Name = "ribbonPage1";
             this.ribbonPage1.Text = "控制面板";
             // 
             // ribbonPageGroup1
             // 
-            this.ribbonPageGroup1.ItemLinks.Add(this.buttonQuery);
-            this.ribbonPageGroup1.ItemLinks.Add(this.barButtonItem2);
+            this.ribbonPageGroup1.ItemLinks.Add(this.settingsButton);
             this.ribbonPageGroup1.Name = "ribbonPageGroup1";
             this.ribbonPageGroup1.ShowCaptionButton = false;
             this.ribbonPageGroup1.Text = "系统";
+            // 
+            // ribbonPageGroup2
+            // 
+            this.ribbonPageGroup2.ItemLinks.Add(this.buttonQuery);
+            this.ribbonPageGroup2.ItemLinks.Add(this.reportButton);
+            this.ribbonPageGroup2.Name = "ribbonPageGroup2";
+            this.ribbonPageGroup2.Text = "工具";
+            // 
+            // ribbonPageGroup3
+            // 
+            this.ribbonPageGroup3.ItemLinks.Add(this.startButton);
+            this.ribbonPageGroup3.ItemLinks.Add(this.stopButton);
+            this.ribbonPageGroup3.Name = "ribbonPageGroup3";
+            this.ribbonPageGroup3.Text = "控制";
             // 
             // repositoryItemProgressBar1
             // 
@@ -153,6 +200,8 @@
             // 
             // idCardControl1
             // 
+            this.idCardControl1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("idCardControl1.BackgroundImage")));
+            this.idCardControl1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.idCardControl1.BirthDayFormat = "{0} 年 {1} 月 {2} 日";
             this.idCardControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.idCardControl1.IdCardInfo = null;
@@ -198,11 +247,16 @@
         private DevExpress.XtraEditors.PanelControl clientPanel;
         private DevExpress.XtraBars.BarButtonItem buttonQuery;
         private IdCardControl idCardControl1;
-        private DevExpress.XtraBars.BarButtonItem barButtonItem2;
+        private DevExpress.XtraBars.BarButtonItem settingsButton;
         private DevExpress.XtraBars.BarEditItem progressBar;
         private DevExpress.XtraEditors.Repository.RepositoryItemMarqueeProgressBar repositoryItemMarqueeProgressBar1;
         private DevExpress.XtraEditors.Repository.RepositoryItemProgressBar repositoryItemProgressBar1;
         private DevExpress.XtraBars.BarStaticItem statusLabel;
         private DevExpress.Xpo.XPCollection xpCollection1;
+        private DevExpress.XtraBars.BarButtonItem reportButton;
+        private DevExpress.XtraBars.BarButtonItem startButton;
+        private DevExpress.XtraBars.BarButtonItem stopButton;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup2;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup3;
     }
 }

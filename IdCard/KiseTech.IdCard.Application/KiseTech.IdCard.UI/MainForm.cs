@@ -18,6 +18,9 @@ namespace Kise.IdCard.UI
     public partial class MainForm : DevExpress.XtraBars.Ribbon.RibbonForm, IIdCardView
     {
         private IdService _idService;
+        private Timer _queryTimer;
+
+        private bool _isQueryingId;
 
         public MainForm()
         {
@@ -35,7 +38,7 @@ namespace Kise.IdCard.UI
             }
             else
             {
-                lnk = new SmsLink("com3", 9600);
+                lnk = new SmsLink((string)Properties.Settings.Default.smsModemComPort, 9600);
                 cardReader = new IdCardReader(1001);
             }
 
@@ -44,18 +47,27 @@ namespace Kise.IdCard.UI
 
         }
 
-        private async void MainForm_Shown(object sender, EventArgs e)
+        private void MainForm_Shown(object sender, EventArgs e)
         {
-            var progress = new System.Threading.EventProgress<ProgressIndicator>();
-            progress.ProgressChanged += (s, arg) =>
-                                            {
-                                                statusLabel.Caption = arg.Value.Status;
-                                                progressBar.Visibility = arg.Value.LongOperation
-                                                                             ? BarItemVisibility.Always
-                                                                             : BarItemVisibility.Never;
-                                            };
+            if (string.IsNullOrEmpty(Properties.Settings.Default.smsModemComPort)
+                || string.IsNullOrEmpty(Properties.Settings.Default.smsCenterNo))
+            {
+                var dlg = new FormSettings();
+                dlg.ShowDialog(this);
+            }
 
-            _idService.Start(progress);
+            if (Properties.Settings.Default.AutoStart)
+            {
+                CreateTimer();
+                _queryTimer.Enabled = true;
+                UpdateButtonState(true);
+            }
+        }
+
+        private void CreateTimer()
+        {
+            _queryTimer = new Timer() { Interval = 3000 };
+            _queryTimer.Tick += timer1_Tick;
         }
 
         public IdCardInfo CurrentIdCardInfo
@@ -70,12 +82,68 @@ namespace Kise.IdCard.UI
             form.ShowDialog(this);
         }
 
-        private void barButtonItem2_ItemClick(object sender, ItemClickEventArgs e)
+
+        private void reportButton_ItemClick(object sender, ItemClickEventArgs e)
         {
             var report = new IdReport();
             report.DataSource = xpCollection1;
 
             report.ShowPreviewDialog();
+        }
+
+        private async void timer1_Tick(object sender, EventArgs e)
+        {
+            if (_isQueryingId) return;
+
+            _isQueryingId = true;
+
+            var progress = new System.Threading.EventProgress<ProgressIndicator>();
+            progress.ProgressChanged += (s, arg) =>
+                                            {
+                                                statusLabel.Caption = arg.Value.Status;
+                                                progressBar.Visibility = arg.Value.LongOperation
+                                                                             ? BarItemVisibility.Always
+                                                                             : BarItemVisibility.Never;
+                                            };
+            await _idService.QueryIdAsync(progress, (string)Properties.Settings.Default.smsCenterNo);
+            _isQueryingId = false;
+
+        }
+
+        private void stopButton_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            if (_queryTimer != null)
+            {
+                _queryTimer.Stop();
+
+                UpdateButtonState(false);
+            }
+        }
+
+        private void UpdateButtonState(bool timerIsRunning)
+        {
+            startButton.Enabled = !timerIsRunning;
+            stopButton.Enabled = timerIsRunning;
+        }
+
+        private void startButton_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            if (_queryTimer == null)
+            {
+                CreateTimer();
+            }
+
+            if (_queryTimer != null)
+            {
+                _queryTimer.Start();
+                UpdateButtonState(true);
+            }
+        }
+
+        private void settingsButton_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var dlg = new FormSettings();
+            dlg.ShowDialog(this);
         }
     }
 }
