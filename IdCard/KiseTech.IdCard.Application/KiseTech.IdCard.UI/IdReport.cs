@@ -6,9 +6,9 @@ using DevExpress.XtraReports.UI;
 
 namespace Kise.IdCard.UI
 {
-    public partial class XtraReport1 : DevExpress.XtraReports.UI.XtraReport
+    public partial class IdReport : DevExpress.XtraReports.UI.XtraReport
     {
-        public XtraReport1()
+        public IdReport()
         {
             InitializeComponent();
         }

@@ -94,11 +94,11 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="XtraReport1.cs">
+    <Compile Include="IdReport.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="XtraReport1.Designer.cs">
-      <DependentUpon>XtraReport1.cs</DependentUpon>
+    <Compile Include="IdReport.Designer.cs">
+      <DependentUpon>IdReport.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="FormIdQuery.resx">
       <DependentUpon>FormIdQuery.cs</DependentUpon>
@@ -120,8 +120,11 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="XtraReport1.resx">
-      <DependentUpon>XtraReport1.cs</DependentUpon>
+    <EmbeddedResource Include="IdReport.resx">
+      <DependentUpon>IdReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IdReport.zh-CN.resx">
+      <DependentUpon>IdReport.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\DataSources\Kise.IdCard.Model.IdCardInfo.datasource" />
     <None Include="Properties\Settings.settings">

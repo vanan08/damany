@@ -23,7 +23,7 @@ namespace Kise.IdCard.UI
         {
             InitializeComponent();
 
-            idCardControl1.MinorityDictionary = FileMinorityDictionary.LoadDictionary("MinorityCode.txt");
+            idCardControl1.MinorityDictionary = FileMinorityDictionary.Instance;
 
             ILink lnk = null;
             IIdCardReader cardReader = null;
@@ -72,7 +72,7 @@ namespace Kise.IdCard.UI
 
         private void barButtonItem2_ItemClick(object sender, ItemClickEventArgs e)
         {
-            var report = new XtraReport1();
+            var report = new IdReport();
             report.DataSource = xpCollection1;
 
             report.ShowPreviewDialog();

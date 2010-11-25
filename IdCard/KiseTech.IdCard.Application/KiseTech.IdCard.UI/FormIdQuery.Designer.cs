@@ -34,9 +34,7 @@
             this.colCopyOfImage = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repositoryItemPictureEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemPictureEdit();
             this.colName = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colSexCode = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colIdCardNo = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colMinorityCode = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colBornDate = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colGrantDept = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colValidateFrom = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -44,6 +42,8 @@
             this.colIdStatus = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colCreationDate = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repositoryItemImageEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemImageEdit();
+            this.colMinorityName = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colSexName = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.idCardSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
@@ -61,7 +61,7 @@
             this.gridControl1.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemPictureEdit1,
             this.repositoryItemImageEdit1});
-            this.gridControl1.Size = new System.Drawing.Size(761, 564);
+            this.gridControl1.Size = new System.Drawing.Size(871, 564);
             this.gridControl1.TabIndex = 0;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -75,9 +75,9 @@
             this.gridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.colCopyOfImage,
             this.colName,
-            this.colSexCode,
+            this.colSexName,
             this.colIdCardNo,
-            this.colMinorityCode,
+            this.colMinorityName,
             this.colBornDate,
             this.colGrantDept,
             this.colValidateFrom,
@@ -115,32 +115,14 @@
             this.colName.VisibleIndex = 1;
             this.colName.Width = 77;
             // 
-            // colSexCode
-            // 
-            this.colSexCode.Caption = "性别";
-            this.colSexCode.FieldName = "SexCode";
-            this.colSexCode.Name = "colSexCode";
-            this.colSexCode.Visible = true;
-            this.colSexCode.VisibleIndex = 2;
-            this.colSexCode.Width = 90;
-            // 
             // colIdCardNo
             // 
             this.colIdCardNo.Caption = "身份证号";
             this.colIdCardNo.FieldName = "IdCardNo";
             this.colIdCardNo.Name = "colIdCardNo";
             this.colIdCardNo.Visible = true;
-            this.colIdCardNo.VisibleIndex = 3;
+            this.colIdCardNo.VisibleIndex = 4;
             this.colIdCardNo.Width = 102;
-            // 
-            // colMinorityCode
-            // 
-            this.colMinorityCode.Caption = "民族";
-            this.colMinorityCode.FieldName = "MinorityCode";
-            this.colMinorityCode.Name = "colMinorityCode";
-            this.colMinorityCode.Visible = true;
-            this.colMinorityCode.VisibleIndex = 4;
-            this.colMinorityCode.Width = 68;
             // 
             // colBornDate
             // 
@@ -203,11 +185,27 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.repositoryItemImageEdit1.Name = "repositoryItemImageEdit1";
             // 
+            // colMinorityName
+            // 
+            this.colMinorityName.Caption = "民族";
+            this.colMinorityName.FieldName = "MinorityName";
+            this.colMinorityName.Name = "colMinorityName";
+            this.colMinorityName.Visible = true;
+            this.colMinorityName.VisibleIndex = 3;
+            // 
+            // colSexName
+            // 
+            this.colSexName.Caption = "性别";
+            this.colSexName.FieldName = "SexName";
+            this.colSexName.Name = "colSexName";
+            this.colSexName.Visible = true;
+            this.colSexName.VisibleIndex = 2;
+            // 
             // FormIdQuery
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(761, 564);
+            this.ClientSize = new System.Drawing.Size(871, 564);
             this.Controls.Add(this.gridControl1);
             this.Name = "FormIdQuery";
             this.ShowIcon = false;
@@ -232,14 +230,14 @@
         private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
         private DevExpress.XtraGrid.Columns.GridColumn colCopyOfImage;
         private DevExpress.XtraGrid.Columns.GridColumn colName;
-        private DevExpress.XtraGrid.Columns.GridColumn colSexCode;
         private DevExpress.XtraGrid.Columns.GridColumn colIdCardNo;
-        private DevExpress.XtraGrid.Columns.GridColumn colMinorityCode;
         private DevExpress.XtraGrid.Columns.GridColumn colBornDate;
         private DevExpress.XtraGrid.Columns.GridColumn colGrantDept;
         private DevExpress.XtraGrid.Columns.GridColumn colValidateFrom;
         private DevExpress.XtraGrid.Columns.GridColumn colValidateUntil;
         private DevExpress.XtraGrid.Columns.GridColumn colIdStatus;
         private DevExpress.XtraGrid.Columns.GridColumn colCreationDate;
+        private DevExpress.XtraGrid.Columns.GridColumn colSexName;
+        private DevExpress.XtraGrid.Columns.GridColumn colMinorityName;
     }
 }

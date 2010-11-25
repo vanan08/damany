@@ -38,11 +38,24 @@ namespace Kise.IdCard.Model
             set { SetPropertyValue("SexCode", ref _sexCode, value); }
         }
 
+        [NonPersistent]
+        public string SexName { get { return _sexCode == 1 ? "男" : "女"; } }
+
         private int _minorityCode;
         public int MinorityCode
         {
             get { return _minorityCode; }
             set { SetPropertyValue("MinorityCode", ref _minorityCode, value); }
+        }
+
+        [NonPersistent]
+        public string MinorityName
+        {
+            get
+            {
+                return !FileMinorityDictionary.Instance.ContainsKey(MinorityCode) ?
+                    "未定义" : FileMinorityDictionary.Instance[MinorityCode];
+            }
         }
 
         private DateTime _bornDate;
