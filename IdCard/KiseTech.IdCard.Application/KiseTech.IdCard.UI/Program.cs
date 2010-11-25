@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Globalization;
+using System.Threading;
 
 namespace Kise.IdCard.UI
 {
@@ -10,6 +12,9 @@ namespace Kise.IdCard.UI
         [STAThread]
         static void Main(string[] args)
         {
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("zh-CN");
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo("zh-CN");
+
             DevExpress.UserSkins.OfficeSkins.Register();
             DevExpress.UserSkins.BonusSkins.Register();
             DevExpress.Skins.SkinManager.EnableFormSkins();
