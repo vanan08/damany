@@ -118,8 +118,8 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="xrLabel14.SizeF" type="System.Drawing.SizeF, System.Drawing">
-    <value>51.0416565, 22.9999924</value>
+  <data name="xrLabel7.SizeF" type="System.Drawing.SizeF, System.Drawing">
+    <value>100, 23</value>
   </data>
   <data name="xrLabel5.Text" xml:space="preserve">
     <value>xrLabel5</value>
@@ -130,9 +130,6 @@
   <assembly alias="DevExpress.Utils.v10.1" name="DevExpress.Utils.v10.1, Version=10.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
   <data name="xrLabel2.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Utils.v10.1">
     <value>272.9166, 137.0833</value>
-  </data>
-  <data name="xrLabel18.Text" xml:space="preserve">
-    <value>有效期限</value>
   </data>
   <data name="xrLabel18.SizeF" type="System.Drawing.SizeF, System.Drawing">
     <value>72.91666, 22.9999847</value>
@@ -171,6 +168,9 @@
   <data name="xrLabel5.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Utils.v10.1">
     <value>272.9166, 257</value>
   </data>
+  <data name="xrLabel7.Text" xml:space="preserve">
+    <value>xrLabel7</value>
+  </data>
   <data name="xrLabel7.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Utils.v10.1">
     <value>518.75, 62.625</value>
   </data>
@@ -207,8 +207,8 @@
   <data name="xrLabel6.SizeF" type="System.Drawing.SizeF, System.Drawing">
     <value>188.541687, 23</value>
   </data>
-  <data name="xrLabel7.Text" xml:space="preserve">
-    <value>xrLabel7</value>
+  <data name="xrLabel8.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Utils.v10.1">
+    <value>272.9166, 175</value>
   </data>
   <data name="xrLabel3.SizeF" type="System.Drawing.SizeF, System.Drawing">
     <value>100, 23</value>
@@ -228,6 +228,12 @@
   <data name="xrLabel13.SizeF" type="System.Drawing.SizeF, System.Drawing">
     <value>212.500061, 23</value>
   </data>
+  <data name="xrLabel4.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Utils.v10.1">
+    <value>434.375, 62.625</value>
+  </data>
+  <data name="xrLine3.SizeF" type="System.Drawing.SizeF, System.Drawing">
+    <value>750.999939, 23</value>
+  </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="Detail.HeightF" type="System.Single, mscorlib">
     <value>315</value>
@@ -243,9 +249,6 @@
   </data>
   <data name="xrLabel3.Text" xml:space="preserve">
     <value>xrLabel3</value>
-  </data>
-  <data name="xrLine3.SizeF" type="System.Drawing.SizeF, System.Drawing">
-    <value>750.999939, 23</value>
   </data>
   <data name="xrPictureBox1.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Utils.v10.1">
     <value>20.4166737, 62.916687</value>
@@ -277,14 +280,14 @@
   <data name="xrLabel12.SizeF" type="System.Drawing.SizeF, System.Drawing">
     <value>51.0416565, 22.9999924</value>
   </data>
+  <data name="xrLabel14.SizeF" type="System.Drawing.SizeF, System.Drawing">
+    <value>51.0416565, 22.9999924</value>
+  </data>
   <data name="xrLabel12.Text" xml:space="preserve">
     <value>出生</value>
   </data>
   <data name="xrLine2.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Utils.v10.1">
     <value>410.5, 254</value>
-  </data>
-  <data name="xrLabel15.Text" xml:space="preserve">
-    <value>身份证号码</value>
   </data>
   <data name="xrLabel10.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Utils.v10.1">
     <value>180.208328, 62.625</value>
@@ -298,9 +301,6 @@
   <data name="xrLabel2.SizeF" type="System.Drawing.SizeF, System.Drawing">
     <value>448.9584, 23</value>
   </data>
-  <data name="xrLabel8.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Utils.v10.1">
-    <value>272.9166, 175</value>
-  </data>
   <data name="xrLabel1.Text" xml:space="preserve">
     <value>xrLabel1</value>
   </data>
@@ -310,8 +310,8 @@
   <data name="xrLabel9.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Utils.v10.1">
     <value>180.208328, 29</value>
   </data>
-  <data name="xrLabel7.SizeF" type="System.Drawing.SizeF, System.Drawing">
-    <value>100, 23</value>
+  <data name="xrLabel18.Text" xml:space="preserve">
+    <value>有效期限</value>
   </data>
   <data name="xrLabel9.SizeF" type="System.Drawing.SizeF, System.Drawing">
     <value>48.958313, 23</value>
@@ -328,8 +328,8 @@
   <data name="xrLabel11.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Utils.v10.1">
     <value>423.5, 260.999969</value>
   </data>
-  <data name="xrLabel4.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Utils.v10.1">
-    <value>434.375, 62.625</value>
+  <data name="xrLabel15.Text" xml:space="preserve">
+    <value>身份证号码</value>
   </data>
   <data name="xrLabel3.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Utils.v10.1">
     <value>272.9166, 62.625</value>

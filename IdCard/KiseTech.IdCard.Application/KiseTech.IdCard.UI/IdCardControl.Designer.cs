@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IdCardControl));
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
             this.issuedBy = new DevExpress.XtraEditors.LabelControl();
             this.idCardNo = new DevExpress.XtraEditors.LabelControl();
@@ -95,9 +96,9 @@
             // 
             this.issuedBy.Appearance.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Bold);
             this.issuedBy.Appearance.Options.UseFont = true;
-            this.issuedBy.Location = new System.Drawing.Point(100, 301);
+            this.issuedBy.Location = new System.Drawing.Point(76, 301);
             this.issuedBy.Name = "issuedBy";
-            this.issuedBy.Size = new System.Drawing.Size(552, 44);
+            this.issuedBy.Size = new System.Drawing.Size(576, 44);
             this.issuedBy.StyleController = this.layoutControl1;
             this.issuedBy.TabIndex = 12;
             // 
@@ -105,9 +106,9 @@
             // 
             this.idCardNo.Appearance.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Bold);
             this.idCardNo.Appearance.Options.UseFont = true;
-            this.idCardNo.Location = new System.Drawing.Point(100, 379);
+            this.idCardNo.Location = new System.Drawing.Point(76, 379);
             this.idCardNo.Name = "idCardNo";
-            this.idCardNo.Size = new System.Drawing.Size(552, 40);
+            this.idCardNo.Size = new System.Drawing.Size(576, 40);
             this.idCardNo.StyleController = this.layoutControl1;
             this.idCardNo.TabIndex = 10;
             // 
@@ -115,9 +116,9 @@
             // 
             this.expiry.Appearance.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Bold);
             this.expiry.Appearance.Options.UseFont = true;
-            this.expiry.Location = new System.Drawing.Point(100, 349);
+            this.expiry.Location = new System.Drawing.Point(76, 349);
             this.expiry.Name = "expiry";
-            this.expiry.Size = new System.Drawing.Size(552, 26);
+            this.expiry.Size = new System.Drawing.Size(576, 26);
             this.expiry.StyleController = this.layoutControl1;
             this.expiry.TabIndex = 9;
             // 
@@ -138,9 +139,9 @@
             // 
             this.birthDay.Appearance.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Bold);
             this.birthDay.Appearance.Options.UseFont = true;
-            this.birthDay.Location = new System.Drawing.Point(100, 137);
+            this.birthDay.Location = new System.Drawing.Point(76, 137);
             this.birthDay.Name = "birthDay";
-            this.birthDay.Size = new System.Drawing.Size(370, 56);
+            this.birthDay.Size = new System.Drawing.Size(394, 56);
             this.birthDay.StyleController = this.layoutControl1;
             this.birthDay.TabIndex = 7;
             // 
@@ -159,9 +160,9 @@
             // 
             this.minority.Appearance.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Bold);
             this.minority.Appearance.Options.UseFont = true;
-            this.minority.Location = new System.Drawing.Point(317, 70);
+            this.minority.Location = new System.Drawing.Point(293, 70);
             this.minority.Name = "minority";
-            this.minority.Size = new System.Drawing.Size(153, 63);
+            this.minority.Size = new System.Drawing.Size(177, 63);
             this.minority.StyleController = this.layoutControl1;
             this.minority.TabIndex = 6;
             // 
@@ -169,9 +170,9 @@
             // 
             this.sex.Appearance.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Bold);
             this.sex.Appearance.Options.UseFont = true;
-            this.sex.Location = new System.Drawing.Point(100, 70);
+            this.sex.Location = new System.Drawing.Point(76, 70);
             this.sex.Name = "sex";
-            this.sex.Size = new System.Drawing.Size(125, 63);
+            this.sex.Size = new System.Drawing.Size(149, 63);
             this.sex.StyleController = this.layoutControl1;
             this.sex.TabIndex = 5;
             // 
@@ -179,9 +180,9 @@
             // 
             this.name.Appearance.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Bold);
             this.name.Appearance.Options.UseFont = true;
-            this.name.Location = new System.Drawing.Point(100, 12);
+            this.name.Location = new System.Drawing.Point(76, 12);
             this.name.Name = "name";
-            this.name.Size = new System.Drawing.Size(370, 54);
+            this.name.Size = new System.Drawing.Size(394, 54);
             this.name.StyleController = this.layoutControl1;
             this.name.TabIndex = 4;
             // 
@@ -189,9 +190,9 @@
             // 
             this.address.Appearance.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Bold);
             this.address.Appearance.Options.UseFont = true;
-            this.address.Location = new System.Drawing.Point(100, 197);
+            this.address.Location = new System.Drawing.Point(76, 197);
             this.address.Name = "address";
-            this.address.Size = new System.Drawing.Size(370, 48);
+            this.address.Size = new System.Drawing.Size(394, 48);
             this.address.StyleController = this.layoutControl1;
             this.address.TabIndex = 8;
             // 
@@ -229,19 +230,19 @@
             this.layoutControlItem7.Size = new System.Drawing.Size(644, 30);
             this.layoutControlItem7.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.layoutControlItem7.Text = "有效期限";
-            this.layoutControlItem7.TextSize = new System.Drawing.Size(84, 14);
+            this.layoutControlItem7.TextSize = new System.Drawing.Size(60, 14);
             // 
             // layoutControlItem8
             // 
             this.layoutControlItem8.Control = this.idCardNo;
-            this.layoutControlItem8.CustomizationFormText = "公民身份证号码";
+            this.layoutControlItem8.CustomizationFormText = "身份证号码";
             this.layoutControlItem8.Location = new System.Drawing.Point(0, 367);
             this.layoutControlItem8.MinSize = new System.Drawing.Size(155, 17);
             this.layoutControlItem8.Name = "layoutControlItem8";
             this.layoutControlItem8.Size = new System.Drawing.Size(644, 44);
             this.layoutControlItem8.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
-            this.layoutControlItem8.Text = "公民身份证号码";
-            this.layoutControlItem8.TextSize = new System.Drawing.Size(84, 14);
+            this.layoutControlItem8.Text = "身份证号码";
+            this.layoutControlItem8.TextSize = new System.Drawing.Size(60, 14);
             // 
             // emptySpaceItem1
             // 
@@ -262,7 +263,7 @@
             this.layoutControlItem10.Size = new System.Drawing.Size(644, 48);
             this.layoutControlItem10.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.layoutControlItem10.Text = "签发机关";
-            this.layoutControlItem10.TextSize = new System.Drawing.Size(84, 14);
+            this.layoutControlItem10.TextSize = new System.Drawing.Size(60, 14);
             // 
             // layoutControlItem9
             // 
@@ -288,7 +289,7 @@
             this.layoutControlItem1.Size = new System.Drawing.Size(462, 58);
             this.layoutControlItem1.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.layoutControlItem1.Text = "姓名";
-            this.layoutControlItem1.TextSize = new System.Drawing.Size(84, 14);
+            this.layoutControlItem1.TextSize = new System.Drawing.Size(60, 14);
             // 
             // layoutControlItem2
             // 
@@ -300,7 +301,7 @@
             this.layoutControlItem2.Size = new System.Drawing.Size(217, 67);
             this.layoutControlItem2.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.layoutControlItem2.Text = "性别";
-            this.layoutControlItem2.TextSize = new System.Drawing.Size(84, 14);
+            this.layoutControlItem2.TextSize = new System.Drawing.Size(60, 14);
             // 
             // layoutControlItem4
             // 
@@ -312,7 +313,7 @@
             this.layoutControlItem4.Size = new System.Drawing.Size(462, 60);
             this.layoutControlItem4.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.layoutControlItem4.Text = "出生";
-            this.layoutControlItem4.TextSize = new System.Drawing.Size(84, 14);
+            this.layoutControlItem4.TextSize = new System.Drawing.Size(60, 14);
             // 
             // layoutControlItem5
             // 
@@ -324,7 +325,7 @@
             this.layoutControlItem5.Size = new System.Drawing.Size(462, 52);
             this.layoutControlItem5.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.layoutControlItem5.Text = "住址";
-            this.layoutControlItem5.TextSize = new System.Drawing.Size(84, 14);
+            this.layoutControlItem5.TextSize = new System.Drawing.Size(60, 14);
             // 
             // layoutControlItem6
             // 
@@ -336,7 +337,7 @@
             this.layoutControlItem6.Size = new System.Drawing.Size(245, 67);
             this.layoutControlItem6.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.layoutControlItem6.Text = "民族";
-            this.layoutControlItem6.TextSize = new System.Drawing.Size(84, 14);
+            this.layoutControlItem6.TextSize = new System.Drawing.Size(60, 14);
             // 
             // layoutControlItem11
             // 
@@ -367,6 +368,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.Controls.Add(this.layoutControl1);
             this.Name = "IdCardControl";
             this.Size = new System.Drawing.Size(664, 431);
