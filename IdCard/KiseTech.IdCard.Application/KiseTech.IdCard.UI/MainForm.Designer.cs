@@ -223,6 +223,7 @@
             this.Controls.Add(this.clientPanel);
             this.Controls.Add(this.ribbonStatusBar);
             this.Controls.Add(this.ribbon);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.Ribbon = this.ribbon;
             this.StatusBar = this.ribbonStatusBar;
