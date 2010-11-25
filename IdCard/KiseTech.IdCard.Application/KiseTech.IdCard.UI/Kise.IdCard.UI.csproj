@@ -149,6 +149,9 @@
     <EmbeddedResource Include="IdCardControl.resx">
       <DependentUpon>IdCardControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="IdReport.resx">
+      <DependentUpon>IdReport.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -163,9 +166,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="IdReport.resx">
-      <DependentUpon>IdReport.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="IdReport.zh-CN.resx">
       <DependentUpon>IdReport.cs</DependentUpon>
     </EmbeddedResource>

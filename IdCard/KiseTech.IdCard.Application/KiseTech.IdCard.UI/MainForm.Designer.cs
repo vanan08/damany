@@ -82,7 +82,7 @@
             this.repositoryItemProgressBar1,
             this.repositoryItemMarqueeProgressBar1});
             this.ribbon.SelectedPage = this.ribbonPage1;
-            this.ribbon.Size = new System.Drawing.Size(714, 147);
+            this.ribbon.Size = new System.Drawing.Size(612, 148);
             this.ribbon.StatusBar = this.ribbonStatusBar;
             // 
             // buttonQuery
@@ -183,19 +183,19 @@
             // 
             this.ribbonStatusBar.ItemLinks.Add(this.progressBar);
             this.ribbonStatusBar.ItemLinks.Add(this.statusLabel);
-            this.ribbonStatusBar.Location = new System.Drawing.Point(0, 549);
+            this.ribbonStatusBar.Location = new System.Drawing.Point(0, 511);
             this.ribbonStatusBar.Name = "ribbonStatusBar";
             this.ribbonStatusBar.Ribbon = this.ribbon;
-            this.ribbonStatusBar.Size = new System.Drawing.Size(714, 26);
+            this.ribbonStatusBar.Size = new System.Drawing.Size(612, 23);
             // 
             // clientPanel
             // 
             this.clientPanel.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.clientPanel.Controls.Add(this.idCardControl1);
             this.clientPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.clientPanel.Location = new System.Drawing.Point(0, 147);
+            this.clientPanel.Location = new System.Drawing.Point(0, 148);
             this.clientPanel.Name = "clientPanel";
-            this.clientPanel.Size = new System.Drawing.Size(714, 402);
+            this.clientPanel.Size = new System.Drawing.Size(612, 363);
             this.clientPanel.TabIndex = 2;
             // 
             // idCardControl1
@@ -208,7 +208,7 @@
             this.idCardControl1.Location = new System.Drawing.Point(0, 0);
             this.idCardControl1.MinorityDictionary = null;
             this.idCardControl1.Name = "idCardControl1";
-            this.idCardControl1.Size = new System.Drawing.Size(714, 402);
+            this.idCardControl1.Size = new System.Drawing.Size(612, 363);
             this.idCardControl1.TabIndex = 0;
             // 
             // xpCollection1
@@ -217,9 +217,9 @@
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(714, 575);
+            this.ClientSize = new System.Drawing.Size(612, 534);
             this.Controls.Add(this.clientPanel);
             this.Controls.Add(this.ribbonStatusBar);
             this.Controls.Add(this.ribbon);
