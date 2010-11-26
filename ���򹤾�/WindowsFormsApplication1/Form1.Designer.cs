@@ -34,6 +34,8 @@
             this.labelControl3 = new DevExpress.XtraEditors.LabelControl();
             this.pictureEdit1 = new DevExpress.XtraEditors.PictureEdit();
             this.panelControl3 = new DevExpress.XtraEditors.PanelControl();
+            this.spinEdit2 = new DevExpress.XtraEditors.SpinEdit();
+            this.labelControl4 = new DevExpress.XtraEditors.LabelControl();
             this.panelControl2 = new DevExpress.Utils.Frames.NotePanel8_1();
             this.captureImage = new DevExpress.XtraEditors.SimpleButton();
             this.applyButton = new DevExpress.XtraEditors.SimpleButton();
@@ -41,11 +43,15 @@
             this.connectButton = new DevExpress.XtraEditors.SimpleButton();
             this.cameraIp = new DevExpress.XtraEditors.TextEdit();
             this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
+            this.snapShots = new System.Windows.Forms.ListView();
+            this.imageList1 = new System.Windows.Forms.ImageList();
+            this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).BeginInit();
             this.panelControl3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.spinEdit2.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.liveImg.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cameraIp.Properties)).BeginInit();
             this.SuspendLayout();
@@ -61,7 +67,7 @@
             this.pictureBox1.Image = null;
             this.pictureBox1.Location = new System.Drawing.Point(315, 76);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(485, 438);
+            this.pictureBox1.Size = new System.Drawing.Size(587, 355);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.FigureDrawn += new System.EventHandler<Damany.Windows.Form.DrawFigureEventArgs>(this.pictureBox1_FigureDrawn);
             // 
@@ -73,7 +79,7 @@
             this.panelControl1.Controls.Add(this.pictureEdit1);
             this.panelControl1.Location = new System.Drawing.Point(315, 4);
             this.panelControl1.Name = "panelControl1";
-            this.panelControl1.Size = new System.Drawing.Size(488, 66);
+            this.panelControl1.Size = new System.Drawing.Size(587, 66);
             this.panelControl1.TabIndex = 1;
             // 
             // labelControl3
@@ -90,7 +96,7 @@
             // 
             this.pictureEdit1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureEdit1.EditValue = ((object)(resources.GetObject("pictureEdit1.EditValue")));
-            this.pictureEdit1.Location = new System.Drawing.Point(413, 6);
+            this.pictureEdit1.Location = new System.Drawing.Point(512, 6);
             this.pictureEdit1.Name = "pictureEdit1";
             this.pictureEdit1.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.pictureEdit1.Properties.SizeMode = DevExpress.XtraEditors.Controls.PictureSizeMode.Zoom;
@@ -99,6 +105,8 @@
             // 
             // panelControl3
             // 
+            this.panelControl3.Controls.Add(this.spinEdit2);
+            this.panelControl3.Controls.Add(this.labelControl4);
             this.panelControl3.Controls.Add(this.panelControl2);
             this.panelControl3.Controls.Add(this.captureImage);
             this.panelControl3.Controls.Add(this.applyButton);
@@ -109,14 +117,45 @@
             this.panelControl3.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelControl3.Location = new System.Drawing.Point(0, 0);
             this.panelControl3.Name = "panelControl3";
-            this.panelControl3.Size = new System.Drawing.Size(309, 526);
+            this.panelControl3.Size = new System.Drawing.Size(309, 629);
             this.panelControl3.TabIndex = 3;
+            // 
+            // spinEdit2
+            // 
+            this.spinEdit2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.spinEdit2.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", global::WindowsFormsApplication1.Properties.Settings.Default, "SnapCount", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.spinEdit2.EditValue = global::WindowsFormsApplication1.Properties.Settings.Default.SnapCount;
+            this.spinEdit2.Location = new System.Drawing.Point(143, 365);
+            this.spinEdit2.Name = "spinEdit2";
+            this.spinEdit2.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton()});
+            this.spinEdit2.Properties.MaxValue = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.spinEdit2.Properties.MinValue = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.spinEdit2.Size = new System.Drawing.Size(56, 21);
+            this.spinEdit2.TabIndex = 1;
+            // 
+            // labelControl4
+            // 
+            this.labelControl4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.labelControl4.Location = new System.Drawing.Point(87, 368);
+            this.labelControl4.Name = "labelControl4";
+            this.labelControl4.Size = new System.Drawing.Size(48, 14);
+            this.labelControl4.TabIndex = 3;
+            this.labelControl4.Text = "抓拍张数";
             // 
             // panelControl2
             // 
             this.panelControl2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.panelControl2.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Default;
-            this.panelControl2.Location = new System.Drawing.Point(7, 387);
+            this.panelControl2.Location = new System.Drawing.Point(7, 490);
             this.panelControl2.MaxRows = 10;
             this.panelControl2.Name = "panelControl2";
             this.panelControl2.Size = new System.Drawing.Size(297, 127);
@@ -128,7 +167,8 @@
             // captureImage
             // 
             this.captureImage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.captureImage.Location = new System.Drawing.Point(31, 299);
+            this.captureImage.Enabled = false;
+            this.captureImage.Location = new System.Drawing.Point(31, 399);
             this.captureImage.Name = "captureImage";
             this.captureImage.Size = new System.Drawing.Size(237, 32);
             this.captureImage.TabIndex = 6;
@@ -138,7 +178,8 @@
             // applyButton
             // 
             this.applyButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.applyButton.Location = new System.Drawing.Point(31, 337);
+            this.applyButton.Enabled = false;
+            this.applyButton.Location = new System.Drawing.Point(31, 440);
             this.applyButton.Name = "applyButton";
             this.applyButton.Size = new System.Drawing.Size(237, 32);
             this.applyButton.TabIndex = 5;
@@ -170,6 +211,7 @@
             this.cameraIp.Name = "cameraIp";
             this.cameraIp.Size = new System.Drawing.Size(153, 21);
             this.cameraIp.TabIndex = 1;
+            this.cameraIp.KeyUp += new System.Windows.Forms.KeyEventHandler(this.cameraIp_KeyUp);
             // 
             // labelControl1
             // 
@@ -179,12 +221,42 @@
             this.labelControl1.TabIndex = 0;
             this.labelControl1.Text = "摄像机地址：";
             // 
+            // snapShots
+            // 
+            this.snapShots.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.snapShots.LargeImageList = this.imageList1;
+            this.snapShots.Location = new System.Drawing.Point(315, 457);
+            this.snapShots.Name = "snapShots";
+            this.snapShots.Size = new System.Drawing.Size(587, 160);
+            this.snapShots.TabIndex = 4;
+            this.snapShots.UseCompatibleStateImageBehavior = false;
+            this.snapShots.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.snapShots_ItemSelectionChanged);
+            // 
+            // imageList1
+            // 
+            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth24Bit;
+            this.imageList1.ImageSize = new System.Drawing.Size(128, 128);
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            // 
+            // labelControl2
+            // 
+            this.labelControl2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.labelControl2.Location = new System.Drawing.Point(315, 437);
+            this.labelControl2.Name = "labelControl2";
+            this.labelControl2.Size = new System.Drawing.Size(24, 14);
+            this.labelControl2.TabIndex = 5;
+            this.labelControl2.Text = "快照";
+            // 
             // Form1
             // 
+            this.AcceptButton = this.connectButton;
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(808, 526);
+            this.ClientSize = new System.Drawing.Size(907, 629);
+            this.Controls.Add(this.labelControl2);
+            this.Controls.Add(this.snapShots);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.panelControl3);
             this.Controls.Add(this.panelControl1);
@@ -201,9 +273,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).EndInit();
             this.panelControl3.ResumeLayout(false);
             this.panelControl3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.spinEdit2.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.liveImg.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cameraIp.Properties)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -221,6 +295,11 @@
         private DevExpress.XtraEditors.SimpleButton captureImage;
         private DevExpress.XtraEditors.PictureEdit liveImg;
         private DevExpress.Utils.Frames.NotePanel8_1 panelControl2;
+        private System.Windows.Forms.ListView snapShots;
+        private System.Windows.Forms.ImageList imageList1;
+        private DevExpress.XtraEditors.LabelControl labelControl4;
+        private DevExpress.XtraEditors.SpinEdit spinEdit2;
+        private DevExpress.XtraEditors.LabelControl labelControl2;
 
 
 

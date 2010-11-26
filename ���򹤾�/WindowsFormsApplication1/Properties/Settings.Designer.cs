@@ -46,10 +46,22 @@ namespace WindowsFormsApplication1.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("3000")]
+        [global::System.Configuration.DefaultSettingValueAttribute("500")]
         public int FrameIntervalMs {
             get {
                 return ((int)(this["FrameIntervalMs"]));
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("5")]
+        public int SnapCount {
+            get {
+                return ((int)(this["SnapCount"]));
+            }
+            set {
+                this["SnapCount"] = value;
             }
         }
     }
