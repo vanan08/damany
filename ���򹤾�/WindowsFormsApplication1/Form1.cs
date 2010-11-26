@@ -50,7 +50,7 @@ namespace WindowsFormsApplication1
         {
             var status = string.Format("线圈位置：{0},{1}  线圈大小：{2}x{3}",
                                        e.Rectangle.Left, e.Rectangle.Top, e.Rectangle.Width, e.Rectangle.Height);
-            //statusLabel.Caption = status;
+            statusLabel.Text = status;
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -161,6 +161,8 @@ namespace WindowsFormsApplication1
                 if (img != null)
                 {
                     pictureBox1.Image = (Image)img.Clone();
+                    var status = string.Format("图像大小：{0}x{1}", img.Width, img.Height);
+                    statusLabel.Text = status;
                 }
 
             }
@@ -172,6 +174,11 @@ namespace WindowsFormsApplication1
             {
                 connectButton_Click(null, null);
             }
+        }
+
+        private void Form1_Shown(object sender, EventArgs e)
+        {
+            connectButton_Click(null, null);
         }
     }
 }
