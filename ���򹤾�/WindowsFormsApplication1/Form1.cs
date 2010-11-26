@@ -42,6 +42,8 @@ namespace WindowsFormsApplication1
 
             _rectangle = e.Rectangle;
             UpdateStatusLabel(e);
+            applyButton.Enabled = true;
+            applyButton.Select();
         }
 
         private void UpdateStatusLabel(DrawFigureEventArgs e)
@@ -105,24 +107,70 @@ namespace WindowsFormsApplication1
         {
             if (string.IsNullOrWhiteSpace((string)cameraIp.EditValue)) return;
 
-            if (_camera == null)
+            if (_camera != null)
             {
-                var uri = string.Format("http://{0}/liveimg.cgi", cameraIp.EditValue);
-                _camera = new Damany.Cameras.JPEGExtendStream(uri);
-                _camera.Login = "guest";
-                _camera.Password = "guest";
-                _camera.FrameInterval = Properties.Settings.Default.FrameIntervalMs;
-                _camera.RequireCookie = true;
-                _camera.NewFrame += this.camera_NewFrame;
-                _camera.Start();
+                _camera.SignalToStop();
             }
+
+            var uri = string.Format("http://{0}/liveimg.cgi", cameraIp.EditValue);
+            _camera = new Damany.Cameras.JPEGExtendStream(uri);
+            _camera.Login = "guest";
+            _camera.Password = "guest";
+            _camera.FrameInterval = Properties.Settings.Default.FrameIntervalMs;
+            _camera.RequireCookie = true;
+            _camera.NewFrame += this.camera_NewFrame;
+            _camera.Start();
+
+            captureImage.Enabled = true;
+            captureImage.Select();
         }
 
         private void captureImage_Click(object sender, EventArgs e)
         {
-            if (liveImg.Image != null)
+            if (_camera == null) return;
+
+            captureImage.Enabled = false;
+
+            var newFrames = Observable.FromEvent<AForge.Video.NewFrameEventArgs>(_camera, "NewFrame")
+                .Select(arg => arg.EventArgs.Frame.Clone() as Image)
+                .Take(Properties.Settings.Default.SnapCount);
+
+            snapShots.Clear();
+            imageList1.Images.Clear();
+            int i = 0;
+            newFrames.ObserveOn(this).Subscribe(img =>
+                                    {
+                                        imageList1.Images.Add(img);
+                                        var item = snapShots.Items.Add((i + 1).ToString(), i);
+                                        item.Tag = img;
+
+                                        if (i == Properties.Settings.Default.SnapCount - 1)
+                                        {
+                                            captureImage.Enabled = true;
+                                        }
+
+                                        i++;
+                                    });
+        }
+
+        private void snapShots_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
+        {
+            if (e.IsSelected)
             {
-                pictureBox1.Image = (Image)liveImg.Image.Clone();
+                var img = e.Item.Tag as Image;
+                if (img != null)
+                {
+                    pictureBox1.Image = (Image)img.Clone();
+                }
+
+            }
+        }
+
+        private void cameraIp_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                connectButton_Click(null, null);
             }
         }
     }
