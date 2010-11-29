@@ -8,6 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Damany.Windows.Form;
+using Leadtools.Codecs;
+using Leadtools.Drawing;
 
 namespace WindowsFormsApplication1
 {
@@ -17,6 +19,7 @@ namespace WindowsFormsApplication1
         private ISetRectangle _rectangleSetter;
         private string _lastPeerAddress = string.Empty;
         private Damany.Cameras.JPEGExtendStream _camera;
+        private Leadtools.Codecs.RasterCodecs _codec;
 
         public Form1()
         {
@@ -55,6 +58,7 @@ namespace WindowsFormsApplication1
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
+            Leadtools.Codecs.RasterCodecs.Shutdown();
 
             Properties.Settings.Default.Save();
 
@@ -135,37 +139,22 @@ namespace WindowsFormsApplication1
                 .Select(arg => arg.EventArgs.Frame.Clone() as Image)
                 .Take(Properties.Settings.Default.SnapCount);
 
-            snapShots.Clear();
-            imageList1.Images.Clear();
+            snapShots.Items.Clear();
             int i = 0;
             newFrames.ObserveOn(this).Subscribe(img =>
-                                    {
-                                        imageList1.Images.Add(img);
-                                        var item = snapShots.Items.Add((i + 1).ToString(), i);
-                                        item.Tag = img;
+                            {
 
-                                        if (i == Properties.Settings.Default.SnapCount - 1)
-                                        {
-                                            captureImage.Enabled = true;
-                                        }
+                                var ri = RasterImageConverter.ConvertFromImage(img, ConvertFromImageOptions.None);
+                                var item = new Leadtools.WinForms.RasterImageListItem(ri, 1, (i + 1).ToString());
+                                snapShots.Items.Add(item);
 
-                                        i++;
-                                    });
-        }
+                                if (i == Properties.Settings.Default.SnapCount - 1)
+                                {
+                                    captureImage.Enabled = true;
+                                }
 
-        private void snapShots_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
-        {
-            if (e.IsSelected)
-            {
-                var img = e.Item.Tag as Image;
-                if (img != null)
-                {
-                    pictureBox1.Image = (Image)img.Clone();
-                    var status = string.Format("图像大小：{0}x{1}", img.Width, img.Height);
-                    statusLabel.Text = status;
-                }
-
-            }
+                                i++;
+                            });
         }
 
         private void cameraIp_KeyUp(object sender, KeyEventArgs e)
@@ -178,7 +167,28 @@ namespace WindowsFormsApplication1
 
         private void Form1_Shown(object sender, EventArgs e)
         {
+            panelControl4.Controls.Add(snapShots);
+            snapShots.BorderStyle = BorderStyle.FixedSingle;
+
+
             connectButton_Click(null, null);
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            RasterCodecs.Startup();
+            _codec = new RasterCodecs();
+        }
+
+        private void snapShots_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (snapShots.SelectedItems.Count > 0)
+            {
+                var img = RasterImageConverter.ConvertToImage(snapShots.SelectedItems[0].Image, ConvertToImageOptions.None);
+                pictureBox1.Image = img;
+                var status = string.Format("图像大小：{0}x{1}", img.Width, img.Height);
+                statusLabel.Text = status;
+            }
         }
     }
 }
