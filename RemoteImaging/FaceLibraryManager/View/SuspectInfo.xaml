@@ -11,7 +11,7 @@
     </UserControl.Resources>
     
 
-    <Border CornerRadius="5" BorderBrush="Aqua" BorderThickness="2" >
+    <Border CornerRadius="5" BorderBrush="Aqua" BorderThickness="2">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="27*" />
@@ -31,20 +31,20 @@
                 <ColumnDefinition Width="18*" />
             </Grid.ColumnDefinitions>
             
-        <Image Source="{Binding Path=ImageFilePath, Converter={StaticResource imgConverter}}" Height="218" HorizontalAlignment="Center"  Name="image1" Stretch="Uniform" VerticalAlignment="Center" Width="164" Margin="15,8,15,1" Grid.Row="1" Grid.RowSpan="7">
+        <Image Source="{Binding Path=ImageFilePath, Converter={StaticResource imgConverter}}" Height="218" HorizontalAlignment="Center" Name="image1" Stretch="Uniform" VerticalAlignment="Center" Width="164" Margin="15,8,15,1" Grid.Row="1" Grid.RowSpan="7">
             <Image.ToolTip>
                     <Image Source="{Binding ImageFilePath, Converter={StaticResource imgConverter}}" />
             </Image.ToolTip>
         </Image>
-    	<Label Content="姓名：" Grid.Column="1" Grid.Row="1"  HorizontalAlignment="Left"  Name="label1"   />
-        <Label Content="性别：" Grid.Column="1" Grid.Row="3"  HorizontalAlignment="Left"  Name="label2"  />
-        <Label Content="年龄：" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Left"  Name="label3"  />
-        <Expander Grid.Column="1" Grid.Row="7" Header="详情："    Name="expander1" Grid.ColumnSpan="2" ExpandDirection="Down">
+    	<Label Content="姓名：" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" Name="label1" />
+        <Label Content="性别：" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" Name="label2" />
+        <Label Content="年龄：" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Left" Name="label3" />
+        <Expander Grid.Column="1" Grid.Row="7" Header="详情：" Name="expander1" Grid.ColumnSpan="2" ExpandDirection="Down">
             <Grid>
-                <TextBox Name="textBox1" Height="80"  />
+                <TextBox Name="textBox1" Height="80" />
             </Grid>
         </Expander>
-        <TextBox Grid.Column="2" Grid.Row="1"  Name="textBox2" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBox Grid.Column="2" Grid.Row="1" Name="textBox2" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
             <StackPanel VerticalAlignment="Center" Grid.Column="2" Grid.Row="3" Orientation="Horizontal">
                 <RadioButton IsChecked="{Binding Path=Gender, Converter={StaticResource enumConverter}, ConverterParameter=Male}">男</RadioButton>
                 <RadioButton Margin="20,0,0,0" IsChecked="{Binding Path=Gender, Converter={StaticResource enumConverter}, ConverterParameter=Female}">女</RadioButton>

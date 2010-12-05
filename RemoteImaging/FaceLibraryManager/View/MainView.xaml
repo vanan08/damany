@@ -14,7 +14,7 @@
         <ResourceDictionary Source="MainWindowResources.xaml" />
         
     </Window.Resources>
-    <Grid  Name="grid1" >
+    <Grid Name="grid1">
         <Grid.RowDefinitions>
             <RowDefinition Height="322" />
             <RowDefinition Height="5" />
@@ -30,24 +30,25 @@
             <ColumnDefinition Width="359*" />
         </Grid.ColumnDefinitions>
         <Border CornerRadius="5" Background="White" Grid.RowSpan="3">
-            <HeaderedContentControl Header="控制面板" Style="{StaticResource MainHCCStyle}" >
+            <HeaderedContentControl Header="控制面板" Style="{StaticResource MainHCCStyle}"
+                >
                 <Grid>
-                    <Border >
+                    <Border>
                         <StackPanel VerticalAlignment="Top">
                             <Button Margin="5" Width="110" Height="auto" Command="{Binding AddNewFaceCommand}">
                                 <StackPanel>
-                                    <Image Height="40"  Source="/FaceLibraryManager;component/Images/AddNew.png" />
+                                    <Image Height="40" Source="/FaceLibraryManager;component/Images/AddNew.png" />
                                     <TextBlock Text="添加新人像" />
                                 </StackPanel>
                             </Button>
-                            <Button Margin="5" Width="110" Height="auto" Command="{Binding SaveCommand}" >
+                            <Button Margin="5" Width="110" Height="auto" Command="{Binding SaveCommand}">
                                 <StackPanel>
                                     <Image Height="32" Source="/FaceLibraryManager;component/Images/Update.png" />
                                     <TextBlock Text="更新特征库" />
                                 </StackPanel>
 
                             </Button>
-                            <Button Margin="5" Width="110" Height="auto" Command="{Binding ReloadCommand}" >
+                            <Button Margin="5" Width="110" Height="auto" Command="{Binding ReloadCommand}">
                                 <StackPanel>
                                     <Image Height="32" Source="/FaceLibraryManager;component/Images/Reload.png" />
                                     <TextBlock Text="重新载入特征库" />
@@ -58,9 +59,8 @@
                 </Grid>
             </HeaderedContentControl>
         </Border>
-        <Border Grid.Column="2" Background="White" CornerRadius="5" >
-            <HeaderedContentControl 
-                Header="人像详情" 
+        <Border Grid.Column="2" Background="White" CornerRadius="5">
+            <HeaderedContentControl Header="人像详情" 
                 Content="{Binding}"
                 Style="{StaticResource MainHCCStyle}"
                 >
@@ -81,10 +81,10 @@
             </HeaderedContentControl>
         </Border>
         <Border Grid.Column="2" Grid.Row="2" Background="White" CornerRadius="5">
-            <HeaderedContentControl 
-                Header="人像列表" 
+            <HeaderedContentControl Header="人像列表" 
                 Content="{Binding}"
-                Style="{StaticResource MainHCCStyle}">
+                Style="{StaticResource MainHCCStyle}"
+                >
                 <HeaderedContentControl.ContentTemplate>
                     <DataTemplate>
                         <Border>
@@ -95,10 +95,10 @@
                                 </Grid.RowDefinitions>
                                 <DockPanel Grid.Row="1">
                                     <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Center">
-                                        <Button Margin="5"  x:Name="deleteButton" DataContext="{Binding}" Command="{Binding Path=DeleteSuspect}" Click="deleteButton_Click">
+                                        <Button Margin="5" x:Name="deleteButton" DataContext="{Binding}" Command="{Binding Path=DeleteSuspect}" Click="deleteButton_Click">
                                             <Image Height="22" Source="/FaceLibraryManager;component/Images/delete.gif" />
                                         </Button>
-                                        <Label Content="缩放比例:" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5,0,0,0"/>
+                                        <Label Content="缩放比例:" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5,0,0,0" />
                                         <Slider Margin="5" Minimum="25" Maximum="100" VerticalAlignment="Center" Width="100" Value="{Binding Text, Source={StaticResource scaleFactor}}" />
                                     </StackPanel>
                                     <ListView Margin="3,0"

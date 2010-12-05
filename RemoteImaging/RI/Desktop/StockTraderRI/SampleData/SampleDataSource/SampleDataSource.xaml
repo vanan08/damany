@@ -5,15 +5,15 @@
 -->
 <SampleData:SampleDataSource xmlns:SampleData="clr-namespace:Expression.Blend.SampleData.SampleDataSource" Image="SampleDataSource_Files\00169fb9-749b-4a8a-96fd-6752a80b2178.jpg">
 	<SampleData:SampleDataSource.Collection>
-		<SampleData:Item Property1="Aenean class nam curae" Property2="True"/>
-		<SampleData:Item Property1="Mauris cras nullam aliquam" Property2="False"/>
-		<SampleData:Item Property1="Donec integer quisque maecenas" Property2="True"/>
-		<SampleData:Item Property1="Praesent aptent" Property2="False"/>
-		<SampleData:Item Property1="Sed dis etiam auctor" Property2="True"/>
-		<SampleData:Item Property1="Duis congue" Property2="False"/>
-		<SampleData:Item Property1="Cursus est dictum hac" Property2="True"/>
-		<SampleData:Item Property1="Vivamus fusce" Property2="False"/>
-		<SampleData:Item Property1="Nunc accumsan lorem" Property2="True"/>
-		<SampleData:Item Property1="Leo mus" Property2="False"/>
+		<SampleData:Item Property1="Aenean class nam curae" Property2="True" />
+		<SampleData:Item Property1="Mauris cras nullam aliquam" Property2="False" />
+		<SampleData:Item Property1="Donec integer quisque maecenas" Property2="True" />
+		<SampleData:Item Property1="Praesent aptent" Property2="False" />
+		<SampleData:Item Property1="Sed dis etiam auctor" Property2="True" />
+		<SampleData:Item Property1="Duis congue" Property2="False" />
+		<SampleData:Item Property1="Cursus est dictum hac" Property2="True" />
+		<SampleData:Item Property1="Vivamus fusce" Property2="False" />
+		<SampleData:Item Property1="Nunc accumsan lorem" Property2="True" />
+		<SampleData:Item Property1="Leo mus" Property2="False" />
 	</SampleData:SampleDataSource.Collection>
 </SampleData:SampleDataSource>
