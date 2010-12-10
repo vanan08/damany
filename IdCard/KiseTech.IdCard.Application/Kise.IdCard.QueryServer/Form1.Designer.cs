@@ -115,6 +115,7 @@
             this.response.Location = new System.Drawing.Point(6, 99);
             this.response.Multiline = true;
             this.response.Name = "response";
+            this.response.ReadOnly = true;
             this.response.Size = new System.Drawing.Size(562, 81);
             this.response.TabIndex = 6;
             // 
