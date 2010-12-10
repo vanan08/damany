@@ -17,7 +17,7 @@ namespace Kise.IdCard.QueryServer
         TcpServerLink _server = new TcpServerLink();
         TcpClientLink _client = new TcpClientLink();
         private Server.QueryHandler _queryHandler;
-
+        private Server.IdQueryService _idQueryService;
 
         public Form1()
         {
@@ -45,9 +45,26 @@ namespace Kise.IdCard.QueryServer
             this.listView1.EnsureVisible(this.listView1.Items.Count - 1);
         }
 
-        private void serverSend_Click(object sender, EventArgs e)
+        private async void serverSend_Click(object sender, EventArgs e)
         {
-            _server.SendAsync("", this.serverText.Text);
+            try
+            {
+                queryBtn.Enabled = false;
+                //_server.SendAsync("", this.name.Text);
+                if (_idQueryService == null)
+                {
+                    _idQueryService = new IdQueryService();
+                }
+
+                var queryString = string.Format("xm='{0}' and csrq=19800208", name.Text);
+                var reply = _idQueryService.QueryAsync(queryString);
+                response.Text = reply;
+
+            }
+            finally
+            {
+                queryBtn.Enabled = true;
+            }
         }
 
         private void clientSend_Click(object sender, EventArgs e)
