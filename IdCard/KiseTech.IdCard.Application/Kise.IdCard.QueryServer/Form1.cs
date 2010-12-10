@@ -50,6 +50,8 @@ namespace Kise.IdCard.QueryServer
             try
             {
                 queryBtn.Enabled = false;
+                response.Text = "";
+                Cursor = Cursors.WaitCursor;
                 //_server.SendAsync("", this.name.Text);
                 if (_idQueryService == null)
                 {
@@ -57,13 +59,14 @@ namespace Kise.IdCard.QueryServer
                 }
 
                 var queryString = string.Format("xm='{0}' and csrq=19800208", name.Text);
-                var reply = _idQueryService.QueryAsync(queryString);
+                var reply = await _idQueryService.QueryAsync(queryString);
                 response.Text = reply;
 
             }
             finally
             {
                 queryBtn.Enabled = true;
+                Cursor = Cursors.Default;
             }
         }
 

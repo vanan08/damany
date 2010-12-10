@@ -10,18 +10,24 @@ namespace Kise.IdCard.Server
     {
         RBSPAdapter_COM.RSBPAdapterCOMObjClass _queryProvider;
 
-        public string QueryAsync(string queryString)
+        public async Task<string> QueryAsync(string queryString)
         {
             if (_queryProvider == null)
             {
-                _queryProvider = new RBSPAdapter_COM.RSBPAdapterCOMObjClass();
+              // _queryProvider = new RBSPAdapter_COM.RSBPAdapterCOMObjClass();
             }
 
-            _queryProvider.queryCondition = queryString;
-            _queryProvider.queryType = "QueryQGRK";
+            var rep = await TaskEx.Run(() =>
+            {
+                _queryProvider = new RBSPAdapter_COM.RSBPAdapterCOMObjClass();
+                _queryProvider.queryCondition = queryString;
+                _queryProvider.queryType = "QueryQGRK";
 
-            return _queryProvider.queryCondition;
+                return _queryProvider.queryCondition;
+            }
+            );
 
+            return rep;
         }
     }
 }
