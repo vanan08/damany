@@ -14,11 +14,11 @@ namespace Kise.IdCard.Server
         private readonly IView _view;
         private int idx = 0;
 
-        public event EventHandler<EventArgs<IncomingMessage>> NewMessageReceived;
+        public event EventHandler<MiscUtil.EventArgs<IncomingMessage>> NewMessageReceived;
 
-        private void InvokeNewMessageReceived(EventArgs<IncomingMessage> e)
+        private void InvokeNewMessageReceived(MiscUtil.EventArgs<IncomingMessage> e)
         {
-            EventHandler<EventArgs<IncomingMessage>> handler = NewMessageReceived;
+            EventHandler<MiscUtil.EventArgs<IncomingMessage>> handler = NewMessageReceived;
             if (handler != null) handler(this, e);
         }
 
