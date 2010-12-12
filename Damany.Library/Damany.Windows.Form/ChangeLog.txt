@@ -1,0 +1,14 @@
+1.4.50
+修复SquareListView一个多线程的bug。
+
+1.4.49
+修复SquareListView 单元在选择时候，文本不是白色bug
+
+1.4.48.0:
+修复Bug
+
+1.4.47.0:
+增加SanyoCamera控件
+
+1.3.46.0:
+增加SquareListView左上角水印文字。

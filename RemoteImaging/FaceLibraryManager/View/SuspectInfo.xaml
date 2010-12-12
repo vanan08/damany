@@ -1,0 +1,55 @@
+﻿<UserControl x:Class="FaceLibraryManager.View.SuspectInfo"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:FaceLibraryManager"
+             mc:Ignorable="d" Height="279" Width="526">
+    <UserControl.Resources>
+        <local:ImageConverter x:Key="imgConverter" />
+        <local:EnumBooleanConverter x:Key="enumConverter" />
+    </UserControl.Resources>
+    
+
+    <Border CornerRadius="5" BorderBrush="Aqua" BorderThickness="2">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="27*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="14*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="16*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="19*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="26*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="216*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="239*" />
+                <ColumnDefinition Width="18*" />
+            </Grid.ColumnDefinitions>
+            
+        <Image Source="{Binding Path=ImageFilePath, Converter={StaticResource imgConverter}}" Height="218" HorizontalAlignment="Center" Name="image1" Stretch="Uniform" VerticalAlignment="Center" Width="164" Margin="15,8,15,1" Grid.Row="1" Grid.RowSpan="7">
+            <Image.ToolTip>
+                    <Image Source="{Binding ImageFilePath, Converter={StaticResource imgConverter}}" />
+            </Image.ToolTip>
+        </Image>
+    	<Label Content="姓名：" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" Name="label1" />
+        <Label Content="性别：" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" Name="label2" />
+        <Label Content="年龄：" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Left" Name="label3" />
+        <Expander Grid.Column="1" Grid.Row="7" Header="详情：" Name="expander1" Grid.ColumnSpan="2" ExpandDirection="Down">
+            <Grid>
+                <TextBox Name="textBox1" Height="80" />
+            </Grid>
+        </Expander>
+        <TextBox Grid.Column="2" Grid.Row="1" Name="textBox2" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
+            <StackPanel VerticalAlignment="Center" Grid.Column="2" Grid.Row="3" Orientation="Horizontal">
+                <RadioButton IsChecked="{Binding Path=Gender, Converter={StaticResource enumConverter}, ConverterParameter=Male}">男</RadioButton>
+                <RadioButton Margin="20,0,0,0" IsChecked="{Binding Path=Gender, Converter={StaticResource enumConverter}, ConverterParameter=Female}">女</RadioButton>
+            </StackPanel>
+        <TextBox Grid.Column="2" Grid.Row="5" Name="textBox4" Text="{Binding Age, UpdateSourceTrigger=PropertyChanged}" />
+    </Grid>
+    </Border>
+</UserControl>

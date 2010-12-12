@@ -1,0 +1,36 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="WatchDog.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="SecondsToHoldAfterReport" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">60</Value>
+    </Setting>
+    <Setting Name="HourToReboot" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">3:00</Value>
+    </Setting>
+    <Setting Name="ApplicationToReboot" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">C:\Program Files\Damany\人像抓拍2010\RemoteImaging.exe</Value>
+    </Setting>
+    <Setting Name="ShutDownCommand" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">C:\Windows\System32\shutdown.exe</Value>
+    </Setting>
+    <Setting Name="PortToListen" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">9999</Value>
+    </Setting>
+    <Setting Name="ShutDownCommandParameter" Type="System.String" Scope="Application">
+      <Value Profile="(Default)"> -r -t 0</Value>
+    </Setting>
+    <Setting Name="EnableReboot" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="FileExtensionsToMonitor" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">.m4v;.jpg</Value>
+    </Setting>
+    <Setting Name="DirectoryToWatch" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">d:\imageoutput</Value>
+    </Setting>
+    <Setting Name="SecondsToReport" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">90</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
