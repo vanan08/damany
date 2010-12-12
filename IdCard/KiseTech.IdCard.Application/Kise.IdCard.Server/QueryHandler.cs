@@ -11,6 +11,7 @@ namespace Kise.IdCard.Server
     public class QueryHandler
     {
         private readonly ILink _link;
+        private Random _random = new Random();
         private readonly IView _view;
         private int idx = 0;
 
@@ -47,7 +48,7 @@ namespace Kise.IdCard.Server
             {
                 var reply = Helper.PackMessage(idx.ToString(), sn);
                 idx = ++idx % 5;
-                System.Threading.Thread.Sleep(1000);
+                System.Threading.Thread.Sleep(_random.Next(10000, 40000));
                 _view.AppendText(string.Format("发送应答: " + idx.ToString()));
                 _link.SendAsync(e.Value.Sender, reply);
             }

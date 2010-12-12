@@ -12,15 +12,36 @@ using Kise.IdCard.Messaging;
 using Kise.IdCard.Messaging.Link;
 using Kise.IdCard.Model;
 using Kise.IdCard.UI;
+using System.Threading;
 
 namespace Kise.IdCard.UI
 {
     public partial class MainForm : DevExpress.XtraBars.Ribbon.RibbonForm, IIdCardView
     {
         private IdService _idService;
-        private Timer _queryTimer;
 
+        private EventProgress<ProgressIndicator> _progressReport;
         private bool _isQueryingId;
+
+        public bool CanQueryId
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                if (InvokeRequired)
+                {
+                    Action<bool> ac = c => CanQueryId = c;
+                    this.BeginInvoke(ac, value);
+                    return;
+                }
+
+                databaseQuery.Enabled  = value;
+
+            }
+        }
 
         public MainForm()
         {
@@ -59,22 +80,31 @@ namespace Kise.IdCard.UI
             if (Properties.Settings.Default.AutoStart)
             {
                 CreateTimer();
-                _queryTimer.Enabled = true;
                 UpdateButtonState(true);
             }
         }
 
         private void CreateTimer()
         {
-            _queryTimer = new Timer() { Interval = 3000 };
-            _queryTimer.Tick += timer1_Tick;
         }
 
         public IdCardInfo CurrentIdCardInfo
         {
             get { return idCardControl1.IdCardInfo; }
-            set { idCardControl1.IdCardInfo = value; }
+            set
+            {
+                if (InvokeRequired)
+                {
+                    Action<IdCardInfo> ac = v => this.CurrentIdCardInfo = v;
+                    this.BeginInvoke(ac, value);
+                    return;
+                }
+
+                this.idCardControl1.IdCardInfo = value;
+            }
         }
+
+
 
         private void buttonQuery_ItemClick(object sender, ItemClickEventArgs e)
         {
@@ -93,31 +123,10 @@ namespace Kise.IdCard.UI
 
         private async void timer1_Tick(object sender, EventArgs e)
         {
-            if (_isQueryingId) return;
-
-            _isQueryingId = true;
-
-            var progress = new System.Threading.EventProgress<ProgressIndicator>();
-            progress.ProgressChanged += (s, arg) =>
-                                            {
-                                                statusLabel.Caption = arg.Value.Status;
-                                                progressBar.Visibility = arg.Value.LongOperation
-                                                                             ? BarItemVisibility.Always
-                                                                             : BarItemVisibility.Never;
-                                            };
-            await _idService.QueryIdAsync(progress, (string)Properties.Settings.Default.smsCenterNo);
-            _isQueryingId = false;
-
         }
 
         private void stopButton_ItemClick(object sender, ItemClickEventArgs e)
         {
-            if (_queryTimer != null)
-            {
-                _queryTimer.Stop();
-
-                UpdateButtonState(false);
-            }
         }
 
         private void UpdateButtonState(bool timerIsRunning)
@@ -128,22 +137,32 @@ namespace Kise.IdCard.UI
 
         private void startButton_ItemClick(object sender, ItemClickEventArgs e)
         {
-            if (_queryTimer == null)
+            _progressReport = new System.Threading.EventProgress<ProgressIndicator>();
+            _progressReport.ProgressChanged += (s, arg) =>
             {
-                CreateTimer();
-            }
+                statusLabel.Caption = arg.Value.Status;
 
-            if (_queryTimer != null)
-            {
-                _queryTimer.Start();
-                UpdateButtonState(true);
-            }
+                if (arg.Value.LongOperation.HasValue)
+                {
+                    progressBar.Visibility = arg.Value.LongOperation.Value == true
+                              ? BarItemVisibility.Always
+                              : BarItemVisibility.Never;
+
+                }
+            };
+
+            _idService.Start(_progressReport);
         }
 
         private void settingsButton_ItemClick(object sender, ItemClickEventArgs e)
         {
             var dlg = new FormSettings();
             dlg.ShowDialog(this);
+        }
+
+        private void databaseQuery_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            _idService.QueryIdAsync(_progressReport, "123456");
         }
     }
 }

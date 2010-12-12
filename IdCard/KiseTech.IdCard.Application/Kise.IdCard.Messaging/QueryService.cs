@@ -27,7 +27,7 @@ namespace Kise.IdCard.Messaging
             _link = link;
             _link.NewMessageReceived += _link_NewMessageReceived;
 
-            TimeOutInSeconds = 30;
+            TimeOutInSeconds = 120;
         }
 
         public void Start()

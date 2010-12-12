@@ -47,6 +47,7 @@
             this.clientPanel = new DevExpress.XtraEditors.PanelControl();
             this.idCardControl1 = new Kise.IdCard.UI.IdCardControl();
             this.xpCollection1 = new DevExpress.Xpo.XPCollection();
+            this.databaseQuery = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemMarqueeProgressBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemProgressBar1)).BeginInit();
@@ -63,7 +64,6 @@
             // 
             this.ribbon.ExpandCollapseItem.Id = 0;
             this.ribbon.ExpandCollapseItem.Name = "";
-            this.ribbon.ExpandCollapseItem.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithoutText;
             this.ribbon.Items.AddRange(new DevExpress.XtraBars.BarItem[] {
             this.ribbon.ExpandCollapseItem,
             this.buttonQuery,
@@ -72,9 +72,10 @@
             this.statusLabel,
             this.reportButton,
             this.startButton,
-            this.stopButton});
+            this.stopButton,
+            this.databaseQuery});
             this.ribbon.Location = new System.Drawing.Point(0, 0);
-            this.ribbon.MaxItemId = 12;
+            this.ribbon.MaxItemId = 13;
             this.ribbon.Name = "ribbon";
             this.ribbon.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage1});
@@ -82,12 +83,12 @@
             this.repositoryItemProgressBar1,
             this.repositoryItemMarqueeProgressBar1});
             this.ribbon.SelectedPage = this.ribbonPage1;
-            this.ribbon.Size = new System.Drawing.Size(612, 148);
+            this.ribbon.Size = new System.Drawing.Size(612, 149);
             this.ribbon.StatusBar = this.ribbonStatusBar;
             // 
             // buttonQuery
             // 
-            this.buttonQuery.Caption = "查询";
+            this.buttonQuery.Caption = "历史记录";
             this.buttonQuery.Id = 1;
             this.buttonQuery.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("buttonQuery.LargeGlyph")));
             this.buttonQuery.Name = "buttonQuery";
@@ -172,6 +173,7 @@
             // 
             this.ribbonPageGroup3.ItemLinks.Add(this.startButton);
             this.ribbonPageGroup3.ItemLinks.Add(this.stopButton);
+            this.ribbonPageGroup3.ItemLinks.Add(this.databaseQuery);
             this.ribbonPageGroup3.Name = "ribbonPageGroup3";
             this.ribbonPageGroup3.Text = "控制";
             // 
@@ -193,9 +195,9 @@
             this.clientPanel.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.clientPanel.Controls.Add(this.idCardControl1);
             this.clientPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.clientPanel.Location = new System.Drawing.Point(0, 148);
+            this.clientPanel.Location = new System.Drawing.Point(0, 149);
             this.clientPanel.Name = "clientPanel";
-            this.clientPanel.Size = new System.Drawing.Size(612, 363);
+            this.clientPanel.Size = new System.Drawing.Size(612, 362);
             this.clientPanel.TabIndex = 2;
             // 
             // idCardControl1
@@ -208,12 +210,20 @@
             this.idCardControl1.Location = new System.Drawing.Point(0, 0);
             this.idCardControl1.MinorityDictionary = null;
             this.idCardControl1.Name = "idCardControl1";
-            this.idCardControl1.Size = new System.Drawing.Size(612, 363);
+            this.idCardControl1.Size = new System.Drawing.Size(612, 362);
             this.idCardControl1.TabIndex = 0;
             // 
             // xpCollection1
             // 
             this.xpCollection1.ObjectType = typeof(Kise.IdCard.Model.IdCardInfo);
+            // 
+            // databaseQuery
+            // 
+            this.databaseQuery.Caption = "真伪查询";
+            this.databaseQuery.Id = 12;
+            this.databaseQuery.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("databaseQuery.LargeGlyph")));
+            this.databaseQuery.Name = "databaseQuery";
+            this.databaseQuery.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.databaseQuery_ItemClick);
             // 
             // MainForm
             // 
@@ -259,5 +269,6 @@
         private DevExpress.XtraBars.BarButtonItem stopButton;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup2;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup3;
+        private DevExpress.XtraBars.BarButtonItem databaseQuery;
     }
 }

@@ -5,6 +5,13 @@ namespace Kise.IdCard.Infrastructure.CardReader
 {
     public class FakeIdCardReader : IIdCardReader
     {
+        private Random _random = new Random();
+        int count = 0;
+
+        public FakeIdCardReader()
+        {
+        }
+
         public async Task<IdInfo> ReadAsync()
         {
             var random = new Random(DateTime.Now.Millisecond);
@@ -26,6 +33,11 @@ namespace Kise.IdCard.Infrastructure.CardReader
                                ValidateUntil = "20121231",
 
                            };
+
+            ++count;
+
+            if (count % _random.Next(4) == 0) throw new Exception();
+
             return v;
         }
     }

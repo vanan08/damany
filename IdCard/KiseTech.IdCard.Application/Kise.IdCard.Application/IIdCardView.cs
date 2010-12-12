@@ -9,5 +9,6 @@ namespace Kise.IdCard.Application
     public interface IIdCardView
     {
         IdCardInfo CurrentIdCardInfo { get; set; }
+        bool CanQueryId { get; set; }
     }
 }

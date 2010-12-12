@@ -22,6 +22,7 @@ namespace Kise.IdCard.Application
         private QueryService _queryService;
         private IIdCardView _view;
 
+        private System.Timers.Timer _timer;
         private IDictionary<int, IdStatus> _statusDict;
 
         public IdCardInfo CurrentIdCard { get; set; }
@@ -29,6 +30,10 @@ namespace Kise.IdCard.Application
 
         private readonly object _isBusyLock = new object();
         private bool _isBusy;
+        private IProgress<ProgressIndicator> _progressReport;
+
+        private object _statusLock = new object();
+
         public bool IsBusy
         {
             get
@@ -48,6 +53,7 @@ namespace Kise.IdCard.Application
             }
         }
 
+
         public IdService(IIdCardReader idCardReader, ILink link)
         {
             if (idCardReader == null) throw new ArgumentNullException("idCardReader");
@@ -56,6 +62,7 @@ namespace Kise.IdCard.Application
             _link = link;
             _queryService = new QueryService(_link);
             IdCardList = new BindingList<IdCardInfo>();
+            CurrentState = Status.Idle;
 
             _statusDict = new Dictionary<int, IdStatus>();
             _statusDict.Add(Messaging.IdStatus.Normal, IdStatus.Normal);
@@ -71,32 +78,58 @@ namespace Kise.IdCard.Application
             _view = view;
         }
 
-        public async Task QueryIdAsync(IProgress<ProgressIndicator> progressReport, string destinationNo)
+        public void Start(IProgress<ProgressIndicator> progressReport)
         {
-            IsBusy = true;
-            _queryService.Start();
-            var indicator = new ProgressIndicator();
-            IdInfo v = null;
+            _progressReport = progressReport;
+            _timer = new System.Timers.Timer();
+            _timer.Interval = 3000;
+            _timer.AutoReset = true;
+            _timer.Elapsed += new System.Timers.ElapsedEventHandler(timer_Elapsed);
+
+            _timer.Enabled = true;
+        }
+
+        void timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            if (CurrentState == Status.QueryingIdCard) return;
+
+            CurrentState = Status.ReadingIdCard;
+            _view.CanQueryId = false;
+
             try
             {
-                await TaskEx.Delay(3000);
-                indicator.Status = "读取身份证...";
-                progressReport.Report(indicator);
-                await TaskEx.Delay(1000);
-                v = await _idCardReader.ReadAsync();
+                var idinfo = ReadIdCard(_progressReport);
+                if (CurrentState != Status.QueryingIdCard)
+                {
+                    CurrentIdCard = idinfo.Result;
+                    _view.CurrentIdCardInfo = CurrentIdCard;
+
+                }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                indicator.Status = "身份证读取失败!";
-                progressReport.Report(indicator);
-                return;
+                
             }
+            finally
+            {
+                _timer.Enabled = true;
+                _view.CanQueryId = true;
+                CurrentState = Status.Idle;
+            }
+        }
 
-            indicator.Status = "身份证读取成功";
-            progressReport.Report(indicator);
 
-            CurrentIdCard = v.ToModelIdCardInfo();
-            _view.CurrentIdCardInfo = CurrentIdCard;
+        public async Task QueryIdAsync(IProgress<ProgressIndicator> progressReport, string destinationNo)
+        {
+            if (CurrentState == Status.ReadingIdCard) return;
+
+            CurrentState = Status.QueryingIdCard;
+            _view.CanQueryId = false;
+
+            IsBusy = true;
+            bool shouldReturn;
+
+            var indicator = new ProgressIndicator();
 
             indicator.Status = "查询身份证，请稍候...";
             indicator.LongOperation = true;
@@ -114,13 +147,13 @@ namespace Kise.IdCard.Application
                 var statusCode = int.Parse(reply.Message);
                 if (_statusDict.ContainsKey(statusCode))
                 {
-                    CurrentIdCard.IdStatus =  _statusDict[statusCode];
+                    CurrentIdCard.IdStatus = _statusDict[statusCode];
                 }
                 else
                 {
                     CurrentIdCard.IdStatus = IdStatus.UnKnown;
                 }
-                
+
             }
             else
             {
@@ -130,7 +163,55 @@ namespace Kise.IdCard.Application
 
             IdCardList.Add(CurrentIdCard);
             CurrentIdCard.Save();
+
+            CurrentState = Status.Idle;
+            _view.CanQueryId = true;
+            //_timer.Enabled = true;
+        }
+
+        private async Task<IdCardInfo> ReadIdCard(IProgress<ProgressIndicator> progressReport)
+        {
+            _queryService.Start();
+            var indicator = new ProgressIndicator();
+            IdInfo v = null;
+            try
+            {
+                indicator.Status = "读取身份证...";
+                progressReport.Report(indicator);
+                v = await _idCardReader.ReadAsync();
+            }
+            catch (Exception)
+            {
+                indicator.Status = "身份证读取失败!";
+                progressReport.Report(indicator);
+                throw;
+            }
+
+            indicator.Status = "身份证读取成功";
+            progressReport.Report(indicator);
+
+            return v.ToModelIdCardInfo();
+        }
+
+        private Status _currentState;
+        private Status CurrentState
+        {
+            get
+            {
+                lock (_statusLock)
+                {
+                    return _currentState;
+                }
+            }
+            set
+            {
+                lock (_statusLock)
+                {
+                    _currentState = value;
+                }
+            }
         }
 
     }
+
 }
