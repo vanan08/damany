@@ -71,7 +71,7 @@
             this.pictureBox1.Image = null;
             this.pictureBox1.Location = new System.Drawing.Point(2, 68);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(528, 475);
+            this.pictureBox1.Size = new System.Drawing.Size(529, 476);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.FigureDrawn += new System.EventHandler<Damany.Windows.Form.DrawFigureEventArgs>(this.pictureBox1_FigureDrawn);
             // 
@@ -82,13 +82,12 @@
             this.panelControl1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelControl1.Location = new System.Drawing.Point(2, 2);
             this.panelControl1.Name = "panelControl1";
-            this.panelControl1.Size = new System.Drawing.Size(528, 66);
+            this.panelControl1.Size = new System.Drawing.Size(529, 66);
             this.panelControl1.TabIndex = 1;
             // 
             // labelControl3
             // 
             this.labelControl3.Appearance.Font = new System.Drawing.Font("Tahoma", 20F);
-            this.labelControl3.Appearance.Options.UseFont = true;
             this.labelControl3.Location = new System.Drawing.Point(31, 16);
             this.labelControl3.Name = "labelControl3";
             this.labelControl3.Size = new System.Drawing.Size(162, 33);
@@ -99,7 +98,7 @@
             // 
             this.pictureEdit1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureEdit1.EditValue = ((object)(resources.GetObject("pictureEdit1.EditValue")));
-            this.pictureEdit1.Location = new System.Drawing.Point(453, 6);
+            this.pictureEdit1.Location = new System.Drawing.Point(454, 6);
             this.pictureEdit1.Name = "pictureEdit1";
             this.pictureEdit1.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.pictureEdit1.Properties.SizeMode = DevExpress.XtraEditors.Controls.PictureSizeMode.Zoom;
@@ -257,17 +256,17 @@
             this.panelControl4.Controls.Add(this.panelControl1);
             this.panelControl4.Controls.Add(this.splitterControl1);
             this.panelControl4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelControl4.Location = new System.Drawing.Point(279, 0);
+            this.panelControl4.Location = new System.Drawing.Point(278, 0);
             this.panelControl4.Name = "panelControl4";
-            this.panelControl4.Size = new System.Drawing.Size(532, 551);
+            this.panelControl4.Size = new System.Drawing.Size(533, 551);
             this.panelControl4.TabIndex = 7;
             // 
             // splitterControl1
             // 
             this.splitterControl1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.splitterControl1.Location = new System.Drawing.Point(2, 543);
+            this.splitterControl1.Location = new System.Drawing.Point(2, 544);
             this.splitterControl1.Name = "splitterControl1";
-            this.splitterControl1.Size = new System.Drawing.Size(528, 6);
+            this.splitterControl1.Size = new System.Drawing.Size(529, 5);
             this.splitterControl1.TabIndex = 1;
             this.splitterControl1.TabStop = false;
             // 
@@ -286,7 +285,7 @@
             // 
             this.splitterControl2.Location = new System.Drawing.Point(273, 0);
             this.splitterControl2.Name = "splitterControl2";
-            this.splitterControl2.Size = new System.Drawing.Size(6, 551);
+            this.splitterControl2.Size = new System.Drawing.Size(5, 551);
             this.splitterControl2.TabIndex = 8;
             this.splitterControl2.TabStop = false;
             // 
