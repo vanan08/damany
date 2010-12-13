@@ -21,6 +21,8 @@ namespace Kise.IdCard.UI
         private IdService _idService;
 
         private EventProgress<ProgressIndicator> _progressReport;
+        private System.Drawing.Color _originalBkColor;
+
         private bool _isQueryingId;
 
         public bool CanQueryId
@@ -38,16 +40,55 @@ namespace Kise.IdCard.UI
                     return;
                 }
 
-                databaseQuery.Enabled  = value;
+                databaseQuery.Enabled = value;
 
             }
         }
+
+
+        private IdCardInfo _idCardInfo;
+        public IdCardInfo IdCardInfo
+        {
+            get { return _idCardInfo; }
+            set
+            {
+                if (value != null)
+                {
+                    _idCardInfo = value;
+
+                    this.name.Text = _idCardInfo.Name;
+                    this.sex.Text = Model.Helper.GetSexName(_idCardInfo.SexCode);
+                    this.minority.Text = MinorityDictionary[_idCardInfo.MinorityCode];
+                    this.year.Text = _idCardInfo.BornDate.Year.ToString();
+                    this.month.Text = _idCardInfo.BornDate.Month.ToString();
+                    this.day.Text = _idCardInfo.BornDate.Day.ToString();
+                    this.address.Text = _idCardInfo.Address;
+                    //this.issuedBy.Text = _idCardInfo.GrantDept;
+                    // this.expiry.Text = FormatDate(_idCardInfo.ValidateFrom) + " — " + FormatDate(_idCardInfo.ValidateUntil);
+                    this.idCardNo.Text = _idCardInfo.IdCardNo;
+                    this.idCardStatus.Text = _idCardInfo.IdStatusName;
+
+                    SetColor();
+
+                    this.image.Image = Image.FromStream(new System.IO.MemoryStream(_idCardInfo.PhotoData));
+
+                    var inpc = (INotifyPropertyChanged)_idCardInfo;
+                    inpc.PropertyChanged += new PropertyChangedEventHandler(inpc_PropertyChanged);
+
+                }
+
+            }
+        }
+
+        public IDictionary<int, string> MinorityDictionary { get; set; }
 
         public MainForm()
         {
             InitializeComponent();
 
-            idCardControl1.MinorityDictionary = FileMinorityDictionary.Instance;
+            MinorityDictionary = FileMinorityDictionary.Instance;
+            _originalBkColor = idCardStatus.BackColor;
+
 
             ILink lnk = null;
             IIdCardReader cardReader = null;
@@ -90,7 +131,7 @@ namespace Kise.IdCard.UI
 
         public IdCardInfo CurrentIdCardInfo
         {
-            get { return idCardControl1.IdCardInfo; }
+            get { throw new NotImplementedException(); }
             set
             {
                 if (InvokeRequired)
@@ -100,7 +141,7 @@ namespace Kise.IdCard.UI
                     return;
                 }
 
-                this.idCardControl1.IdCardInfo = value;
+                this.IdCardInfo = value;
             }
         }
 
@@ -164,5 +205,19 @@ namespace Kise.IdCard.UI
         {
             _idService.QueryIdAsync(_progressReport, "123456");
         }
+
+        void inpc_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            idCardStatus.Text = _idCardInfo.IdStatusName;
+            SetColor();
+        }
+
+
+        private void SetColor()
+        {
+            var isNormal = _idCardInfo.IdStatus == Kise.IdCard.Model.IdStatus.UnKnown || _idCardInfo.IdStatus == Kise.IdCard.Model.IdStatus.Normal;
+            this.idCardStatus.BackColor = isNormal ? _originalBkColor : Color.Red;
+        }
+
     }
 }
