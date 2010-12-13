@@ -151,6 +151,7 @@
             // stopButton
             // 
             this.stopButton.Caption = "停止";
+            this.stopButton.Enabled = false;
             this.stopButton.Id = 11;
             this.stopButton.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("stopButton.LargeGlyph")));
             this.stopButton.Name = "stopButton";
@@ -159,6 +160,7 @@
             // databaseQuery
             // 
             this.databaseQuery.Caption = "真伪查询";
+            this.databaseQuery.Enabled = false;
             this.databaseQuery.Id = 12;
             this.databaseQuery.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("databaseQuery.LargeGlyph")));
             this.databaseQuery.Name = "databaseQuery";

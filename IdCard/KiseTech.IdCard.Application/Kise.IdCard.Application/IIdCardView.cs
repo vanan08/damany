@@ -8,7 +8,11 @@ namespace Kise.IdCard.Application
 {
     public interface IIdCardView
     {
+        event EventHandler ViewShown;
+
         IdCardInfo CurrentIdCardInfo { get; set; }
         bool CanQueryId { get; set; }
+        bool CanStop { set; }
+        bool CanStart { set; }
     }
 }

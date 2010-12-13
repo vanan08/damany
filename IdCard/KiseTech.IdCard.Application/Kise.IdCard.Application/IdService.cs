@@ -32,6 +32,9 @@ namespace Kise.IdCard.Application
         private bool _isBusy;
         private IProgress<ProgressIndicator> _progressReport;
 
+        private bool _isQuerying;
+        private bool _isReadingCard;
+
         private object _statusLock = new object();
 
         public bool IsBusy
@@ -64,6 +67,9 @@ namespace Kise.IdCard.Application
             IdCardList = new BindingList<IdCardInfo>();
             CurrentState = Status.Idle;
 
+            CurrentIdCard = new IdCardInfo();
+            CurrentIdCard.IdCardNo = string.Empty;
+
             _statusDict = new Dictionary<int, IdStatus>();
             _statusDict.Add(Messaging.IdStatus.Normal, IdStatus.Normal);
             _statusDict.Add(Messaging.IdStatus.Killer, IdStatus.WasLawBreaker);
@@ -87,33 +93,52 @@ namespace Kise.IdCard.Application
             _timer.Elapsed += new System.Timers.ElapsedEventHandler(timer_Elapsed);
 
             _timer.Enabled = true;
+            _view.CanStop = true;
+            _view.CanStart = false;
+        }
+
+        public void Stop()
+        {
+            if (_timer != null)
+            {
+                _timer.Dispose();
+            }
+
+            _view.CanStart = true;
+            _view.CanStop = false;
         }
 
         void timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
-            if (CurrentState == Status.QueryingIdCard) return;
+            //if (CurrentState == Status.QueryingIdCard) return;
+            if (_isQuerying) return;
 
             CurrentState = Status.ReadingIdCard;
-            _view.CanQueryId = false;
+            //_view.CanQueryId = false;
 
             try
             {
                 var idinfo = ReadIdCard(_progressReport);
-                if (CurrentState != Status.QueryingIdCard)
-                {
-                    CurrentIdCard = idinfo.Result;
-                    _view.CurrentIdCardInfo = CurrentIdCard;
+                var newId = idinfo.Result;
+                if (_isQuerying || newId.IdCardNo == CurrentIdCard.IdCardNo) return;
 
+                CurrentIdCard = newId;
+                _view.CurrentIdCardInfo = CurrentIdCard;
+
+                if (!_isQuerying)
+                {
+                    _view.CanQueryId = true;
                 }
+
             }
             catch (Exception ex)
             {
-                
+
             }
             finally
             {
                 _timer.Enabled = true;
-                _view.CanQueryId = true;
+                //_view.CanQueryId = true;
                 CurrentState = Status.Idle;
             }
         }
@@ -127,6 +152,7 @@ namespace Kise.IdCard.Application
             _view.CanQueryId = false;
 
             IsBusy = true;
+            _isQuerying = true;
             bool shouldReturn;
 
             var indicator = new ProgressIndicator();
@@ -166,6 +192,7 @@ namespace Kise.IdCard.Application
 
             CurrentState = Status.Idle;
             _view.CanQueryId = true;
+            _isQuerying = false;
             //_timer.Enabled = true;
         }
 
