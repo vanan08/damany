@@ -93,7 +93,7 @@
             this.repositoryItemProgressBar1,
             this.repositoryItemMarqueeProgressBar1});
             this.ribbon.SelectedPage = this.ribbonPage1;
-            this.ribbon.Size = new System.Drawing.Size(518, 149);
+            this.ribbon.Size = new System.Drawing.Size(511, 149);
             this.ribbon.StatusBar = this.ribbonStatusBar;
             // 
             // buttonQuery
@@ -203,10 +203,10 @@
             // 
             this.ribbonStatusBar.ItemLinks.Add(this.progressBar);
             this.ribbonStatusBar.ItemLinks.Add(this.statusLabel);
-            this.ribbonStatusBar.Location = new System.Drawing.Point(0, 476);
+            this.ribbonStatusBar.Location = new System.Drawing.Point(0, 473);
             this.ribbonStatusBar.Name = "ribbonStatusBar";
             this.ribbonStatusBar.Ribbon = this.ribbon;
-            this.ribbonStatusBar.Size = new System.Drawing.Size(518, 31);
+            this.ribbonStatusBar.Size = new System.Drawing.Size(511, 23);
             // 
             // clientPanel
             // 
@@ -225,32 +225,35 @@
             this.clientPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.clientPanel.Location = new System.Drawing.Point(0, 149);
             this.clientPanel.Name = "clientPanel";
-            this.clientPanel.Size = new System.Drawing.Size(518, 327);
+            this.clientPanel.Size = new System.Drawing.Size(511, 324);
             this.clientPanel.TabIndex = 2;
             // 
             // idCardStatus
             // 
+            this.idCardStatus.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.idCardStatus.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.idCardStatus.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
-            this.idCardStatus.Location = new System.Drawing.Point(382, 151);
+            this.idCardStatus.Location = new System.Drawing.Point(367, 163);
             this.idCardStatus.Name = "idCardStatus";
-            this.idCardStatus.Size = new System.Drawing.Size(112, 22);
+            this.idCardStatus.Size = new System.Drawing.Size(114, 20);
             this.idCardStatus.TabIndex = 9;
             this.idCardStatus.Text = "labelControl9";
             // 
             // image
             // 
-            this.image.Location = new System.Drawing.Point(382, 18);
+            this.image.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.image.Location = new System.Drawing.Point(367, 25);
             this.image.MenuManager = this.ribbon;
             this.image.Name = "image";
             this.image.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Office2003;
-            this.image.Size = new System.Drawing.Size(112, 127);
+            this.image.Size = new System.Drawing.Size(114, 132);
             this.image.TabIndex = 8;
             // 
             // idCardNo
             // 
+            this.idCardNo.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.idCardNo.Appearance.Font = new System.Drawing.Font("SimHei", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.idCardNo.Location = new System.Drawing.Point(173, 265);
+            this.idCardNo.Location = new System.Drawing.Point(162, 263);
             this.idCardNo.Name = "idCardNo";
             this.idCardNo.Size = new System.Drawing.Size(40, 19);
             this.idCardNo.TabIndex = 7;
@@ -258,8 +261,9 @@
             // 
             // address
             // 
+            this.address.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.address.Appearance.Font = new System.Drawing.Font("SimHei", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.address.Location = new System.Drawing.Point(98, 169);
+            this.address.Location = new System.Drawing.Point(94, 167);
             this.address.Name = "address";
             this.address.Size = new System.Drawing.Size(70, 19);
             this.address.TabIndex = 6;
@@ -267,8 +271,9 @@
             // 
             // day
             // 
+            this.day.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.day.Appearance.Font = new System.Drawing.Font("SimHei", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.day.Location = new System.Drawing.Point(231, 129);
+            this.day.Location = new System.Drawing.Point(232, 126);
             this.day.Name = "day";
             this.day.Size = new System.Drawing.Size(10, 19);
             this.day.TabIndex = 5;
@@ -276,8 +281,9 @@
             // 
             // month
             // 
+            this.month.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.month.Appearance.Font = new System.Drawing.Font("SimHei", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.month.Location = new System.Drawing.Point(186, 127);
+            this.month.Location = new System.Drawing.Point(177, 126);
             this.month.Name = "month";
             this.month.Size = new System.Drawing.Size(10, 19);
             this.month.TabIndex = 4;
@@ -285,8 +291,9 @@
             // 
             // year
             // 
+            this.year.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.year.Appearance.Font = new System.Drawing.Font("SimHei", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.year.Location = new System.Drawing.Point(98, 127);
+            this.year.Location = new System.Drawing.Point(108, 126);
             this.year.Name = "year";
             this.year.Size = new System.Drawing.Size(40, 19);
             this.year.TabIndex = 3;
@@ -294,8 +301,9 @@
             // 
             // minority
             // 
+            this.minority.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.minority.Appearance.Font = new System.Drawing.Font("SimHei", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.minority.Location = new System.Drawing.Point(216, 90);
+            this.minority.Location = new System.Drawing.Point(207, 88);
             this.minority.Name = "minority";
             this.minority.Size = new System.Drawing.Size(80, 19);
             this.minority.TabIndex = 2;
@@ -303,8 +311,9 @@
             // 
             // sex
             // 
+            this.sex.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.sex.Appearance.Font = new System.Drawing.Font("SimHei", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.sex.Location = new System.Drawing.Point(98, 89);
+            this.sex.Location = new System.Drawing.Point(96, 87);
             this.sex.Name = "sex";
             this.sex.Size = new System.Drawing.Size(30, 19);
             this.sex.TabIndex = 1;
@@ -312,8 +321,9 @@
             // 
             // name
             // 
+            this.name.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.name.Appearance.Font = new System.Drawing.Font("SimHei", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.name.Location = new System.Drawing.Point(98, 51);
+            this.name.Location = new System.Drawing.Point(96, 48);
             this.name.Name = "name";
             this.name.Size = new System.Drawing.Size(40, 19);
             this.name.TabIndex = 0;
@@ -325,12 +335,13 @@
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(518, 507);
+            this.ClientSize = new System.Drawing.Size(511, 496);
             this.Controls.Add(this.clientPanel);
             this.Controls.Add(this.ribbonStatusBar);
             this.Controls.Add(this.ribbon);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.Ribbon = this.ribbon;
