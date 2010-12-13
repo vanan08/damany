@@ -41,7 +41,36 @@ namespace Kise.IdCard.UI
                 }
 
                 databaseQuery.Enabled = value;
+            }
+        }
 
+        public bool CanStop
+        {
+            set
+            {
+                if (InvokeRequired)
+                {
+                    Action<bool> ac = c => CanQueryId = c;
+                    this.BeginInvoke(ac, value);
+                    return;
+                }
+
+                stopButton.Enabled = value;
+            }
+        }
+
+        public bool CanStart
+        {
+            set
+            {
+                if (InvokeRequired)
+                {
+                    Action<bool> ac = c => CanQueryId = c;
+                    this.BeginInvoke(ac, value);
+                    return;
+                }
+
+                startButton.Enabled = value;
             }
         }
 
@@ -80,6 +109,16 @@ namespace Kise.IdCard.UI
             }
         }
 
+        public event EventHandler ViewShown;
+
+        public virtual void OnViewShown(object sender, EventArgs e)
+        {
+            EventHandler handler = ViewShown;
+            if (handler != null)
+                handler(sender, e);
+        }
+
+
         public IDictionary<int, string> MinorityDictionary { get; set; }
 
         public MainForm()
@@ -106,6 +145,14 @@ namespace Kise.IdCard.UI
 
             _idService = new IdService(cardReader, lnk);
             _idService.AttachView(this);
+
+            this.Shown += (s, e) =>
+                {
+                    if (Properties.Settings.Default.AutoStart)
+                    {
+                        this.startButton_ItemClick(null, null);
+                    }
+                };
 
         }
 
@@ -168,6 +215,7 @@ namespace Kise.IdCard.UI
 
         private void stopButton_ItemClick(object sender, ItemClickEventArgs e)
         {
+            _idService.Stop();
         }
 
         private void UpdateButtonState(bool timerIsRunning)
