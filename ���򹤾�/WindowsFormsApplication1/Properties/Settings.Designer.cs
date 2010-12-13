@@ -37,7 +37,7 @@ namespace WindowsFormsApplication1.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("192.168.1.29:60000")]
+        [global::System.Configuration.DefaultSettingValueAttribute("192.168.1.101:60000")]
         public string PeerIpPort {
             get {
                 return ((string)(this["PeerIpPort"]));
