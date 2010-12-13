@@ -1,0 +1,36 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="CarDetectorTester.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="FrequencyQueryCmd" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">AA 55 03 00 04 00</Value>
+    </Setting>
+    <Setting Name="FrequencyQueryIntervalInMs" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">200</Value>
+    </Setting>
+    <Setting Name="SetLongAndWidthCommand" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">AA 55 07 01 02 {0:X4} {1:X4} 00</Value>
+    </Setting>
+    <Setting Name="LastCommand" Type="System.String" Scope="User">
+      <Value Profile="(Default)">AA 55 04 01 01 01 03</Value>
+    </Setting>
+    <Setting Name="MaxPackLength" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">18</Value>
+    </Setting>
+    <Setting Name="Data3Expression" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">data2 - data1</Value>
+    </Setting>
+    <Setting Name="EnableSpeedReportCommand" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">AA 55 04 01 01 01 03</Value>
+    </Setting>
+    <Setting Name="DisableSpeedReportCommand" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">AA 55 04 01 01 00 03</Value>
+    </Setting>
+    <Setting Name="EnableDFAProtocol" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">AA 55 04 01 03 01 03</Value>
+    </Setting>
+    <Setting Name="DisableDFAProtocol" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">AA 55 04 01 03 00 03</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
