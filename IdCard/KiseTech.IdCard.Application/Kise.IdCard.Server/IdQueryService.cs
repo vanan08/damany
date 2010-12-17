@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Kise.IdCard.Server
 {
@@ -14,7 +15,7 @@ namespace Kise.IdCard.Server
         {
             if (_queryProvider == null)
             {
-              // _queryProvider = new RBSPAdapter_COM.RSBPAdapterCOMObjClass();
+                // _queryProvider = new RBSPAdapter_COM.RSBPAdapterCOMObjClass();
             }
 
             var rep = await TaskEx.Run(() =>
@@ -29,5 +30,8 @@ namespace Kise.IdCard.Server
 
             return rep;
         }
+
+
     }
+
 }
