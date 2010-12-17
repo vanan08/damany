@@ -44,9 +44,9 @@ namespace Kise.IdCard.Server
 
             var unpackedMsg = string.Empty;
             var sn = -1;
-            if (Helper.TryUnpackMessage(e.Value.Message, out sn, out unpackedMsg))
+            if (Messaging.Helper.TryUnpackMessage(e.Value.Message, out sn, out unpackedMsg))
             {
-                var reply = Helper.PackMessage(idx.ToString(), sn);
+                var reply = Messaging.Helper.PackMessage(idx.ToString(), sn);
                 idx = ++idx % 5;
                 System.Threading.Thread.Sleep(_random.Next(10000, 40000));
                 _view.AppendText(string.Format("发送应答: " + idx.ToString()));
