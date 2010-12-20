@@ -95,7 +95,7 @@ namespace Kise.IdCard.UI
                     //this.issuedBy.Text = _idCardInfo.GrantDept;
                     // this.expiry.Text = FormatDate(_idCardInfo.ValidateFrom) + " — " + FormatDate(_idCardInfo.ValidateUntil);
                     this.idCardNo.Text = _idCardInfo.IdCardNo;
-                    this.idCardStatus.Text = _idCardInfo.IdStatusName;
+                    this.idCardStatus.Text = _idCardInfo.QueryResult;
 
                     SetColor();
 
@@ -256,15 +256,15 @@ namespace Kise.IdCard.UI
 
         void inpc_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            idCardStatus.Text = _idCardInfo.IdStatusName;
+            idCardStatus.Text = _idCardInfo.QueryResult;
             SetColor();
         }
 
 
         private void SetColor()
         {
-            var isNormal = _idCardInfo.IdStatus == Kise.IdCard.Model.IdStatus.UnKnown || _idCardInfo.IdStatus == Kise.IdCard.Model.IdStatus.Normal;
-            this.idCardStatus.BackColor = isNormal ? _originalBkColor : Color.Red;
+            //var isNormal = _idCardInfo.IdStatus == Kise.IdCard.Model.IdStatus.UnKnown || _idCardInfo.IdStatus == Kise.IdCard.Model.IdStatus.Normal;
+            this.idCardStatus.BackColor = _idCardInfo.IsSuspect ? Color.Red : _originalBkColor;
         }
 
     }

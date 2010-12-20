@@ -144,7 +144,7 @@ namespace Kise.IdCard.Application
         }
 
 
-        public void  QueryIdAsync(IProgress<ProgressIndicator> progressReport, string destinationNo)
+        public async void QueryIdAsync(IProgress<ProgressIndicator> progressReport, string destinationNo)
         {
             if (CurrentState == Status.ReadingIdCard) return;
 
@@ -163,30 +163,24 @@ namespace Kise.IdCard.Application
 
             var packedMsg = this.PackMessage(CurrentIdCard);
 
-            var reply = _queryService.QueryAsync(destinationNo, packedMsg);
+            var reply = await _queryService.QueryAsync(destinationNo, packedMsg);
             IsBusy = false;
 
-            indicator.Status = reply.Result.IsTimedOut ? "查询身份证失败（超时）!" : "查询身份证成功";
+            indicator.Status = reply.IsTimedOut ? "查询身份证失败（超时）!" : "查询身份证成功";
             indicator.LongOperation = false;
             progressReport.Report(indicator);
 
-            if (!reply.Result.IsTimedOut)
+            if (!reply.IsTimedOut)
             {
-                var statusCode = int.Parse(reply.Result.Message);
-                if (_statusDict.ContainsKey(statusCode))
-                {
-                    CurrentIdCard.IdStatus = _statusDict[statusCode];
-                }
-                else
-                {
-                    CurrentIdCard.IdStatus = IdStatus.UnKnown;
-                }
-
+                var splits = reply.Message.Split(new[] { '*' });
+                var status = splits[0];
+                var msg = splits[1];
+                CurrentIdCard.IsSuspect = status == "1";
+                CurrentIdCard.QueryResult = msg;
             }
             else
             {
-                CurrentIdCard.IdStatus = IdStatus.UnKnown;
-                TaskEx.Delay(3000);
+                global::System.Windows.Forms.MessageBox.Show("服务器没有响应。请联系技术人员或者稍侯重试。");
             }
 
             IdCardList.Add(CurrentIdCard);

@@ -9,43 +9,27 @@ namespace Kise.IdCard.Server
 {
     public class IdQueryService
     {
-        static RBSPAdapter_COM.RSBPAdapterCOMObjClass _queryProvider;
         static IdQueryService _instance;
+        private readonly IIdLookupService _idLookupService;
 
-        private IdQueryService()
+        public IdQueryService(IIdLookupService idLookupService)
         {
-
+            _idLookupService = idLookupService;
         }
 
-        public static IdQueryService Instance
-        {
-            get
-            {
-                if (_instance == null)
-                {
-                    _instance = new IdQueryService();
-                }
-
-                return _instance;
-            }
-        }
 
         public IdLookUpResult QueryAsync(string queryString)
         {
-            if (_queryProvider == null)
-            {
-                _queryProvider = new RBSPAdapter_COM.RSBPAdapterCOMObjClass();
-            }
 
-            _queryProvider.queryCondition = queryString;
-            _queryProvider.queryType = "QueryQGRK";
+            _idLookupService.queryCondition = queryString;
+            _idLookupService.queryType = "QueryQGRK";
 
             var replyXml = string.Empty;
-            replyXml = _queryProvider.queryCondition;
+            replyXml = _idLookupService.queryCondition;
             var normalQr = Helper.Parse(replyXml);
 
-            _queryProvider.queryType = "QueryZTK";
-            replyXml = _queryProvider.queryCondition;
+            _idLookupService.queryType = "QueryZTK";
+            replyXml = _idLookupService.queryCondition;
             var suspectQr = Helper.Parse(replyXml);
 
             var result = new IdLookUpResult();

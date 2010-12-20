@@ -14,8 +14,8 @@ namespace Kise.IdCard.Messaging
         private int _currentSequenceNumber;
         private DateTime _sendQueryTime;
 
-        private ConcurrentDictionary<int, IncomingMessage> _messagesReceived
-            = new ConcurrentDictionary<int, IncomingMessage>();
+        private ConcurrentDictionary<string, IncomingMessage> _messagesReceived
+            = new ConcurrentDictionary<string, IncomingMessage>();
 
 
         public int TimeOutInSeconds { get; set; }
@@ -37,24 +37,27 @@ namespace Kise.IdCard.Messaging
 
         public async Task<ReplyMessage> QueryAsync(string destinationNumber, string message)
         {
-            var sn = GetNextSequenceNumber();
-            //string packedMessage = Helper.PackMessage(message, sn);
+            //var sn = GetNextSequenceNumber();
+            ////string packedMessage = Helper.PackMessage(message, sn);
+
+            var splits = message.Split(new[] { '*' });
 
             _sendQueryTime = DateTime.Now;
             _link.SendAsync(destinationNumber, message);
 
-            var reply = await GetReplyMessage(sn);
+            ReplyMessage reply = await GetReplyMessage(splits[0]);
             return reply;
         }
 
-        private async Task<ReplyMessage> GetReplyMessage(int sn)
+        private async Task<ReplyMessage> GetReplyMessage(string id)
         {
             var beginTime = DateTime.Now;
             while (true)
             {
                 await TaskEx.Delay(3000);
-                var msg = FindReply(sn);
-                if (msg != null && msg.ReceiveTime > _sendQueryTime)
+                var msg = FindReply(id);
+                System.Diagnostics.Debug.WriteLine("try receive message: ");
+                if (msg != null)
                 {
                     var rm = new ReplyMessage()
                                  {
@@ -73,12 +76,13 @@ namespace Kise.IdCard.Messaging
             }
         }
 
-        private IncomingMessage FindReply(int sn)
+        private IncomingMessage FindReply(string id)
         {
             IncomingMessage msg = null;
-            if (_messagesReceived.ContainsKey(sn))
+            if (_messagesReceived.ContainsKey(id))
             {
-                _messagesReceived.TryRemove(sn, out msg);
+                _messagesReceived.TryRemove(id, out msg);
+                System.Diagnostics.Debug.WriteLine("remove message");
             }
 
             return msg;
@@ -100,17 +104,20 @@ namespace Kise.IdCard.Messaging
         void _link_NewMessageReceived(object sender, MiscUtil.EventArgs<IncomingMessage> e)
         {
             int sequenceNumber = -1;
-            string payload = null;
-            if (Helper.TryUnpackMessage(e.Value.Message, out sequenceNumber, out payload))
+            var starIdx = e.Value.Message.IndexOf('*');
+            var id = e.Value.Message.Substring(0, starIdx);
+            var payLoad = e.Value.Message.Substring(starIdx + 1);
+            //if (Helper.TryUnpackMessage(e.Value.Message, out sequenceNumber, out payload))
             {
                 var msg = new IncomingMessage()
                 {
-                    Message = payload,
+                    Message = payLoad,
                     ReceiveTime = e.Value.ReceiveTime,
                     Sender = e.Value.Sender,
                 };
 
-                _messagesReceived.AddOrUpdate(sequenceNumber, msg, (s, i) => msg);
+                _messagesReceived.AddOrUpdate(id, msg, (s, i) => msg);
+                System.Diagnostics.Debug.WriteLine("add message" + payLoad);
             }
 
         }
