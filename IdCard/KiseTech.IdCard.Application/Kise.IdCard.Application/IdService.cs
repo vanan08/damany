@@ -144,7 +144,7 @@ namespace Kise.IdCard.Application
         }
 
 
-        public async Task QueryIdAsync(IProgress<ProgressIndicator> progressReport, string destinationNo)
+        public void  QueryIdAsync(IProgress<ProgressIndicator> progressReport, string destinationNo)
         {
             if (CurrentState == Status.ReadingIdCard) return;
 
@@ -161,16 +161,18 @@ namespace Kise.IdCard.Application
             indicator.LongOperation = true;
             progressReport.Report(indicator);
 
-            var reply = await _queryService.QueryAsync(destinationNo, CurrentIdCard.IdCardNo);
+            var packedMsg = this.PackMessage(CurrentIdCard);
+
+            var reply = _queryService.QueryAsync(destinationNo, packedMsg);
             IsBusy = false;
 
-            indicator.Status = reply.IsTimedOut ? "查询身份证失败（超时）!" : "查询身份证成功";
+            indicator.Status = reply.Result.IsTimedOut ? "查询身份证失败（超时）!" : "查询身份证成功";
             indicator.LongOperation = false;
             progressReport.Report(indicator);
 
-            if (!reply.IsTimedOut)
+            if (!reply.Result.IsTimedOut)
             {
-                var statusCode = int.Parse(reply.Message);
+                var statusCode = int.Parse(reply.Result.Message);
                 if (_statusDict.ContainsKey(statusCode))
                 {
                     CurrentIdCard.IdStatus = _statusDict[statusCode];
@@ -184,7 +186,7 @@ namespace Kise.IdCard.Application
             else
             {
                 CurrentIdCard.IdStatus = IdStatus.UnKnown;
-                await TaskEx.Delay(3000);
+                TaskEx.Delay(3000);
             }
 
             IdCardList.Add(CurrentIdCard);
@@ -194,6 +196,13 @@ namespace Kise.IdCard.Application
             _view.CanQueryId = true;
             _isQuerying = false;
             //_timer.Enabled = true;
+        }
+
+        private string PackMessage(IdCardInfo idCard)
+        {
+            var ss = new string[] { idCard.IdCardNo, idCard.Name, idCard.SexCode.ToString() };
+            var returnString = string.Join("*", ss);
+            return returnString;
         }
 
         private async Task<IdCardInfo> ReadIdCard(IProgress<ProgressIndicator> progressReport)

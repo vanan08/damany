@@ -12,6 +12,7 @@ namespace Kise.IdCard.Messaging
             return sn.ToString() + Constants.SplitterChar + message;
         }
 
+
         public static bool TryUnpackMessage(string message, out int sequenceNumber, out string payload)
         {
             if (message == null) throw new ArgumentNullException("message");

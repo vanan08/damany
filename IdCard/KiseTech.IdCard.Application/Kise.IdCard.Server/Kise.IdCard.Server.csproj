@@ -32,6 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AsyncCtpLibrary, Version=1.0.3951.36518, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpo.v10.2, Version=10.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="MiscUtil">
       <HintPath>..\..\..\Library\MiscUtil\MiscUtil.dll</HintPath>
     </Reference>
@@ -45,9 +46,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helper.cs" />
+    <Compile Include="IdLookUpResult.cs" />
     <Compile Include="IdSpec.cs" />
     <Compile Include="IdQueryService.cs" />
+    <Compile Include="ILog.cs" />
     <Compile Include="IView.cs" />
+    <Compile Include="LogEntry.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryHandler.cs" />
     <Compile Include="QueryResult.cs" />
@@ -56,6 +60,10 @@
     <ProjectReference Include="..\Kise.IdCard.Messaging\Kise.IdCard.Messaging.csproj">
       <Project>{A8CCE3F0-6904-491F-BEB6-093D849E3072}</Project>
       <Name>Kise.IdCard.Messaging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Kise.IdCard.Model\Kise.IdCard.Model.csproj">
+      <Project>{711B9849-8E84-49C8-9549-91B1922530AF}</Project>
+      <Name>Kise.IdCard.Model</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
