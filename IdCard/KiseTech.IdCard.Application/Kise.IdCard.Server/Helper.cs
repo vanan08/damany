@@ -43,7 +43,7 @@ namespace Kise.IdCard.Server
 
             var idspecs = new List<IdCard.Model.IdCardInfo>();
             var propertyNames = rows[1].Elements("Data").ToList();
-            for (int i = 2; i < propertyNames.Count; i++)
+            for (int i = 2; i < rows.Count; i++)
             {
                 var idSpec = ParseOne(rows[1], rows[i]);
                 idspecs.Add(idSpec);

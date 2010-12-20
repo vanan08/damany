@@ -52,7 +52,7 @@ namespace Kise.IdCard.QueryServer
                 response.Text = "";
                 Cursor = Cursors.WaitCursor;
 
-                var queryString = string.Format("xm='{0}' and csrq=19800208", name.Text);
+                var queryString = string.Format("sfzh='{0}'", idCardNo.Text);
                 var reply = IdQueryService.Instance.QueryAsync(queryString);
             }
             finally
@@ -68,6 +68,20 @@ namespace Kise.IdCard.QueryServer
 
         private void btnQuery_Click(object sender, EventArgs e)
         {
+            try
+            {
+                btnQuery.Enabled = false;
+                response.Text = "";
+                Cursor = Cursors.WaitCursor;
+
+                var queryString = string.Format("sfzh='{0}'", IdNo.Text);
+                var reply = IdQueryService.Instance.QueryAsync(queryString);
+            }
+            finally
+            {
+                btnQuery.Enabled = true;
+                Cursor = Cursors.Default;
+            }
 
         }
 
