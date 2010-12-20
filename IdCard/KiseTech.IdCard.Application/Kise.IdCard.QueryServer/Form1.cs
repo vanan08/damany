@@ -12,12 +12,11 @@ using Kise.IdCard.Server;
 
 namespace Kise.IdCard.QueryServer
 {
-    public partial class Form1 : Form, IView
+    public partial class Form1 : Form, IView, ILog
     {
         TcpServerLink _server = new TcpServerLink();
         TcpClientLink _client = new TcpClientLink();
         private Server.QueryHandler _queryHandler;
-        private Server.IdQueryService _idQueryService;
 
         public Form1()
         {
@@ -28,13 +27,13 @@ namespace Kise.IdCard.QueryServer
         {
             await TaskEx.Delay(12);
 
-            _queryHandler = new QueryHandler(_server, this);
-            _queryHandler.NewMessageReceived += (s, arg) =>
-                                                    {
-                                                        var msg = string.Format("收到查询：{0}, 来自:{1}", arg.Value.Message,
-                                                                                arg.Value.Sender);
-                                                        AppendText(msg);
-                                                    };
+            _queryHandler = new QueryHandler(_server, this, this);
+            //_queryHandler.NewMessageReceived += (s, arg) =>
+            //                                        {
+            //                                            var msg = string.Format("收到查询：{0}, 来自:{1}", arg.Value.Message,
+            //                                                                    arg.Value.Sender);
+            //                                            AppendText(msg);
+            //                                        };
             _queryHandler.Start();
 
         }
@@ -49,29 +48,32 @@ namespace Kise.IdCard.QueryServer
         {
             try
             {
-                queryBtn.Enabled = false;
+                btnQuery.Enabled = false;
                 response.Text = "";
                 Cursor = Cursors.WaitCursor;
-                //_server.SendAsync("", this.name.Text);
-                if (_idQueryService == null)
-                {
-                    _idQueryService = new IdQueryService();
-                }
 
                 var queryString = string.Format("xm='{0}' and csrq=19800208", name.Text);
-                var reply = await _idQueryService.QueryAsync(queryString);
-                response.Text = reply;
-
+                var reply = IdQueryService.Instance.QueryAsync(queryString);
             }
             finally
             {
-                queryBtn.Enabled = true;
+                btnQuery.Enabled = true;
                 Cursor = Cursors.Default;
             }
         }
 
         private void clientSend_Click(object sender, EventArgs e)
         {
+        }
+
+        private void btnQuery_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        public void Log(LogEntry entry)
+        {
+            throw new NotImplementedException();
         }
     }
 }

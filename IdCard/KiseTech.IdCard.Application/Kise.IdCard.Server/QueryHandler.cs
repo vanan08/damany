@@ -14,7 +14,8 @@ namespace Kise.IdCard.Server
         private Random _random = new Random();
         private readonly IView _view;
         private int idx = 0;
-
+        private readonly ILog _logger;
+        
         public event EventHandler<MiscUtil.EventArgs<IncomingMessage>> NewMessageReceived;
 
         private void InvokeNewMessageReceived(MiscUtil.EventArgs<IncomingMessage> e)
@@ -23,8 +24,9 @@ namespace Kise.IdCard.Server
             if (handler != null) handler(this, e);
         }
 
-        public QueryHandler(ILink link, IView view)
+        public QueryHandler(ILink link, IView view, ILog logger)
         {
+            _logger = logger;
             if (link == null) throw new ArgumentNullException("link");
             if (view == null) throw new ArgumentNullException("view");
 
@@ -42,16 +44,40 @@ namespace Kise.IdCard.Server
         {
             InvokeNewMessageReceived(e);
 
+            var entry = new LogEntry();
+            entry.Sender = e.Value.Sender;
+            entry.Description = e.Value.Message;
+
+            _logger.Log(entry);
+
             var unpackedMsg = string.Empty;
             var sn = -1;
-            if (Messaging.Helper.TryUnpackMessage(e.Value.Message, out sn, out unpackedMsg))
-            {
-                var reply = Messaging.Helper.PackMessage(idx.ToString(), sn);
-                idx = ++idx % 5;
-                System.Threading.Thread.Sleep(_random.Next(10000, 40000));
-                _view.AppendText(string.Format("发送应答: " + idx.ToString()));
-                _link.SendAsync(e.Value.Sender, reply);
-            }
+            var idInfo = UnpackMessage(e.Value.Message);
+
+            entry = new LogEntry();
+            entry.Description = "查询数据库";
+            _logger.Log(entry);
+            var result = IdQueryService.Instance.QueryAsync(idInfo.IdCardNo);
+
+            entry = new LogEntry();
+            entry.Description = "发送应答";
+            _logger.Log(entry);
+
+            var replyStrings = new string[] { idInfo.IdCardNo, result.NormalResult, result.SuspectResult };
+            var replyMsg = string.Join("*", replyStrings);
+            _link.SendAsync(e.Value.Sender, replyMsg);
+            
+        }
+
+        private IdCard.Model.IdCardInfo UnpackMessage(string p)
+        {
+            var values = p.Split(new[] { '*' });
+            var idInfo = new IdCard.Model.IdCardInfo();
+
+            idInfo.IdCardNo = values[0];
+            idInfo.Name = values[1];
+            idInfo.SexCode = int.Parse(values[2]);
+            return idInfo;
         }
     }
 }

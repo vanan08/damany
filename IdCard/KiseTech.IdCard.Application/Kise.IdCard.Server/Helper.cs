@@ -8,7 +8,7 @@ namespace Kise.IdCard.Server
 {
     public class Helper
     {
-        public static Kise.IdCard.Server.QueryResult Parse(string xmlString)
+        public static QueryResult Parse(string xmlString)
         {
             if (!xmlString.StartsWith("<?xml")) return new QueryResult() { Error = new Exception(xmlString) };
 
@@ -41,7 +41,7 @@ namespace Kise.IdCard.Server
 
             var qr = new Kise.IdCard.Server.QueryResult();
 
-            var idspecs = new List<IdSpec>();
+            var idspecs = new List<IdCard.Model.IdCardInfo>();
             var propertyNames = rows[1].Elements("Data").ToList();
             for (int i = 2; i < propertyNames.Count; i++)
             {
@@ -51,10 +51,11 @@ namespace Kise.IdCard.Server
             qr.IdInfos = idspecs.ToArray();
             return qr;
         }
-        private static IdSpec ParseOne(XElement template, XElement data)
+
+        private static IdCard.Model.IdCardInfo ParseOne(XElement template, XElement data)
         {
 
-            var spec = new IdSpec();
+            var spec = new IdCard.Model.IdCardInfo();
 
             var names = template.Elements("Data").ToList();
             var values = data.Elements("Data").ToList();
@@ -75,19 +76,19 @@ namespace Kise.IdCard.Server
                         spec.BornDate = ParseDatetime(v);
                         break;
                     case "SFZH":
-                        spec.IdNo = v;
+                        spec.IdCardNo = v;
                         break;
                     case "XB":
-                        spec.SexCode = IsMale(v) ? "1" : "2";
+                        spec.SexCode = IsMale(v) ? 1 : 2;
                         break;
                     case "XP":
-                        spec.ImageData = Convert.FromBase64String(v);
+                        spec.PhotoData = Convert.FromBase64String(v);
                         break;
-                    case "FWCS":
-                        spec.Employer = v;
-                        break;
+                    //case "FWCS":
+                    //    spec.Employer = v;
+                    //    break;
                     case "MZ":
-                        spec.MinorityCode = v;
+                        spec.MinorityCode = int.Parse(v);
                         break;
                     default:
                         break;

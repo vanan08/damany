@@ -40,6 +40,8 @@ namespace Kise.IdCard.Messaging
             var sn = GetNextSequenceNumber();
             string packedMessage = Helper.PackMessage(message, sn);
 
+
+
             _sendQueryTime = DateTime.Now;
             _link.SendAsync(destinationNumber, packedMessage);
 
