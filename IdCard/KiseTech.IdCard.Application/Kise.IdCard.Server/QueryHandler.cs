@@ -13,9 +13,12 @@ namespace Kise.IdCard.Server
         private readonly ILink _link;
         private Random _random = new Random();
         private readonly IView _view;
+        private readonly IdQueryService _idQueryService;
         private int idx = 0;
         private readonly ILog _logger;
-        
+
+        string[] mockReplies;
+
         public event EventHandler<MiscUtil.EventArgs<IncomingMessage>> NewMessageReceived;
 
         private void InvokeNewMessageReceived(MiscUtil.EventArgs<IncomingMessage> e)
@@ -24,8 +27,9 @@ namespace Kise.IdCard.Server
             if (handler != null) handler(this, e);
         }
 
-        public QueryHandler(ILink link, IView view, ILog logger)
+        public QueryHandler(IdQueryService idQueryService, ILink link, IView view, ILog logger)
         {
+            _idQueryService = idQueryService;
             _logger = logger;
             if (link == null) throw new ArgumentNullException("link");
             if (view == null) throw new ArgumentNullException("view");
@@ -33,6 +37,8 @@ namespace Kise.IdCard.Server
             _link = link;
             _view = view;
             _link.NewMessageReceived += _link_NewMessageReceived;
+
+            mockReplies = new[] { "0*正常", "1*网上追逃", "1*虚假身份证" };
         }
 
         public void Start()
@@ -46,7 +52,7 @@ namespace Kise.IdCard.Server
 
             var entry = new LogEntry();
             entry.Sender = e.Value.Sender;
-            entry.Description = e.Value.Message;
+            entry.Description = e.Value.Message.Insert(0, "收到查询: ");
 
             _logger.Log(entry);
 
@@ -57,16 +63,25 @@ namespace Kise.IdCard.Server
             entry = new LogEntry();
             entry.Description = "查询数据库";
             _logger.Log(entry);
-            var result = IdQueryService.Instance.QueryAsync(idInfo.IdCardNo);
-
-            entry = new LogEntry();
-            entry.Description = "发送应答";
-            _logger.Log(entry);
+            var result =  _idQueryService.QueryAsync(idInfo.IdCardNo);
 
             var replyStrings = new string[] { idInfo.IdCardNo, result.NormalResult, result.SuspectResult };
             var replyMsg = string.Join("*", replyStrings);
-            _link.SendAsync(e.Value.Sender, replyMsg);
             
+
+#if DEBUG
+            var idx = _random.Next(0, 2);
+            var msg = idInfo.IdCardNo + "*" + mockReplies[idx];
+            _link.SendAsync(e.Value.Sender, msg);
+#else
+            _link.SendAsync(e.Value.Sender, replyMsg);
+#endif
+
+            entry = new LogEntry();
+            entry.Description = "发送应答：" + replyMsg;
+            _logger.Log(entry);
+
+
         }
 
         private IdCard.Model.IdCardInfo UnpackMessage(string p)

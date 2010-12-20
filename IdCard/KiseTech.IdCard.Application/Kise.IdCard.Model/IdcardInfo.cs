@@ -148,25 +148,11 @@ namespace Kise.IdCard.Model
             set { SetPropertyValue("IsSuspect", ref _isSuspect, value); }
         }
 
-        private IdStatus _idStatus;
-        public IdStatus IdStatus
+        private string _queryResult;
+        public string QueryResult
         {
-            get { return _idStatus; }
-            set
-            {
-                SetPropertyValue("IdStatus", ref _idStatus, value);
-                OnChanged("IdStatusName");
-            }
-        }
-
-
-        [NonPersistent]
-        public string IdStatusName
-        {
-            get
-            {
-                return Helper.GetIdStatusName(IdStatus);
-            }
+            get { return _queryResult; }
+            set { SetPropertyValue("QueryResult", ref _queryResult, value); }
         }
 
 

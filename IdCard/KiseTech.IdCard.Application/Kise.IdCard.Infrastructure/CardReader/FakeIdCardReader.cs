@@ -21,12 +21,12 @@ namespace Kise.IdCard.Infrastructure.CardReader
 
             IdInfo v = new IdInfo()
                            {
-                               Address = "dashi road " + DateTime.Now.ToString(),
+                               Address = "四川成都",
                                BornDate = "19781231",
-                               GrantDept = "jinjiang police " + DateTime.Now.ToString(),
+                               GrantDept = "四川省成都市青羊分局",
                                IdCardNo = "510403197309112610",
                                Minority = random.Next(1, 56).ToString(),
-                               Name = "benny" + DateTime.Now.ToString(),
+                               Name = "张三",
                                PhotoData = Properties.Resources.Image0001,
                                Sex = random.Next(1, 2).ToString(),
                                ValidateFrom = "19781231",

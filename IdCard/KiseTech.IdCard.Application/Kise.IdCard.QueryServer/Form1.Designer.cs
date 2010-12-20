@@ -28,16 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.name = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.listView1 = new System.Windows.Forms.ListView();
-            this.colIcon = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colTime = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colSender = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colAction = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colResult = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colDescription = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.idCardNo = new System.Windows.Forms.Label();
             this.IdNo = new System.Windows.Forms.TextBox();
@@ -64,7 +60,7 @@
             this.radioBasic = new System.Windows.Forms.RadioButton();
             this.label2 = new System.Windows.Forms.Label();
             this.btnQuery = new System.Windows.Forms.Button();
-            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
+            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -92,11 +88,8 @@
             // listView1
             // 
             this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.colIcon,
             this.colTime,
             this.colSender,
-            this.colAction,
-            this.colResult,
             this.colDescription});
             this.listView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listView1.Location = new System.Drawing.Point(3, 3);
@@ -105,11 +98,6 @@
             this.listView1.TabIndex = 7;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
-            // 
-            // colIcon
-            // 
-            this.colIcon.Text = "";
-            this.colIcon.Width = 23;
             // 
             // colTime
             // 
@@ -120,16 +108,6 @@
             // 
             this.colSender.Text = "发送方";
             this.colSender.Width = 70;
-            // 
-            // colAction
-            // 
-            this.colAction.Text = "行为";
-            this.colAction.Width = 66;
-            // 
-            // colResult
-            // 
-            this.colResult.Text = "结果";
-            this.colResult.Width = 77;
             // 
             // colDescription
             // 
@@ -415,13 +393,10 @@
         private System.Windows.Forms.TextBox name;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ListView listView1;
-        private System.Windows.Forms.ColumnHeader colIcon;
         private System.Windows.Forms.TextBox response;
         private System.Windows.Forms.Label idCardNo;
         private System.Windows.Forms.TextBox IdNo;
         private System.Windows.Forms.ColumnHeader colTime;
-        private System.Windows.Forms.ColumnHeader colAction;
-        private System.Windows.Forms.ColumnHeader colResult;
         private System.Windows.Forms.ColumnHeader colDescription;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem 文件ToolStripMenuItem;
