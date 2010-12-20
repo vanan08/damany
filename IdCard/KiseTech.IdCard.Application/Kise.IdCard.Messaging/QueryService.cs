@@ -38,12 +38,10 @@ namespace Kise.IdCard.Messaging
         public async Task<ReplyMessage> QueryAsync(string destinationNumber, string message)
         {
             var sn = GetNextSequenceNumber();
-            string packedMessage = Helper.PackMessage(message, sn);
-
-
+            //string packedMessage = Helper.PackMessage(message, sn);
 
             _sendQueryTime = DateTime.Now;
-            _link.SendAsync(destinationNumber, packedMessage);
+            _link.SendAsync(destinationNumber, message);
 
             var reply = await GetReplyMessage(sn);
             return reply;

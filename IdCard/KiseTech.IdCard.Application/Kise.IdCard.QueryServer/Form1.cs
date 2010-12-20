@@ -87,7 +87,15 @@ namespace Kise.IdCard.QueryServer
 
         public void Log(LogEntry entry)
         {
-            throw new NotImplementedException();
+            var item = new ListViewItem();
+            item.Text = "";
+            item.SubItems.Add(entry.Time.ToString());
+            item.SubItems.Add(entry.Sender);
+            item.SubItems.Add("");
+            item.SubItems.Add("");
+            item.SubItems.Add(entry.Description);
+
+            this.BeginInvoke((Action) delegate { listView1.Items.Add(item); });
         }
     }
 }

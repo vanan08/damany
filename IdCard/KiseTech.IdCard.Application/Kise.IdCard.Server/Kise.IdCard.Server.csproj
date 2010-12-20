@@ -47,8 +47,11 @@
   <ItemGroup>
     <Compile Include="Helper.cs" />
     <Compile Include="IdLookUpResult.cs" />
+    <Compile Include="IdLookupService.cs" />
+    <Compile Include="IdLookupServiceMock.cs" />
     <Compile Include="IdSpec.cs" />
     <Compile Include="IdQueryService.cs" />
+    <Compile Include="IIdLookupService.cs" />
     <Compile Include="ILog.cs" />
     <Compile Include="IView.cs" />
     <Compile Include="LogEntry.cs" />
@@ -81,6 +84,17 @@
     <None Include="rbsp_setup.ini">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="1.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="atlarge-true.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Normal.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
