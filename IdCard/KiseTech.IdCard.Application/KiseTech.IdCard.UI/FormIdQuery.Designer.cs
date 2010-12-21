@@ -48,7 +48,6 @@
             this.repositoryItemImageEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemImageEdit();
             this.barManager1 = new DevExpress.XtraBars.BarManager(this.components);
             this.bar1 = new DevExpress.XtraBars.Bar();
-            this.printButton = new DevExpress.XtraBars.BarButtonItem();
             this.saveButton = new DevExpress.XtraBars.BarButtonItem();
             this.barDockControlTop = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
@@ -68,13 +67,13 @@
             // 
             this.gridControl1.DataSource = this.idCardSource;
             this.gridControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gridControl1.Location = new System.Drawing.Point(0, 26);
+            this.gridControl1.Location = new System.Drawing.Point(0, 31);
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.Name = "gridControl1";
             this.gridControl1.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemPictureEdit1,
             this.repositoryItemImageEdit1});
-            this.gridControl1.Size = new System.Drawing.Size(871, 538);
+            this.gridControl1.Size = new System.Drawing.Size(871, 533);
             this.gridControl1.TabIndex = 0;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -175,7 +174,7 @@
             this.colGrantDept.FieldName = "GrantDept";
             this.colGrantDept.Name = "colGrantDept";
             this.colGrantDept.Visible = true;
-            this.colGrantDept.VisibleIndex = 8;
+            this.colGrantDept.VisibleIndex = 7;
             this.colGrantDept.Width = 85;
             // 
             // colValidateFrom
@@ -184,7 +183,7 @@
             this.colValidateFrom.FieldName = "ValidateFrom";
             this.colValidateFrom.Name = "colValidateFrom";
             this.colValidateFrom.Visible = true;
-            this.colValidateFrom.VisibleIndex = 9;
+            this.colValidateFrom.VisibleIndex = 8;
             this.colValidateFrom.Width = 76;
             // 
             // colValidateUntil
@@ -193,8 +192,12 @@
             this.colValidateUntil.FieldName = "ValidateUntil";
             this.colValidateUntil.Name = "colValidateUntil";
             this.colValidateUntil.Visible = true;
-            this.colValidateUntil.VisibleIndex = 10;
+            this.colValidateUntil.VisibleIndex = 9;
             this.colValidateUntil.Width = 81;
+            // 
+            // colIdStatusName
+            // 
+            this.colIdStatusName.Name = "colIdStatusName";
             // 
             // colCreationDate
             // 
@@ -222,7 +225,6 @@
             this.barManager1.DockControls.Add(this.barDockControlRight);
             this.barManager1.Form = this;
             this.barManager1.Items.AddRange(new DevExpress.XtraBars.BarItem[] {
-            this.printButton,
             this.saveButton});
             this.barManager1.MaxItemId = 2;
             // 
@@ -233,17 +235,8 @@
             this.bar1.DockRow = 0;
             this.bar1.DockStyle = DevExpress.XtraBars.BarDockStyle.Top;
             this.bar1.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
-            new DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, this.printButton, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph),
             new DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, this.saveButton, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph)});
             this.bar1.Text = "Tools";
-            // 
-            // printButton
-            // 
-            this.printButton.Caption = "打印";
-            this.printButton.Glyph = ((System.Drawing.Image)(resources.GetObject("printButton.Glyph")));
-            this.printButton.Id = 0;
-            this.printButton.Name = "printButton";
-            this.printButton.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.printButton_ItemClick);
             // 
             // saveButton
             // 
@@ -255,27 +248,31 @@
             // 
             // barDockControlTop
             // 
+            this.barDockControlTop.CausesValidation = false;
             this.barDockControlTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.barDockControlTop.Location = new System.Drawing.Point(0, 0);
-            this.barDockControlTop.Size = new System.Drawing.Size(871, 26);
+            this.barDockControlTop.Size = new System.Drawing.Size(871, 31);
             // 
             // barDockControlBottom
             // 
+            this.barDockControlBottom.CausesValidation = false;
             this.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.barDockControlBottom.Location = new System.Drawing.Point(0, 564);
             this.barDockControlBottom.Size = new System.Drawing.Size(871, 0);
             // 
             // barDockControlLeft
             // 
+            this.barDockControlLeft.CausesValidation = false;
             this.barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left;
-            this.barDockControlLeft.Location = new System.Drawing.Point(0, 26);
-            this.barDockControlLeft.Size = new System.Drawing.Size(0, 538);
+            this.barDockControlLeft.Location = new System.Drawing.Point(0, 31);
+            this.barDockControlLeft.Size = new System.Drawing.Size(0, 533);
             // 
             // barDockControlRight
             // 
+            this.barDockControlRight.CausesValidation = false;
             this.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right;
-            this.barDockControlRight.Location = new System.Drawing.Point(871, 26);
-            this.barDockControlRight.Size = new System.Drawing.Size(0, 538);
+            this.barDockControlRight.Location = new System.Drawing.Point(871, 31);
+            this.barDockControlRight.Size = new System.Drawing.Size(0, 533);
             // 
             // saveFileDialog
             // 
@@ -329,7 +326,6 @@
         private DevExpress.XtraGrid.Columns.GridColumn colIdStatusName;
         private DevExpress.XtraBars.BarManager barManager1;
         private DevExpress.XtraBars.Bar bar1;
-        private DevExpress.XtraBars.BarButtonItem printButton;
         private DevExpress.XtraBars.BarDockControl barDockControlTop;
         private DevExpress.XtraBars.BarDockControl barDockControlBottom;
         private DevExpress.XtraBars.BarDockControl barDockControlLeft;

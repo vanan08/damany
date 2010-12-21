@@ -22,5 +22,14 @@ namespace Kise.IdCard.QueryServer.UI.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string GsmComPort {
+            get {
+                return ((string)(this["GsmComPort"]));
+            }
+        }
     }
 }
