@@ -236,16 +236,6 @@ namespace Kise.IdCard.UI
             this.xrLabel9.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft;
             this.xrLabel9.WordWrap = false;
             // 
-            // xrLabel10
-            // 
-            this.xrLabel10.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
-            new DevExpress.XtraReports.UI.XRBinding("Text", null, "IdStatusName")});
-            this.xrLabel10.LocationFloat = new DevExpress.Utils.PointFloat(466.6667F, 207.25F);
-            this.xrLabel10.Name = "xrLabel10";
-            this.xrLabel10.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 96F);
-            this.xrLabel10.SizeF = new System.Drawing.SizeF(145.8333F, 23F);
-            this.xrLabel10.Text = "xrLabel10";
-            // 
             // xrLabel11
             // 
             this.xrLabel11.LocationFloat = new DevExpress.Utils.PointFloat(10.00001F, 20.41667F);

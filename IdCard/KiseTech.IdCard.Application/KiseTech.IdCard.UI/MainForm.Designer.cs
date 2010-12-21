@@ -265,9 +265,10 @@
             // 
             this.address.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.address.Appearance.Font = new System.Drawing.Font("SimHei", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.address.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.Vertical;
             this.address.Location = new System.Drawing.Point(156, 173);
             this.address.Name = "address";
-            this.address.Size = new System.Drawing.Size(70, 19);
+            this.address.Size = new System.Drawing.Size(192, 19);
             this.address.TabIndex = 6;
             this.address.Text = "address";
             // 
