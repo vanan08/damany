@@ -35,7 +35,6 @@
             this.progressBar = new DevExpress.XtraBars.BarEditItem();
             this.repositoryItemMarqueeProgressBar1 = new DevExpress.XtraEditors.Repository.RepositoryItemMarqueeProgressBar();
             this.statusLabel = new DevExpress.XtraBars.BarStaticItem();
-            this.reportButton = new DevExpress.XtraBars.BarButtonItem();
             this.startButton = new DevExpress.XtraBars.BarButtonItem();
             this.stopButton = new DevExpress.XtraBars.BarButtonItem();
             this.databaseQuery = new DevExpress.XtraBars.BarButtonItem();
@@ -80,7 +79,6 @@
             this.settingsButton,
             this.progressBar,
             this.statusLabel,
-            this.reportButton,
             this.startButton,
             this.stopButton,
             this.databaseQuery});
@@ -93,7 +91,7 @@
             this.repositoryItemProgressBar1,
             this.repositoryItemMarqueeProgressBar1});
             this.ribbon.SelectedPage = this.ribbonPage1;
-            this.ribbon.Size = new System.Drawing.Size(584, 149);
+            this.ribbon.Size = new System.Drawing.Size(681, 149);
             this.ribbon.StatusBar = this.ribbonStatusBar;
             // 
             // buttonQuery
@@ -131,14 +129,6 @@
             this.statusLabel.Id = 8;
             this.statusLabel.Name = "statusLabel";
             this.statusLabel.TextAlignment = System.Drawing.StringAlignment.Near;
-            // 
-            // reportButton
-            // 
-            this.reportButton.Caption = "报表";
-            this.reportButton.Id = 9;
-            this.reportButton.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("reportButton.LargeGlyph")));
-            this.reportButton.Name = "reportButton";
-            this.reportButton.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.reportButton_ItemClick);
             // 
             // startButton
             // 
@@ -185,7 +175,6 @@
             // ribbonPageGroup2
             // 
             this.ribbonPageGroup2.ItemLinks.Add(this.buttonQuery);
-            this.ribbonPageGroup2.ItemLinks.Add(this.reportButton);
             this.ribbonPageGroup2.Name = "ribbonPageGroup2";
             this.ribbonPageGroup2.Text = "工具";
             // 
@@ -205,10 +194,10 @@
             // 
             this.ribbonStatusBar.ItemLinks.Add(this.progressBar);
             this.ribbonStatusBar.ItemLinks.Add(this.statusLabel);
-            this.ribbonStatusBar.Location = new System.Drawing.Point(0, 485);
+            this.ribbonStatusBar.Location = new System.Drawing.Point(0, 516);
             this.ribbonStatusBar.Name = "ribbonStatusBar";
             this.ribbonStatusBar.Ribbon = this.ribbon;
-            this.ribbonStatusBar.Size = new System.Drawing.Size(584, 23);
+            this.ribbonStatusBar.Size = new System.Drawing.Size(681, 31);
             // 
             // clientPanel
             // 
@@ -227,7 +216,7 @@
             this.clientPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.clientPanel.Location = new System.Drawing.Point(0, 149);
             this.clientPanel.Name = "clientPanel";
-            this.clientPanel.Size = new System.Drawing.Size(584, 336);
+            this.clientPanel.Size = new System.Drawing.Size(681, 367);
             this.clientPanel.TabIndex = 2;
             // 
             // idCardStatus
@@ -235,102 +224,93 @@
             this.idCardStatus.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.idCardStatus.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.idCardStatus.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
-            this.idCardStatus.Location = new System.Drawing.Point(366, 178);
+            this.idCardStatus.Location = new System.Drawing.Point(427, 194);
             this.idCardStatus.Name = "idCardStatus";
-            this.idCardStatus.Size = new System.Drawing.Size(114, 20);
+            this.idCardStatus.Size = new System.Drawing.Size(133, 22);
             this.idCardStatus.TabIndex = 9;
-            this.idCardStatus.Text = "labelControl9";
             // 
             // image
             // 
             this.image.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.image.Location = new System.Drawing.Point(366, 41);
+            this.image.Location = new System.Drawing.Point(427, 46);
             this.image.MenuManager = this.ribbon;
             this.image.Name = "image";
             this.image.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Office2003;
-            this.image.Size = new System.Drawing.Size(114, 132);
+            this.image.Size = new System.Drawing.Size(133, 142);
             this.image.TabIndex = 8;
             // 
             // idCardNo
             // 
             this.idCardNo.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.idCardNo.Appearance.Font = new System.Drawing.Font("SimHei", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.idCardNo.Location = new System.Drawing.Point(216, 264);
+            this.idCardNo.Location = new System.Drawing.Point(252, 286);
             this.idCardNo.Name = "idCardNo";
-            this.idCardNo.Size = new System.Drawing.Size(40, 19);
+            this.idCardNo.Size = new System.Drawing.Size(0, 19);
             this.idCardNo.TabIndex = 7;
-            this.idCardNo.Text = "idNo";
             // 
             // address
             // 
             this.address.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.address.Appearance.Font = new System.Drawing.Font("SimHei", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.address.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.Vertical;
-            this.address.Location = new System.Drawing.Point(156, 173);
+            this.address.Location = new System.Drawing.Point(182, 188);
             this.address.Name = "address";
-            this.address.Size = new System.Drawing.Size(192, 19);
+            this.address.Size = new System.Drawing.Size(224, 0);
             this.address.TabIndex = 6;
-            this.address.Text = "address";
             // 
             // day
             // 
             this.day.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.day.Appearance.Font = new System.Drawing.Font("SimHei", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.day.Location = new System.Drawing.Point(271, 136);
+            this.day.Location = new System.Drawing.Point(316, 148);
             this.day.Name = "day";
-            this.day.Size = new System.Drawing.Size(10, 19);
+            this.day.Size = new System.Drawing.Size(0, 19);
             this.day.TabIndex = 5;
-            this.day.Text = "d";
             // 
             // month
             // 
             this.month.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.month.Appearance.Font = new System.Drawing.Font("SimHei", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.month.Location = new System.Drawing.Point(231, 134);
+            this.month.Location = new System.Drawing.Point(269, 146);
             this.month.Name = "month";
-            this.month.Size = new System.Drawing.Size(10, 19);
+            this.month.Size = new System.Drawing.Size(0, 19);
             this.month.TabIndex = 4;
-            this.month.Text = "m";
             // 
             // year
             // 
             this.year.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.year.Appearance.Font = new System.Drawing.Font("SimHei", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.year.Location = new System.Drawing.Point(156, 136);
+            this.year.Location = new System.Drawing.Point(182, 148);
             this.year.Name = "year";
-            this.year.Size = new System.Drawing.Size(40, 19);
+            this.year.Size = new System.Drawing.Size(0, 19);
             this.year.TabIndex = 3;
-            this.year.Text = "year";
             // 
             // minority
             // 
             this.minority.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.minority.Appearance.Font = new System.Drawing.Font("SimHei", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.minority.Location = new System.Drawing.Point(251, 99);
+            this.minority.Location = new System.Drawing.Point(293, 109);
             this.minority.Name = "minority";
-            this.minority.Size = new System.Drawing.Size(80, 19);
+            this.minority.Size = new System.Drawing.Size(0, 19);
             this.minority.TabIndex = 2;
-            this.minority.Text = "minority";
             // 
             // sex
             // 
             this.sex.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.sex.Appearance.Font = new System.Drawing.Font("SimHei", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.sex.Location = new System.Drawing.Point(156, 99);
+            this.sex.Location = new System.Drawing.Point(182, 109);
             this.sex.Name = "sex";
-            this.sex.Size = new System.Drawing.Size(30, 19);
+            this.sex.Size = new System.Drawing.Size(0, 19);
             this.sex.TabIndex = 1;
-            this.sex.Text = "sex";
             // 
             // name
             // 
             this.name.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.name.Appearance.Font = new System.Drawing.Font("SimHei", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.name.Location = new System.Drawing.Point(156, 62);
+            this.name.Location = new System.Drawing.Point(182, 69);
             this.name.Name = "name";
-            this.name.Size = new System.Drawing.Size(40, 19);
+            this.name.Size = new System.Drawing.Size(0, 19);
             this.name.TabIndex = 0;
-            this.name.Text = "name";
             // 
             // xpCollection1
             // 
@@ -338,9 +318,9 @@
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(584, 508);
+            this.ClientSize = new System.Drawing.Size(681, 547);
             this.Controls.Add(this.clientPanel);
             this.Controls.Add(this.ribbonStatusBar);
             this.Controls.Add(this.ribbon);
@@ -377,7 +357,6 @@
         private DevExpress.XtraEditors.Repository.RepositoryItemProgressBar repositoryItemProgressBar1;
         private DevExpress.XtraBars.BarStaticItem statusLabel;
         private DevExpress.Xpo.XPCollection xpCollection1;
-        private DevExpress.XtraBars.BarButtonItem reportButton;
         private DevExpress.XtraBars.BarButtonItem startButton;
         private DevExpress.XtraBars.BarButtonItem stopButton;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup2;
