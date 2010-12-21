@@ -51,23 +51,5 @@ namespace Kise.IdCard.Model
             return v;
         }
 
-        public static string GetIdStatusName(IdStatus statusCode)
-        {
-            switch (statusCode)
-            {
-                case IdStatus.Normal:
-                    return "正常";
-                case IdStatus.PrisonBreaker:
-                    return "逃犯";
-                case IdStatus.UnKnown:
-                    return "未知";
-                case IdStatus.Wanted:
-                    return "通缉犯";
-                case IdStatus.WasLawBreaker:
-                    return "刑满释放";
-            }
-
-            return "未知";
-        }
     }
 }

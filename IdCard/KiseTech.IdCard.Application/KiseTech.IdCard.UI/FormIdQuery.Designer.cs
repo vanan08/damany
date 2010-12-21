@@ -196,14 +196,6 @@
             this.colValidateUntil.VisibleIndex = 10;
             this.colValidateUntil.Width = 81;
             // 
-            // colIdStatusName
-            // 
-            this.colIdStatusName.Caption = "查询结果";
-            this.colIdStatusName.FieldName = "IdStatusName";
-            this.colIdStatusName.Name = "colIdStatusName";
-            this.colIdStatusName.Visible = true;
-            this.colIdStatusName.VisibleIndex = 7;
-            // 
             // colCreationDate
             // 
             this.colCreationDate.Caption = "查询日期";
