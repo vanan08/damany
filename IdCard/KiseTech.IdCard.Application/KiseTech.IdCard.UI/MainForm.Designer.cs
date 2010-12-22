@@ -154,6 +154,7 @@
             this.databaseQuery.Id = 12;
             this.databaseQuery.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("databaseQuery.LargeGlyph")));
             this.databaseQuery.Name = "databaseQuery";
+            this.databaseQuery.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
             this.databaseQuery.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.databaseQuery_ItemClick);
             // 
             // ribbonPage1
