@@ -248,7 +248,7 @@
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiShortsComponent">
     <ROW Shortcut="IdCardReader" Directory_="SHORTCUTDIR" Name="身份证查询客户端" Component_="KiseTech.IdCard.Application.exe" Target="[#KiseTech.IdCard.Application.exe]" Description="IdCardReader" Hotkey="0" IconIndex="0" ShowCmd="1" WkDir="APPDIR"/>
-    <ROW Shortcut="IdCardReader_1" Directory_="DesktopFolder" Name="IdCard~1|IdCardReader" Component_="KiseTech.IdCard.Application.exe" Target="[#KiseTech.IdCard.Application.exe]" Description="IdCardReader" Hotkey="0" IconIndex="0" ShowCmd="1" WkDir="APPDIR"/>
+    <ROW Shortcut="IdCardReader_1" Directory_="DesktopFolder" Name="身份证查询客户端" Component_="KiseTech.IdCard.Application.exe" Target="[#KiseTech.IdCard.Application.exe]" Description="IdCardReader" Hotkey="0" IconIndex="0" ShowCmd="1" WkDir="APPDIR"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiThemeComponent">
     <ATTRIBUTE name="UsedTheme" value="classic"/>
