@@ -59,6 +59,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuspectsRepository.Test", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Damany.Util", "Damany.Util\Damany.Util.csproj", "{FA6DEBE0-D78D-437E-B05D-0923896290C9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreamService", "StreamService\StreamService.csproj", "{EB0E48F0-2A60-4C07-9AB8-4C9A450665E4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -339,6 +341,16 @@ Global
 		{FA6DEBE0-D78D-437E-B05D-0923896290C9}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{FA6DEBE0-D78D-437E-B05D-0923896290C9}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{FA6DEBE0-D78D-437E-B05D-0923896290C9}.Release|Win32.ActiveCfg = Release|Any CPU
+		{EB0E48F0-2A60-4C07-9AB8-4C9A450665E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB0E48F0-2A60-4C07-9AB8-4C9A450665E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB0E48F0-2A60-4C07-9AB8-4C9A450665E4}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{EB0E48F0-2A60-4C07-9AB8-4C9A450665E4}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{EB0E48F0-2A60-4C07-9AB8-4C9A450665E4}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{EB0E48F0-2A60-4C07-9AB8-4C9A450665E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB0E48F0-2A60-4C07-9AB8-4C9A450665E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB0E48F0-2A60-4C07-9AB8-4C9A450665E4}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{EB0E48F0-2A60-4C07-9AB8-4C9A450665E4}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{EB0E48F0-2A60-4C07-9AB8-4C9A450665E4}.Release|Win32.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

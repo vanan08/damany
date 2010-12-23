@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<DOCUMENT type="Advanced Installer" CreateVersion="7.2.1" version="7.2.1" modules="enterprise" RootPath="." Language="zh">
+<DOCUMENT Type="Advanced Installer" CreateVersion="7.2.1" version="8.0.1" Modules="enterprise" RootPath="." Language="zh">
   <COMPONENT cid="caphyon.advinst.msicomp.MsiPropsComponent">
     <ROW Property="ALLUSERS" Value="2"/>
     <ROW Property="ARPCOMMENTS" Value="人像抓拍监控中心" ValueLocId="*"/>
@@ -39,11 +39,19 @@
     <ROW Component="Damany.RemoteImaging.Net.Messages.dll" ComponentId="{7DF7F8C2-9139-4488-BAE3-CC6F3D5F22C9}" Directory_="APPDIR" Attributes="0" KeyPath="Damany.RemoteImaging.Net.Messages.dll"/>
     <ROW Component="Damany.Security.dll" ComponentId="{76808CC9-2E77-40AF-B672-30DCCE17BF13}" Directory_="APPDIR" Attributes="0" KeyPath="Damany.Security.dll"/>
     <ROW Component="Damany.Windows.Form.dll" ComponentId="{C6271B0D-455F-42BD-A0E1-762443D6EE5A}" Directory_="APPDIR" Attributes="0" KeyPath="Damany.Windows.Form.dll"/>
+    <ROW Component="DevExpress.BonusSkins.v9.2.dll" ComponentId="{246830A3-BBD2-40EB-9F93-0A7C0A5E8537}" Directory_="APPDIR" Attributes="0" KeyPath="DevExpress.BonusSkins.v9.2.dll"/>
     <ROW Component="DevExpress.Data.v9.2.dll" ComponentId="{A61624F9-FE2A-4AC2-B883-861EFDA4ACBF}" Directory_="APPDIR" Attributes="0" KeyPath="DevExpress.Data.v9.2.dll"/>
+    <ROW Component="DevExpress.OfficeSkins.v9.2.dll" ComponentId="{5DB24512-45F4-4A35-A933-09F130CADC07}" Directory_="APPDIR" Attributes="0" KeyPath="DevExpress.OfficeSkins.v9.2.dll"/>
     <ROW Component="DevExpress.Utils.v9.2.dll" ComponentId="{859B4DD9-9ABA-45C2-8183-9EEFEB0E7DCB}" Directory_="APPDIR" Attributes="0" KeyPath="DevExpress.Utils.v9.2.dll"/>
+    <ROW Component="DevExpress.Xpo.v9.2.dll" ComponentId="{07200447-E179-4E2E-9DB4-44ACCC0476E7}" Directory_="APPDIR" Attributes="0" KeyPath="DevExpress.Xpo.v9.2.dll"/>
     <ROW Component="DevExpress.XtraBars.v9.2.dll" ComponentId="{24B67A49-0B6B-41DC-B36D-F97DE415E608}" Directory_="APPDIR" Attributes="0" KeyPath="DevExpress.XtraBars.v9.2.dll"/>
     <ROW Component="DevExpress.XtraEditors.v9.2.dll" ComponentId="{4800A86F-AF5E-4827-AD4F-E7FBE47ACCED}" Directory_="APPDIR" Attributes="0" KeyPath="DevExpress.XtraEditors.v9.2.dll"/>
+    <ROW Component="DevExpress.XtraGrid.v9.2.dll" ComponentId="{3734703B-62E8-46CD-87C2-491C5345AF76}" Directory_="APPDIR" Attributes="0" KeyPath="DevExpress.XtraGrid.v9.2.dll"/>
     <ROW Component="DevExpress.XtraLayout.v9.2.dll" ComponentId="{9F0B0CD6-14BD-462C-8B0E-4B30D45D2158}" Directory_="APPDIR" Attributes="0" KeyPath="DevExpress.XtraLayout.v9.2.dll"/>
+    <ROW Component="DevExpress.XtraNavBar.v9.2.dll" ComponentId="{907263DB-DACC-4E38-97BA-B36B643E93ED}" Directory_="APPDIR" Attributes="0" KeyPath="DevExpress.XtraNavBar.v9.2.dll"/>
+    <ROW Component="DevExpress.XtraRichEdit.v9.2.dll" ComponentId="{98B97628-B0BE-4B53-8AA7-3099DDED0B8A}" Directory_="APPDIR" Attributes="0" KeyPath="DevExpress.XtraRichEdit.v9.2.dll"/>
+    <ROW Component="DevExpress.XtraTreeList.v9.2.dll" ComponentId="{E86C2C59-F8F5-4824-B9D3-F6272E394BF8}" Directory_="APPDIR" Attributes="0" KeyPath="DevExpress.XtraTreeList.v9.2.dll"/>
+    <ROW Component="DevExpress.XtraVerticalGrid.v9.2.dll" ComponentId="{EE2E1D3A-C774-49CF-BC70-AC4593EFF703}" Directory_="APPDIR" Attributes="0" KeyPath="DevExpress.XtraVerticalGrid.v9.2.dll"/>
     <ROW Component="Emcaster.dll" ComponentId="{93E9A2CD-6DAA-4C73-9BFE-70A92FFEE015}" Directory_="APPDIR" Attributes="0" KeyPath="Emcaster.dll"/>
     <ROW Component="Encryptor.dll" ComponentId="{716951D6-3E26-4D61-A256-987CCAFB136F}" Directory_="APPDIR" Attributes="0" KeyPath="Encryptor.dll"/>
     <ROW Component="IconExtractor.dll" ComponentId="{58693ED7-CC2A-4378-A260-5816F82B01E5}" Directory_="APPDIR" Attributes="0" KeyPath="IconExtractor.dll"/>
@@ -66,7 +74,7 @@
     <ROW Component="RemoteImagingMC.exe" ComponentId="{03938350-EACB-49C1-949C-AC2D92FC5693}" Directory_="APPDIR" Attributes="0" KeyPath="RemoteImagingMC.exe"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiFeatsComponent">
-    <ROW Feature="MainFeature" Title="MainFeature" Description="描述" Display="1" Level="1" Directory_="APPDIR" Attributes="0" Components="AxInterop.AXVLC.dll AxInterop.IMGCTRLLib.dll Common.Logging.dll Damany.Component.dll Damany.Net.dll Damany.Windows.Form.dll Emcaster.dll Encryptor.dll Interop.AXVLC.dll Interop.IMGCTRLLib.dll RemoteControlService.dll RemoteImaging.vshost.exe.manifest Damany REye18x12.xml DevExpress.XtraLayout.v9.2.dll DevExpress.XtraEditors.v9.2.dll DevExpress.XtraBars.v9.2.dll DevExpress.Utils.v9.2.dll DevExpress.Data.v9.2.dll Damany.Security.dll Microsoft.Practices.EnterpriseLibrary.Common.dll Microsoft.Practices.Unity.dll Microsoft.Practices.ObjectBuilder2.dll Microsoft.Practices.EnterpriseLibrary.Validation.Integration.WinForms.dl Microsoft.Practices.EnterpriseLibrary.Validation.dll Microsoft.Practices.EnterpriseLibrary.Logging.dll Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging.dll Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.dll Damany.RemoteImaging.Net.Discovery.dll Damany.RemoteImaging.Net.Messages.dll Damany.Drawing.dll Damany.RemoteImaging.Common.dll RemoteImagingMC.exe Microsoft.Practices.EnterpriseLibrary.Security.dll AForge.dll AForge.Imaging.dll AForge.Math.dll IconExtractor.dll MotionDetectWrapper.dll OpenCvSharp.dll"/>
+    <ROW Feature="MainFeature" Title="MainFeature" Description="描述" Display="1" Level="1" Directory_="APPDIR" Attributes="0" Components="AxInterop.AXVLC.dll AxInterop.IMGCTRLLib.dll Common.Logging.dll Damany.Component.dll Damany.Net.dll Damany.Windows.Form.dll Emcaster.dll Encryptor.dll Interop.AXVLC.dll Interop.IMGCTRLLib.dll RemoteControlService.dll RemoteImaging.vshost.exe.manifest Damany REye18x12.xml DevExpress.XtraLayout.v9.2.dll DevExpress.XtraEditors.v9.2.dll DevExpress.XtraBars.v9.2.dll DevExpress.Utils.v9.2.dll DevExpress.Data.v9.2.dll Damany.Security.dll Microsoft.Practices.EnterpriseLibrary.Common.dll Microsoft.Practices.Unity.dll Microsoft.Practices.ObjectBuilder2.dll Microsoft.Practices.EnterpriseLibrary.Validation.Integration.WinForms.dl Microsoft.Practices.EnterpriseLibrary.Validation.dll Microsoft.Practices.EnterpriseLibrary.Logging.dll Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging.dll Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.dll Damany.RemoteImaging.Net.Discovery.dll Damany.RemoteImaging.Net.Messages.dll Damany.Drawing.dll Damany.RemoteImaging.Common.dll RemoteImagingMC.exe Microsoft.Practices.EnterpriseLibrary.Security.dll AForge.dll AForge.Imaging.dll AForge.Math.dll IconExtractor.dll MotionDetectWrapper.dll OpenCvSharp.dll DevExpress.BonusSkins.v9.2.dll DevExpress.OfficeSkins.v9.2.dll DevExpress.Xpo.v9.2.dll DevExpress.XtraGrid.v9.2.dll DevExpress.XtraNavBar.v9.2.dll DevExpress.XtraRichEdit.v9.2.dll DevExpress.XtraTreeList.v9.2.dll DevExpress.XtraVerticalGrid.v9.2.dll"/>
     <ATTRIBUTE name="CurrentFeature" value="MainFeature"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiFilesComponent">
@@ -87,11 +95,30 @@
     <ROW File="Damany.Security.dll" Component_="Damany.Security.dll" FileName="Damany~4.dll|Damany.Security.dll" Attributes="0" SourcePath="..\RemoteImagingMC\bin\Release\Damany.Security.dll" SelfReg="false" Sequence="26"/>
     <ROW File="Damany.Security.dll.config" Component_="RemoteImaging.vshost.exe.manifest" FileName="Damany~1.con|Damany.Security.dll.config" Attributes="0" SourcePath="..\RemoteImagingMC\bin\Release\Damany.Security.dll.config" SelfReg="false" Sequence="52"/>
     <ROW File="Damany.Windows.Form.dll" Component_="Damany.Windows.Form.dll" FileName="Damany~3.dll|Damany.Windows.Form.dll" Attributes="0" SourcePath="..\RemoteImagingMC\bin\Release\Damany.Windows.Form.dll" SelfReg="false" Sequence="6"/>
-    <ROW File="DevExpress.Data.v9.2.dll" Component_="DevExpress.Data.v9.2.dll" FileName="DevExp~5.dll|DevExpress.Data.v9.2.dll" Attributes="0" SourcePath="..\..\..\RemoteImaging_shen_retlang\Library\DevExpress\DevExpress.Data.v9.2.dll" SelfReg="false" Sequence="25"/>
-    <ROW File="DevExpress.Utils.v9.2.dll" Component_="DevExpress.Utils.v9.2.dll" FileName="DevExp~4.dll|DevExpress.Utils.v9.2.dll" Attributes="0" SourcePath="..\..\..\RemoteImaging_shen_retlang\Library\DevExpress\DevExpress.Utils.v9.2.dll" SelfReg="false" Sequence="24"/>
-    <ROW File="DevExpress.XtraBars.v9.2.dll" Component_="DevExpress.XtraBars.v9.2.dll" FileName="DevExp~3.dll|DevExpress.XtraBars.v9.2.dll" Attributes="0" SourcePath="..\..\..\RemoteImaging_shen_retlang\Library\DevExpress\DevExpress.XtraBars.v9.2.dll" SelfReg="false" Sequence="23"/>
-    <ROW File="DevExpress.XtraEditors.v9.2.dll" Component_="DevExpress.XtraEditors.v9.2.dll" FileName="DevExp~2.dll|DevExpress.XtraEditors.v9.2.dll" Attributes="0" SourcePath="..\..\..\RemoteImaging_shen_retlang\Library\DevExpress\DevExpress.XtraEditors.v9.2.dll" SelfReg="false" Sequence="22"/>
-    <ROW File="DevExpress.XtraLayout.v9.2.dll" Component_="DevExpress.XtraLayout.v9.2.dll" FileName="DevExp~1.dll|DevExpress.XtraLayout.v9.2.dll" Attributes="0" SourcePath="..\..\..\RemoteImaging_shen_retlang\Library\DevExpress\DevExpress.XtraLayout.v9.2.dll" SelfReg="false" Sequence="21"/>
+    <ROW File="DevExpress.BonusSkins.v9.2.dll" Component_="DevExpress.BonusSkins.v9.2.dll" FileName="DevExp~6.dll|DevExpress.BonusSkins.v9.2.dll" Attributes="0" SourcePath="..\RemoteImagingMC\bin\Release\DevExpress.BonusSkins.v9.2.dll" SelfReg="false" Sequence="61"/>
+    <ROW File="DevExpress.Data.v9.2.dll" Component_="DevExpress.Data.v9.2.dll" FileName="DevExp~5.dll|DevExpress.Data.v9.2.dll" Attributes="0" SourcePath="..\RemoteImagingMC\bin\Release\DevExpress.Data.v9.2.dll" SelfReg="false" Sequence="25"/>
+    <ROW File="DevExpress.Data.v9.2.xml" Component_="RemoteImaging.vshost.exe.manifest" FileName="DevExp~2.xml|DevExpress.Data.v9.2.xml" Attributes="0" SourcePath="..\RemoteImagingMC\bin\Release\DevExpress.Data.v9.2.xml" SelfReg="false" Sequence="70"/>
+    <ROW File="DevExpress.OfficeSkins.v9.2.dll" Component_="DevExpress.OfficeSkins.v9.2.dll" FileName="DevExp~7.dll|DevExpress.OfficeSkins.v9.2.dll" Attributes="0" SourcePath="..\RemoteImagingMC\bin\Release\DevExpress.OfficeSkins.v9.2.dll" SelfReg="false" Sequence="62"/>
+    <ROW File="DevExpress.Utils.v9.2.dll" Component_="DevExpress.Utils.v9.2.dll" FileName="DevExp~4.dll|DevExpress.Utils.v9.2.dll" Attributes="0" SourcePath="..\RemoteImagingMC\bin\Release\DevExpress.Utils.v9.2.dll" SelfReg="false" Sequence="24"/>
+    <ROW File="DevExpress.Utils.v9.2.xml" Component_="RemoteImaging.vshost.exe.manifest" FileName="DevExp~3.xml|DevExpress.Utils.v9.2.xml" Attributes="0" SourcePath="..\RemoteImagingMC\bin\Release\DevExpress.Utils.v9.2.xml" SelfReg="false" Sequence="71"/>
+    <ROW File="DevExpress.Xpo.v9.2.dll" Component_="DevExpress.Xpo.v9.2.dll" FileName="DevExp~8.dll|DevExpress.Xpo.v9.2.dll" Attributes="0" SourcePath="..\RemoteImagingMC\bin\Release\DevExpress.Xpo.v9.2.dll" SelfReg="false" Sequence="63"/>
+    <ROW File="DevExpress.Xpo.v9.2.xml" Component_="RemoteImaging.vshost.exe.manifest" FileName="DevExp~4.xml|DevExpress.Xpo.v9.2.xml" Attributes="0" SourcePath="..\RemoteImagingMC\bin\Release\DevExpress.Xpo.v9.2.xml" SelfReg="false" Sequence="72"/>
+    <ROW File="DevExpress.XtraBars.v9.2.dll" Component_="DevExpress.XtraBars.v9.2.dll" FileName="DevExp~3.dll|DevExpress.XtraBars.v9.2.dll" Attributes="0" SourcePath="..\RemoteImagingMC\bin\Release\DevExpress.XtraBars.v9.2.dll" SelfReg="false" Sequence="23"/>
+    <ROW File="DevExpress.XtraBars.v9.2.xml" Component_="RemoteImaging.vshost.exe.manifest" FileName="DevExp~5.xml|DevExpress.XtraBars.v9.2.xml" Attributes="0" SourcePath="..\RemoteImagingMC\bin\Release\DevExpress.XtraBars.v9.2.xml" SelfReg="false" Sequence="73"/>
+    <ROW File="DevExpress.XtraEditors.v9.2.dll" Component_="DevExpress.XtraEditors.v9.2.dll" FileName="DevExp~2.dll|DevExpress.XtraEditors.v9.2.dll" Attributes="0" SourcePath="..\RemoteImagingMC\bin\Release\DevExpress.XtraEditors.v9.2.dll" SelfReg="false" Sequence="22"/>
+    <ROW File="DevExpress.XtraEditors.v9.2.xml" Component_="RemoteImaging.vshost.exe.manifest" FileName="DevExp~6.xml|DevExpress.XtraEditors.v9.2.xml" Attributes="0" SourcePath="..\RemoteImagingMC\bin\Release\DevExpress.XtraEditors.v9.2.xml" SelfReg="false" Sequence="74"/>
+    <ROW File="DevExpress.XtraGrid.v9.2.dll" Component_="DevExpress.XtraGrid.v9.2.dll" FileName="DevExp~9.dll|DevExpress.XtraGrid.v9.2.dll" Attributes="0" SourcePath="..\RemoteImagingMC\bin\Release\DevExpress.XtraGrid.v9.2.dll" SelfReg="false" Sequence="64"/>
+    <ROW File="DevExpress.XtraGrid.v9.2.xml" Component_="RemoteImaging.vshost.exe.manifest" FileName="DevExp~7.xml|DevExpress.XtraGrid.v9.2.xml" Attributes="0" SourcePath="..\RemoteImagingMC\bin\Release\DevExpress.XtraGrid.v9.2.xml" SelfReg="false" Sequence="75"/>
+    <ROW File="DevExpress.XtraLayout.v9.2.dll" Component_="DevExpress.XtraLayout.v9.2.dll" FileName="DevExp~1.dll|DevExpress.XtraLayout.v9.2.dll" Attributes="0" SourcePath="..\RemoteImagingMC\bin\Release\DevExpress.XtraLayout.v9.2.dll" SelfReg="false" Sequence="21"/>
+    <ROW File="DevExpress.XtraLayout.v9.2.xml" Component_="RemoteImaging.vshost.exe.manifest" FileName="DevExp~8.xml|DevExpress.XtraLayout.v9.2.xml" Attributes="0" SourcePath="..\RemoteImagingMC\bin\Release\DevExpress.XtraLayout.v9.2.xml" SelfReg="false" Sequence="76"/>
+    <ROW File="DevExpress.XtraNavBar.v9.2.dll" Component_="DevExpress.XtraNavBar.v9.2.dll" FileName="DevEx~10.dll|DevExpress.XtraNavBar.v9.2.dll" Attributes="0" SourcePath="..\RemoteImagingMC\bin\Release\DevExpress.XtraNavBar.v9.2.dll" SelfReg="false" Sequence="65"/>
+    <ROW File="DevExpress.XtraNavBar.v9.2.xml" Component_="RemoteImaging.vshost.exe.manifest" FileName="DevExp~9.xml|DevExpress.XtraNavBar.v9.2.xml" Attributes="0" SourcePath="..\RemoteImagingMC\bin\Release\DevExpress.XtraNavBar.v9.2.xml" SelfReg="false" Sequence="77"/>
+    <ROW File="DevExpress.XtraRichEdit.v9.2.dll" Component_="DevExpress.XtraRichEdit.v9.2.dll" FileName="DevEx~11.dll|DevExpress.XtraRichEdit.v9.2.dll" Attributes="0" SourcePath="..\RemoteImagingMC\bin\Release\DevExpress.XtraRichEdit.v9.2.dll" SelfReg="false" Sequence="66"/>
+    <ROW File="DevExpress.XtraRichEdit.v9.2.xml" Component_="RemoteImaging.vshost.exe.manifest" FileName="DevEx~10.xml|DevExpress.XtraRichEdit.v9.2.xml" Attributes="0" SourcePath="..\RemoteImagingMC\bin\Release\DevExpress.XtraRichEdit.v9.2.xml" SelfReg="false" Sequence="78"/>
+    <ROW File="DevExpress.XtraTreeList.v9.2.dll" Component_="DevExpress.XtraTreeList.v9.2.dll" FileName="DevEx~12.dll|DevExpress.XtraTreeList.v9.2.dll" Attributes="0" SourcePath="..\RemoteImagingMC\bin\Release\DevExpress.XtraTreeList.v9.2.dll" SelfReg="false" Sequence="67"/>
+    <ROW File="DevExpress.XtraTreeList.v9.2.xml" Component_="RemoteImaging.vshost.exe.manifest" FileName="DevEx~11.xml|DevExpress.XtraTreeList.v9.2.xml" Attributes="0" SourcePath="..\RemoteImagingMC\bin\Release\DevExpress.XtraTreeList.v9.2.xml" SelfReg="false" Sequence="79"/>
+    <ROW File="DevExpress.XtraVerticalGrid.v9.2.dll" Component_="DevExpress.XtraVerticalGrid.v9.2.dll" FileName="DevEx~13.dll|DevExpress.XtraVerticalGrid.v9.2.dll" Attributes="0" SourcePath="..\RemoteImagingMC\bin\Release\DevExpress.XtraVerticalGrid.v9.2.dll" SelfReg="false" Sequence="68"/>
+    <ROW File="DevExpress.XtraVerticalGrid.v9.2.xml" Component_="RemoteImaging.vshost.exe.manifest" FileName="DevExp~1.xml|DevExpress.XtraVerticalGrid.v9.2.xml" Attributes="0" SourcePath="..\RemoteImagingMC\bin\Release\DevExpress.XtraVerticalGrid.v9.2.xml" SelfReg="false" Sequence="69"/>
     <ROW File="EL.config" Component_="RemoteImaging.vshost.exe.manifest" FileName="EL~1.con|EL.config" Attributes="0" SourcePath="..\RemoteImagingMC\bin\Release\EL.config" SelfReg="false" Sequence="47"/>
     <ROW File="Emcaster.dll" Component_="Emcaster.dll" FileName="Emcaster.dll" Attributes="0" SourcePath="..\RemoteImagingMC\bin\Release\Emcaster.dll" SelfReg="false" Sequence="7"/>
     <ROW File="Encryptor.dll" Component_="Encryptor.dll" FileName="Encryp~1.dll|Encryptor.dll" Attributes="0" SourcePath="..\RemoteImagingMC\bin\Release\Encryptor.dll" SelfReg="false" Sequence="8"/>
@@ -140,7 +167,7 @@
     <ATTRIBUTE name="UseAutorun" value="true"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.BuildComponent">
-    <ROW BuildKey="DefaultBuild" BuildName="DefaultBuild" BuildOrder="1" BuildType="1" Languages="zh" InstallationType="5" CabsLocation="1" FirstMediaSize="649" FirstMediaSizeUnit="2" MediaSize="650" MediaSizeUnit="2" PackageType="1" ExeIconPath="..\RemoteImaging\MainIcon.ico" CreateMd5="true" ExeName="RemoteImaging_MC_Setup" UACExecutionLevel="2"/>
+    <ROW BuildKey="DefaultBuild" BuildName="DefaultBuild" BuildOrder="1" BuildType="1" PackageFolder="." Languages="zh" InstallationType="5" CabsLocation="1" FirstMediaSize="649" FirstMediaSizeUnit="2" MediaSize="650" MediaSizeUnit="2" PackageType="1" ExeIconPath="..\RemoteImaging\MainIcon.ico" CreateMd5="true" ExeName="RemoteImaging_MC_Setup" UACExecutionLevel="2"/>
     <ATTRIBUTE name="CurrentBuild" value="DefaultBuild"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.DictionaryComponent">
@@ -148,17 +175,18 @@
     <ROW Path="&lt;AI_DICTS&gt;ui_zh.ail"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.FragmentComponent">
-    <ROW Fragment="FolderDlg.aip" Path="&lt;AI_FRAGS&gt;FolderDlg.aip"/>
-    <ROW Fragment="NET_Framework_3.5_S.aip" Path="&lt;CommonAppDataFolder&gt;Caphyon\Advanced Installer\Repository\Prerequisites\.NET Framework 3.5 S\.NET Framework 3.5 S.aip"/>
+    <ROW Fragment="CommonUI.aip" Path="&lt;AI_FRAGS&gt;CommonUI.aip"/>
+    <ROW Fragment="FolderDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\FolderDlg.aip"/>
+    <ROW Fragment="SequenceDialogs.aip" Path="&lt;AI_THEMES&gt;classic\fragments\SequenceDialogs.aip"/>
     <ROW Fragment="Sequences.aip" Path="&lt;AI_FRAGS&gt;Sequences.aip"/>
     <ROW Fragment="StaticUIStrings.aip" Path="&lt;AI_FRAGS&gt;StaticUIStrings.aip"/>
-    <ROW Fragment="UI.aip" Path="&lt;AI_FRAGS&gt;UI.aip"/>
+    <ROW Fragment="UI.aip" Path="&lt;AI_THEMES&gt;classic\fragments\UI.aip"/>
+    <ROW Fragment="Validation.aip" Path="&lt;AI_FRAGS&gt;Validation.aip"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiBinaryComponent">
-    <ROW Name="Prereq.dll" SourcePath="&lt;AI_CUSTACTS&gt;Prereq.dll"/>
     <ROW Name="aicustact.dll" SourcePath="&lt;AI_CUSTACTS&gt;aicustact.dll"/>
-    <ROW Name="default_banner.bmp" SourcePath="&lt;AI_RES&gt;default-banner.bmp"/>
-    <ROW Name="default_dialog.bmp" SourcePath="&lt;AI_RES&gt;default-dialog.bmp"/>
+    <ROW Name="default_banner.bmp" SourcePath="&lt;AI_THEMES&gt;classic\resources\default-banner.bmp"/>
+    <ROW Name="default_dialog.bmp" SourcePath="&lt;AI_THEMES&gt;classic\resources\default-dialog.bmp"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiControlComponent">
     <ATTRIBUTE name="FixedSizeBitmaps" value="2"/>
@@ -173,15 +201,23 @@
     <ROW Dialog_="MaintenanceWelcomeDlg" Control_="Next" Event="NewDialog" Argument="MaintenanceTypeDlg" Condition="AI_MAINT" Ordering="2"/>
     <ROW Dialog_="VerifyReadyDlg" Control_="Back" Event="NewDialog" Argument="PatchWelcomeDlg" Condition="AI_PATCH" Ordering="1"/>
     <ROW Dialog_="PatchWelcomeDlg" Control_="Next" Event="NewDialog" Argument="VerifyReadyDlg" Condition="AI_PATCH" Ordering="3"/>
+    <ROW Dialog_="CustomizeDlg" Control_="Back" Event="NewDialog" Argument="MaintenanceTypeDlg" Condition="AI_MAINT" Ordering="1"/>
+    <ROW Dialog_="CustomizeDlg" Control_="Next" Event="NewDialog" Argument="VerifyReadyDlg" Condition="AI_MAINT" Ordering="1"/>
+    <ROW Dialog_="MaintenanceTypeDlg" Control_="ChangeButton" Event="NewDialog" Argument="CustomizeDlg" Condition="AI_MAINT" Ordering="301"/>
+    <ROW Dialog_="ResumeDlg" Control_="Install" Event="EndDialog" Argument="Return" Condition="AI_RESUME" Ordering="299"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Install" Event="EndDialog" Argument="Return" Condition="AI_MAINT" Ordering="197"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Install" Event="EndDialog" Argument="Return" Condition="AI_PATCH" Ordering="198"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Install" Event="EndDialog" Argument="Return" Condition="AI_INSTALL" Ordering="199"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Back" Event="NewDialog" Argument="CustomizeDlg" Condition="AI_MAINT" Ordering="201"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiCreateFolderComponent">
     <ROW Directory_="Damany_DIR" Component_="Damany"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiCustActComponent">
-    <ROW Action="AI_AppSearchEx" Type="1" Source="Prereq.dll" Target="DoAppSearchEx"/>
     <ROW Action="AI_DOWNGRADE" Type="19" Target="4010"/>
     <ROW Action="AI_PREPARE_UPGRADE" Type="65" Source="aicustact.dll" Target="PrepareUpgrade"/>
     <ROW Action="AI_RESTORE_LOCATION" Type="65" Source="aicustact.dll" Target="RestoreLocation"/>
+    <ROW Action="AI_ResolveKnownFolders" Type="1" Source="aicustact.dll" Target="AI_ResolveKnownFolders"/>
     <ROW Action="AI_STORE_LOCATION" Type="51" Source="ARPINSTALLLOCATION" Target="[APPDIR]"/>
     <ROW Action="SET_APPDIR" Type="307" Source="APPDIR" Target="[ProgramFilesFolder][Manufacturer]\[ProductName]"/>
     <ROW Action="SET_SHORTCUTDIR" Type="307" Source="SHORTCUTDIR" Target="[ProgramMenuFolder][ProductName]"/>
@@ -195,27 +231,23 @@
     <ROW Action="AI_RESTORE_LOCATION" Condition="APPDIR=&quot;&quot;" Sequence="749"/>
     <ROW Action="AI_STORE_LOCATION" Condition="Not Installed" Sequence="1501"/>
     <ROW Action="AI_PREPARE_UPGRADE" Condition="AI_UPGRADE=&quot;No&quot; AND (Not Installed)" Sequence="1399"/>
-    <ROW Action="AI_AppSearchEx" Sequence="101"/>
+    <ROW Action="AI_ResolveKnownFolders" Sequence="51"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiInstallUISequenceComponent">
     <ROW Action="AI_RESTORE_LOCATION" Condition="APPDIR=&quot;&quot;" Sequence="749"/>
-    <ROW Action="AI_AppSearchEx" Sequence="101"/>
+    <ROW Action="AI_ResolveKnownFolders" Sequence="51"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiMediaComponent">
-    <ROW LastSequence="60" DiskPrompt="Disk" Cabinet="Cab" VolumeLabel="Disk" CabinetSize="649" CabinetSizeUnit="2" UseCompressed="0" Compressed="0" InsideCabinet="1" Build="DefaultBuild"/>
+    <ROW LastSequence="79" DiskPrompt="Disk" Cabinet="Cab" VolumeLabel="Disk" CabinetSize="649" CabinetSizeUnit="2" UseCompressed="0" Compressed="0" InsideCabinet="1" Build="DefaultBuild"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiShortsComponent">
     <ROW Shortcut="exe" Directory_="Damany_DIR" Name="人像抓拍检索~1.exe|人像抓拍检索监控中心.exe" Component_="RemoteImagingMC.exe" Target="[#RemoteImagingMC.exe]" Hotkey="0" IconIndex="0" ShowCmd="1" WkDir="APPDIR"/>
   </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiThemeComponent">
+    <ATTRIBUTE name="UsedTheme" value="classic"/>
+  </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiUpgradeComponent">
     <ROW UpgradeCode="[|UpgradeCode]" VersionMax="[|ProductVersion]" Attributes="1025" ActionProperty="OLDPRODUCTS"/>
     <ROW UpgradeCode="[|UpgradeCode]" VersionMin="[|ProductVersion]" Attributes="2" ActionProperty="AI_NEWERPRODUCTFOUND"/>
-  </COMPONENT>
-  <COMPONENT cid="caphyon.advinst.msicomp.PreReqComponent">
-    <ROW PrereqKey="VLC" DisplayName="VLC" SetupFileUrl="M:\Remoteimaging needed\vlc-0.9.8a-win32.exe" Location="0" ExactSize="0" Operator="1" TargetName="vlc-0.9.8a-win32.exe"/>
-    <ATTRIBUTE name="PrereqsOrder" value="FF9883D3_AA42_4140_9BA9_08E06DDA674C VLC"/>
-  </COMPONENT>
-  <COMPONENT cid="caphyon.advinst.msicomp.PreReqSearchComponent">
-    <ROW SearchKey="SystemFolder_file.dll" Prereq="VLC" SearchType="0" SearchString="[ProgramFilesFolder]\videolan\vlc\axvlc.dll" VerMin="0.9.8.1" VerMax="0.9.8.1" Order="1" Property="PreReqSearch_1"/>
   </COMPONENT>
 </DOCUMENT>
