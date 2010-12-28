@@ -52,21 +52,21 @@ namespace Kise.IdCard.Server
             _link.Start();
             _client = new TcpClientLink();
             _client.NewMessageReceived += new EventHandler<MiscUtil.EventArgs<IncomingMessage>>(_client_NewMessageReceived);
-            _client.Start();
+            //_client.Start();
         }
 
         void _client_NewMessageReceived(object sender, MiscUtil.EventArgs<IncomingMessage> e)
         {
 
             // System.Diagnostics.Debug.WriteLine("====received query result: ====\r\n " + e.Value.ReceiveTime);
-            _link.SendAsync("13547962367", e.Value.Message);
+            // _link.SendAsync("13547962367", e.Value.Message);
         }
 
         void _link_NewMessageReceived(object sender, MiscUtil.EventArgs<IncomingMessage> e)
         {
             InvokeNewMessageReceived(e);
 
-            _client.SendAsync("dfdf", e.Value.Message);
+            //_client.SendAsync("dfdf", e.Value.Message);
 
             //            var entry = new LogEntry();
             //            entry.Sender = e.Value.Sender;
@@ -83,11 +83,12 @@ namespace Kise.IdCard.Server
             //            entry.Description = "查询数据库";
             //            _logger.Log(entry);
 
-            //            var queryString = string.Format("sfzh='{0}'", idInfo.IdCardNo);
-            //            var normalQuery = new IdQuery.IdQueryProviderClient();
-            //            var normalResult = normalQuery.QueryIdCard(normalQueryType, queryString);
-            //            normalQuery.Close();
-            //            var idNormalInfo = Helper.Parse(normalResult);
+            var queryString = string.Format("sfzh='{0}'", "510403197309112610");
+            var normalQuery = new IdQuery.IdQueryProviderClient();
+            var normalResult = normalQuery.QueryIdCard(normalQueryType, queryString);
+            normalQuery.Close();
+            var idNormalInfo = Helper.Parse(normalResult);
+            _link.SendAsync(e.Value.Sender, idNormalInfo.IdInfos == null ? idNormalInfo.IdInfos[0].Name : "not found");
 
             //            var stringMatchResult = GetIdInfoMatchResult(idInfo, idNormalInfo.IdInfos[0]);
 

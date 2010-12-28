@@ -13,6 +13,12 @@ namespace IdQueryService
         private static TcpServerLink _server;
         static void Main(string[] args)
         {
+            var host = new ServiceHost(typeof(IdQueryProvider));
+            host.Open();
+
+            Console.ReadKey();
+
+
             RSBPAdapterCOMObjClass _q;
             try
             {

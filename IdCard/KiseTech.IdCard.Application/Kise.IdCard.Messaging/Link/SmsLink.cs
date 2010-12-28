@@ -58,6 +58,7 @@ namespace Kise.IdCard.Messaging.Link
         private void _sms_NewMessageReceived(object sender, NewMessageReceivedEventArgs e)
         {
             var incommingMsg = new IncomingMessage(e.TextMessage);
+            incommingMsg.Sender = e.Phone;
             RaiseNewMessageReceived(new MiscUtil.EventArgs<IncomingMessage>(incommingMsg));
         }
 

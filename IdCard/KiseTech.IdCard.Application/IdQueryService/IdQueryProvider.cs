@@ -11,12 +11,10 @@ using System.Threading;
 namespace IdQueryService
 {
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "IdQueryProvider" in both code and config file together.
-    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     public class IdQueryProvider : IIdQueryProvider
     {
         private RBSPAdapter_COM.RSBPAdapterCOMObjClass _q;
 
-        [STAOperationBehavior]
         public string QueryIdCard(string queryType, string queryString)
         {
             _q = null;
@@ -37,7 +35,7 @@ namespace IdQueryService
             {
                 if (_q != null)
                 {
-                    //System.Runtime.InteropServices.Marshal.ReleaseComObject(_q);
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(_q);
                 }
             }
         }
