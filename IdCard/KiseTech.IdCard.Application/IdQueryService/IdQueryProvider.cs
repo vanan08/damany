@@ -12,7 +12,24 @@ namespace IdQueryService
     {
         public string QueryIdCard(string queryType, string queryString)
         {
-            throw new NotImplementedException();
+            RBSPAdapter_COM.RSBPAdapterCOMObjClass q = null;
+            try
+            {
+                Console.WriteLine(queryString + queryType);
+                q = new RBSPAdapter_COM.RSBPAdapterCOMObjClass();
+                q.queryCondition = queryString;
+                q.queryType = queryType;
+                var result = q.queryCondition;
+                Console.WriteLine(result);
+                return result;
+            }
+            finally
+            {
+                if (q != null)
+                {
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(q);
+                }
+            }
         }
     }
 }

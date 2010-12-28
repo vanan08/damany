@@ -13,9 +13,10 @@ namespace Kise.IdCard.Server
         private readonly ILink _link;
         private Random _random = new Random();
         private readonly IView _view;
-        private readonly IdQueryService _idQueryService;
         private int idx = 0;
         private readonly ILog _logger;
+        private const string normalQuery = "QueryQGRK";
+        private const string suspectQuery = "QueryZTK";
 
         string[] mockReplies;
 
@@ -27,13 +28,13 @@ namespace Kise.IdCard.Server
             if (handler != null) handler(this, e);
         }
 
-        public QueryHandler(IdQueryService idQueryService, ILink link, IView view, ILog logger)
+        public QueryHandler(ILink link, IView view, ILog logger)
         {
-            _idQueryService = idQueryService;
-            _logger = logger;
+
             if (link == null) throw new ArgumentNullException("link");
             if (view == null) throw new ArgumentNullException("view");
 
+            _logger = logger;
             _link = link;
             _view = view;
             _link.NewMessageReceived += _link_NewMessageReceived;
@@ -63,11 +64,15 @@ namespace Kise.IdCard.Server
             entry = new LogEntry();
             entry.Description = "查询数据库";
             _logger.Log(entry);
-            var result =  _idQueryService.QueryAsync(idInfo.IdCardNo);
 
-            var replyStrings = new string[] { idInfo.IdCardNo, result.NormalResult, result.SuspectResult };
+            var queryString = string.Format("sfzh='{0}'", idInfo.IdCardNo);
+            var q = new IdQuery.IdQueryProviderClient();
+            var result = q.QueryIdCard(normalQuery, queryString);
+            q.Close();
+
+            var replyStrings = new string[] { idInfo.IdCardNo, string.Empty, result };
             var replyMsg = string.Join("*", replyStrings);
-            
+
 
 #if DEBUG
             var idx = _random.Next(0, 2);
