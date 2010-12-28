@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{8AA0E208-9EC2-477B-BE96-00E4C7B7F827}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Damany.Windows.Form</RootNamespace>
+    <AssemblyName>Damany.Windows.Form</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>&lt;Project Location In Database&gt;</SccProjectName>
+    <SccLocalPath>&lt;Local Binding Root of Project&gt;</SccLocalPath>
+    <SccAuxPath>&lt;Source Control Database&gt;</SccAuxPath>
+    <SccProvider>Mercurial Source Control Package</SccProvider>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Canvas.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Canvas.Designer.cs">
+      <DependentUpon>Canvas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ConversionHelper.cs" />
+    <Compile Include="EightWayNavigator.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="EightWayNavigator.Designer.cs">
+      <DependentUpon>EightWayNavigator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PictureBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PictureBox.Designer.cs">
+      <DependentUpon>PictureBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PipPictureBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="SanyoNetCamera.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SanyoNetCamera.Designer.cs">
+      <DependentUpon>SanyoNetCamera.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SquareListView\Cell.cs" />
+    <Compile Include="SquareListView\CellDoubleClickEventArgs.cs" />
+    <Compile Include="SquareListView\ImageCell.cs" />
+    <Compile Include="SquareListView\SquareListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SquareListView\SquareListView.Designer.cs">
+      <DependentUpon>SquareListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Canvas.resx">
+      <DependentUpon>Canvas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EightWayNavigator.resx">
+      <DependentUpon>EightWayNavigator.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PictureBox.resx">
+      <DependentUpon>PictureBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SanyoNetCamera.resx">
+      <DependentUpon>SanyoNetCamera.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SquareListView\SquareListView.resx">
+      <DependentUpon>SquareListView.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Damany.Component\Damany.Component.csproj">
+      <Project>{80DC56F4-DB48-4AF2-B1BE-6B944A81B293}</Project>
+      <Name>Damany.Component</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Damany.Drawing\Damany.Drawing.csproj">
+      <Project>{1355FF2A-A389-4A36-8A72-883BBAA1D548}</Project>
+      <Name>Damany.Drawing</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ChangeLog.txt" />
+    <None Include="CheckMark.gif" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties BuildVersion_BuildVersioningStyle="None.None.Increment.None" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_UpdateFileVersion="True" BuildVersion_ConfigurationName="Release" BuildVersion_BuildAction="ReBuild" />
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>
