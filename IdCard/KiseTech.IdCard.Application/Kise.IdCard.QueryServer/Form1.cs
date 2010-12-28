@@ -31,7 +31,7 @@ namespace Kise.IdCard.QueryServer
 
             _idQueryService = new IdQueryService(new IdLookupServiceMock());
 
-            _queryHandler = new QueryHandler(_idQueryService, _server, this, this);
+            _queryHandler = new QueryHandler(_server, this, this);
             //_queryHandler.NewMessageReceived += (s, arg) =>
             //                                        {
             //                                            var msg = string.Format("收到查询：{0}, 来自:{1}", arg.Value.Message,
@@ -57,7 +57,7 @@ namespace Kise.IdCard.QueryServer
                 Cursor = Cursors.WaitCursor;
 
                 var queryString = string.Format("sfzh='{0}'", idCardNo.Text);
-                var reply =  _idQueryService.QueryAsync(queryString);
+                var reply = _idQueryService.QueryAsync(queryString);
             }
             finally
             {
@@ -74,12 +74,8 @@ namespace Kise.IdCard.QueryServer
         {
             try
             {
-                //btnQuery.Enabled = false;
-                //response.Text = "";
-                //Cursor = Cursors.WaitCursor;
-
-                //var queryString = string.Format("sfzh='{0}'", IdNo.Text);
-                //var reply = IdQueryService.Instance.QueryAsync(queryString);
+                var svcTest = new UI.ServiceTest.IdQueryProviderClient();
+                var result = svcTest.QueryIdCard("QueryQGRK", "sfzh='1232323'");
             }
             finally
             {
