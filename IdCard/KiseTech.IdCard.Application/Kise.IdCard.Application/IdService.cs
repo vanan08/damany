@@ -146,7 +146,7 @@ namespace Kise.IdCard.Application
 
         public async void QueryIdAsync(IProgress<ProgressIndicator> progressReport, string destinationNo)
         {
-            if (CurrentState == Status.ReadingIdCard) return;
+            //if (CurrentState == Status.ReadingIdCard) return;
 
             CurrentState = Status.QueryingIdCard;
             _view.CanQueryId = false;

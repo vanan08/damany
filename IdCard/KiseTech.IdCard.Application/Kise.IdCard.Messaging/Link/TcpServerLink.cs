@@ -9,7 +9,7 @@ namespace Kise.IdCard.Messaging.Link
         private TcpListener _server;
         private TcpClient _client;
 
-        public async void Start()
+        public void Start()
         {
             if (_server == null)
             {
@@ -20,12 +20,12 @@ namespace Kise.IdCard.Messaging.Link
 
                 while (true)
                 {
-                    var client = await _server.AcceptTcpClientAsync();
+                    var client = _server.AcceptTcpClient();
                     _client = client;
                     while (true)
                     {
                         var reader = new System.IO.StreamReader(_client.GetStream());
-                        var msg = await reader.ReadLineAsync();
+                        var msg = reader.ReadLine();
 
                         var im = new IncomingMessage(msg);
                         RaiseNewMessageReceived(new MiscUtil.EventArgs<IncomingMessage>(im));
@@ -35,7 +35,7 @@ namespace Kise.IdCard.Messaging.Link
             }
         }
 
-        public async void SendAsync(string destination, string message)
+        public void SendAsync(string destination, string message)
         {
             if (_client != null)
             {

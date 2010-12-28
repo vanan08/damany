@@ -17,11 +17,14 @@ namespace Kise.IdCard.QueryServer
         private IdQueryService _idQueryService;
         TcpServerLink _server = new TcpServerLink();
         TcpClientLink _client = new TcpClientLink();
+        private Messaging.Link.SmsLink _sms;
         private Server.QueryHandler _queryHandler;
 
         public Form1()
         {
             InitializeComponent();
+
+            _sms = new SmsLink("com10", 9600);
         }
 
 
@@ -31,7 +34,7 @@ namespace Kise.IdCard.QueryServer
 
             _idQueryService = new IdQueryService(new IdLookupServiceMock());
 
-            _queryHandler = new QueryHandler(_server, this, this);
+            _queryHandler = new QueryHandler(_sms, this, this);
             //_queryHandler.NewMessageReceived += (s, arg) =>
             //                                        {
             //                                            var msg = string.Format("收到查询：{0}, 来自:{1}", arg.Value.Message,
@@ -70,12 +73,27 @@ namespace Kise.IdCard.QueryServer
         {
         }
 
-        private void btnQuery_Click(object sender, EventArgs e)
+        private async void btnQuery_Click(object sender, EventArgs e)
         {
             try
             {
-                var svcTest = new UI.ServiceTest.IdQueryProviderClient();
-                var result = svcTest.QueryIdCard("QueryQGRK", "sfzh='1232323'");
+                var r = await TaskEx.Run(() =>
+                                {
+                                    var svcTest = new UI.ServiceTest.IdQueryProviderClient();
+                                    var result = svcTest.QueryIdCard("QueryQGRK", "sfzh='510403197309112610'");
+                                    return result;
+
+                                });
+                System.Diagnostics.Debug.WriteLine(r);
+
+                r = await TaskEx.Run(() =>
+                {
+                    var svcTest = new UI.ServiceTest.IdQueryProviderClient();
+                    var result = svcTest.QueryIdCard("QueryZTK", "sfzh='371522198708239233'");
+                    return result;
+
+                });
+                System.Diagnostics.Debug.WriteLine(r);
             }
             finally
             {
