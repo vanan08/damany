@@ -32,6 +32,7 @@ namespace Kise.IdCard.Messaging.Link
                 _sms.FlowControl = FlowControl.None;
                 _sms.NewMessageConcatenate = true;
                 _sms.NewMessageIndication = true;
+                _sms.AutoDeleteNewMessage = true;
 
                 _sms.NewMessageReceived += _sms_NewMessageReceived;
             }
