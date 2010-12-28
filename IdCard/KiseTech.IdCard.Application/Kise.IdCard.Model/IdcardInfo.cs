@@ -58,8 +58,8 @@ namespace Kise.IdCard.Model
             }
         }
 
-        private DateTime _bornDate;
-        public DateTime BornDate
+        private DateTime? _bornDate;
+        public DateTime? BornDate
         {
             get { return _bornDate; }
             set { SetPropertyValue("BornDate", ref _bornDate, value); }
@@ -87,15 +87,15 @@ namespace Kise.IdCard.Model
             set { SetPropertyValue("GrantDept", ref _grantDept, value); }
         }
 
-        private DateTime _validateFrom;
-        public DateTime ValidateFrom
+        private DateTime? _validateFrom;
+        public DateTime? ValidateFrom
         {
             get { return _validateFrom; }
             set { SetPropertyValue("ValidateFrom", ref _validateFrom, value); }
         }
 
-        private DateTime _validateUntil;
-        public DateTime ValidateUntil
+        private DateTime? _validateUntil;
+        public DateTime? ValidateUntil
         {
             get { return _validateUntil; }
             set { SetPropertyValue("ValidateUntil", ref _validateUntil, value); }
