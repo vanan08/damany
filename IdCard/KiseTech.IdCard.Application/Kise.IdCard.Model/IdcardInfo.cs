@@ -25,14 +25,17 @@ namespace Kise.IdCard.Model
         }
 
         private string _name;
+
+        [DisplayName("姓名")]
         public string Name
         {
             get { return _name; }
             set { SetPropertyValue("Name", ref _name, value); }
         }
 
-        private int _sexCode;
-        public int SexCode
+        private int? _sexCode;
+        [DisplayName("性别")]
+        public int? SexCode
         {
             get { return _sexCode; }
             set { SetPropertyValue("SexCode", ref _sexCode, value); }
@@ -41,8 +44,9 @@ namespace Kise.IdCard.Model
         [NonPersistent]
         public string SexName { get { return _sexCode == 1 ? "男" : "女"; } }
 
-        private int _minorityCode;
-        public int MinorityCode
+        private int? _minorityCode;
+        [DisplayName("民族")]
+        public int? MinorityCode
         {
             get { return _minorityCode; }
             set { SetPropertyValue("MinorityCode", ref _minorityCode, value); }
@@ -53,12 +57,13 @@ namespace Kise.IdCard.Model
         {
             get
             {
-                return !FileMinorityDictionary.Instance.ContainsKey(MinorityCode) ?
-                    "未定义" : FileMinorityDictionary.Instance[MinorityCode];
+                return MinorityCode.HasValue && FileMinorityDictionary.Instance.ContainsKey(MinorityCode.Value) ?
+                    FileMinorityDictionary.Instance[MinorityCode.Value] : "未定义";
             }
         }
 
         private DateTime? _bornDate;
+        [DisplayName("出生日期")]
         public DateTime? BornDate
         {
             get { return _bornDate; }
@@ -74,6 +79,7 @@ namespace Kise.IdCard.Model
 
 
         private string _idCardNo;
+        [DisplayName("身份证号码")]
         public string IdCardNo
         {
             get { return _idCardNo; }
@@ -81,6 +87,7 @@ namespace Kise.IdCard.Model
         }
 
         private string _grantDept;
+        [DisplayName("发证机关")]
         public string GrantDept
         {
             get { return _grantDept; }
@@ -88,6 +95,7 @@ namespace Kise.IdCard.Model
         }
 
         private DateTime? _validateFrom;
+        [DisplayName("有效期自")]
         public DateTime? ValidateFrom
         {
             get { return _validateFrom; }
@@ -95,6 +103,7 @@ namespace Kise.IdCard.Model
         }
 
         private DateTime? _validateUntil;
+        [DisplayName("有效期止")]
         public DateTime? ValidateUntil
         {
             get { return _validateUntil; }

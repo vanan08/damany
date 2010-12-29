@@ -10,7 +10,8 @@ namespace Kise.IdCard.Server
     {
         public static QueryResult Parse(string xmlString)
         {
-            if (!xmlString.StartsWith("<?xml")) return new QueryResult() { Error = new Exception(xmlString) };
+            if (!xmlString.StartsWith("<?xml"))
+                throw new InvalidServerResponseException();
 
             try
             {
@@ -27,7 +28,7 @@ namespace Kise.IdCard.Server
             }
             catch (Exception ex)
             {
-                return new QueryResult() { Error = new FormatException("Invalid XML format", ex) };
+                throw new InvalidServerResponseException(ex);
             }
         }
 

@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants.cs" />
     <Compile Include="Helper.cs" />
     <Compile Include="IdLookUpResult.cs" />
     <Compile Include="IdLookupService.cs" />
@@ -54,7 +55,10 @@
     <Compile Include="IdSpec.cs" />
     <Compile Include="IdQueryService.cs" />
     <Compile Include="IIdLookupService.cs" />
+    <Compile Include="IIdQueryService.cs" />
     <Compile Include="ILog.cs" />
+    <Compile Include="InvalidQueryFormatException.cs" />
+    <Compile Include="InvalidServerResponse.cs" />
     <Compile Include="IView.cs" />
     <Compile Include="LogEntry.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
