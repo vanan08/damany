@@ -33,35 +33,6 @@ namespace Kise.IdCard.Server
             var suspectQr = Helper.Parse(replyXml);
 
             var result = new IdLookUpResult();
-            if (normalQr.Error != null)
-            {
-                result.NormalResult = "0";
-            }
-            else
-            {
-                if (normalQr.IdInfos.Length > 0)
-                {
-                    var info = normalQr.IdInfos[0];
-                    result.NormalResult = "1";
-                }
-                else
-                    result.NormalResult = "2";
-            }
-
-            if (suspectQr.Error != null)
-            {
-                result.SuspectResult = "0";
-            }
-            else
-            {
-                if (suspectQr.IdInfos.Length > 0)
-                {
-                    var info = suspectQr.IdInfos[0];
-                    result.SuspectResult = "1";
-                }
-                else
-                    result.SuspectResult = "2";
-            }
 
             return result;
         }

@@ -86,7 +86,12 @@ namespace Kise.IdCard.UI
                     _idCardInfo = value;
 
                     this.name.Text = _idCardInfo.Name;
-                    this.sex.Text = Model.Helper.GetSexName(_idCardInfo.SexCode);
+
+                    if (_idCardInfo.SexCode.HasValue)
+                    {
+                        this.sex.Text = Model.Helper.GetSexName(_idCardInfo.SexCode.Value);
+                    }
+
                     //this.minority.Text = MinorityDictionary[_idCardInfo.MinorityCode];
                     //this.year.Text = _idCardInfo.BornDate.Year.ToString();
                     //this.month.Text = _idCardInfo.BornDate.Month.ToString();
