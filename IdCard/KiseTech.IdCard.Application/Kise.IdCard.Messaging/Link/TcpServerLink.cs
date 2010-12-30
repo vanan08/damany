@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using System.Net.Sockets;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Kise.IdCard.Messaging.Link
 {
@@ -8,12 +9,26 @@ namespace Kise.IdCard.Messaging.Link
     {
         private TcpListener _server;
         private TcpClient _client;
+        private BinaryFormatter _formatter;
+
+        public TcpServerLink(int port)
+        {
+            Port = port;
+            _formatter = new BinaryFormatter();
+        }
+
+        public int Port { get; set; }
 
         public void Start()
         {
+            if (Port == 0)
+            {
+                throw new InvalidOperationException("Port must be set");
+            }
+
             if (_server == null)
             {
-                var local = new IPEndPoint(IPAddress.Loopback, 10000);
+                var local = new IPEndPoint(IPAddress.Loopback, Port);
                 _server = new TcpListener(local);
 
                 _server.Start();
@@ -22,26 +37,39 @@ namespace Kise.IdCard.Messaging.Link
                 {
                     var client = _server.AcceptTcpClient();
                     _client = client;
+                    var bs = new BinaryFormatter();
                     while (true)
                     {
-                        var reader = new System.IO.StreamReader(_client.GetStream());
-                        var msg = reader.ReadLine();
-
-                        var im = new IncomingMessage(msg);
-                        RaiseNewMessageReceived(new MiscUtil.EventArgs<IncomingMessage>(im));
+                        try
+                        {
+                            var obj = bs.Deserialize(_client.GetStream());
+                            var im = new IncomingMessage(obj as string);
+                            RaiseNewMessageReceived(new MiscUtil.EventArgs<IncomingMessage>(im));
+                        }
+                        catch (Exception ex)
+                        {
+                            if (ex is SocketException && (ex as SocketException).SocketErrorCode == SocketError.ConnectionReset)
+                            {
+                                break;
+                            }
+                            else
+                            {
+                                throw;
+                            }
+                        }
                     }
                 }
 
             }
         }
 
+
         public void SendAsync(string destination, string message)
         {
             if (_client != null)
             {
-                var writer = new System.IO.StreamWriter(_client.GetStream());
-                writer.WriteLine(message);
-                writer.Flush();
+                _formatter.Serialize(_client.GetStream(), message);
+                _client.GetStream().Flush();
             }
         }
 

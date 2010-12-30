@@ -9,6 +9,7 @@ namespace Kise.IdCard.Infrastructure.Test
 {
     using CardReader;
     using System.Threading.Tasks;
+    using Kise.IdCard.Messaging;
 
     [TestFixture]
     public class CardReaderTest

@@ -8,39 +8,26 @@ namespace Kise.IdCard.Server
 {
     public class Helper
     {
-        public static QueryResult Parse(string xmlString)
+        public static Model.IdCardInfo[] Parse(string xmlString)
         {
-            if (!xmlString.StartsWith("<?xml"))
-                throw new InvalidServerResponseException();
-
-            try
+            var doc = XDocument.Parse(xmlString);
+            var rows = doc.Descendants("Row").ToList();
+            if (rows.Count < 3)
             {
-                var doc = XDocument.Parse(xmlString);
-                var rows = doc.Descendants("Row").ToList();
-                if (rows.Count < 3)
-                {
-                    return new Kise.IdCard.Server.QueryResult();
-                }
-
-                var qr = ParseQueryResult(rows);
-                return qr;
-
+                return new Model.IdCardInfo[0];
             }
-            catch (Exception ex)
-            {
-                throw new InvalidServerResponseException(ex);
-            }
+
+            var qr = ParseQueryResult(rows);
+            return qr;
+
         }
 
 
 
-        private static Kise.IdCard.Server.QueryResult ParseQueryResult(List<System.Xml.Linq.XElement> rows)
+        private static Model.IdCardInfo[] ParseQueryResult(List<System.Xml.Linq.XElement> rows)
         {
             if (rows == null)
                 throw new ArgumentNullException("rows", "rows is null.");
-
-
-            var qr = new Kise.IdCard.Server.QueryResult();
 
             var idspecs = new List<IdCard.Model.IdCardInfo>();
             var propertyNames = rows[1].Elements("Data").ToList();
@@ -49,8 +36,7 @@ namespace Kise.IdCard.Server
                 var idSpec = ParseOne(rows[1], rows[i]);
                 idspecs.Add(idSpec);
             }
-            qr.IdInfos = idspecs.ToArray();
-            return qr;
+            return idspecs.ToArray();
         }
 
         private static IdCard.Model.IdCardInfo ParseOne(XElement template, XElement data)

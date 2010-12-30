@@ -34,7 +34,6 @@ namespace Kise.IdCard.Server
 
         public QueryHandler(ILink incomingMessagelink, IIdQueryService idQueryService, IView view, ILog logger)
         {
-
             if (incomingMessagelink == null) throw new ArgumentNullException("incomingMessagelink");
             if (idQueryService == null) throw new ArgumentNullException("idQueryService");
             if (view == null) throw new ArgumentNullException("view");
@@ -68,56 +67,61 @@ namespace Kise.IdCard.Server
 
             var unpackedMsg = string.Empty;
             var sn = -1;
-            var idInfo = UnpackMessage(e.Value.Message);
+            string queryIdNo = e.Value.Message;
 
             var entry = new LogEntry();
             entry.Sender = e.Value.Sender;
-            entry.Description = e.Value.Message.Insert(0, "收到查询: " + idInfo.IdCardNo);
+            entry.Description = e.Value.Message.Insert(0, "收到查询: " + queryIdNo);
             _logger.Log(entry);
 
+            QueryResult replyResult = new QueryResult();
 
             entry = new LogEntry();
-            entry.Description = "查询数据库";
+            entry.Description = "查询数据库...";
             _logger.Log(entry);
 
-            var queryString = string.Format("sfzh='{0}'", idInfo.IdCardNo);
-            var normalResult = _idQueryService.QueryIdCard(normalQueryType, queryString);
-            var idNormalInfo = Helper.Parse(normalResult);
+            var idQueryString = string.Format("sfzh='{0}'", queryIdNo);
+            var normalResult = _idQueryService.QueryIdCard(normalQueryType, idQueryString);
+            var normalIdInfo = Helper.Parse(normalResult);
 
+            var suspectQuery = _idQueryService.QueryIdCard(suspectQueryType, idQueryString);
+            var suspectIdInfo = Helper.Parse(suspectQuery);
 
-            var suspectQueryString = string.Format("sfzh='{0}'", idInfo.IdCardNo);
-            var suspectQuery = _idQueryService.QueryIdCard(suspectQueryType, suspectQueryString);
-            var suspectRresult = Helper.Parse(suspectQuery);
+            replyResult.IsSuspect = suspectIdInfo.Length > 0;
 
-            var replyStrings = new string[] { idInfo.IdCardNo, normalResult, suspectRresult };
-            var replyMsg = string.Join("*", replyStrings);
+            if (normalIdInfo.Length > 0)
+            {
+                replyResult.IdInfo = normalIdInfo[0];
+            }
 
-
-#if DEBUG
-            var idx = _random.Next(0, 2);
-            var msg = idInfo.IdCardNo + "*" + mockReplies[idx];
-            _incomingMessageLink.SendAsync(e.Value.Sender, msg);
-#else
-            _link.SendAsync(e.Value.Sender, replyMsg);
-#endif
-
+            var replyString = FormatReplyString(replyResult, queryIdNo);
             entry = new LogEntry();
-            entry.Description = "发送应答：" + replyMsg;
+            entry.Description = "发送应答：" + replyString;
             _logger.Log(entry);
 
-
+            _incomingMessageLink.SendAsync(e.Value.Sender, replyString);
         }
 
-        private List<string> GetUnMatchedFields(IdCardInfo idInfoX, IdCardInfo idInfoY)
+        private string FormatReplyString(QueryResult replyResult, string idCardNo)
         {
-            var sb = new StringBuilder();
+            var strings = new List<string>();
+            strings.Add(idCardNo);
+            strings.Add(replyResult.ErrorCode.ToString());
 
+            if (replyResult.ErrorCode == 0)
+            {
+                strings.Add(replyResult.IdInfo.Name);
+                strings.Add(replyResult.IdInfo.SexCode.HasValue ? replyResult.IdInfo.SexCode.Value.ToString() : Messaging.Constants.EmptyString);
+                strings.Add(replyResult.IdInfo.MinorityCode.HasValue ? replyResult.IdInfo.MinorityCode.ToString() : Messaging.Constants.EmptyString);
+                strings.Add(replyResult.IdInfo.BornDate.HasValue ? replyResult.IdInfo.BornDate.Value.ToString(Messaging.Constants.BirthDayFormatString) : Messaging.Constants.EmptyString);
+                strings.Add(replyResult.IsSuspect ? "1" : "0");
+            }
 
-
-
-
-            return sb.ToString();
+            var result = string.Join(Messaging.Constants.SplitterChar.ToString(), strings);
+            return result;
         }
+
+
 
         private IdCard.Model.IdCardInfo UnpackMessage(string p)
         {

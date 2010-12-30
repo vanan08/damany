@@ -20,7 +20,7 @@ namespace Kise.IdCard.Messaging.Test
             var serverReceiveMessage = new IncomingMessage();
             var serverReplyMessage = new IncomingMessage();
 
-            var server = new Link.TcpServerLink();
+            var server = new Link.TcpServerLink(10000);
             server.Start();
             server.NewMessageReceived += (s, e) =>
                                              {
@@ -29,6 +29,7 @@ namespace Kise.IdCard.Messaging.Test
                                              };
 
             var client = new Link.TcpClientLink();
+            client.PortToConnect = 10000;
             client.Start();
             client.NewMessageReceived += (s, e) =>
                                              {

@@ -1,4 +1,4 @@
-﻿namespace Kise.IdCard.Infrastructure.CardReader
+﻿namespace Kise.IdCard.Messaging
 {
     public class IdInfo
     {

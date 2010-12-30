@@ -15,7 +15,7 @@ namespace Kise.IdCard.QueryServer
     public partial class Form1 : Form, IView, ILog
     {
         private IdQueryService _idQueryService;
-        TcpServerLink _server = new TcpServerLink();
+        TcpServerLink _server = new TcpServerLink(10000);
         TcpClientLink _client = new TcpClientLink();
         private Messaging.Link.SmsLink _sms;
         private Server.QueryHandler _queryHandler;
@@ -34,7 +34,7 @@ namespace Kise.IdCard.QueryServer
 
             _idQueryService = new IdQueryService(new IdLookupServiceMock());
 
-            _queryHandler = new QueryHandler(_sms, this, this);
+            _queryHandler = new QueryHandler(_sms, null, this, this);
             //_queryHandler.NewMessageReceived += (s, arg) =>
             //                                        {
             //                                            var msg = string.Format("收到查询：{0}, 来自:{1}", arg.Value.Message,
