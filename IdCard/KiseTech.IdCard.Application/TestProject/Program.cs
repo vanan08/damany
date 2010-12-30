@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.IO.Pipes;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading;
 using RBSPAdapter_COM;
 
@@ -11,6 +12,7 @@ class Program
 
     static void Server()
     {
+        var binaryFormatter = new BinaryFormatter();
         using (NamedPipeServerStream server = new NamedPipeServerStream(NAME, PipeDirection.InOut))
         {
             evt.Set();
@@ -25,8 +27,7 @@ class Program
                     int i = 0;
                     while (true)
                     {
-                        i = int.Parse(sr.ReadLine());
-                        string s = Convert.ToString(i, 2);
+                        var s = sr.ReadLine();
 
                         Console.WriteLine("------received query----------\r\n");
                         //if (_q == null)
@@ -45,8 +46,10 @@ class Program
                         System.Runtime.InteropServices.Marshal.ReleaseComObject(_q);
 
                         WriteGreen("SERVER: Received {0}, sent {1}.", i, s);
-                        sw.WriteLine(s);
-                        sw.Flush();
+                        binaryFormatter.Serialize(server, result);
+                        //sw.WriteLine(result.Substring(0, 10));
+                        //sw.Flush();
+                        server.Flush();
                         Thread.Sleep(1000);
                     }
                 }
@@ -57,6 +60,11 @@ class Program
     static void Main(string[] args)
     {
         new Thread(Server).Start();
+
+        Console.WriteLine("Press any key to exit");
+        Console.ReadKey();
+        return;
+
         evt.WaitOne();
 
         using (NamedPipeClientStream client = new NamedPipeClientStream(".", NAME, PipeDirection.InOut))
