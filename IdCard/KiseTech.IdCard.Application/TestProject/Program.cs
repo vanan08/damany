@@ -12,47 +12,66 @@ class Program
 
     static void Server()
     {
-        var binaryFormatter = new BinaryFormatter();
-        using (NamedPipeServerStream server = new NamedPipeServerStream(NAME, PipeDirection.InOut))
+
+        while (true)
         {
-            evt.Set();
-            WriteGreen("Waiting for connection ...");
-            server.WaitForConnection();
-            WriteGreen("Connection established.");
-
-            using (StreamReader sr = new StreamReader(server))
+            var binaryFormatter = new BinaryFormatter();
+            using (NamedPipeServerStream server = new NamedPipeServerStream(NAME, PipeDirection.InOut))
             {
-                using (StreamWriter sw = new StreamWriter(server))
+                evt.Set();
+                WriteGreen("Waiting for connection ...");
+
+                server.WaitForConnection();
+                WriteGreen("Connection established.");
+
+                using (StreamReader sr = new StreamReader(server))
                 {
-                    int i = 0;
-                    while (true)
+                    try
                     {
-                        var s = sr.ReadLine();
+                        using (StreamWriter sw = new StreamWriter(server))
+                        {
+                            int i = 0;
+                            while (true)
+                            {
+                                var s = sr.ReadLine();
 
-                        Console.WriteLine("------received query----------\r\n");
-                        //if (_q == null)
-                        RSBPAdapterCOMObjClass _q;
-                        _q = new RSBPAdapterCOMObjClass();
-                        _q.queryCondition = string.Format("sfzh='{0}'", s);
-                        _q.queryType = "QueryQGRK";
-                        var result = _q.queryCondition;
-                        Console.WriteLine(result + "\r\n" + "---------------");
+                                if (s == null)
+                                {
+                                    break;
+                                }
 
-                        _q.queryCondition = string.Format("sfzh='{0}'", s);
-                        _q.queryType = "QueryZTK";
-                        result = _q.queryCondition;
-                        Console.WriteLine(result + "\r\n" + "---------------");
+                                Console.WriteLine("------received query----------\r\n");
+                                //if (_q == null)
+                                RSBPAdapterCOMObjClass _q;
+                                _q = new RSBPAdapterCOMObjClass();
+                                _q.queryCondition = string.Format("sfzh='{0}'", s);
+                                _q.queryType = "QueryQGRK";
+                                var result = _q.queryCondition;
+                                Console.WriteLine(result + "\r\n" + "---------------");
 
-                        System.Runtime.InteropServices.Marshal.ReleaseComObject(_q);
+                                _q.queryCondition = string.Format("sfzh='{0}'", s);
+                                _q.queryType = "QueryZTK";
+                                result = _q.queryCondition;
+                                Console.WriteLine(result + "\r\n" + "---------------");
 
-                        WriteGreen("SERVER: Received {0}, sent {1}.", i, s);
-                        binaryFormatter.Serialize(server, result);
-                        //sw.WriteLine(result.Substring(0, 10));
-                        //sw.Flush();
-                        server.Flush();
-                        Thread.Sleep(1000);
+                                System.Runtime.InteropServices.Marshal.ReleaseComObject(_q);
+
+                                WriteGreen("SERVER: Received {0}, sent {1}.", i, s);
+                                binaryFormatter.Serialize(server, result);
+                                //sw.WriteLine(result.Substring(0, 10));
+                                //sw.Flush();
+                                server.Flush();
+                                Thread.Sleep(1000);
+                            }
+                        }
                     }
+                    catch (System.IO.IOException)
+                    {
+                        break;
+                    }
+                   
                 }
+
             }
         }
     }
