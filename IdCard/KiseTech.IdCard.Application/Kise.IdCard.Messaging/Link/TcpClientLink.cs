@@ -9,12 +9,19 @@ namespace Kise.IdCard.Messaging.Link
         private System.Net.Sockets.TcpClient _tcpClient;
         private System.IO.StreamWriter _writer;
 
+        public int PortToConnect { get; set; }
+
         public async void Start()
         {
+            if (PortToConnect == 0)
+            {
+                throw new InvalidOperationException("PortToConnect Must be set");
+            }
+
             if (_tcpClient == null)
             {
                 _tcpClient = new System.Net.Sockets.TcpClient();
-                await _tcpClient.ConnectAsync(IPAddress.Loopback, 10000);
+                await _tcpClient.ConnectAsync(IPAddress.Loopback, PortToConnect);
 
                 var reader = new System.IO.StreamReader(_tcpClient.GetStream());
                 _writer = new StreamWriter(_tcpClient.GetStream());

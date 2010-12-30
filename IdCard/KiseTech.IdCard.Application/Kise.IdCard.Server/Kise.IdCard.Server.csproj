@@ -52,6 +52,7 @@
     <Compile Include="IdLookUpResult.cs" />
     <Compile Include="IdLookupService.cs" />
     <Compile Include="IdLookupServiceMock.cs" />
+    <Compile Include="IdQueryServiceTcp.cs" />
     <Compile Include="IdSpec.cs" />
     <Compile Include="IdQueryService.cs" />
     <Compile Include="IIdLookupService.cs" />

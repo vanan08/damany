@@ -16,7 +16,7 @@ namespace IdQueryService
             RSBPAdapterCOMObjClass _q;
             try
             {
-                _server = new Kise.IdCard.Messaging.Link.TcpServerLink();
+                _server = new Kise.IdCard.Messaging.Link.TcpServerLink(10001);
                 _server.NewMessageReceived += new EventHandler<MiscUtil.EventArgs<Kise.IdCard.Messaging.IncomingMessage>>(server_NewMessageReceived);
                 _server.Start();
             }

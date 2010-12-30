@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Kise.IdCard.Messaging;
 
 namespace Kise.IdCard.Model
 {
@@ -32,7 +33,7 @@ namespace Kise.IdCard.Model
             return new DateTime(y, m, d);
         }
 
-        public static IdCardInfo ToModelIdCardInfo(this Infrastructure.CardReader.IdInfo info)
+        public static IdCardInfo ToModelIdCardInfo(this IdInfo info)
         {
             var v = new Model.IdCardInfo()
                         {

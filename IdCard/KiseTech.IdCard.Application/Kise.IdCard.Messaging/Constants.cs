@@ -1,7 +1,9 @@
 ﻿namespace Kise.IdCard.Messaging
 {
-    static class Constants
+    public static class Constants
     {
         public static char SplitterChar = '*';
+        public static string EmptyString = "^";
+        public static string BirthDayFormatString = "yyyymmdd";
     }
 }
