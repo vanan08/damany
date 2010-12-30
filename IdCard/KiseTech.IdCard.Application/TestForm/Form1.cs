@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.IO.Pipes;
@@ -18,6 +19,7 @@ namespace TestForm
 {
     public partial class Form1 : Form
     {
+        private Process _Process = null;
         private const string NAME = "Demo";
         private mCore.SMS _sms;
         private System.Collections.Concurrent.ConcurrentQueue<string> _quries = new ConcurrentQueue<string>();
@@ -44,7 +46,17 @@ namespace TestForm
                 _sms.NewMessageReceived += _sms_NewMessageReceived;
             }
 
-            new Thread(Server).Start(null);
+            var info =
+                new ProcessStartInfo(
+                    @"D:\Windows.old\Documents and Settings\Benny\My Documents\Projects\Damany\IdCard\KiseTech.IdCard.Application\TestProject\bin\Debug\TestProject.exe");
+            //info.CreateNoWindow = false;
+            //info.WindowStyle = ProcessWindowStyle.Hidden;
+
+            _Process = Process.Start(info);
+
+            var worker = new Thread(Server);
+            worker.IsBackground = true;
+            worker.Start(null);
         }
 
         void _sms_NewMessageReceived(object sender, mCore.NewMessageReceivedEventArgs e)
@@ -71,9 +83,9 @@ namespace TestForm
                             {
                                 sw.WriteLine(query);
                                 sw.Flush();
-                                string s = (string) binaryFormatter.Deserialize(client);
+                                string s = (string)binaryFormatter.Deserialize(client);
                                 System.Diagnostics.Debug.WriteLine("=========: \r\n" + s + "\r\n");
-                                //_sms.SendSMS("13547962367", s.Substring(0, 10));
+                                _sms.SendSMS("13547962367", s.Substring(0, 10));
                             }
                             else
                             {
@@ -102,6 +114,19 @@ namespace TestForm
         static void Func()
         {
 
+        }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (_sms != null)
+            {
+                _sms.Dispose();
+            }
+
+            if (_Process != null)
+            {
+                _Process.Kill();
+            }
         }
     }
 }
