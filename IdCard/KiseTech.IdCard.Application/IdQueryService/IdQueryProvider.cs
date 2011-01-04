@@ -23,9 +23,14 @@ namespace IdQueryService
             q.queryCondition = queryString;
             q.queryType = "QueryQGRK";
             var normalResult = q.queryCondition;
+            Console.WriteLine(normalResult);
 
             q.queryType = "QueryZTK";
-            var suspectResult = q.queryCondition;
+            var suspectResult = string.Empty;
+            //suspectResult = q.queryCondition;
+            //Console.WriteLine(suspectResult);
+
+            Console.WriteLine("---------------");
 
             var result = new QueryResult() { NormalResult = normalResult, SuspectResult = suspectResult };
             System.Runtime.InteropServices.Marshal.ReleaseComObject(q);

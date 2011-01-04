@@ -48,7 +48,7 @@ namespace Kise.IdCard.QueryServer.UI.App
 
         public void Start()
         {
-            _incomingMessageLink.Start();
+            System.Threading.Tasks.TaskEx.Run(()=>_incomingMessageLink.Start());
         }
 
         void _client_NewMessageReceived(object sender, MiscUtil.EventArgs<IncomingMessage> e)

@@ -89,12 +89,14 @@ namespace Kise.IdCard.Application
             _progressReport = progressReport;
             _timer = new System.Timers.Timer();
             _timer.Interval = 3000;
-            _timer.AutoReset = true;
+            _timer.AutoReset = false;
             _timer.Elapsed += new System.Timers.ElapsedEventHandler(timer_Elapsed);
 
             _timer.Enabled = true;
             _view.CanStop = true;
             _view.CanStart = false;
+
+            System.Threading.Tasks.TaskEx.Run(()=>_link.Start());
         }
 
         public void Stop()
@@ -110,14 +112,16 @@ namespace Kise.IdCard.Application
 
         void timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
-            //if (CurrentState == Status.QueryingIdCard) return;
-            if (_isQuerying) return;
-
-            CurrentState = Status.ReadingIdCard;
-            //_view.CanQueryId = false;
 
             try
             {
+                //if (CurrentState == Status.QueryingIdCard) return;
+                _timer.Stop();
+                if (_isQuerying) return;
+
+                CurrentState = Status.ReadingIdCard;
+                //_view.CanQueryId = false;
+
                 var idinfo = ReadIdCard(_progressReport);
                 var newId = idinfo.Result;
                 if (_isQuerying || newId.IdCardNo == CurrentIdCard.IdCardNo) return;
@@ -137,7 +141,7 @@ namespace Kise.IdCard.Application
             }
             finally
             {
-                _timer.Enabled = true;
+                _timer.Start();
                 //_view.CanQueryId = true;
                 CurrentState = Status.Idle;
             }

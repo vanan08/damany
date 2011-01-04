@@ -32,7 +32,7 @@ namespace Kise.IdCard.Messaging
 
         public void Start()
         {
-            _link.Start();
+            System.Threading.Tasks.TaskEx.Run(()=>_link.Start());
         }
 
         public async Task<ReplyMessage> QueryAsync(string destinationNumber, string message)
