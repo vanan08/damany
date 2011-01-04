@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Kise.IdCard.QueryServer.UI.Properties {
+namespace IdQueryService.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -25,19 +25,10 @@ namespace Kise.IdCard.QueryServer.UI.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string GsmComPort {
-            get {
-                return ((string)(this["GsmComPort"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("9000")]
-        public string IdQueryServerTcpPortNo {
+        public int TcpPortNo {
             get {
-                return ((string)(this["IdQueryServerTcpPortNo"]));
+                return ((int)(this["TcpPortNo"]));
             }
         }
     }

@@ -35,6 +35,7 @@
     <Reference Include="AsyncCtpLibrary">
       <HintPath>..\lib\AsyncCtpLibrary.dll</HintPath>
     </Reference>
+    <Reference Include="DevExpress.Xpo.v10.2, Version=10.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="Gallio" />
     <Reference Include="MbUnit" />
     <Reference Include="MiscUtil, Version=1.0.0.0, Culture=neutral, PublicKeyToken=d3c42c4bfacf7596, processorArchitecture=MSIL" />

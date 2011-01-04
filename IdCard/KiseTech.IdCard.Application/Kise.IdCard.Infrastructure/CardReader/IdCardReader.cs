@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Kise.IdCard.Messaging;
+using Kise.IdCard.Model;
 
 namespace Kise.IdCard.Infrastructure.CardReader
 {
@@ -18,7 +18,7 @@ namespace Kise.IdCard.Infrastructure.CardReader
 
         public int Port { get; private set; }
 
-        public async Task<IdInfo> ReadAsync()
+        public async Task<Model.IdCardInfo> ReadAsync()
         {
             var cardData = new IdCardData();
             var success = 1;
@@ -63,17 +63,17 @@ namespace Kise.IdCard.Infrastructure.CardReader
                 goto Error;
             }
 
-            var info = new IdInfo()
+            var info = new IdCardInfo()
                            {
                                Address = cardData.Address.Trim(),
-                               BornDate = cardData.Born.Trim(),
+                               BornDate = Helper.ParseIntoDateTime(cardData.Born.Trim()),
                                GrantDept = cardData.GrantDept.Trim(),
-                               Minority = cardData.Nation.Trim().TrimStart('0'),
+                               MinorityCode = int.Parse(cardData.Nation.Trim().TrimStart('0')),
                                Name = cardData.Name.Trim(),
                                PhotoData = System.IO.File.ReadAllBytes(cardData.PhotoFileName),
-                               Sex = cardData.Sex.Trim().TrimStart('0'),
-                               ValidateFrom = cardData.UserLifeBegin.Trim(),
-                               ValidateUntil = cardData.UserLifeEnd.Trim(),
+                               SexCode = int.Parse(cardData.Sex.Trim().TrimStart('0')),
+                               ValidateFrom = Helper.ParseIntoDateTime(cardData.UserLifeBegin.Trim()),
+                               ValidateUntil = Helper.ParseIntoDateTime(cardData.UserLifeEnd.Trim()),
                                IdCardNo = cardData.IDCardNo.Trim()
                            };
             return info;

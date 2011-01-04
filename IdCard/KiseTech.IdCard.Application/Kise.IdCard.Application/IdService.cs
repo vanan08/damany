@@ -203,7 +203,7 @@ namespace Kise.IdCard.Application
         {
             _queryService.Start();
             var indicator = new ProgressIndicator();
-            IdInfo v = null;
+            IdCardInfo v = null;
             try
             {
                 indicator.Status = "读取身份证...";
@@ -220,7 +220,7 @@ namespace Kise.IdCard.Application
             indicator.Status = "身份证读取成功";
             progressReport.Report(indicator);
 
-            return v.ToModelIdCardInfo();
+            return v;
         }
 
         private Status _currentState;

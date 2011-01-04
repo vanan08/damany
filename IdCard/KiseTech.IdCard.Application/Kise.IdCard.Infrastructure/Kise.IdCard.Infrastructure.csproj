@@ -34,6 +34,7 @@
     <Reference Include="AsyncCtpLibrary">
       <HintPath>..\lib\AsyncCtpLibrary.dll</HintPath>
     </Reference>
+    <Reference Include="DevExpress.Xpo.v10.2, Version=10.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="FileHelpers">
       <HintPath>..\lib\FileHelper\FileHelpers.dll</HintPath>
     </Reference>
@@ -77,9 +78,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Kise.IdCard.Messaging\Kise.IdCard.Messaging.csproj">
-      <Project>{A8CCE3F0-6904-491F-BEB6-093D849E3072}</Project>
-      <Name>Kise.IdCard.Messaging</Name>
+    <ProjectReference Include="..\Kise.IdCard.Model\Kise.IdCard.Model.csproj">
+      <Project>{711B9849-8E84-49C8-9549-91B1922530AF}</Project>
+      <Name>Kise.IdCard.Model</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
