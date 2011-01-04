@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{A8CCE3F0-6904-491F-BEB6-093D849E3072}</ProjectGuid>
+    <ProjectGuid>{B41C2C78-D5F3-4349-B247-EF68C5CFDC1E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Kise.IdCard.Messaging</RootNamespace>
-    <AssemblyName>Kise.IdCard.Messaging</AssemblyName>
+    <RootNamespace>IdQueryServiceContract</RootNamespace>
+    <AssemblyName>IdQueryServiceContract</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,17 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AsyncCtpLibrary">
-      <HintPath>..\lib\AsyncCtpLibrary.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.Xpo.v10.2, Version=10.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="mCoreLib, Version=1.2.20.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\lib\mCoreLib.dll</HintPath>
-    </Reference>
-    <Reference Include="MiscUtil">
-      <HintPath>..\..\..\Library\MiscUtil\MiscUtil.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -51,25 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Constants.cs" />
-    <Compile Include="Link\FakeLink.cs" />
-    <Compile Include="Helper.cs" />
-    <Compile Include="IdStatus.cs" />
-    <Compile Include="Link\ILink.cs" />
-    <Compile Include="IncomingMessage.cs" />
-    <Compile Include="Link\TcpClientLink.cs" />
-    <Compile Include="Link\TcpServerLink.cs" />
+    <Compile Include="IdQueryProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryResult.cs" />
-    <Compile Include="QueryService.cs" />
-    <Compile Include="ReplyMessage.cs" />
-    <Compile Include="Link\SmsLink.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Kise.IdCard.Model\Kise.IdCard.Model.csproj">
-      <Project>{711B9849-8E84-49C8-9549-91B1922530AF}</Project>
-      <Name>Kise.IdCard.Model</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

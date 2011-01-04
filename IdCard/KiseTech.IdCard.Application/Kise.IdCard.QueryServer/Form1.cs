@@ -4,21 +4,24 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.Remoting.Channels;
+using System.Runtime.Remoting.Channels.Tcp;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Kise.IdCard.Messaging.Link;
+using Kise.IdCard.QueryServer.UI.App;
 using Kise.IdCard.Server;
 
 namespace Kise.IdCard.QueryServer
 {
     public partial class Form1 : Form, IView, ILog
     {
-        private IdQueryService _idQueryService;
+        private IdQueryServiceContract.IIdQueryProvider _idQueryService;
         TcpServerLink _server = new TcpServerLink(10000);
         TcpClientLink _client = new TcpClientLink();
         private Messaging.Link.SmsLink _sms;
-        private Server.QueryHandler _queryHandler;
+        private UI.App.QueryHandler _queryHandler;
 
         public Form1()
         {
@@ -32,15 +35,9 @@ namespace Kise.IdCard.QueryServer
         {
             await TaskEx.Delay(12);
 
-            _idQueryService = new IdQueryService(new IdLookupServiceMock());
+            _idQueryService = CreateIdQueryProvider();
 
             _queryHandler = new QueryHandler(_sms, null, this, this);
-            //_queryHandler.NewMessageReceived += (s, arg) =>
-            //                                        {
-            //                                            var msg = string.Format("收到查询：{0}, 来自:{1}", arg.Value.Message,
-            //                                                                    arg.Value.Sender);
-            //                                            AppendText(msg);
-            //                                        };
             _queryHandler.Start();
 
         }
@@ -60,13 +57,33 @@ namespace Kise.IdCard.QueryServer
                 Cursor = Cursors.WaitCursor;
 
                 var queryString = string.Format("sfzh='{0}'", idCardNo.Text);
-                var reply = _idQueryService.QueryAsync(queryString);
+                var reply = _idQueryService.QueryIdCard(queryString);
             }
             finally
             {
                 btnQuery.Enabled = true;
                 Cursor = Cursors.Default;
             }
+        }
+
+
+        private IdQueryServiceContract.IIdQueryProvider CreateIdQueryProvider()
+        {
+            //
+            // TODO: Add code to start application here
+            //
+            TcpClientChannel channel = new TcpClientChannel();
+            ChannelServices.RegisterChannel(channel, false);
+
+            var url = string.Format("tcp://localhost:{0}/IdQueryService", UI.Properties.Settings.Default.IdQueryServerTcpPortNo);
+
+            var provider = (IdQueryServiceContract.IIdQueryProvider)Activator.GetObject
+            (
+                typeof(IdQueryServiceContract.IIdQueryProvider),
+                url
+            );
+
+            return provider;
         }
 
         private void clientSend_Click(object sender, EventArgs e)

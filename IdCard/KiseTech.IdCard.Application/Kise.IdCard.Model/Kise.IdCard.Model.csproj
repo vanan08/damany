@@ -63,16 +63,6 @@
     <Compile Include="Sex.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Kise.IdCard.Infrastructure\Kise.IdCard.Infrastructure.csproj">
-      <Project>{EB33B4DE-F864-47F8-A828-8C69DFCD39B4}</Project>
-      <Name>Kise.IdCard.Infrastructure</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Kise.IdCard.Messaging\Kise.IdCard.Messaging.csproj">
-      <Project>{A8CCE3F0-6904-491F-BEB6-093D849E3072}</Project>
-      <Name>Kise.IdCard.Messaging</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="MinorityCode.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

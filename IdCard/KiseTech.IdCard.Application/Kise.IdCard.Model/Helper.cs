@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Kise.IdCard.Messaging;
 
 namespace Kise.IdCard.Model
 {
@@ -33,24 +32,6 @@ namespace Kise.IdCard.Model
             return new DateTime(y, m, d);
         }
 
-        public static IdCardInfo ToModelIdCardInfo(this IdInfo info)
-        {
-            var v = new Model.IdCardInfo()
-                        {
-                            Address = info.Address,
-                            BornDate = info.BornDate.ParseIntoDateTime(),
-                            GrantDept = info.GrantDept,
-                            IdCardNo = info.IdCardNo,
-                            MinorityCode = int.Parse(info.Minority),
-                            Name = info.Name,
-                            SexCode = int.Parse(info.Sex),
-                            ValidateFrom = info.ValidateFrom.ParseIntoDateTime(),
-                            ValidateUntil = info.ValidateUntil.ParseIntoDateTime(),
-                            PhotoData =  info.PhotoData
-                        };
-
-            return v;
-        }
 
     }
 }

@@ -7,122 +7,34 @@ using System.ServiceModel.Description;
 using System.ServiceModel.Dispatcher;
 using System.Text;
 using System.Threading;
+using IdQueryServiceContract;
+using RBSPAdapter_COM;
 
 namespace IdQueryService
 {
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "IdQueryProvider" in both code and config file together.
-    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
-    public class IdQueryProvider : IIdQueryProvider
+    public class IdQueryProvider : MarshalByRefObject, IdQueryServiceContract.IIdQueryProvider
     {
-        private RBSPAdapter_COM.RSBPAdapterCOMObjClass _q;
-
-        [STAOperationBehavior]
-        public string QueryIdCard(string queryType, string queryString)
+        public QueryResult QueryIdCard(string queryString)
         {
-            _q = null;
-            try
-            {
-                Console.WriteLine("----------------\r\n" + queryString + queryType + System.Threading.Thread.CurrentThread.GetApartmentState());
-                //if (_q == null)
-                {
-                    _q = new RBSPAdapter_COM.RSBPAdapterCOMObjClass();
-                }
-                _q.queryCondition = queryString;
-                _q.queryType = queryType;
-                var result = _q.queryCondition;
-                Console.WriteLine(result + "\r\n" + "---------------");
-                return result;
-            }
-            finally
-            {
-                if (_q != null)
-                {
-                    //System.Runtime.InteropServices.Marshal.ReleaseComObject(_q);
-                }
-            }
-        }
-    }
+            Console.WriteLine("receive query: queryString = " + queryString + "\r\n");
+            var q = new RBSPAdapter_COM.RSBPAdapterCOMObjClass();
 
-    public class STAOperationBehaviorAttribute : Attribute, IOperationBehavior
-    {
-        public void AddBindingParameters(OperationDescription operationDescription,
-          System.ServiceModel.Channels.BindingParameterCollection bindingParameters)
-        {
-        }
+            q.queryCondition = queryString;
+            q.queryType = "QueryQGRK";
+            var normalResult = q.queryCondition;
 
-        public void ApplyClientBehavior(OperationDescription operationDescription,
-          System.ServiceModel.Dispatcher.ClientOperation clientOperation)
-        {
-            // If this is applied on the client, well, it just doesn't make sense.
-            // Don't throw in case this attribute was applied on the contract
-            // instead of the implementation.
-        }
+            q.queryType = "QueryZTK";
+            var suspectResult = q.queryCondition;
 
-        public void ApplyDispatchBehavior(OperationDescription operationDescription,
-          System.ServiceModel.Dispatcher.DispatchOperation dispatchOperation)
-        {
-            // Change the IOperationInvoker for this operation.
-            dispatchOperation.Invoker = new STAOperationInvoker(dispatchOperation.Invoker);
-        }
+            var result = new QueryResult() { NormalResult = normalResult, SuspectResult = suspectResult };
+            System.Runtime.InteropServices.Marshal.ReleaseComObject(q);
 
-        public void Validate(OperationDescription operationDescription)
-        {
-            if (operationDescription.SyncMethod == null)
-            {
-                throw new InvalidOperationException("The STAOperationBehaviorAttribute " +
-                    "only works for synchronous method invocations.");
-            }
+            return result;
         }
     }
 
 
-    public class STAOperationInvoker : IOperationInvoker
-    {
-        IOperationInvoker _innerInvoker;
-        public STAOperationInvoker(IOperationInvoker invoker)
-        {
-            _innerInvoker = invoker;
-        }
 
-        public object[] AllocateInputs()
-        {
-            return _innerInvoker.AllocateInputs();
-        }
-
-        public object Invoke(object instance, object[] inputs, out object[] outputs)
-        {
-            // Create a new, STA thread
-            object[] staOutputs = null;
-            object retval = null;
-            Thread thread = new Thread(
-                delegate()
-                {
-                    retval = _innerInvoker.Invoke(instance, inputs, out staOutputs);
-                });
-            thread.SetApartmentState(ApartmentState.STA);
-            thread.Start();
-            thread.Join();
-            outputs = staOutputs;
-            return retval;
-        }
-
-        public IAsyncResult InvokeBegin(object instance, object[] inputs,
-          AsyncCallback callback, object state)
-        {
-            // We don't handle async...
-            throw new NotImplementedException();
-        }
-
-        public object InvokeEnd(object instance, out object[] outputs, IAsyncResult result)
-        {
-            // We don't handle async...
-            throw new NotImplementedException();
-        }
-
-        public bool IsSynchronous
-        {
-            get { return true; }
-        }
-    }
 
 }

@@ -21,11 +21,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kise.IdCard.Messaging.Test"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kise.IdCard.Server.Test", "Kise.IdCard.Server.Test\Kise.IdCard.Server.Test.csproj", "{77E99FA2-8805-4D6C-92A4-6468FDE1AC1B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdQueryService", "IdQueryService\IdQueryService.csproj", "{7A1031FD-0FAE-4D79-B591-2F41B5E4E8F8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdQueryServiceServer", "IdQueryService\IdQueryServiceServer.csproj", "{7A1031FD-0FAE-4D79-B591-2F41B5E4E8F8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject", "TestProject\TestProject.csproj", "{D79084D5-EAAE-4A71-8E83-09CD8F937CF1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestForm", "TestForm\TestForm.csproj", "{B73A5E84-A24B-4F89-8B30-BC0BA751C2D2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdQueryServiceContract", "IdQueryServiceContract\IdQueryServiceContract.csproj", "{B41C2C78-D5F3-4349-B247-EF68C5CFDC1E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -157,16 +157,16 @@ Global
 		{D79084D5-EAAE-4A71-8E83-09CD8F937CF1}.Release|Mixed Platforms.Build.0 = Release|x86
 		{D79084D5-EAAE-4A71-8E83-09CD8F937CF1}.Release|x86.ActiveCfg = Release|x86
 		{D79084D5-EAAE-4A71-8E83-09CD8F937CF1}.Release|x86.Build.0 = Release|x86
-		{B73A5E84-A24B-4F89-8B30-BC0BA751C2D2}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{B73A5E84-A24B-4F89-8B30-BC0BA751C2D2}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{B73A5E84-A24B-4F89-8B30-BC0BA751C2D2}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{B73A5E84-A24B-4F89-8B30-BC0BA751C2D2}.Debug|x86.ActiveCfg = Debug|x86
-		{B73A5E84-A24B-4F89-8B30-BC0BA751C2D2}.Debug|x86.Build.0 = Debug|x86
-		{B73A5E84-A24B-4F89-8B30-BC0BA751C2D2}.Release|Any CPU.ActiveCfg = Release|x86
-		{B73A5E84-A24B-4F89-8B30-BC0BA751C2D2}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{B73A5E84-A24B-4F89-8B30-BC0BA751C2D2}.Release|Mixed Platforms.Build.0 = Release|x86
-		{B73A5E84-A24B-4F89-8B30-BC0BA751C2D2}.Release|x86.ActiveCfg = Release|x86
-		{B73A5E84-A24B-4F89-8B30-BC0BA751C2D2}.Release|x86.Build.0 = Release|x86
+		{B41C2C78-D5F3-4349-B247-EF68C5CFDC1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B41C2C78-D5F3-4349-B247-EF68C5CFDC1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B41C2C78-D5F3-4349-B247-EF68C5CFDC1E}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{B41C2C78-D5F3-4349-B247-EF68C5CFDC1E}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{B41C2C78-D5F3-4349-B247-EF68C5CFDC1E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B41C2C78-D5F3-4349-B247-EF68C5CFDC1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B41C2C78-D5F3-4349-B247-EF68C5CFDC1E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B41C2C78-D5F3-4349-B247-EF68C5CFDC1E}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{B41C2C78-D5F3-4349-B247-EF68C5CFDC1E}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{B41C2C78-D5F3-4349-B247-EF68C5CFDC1E}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
