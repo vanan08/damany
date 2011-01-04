@@ -114,6 +114,12 @@
     <Compile Include="FormIdQuery.Designer.cs">
       <DependentUpon>FormIdQuery.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormQueryResult.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormQueryResult.Designer.cs">
+      <DependentUpon>FormQueryResult.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormSettings.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -145,6 +151,9 @@
     </Compile>
     <EmbeddedResource Include="FormIdQuery.resx">
       <DependentUpon>FormIdQuery.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormQueryResult.resx">
+      <DependentUpon>FormQueryResult.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormSettings.resx">
       <DependentUpon>FormSettings.cs</DependentUpon>
@@ -199,6 +208,10 @@
     <ProjectReference Include="..\Kise.IdCard.Model\Kise.IdCard.Model.csproj">
       <Project>{711B9849-8E84-49C8-9549-91B1922530AF}</Project>
       <Name>Kise.IdCard.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Util\Util.csproj">
+      <Project>{D4C47C10-1830-461C-9879-E9C6D5C4ED2D}</Project>
+      <Name>Util</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

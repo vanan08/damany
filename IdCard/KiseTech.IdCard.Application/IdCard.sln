@@ -27,6 +27,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject", "TestProject\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdQueryServiceContract", "IdQueryServiceContract\IdQueryServiceContract.csproj", "{B41C2C78-D5F3-4349-B247-EF68C5CFDC1E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Util", "Util\Util.csproj", "{D4C47C10-1830-461C-9879-E9C6D5C4ED2D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -167,6 +169,16 @@ Global
 		{B41C2C78-D5F3-4349-B247-EF68C5CFDC1E}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{B41C2C78-D5F3-4349-B247-EF68C5CFDC1E}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{B41C2C78-D5F3-4349-B247-EF68C5CFDC1E}.Release|x86.ActiveCfg = Release|Any CPU
+		{D4C47C10-1830-461C-9879-E9C6D5C4ED2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4C47C10-1830-461C-9879-E9C6D5C4ED2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4C47C10-1830-461C-9879-E9C6D5C4ED2D}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{D4C47C10-1830-461C-9879-E9C6D5C4ED2D}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{D4C47C10-1830-461C-9879-E9C6D5C4ED2D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D4C47C10-1830-461C-9879-E9C6D5C4ED2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4C47C10-1830-461C-9879-E9C6D5C4ED2D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4C47C10-1830-461C-9879-E9C6D5C4ED2D}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{D4C47C10-1830-461C-9879-E9C6D5C4ED2D}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{D4C47C10-1830-461C-9879-E9C6D5C4ED2D}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

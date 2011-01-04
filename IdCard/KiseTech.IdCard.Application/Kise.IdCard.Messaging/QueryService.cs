@@ -111,7 +111,7 @@ namespace Kise.IdCard.Messaging
             {
                 var msg = new IncomingMessage()
                 {
-                    Message = payLoad,
+                    Message = e.Value.Message,
                     ReceiveTime = e.Value.ReceiveTime,
                     Sender = e.Value.Sender,
                 };

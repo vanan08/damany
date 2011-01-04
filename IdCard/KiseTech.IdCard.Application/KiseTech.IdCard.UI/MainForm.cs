@@ -74,6 +74,16 @@ namespace Kise.IdCard.UI
             }
         }
 
+        public void ShowQueryResult(Image image, string unmatchResult, bool isSuspect)
+        {
+            Action doAction = () =>
+                                  {
+                                      var form = new FormQueryResult(image, unmatchResult, isSuspect);
+                                      form.ShowDialog(this);
+                                  };
+            this.BeginInvoke(doAction);
+        }
+
 
         private IdCardInfo _idCardInfo;
         public IdCardInfo IdCardInfo
@@ -148,7 +158,7 @@ namespace Kise.IdCard.UI
             {
                 lnk = new TcpClientLink();
                 (lnk as TcpClientLink).PortToConnect = 10000;
-                
+
                 cardReader = new FakeIdCardReader();
             }
             else
@@ -265,7 +275,7 @@ namespace Kise.IdCard.UI
 
         private void databaseQuery_ItemClick(object sender, ItemClickEventArgs e)
         {
-            _idService.QueryIdAsync(_progressReport, "123456");
+            _idService.QueryIdAsync(_progressReport, Properties.Settings.Default.smsCenterNo);
         }
 
         void inpc_PropertyChanged(object sender, PropertyChangedEventArgs e)

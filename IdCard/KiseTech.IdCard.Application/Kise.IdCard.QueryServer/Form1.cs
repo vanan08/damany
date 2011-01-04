@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Kise.IdCard.Messaging.Link;
+using Kise.IdCard.QueryServer.UI;
 using Kise.IdCard.QueryServer.UI.App;
 using Kise.IdCard.Server;
 
@@ -125,6 +126,14 @@ namespace Kise.IdCard.QueryServer
             item.SubItems.Add(entry.Description);
 
             this.BeginInvoke((Action)delegate { listView1.Items.Add(item); });
+        }
+
+        private void 选项ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (var form = new FormOptions())
+            {
+                form.ShowDialog(this);
+            }
         }
     }
 }

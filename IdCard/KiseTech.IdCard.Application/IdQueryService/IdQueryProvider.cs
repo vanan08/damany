@@ -27,8 +27,8 @@ namespace IdQueryService
 
             q.queryType = "QueryZTK";
             var suspectResult = string.Empty;
-            //suspectResult = q.queryCondition;
-            //Console.WriteLine(suspectResult);
+            suspectResult = q.queryCondition;
+            Console.WriteLine(suspectResult);
 
             Console.WriteLine("---------------");
 
