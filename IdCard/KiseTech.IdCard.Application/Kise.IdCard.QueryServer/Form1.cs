@@ -17,6 +17,7 @@ namespace Kise.IdCard.QueryServer
 {
     public partial class Form1 : Form, IView, ILog
     {
+        private TcpClientChannel _channel;
         private IdQueryServiceContract.IIdQueryProvider _idQueryService;
         TcpServerLink _server = new TcpServerLink(10000);
         TcpClientLink _client = new TcpClientLink();
@@ -27,7 +28,9 @@ namespace Kise.IdCard.QueryServer
         {
             InitializeComponent();
 
-            _sms = new SmsLink("com10", 9600);
+
+
+            //_sms = new SmsLink("com10", 9600);
         }
 
 
@@ -37,7 +40,7 @@ namespace Kise.IdCard.QueryServer
 
             _idQueryService = CreateIdQueryProvider();
 
-            _queryHandler = new QueryHandler(_sms, null, this, this);
+            _queryHandler = new QueryHandler(_server, _idQueryService, this, this);
             _queryHandler.Start();
 
         }
@@ -72,8 +75,11 @@ namespace Kise.IdCard.QueryServer
             //
             // TODO: Add code to start application here
             //
-            TcpClientChannel channel = new TcpClientChannel();
-            ChannelServices.RegisterChannel(channel, false);
+            if (_channel == null)
+            {
+                _channel = new TcpClientChannel();
+                ChannelServices.RegisterChannel(_channel, false);
+            }
 
             var url = string.Format("tcp://localhost:{0}/IdQueryService", UI.Properties.Settings.Default.IdQueryServerTcpPortNo);
 
@@ -95,22 +101,13 @@ namespace Kise.IdCard.QueryServer
             try
             {
                 var r = await TaskEx.Run(() =>
-                                {
-                                    var svcTest = new UI.ServiceTest.IdQueryProviderClient();
-                                    var result = svcTest.QueryIdCard("QueryQGRK", "sfzh='510403197309112610'");
-                                    return result;
+                                             {
+                                                 var client = CreateIdQueryProvider();
+                                                 return client.QueryIdCard("sfzh='2323232323'");
+                                             });
 
-                                });
                 System.Diagnostics.Debug.WriteLine(r);
 
-                r = await TaskEx.Run(() =>
-                {
-                    var svcTest = new UI.ServiceTest.IdQueryProviderClient();
-                    var result = svcTest.QueryIdCard("QueryZTK", "sfzh='371522198708239233'");
-                    return result;
-
-                });
-                System.Diagnostics.Debug.WriteLine(r);
             }
             finally
             {

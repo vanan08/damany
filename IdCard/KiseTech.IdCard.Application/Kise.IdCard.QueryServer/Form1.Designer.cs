@@ -138,7 +138,7 @@
             this.response.Multiline = true;
             this.response.Name = "response";
             this.response.ReadOnly = true;
-            this.response.Size = new System.Drawing.Size(521, 247);
+            this.response.Size = new System.Drawing.Size(521, 245);
             this.response.TabIndex = 6;
             // 
             // menuStrip1
@@ -295,7 +295,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(527, 373);
+            this.tabPage2.Size = new System.Drawing.Size(527, 368);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "手动查询";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -321,7 +321,7 @@
             this.radioAtLarge.AutoSize = true;
             this.radioAtLarge.Location = new System.Drawing.Point(188, 88);
             this.radioAtLarge.Name = "radioAtLarge";
-            this.radioAtLarge.Size = new System.Drawing.Size(83, 15);
+            this.radioAtLarge.Size = new System.Drawing.Size(83, 16);
             this.radioAtLarge.TabIndex = 12;
             this.radioAtLarge.TabStop = true;
             this.radioAtLarge.Text = "在逃人员库";
@@ -332,7 +332,7 @@
             this.radioBasic.AutoSize = true;
             this.radioBasic.Location = new System.Drawing.Point(86, 88);
             this.radioBasic.Name = "radioBasic";
-            this.radioBasic.Size = new System.Drawing.Size(83, 15);
+            this.radioBasic.Size = new System.Drawing.Size(83, 16);
             this.radioBasic.TabIndex = 11;
             this.radioBasic.TabStop = true;
             this.radioBasic.Text = "基本信息库";

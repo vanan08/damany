@@ -92,13 +92,20 @@ namespace Kise.IdCard.UI
                         this.sex.Text = Model.Helper.GetSexName(_idCardInfo.SexCode.Value);
                     }
 
-                    //this.minority.Text = MinorityDictionary[_idCardInfo.MinorityCode];
-                    //this.year.Text = _idCardInfo.BornDate.Year.ToString();
-                    //this.month.Text = _idCardInfo.BornDate.Month.ToString();
-                    //this.day.Text = _idCardInfo.BornDate.Day.ToString();
+                    if (_idCardInfo.MinorityCode.HasValue)
+                    {
+                        this.minority.Text = MinorityDictionary[_idCardInfo.MinorityCode.Value];
+                    }
+
+                    if (_idCardInfo.BornDate.HasValue)
+                    {
+                        this.year.Text = _idCardInfo.BornDate.Value.Year.ToString();
+                        this.month.Text = _idCardInfo.BornDate.Value.Month.ToString();
+                        this.day.Text = _idCardInfo.BornDate.Value.Day.ToString();
+                    }
                     this.address.Text = _idCardInfo.Address;
                     //this.issuedBy.Text = _idCardInfo.GrantDept;
-                    // this.expiry.Text = FormatDate(_idCardInfo.ValidateFrom) + " — " + FormatDate(_idCardInfo.ValidateUntil);
+                    //this.expiry.Text = FormatDate(_idCardInfo.ValidateFrom) + " — " + FormatDate(_idCardInfo.ValidateUntil);
                     this.idCardNo.Text = _idCardInfo.IdCardNo;
                     this.idCardStatus.Text = _idCardInfo.QueryResult;
 
@@ -140,6 +147,8 @@ namespace Kise.IdCard.UI
             if (Program.IsDebug)
             {
                 lnk = new TcpClientLink();
+                (lnk as TcpClientLink).PortToConnect = 10000;
+                
                 cardReader = new FakeIdCardReader();
             }
             else

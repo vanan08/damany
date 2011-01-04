@@ -1,13 +1,15 @@
 ﻿using System;
 using System.IO;
 using System.Net;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Kise.IdCard.Messaging.Link
 {
     public class TcpClientLink : ILink
     {
         private System.Net.Sockets.TcpClient _tcpClient;
-        private System.IO.StreamWriter _writer;
+        private System.Runtime.Serialization.Formatters.Binary.BinaryFormatter _formatter
+            = new BinaryFormatter();
 
         public int PortToConnect { get; set; }
 
@@ -23,12 +25,10 @@ namespace Kise.IdCard.Messaging.Link
                 _tcpClient = new System.Net.Sockets.TcpClient();
                 await _tcpClient.ConnectAsync(IPAddress.Loopback, PortToConnect);
 
-                var reader = new System.IO.StreamReader(_tcpClient.GetStream());
-                _writer = new StreamWriter(_tcpClient.GetStream());
                 while (true)
                 {
-                    var msg = await reader.ReadLineAsync();
-                    var im = new IncomingMessage(msg);
+                    var msg = _formatter.Deserialize(_tcpClient.GetStream());
+                    var im = new IncomingMessage(msg as string);
 
                     InvokeNewMessageReceived(new MiscUtil.EventArgs<IncomingMessage>(im));
                 }
@@ -37,8 +37,10 @@ namespace Kise.IdCard.Messaging.Link
 
         public void SendAsync(string destination, string message)
         {
-            _writer.WriteLine(message);
-            _writer.Flush();
+            if (_tcpClient == null) throw new InvalidOperationException("Start must be called first");
+
+            _formatter.Serialize(_tcpClient.GetStream(), message);
+            _tcpClient.GetStream().Flush();
         }
 
         public event EventHandler<MiscUtil.EventArgs<IncomingMessage>> NewMessageReceived;
