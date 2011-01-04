@@ -102,6 +102,7 @@ namespace Kise.IdCard.Server
             _incomingMessageLink.SendAsync(e.Value.Sender, replyString);
         }
 
+        //消息应答格式 id*errorCode*Name*SexCode*minorityCode*birthDay*isSuspect
         private string FormatReplyString(QueryResult replyResult, string idCardNo)
         {
             var strings = new List<string>();

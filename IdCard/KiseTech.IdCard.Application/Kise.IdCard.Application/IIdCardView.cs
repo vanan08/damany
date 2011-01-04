@@ -14,5 +14,7 @@ namespace Kise.IdCard.Application
         bool CanQueryId { get; set; }
         bool CanStop { set; }
         bool CanStart { set; }
+
+        void ShowQueryResult(System.Drawing.Image image, string unmatchResult, bool isSuspect);
     }
 }

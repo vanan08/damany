@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using Kise.IdCard.Infrastructure.CardReader;
 using Kise.IdCard.Messaging;
 using Kise.IdCard.Messaging.Link;
@@ -96,7 +97,7 @@ namespace Kise.IdCard.Application
             _view.CanStop = true;
             _view.CanStart = false;
 
-            System.Threading.Tasks.TaskEx.Run(()=>_link.Start());
+            System.Threading.Tasks.TaskEx.Run(() => _link.Start());
         }
 
         public void Stop()
@@ -165,9 +166,7 @@ namespace Kise.IdCard.Application
             indicator.LongOperation = true;
             progressReport.Report(indicator);
 
-            var packedMsg = this.PackMessage(CurrentIdCard);
-
-            var reply = await _queryService.QueryAsync(destinationNo, packedMsg);
+            var reply = await _queryService.QueryAsync(destinationNo, CurrentIdCard.IdCardNo);
             IsBusy = false;
 
             indicator.Status = reply.IsTimedOut ? "查询身份证失败（超时）!" : "查询身份证成功";
@@ -177,14 +176,100 @@ namespace Kise.IdCard.Application
             if (!reply.IsTimedOut)
             {
                 var splits = reply.Message.Split(new[] { '*' });
-                var status = splits[0];
-                var msg = splits[1];
-                CurrentIdCard.IsSuspect = status == "1";
-                CurrentIdCard.QueryResult = msg;
+                //消息应答格式 id*errorCode*Name*SexCode*minorityCode*birthDay*isSuspect
+                if (splits.Length != 7 && splits.Length != 2)
+                {
+                    MessageBox.Show("收到格式错误的应答，请联系技术人员或者稍侯重试。");
+                }
+                else
+                {
+                    var idNo = splits[0];
+                    var errorCode = int.Parse(splits[1]);
+                    if (errorCode == 1 || splits.Length == 2)
+                    {
+                        MessageBox.Show("后端服务器查询错误，请联系技术人员或者稍侯重试。");
+                    }
+                    else
+                    {
+                        var s = splits[2];
+                        string name = string.Empty;
+                        if (s != Constants.EmptyString)
+                        {
+                            name = s;
+                        }
+
+                        s = splits[3];
+                        int? sexCode = null;
+                        if (s != Constants.EmptyString)
+                        {
+                            sexCode = int.Parse(s);
+                        }
+
+                        s = splits[4];
+                        int? minorityCode = null;
+                        if (s != Constants.EmptyString)
+                        {
+                            minorityCode = int.Parse(s);
+                        }
+
+                        s = splits[5];
+                        DateTime? birthDay = null;
+                        if (s != Constants.EmptyString)
+                        {
+                            birthDay = Util.Helper.ParseDatetime(splits[5]);
+                        }
+
+                        var isSuspect = splits[6] == "1";
+
+                        var unmatches = new List<string>();
+                        if (!string.IsNullOrEmpty(CurrentIdCard.Name) && !string.IsNullOrEmpty(name))
+                        {
+                            if (CurrentIdCard.Name != name)
+                            {
+                                unmatches.Add("姓名");
+                            }
+                        }
+
+                        if (CurrentIdCard.SexCode.HasValue && sexCode.HasValue)
+                        {
+                            if (CurrentIdCard.SexCode.Value != sexCode.Value)
+                            {
+                                unmatches.Add("性别");
+                            }
+                        }
+
+                        if (CurrentIdCard.MinorityCode.HasValue && minorityCode.HasValue)
+                        {
+                            if (CurrentIdCard.MinorityCode.Value != minorityCode.Value)
+                            {
+                                unmatches.Add("民族");
+                            }
+                        }
+
+                        if (CurrentIdCard.BornDate.HasValue && birthDay.HasValue)
+                        {
+                            if (CurrentIdCard.BornDate.Value != birthDay.Value)
+                            {
+                                unmatches.Add("出生日期");
+                            }
+                        }
+
+                        var unmatchResult = string.Empty;
+                        if (unmatches.Count > 0)
+                        {
+                            unmatchResult = string.Join(','.ToString(), unmatches.ToArray());
+                            unmatchResult += "与数据库不相符";
+                        }
+
+                        _view.ShowQueryResult(CurrentIdCard.CopyOfImage, unmatchResult, isSuspect);
+
+                    }
+
+                }
             }
             else
             {
-                global::System.Windows.Forms.MessageBox.Show("服务器没有响应。请联系技术人员或者稍侯重试。");
+                MessageBox.Show("服务器没有响应。请联系技术人员或者稍侯重试。");
             }
 
             IdCardList.Add(CurrentIdCard);
