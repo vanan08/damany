@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Threading;
 using Kise.IdCard.Messaging;
 using Kise.IdCard.Messaging.Link;
 using Kise.IdCard.Server;
@@ -19,6 +21,10 @@ namespace Kise.IdCard.QueryServer.UI.App
         private const string normalQueryType = "QueryQGRK";
         private const string suspectQueryType = "QueryZTK";
 
+        private System.Collections.Concurrent.ConcurrentQueue<MiscUtil.EventArgs<IncomingMessage>> _outstandingQueue
+            = new ConcurrentQueue<MiscUtil.EventArgs<IncomingMessage>>();
+
+        private Thread _queryHandlerWorker;
         string[] mockReplies;
 
         public event EventHandler<MiscUtil.EventArgs<IncomingMessage>> NewMessageReceived;
@@ -39,8 +45,15 @@ namespace Kise.IdCard.QueryServer.UI.App
             _incomingMessageLink = incomingMessagelink;
             _idQueryService = idQueryService;
             _view = view;
-            _incomingMessageLink.NewMessageReceived += _link_NewMessageReceived;
+            _incomingMessageLink.NewMessageReceived += (s, e) =>
+                                                           {
+                                                               _outstandingQueue.Enqueue(e);
+                                                           };
 
+
+            _queryHandlerWorker = new Thread(processQuery);
+            _queryHandlerWorker.IsBackground = true;
+            _queryHandlerWorker.Start();
             //结果代码0:正常，1:警报.
             mockReplies = new[] { "0*正常", "1*网上追逃", "1*虚假身份证" };
 
@@ -58,52 +71,64 @@ namespace Kise.IdCard.QueryServer.UI.App
             _incomingMessageLink.SendAsync("13547962367", e.Value.Message);
         }
 
-        void _link_NewMessageReceived(object sender, MiscUtil.EventArgs<IncomingMessage> e)
+        void processQuery(object userState)
         {
-            InvokeNewMessageReceived(e);
-
-            var unpackedMsg = string.Empty;
-            var sn = -1;
-            string queryIdNo = e.Value.Message;
-
-            var entry = new LogEntry();
-            entry.Sender = e.Value.Sender;
-            entry.Description = e.Value.Message.Insert(0, "收到查询: ");
-            _logger.Log(entry);
-
-            QueryResult replyResult = new QueryResult();
-
-            entry = new LogEntry();
-            entry.Description = "查询数据库...";
-            _logger.Log(entry);
-
-            try
+            while (true)
             {
-                var idQueryString = string.Format("sfzh='{0}'", queryIdNo);
-                var queryResult = _idQueryService.QueryIdCard(idQueryString);
-                var normalIdInfo = Helper.Parse(queryResult.NormalResult);
-                var suspectIdInfo = Helper.Parse(queryResult.SuspectResult);
-
-                replyResult.ErrorCode = 0;
-                if (normalIdInfo.Length > 0)
+                MiscUtil.EventArgs<IncomingMessage> e = null;
+                if (_outstandingQueue.TryDequeue(out e))
                 {
-                    replyResult.IdInfo = normalIdInfo[0];
+                    InvokeNewMessageReceived(e);
+
+                    var unpackedMsg = string.Empty;
+                    var sn = -1;
+                    string queryIdNo = e.Value.Message;
+
+                    var entry = new LogEntry();
+                    entry.Sender = e.Value.Sender;
+                    entry.Description = e.Value.Message.Insert(0, "收到查询: " + queryIdNo);
+                    _logger.Log(entry);
+
+                    QueryResult replyResult = new QueryResult();
+
+                    entry = new LogEntry();
+                    entry.Description = "查询数据库...";
+                    _logger.Log(entry);
+
+                    try
+                    {
+                        var idQueryString = string.Format("sfzh='{0}'", queryIdNo);
+                        var queryResult = _idQueryService.QueryIdCard(idQueryString);
+                        var normalIdInfo = Helper.Parse(queryResult.NormalResult);
+                        var suspectIdInfo = Helper.Parse(queryResult.SuspectResult);
+
+                        replyResult.ErrorCode = 0;
+                        if (normalIdInfo.Length > 0)
+                        {
+                            replyResult.IdInfo = normalIdInfo[0];
+                        }
+
+                        replyResult.IsSuspect = suspectIdInfo.Length > 0;
+
+                    }
+                    catch (System.Xml.XmlException)
+                    {
+                        replyResult.ErrorCode = 1;
+                    }
+                    var replyString = FormatReplyString(replyResult, queryIdNo);
+                    entry = new LogEntry();
+                    entry.Description = "发送应答：" + replyString;
+                    _logger.Log(entry);
+
+                    _incomingMessageLink.SendAsync(e.Value.Sender, replyString);
+
                 }
-
-                replyResult.IsSuspect = suspectIdInfo.Length > 0;
-
-            }
-            catch (System.Xml.XmlException)
-            {
-                replyResult.ErrorCode = 1;
+                else
+                {
+                    System.Threading.Thread.Sleep(3000);
+                }
             }
 
-            var replyString = FormatReplyString(replyResult, queryIdNo);
-            entry = new LogEntry();
-            entry.Description = "发送应答：" + replyString;
-            _logger.Log(entry);
-
-            _incomingMessageLink.SendAsync(e.Value.Sender, replyString);
         }
 
         private string FormatReplyString(QueryResult queryResult, string idCardNo)
