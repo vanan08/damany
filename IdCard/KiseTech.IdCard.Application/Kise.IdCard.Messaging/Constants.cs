@@ -4,6 +4,6 @@
     {
         public static char SplitterChar = '*';
         public static string EmptyString = "^";
-        public static string BirthDayFormatString = "yyyymmdd";
+        public static string BirthDayFormatString = "yyyyMMdd";
     }
 }

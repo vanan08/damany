@@ -48,7 +48,7 @@ namespace Kise.IdCard.QueryServer.UI.App
 
         public void Start()
         {
-            System.Threading.Tasks.TaskEx.Run(()=>_incomingMessageLink.Start());
+            System.Threading.Tasks.TaskEx.Run(() => _incomingMessageLink.Start());
         }
 
         void _client_NewMessageReceived(object sender, MiscUtil.EventArgs<IncomingMessage> e)
@@ -68,7 +68,7 @@ namespace Kise.IdCard.QueryServer.UI.App
 
             var entry = new LogEntry();
             entry.Sender = e.Value.Sender;
-            entry.Description = e.Value.Message.Insert(0, "收到查询: " + queryIdNo);
+            entry.Description = e.Value.Message.Insert(0, "收到查询: ");
             _logger.Log(entry);
 
             QueryResult replyResult = new QueryResult();
@@ -83,6 +83,15 @@ namespace Kise.IdCard.QueryServer.UI.App
                 var queryResult = _idQueryService.QueryIdCard(idQueryString);
                 var normalIdInfo = Helper.Parse(queryResult.NormalResult);
                 var suspectIdInfo = Helper.Parse(queryResult.SuspectResult);
+
+                replyResult.ErrorCode = 0;
+                if (normalIdInfo.Length > 0)
+                {
+                    replyResult.IdInfo = normalIdInfo[0];
+                }
+
+                replyResult.IsSuspect = suspectIdInfo.Length > 0;
+
             }
             catch (System.Xml.XmlException)
             {
