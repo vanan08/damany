@@ -28,10 +28,6 @@ namespace Kise.IdCard.QueryServer
         public Form1()
         {
             InitializeComponent();
-
-
-
-            //_sms = new SmsLink("com10", 9600);
         }
 
 
@@ -39,9 +35,16 @@ namespace Kise.IdCard.QueryServer
         {
             await TaskEx.Delay(12);
 
+            if (string.IsNullOrEmpty(UI.Properties.Settings.Default.GsmComPort))
+            {
+                var form = new FormOptions();
+                form.ShowDialog();
+            }
+
             _idQueryService = CreateIdQueryProvider();
 
-            _queryHandler = new QueryHandler(_server, _idQueryService, this, this);
+            _sms = new SmsLink(UI.Properties.Settings.Default.GsmComPort, 9600);
+            _queryHandler = new QueryHandler(_sms, _idQueryService, this, this);
             _queryHandler.Start();
 
         }
