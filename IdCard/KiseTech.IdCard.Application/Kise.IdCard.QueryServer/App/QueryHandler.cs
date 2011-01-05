@@ -114,7 +114,7 @@ namespace Kise.IdCard.QueryServer.UI.App
 
             if (queryResult.ErrorCode == 0)
             {
-                strings.Add(queryResult.IdInfo.Name);
+                strings.Add(string.IsNullOrEmpty(queryResult.IdInfo.Name) ? Messaging.Constants.EmptyString : queryResult.IdInfo.Name);
                 strings.Add(queryResult.IdInfo.SexCode.HasValue ? queryResult.IdInfo.SexCode.Value.ToString() : Messaging.Constants.EmptyString);
                 strings.Add(queryResult.IdInfo.MinorityCode.HasValue ? queryResult.IdInfo.MinorityCode.ToString() : Messaging.Constants.EmptyString);
                 strings.Add(queryResult.IdInfo.BornDate.HasValue ? queryResult.IdInfo.BornDate.Value.ToString(Messaging.Constants.BirthDayFormatString) : Messaging.Constants.EmptyString);

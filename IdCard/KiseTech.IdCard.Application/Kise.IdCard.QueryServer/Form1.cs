@@ -138,5 +138,9 @@ namespace Kise.IdCard.QueryServer
                 form.ShowDialog(this);
             }
         }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+        }
     }
 }

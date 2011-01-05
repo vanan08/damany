@@ -18,7 +18,7 @@ namespace Kise.IdCard.Server.Test
             //
             var xmlstring = System.IO.File.ReadAllText("normal.xml");
 
-            var qr = Helper.Parse(xmlstring);
+            //var qr = Helper.Parse(xmlstring);
 
             //Assert.IsTrue(string.IsNullOrEmpty(qr.IdInfos[0].IdCardNo) == false);
             //Assert.IsTrue(string.IsNullOrEmpty(qr.IdInfos[0].IdCardNo) == false);

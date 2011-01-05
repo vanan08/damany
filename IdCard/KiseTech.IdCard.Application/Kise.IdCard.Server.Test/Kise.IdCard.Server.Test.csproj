@@ -60,10 +60,6 @@
       <Project>{711B9849-8E84-49C8-9549-91B1922530AF}</Project>
       <Name>Kise.IdCard.Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Kise.IdCard.Server\Kise.IdCard.Server.csproj">
-      <Project>{5759B7C9-C524-479F-8E59-8E02208DD444}</Project>
-      <Name>Kise.IdCard.Server</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="atlarge-true.xml">
