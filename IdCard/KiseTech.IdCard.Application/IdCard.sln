@@ -13,8 +13,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kise.IdCard.Model", "Kise.I
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kise.IdCard.Server.UI", "Kise.IdCard.QueryServer\Kise.IdCard.Server.UI.csproj", "{7AF4FBA6-6C22-4151-9963-294EAD4C53F7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kise.IdCard.Server", "Kise.IdCard.Server\Kise.IdCard.Server.csproj", "{5759B7C9-C524-479F-8E59-8E02208DD444}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kise.IdCard.Messaging", "Kise.IdCard.Messaging\Kise.IdCard.Messaging.csproj", "{A8CCE3F0-6904-491F-BEB6-093D849E3072}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kise.IdCard.Messaging.Test", "Kise.IdCard.MessagingTest\Kise.IdCard.Messaging.Test.csproj", "{5AC2BB04-BEAF-4A47-BC57-0C1132F2C0BF}"
@@ -99,16 +97,6 @@ Global
 		{7AF4FBA6-6C22-4151-9963-294EAD4C53F7}.Release|Mixed Platforms.Build.0 = Release|x86
 		{7AF4FBA6-6C22-4151-9963-294EAD4C53F7}.Release|x86.ActiveCfg = Release|x86
 		{7AF4FBA6-6C22-4151-9963-294EAD4C53F7}.Release|x86.Build.0 = Release|x86
-		{5759B7C9-C524-479F-8E59-8E02208DD444}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5759B7C9-C524-479F-8E59-8E02208DD444}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5759B7C9-C524-479F-8E59-8E02208DD444}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{5759B7C9-C524-479F-8E59-8E02208DD444}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{5759B7C9-C524-479F-8E59-8E02208DD444}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{5759B7C9-C524-479F-8E59-8E02208DD444}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5759B7C9-C524-479F-8E59-8E02208DD444}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5759B7C9-C524-479F-8E59-8E02208DD444}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{5759B7C9-C524-479F-8E59-8E02208DD444}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{5759B7C9-C524-479F-8E59-8E02208DD444}.Release|x86.ActiveCfg = Release|Any CPU
 		{A8CCE3F0-6904-491F-BEB6-093D849E3072}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A8CCE3F0-6904-491F-BEB6-093D849E3072}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A8CCE3F0-6904-491F-BEB6-093D849E3072}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
