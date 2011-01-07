@@ -68,6 +68,7 @@
             // ribbon
             // 
             this.ribbon.ApplicationButtonText = null;
+            this.ribbon.ApplicationIcon = ((System.Drawing.Bitmap)(resources.GetObject("ribbon.ApplicationIcon")));
             // 
             // 
             // 
@@ -149,7 +150,7 @@
             // 
             // databaseQuery
             // 
-            this.databaseQuery.Caption = "真伪查询";
+            this.databaseQuery.Caption = "数据库查询";
             this.databaseQuery.Enabled = false;
             this.databaseQuery.Id = 12;
             this.databaseQuery.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("databaseQuery.LargeGlyph")));
@@ -176,6 +177,7 @@
             // 
             this.ribbonPageGroup2.ItemLinks.Add(this.buttonQuery);
             this.ribbonPageGroup2.Name = "ribbonPageGroup2";
+            this.ribbonPageGroup2.ShowCaptionButton = false;
             this.ribbonPageGroup2.Text = "工具";
             // 
             // ribbonPageGroup3
@@ -184,6 +186,7 @@
             this.ribbonPageGroup3.ItemLinks.Add(this.stopButton);
             this.ribbonPageGroup3.ItemLinks.Add(this.databaseQuery);
             this.ribbonPageGroup3.Name = "ribbonPageGroup3";
+            this.ribbonPageGroup3.ShowCaptionButton = false;
             this.ribbonPageGroup3.Text = "控制";
             // 
             // repositoryItemProgressBar1
