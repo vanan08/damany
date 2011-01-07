@@ -23,13 +23,13 @@ namespace Kise.IdCard.Infrastructure.CardReader
             var v = new IdCardInfo()
                            {
                                Address = "四川成都",
-                               BornDate = "19781231".ParseIntoDateTime(),
+                               BornDate = "19730911".ParseIntoDateTime(),
                                GrantDept = "四川省成都市青羊分局",
-                               IdCardNo = "510403197309112610",
-                               MinorityCode = int.Parse(random.Next(1, 56).ToString()),
-                               Name = "张三",
+                               IdCardNo = count % 2 == 0 ? "532627198502181580" : "510403197309112610",
+                               MinorityCode = 1,
+                               Name = "沈斌",
                                PhotoData = Properties.Resources.Image0001,
-                               SexCode = int.Parse(random.Next(1, 2).ToString()),
+                               SexCode = 1,
                                ValidateFrom = "19781231".ParseIntoDateTime(),
                                ValidateUntil = "20121231".ParseIntoDateTime(),
 
@@ -37,7 +37,7 @@ namespace Kise.IdCard.Infrastructure.CardReader
 
             ++count;
 
-            if (count % _random.Next(4) == 0) throw new Exception();
+            //if (count % _random.Next(4) == 0) throw new Exception();
 
             return v;
         }

@@ -15,6 +15,6 @@ namespace Kise.IdCard.Application
         bool CanStop { set; }
         bool CanStart { set; }
 
-        void ShowQueryResult(System.Drawing.Image image, string unmatchResult, bool isSuspect);
+        void ShowQueryResult(IList<string> unmatchFields, bool isSuspect);
     }
 }

@@ -12,6 +12,9 @@ namespace Kise.IdCard.UI
         [STAThread]
         static void Main(string[] args)
         {
+            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+            System.Windows.Forms.Application.ThreadException += Application_ThreadException;
+
             Thread.CurrentThread.CurrentCulture = new CultureInfo("zh-CN");
             Thread.CurrentThread.CurrentUICulture = new CultureInfo("zh-CN");
 
@@ -29,6 +32,16 @@ namespace Kise.IdCard.UI
             System.Windows.Forms.Application.EnableVisualStyles();
             System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
             System.Windows.Forms.Application.Run(new MainForm());
+        }
+
+        static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
+        {
+            System.Windows.Forms.MessageBox.Show(e.Exception.Message);
+        }
+
+        static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            System.Windows.Forms.MessageBox.Show((e.ExceptionObject as Exception).Message);
         }
 
         public static bool IsDebug = false;
