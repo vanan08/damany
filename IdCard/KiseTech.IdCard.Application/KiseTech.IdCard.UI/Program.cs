@@ -22,7 +22,7 @@ namespace Kise.IdCard.UI
             DevExpress.UserSkins.BonusSkins.Register();
             DevExpress.Skins.SkinManager.EnableFormSkins();
 
-            DevExpress.LookAndFeel.UserLookAndFeel.Default.SetSkinStyle("Black");
+            DevExpress.LookAndFeel.UserLookAndFeel.Default.SetSkinStyle("Devexpress Style");
 
             if (args.Length > 0)
             {
@@ -36,14 +36,18 @@ namespace Kise.IdCard.UI
 
         static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
         {
-            System.Windows.Forms.MessageBox.Show(e.Exception.Message);
+            HandleException(e.Exception);
         }
 
         static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            System.Windows.Forms.MessageBox.Show((e.ExceptionObject as Exception).Message);
+            HandleException(e.ExceptionObject as Exception);
         }
 
+        private static void HandleException(Exception e)
+        {
+            System.Windows.Forms.MessageBox.Show("系统发生了异常，建议重新启动程序");
+        }
         public static bool IsDebug = false;
     }
 }
