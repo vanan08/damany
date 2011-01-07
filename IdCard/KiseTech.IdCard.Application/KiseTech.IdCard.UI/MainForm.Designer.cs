@@ -45,7 +45,7 @@
             this.repositoryItemProgressBar1 = new DevExpress.XtraEditors.Repository.RepositoryItemProgressBar();
             this.ribbonStatusBar = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
             this.clientPanel = new DevExpress.XtraEditors.PanelControl();
-            this.idCardStatus = new DevExpress.XtraEditors.LabelControl();
+            this.resultLabel = new DevExpress.XtraEditors.LabelControl();
             this.image = new DevExpress.XtraEditors.PictureEdit();
             this.idCardNo = new DevExpress.XtraEditors.LabelControl();
             this.address = new DevExpress.XtraEditors.LabelControl();
@@ -91,7 +91,7 @@
             this.repositoryItemProgressBar1,
             this.repositoryItemMarqueeProgressBar1});
             this.ribbon.SelectedPage = this.ribbonPage1;
-            this.ribbon.Size = new System.Drawing.Size(584, 149);
+            this.ribbon.Size = new System.Drawing.Size(681, 149);
             this.ribbon.StatusBar = this.ribbonStatusBar;
             // 
             // buttonQuery
@@ -194,16 +194,16 @@
             // 
             this.ribbonStatusBar.ItemLinks.Add(this.progressBar);
             this.ribbonStatusBar.ItemLinks.Add(this.statusLabel);
-            this.ribbonStatusBar.Location = new System.Drawing.Point(0, 485);
+            this.ribbonStatusBar.Location = new System.Drawing.Point(0, 540);
             this.ribbonStatusBar.Name = "ribbonStatusBar";
             this.ribbonStatusBar.Ribbon = this.ribbon;
-            this.ribbonStatusBar.Size = new System.Drawing.Size(584, 23);
+            this.ribbonStatusBar.Size = new System.Drawing.Size(681, 31);
             // 
             // clientPanel
             // 
             this.clientPanel.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.clientPanel.ContentImage = ((System.Drawing.Image)(resources.GetObject("clientPanel.ContentImage")));
-            this.clientPanel.Controls.Add(this.idCardStatus);
+            this.clientPanel.Controls.Add(this.resultLabel);
             this.clientPanel.Controls.Add(this.image);
             this.clientPanel.Controls.Add(this.idCardNo);
             this.clientPanel.Controls.Add(this.address);
@@ -216,34 +216,37 @@
             this.clientPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.clientPanel.Location = new System.Drawing.Point(0, 149);
             this.clientPanel.Name = "clientPanel";
-            this.clientPanel.Size = new System.Drawing.Size(584, 336);
+            this.clientPanel.Size = new System.Drawing.Size(681, 391);
             this.clientPanel.TabIndex = 2;
             // 
-            // idCardStatus
+            // resultLabel
             // 
-            this.idCardStatus.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.idCardStatus.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.idCardStatus.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
-            this.idCardStatus.Location = new System.Drawing.Point(366, 178);
-            this.idCardStatus.Name = "idCardStatus";
-            this.idCardStatus.Size = new System.Drawing.Size(114, 20);
-            this.idCardStatus.TabIndex = 9;
+            this.resultLabel.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.resultLabel.Appearance.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.resultLabel.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.resultLabel.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
+            this.resultLabel.Location = new System.Drawing.Point(3, 3);
+            this.resultLabel.Name = "resultLabel";
+            this.resultLabel.Size = new System.Drawing.Size(675, 27);
+            this.resultLabel.TabIndex = 10;
+            this.resultLabel.Text = "labelControl1";
+            this.resultLabel.Visible = false;
             // 
             // image
             // 
             this.image.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.image.Location = new System.Drawing.Point(366, 41);
+            this.image.Location = new System.Drawing.Point(427, 58);
             this.image.MenuManager = this.ribbon;
             this.image.Name = "image";
             this.image.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Office2003;
-            this.image.Size = new System.Drawing.Size(114, 132);
+            this.image.Size = new System.Drawing.Size(133, 142);
             this.image.TabIndex = 8;
             // 
             // idCardNo
             // 
             this.idCardNo.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.idCardNo.Appearance.Font = new System.Drawing.Font("SimHei", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.idCardNo.Location = new System.Drawing.Point(216, 264);
+            this.idCardNo.Location = new System.Drawing.Point(252, 297);
             this.idCardNo.Name = "idCardNo";
             this.idCardNo.Size = new System.Drawing.Size(0, 19);
             this.idCardNo.TabIndex = 7;
@@ -253,16 +256,16 @@
             this.address.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.address.Appearance.Font = new System.Drawing.Font("SimHei", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.address.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.Vertical;
-            this.address.Location = new System.Drawing.Point(156, 173);
+            this.address.Location = new System.Drawing.Point(182, 202);
             this.address.Name = "address";
-            this.address.Size = new System.Drawing.Size(192, 0);
+            this.address.Size = new System.Drawing.Size(224, 0);
             this.address.TabIndex = 6;
             // 
             // day
             // 
             this.day.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.day.Appearance.Font = new System.Drawing.Font("SimHei", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.day.Location = new System.Drawing.Point(271, 135);
+            this.day.Location = new System.Drawing.Point(316, 160);
             this.day.Name = "day";
             this.day.Size = new System.Drawing.Size(0, 19);
             this.day.TabIndex = 5;
@@ -271,7 +274,7 @@
             // 
             this.month.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.month.Appearance.Font = new System.Drawing.Font("SimHei", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.month.Location = new System.Drawing.Point(231, 134);
+            this.month.Location = new System.Drawing.Point(269, 160);
             this.month.Name = "month";
             this.month.Size = new System.Drawing.Size(0, 19);
             this.month.TabIndex = 4;
@@ -280,7 +283,7 @@
             // 
             this.year.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.year.Appearance.Font = new System.Drawing.Font("SimHei", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.year.Location = new System.Drawing.Point(156, 135);
+            this.year.Location = new System.Drawing.Point(182, 160);
             this.year.Name = "year";
             this.year.Size = new System.Drawing.Size(0, 19);
             this.year.TabIndex = 3;
@@ -289,7 +292,7 @@
             // 
             this.minority.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.minority.Appearance.Font = new System.Drawing.Font("SimHei", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.minority.Location = new System.Drawing.Point(251, 99);
+            this.minority.Location = new System.Drawing.Point(293, 122);
             this.minority.Name = "minority";
             this.minority.Size = new System.Drawing.Size(0, 19);
             this.minority.TabIndex = 2;
@@ -298,7 +301,7 @@
             // 
             this.sex.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.sex.Appearance.Font = new System.Drawing.Font("SimHei", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.sex.Location = new System.Drawing.Point(156, 99);
+            this.sex.Location = new System.Drawing.Point(182, 122);
             this.sex.Name = "sex";
             this.sex.Size = new System.Drawing.Size(0, 19);
             this.sex.TabIndex = 1;
@@ -307,7 +310,7 @@
             // 
             this.name.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.name.Appearance.Font = new System.Drawing.Font("SimHei", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.name.Location = new System.Drawing.Point(156, 62);
+            this.name.Location = new System.Drawing.Point(182, 83);
             this.name.Name = "name";
             this.name.Size = new System.Drawing.Size(0, 19);
             this.name.TabIndex = 0;
@@ -318,9 +321,9 @@
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(584, 508);
+            this.ClientSize = new System.Drawing.Size(681, 571);
             this.Controls.Add(this.clientPanel);
             this.Controls.Add(this.ribbonStatusBar);
             this.Controls.Add(this.ribbon);
@@ -362,7 +365,6 @@
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup2;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup3;
         private DevExpress.XtraBars.BarButtonItem databaseQuery;
-        private DevExpress.XtraEditors.LabelControl idCardStatus;
         private DevExpress.XtraEditors.PictureEdit image;
         private DevExpress.XtraEditors.LabelControl idCardNo;
         private DevExpress.XtraEditors.LabelControl address;
@@ -372,5 +374,6 @@
         private DevExpress.XtraEditors.LabelControl minority;
         private DevExpress.XtraEditors.LabelControl sex;
         private DevExpress.XtraEditors.LabelControl name;
+        private DevExpress.XtraEditors.LabelControl resultLabel;
     }
 }

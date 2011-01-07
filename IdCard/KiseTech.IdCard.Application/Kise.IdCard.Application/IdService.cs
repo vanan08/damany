@@ -97,7 +97,18 @@ namespace Kise.IdCard.Application
             _view.CanStop = true;
             _view.CanStart = false;
 
-            System.Threading.Tasks.TaskEx.Run(() => _link.Start());
+            TaskEx.Run(() =>
+                           {
+                               try
+                               {
+                                   _link.Start();
+                               }
+                               catch (Exception e)
+                               {
+                                   MessageBox.Show(e.Message);
+                               }
+
+                           });
         }
 
         public void Stop()
@@ -254,14 +265,7 @@ namespace Kise.IdCard.Application
                             }
                         }
 
-                        var unmatchResult = string.Empty;
-                        if (unmatches.Count > 0)
-                        {
-                            unmatchResult = string.Join(','.ToString(), unmatches.ToArray());
-                            unmatchResult += "与数据库不相符";
-                        }
-
-                        _view.ShowQueryResult(CurrentIdCard.CopyOfImage, unmatchResult, isSuspect);
+                        _view.ShowQueryResult(unmatches, isSuspect);
 
                     }
 

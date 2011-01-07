@@ -21,7 +21,7 @@ namespace Kise.IdCard.UI
         private IdService _idService;
 
         private EventProgress<ProgressIndicator> _progressReport;
-        private System.Drawing.Color _originalBkColor;
+        private System.Drawing.Color _normalBkColor;
 
         private bool _isQueryingId;
 
@@ -74,12 +74,41 @@ namespace Kise.IdCard.UI
             }
         }
 
-        public void ShowQueryResult(Image image, string unmatchResult, bool isSuspect)
+        public void ShowQueryResult(IList<string> unmatchFields, bool isSuspect)
         {
             Action doAction = () =>
                                   {
-                                      var form = new FormQueryResult(image, unmatchResult, isSuspect);
-                                      form.ShowDialog(this);
+                                      var sb = new StringBuilder();
+                                      if (unmatchFields.Count > 0)
+                                      {
+                                          var m = string.Join(",", unmatchFields);
+                                          sb.Append(m).Append("与数据库不符");
+                                      }
+                                      if (isSuspect)
+                                      {
+                                          sb.Append("，").Append("网上追逃人员");
+                                      }
+
+                                      if (sb.Length == 0)
+                                      {
+                                          sb.Append("正常");
+                                      }
+
+                                      if (isSuspect)
+                                      {
+                                          this.resultLabel.BackColor = Color.Red;
+                                      }
+                                      else if (unmatchFields.Count > 0)
+                                      {
+                                          this.resultLabel.BackColor = Color.Orange;
+                                      }
+                                      else
+                                      {
+                                          this.resultLabel.BackColor = _normalBkColor;
+                                      }
+
+                                      this.resultLabel.Text = sb.ToString();
+                                      this.resultLabel.Visible = true;
                                   };
             this.BeginInvoke(doAction);
         }
@@ -94,6 +123,9 @@ namespace Kise.IdCard.UI
                 if (value != null)
                 {
                     _idCardInfo = value;
+
+
+                    resultLabel.Visible = false;
 
                     this.name.Text = _idCardInfo.Name;
 
@@ -117,7 +149,6 @@ namespace Kise.IdCard.UI
                     //this.issuedBy.Text = _idCardInfo.GrantDept;
                     //this.expiry.Text = FormatDate(_idCardInfo.ValidateFrom) + " — " + FormatDate(_idCardInfo.ValidateUntil);
                     this.idCardNo.Text = _idCardInfo.IdCardNo;
-                    this.idCardStatus.Text = _idCardInfo.QueryResult;
 
                     SetColor();
 
@@ -148,22 +179,21 @@ namespace Kise.IdCard.UI
             InitializeComponent();
 
             MinorityDictionary = FileMinorityDictionary.Instance;
-            _originalBkColor = idCardStatus.BackColor;
+            _normalBkColor = resultLabel.BackColor;
 
 
             ILink lnk = null;
             IIdCardReader cardReader = null;
 
+
+            lnk = new SmsLink(Properties.Settings.Default.smsModemComPort, 9600);
+
             if (Program.IsDebug)
             {
-                lnk = new TcpClientLink();
-                (lnk as TcpClientLink).PortToConnect = 10000;
-
                 cardReader = new FakeIdCardReader();
             }
             else
             {
-                lnk = new SmsLink((string)Properties.Settings.Default.smsModemComPort, 9600);
                 cardReader = new IdCardReader(1001);
             }
 
@@ -280,7 +310,6 @@ namespace Kise.IdCard.UI
 
         void inpc_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            idCardStatus.Text = _idCardInfo.QueryResult;
             SetColor();
         }
 
@@ -288,7 +317,6 @@ namespace Kise.IdCard.UI
         private void SetColor()
         {
             //var isNormal = _idCardInfo.IdStatus == Kise.IdCard.Model.IdStatus.UnKnown || _idCardInfo.IdStatus == Kise.IdCard.Model.IdStatus.Normal;
-            this.idCardStatus.BackColor = _idCardInfo.IsSuspect ? Color.Red : _originalBkColor;
         }
 
     }
