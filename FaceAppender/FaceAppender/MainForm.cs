@@ -81,70 +81,53 @@ namespace FaceAppender
             Properties.Settings.Default.Save();
         }
 
-        public static Image CombineFaceAndLpr(Image baseImage, IEnumerable<Image> faceImages, IEnumerable<Image> lprImages)
+        public static Image CombineImages(Image baseImage, IEnumerable<Image> zoomImages)
         {
-            int faceWidth = faceImages.Count() > 0 ? faceImages.Max(f => f.Width) : 0;
-            int faceHeight = faceImages.Count() > 0 ? faceImages.Max(f => f.Height) : 0;
-            var rectangleMargin = new Padding(10);
-            var faceXSpace = 10;
-            var faceYSpace = 10;
-            var column = 1;
-            var bigLprWidth = 0;
-            var fillColor = Color.LightBlue;
+            if (zoomImages.Count() == 0) return baseImage;
 
-            if (lprImages != null)
-            {
-                bigLprWidth = lprImages.Max(i => i.Width);
-            }
-
-            var widthIncrement = Math.Max((faceWidth * column + faceXSpace + rectangleMargin.Horizontal), bigLprWidth + rectangleMargin.Horizontal);
-
-            var img = new Bitmap(baseImage.Width + widthIncrement, baseImage.Height);
+            var delta = CalculateWidhDelta(zoomImages);
+            var img = new Bitmap(baseImage.Width + delta, baseImage.Height);
             using (var g = Graphics.FromImage(img))
             {
-                g.Clear(fillColor);
+                g.Clear(Color.LightBlue);
                 g.DrawImage(baseImage, 0, 0);
 
-                var bp = new Point(baseImage.Width + rectangleMargin.Left, rectangleMargin.Top);
-                var faceArray = faceImages.ToArray();
-
-                for (int i = 0; i < faceArray.Length; i++)
+                var bp = new Point(baseImage.Width, 0);
+                foreach (var faceImage in zoomImages)
                 {
-                    var l = i / column;
-                    var c = i % column;
-                    DrawFace(faceWidth, faceHeight, faceXSpace, faceYSpace, column, g, bp, faceArray, l, c);
+                    var ration = (float)faceImage.Height / faceImage.Width;
+                    var h = (int)(delta * ration);
+                    DrawImage(g, faceImage, new Rectangle(bp.X, bp.Y, delta, h));
+                    bp.Y += h + 5;
                 }
-
-                if (lprImages != null)
-                {
-                    var y = baseImage.Height - rectangleMargin.Bottom;
-
-                    foreach (var lprImage in lprImages)
-                    {
-                        var x = baseImage.Width + (widthIncrement - lprImage.Width) / 2;
-                        y -= lprImage.Height + faceYSpace;
-                        g.DrawImage(lprImage, x, y);
-                    }
-                }
-
             }
 
             return img;
         }
 
-        private static void DrawFace(int faceWidth, int faceHeight, int faceXSpace, int faceYSpace, int column, Graphics g, Point bp, Image[] faceArray, int l, int c)
+        private static int CalculateWidhDelta(IEnumerable<Image> images)
         {
-            var r = new Rectangle(bp.X + (faceWidth + faceXSpace) * c, bp.Y + (faceHeight + faceYSpace) * l,
-                                                          faceWidth, faceHeight);
+            if (images.Count() == 0) return 0;
 
-            //draw shadow
-            var shadowDistance = 2;
-            r.Inflate(3, 3);
-            g.FillRectangle(Brushes.White, r);
-            r.Inflate(-3, -3);
-
-            g.DrawImage(faceArray[l * column + c], r);
+            var max = images.Max(i => i.Width);
+            if (max < 250 || max > 400)
+            {
+                max = 250;
+            }
+            return max;
         }
+
+        private static void DrawImage(Graphics g, Image img, Rectangle destRectangle)
+        {
+            var borderWidth = 5;
+
+            destRectangle.Inflate(-2, -2);
+            g.FillRectangle(Brushes.White, destRectangle);
+            destRectangle.Inflate(-3, -3);
+            g.DrawImage(img, destRectangle);
+            destRectangle.Inflate(borderWidth, borderWidth);
+        }
+
         private void Process()
         {
             if (!Directory.Exists(Properties.Settings.Default.SourceDir)
@@ -173,49 +156,46 @@ namespace FaceAppender
 
         private void ProcessIniFile(string iniFile)
         {
-            Action ac = () => labelCurrentIni.Text = iniFile;
-            this.BeginInvoke(ac);
+            UpdateCurrentIniLabel(iniFile);
 
             var parseResult = ParseIniFile(iniFile);
 
-            Image combinedImg = null;
-            if (parseResult.ImageIndex != -1)
-            {
-                var imgName = parseResult.ImageFiles[parseResult.ImageIndex];
-                var imgPath = Path.Combine(Properties.Settings.Default.SourceDir, imgName);
-                var baseImg = AForge.Imaging.Image.FromFile(imgPath);
-                var faceImgs = ExtractFaces(baseImg, parseResult.FaceRectangles);
-                var lprImg = ExtractFaces(baseImg, new Rectangle[] { parseResult.PlateRectangle });
-
-                combinedImg = CombineFaceAndLpr(baseImg, faceImgs, lprImg);
-            }
-
             var destDir = Properties.Settings.Default.DestDir;
-            var srcDir = Properties.Settings.Default.SourceDir;
+            var sourceDir = Properties.Settings.Default.SourceDir;
 
+            MoveImageFiles(parseResult, destDir, sourceDir);
+            var iniDstPath = Path.Combine(destDir, Path.GetFileName(iniFile));
+            File.Move(iniFile, iniDstPath);
+
+            UpdateCounter();
+        }
+
+        private void MoveImageFiles(ParseResult parseResult, string destDir, string srcDir)
+        {
             for (int i = 0; i < parseResult.ImageFiles.Length; i++)
             {
                 var imgName = parseResult.ImageFiles[i];
                 if (i == parseResult.ImageIndex)
                 {
+                    var imgPath = Path.Combine(Properties.Settings.Default.SourceDir, imgName);
+                    var baseImg = AForge.Imaging.Image.FromFile(imgPath);
+                    var faceImgs = ExtractSubImages(baseImg, parseResult.FaceRectangles);
+                    var lprImg = ExtractSubImages(baseImg, new Rectangle[] { parseResult.PlateRectangle });
+
+                    var totalImages = new List<Image>(faceImgs);
+                    totalImages.AddRange(lprImg);
+                    var combinedImg = CombineImages(baseImg, totalImages);
 
                     //save combined new image, and delete old image file;
                     var destPath = Path.Combine(destDir, imgName);
                     combinedImg.Save(destPath);
-
                     var originalPath = Path.Combine(srcDir, imgName);
                     File.Delete(originalPath);
 
-                    var oldImg = lastPicture.Image;
-                    var newImg = (Image)combinedImg.Clone();
-                    ac = () => lastPicture.Image = newImg;
-                    this.BeginInvoke(ac);
-                    if (oldImg != null)
-                    {
-                        oldImg.Dispose();
-                    }
+                    UpdatePictureBox(combinedImg);
 
                     combinedImg.Dispose();
+                    totalImages.ForEach(img => img.Dispose());
                 }
                 else
                 {
@@ -224,17 +204,10 @@ namespace FaceAppender
                     File.Move(srcImgPath, destImgPath);
                 }
             }
-
-            var iniDstPath = Path.Combine(destDir, Path.GetFileName(iniFile));
-            File.Move(iniFile, iniDstPath);
-
-
-            ++_count;
-            ac = () => labelCounter.Text = string.Format("已处理:{0}", _count);
-            this.BeginInvoke(ac);
         }
 
-        private Image[] ExtractFaces(Image baseImg, Rectangle[] rectangles)
+
+        private Image[] ExtractSubImages(Image baseImg, IEnumerable<Rectangle> rectangles)
         {
             var images = rectangles.Select(rectangle => ExtractSubimage(baseImg, rectangle)).ToList();
             return images.ToArray();
@@ -309,12 +282,50 @@ namespace FaceAppender
         }
 
 
+        private void UpdatePictureBox(Image combinedImg)
+        {
+            var newImg = (Image)combinedImg.Clone();
+            Action doer = () =>
+                              {
+                                  var old = lastPicture.Image;
+                                  lastPicture.Image = newImg;
+                                  if (old != null)
+                                      old.Dispose();
+
+                              };
+            this.BeginInvoke(doer);
+        }
+
+        private void UpdateCounter()
+        {
+            ++_count;
+            Action doer = () => labelCounter.Text = string.Format("已处理:{0}", _count);
+            this.BeginInvoke(doer);
+        }
+
+        private void UpdateCurrentIniLabel(string iniFile)
+        {
+            Action ac = () => labelCurrentIni.Text = iniFile;
+            this.BeginInvoke(ac);
+        }
         class ParseResult
         {
             public string[] ImageFiles { get; set; }
             public int ImageIndex { get; set; }
             public Rectangle[] FaceRectangles { get; set; }
             public Rectangle PlateRectangle { get; set; }
+        }
+
+        private void startButton_Click(object sender, EventArgs e)
+        {
+            var big = Image.FromFile(@"d:\lprbig.jpg");
+
+            var f1 = Image.FromFile(@"d:\02_090505085314-0001-crop.jpg");
+            var f2 = Image.FromFile(@"d:\Image0002-crop2.jpg");
+            var f3 = Image.FromFile(@"d:\lpr.jpg");
+
+            var combined = CombineImages(big, new[] { f1, f2, f3 });
+            combined.Save(@"d:\temp.jpg");
         }
     }
 }
