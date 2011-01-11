@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<DOCUMENT Type="Advanced Installer" CreateVersion="7.2.1" version="7.7" Modules="enterprise" RootPath="." Language="zh">
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiPropsComponent">
+    <ROW Property="ALLUSERS" Value="2"/>
+    <ROW Property="ARPCOMMENTS" Value="人像抓拍2009" ValueLocId="*"/>
+    <ROW Property="ARPPRODUCTICON" Value="RemoteImaging.exe" Type="8"/>
+    <ROW Property="BannerBitmap" MultiBuildValue="DefaultBuild:default_banner.bmp" Type="1"/>
+    <ROW Property="CTRLS" Value="2"/>
+    <ROW Property="DialogBitmap" MultiBuildValue="DefaultBuild:default_dialog.bmp" Type="1"/>
+    <ROW Property="Manufacturer" Value="Damany" ValueLocId="*"/>
+    <ROW Property="ProductCode" Value="2052:{43BEA35C-617C-43DC-837A-344CD13CDF9E} " Type="16"/>
+    <ROW Property="ProductLanguage" Value="2052"/>
+    <ROW Property="ProductName" Value="人像抓拍2010" ValueLocId="*"/>
+    <ROW Property="ProductVersion" Value="1.0.0"/>
+    <ROW Property="RUNAPPLICATION" Value="1" Type="4"/>
+    <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND"/>
+    <ROW Property="UpgradeCode" Value="{8CDFE220-A140-40CF-B11B-83514CE525B0}"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiDirsComponent">
+    <ROW Directory="APPDIR" Directory_Parent="TARGETDIR" DefaultDir="APPDIR:." IsPseudoRoot="1"/>
+    <ROW Directory="Damany_DIR" Directory_Parent="ProgramMenuFolder" DefaultDir="Damany"/>
+    <ROW Directory="Data_DIR" Directory_Parent="WindowsVolume" DefaultDir="Data"/>
+    <ROW Directory="ImgLib_DIR" Directory_Parent="APPDIR" DefaultDir="ImgLib"/>
+    <ROW Directory="ProgramMenuFolder" Directory_Parent="TARGETDIR" DefaultDir="Progra~1|ProgramMenuFolder" IsPseudoRoot="1"/>
+    <ROW Directory="StartupFolder" Directory_Parent="TARGETDIR" DefaultDir="Startu~1|StartupFolder" IsPseudoRoot="1"/>
+    <ROW Directory="TARGETDIR" DefaultDir="SourceDir"/>
+    <ROW Directory="WindowsVolume" Directory_Parent="TARGETDIR" DefaultDir="Window~1|WindowsVolume" IsPseudoRoot="1"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiCompsComponent">
+    <ROW Component="AForge.Imaging.dll" ComponentId="{4E02F294-F943-458E-A238-C3CC753FE2E5}" Directory_="APPDIR" Attributes="0" KeyPath="AForge.Imaging.dll"/>
+    <ROW Component="AForge.Math.dll" ComponentId="{555165A1-38A4-47B3-8E9A-D20D1C0751CC}" Directory_="APPDIR" Attributes="0" KeyPath="AForge.Math.dll"/>
+    <ROW Component="AForge.Video.dll_1" ComponentId="{558747E9-0BBF-4498-AD65-4499DC755E91}" Directory_="APPDIR" Attributes="0" KeyPath="AForge.Video.dll_1"/>
+    <ROW Component="AForge.dll" ComponentId="{40E591F4-2016-4ABC-AFFC-D0F548E8C6DE}" Directory_="APPDIR" Attributes="0" KeyPath="AForge.dll"/>
+    <ROW Component="AutoMapper.dll" ComponentId="{C6920CF5-2F2B-4702-B007-DF1AC21AD301}" Directory_="APPDIR" Attributes="0" KeyPath="AutoMapper.dll"/>
+    <ROW Component="Autofac.Configuration.dll" ComponentId="{5E25365E-61A5-4A28-AD75-A13FF1D40B54}" Directory_="APPDIR" Attributes="0" KeyPath="Autofac.Configuration.dll"/>
+    <ROW Component="Autofac.Integration.Wcf.dll" ComponentId="{D34ACE00-C04F-484F-8B5C-1EE514C8FFDF}" Directory_="APPDIR" Attributes="0" KeyPath="Autofac.Integration.Wcf.dll"/>
+    <ROW Component="Autofac.Integration.Web.Mvc.dll" ComponentId="{7E79BB98-0C4B-4AC1-A3CE-7E86236F1E51}" Directory_="APPDIR" Attributes="0" KeyPath="Autofac.Integration.Web.Mvc.dll"/>
+    <ROW Component="Autofac.Integration.Web.dll" ComponentId="{C010D052-8B78-4B0D-964A-3467C913A9A6}" Directory_="APPDIR" Attributes="0" KeyPath="Autofac.Integration.Web.dll"/>
+    <ROW Component="Autofac.dll" ComponentId="{CFD061A3-3B66-4F4B-A05D-9B1F39AC65E5}" Directory_="APPDIR" Attributes="0" KeyPath="Autofac.dll"/>
+    <ROW Component="Avdecoder.dll_1" ComponentId="{CEFEA7E4-EF69-4DEC-9470-891B7EF85FF8}" Directory_="APPDIR" Attributes="0" KeyPath="Avdecoder.dll_1"/>
+    <ROW Component="AxInterop.AXVLC.dll" ComponentId="{0B2CDCA6-A1C9-432E-946E-83B485C0BBE1}" Directory_="APPDIR" Attributes="0" KeyPath="AxInterop.AXVLC.dll"/>
+    <ROW Component="AxInterop.IMGCTRLLib.dll" ComponentId="{F78BE95B-7A10-4420-A6CB-E2C9EE55E32E}" Directory_="APPDIR" Attributes="0" KeyPath="AxInterop.IMGCTRLLib.dll"/>
+    <ROW Component="BK_NetClientSDK.dll_1" ComponentId="{AF6AB58A-F305-4FCC-9ABD-0FB864D75352}" Directory_="APPDIR" Attributes="0" KeyPath="BK_NetClientSDK.dll_1"/>
+    <ROW Component="Cecil.FlowAnalysis.dll_1" ComponentId="{BAA4C791-B012-4734-A290-1F65656C8358}" Directory_="APPDIR" Attributes="0" KeyPath="Cecil.FlowAnalysis.dll_1"/>
+    <ROW Component="Common.Logging.dll" ComponentId="{5E37CFC6-16F0-4910-865A-FC8CCB87DC75}" Directory_="APPDIR" Attributes="0" KeyPath="Common.Logging.dll"/>
+    <ROW Component="Damany" ComponentId="{DABE8D22-CDEC-4967-9E9A-6C7C95F7CA7A}" Directory_="Damany_DIR" Attributes="0"/>
+    <ROW Component="Damany.Cameras.Wrappers.dll" ComponentId="{435D6B80-74B7-4BE2-B4BA-2CDFDB6989B9}" Directory_="APPDIR" Attributes="0" KeyPath="Damany.Cameras.Wrappers.dll"/>
+    <ROW Component="Damany.Cameras.dll" ComponentId="{DC4E9EF3-5CDE-4C95-9E25-8584C5EBA632}" Directory_="APPDIR" Attributes="0" KeyPath="Damany.Cameras.dll"/>
+    <ROW Component="Damany.Component.dll" ComponentId="{A2A3090B-5ED1-4A41-8604-9233F8C24BB4}" Directory_="APPDIR" Attributes="0" KeyPath="Damany.Component.dll"/>
+    <ROW Component="Damany.Drawing.dll" ComponentId="{40D4D3C9-812F-4D92-BBA2-0B6F80C1228D}" Directory_="APPDIR" Attributes="0" KeyPath="Damany.Drawing.dll"/>
+    <ROW Component="Damany.Imaging.Common.dll" ComponentId="{1F7B8203-0C0E-4FA1-8C00-DCFC5B4A38FC}" Directory_="APPDIR" Attributes="0" KeyPath="Damany.Imaging.Common.dll"/>
+    <ROW Component="Damany.Imaging.dll" ComponentId="{4370BEE3-BF32-40BE-B241-181D031924FC}" Directory_="APPDIR" Attributes="0" KeyPath="Damany.Imaging.dll"/>
+    <ROW Component="Damany.Net.dll" ComponentId="{66275628-70E3-4774-A65A-A5A91475B6AA}" Directory_="APPDIR" Attributes="0" KeyPath="Damany.Net.dll"/>
+    <ROW Component="Damany.PC.Domain.dll" ComponentId="{82055426-631A-4780-83EB-3928A93AEE37}" Directory_="APPDIR" Attributes="0" KeyPath="Damany.PC.Domain.dll"/>
+    <ROW Component="Damany.PortraitCapturer.DAL.dll" ComponentId="{F218FBAA-B9B8-4D1A-A338-5BDE6A29FE8F}" Directory_="APPDIR" Attributes="0" KeyPath="Damany.PortraitCapturer.DAL.dll"/>
+    <ROW Component="Damany.RemoteImaging.Common.dll" ComponentId="{8E6AB409-E7A1-4F62-BD52-A99AF88EF940}" Directory_="APPDIR" Attributes="0" KeyPath="Damany.RemoteImaging.Common.dll"/>
+    <ROW Component="Damany.RemoteImaging.Net.Discovery.dll" ComponentId="{A89A8118-7248-4DD9-9F9D-BB2C14759966}" Directory_="APPDIR" Attributes="0" KeyPath="Damany.RemoteImaging.Net.Discovery.dll"/>
+    <ROW Component="Damany.RemoteImaging.Net.Messages.dll" ComponentId="{7DF7F8C2-9139-4488-BAE3-CC6F3D5F22C9}" Directory_="APPDIR" Attributes="0" KeyPath="Damany.RemoteImaging.Net.Messages.dll"/>
+    <ROW Component="Damany.Security.dll" ComponentId="{76808CC9-2E77-40AF-B672-30DCCE17BF13}" Directory_="APPDIR" Attributes="0" KeyPath="Damany.Security.dll"/>
+    <ROW Component="Damany.Util.dll" ComponentId="{9167CA7F-2314-4169-861E-A639A4427D7C}" Directory_="APPDIR" Attributes="0" KeyPath="Damany.Util.dll"/>
+    <ROW Component="Damany.Windows.Form.dll" ComponentId="{C6271B0D-455F-42BD-A0E1-762443D6EE5A}" Directory_="APPDIR" Attributes="0" KeyPath="Damany.Windows.Form.dll"/>
+    <ROW Component="Db4objects.Db4o.CS.dll_1" ComponentId="{F4C2E61F-A291-4A9E-8D4D-DA939A2DC162}" Directory_="APPDIR" Attributes="0" KeyPath="Db4objects.Db4o.CS.dll_1"/>
+    <ROW Component="Db4objects.Db4o.Linq.dll_1" ComponentId="{67AE6C93-7EA3-4CC2-BFB6-53CF622DED9D}" Directory_="APPDIR" Attributes="0" KeyPath="Db4objects.Db4o.Linq.dll_1"/>
+    <ROW Component="Db4objects.Db4o.dll_1" ComponentId="{15A2B9B0-E7C5-48EB-B832-3F11B8BD6AC7}" Directory_="APPDIR" Attributes="0" KeyPath="Db4objects.Db4o.dll_1"/>
+    <ROW Component="DevExpress.BonusSkins.v9.2.dll_1" ComponentId="{13F706EC-9631-4641-875B-0AF66B3D8C47}" Directory_="APPDIR" Attributes="0" KeyPath="DevExpress.BonusSkins.v9.2.dll_1"/>
+    <ROW Component="DevExpress.Data.v9.2.dll_1" ComponentId="{4839A057-7ED8-4D3B-825D-34DDA683FD7B}" Directory_="APPDIR" Attributes="0" KeyPath="DevExpress.Data.v9.2.dll_1"/>
+    <ROW Component="DevExpress.OfficeSkins.v9.2.dll_1" ComponentId="{F873EA31-B398-410D-B849-6EBE13B406AB}" Directory_="APPDIR" Attributes="0" KeyPath="DevExpress.OfficeSkins.v9.2.dll_1"/>
+    <ROW Component="DevExpress.Utils.v9.2.dll_1" ComponentId="{32CA6D8E-29CE-4397-B7FE-667266CE4F2A}" Directory_="APPDIR" Attributes="0" KeyPath="DevExpress.Utils.v9.2.dll_1"/>
+    <ROW Component="DevExpress.Xpo.v9.2.dll_1" ComponentId="{8A9F4CEC-DB26-4BBA-9DCC-E724B5BEC00A}" Directory_="APPDIR" Attributes="0" KeyPath="DevExpress.Xpo.v9.2.dll_1"/>
+    <ROW Component="DevExpress.XtraBars.v9.2.dll_1" ComponentId="{A9A3CF3B-DA14-4634-93DA-F3666B362941}" Directory_="APPDIR" Attributes="0" KeyPath="DevExpress.XtraBars.v9.2.dll_1"/>
+    <ROW Component="DevExpress.XtraEditors.v9.2.dll_1" ComponentId="{1BCDE9B7-7701-473A-AD9A-20F8D96EB799}" Directory_="APPDIR" Attributes="0" KeyPath="DevExpress.XtraEditors.v9.2.dll_1"/>
+    <ROW Component="DevExpress.XtraGrid.v9.2.dll_1" ComponentId="{69F60B67-8FEF-4E9E-9993-B10EEF5C0246}" Directory_="APPDIR" Attributes="0" KeyPath="DevExpress.XtraGrid.v9.2.dll_1"/>
+    <ROW Component="DevExpress.XtraLayout.v9.2.dll_1" ComponentId="{9AC38FA1-4429-485F-A700-00DB3BC29B09}" Directory_="APPDIR" Attributes="0" KeyPath="DevExpress.XtraLayout.v9.2.dll_1"/>
+    <ROW Component="DevExpress.XtraNavBar.v9.2.dll_1" ComponentId="{464A11C2-3BD1-40A5-8645-8CAA723032FF}" Directory_="APPDIR" Attributes="0" KeyPath="DevExpress.XtraNavBar.v9.2.dll_1"/>
+    <ROW Component="DevExpress.XtraRichEdit.v9.2.dll_1" ComponentId="{19B5B442-B700-4234-8BBF-3E5EE6AC8F0C}" Directory_="APPDIR" Attributes="0" KeyPath="DevExpress.XtraRichEdit.v9.2.dll_1"/>
+    <ROW Component="DevExpress.XtraTreeList.v9.2.dll_1" ComponentId="{01DA8804-930D-4E95-8E94-649A90258FAC}" Directory_="APPDIR" Attributes="0" KeyPath="DevExpress.XtraTreeList.v9.2.dll_1"/>
+    <ROW Component="DevExpress.XtraVerticalGrid.v9.2.dll_1" ComponentId="{F15504BB-5477-4AD5-A791-CE36A51057AF}" Directory_="APPDIR" Attributes="0" KeyPath="DevExpress.XtraVerticalGrid.v9.2.dll_1"/>
+    <ROW Component="Emcaster.dll" ComponentId="{93E9A2CD-6DAA-4C73-9BFE-70A92FFEE015}" Directory_="APPDIR" Attributes="0" KeyPath="Emcaster.dll"/>
+    <ROW Component="Encryptor.dll" ComponentId="{716951D6-3E26-4D61-A256-987CCAFB136F}" Directory_="APPDIR" Attributes="0" KeyPath="Encryptor.dll"/>
+    <ROW Component="FacePca.dll" ComponentId="{EE16B524-7A25-41C5-B63F-D66ADF78492F}" Directory_="APPDIR" Attributes="0" KeyPath="FacePca.dll"/>
+    <ROW Component="FaceProcessing.dll" ComponentId="{F5D7B836-45E0-4342-9708-D0A712234D50}" Directory_="APPDIR" Attributes="0" KeyPath="FaceProcessing.dll"/>
+    <ROW Component="FaceProcessingWrapper.dll" ComponentId="{E97427E4-6460-47E8-BCC7-21CDE72BA0EB}" Directory_="APPDIR" Attributes="0" KeyPath="FaceProcessingWrapper.dll"/>
+    <ROW Component="FaceRecognition.dll" ComponentId="{17F4F712-341C-4E12-A3ED-471068EF3353}" Directory_="APPDIR" Attributes="0" KeyPath="FaceRecognition.dll"/>
+    <ROW Component="FaceSearchWrapper.dll" ComponentId="{79B1760D-96BE-4F36-AC7A-C610D4D3B1F6}" Directory_="APPDIR" Attributes="0" KeyPath="FaceSearchWrapper.dll"/>
+    <ROW Component="FaceSelDll.dll" ComponentId="{1BEBACA0-1AB0-4358-A93B-D8B22193BAA4}" Directory_="APPDIR" Attributes="0" KeyPath="FaceSelDll.dll"/>
+    <ROW Component="IconExtractor.dll" ComponentId="{3C0ABA90-6A29-4571-9A3F-123771A6972B}" Directory_="APPDIR" Attributes="0" KeyPath="IconExtractor.dll"/>
+    <ROW Component="InstallationPath" ComponentId="{0B222019-8679-4D34-B240-FD0700A8B035}" Directory_="APPDIR" Attributes="4" KeyPath="InstallationPath"/>
+    <ROW Component="Interop.AXVLC.dll" ComponentId="{CC212519-5C39-4B5E-8A27-4F00043607C1}" Directory_="APPDIR" Attributes="0" KeyPath="Interop.AXVLC.dll"/>
+    <ROW Component="Interop.IMGCTRLLib.dll" ComponentId="{D5EA0C64-B830-4697-9CAB-4F9B7A6A8659}" Directory_="APPDIR" Attributes="0" KeyPath="Interop.IMGCTRLLib.dll"/>
+    <ROW Component="Microsoft.Practices.EnterpriseLibrary.Common.dll" ComponentId="{1F929444-63A6-47A8-A363-08CA667A177A}" Directory_="APPDIR" Attributes="0" KeyPath="Microsoft.Practices.EnterpriseLibrary.Common.dll"/>
+    <ROW Component="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging.dll" ComponentId="{8E25A695-0AB2-4E88-9A8D-8E44491DBF81}" Directory_="APPDIR" Attributes="0" KeyPath="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging.dll"/>
+    <ROW Component="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.dll" ComponentId="{BD25FECB-72DA-4F40-B109-02CA34AFD460}" Directory_="APPDIR" Attributes="0" KeyPath="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.dll"/>
+    <ROW Component="Microsoft.Practices.EnterpriseLibrary.Logging.dll" ComponentId="{8ADC506C-803A-4208-86D3-871870D39DF3}" Directory_="APPDIR" Attributes="0" KeyPath="Microsoft.Practices.EnterpriseLibrary.Logging.dll"/>
+    <ROW Component="Microsoft.Practices.EnterpriseLibrary.Validation.Integration.WinForms.dl" ComponentId="{6BCC1D15-3724-46DB-AF04-FFD1DD1ED367}" Directory_="APPDIR" Attributes="0" KeyPath="Microsoft.Practices.EnterpriseLibrary.Validation.Integration.WinForms"/>
+    <ROW Component="Microsoft.Practices.EnterpriseLibrary.Validation.dll" ComponentId="{EE25953F-E83A-4F66-A885-96922847FE2A}" Directory_="APPDIR" Attributes="0" KeyPath="Microsoft.Practices.EnterpriseLibrary.Validation.dll"/>
+    <ROW Component="Microsoft.Practices.ObjectBuilder2.dll" ComponentId="{B63C19D8-15FE-422A-8F92-1392872D54FF}" Directory_="APPDIR" Attributes="0" KeyPath="Microsoft.Practices.ObjectBuilder2.dll"/>
+    <ROW Component="Microsoft.Practices.Unity.dll" ComponentId="{10063BC2-79EE-4C0B-9490-06ED7739E881}" Directory_="APPDIR" Attributes="0" KeyPath="Microsoft.Practices.Unity.dll"/>
+    <ROW Component="MiscUtil.dll" ComponentId="{42A72939-6AA4-496F-989C-AEB6B0A5BD3B}" Directory_="APPDIR" Attributes="0" KeyPath="MiscUtil.dll"/>
+    <ROW Component="Mono.Cecil.dll_1" ComponentId="{DBA5A53D-F6AC-456B-8DA7-6B47A27823F1}" Directory_="APPDIR" Attributes="0" KeyPath="Mono.Cecil.dll_1"/>
+    <ROW Component="NDepend.Helpers.FileDirectoryPath.dll" ComponentId="{359D5463-2321-4E8D-B705-251F75EB7EE8}" Directory_="APPDIR" Attributes="0" KeyPath="NDepend.Helpers.FileDirectoryPath.dll"/>
+    <ROW Component="NET_Framework_4.0" ComponentId="{D71AD996-44AF-497E-B2AC-5AC42BA6D558}" Directory_="APPDIR" Attributes="4" KeyPath="NET_Framework_4.0" Options="2"/>
+    <ROW Component="OpenCvSharp.dll" ComponentId="{10DAF909-B92F-40FE-8E17-B6EE94156A84}" Directory_="APPDIR" Attributes="0" KeyPath="OpenCvSharp.dll"/>
+    <ROW Component="REye18x12.xml" ComponentId="{BF556FF7-EB92-469A-89E2-384DD1E71548}" Directory_="Data_DIR" Attributes="0" KeyPath="REye18x12.xml" Type="0"/>
+    <ROW Component="RemoteControlService.dll" ComponentId="{BC5990A4-D65D-477C-B03D-96852AD15D54}" Directory_="APPDIR" Attributes="0" KeyPath="RemoteControlService.dll"/>
+    <ROW Component="RemoteImaging.exe" ComponentId="{9C20D57A-8660-4735-9478-9EE1E1F0A172}" Directory_="APPDIR" Attributes="0" KeyPath="RemoteImaging.exe"/>
+    <ROW Component="RemoteImaging.vshost.exe.manifest" ComponentId="{37F1DD54-23B2-4926-AD8F-E4B6BE113FD7}" Directory_="APPDIR" Attributes="0" KeyPath="MainIcon.ico" Type="0"/>
+    <ROW Component="RemoteImaging.vshost.exe_1" ComponentId="{92ABF72B-24F6-4E78-B29A-652772532137}" Directory_="APPDIR" Attributes="0" KeyPath="RemoteImaging.vshost.exe_1"/>
+    <ROW Component="SuspectsRepository.dll" ComponentId="{AF8C0B2F-718E-47FB-A349-2596205B270F}" Directory_="APPDIR" Attributes="0" KeyPath="SuspectsRepository.dll"/>
+    <ROW Component="System.ComponentModel.Composition.dll_1" ComponentId="{87B7FEA3-BDBD-443F-AA3D-067377DDDEC5}" Directory_="APPDIR" Attributes="0" KeyPath="System.ComponentModel.Composition.dll_1"/>
+    <ROW Component="TranstClient.dll_1" ComponentId="{6F00FEDC-C5AF-4673-BD16-F282AD723B5A}" Directory_="APPDIR" Attributes="0" KeyPath="TranstClient.dll_1"/>
+    <ROW Component="Trclient.dll_1" ComponentId="{9B749FA2-215D-4750-B0F4-F82686E33255}" Directory_="APPDIR" Attributes="0" KeyPath="Trclient.dll_1"/>
+    <ROW Component="Visual_C_2010_Redi" ComponentId="{E767E61D-2C14-480C-AEB0-AB852633B907}" Directory_="APPDIR" Attributes="4" KeyPath="Visual_C_2010_Redi" Options="2"/>
+    <ROW Component="bkpostproc.dll_1" ComponentId="{3B3757D7-F370-4AF0-BB66-5BF07BC13437}" Directory_="APPDIR" Attributes="0" KeyPath="bkpostproc.dll_1"/>
+    <ROW Component="cv100.dll" ComponentId="{C66B993E-27F7-40AC-AFF8-8234DF316053}" Directory_="APPDIR" Attributes="0" KeyPath="cv100.dll"/>
+    <ROW Component="cvaux100.dll" ComponentId="{D94BBC14-B34F-4747-87AA-0B48D56C3D40}" Directory_="APPDIR" Attributes="0" KeyPath="cvaux100.dll"/>
+    <ROW Component="cvcam100.dll" ComponentId="{9C662312-DC99-485A-96A1-C7BBE29D2498}" Directory_="APPDIR" Attributes="0" KeyPath="cvcam100.dll"/>
+    <ROW Component="cxcore100.dll" ComponentId="{0704D717-27CD-43C0-A9FB-BD850FBB30B5}" Directory_="APPDIR" Attributes="0" KeyPath="cxcore100.dll"/>
+    <ROW Component="cxts001.dll" ComponentId="{D6EB571C-97E6-4F1E-897B-EB57439155CE}" Directory_="APPDIR" Attributes="0" KeyPath="cxts001.dll"/>
+    <ROW Component="eyetemplate.jpg" ComponentId="{418F9978-3605-4BC6-9ECF-098E3B8B2C84}" Directory_="ImgLib_DIR" Attributes="0" KeyPath="eyetemplate.jpg" Type="0"/>
+    <ROW Component="highgui100.dll" ComponentId="{E0EB8021-8E14-4525-83D7-A3474F280F15}" Directory_="APPDIR" Attributes="0" KeyPath="highgui100.dll"/>
+    <ROW Component="libguide40.dll" ComponentId="{44D50C4B-BAB7-49B9-A616-BDB97ACA6CFF}" Directory_="APPDIR" Attributes="0" KeyPath="libguide40.dll"/>
+    <ROW Component="ml100.dll" ComponentId="{370F78AD-7AF3-42EB-A5EF-1AF2FAD9BCC0}" Directory_="APPDIR" Attributes="0" KeyPath="ml100.dll"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiFeatsComponent">
+    <ROW Feature="MainFeature" Title="MainFeature" Description="描述" Display="1" Level="1" Directory_="APPDIR" Attributes="0" Components="AForge.dll AForge.Imaging.dll AForge.Math.dll AxInterop.AXVLC.dll AxInterop.IMGCTRLLib.dll Common.Logging.dll Damany.Component.dll Damany.Net.dll Damany.Windows.Form.dll Emcaster.dll Encryptor.dll FaceRecognition.dll FaceSearchWrapper.dll IconExtractor.dll Interop.AXVLC.dll Interop.IMGCTRLLib.dll OpenCvSharp.dll RemoteControlService.dll RemoteImaging.exe SuspectsRepository.dll FacePca.dll FaceSelDll.dll cv100.dll cvaux100.dll cvcam100.dll cxcore100.dll cxts001.dll highgui100.dll libguide40.dll ml100.dll RemoteImaging.vshost.exe.manifest Damany REye18x12.xml Damany.Security.dll Microsoft.Practices.EnterpriseLibrary.Common.dll Microsoft.Practices.Unity.dll Microsoft.Practices.ObjectBuilder2.dll Microsoft.Practices.EnterpriseLibrary.Validation.Integration.WinForms.dl Microsoft.Practices.EnterpriseLibrary.Validation.dll Microsoft.Practices.EnterpriseLibrary.Logging.dll Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging.dll Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.dll Damany.RemoteImaging.Net.Discovery.dll Damany.RemoteImaging.Net.Messages.dll Damany.Drawing.dll Damany.RemoteImaging.Common.dll FaceProcessingWrapper.dll FaceProcessing.dll Damany.Util.dll MiscUtil.dll NDepend.Helpers.FileDirectoryPath.dll Autofac.Configuration.dll Autofac.dll Autofac.Integration.Wcf.dll Autofac.Integration.Web.dll Autofac.Integration.Web.Mvc.dll AutoMapper.dll eyetemplate.jpg Damany.Cameras.Wrappers.dll Damany.Imaging.Common.dll Damany.Imaging.dll Damany.PC.Domain.dll Damany.PortraitCapturer.DAL.dll Damany.Cameras.dll InstallationPath AForge.Video.dll_1 Avdecoder.dll_1 BK_NetClientSDK.dll_1 bkpostproc.dll_1 Cecil.FlowAnalysis.dll_1 Db4objects.Db4o.CS.dll_1 Db4objects.Db4o.dll_1 Db4objects.Db4o.Linq.dll_1 DevExpress.BonusSkins.v9.2.dll_1 DevExpress.Data.v9.2.dll_1 DevExpress.OfficeSkins.v9.2.dll_1 DevExpress.Utils.v9.2.dll_1 DevExpress.Xpo.v9.2.dll_1 DevExpress.XtraBars.v9.2.dll_1 DevExpress.XtraEditors.v9.2.dll_1 DevExpress.XtraGrid.v9.2.dll_1 DevExpress.XtraLayout.v9.2.dll_1 DevExpress.XtraNavBar.v9.2.dll_1 DevExpress.XtraRichEdit.v9.2.dll_1 DevExpress.XtraTreeList.v9.2.dll_1 DevExpress.XtraVerticalGrid.v9.2.dll_1 Mono.Cecil.dll_1 RemoteImaging.vshost.exe_1 System.ComponentModel.Composition.dll_1 TranstClient.dll_1 Trclient.dll_1"/>
+    <ROW Feature="NET_Framework_4.0" Title=".NET Framework 4.0" Description=".NET Framework 4.0" Display="3" Level="1" Attributes="0" Components="NET_Framework_4.0"/>
+    <ROW Feature="Visual_C_2010_Redistributable" Title="Visual C++ 2010 Redistributable" Description="Visual C++ 2010 Redistributable" Display="5" Level="1" Attributes="0" Components="Visual_C_2010_Redi"/>
+    <ATTRIBUTE name="CurrentFeature" value="MainFeature"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiFilesComponent">
+    <ROW File="AForge.Imaging.dll" Component_="AForge.Imaging.dll" FileName="AForge~1.dll|AForge.Imaging.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\AForge.Imaging.dll" SelfReg="false" Sequence="2"/>
+    <ROW File="AForge.Math.dll" Component_="AForge.Math.dll" FileName="AForge~2.dll|AForge.Math.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\AForge.Math.dll" SelfReg="false" Sequence="3"/>
+    <ROW File="AForge.Video.dll_1" Component_="AForge.Video.dll_1" FileName="AForge~3.dll|AForge.Video.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\AForge.Video.dll" SelfReg="false" Sequence="84"/>
+    <ROW File="AForge.dll" Component_="AForge.dll" FileName="AForge.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\AForge.dll" SelfReg="false" Sequence="1"/>
+    <ROW File="AutoMapper.dll" Component_="AutoMapper.dll" FileName="AutoMa~1.dll|AutoMapper.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\AutoMapper.dll" SelfReg="false" Sequence="76"/>
+    <ROW File="Autofac.Configuration.dll" Component_="Autofac.Configuration.dll" FileName="Autofa~1.dll|Autofac.Configuration.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Autofac.Configuration.dll" SelfReg="false" Sequence="70"/>
+    <ROW File="Autofac.Integration.Wcf.dll" Component_="Autofac.Integration.Wcf.dll" FileName="Autofa~2.dll|Autofac.Integration.Wcf.dll" Attributes="0" SourcePath="..\..\Library\Autofac\Autofac.Integration.Wcf.dll" SelfReg="false" Sequence="72"/>
+    <ROW File="Autofac.Integration.Web.Mvc.dll" Component_="Autofac.Integration.Web.Mvc.dll" FileName="Autofa~4.dll|Autofac.Integration.Web.Mvc.dll" Attributes="0" SourcePath="..\..\Library\Autofac\Autofac.Integration.Web.Mvc.dll" SelfReg="false" Sequence="74"/>
+    <ROW File="Autofac.Integration.Web.dll" Component_="Autofac.Integration.Web.dll" FileName="Autofa~3.dll|Autofac.Integration.Web.dll" Attributes="0" SourcePath="..\..\Library\Autofac\Autofac.Integration.Web.dll" SelfReg="false" Sequence="73"/>
+    <ROW File="Autofac.XML" Component_="RemoteImaging.vshost.exe.manifest" FileName="Autofac.XML" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Autofac.xml" SelfReg="false" Sequence="75"/>
+    <ROW File="Autofac.dll" Component_="Autofac.dll" FileName="Autofac.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Autofac.dll" SelfReg="false" Sequence="71"/>
+    <ROW File="Avdecoder.dll_1" Component_="Avdecoder.dll_1" FileName="Avdeco~1.dll|Avdecoder.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Avdecoder.dll" SelfReg="false" Sequence="85"/>
+    <ROW File="AxInterop.AXVLC.dll" Component_="AxInterop.AXVLC.dll" FileName="AxInte~1.dll|AxInterop.AXVLC.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\AxInterop.AXVLC.dll" SelfReg="false" Sequence="4"/>
+    <ROW File="AxInterop.IMGCTRLLib.dll" Component_="AxInterop.IMGCTRLLib.dll" FileName="AxInte~2.dll|AxInterop.IMGCTRLLib.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\AxInterop.IMGCTRLLib.dll" SelfReg="false" Sequence="5"/>
+    <ROW File="BK_NetClientSDK.dll_1" Component_="BK_NetClientSDK.dll_1" FileName="BK_Net~1.dll|BK_NetClientSDK.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\BK_NetClientSDK.dll" SelfReg="false" Sequence="86"/>
+    <ROW File="CamConfig.xml" Component_="RemoteImaging.vshost.exe.manifest" FileName="CamCon~1.xml|CamConfig.xml" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\CamConfig.xml" SelfReg="false" Sequence="63"/>
+    <ROW File="CamSettingsConfig.xml" Component_="RemoteImaging.vshost.exe.manifest" FileName="CamSet~1.xml|CamSettingsConfig.xml" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\CamSettingsConfig.xml" SelfReg="false" Sequence="64"/>
+    <ROW File="Cecil.FlowAnalysis.dll_1" Component_="Cecil.FlowAnalysis.dll_1" FileName="CecilF~1.dll|Cecil.FlowAnalysis.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Cecil.FlowAnalysis.dll" SelfReg="false" Sequence="88"/>
+    <ROW File="Common.Logging.dll" Component_="Common.Logging.dll" FileName="Common~1.dll|Common.Logging.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Common.Logging.dll" SelfReg="false" Sequence="6"/>
+    <ROW File="Damany.Cameras.Wrappers.dll" Component_="Damany.Cameras.Wrappers.dll" FileName="Daman~10.dll|Damany.Cameras.Wrappers.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Damany.Cameras.Wrappers.dll" SelfReg="false" Sequence="78"/>
+    <ROW File="Damany.Cameras.Wrappers.pdb_1" Component_="RemoteImaging.vshost.exe.manifest" FileName="Damany~2.pdb|Damany.Cameras.Wrappers.pdb" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Damany.Cameras.Wrappers.pdb" SelfReg="false" Sequence="90"/>
+    <ROW File="Damany.Cameras.dll" Component_="Damany.Cameras.dll" FileName="Daman~16.dll|Damany.Cameras.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Damany.Cameras.dll" SelfReg="false" Sequence="83"/>
+    <ROW File="Damany.Cameras.pdb_1" Component_="RemoteImaging.vshost.exe.manifest" FileName="Damany~1.pdb|Damany.Cameras.pdb" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Damany.Cameras.pdb" SelfReg="false" Sequence="89"/>
+    <ROW File="Damany.Component.dll" Component_="Damany.Component.dll" FileName="Damany~2.dll|Damany.Component.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Damany.Component.dll" SelfReg="false" Sequence="7"/>
+    <ROW File="Damany.Component.pdb_1" Component_="RemoteImaging.vshost.exe.manifest" FileName="Damany~3.pdb|Damany.Component.pdb" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Damany.Component.pdb" SelfReg="false" Sequence="91"/>
+    <ROW File="Damany.Drawing.dll" Component_="Damany.Drawing.dll" FileName="Damany~7.dll|Damany.Drawing.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Damany.Drawing.dll" SelfReg="false" Sequence="60"/>
+    <ROW File="Damany.Drawing.pdb_1" Component_="RemoteImaging.vshost.exe.manifest" FileName="Damany~4.pdb|Damany.Drawing.pdb" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Damany.Drawing.pdb" SelfReg="false" Sequence="92"/>
+    <ROW File="Damany.Imaging.Common.dll" Component_="Damany.Imaging.Common.dll" FileName="Daman~11.dll|Damany.Imaging.Common.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Damany.Imaging.Common.dll" SelfReg="false" Sequence="79"/>
+    <ROW File="Damany.Imaging.Common.pdb_1" Component_="RemoteImaging.vshost.exe.manifest" FileName="Damany~5.pdb|Damany.Imaging.Common.pdb" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Damany.Imaging.Common.pdb" SelfReg="false" Sequence="93"/>
+    <ROW File="Damany.Imaging.dll" Component_="Damany.Imaging.dll" FileName="Daman~13.dll|Damany.Imaging.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Damany.Imaging.dll" SelfReg="false" Sequence="80"/>
+    <ROW File="Damany.Imaging.pdb_1" Component_="RemoteImaging.vshost.exe.manifest" FileName="Damany~6.pdb|Damany.Imaging.pdb" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Damany.Imaging.pdb" SelfReg="false" Sequence="94"/>
+    <ROW File="Damany.Net.dll" Component_="Damany.Net.dll" FileName="Damany~1.dll|Damany.Net.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Damany.Net.dll" SelfReg="false" Sequence="8"/>
+    <ROW File="Damany.Net.pdb_1" Component_="RemoteImaging.vshost.exe.manifest" FileName="Damany~7.pdb|Damany.Net.pdb" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Damany.Net.pdb" SelfReg="false" Sequence="95"/>
+    <ROW File="Damany.PC.Domain.dll" Component_="Damany.PC.Domain.dll" FileName="Daman~14.dll|Damany.PC.Domain.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Damany.PC.Domain.dll" SelfReg="false" Sequence="81"/>
+    <ROW File="Damany.PC.Domain.pdb_1" Component_="RemoteImaging.vshost.exe.manifest" FileName="Damany~8.pdb|Damany.PC.Domain.pdb" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Damany.PC.Domain.pdb" SelfReg="false" Sequence="96"/>
+    <ROW File="Damany.PortraitCapturer.DAL.dll" Component_="Damany.PortraitCapturer.DAL.dll" FileName="Daman~15.dll|Damany.PortraitCapturer.DAL.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Damany.PortraitCapturer.DAL.dll" SelfReg="false" Sequence="82"/>
+    <ROW File="Damany.PortraitCapturer.DAL.pdb_1" Component_="RemoteImaging.vshost.exe.manifest" FileName="Damany~9.pdb|Damany.PortraitCapturer.DAL.pdb" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Damany.PortraitCapturer.DAL.pdb" SelfReg="false" Sequence="97"/>
+    <ROW File="Damany.RemoteImaging.Common.dll" Component_="Damany.RemoteImaging.Common.dll" FileName="Damany~8.dll|Damany.RemoteImaging.Common.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Damany.RemoteImaging.Common.dll" SelfReg="false" Sequence="61"/>
+    <ROW File="Damany.RemoteImaging.Common.pdb_1" Component_="RemoteImaging.vshost.exe.manifest" FileName="Daman~10.pdb|Damany.RemoteImaging.Common.pdb" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Damany.RemoteImaging.Common.pdb" SelfReg="false" Sequence="98"/>
+    <ROW File="Damany.RemoteImaging.Net.Discovery.dll" Component_="Damany.RemoteImaging.Net.Discovery.dll" FileName="Damany~5.dll|Damany.RemoteImaging.Net.Discovery.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Damany.RemoteImaging.Net.Discovery.dll" SelfReg="false" Sequence="57"/>
+    <ROW File="Damany.RemoteImaging.Net.Discovery.pdb_1" Component_="RemoteImaging.vshost.exe.manifest" FileName="Daman~11.pdb|Damany.RemoteImaging.Net.Discovery.pdb" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Damany.RemoteImaging.Net.Discovery.pdb" SelfReg="false" Sequence="99"/>
+    <ROW File="Damany.RemoteImaging.Net.Messages.dll" Component_="Damany.RemoteImaging.Net.Messages.dll" FileName="Damany~6.dll|Damany.RemoteImaging.Net.Messages.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Damany.RemoteImaging.Net.Messages.dll" SelfReg="false" Sequence="59"/>
+    <ROW File="Damany.RemoteImaging.Net.Messages.pdb_1" Component_="RemoteImaging.vshost.exe.manifest" FileName="Daman~12.pdb|Damany.RemoteImaging.Net.Messages.pdb" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Damany.RemoteImaging.Net.Messages.pdb" SelfReg="false" Sequence="100"/>
+    <ROW File="Damany.Security.dll" Component_="Damany.Security.dll" FileName="Damany~4.dll|Damany.Security.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Damany.Security.dll" SelfReg="false" Sequence="41"/>
+    <ROW File="Damany.Security.dll.config_1" Component_="RemoteImaging.vshost.exe.manifest" FileName="Damany~1.con|Damany.Security.dll.config" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Damany.Security.dll.config" SelfReg="false" Sequence="101"/>
+    <ROW File="Damany.Security.pdb_1" Component_="RemoteImaging.vshost.exe.manifest" FileName="Daman~13.pdb|Damany.Security.pdb" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Damany.Security.pdb" SelfReg="false" Sequence="102"/>
+    <ROW File="Damany.Util.dll" Component_="Damany.Util.dll" FileName="Damany~9.dll|Damany.Util.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Damany.Util.dll" SelfReg="false" Sequence="67"/>
+    <ROW File="Damany.Util.pdb_1" Component_="RemoteImaging.vshost.exe.manifest" FileName="Daman~14.pdb|Damany.Util.pdb" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Damany.Util.pdb" SelfReg="false" Sequence="103"/>
+    <ROW File="Damany.Windows.Form.dll" Component_="Damany.Windows.Form.dll" FileName="Damany~3.dll|Damany.Windows.Form.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Damany.Windows.Form.dll" SelfReg="false" Sequence="9"/>
+    <ROW File="Damany.Windows.Form.pdb_1" Component_="RemoteImaging.vshost.exe.manifest" FileName="Daman~15.pdb|Damany.Windows.Form.pdb" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Damany.Windows.Form.pdb" SelfReg="false" Sequence="104"/>
+    <ROW File="Db4objects.Db4o.CS.dll_1" Component_="Db4objects.Db4o.CS.dll_1" FileName="Db4obj~1.dll|Db4objects.Db4o.CS.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Db4objects.Db4o.CS.dll" SelfReg="false" Sequence="105"/>
+    <ROW File="Db4objects.Db4o.CS.xml_1" Component_="RemoteImaging.vshost.exe.manifest" FileName="Db4obj~1.xml|Db4objects.Db4o.CS.xml" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Db4objects.Db4o.CS.xml" SelfReg="false" Sequence="146"/>
+    <ROW File="Db4objects.Db4o.Linq.dll_1" Component_="Db4objects.Db4o.Linq.dll_1" FileName="Db4obj~3.dll|Db4objects.Db4o.Linq.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Db4objects.Db4o.Linq.dll" SelfReg="false" Sequence="107"/>
+    <ROW File="Db4objects.Db4o.dll_1" Component_="Db4objects.Db4o.dll_1" FileName="Db4obj~2.dll|Db4objects.Db4o.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Db4objects.Db4o.dll" SelfReg="false" Sequence="106"/>
+    <ROW File="Db4objects.Db4o.xml_1" Component_="RemoteImaging.vshost.exe.manifest" FileName="Db4obj~2.xml|Db4objects.Db4o.xml" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Db4objects.Db4o.xml" SelfReg="false" Sequence="147"/>
+    <ROW File="DevExpress.BonusSkins.v9.2.dll_1" Component_="DevExpress.BonusSkins.v9.2.dll_1" FileName="DevExp~1.dll|DevExpress.BonusSkins.v9.2.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\DevExpress.BonusSkins.v9.2.dll" SelfReg="false" Sequence="108"/>
+    <ROW File="DevExpress.Data.v9.2.dll_1" Component_="DevExpress.Data.v9.2.dll_1" FileName="DevExp~2.dll|DevExpress.Data.v9.2.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\DevExpress.Data.v9.2.dll" SelfReg="false" Sequence="109"/>
+    <ROW File="DevExpress.Data.v9.2.xml_1" Component_="RemoteImaging.vshost.exe.manifest" FileName="DevExp~1.xml|DevExpress.Data.v9.2.xml" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\DevExpress.Data.v9.2.xml" SelfReg="false" Sequence="148"/>
+    <ROW File="DevExpress.OfficeSkins.v9.2.dll_1" Component_="DevExpress.OfficeSkins.v9.2.dll_1" FileName="DevExp~3.dll|DevExpress.OfficeSkins.v9.2.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\DevExpress.OfficeSkins.v9.2.dll" SelfReg="false" Sequence="110"/>
+    <ROW File="DevExpress.Utils.v9.2.dll_1" Component_="DevExpress.Utils.v9.2.dll_1" FileName="DevExp~4.dll|DevExpress.Utils.v9.2.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\DevExpress.Utils.v9.2.dll" SelfReg="false" Sequence="111"/>
+    <ROW File="DevExpress.Utils.v9.2.xml_1" Component_="RemoteImaging.vshost.exe.manifest" FileName="DevExp~2.xml|DevExpress.Utils.v9.2.xml" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\DevExpress.Utils.v9.2.xml" SelfReg="false" Sequence="149"/>
+    <ROW File="DevExpress.Xpo.v9.2.dll_1" Component_="DevExpress.Xpo.v9.2.dll_1" FileName="DevExp~5.dll|DevExpress.Xpo.v9.2.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\DevExpress.Xpo.v9.2.dll" SelfReg="false" Sequence="112"/>
+    <ROW File="DevExpress.Xpo.v9.2.xml_1" Component_="RemoteImaging.vshost.exe.manifest" FileName="DevExp~3.xml|DevExpress.Xpo.v9.2.xml" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\DevExpress.Xpo.v9.2.xml" SelfReg="false" Sequence="150"/>
+    <ROW File="DevExpress.XtraBars.v9.2.dll_1" Component_="DevExpress.XtraBars.v9.2.dll_1" FileName="DevExp~6.dll|DevExpress.XtraBars.v9.2.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\DevExpress.XtraBars.v9.2.dll" SelfReg="false" Sequence="113"/>
+    <ROW File="DevExpress.XtraBars.v9.2.xml_1" Component_="RemoteImaging.vshost.exe.manifest" FileName="DevExp~4.xml|DevExpress.XtraBars.v9.2.xml" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\DevExpress.XtraBars.v9.2.xml" SelfReg="false" Sequence="151"/>
+    <ROW File="DevExpress.XtraEditors.v9.2.dll_1" Component_="DevExpress.XtraEditors.v9.2.dll_1" FileName="DevExp~7.dll|DevExpress.XtraEditors.v9.2.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\DevExpress.XtraEditors.v9.2.dll" SelfReg="false" Sequence="114"/>
+    <ROW File="DevExpress.XtraEditors.v9.2.xml_1" Component_="RemoteImaging.vshost.exe.manifest" FileName="DevExp~5.xml|DevExpress.XtraEditors.v9.2.xml" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\DevExpress.XtraEditors.v9.2.xml" SelfReg="false" Sequence="152"/>
+    <ROW File="DevExpress.XtraGrid.v9.2.dll_1" Component_="DevExpress.XtraGrid.v9.2.dll_1" FileName="DevExp~8.dll|DevExpress.XtraGrid.v9.2.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\DevExpress.XtraGrid.v9.2.dll" SelfReg="false" Sequence="115"/>
+    <ROW File="DevExpress.XtraGrid.v9.2.xml_1" Component_="RemoteImaging.vshost.exe.manifest" FileName="DevExp~6.xml|DevExpress.XtraGrid.v9.2.xml" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\DevExpress.XtraGrid.v9.2.xml" SelfReg="false" Sequence="153"/>
+    <ROW File="DevExpress.XtraLayout.v9.2.dll_1" Component_="DevExpress.XtraLayout.v9.2.dll_1" FileName="DevExp~9.dll|DevExpress.XtraLayout.v9.2.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\DevExpress.XtraLayout.v9.2.dll" SelfReg="false" Sequence="116"/>
+    <ROW File="DevExpress.XtraLayout.v9.2.xml_1" Component_="RemoteImaging.vshost.exe.manifest" FileName="DevExp~7.xml|DevExpress.XtraLayout.v9.2.xml" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\DevExpress.XtraLayout.v9.2.xml" SelfReg="false" Sequence="154"/>
+    <ROW File="DevExpress.XtraNavBar.v9.2.dll_1" Component_="DevExpress.XtraNavBar.v9.2.dll_1" FileName="DevEx~10.dll|DevExpress.XtraNavBar.v9.2.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\DevExpress.XtraNavBar.v9.2.dll" SelfReg="false" Sequence="117"/>
+    <ROW File="DevExpress.XtraNavBar.v9.2.xml_1" Component_="RemoteImaging.vshost.exe.manifest" FileName="DevExp~8.xml|DevExpress.XtraNavBar.v9.2.xml" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\DevExpress.XtraNavBar.v9.2.xml" SelfReg="false" Sequence="155"/>
+    <ROW File="DevExpress.XtraRichEdit.v9.2.dll_1" Component_="DevExpress.XtraRichEdit.v9.2.dll_1" FileName="DevEx~11.dll|DevExpress.XtraRichEdit.v9.2.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\DevExpress.XtraRichEdit.v9.2.dll" SelfReg="false" Sequence="118"/>
+    <ROW File="DevExpress.XtraRichEdit.v9.2.xml_1" Component_="RemoteImaging.vshost.exe.manifest" FileName="DevExp~9.xml|DevExpress.XtraRichEdit.v9.2.xml" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\DevExpress.XtraRichEdit.v9.2.xml" SelfReg="false" Sequence="156"/>
+    <ROW File="DevExpress.XtraTreeList.v9.2.dll_1" Component_="DevExpress.XtraTreeList.v9.2.dll_1" FileName="DevEx~12.dll|DevExpress.XtraTreeList.v9.2.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\DevExpress.XtraTreeList.v9.2.dll" SelfReg="false" Sequence="119"/>
+    <ROW File="DevExpress.XtraTreeList.v9.2.xml_1" Component_="RemoteImaging.vshost.exe.manifest" FileName="DevEx~10.xml|DevExpress.XtraTreeList.v9.2.xml" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\DevExpress.XtraTreeList.v9.2.xml" SelfReg="false" Sequence="157"/>
+    <ROW File="DevExpress.XtraVerticalGrid.v9.2.dll_1" Component_="DevExpress.XtraVerticalGrid.v9.2.dll_1" FileName="DevEx~13.dll|DevExpress.XtraVerticalGrid.v9.2.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\DevExpress.XtraVerticalGrid.v9.2.dll" SelfReg="false" Sequence="120"/>
+    <ROW File="DevExpress.XtraVerticalGrid.v9.2.xml_1" Component_="RemoteImaging.vshost.exe.manifest" FileName="DevEx~11.xml|DevExpress.XtraVerticalGrid.v9.2.xml" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\DevExpress.XtraVerticalGrid.v9.2.xml" SelfReg="false" Sequence="158"/>
+    <ROW File="EL.config" Component_="RemoteImaging.vshost.exe.manifest" FileName="EL~1.con|EL.config" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\EL.config" SelfReg="false" Sequence="42"/>
+    <ROW File="Emcaster.dll" Component_="Emcaster.dll" FileName="Emcaster.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Emcaster.dll" SelfReg="false" Sequence="10"/>
+    <ROW File="Encryptor.dll" Component_="Encryptor.dll" FileName="Encryp~1.dll|Encryptor.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Encryptor.dll" SelfReg="false" Sequence="11"/>
+    <ROW File="Encryptor.pdb_1" Component_="RemoteImaging.vshost.exe.manifest" FileName="Encryp~1.pdb|Encryptor.pdb" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Encryptor.pdb" SelfReg="false" Sequence="121"/>
+    <ROW File="Eyes22x5.xml" Component_="REye18x12.xml" FileName="Eyes22x5.xml" Attributes="0" SourcePath="..\IconExtractor\data\Eyes22x5.xml" SelfReg="false" Sequence="33"/>
+    <ROW File="FacePca.dll" Component_="FacePca.dll" FileName="FacePca.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\FacePca.dll" SelfReg="false" Sequence="22"/>
+    <ROW File="FaceProcessing.dll" Component_="FaceProcessing.dll" FileName="FacePr~2.dll|FaceProcessing.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\FaceProcessing.dll" SelfReg="false" Sequence="66"/>
+    <ROW File="FaceProcessing.exp_1" Component_="RemoteImaging.vshost.exe.manifest" FileName="FacePr~1.exp|FaceProcessing.exp" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\FaceProcessing.exp" SelfReg="false" Sequence="123"/>
+    <ROW File="FaceProcessing.lib_1" Component_="RemoteImaging.vshost.exe.manifest" FileName="FacePr~1.lib|FaceProcessing.lib" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\FaceProcessing.lib" SelfReg="false" Sequence="124"/>
+    <ROW File="FaceProcessing.pdb_1" Component_="RemoteImaging.vshost.exe.manifest" FileName="FacePr~1.pdb|FaceProcessing.pdb" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\FaceProcessing.pdb" SelfReg="false" Sequence="125"/>
+    <ROW File="FaceProcessingWrapper.dll" Component_="FaceProcessingWrapper.dll" FileName="FacePr~1.dll|FaceProcessingWrapper.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\FaceProcessingWrapper.dll" SelfReg="false" Sequence="62"/>
+    <ROW File="FaceProcessingWrapper.pdb_1" Component_="RemoteImaging.vshost.exe.manifest" FileName="FacePr~2.pdb|FaceProcessingWrapper.pdb" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\FaceProcessingWrapper.pdb" SelfReg="false" Sequence="126"/>
+    <ROW File="FaceRecognition.dll" Component_="FaceRecognition.dll" FileName="FaceRe~1.dll|FaceRecognition.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\FaceRecognition.dll" SelfReg="false" Sequence="12"/>
+    <ROW File="FaceRecognition.pdb_1" Component_="RemoteImaging.vshost.exe.manifest" FileName="FaceRe~1.pdb|FaceRecognition.pdb" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\FaceRecognition.pdb" SelfReg="false" Sequence="127"/>
+    <ROW File="FaceSearchWrapper.dll" Component_="FaceSearchWrapper.dll" FileName="FaceSe~2.dll|FaceSearchWrapper.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\FaceSearchWrapper.dll" SelfReg="false" Sequence="13"/>
+    <ROW File="FaceSearchWrapper.pdb_1" Component_="RemoteImaging.vshost.exe.manifest" FileName="FaceSe~1.pdb|FaceSearchWrapper.pdb" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\FaceSearchWrapper.pdb" SelfReg="false" Sequence="129"/>
+    <ROW File="FaceSelDll.dll" Component_="FaceSelDll.dll" FileName="FaceSe~1.dll|FaceSelDll.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\FaceSelDll.dll" SelfReg="false" Sequence="23"/>
+    <ROW File="FaceSelDll.exp_1" Component_="RemoteImaging.vshost.exe.manifest" FileName="FaceSe~1.exp|FaceSelDll.exp" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\FaceSelDll.exp" SelfReg="false" Sequence="130"/>
+    <ROW File="FaceSelDll.lib_1" Component_="RemoteImaging.vshost.exe.manifest" FileName="FaceSe~1.lib|FaceSelDll.lib" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\FaceSelDll.lib" SelfReg="false" Sequence="131"/>
+    <ROW File="FaceSelDll.pdb_1" Component_="RemoteImaging.vshost.exe.manifest" FileName="FaceSe~2.pdb|FaceSelDll.pdb" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\FaceSelDll.pdb" SelfReg="false" Sequence="132"/>
+    <ROW File="IconExtractor.dll" Component_="IconExtractor.dll" FileName="IconEx~1.dll|IconExtractor.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\IconExtractor.dll" SelfReg="false" Sequence="14"/>
+    <ROW File="IconExtractor.pdb_1" Component_="RemoteImaging.vshost.exe.manifest" FileName="IconEx~1.pdb|IconExtractor.pdb" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\IconExtractor.pdb" SelfReg="false" Sequence="133"/>
+    <ROW File="Interop.AXVLC.dll" Component_="Interop.AXVLC.dll" FileName="Intero~1.dll|Interop.AXVLC.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Interop.AXVLC.dll" SelfReg="false" Sequence="15"/>
+    <ROW File="Interop.IMGCTRLLib.dll" Component_="Interop.IMGCTRLLib.dll" FileName="Intero~2.dll|Interop.IMGCTRLLib.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Interop.IMGCTRLLib.dll" SelfReg="false" Sequence="16"/>
+    <ROW File="LEye18x12.xml" Component_="REye18x12.xml" FileName="LEye18~1.xml|LEye18x12.xml" Attributes="0" SourcePath="..\IconExtractor\data\LEye18x12.xml" SelfReg="false" Sequence="38"/>
+    <ROW File="MainIcon.ico" Component_="RemoteImaging.vshost.exe.manifest" FileName="MainIcon.ico" Attributes="0" SourcePath="..\RemoteImaging\Resources\MainIcon.ico" SelfReg="false" Sequence="58"/>
+    <ROW File="Microsoft.Practices.EnterpriseLibrary.Common.dll" Component_="Microsoft.Practices.EnterpriseLibrary.Common.dll" FileName="Micros~1.dll|Microsoft.Practices.EnterpriseLibrary.Common.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Microsoft.Practices.EnterpriseLibrary.Common.dll" SelfReg="false" Sequence="43"/>
+    <ROW File="Microsoft.Practices.EnterpriseLibrary.Common.xml" Component_="RemoteImaging.vshost.exe.manifest" FileName="Micros~6.xml|Microsoft.Practices.EnterpriseLibrary.Common.xml" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Microsoft.Practices.EnterpriseLibrary.Common.xml" SelfReg="false" Sequence="56"/>
+    <ROW File="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging.dll" Component_="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging.dll" FileName="Micros~7.dll|Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging.dll" SelfReg="false" Sequence="49"/>
+    <ROW File="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging.xml" Component_="RemoteImaging.vshost.exe.manifest" FileName="Micros~5.xml|Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging.xml" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging.xml" SelfReg="false" Sequence="55"/>
+    <ROW File="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.dll" Component_="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.dll" FileName="Micros~8.dll|Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.dll" SelfReg="false" Sequence="50"/>
+    <ROW File="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.xml" Component_="RemoteImaging.vshost.exe.manifest" FileName="Micros~4.xml|Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.xml" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.xml" SelfReg="false" Sequence="54"/>
+    <ROW File="Microsoft.Practices.EnterpriseLibrary.Logging.dll" Component_="Microsoft.Practices.EnterpriseLibrary.Logging.dll" FileName="Micros~6.dll|Microsoft.Practices.EnterpriseLibrary.Logging.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Microsoft.Practices.EnterpriseLibrary.Logging.dll" SelfReg="false" Sequence="48"/>
+    <ROW File="Microsoft.Practices.EnterpriseLibrary.Logging.xml" Component_="RemoteImaging.vshost.exe.manifest" FileName="Micros~3.xml|Microsoft.Practices.EnterpriseLibrary.Logging.xml" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Microsoft.Practices.EnterpriseLibrary.Logging.xml" SelfReg="false" Sequence="53"/>
+    <ROW File="Microsoft.Practices.EnterpriseLibrary.Validation.Integration.WinFor_1" Component_="RemoteImaging.vshost.exe.manifest" FileName="Micros~2.xml|Microsoft.Practices.EnterpriseLibrary.Validation.Integration.WinForms.xml" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Microsoft.Practices.EnterpriseLibrary.Validation.Integration.WinForms.xml" SelfReg="false" Sequence="52"/>
+    <ROW File="Microsoft.Practices.EnterpriseLibrary.Validation.Integration.WinForms" Component_="Microsoft.Practices.EnterpriseLibrary.Validation.Integration.WinForms.dl" FileName="Micros~4.dll|Microsoft.Practices.EnterpriseLibrary.Validation.Integration.WinForms.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Microsoft.Practices.EnterpriseLibrary.Validation.Integration.WinForms.dll" SelfReg="false" Sequence="46"/>
+    <ROW File="Microsoft.Practices.EnterpriseLibrary.Validation.dll" Component_="Microsoft.Practices.EnterpriseLibrary.Validation.dll" FileName="Micros~5.dll|Microsoft.Practices.EnterpriseLibrary.Validation.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Microsoft.Practices.EnterpriseLibrary.Validation.dll" SelfReg="false" Sequence="47"/>
+    <ROW File="Microsoft.Practices.EnterpriseLibrary.Validation.xml" Component_="RemoteImaging.vshost.exe.manifest" FileName="Micros~1.xml|Microsoft.Practices.EnterpriseLibrary.Validation.xml" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Microsoft.Practices.EnterpriseLibrary.Validation.xml" SelfReg="false" Sequence="51"/>
+    <ROW File="Microsoft.Practices.ObjectBuilder2.dll" Component_="Microsoft.Practices.ObjectBuilder2.dll" FileName="Micros~3.dll|Microsoft.Practices.ObjectBuilder2.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Microsoft.Practices.ObjectBuilder2.dll" SelfReg="false" Sequence="45"/>
+    <ROW File="Microsoft.Practices.Unity.dll" Component_="Microsoft.Practices.Unity.dll" FileName="Micros~2.dll|Microsoft.Practices.Unity.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Microsoft.Practices.Unity.dll" SelfReg="false" Sequence="44"/>
+    <ROW File="MiscUtil.dll" Component_="MiscUtil.dll" FileName="MiscUtil.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\MiscUtil.dll" SelfReg="false" Sequence="68"/>
+    <ROW File="MiscUtil.xml_1" Component_="RemoteImaging.vshost.exe.manifest" FileName="MiscUtil.xml" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\MiscUtil.xml" SelfReg="false" Sequence="159"/>
+    <ROW File="Mono.Cecil.dll_1" Component_="Mono.Cecil.dll_1" FileName="MonoCe~1.dll|Mono.Cecil.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Mono.Cecil.dll" SelfReg="false" Sequence="134"/>
+    <ROW File="Mouth25x15.xml" Component_="REye18x12.xml" FileName="Mouth2~1.xml|Mouth25x15.xml" Attributes="0" SourcePath="..\IconExtractor\data\Mouth25x15.xml" SelfReg="false" Sequence="39"/>
+    <ROW File="NDepend.Helpers.FileDirectoryPath.dll" Component_="NDepend.Helpers.FileDirectoryPath.dll" FileName="NDepen~1.dll|NDepend.Helpers.FileDirectoryPath.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\NDepend.Helpers.FileDirectoryPath.dll" SelfReg="false" Sequence="69"/>
+    <ROW File="Nose25x15.xml" Component_="REye18x12.xml" FileName="Nose25~1.xml|Nose25x15.xml" Attributes="0" SourcePath="..\IconExtractor\data\Nose25x15.xml" SelfReg="false" Sequence="40"/>
+    <ROW File="OpenCvSharp.dll" Component_="OpenCvSharp.dll" FileName="OpenCv~1.dll|OpenCvSharp.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\OpenCvSharp.dll" SelfReg="false" Sequence="17"/>
+    <ROW File="REye18x12.xml" Component_="REye18x12.xml" FileName="REye18~1.xml|REye18x12.xml" Attributes="0" SourcePath="..\IconExtractor\data\REye18x12.xml" SelfReg="false" Sequence="32"/>
+    <ROW File="RemoteControlService.dll" Component_="RemoteControlService.dll" FileName="Remote~1.dll|RemoteControlService.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\RemoteControlService.dll" SelfReg="false" Sequence="18"/>
+    <ROW File="RemoteControlService.pdb_1" Component_="RemoteImaging.vshost.exe.manifest" FileName="Remote~1.pdb|RemoteControlService.pdb" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\RemoteControlService.pdb" SelfReg="false" Sequence="135"/>
+    <ROW File="RemoteImaging.exe" Component_="RemoteImaging.exe" FileName="Remote~2.exe|RemoteImaging.exe" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\RemoteImaging.exe" SelfReg="false" Sequence="19"/>
+    <ROW File="RemoteImaging.exe.CodeAnalysisLog.xml_1" Component_="RemoteImaging.vshost.exe.manifest" FileName="Remote~1.xml|RemoteImaging.exe.CodeAnalysisLog.xml" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\RemoteImaging.exe.CodeAnalysisLog.xml" SelfReg="false" Sequence="160"/>
+    <ROW File="RemoteImaging.exe.config" Component_="RemoteImaging.vshost.exe.manifest" FileName="Remote~1.con|RemoteImaging.exe.config" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\RemoteImaging.exe.config" SelfReg="false" Sequence="20"/>
+    <ROW File="RemoteImaging.exe.config.bak_1" Component_="RemoteImaging.vshost.exe.manifest" FileName="Remote~1.bak|RemoteImaging.exe.config.bak" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\RemoteImaging.exe.config.bak" SelfReg="false" Sequence="136"/>
+    <ROW File="RemoteImaging.exe.lastcodeanalysissucceeded_1" Component_="RemoteImaging.vshost.exe.manifest" FileName="Remote~1.las|RemoteImaging.exe.lastcodeanalysissucceeded" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\RemoteImaging.exe.lastcodeanalysissucceeded" SelfReg="false" Sequence="137"/>
+    <ROW File="RemoteImaging.pdb_1" Component_="RemoteImaging.vshost.exe.manifest" FileName="Remote~2.pdb|RemoteImaging.pdb" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\RemoteImaging.pdb" SelfReg="false" Sequence="138"/>
+    <ROW File="RemoteImaging.vshost.exe.config_1" Component_="RemoteImaging.vshost.exe.manifest" FileName="Remote~2.con|RemoteImaging.vshost.exe.config" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\RemoteImaging.vshost.exe.config" SelfReg="false" Sequence="140"/>
+    <ROW File="RemoteImaging.vshost.exe.manifest_1" Component_="RemoteImaging.vshost.exe.manifest" FileName="Remote~1.man|RemoteImaging.vshost.exe.manifest" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\RemoteImaging.vshost.exe.manifest" SelfReg="false" Sequence="141"/>
+    <ROW File="RemoteImaging.vshost.exe_1" Component_="RemoteImaging.vshost.exe_1" FileName="Remote~1.exe|RemoteImaging.vshost.exe" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\RemoteImaging.vshost.exe" SelfReg="false" Sequence="139"/>
+    <ROW File="SetVal.xml" Component_="RemoteImaging.vshost.exe.manifest" FileName="SetVal.xml" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\SetVal.xml" SelfReg="false" Sequence="65"/>
+    <ROW File="SuspectsRepository.dll" Component_="SuspectsRepository.dll" FileName="Suspec~1.dll|SuspectsRepository.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\SuspectsRepository.dll" SelfReg="false" Sequence="21"/>
+    <ROW File="SuspectsRepository.pdb_1" Component_="RemoteImaging.vshost.exe.manifest" FileName="Suspec~1.pdb|SuspectsRepository.pdb" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\SuspectsRepository.pdb" SelfReg="false" Sequence="142"/>
+    <ROW File="System.ComponentModel.Composition.dll_1" Component_="System.ComponentModel.Composition.dll_1" FileName="System~1.dll|System.ComponentModel.Composition.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\System.ComponentModel.Composition.dll" SelfReg="false" Sequence="143"/>
+    <ROW File="System.ComponentModel.Composition.xml_1" Component_="RemoteImaging.vshost.exe.manifest" FileName="System~1.xml|System.ComponentModel.Composition.xml" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\System.ComponentModel.Composition.xml" SelfReg="false" Sequence="161"/>
+    <ROW File="TranstClient.dll_1" Component_="TranstClient.dll_1" FileName="Transt~1.dll|TranstClient.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\TranstClient.dll" SelfReg="false" Sequence="144"/>
+    <ROW File="Trclient.dll_1" Component_="Trclient.dll_1" FileName="Trclient.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\Trclient.dll" SelfReg="false" Sequence="145"/>
+    <ROW File="bkpostproc.dll_1" Component_="bkpostproc.dll_1" FileName="bkpost~1.dll|bkpostproc.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\bkpostproc.dll" SelfReg="false" Sequence="87"/>
+    <ROW File="config.db4o" Component_="RemoteImaging.vshost.exe.manifest" FileName="config~1.db4|config.db4o" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\config.db4o" SelfReg="false" Sequence="162"/>
+    <ROW File="cv100.dll" Component_="cv100.dll" FileName="cv100.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\cv100.dll" SelfReg="false" Sequence="24"/>
+    <ROW File="cvaux100.dll" Component_="cvaux100.dll" FileName="cvaux100.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\cvaux100.dll" SelfReg="false" Sequence="25"/>
+    <ROW File="cvcam100.dll" Component_="cvcam100.dll" FileName="cvcam100.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\cvcam100.dll" SelfReg="false" Sequence="26"/>
+    <ROW File="cxcore100.dll" Component_="cxcore100.dll" FileName="cxcore~1.dll|cxcore100.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\cxcore100.dll" SelfReg="false" Sequence="27"/>
+    <ROW File="cxts001.dll" Component_="cxts001.dll" FileName="cxts001.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\cxts001.dll" SelfReg="false" Sequence="28"/>
+    <ROW File="exception.log_1" Component_="RemoteImaging.vshost.exe.manifest" FileName="except~1.log|exception.log" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\exception.log" SelfReg="false" Sequence="122"/>
+    <ROW File="eyetemplate.jpg" Component_="eyetemplate.jpg" FileName="eyetem~1.jpg|eyetemplate.jpg" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\ImgLib\eyetemplate.jpg" SelfReg="false" Sequence="77"/>
+    <ROW File="faceRecognitionDLL.pdb_1" Component_="RemoteImaging.vshost.exe.manifest" FileName="faceRe~2.pdb|faceRecognitionDLL.pdb" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\faceRecognitionDLL.pdb" SelfReg="false" Sequence="128"/>
+    <ROW File="haarcascade_frontalface_alt.xml" Component_="REye18x12.xml" FileName="haarca~2.xml|haarcascade_frontalface_alt.xml" Attributes="0" SourcePath="..\IconExtractor\data\haarcascade_frontalface_alt.xml" SelfReg="false" Sequence="35"/>
+    <ROW File="haarcascade_frontalface_alt2.xml" Component_="REye18x12.xml" FileName="haarca~1.xml|haarcascade_frontalface_alt2.xml" Attributes="0" SourcePath="..\IconExtractor\data\haarcascade_frontalface_alt2.xml" SelfReg="false" Sequence="34"/>
+    <ROW File="haarcascade_frontalface_alt_tree.xml" Component_="REye18x12.xml" FileName="haarca~3.xml|haarcascade_frontalface_alt_tree.xml" Attributes="0" SourcePath="..\IconExtractor\data\haarcascade_frontalface_alt_tree.xml" SelfReg="false" Sequence="36"/>
+    <ROW File="haarcascade_frontalface_default.xml" Component_="REye18x12.xml" FileName="haarca~4.xml|haarcascade_frontalface_default.xml" Attributes="0" SourcePath="..\IconExtractor\data\haarcascade_frontalface_default.xml" SelfReg="false" Sequence="37"/>
+    <ROW File="highgui100.dll" Component_="highgui100.dll" FileName="highgu~1.dll|highgui100.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\highgui100.dll" SelfReg="false" Sequence="29"/>
+    <ROW File="libguide40.dll" Component_="libguide40.dll" FileName="libgui~1.dll|libguide40.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\libguide40.dll" SelfReg="false" Sequence="30"/>
+    <ROW File="ml100.dll" Component_="ml100.dll" FileName="ml100.dll" Attributes="0" SourcePath="..\RemoteImaging\bin\Release\ml100.dll" SelfReg="false" Sequence="31"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.AutorunComponent">
+    <ROW VerbKey="0" Type="1" Order="0" Text="Install [|ProductName]"/>
+    <ATTRIBUTE name="AutoplayCommand" value="0"/>
+    <ATTRIBUTE name="DiskLabel" value="[|ProductName]"/>
+    <ATTRIBUTE name="Icon" value="..\RemoteImaging\MainIcon.ico?0"/>
+    <ATTRIBUTE name="LauncherName" value="autorun"/>
+    <ATTRIBUTE name="UseAutorun" value="true"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.BuildComponent">
+    <ROW BuildKey="DefaultBuild" BuildName="DefaultBuild" BuildOrder="1" BuildType="1" PackageFolder="." Languages="zh" InstallationType="5" CabsLocation="1" FirstMediaSize="649" FirstMediaSizeUnit="2" MediaSize="650" MediaSizeUnit="2" PackageType="1" ExeIconPath="..\RemoteImaging\MainIcon.ico" CreateMd5="true" ExeName="RemoteImagingSetup" UACExecutionLevel="2"/>
+    <ATTRIBUTE name="CurrentBuild" value="DefaultBuild"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.DictionaryComponent">
+    <ROW Path="&lt;AI_DICTS&gt;ui.ail"/>
+    <ROW Path="&lt;AI_DICTS&gt;ui_zh.ail"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.FragmentComponent">
+    <ROW Fragment="CommonUI.aip" Path="&lt;AI_FRAGS&gt;CommonUI.aip"/>
+    <ROW Fragment="FolderDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\FolderDlg.aip"/>
+    <ROW Fragment="SequenceDialogs.aip" Path="&lt;AI_THEMES&gt;classic\fragments\SequenceDialogs.aip"/>
+    <ROW Fragment="Sequences.aip" Path="&lt;AI_FRAGS&gt;Sequences.aip"/>
+    <ROW Fragment="StaticUIStrings.aip" Path="&lt;AI_FRAGS&gt;StaticUIStrings.aip"/>
+    <ROW Fragment="UI.aip" Path="&lt;AI_THEMES&gt;classic\fragments\UI.aip"/>
+    <ROW Fragment="Validation.aip" Path="&lt;AI_FRAGS&gt;Validation.aip"/>
+    <ROW Fragment="Visual_C_2005_SP1_1.aip" Path="&lt;AI_REPOSITORY&gt;Prerequisites\Visual C++ 2005 SP1 _1\Visual C++ 2005 SP1 _1.aip"/>
+    <ROW Fragment="Visual_C_2008_SP1_1.aip" Path="&lt;AI_REPOSITORY&gt;Prerequisites\Visual C++ 2008 SP1 _1\Visual C++ 2008 SP1 _1.aip"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiActionTextComponent">
+    <ROW Action="AI_DownloadPrereq" Description="正在下载运行环境软件" Template="正在下载 [1]{已完成 [2]}" DescriptionLocId="ActionText.Description.AI_DownloadPrereq" TemplateLocId="ActionText.Template.AI_DownloadPrereq"/>
+    <ROW Action="AI_ExtractPrereq" Description="正在提取运行环境软件" Template="正在提取 [1]{已完成 [2]}" DescriptionLocId="ActionText.Description.AI_ExtractPrereq" TemplateLocId="ActionText.Template.AI_ExtractPrereq"/>
+    <ROW Action="AI_InstallPostPrerequisite" Description="正在安装运行环境软件" Template="正在安装 [1]{已完成 [2]}" DescriptionLocId="ActionText.Description.AI_InstallPrerequisite" TemplateLocId="ActionText.Template.AI_InstallPrerequisite"/>
+    <ROW Action="AI_InstallPrerequisite" Description="正在安装运行环境软件" Template="正在安装 [1]{已完成 [2]}" DescriptionLocId="ActionText.Description.AI_InstallPrerequisite" TemplateLocId="ActionText.Template.AI_InstallPrerequisite"/>
+    <ROW Action="AI_VerifyPrereq" Description="正在验证运行环境" Template="[1] 没有被正确安装。" DescriptionLocId="ActionText.Description.AI_VerifyPrereq" TemplateLocId="ActionText.Template.AI_VerifyPrereq"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiBinaryComponent">
+    <ROW Name="Prereq.dll" SourcePath="&lt;AI_CUSTACTS&gt;Prereq.dll"/>
+    <ROW Name="aicustact.dll" SourcePath="&lt;AI_CUSTACTS&gt;aicustact.dll"/>
+    <ROW Name="default_banner.bmp" SourcePath="&lt;AI_THEMES&gt;classic\resources\default-banner.bmp"/>
+    <ROW Name="default_dialog.bmp" SourcePath="&lt;AI_THEMES&gt;classic\resources\default-dialog.bmp"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiControlComponent">
+    <ATTRIBUTE name="FixedSizeBitmaps" value="2"/>
+    <ATTRIBUTE name="MultiBuildFixedSizeBitmaps" value="DefaultBuild:1"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiControlEventComponent">
+    <ROW Dialog_="FolderDlg" Control_="Back" Event="NewDialog" Argument="WelcomeDlg" Condition="AI_INSTALL" Ordering="1"/>
+    <ROW Dialog_="WelcomeDlg" Control_="Next" Event="NewDialog" Argument="FolderDlg" Condition="AI_INSTALL" Ordering="1"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Back" Event="NewDialog" Argument="FolderDlg" Condition="AI_INSTALL" Ordering="1"/>
+    <ROW Dialog_="FolderDlg" Control_="Next" Event="NewDialog" Argument="VerifyReadyDlg" Condition="AI_INSTALL" Ordering="3"/>
+    <ROW Dialog_="MaintenanceTypeDlg" Control_="Back" Event="NewDialog" Argument="MaintenanceWelcomeDlg" Condition="AI_MAINT" Ordering="1"/>
+    <ROW Dialog_="MaintenanceWelcomeDlg" Control_="Next" Event="NewDialog" Argument="MaintenanceTypeDlg" Condition="AI_MAINT" Ordering="2"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Back" Event="NewDialog" Argument="PatchWelcomeDlg" Condition="AI_PATCH" Ordering="1"/>
+    <ROW Dialog_="PatchWelcomeDlg" Control_="Next" Event="NewDialog" Argument="VerifyReadyDlg" Condition="AI_PATCH" Ordering="3"/>
+    <ROW Dialog_="ExitDialog" Control_="Finish" Event="DoAction" Argument="AI_CleanPrereq" Condition="1" Ordering="4"/>
+    <ROW Dialog_="FatalError" Control_="Finish" Event="DoAction" Argument="AI_CleanPrereq" Condition="1" Ordering="2"/>
+    <ROW Dialog_="UserExit" Control_="Finish" Event="DoAction" Argument="AI_CleanPrereq" Condition="1" Ordering="2"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiCreateFolderComponent">
+    <ROW Directory_="Damany_DIR" Component_="Damany"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiCustActComponent">
+    <ROW Action="AI_AppSearchEx" Type="1" Source="Prereq.dll" Target="DoAppSearchEx"/>
+    <ROW Action="AI_CleanPrereq" Type="65" Source="Prereq.dll" Target="CleanPrereq" WithoutSeq="true"/>
+    <ROW Action="AI_DOWNGRADE" Type="19" Target="4010"/>
+    <ROW Action="AI_DownloadPrereq" Type="1" Source="Prereq.dll" Target="DownloadPrereq"/>
+    <ROW Action="AI_ExtractPrereq" Type="65" Source="Prereq.dll" Target="ExtractPrereq"/>
+    <ROW Action="AI_InstallPostPrerequisite" Type="1" Source="Prereq.dll" Target="InstallPostPrereq"/>
+    <ROW Action="AI_InstallPrerequisite" Type="65" Source="Prereq.dll" Target="InstallPrereq"/>
+    <ROW Action="AI_LaunchApp" Type="1" Source="aicustact.dll" Target="[#RemoteImaging.exe]"/>
+    <ROW Action="AI_PREPARE_UPGRADE" Type="65" Source="aicustact.dll" Target="PrepareUpgrade"/>
+    <ROW Action="AI_RESTORE_LOCATION" Type="65" Source="aicustact.dll" Target="RestoreLocation"/>
+    <ROW Action="AI_ResolveKnownFolders" Type="1" Source="aicustact.dll" Target="AI_ResolveKnownFolders"/>
+    <ROW Action="AI_STORE_LOCATION" Type="51" Source="ARPINSTALLLOCATION" Target="[APPDIR]"/>
+    <ROW Action="AI_VerifyPrereq" Type="1" Source="Prereq.dll" Target="VerifyPrereq"/>
+    <ROW Action="SET_APPDIR" Type="307" Source="APPDIR" Target="[ProgramFilesFolder][Manufacturer]\[ProductName]"/>
+    <ROW Action="SET_SHORTCUTDIR" Type="307" Source="SHORTCUTDIR" Target="[ProgramMenuFolder][ProductName]"/>
+    <ROW Action="SET_TARGETDIR_TO_APPDIR" Type="51" Source="TARGETDIR" Target="[APPDIR]"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiIconsComponent">
+    <ROW Name="RemoteImaging.exe" SourcePath="..\RemoteImaging\MainIcon.ico" Index="0"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiInstExSeqComponent">
+    <ROW Action="AI_DOWNGRADE" Condition="AI_NEWERPRODUCTFOUND AND (UILevel &lt;&gt; 5)" Sequence="210"/>
+    <ROW Action="AI_RESTORE_LOCATION" Condition="APPDIR=&quot;&quot;" Sequence="749"/>
+    <ROW Action="AI_STORE_LOCATION" Condition="Not Installed" Sequence="1501"/>
+    <ROW Action="AI_PREPARE_UPGRADE" Condition="AI_UPGRADE=&quot;No&quot; AND (Not Installed)" Sequence="1399"/>
+    <ROW Action="AI_AppSearchEx" Sequence="101"/>
+    <ROW Action="AI_ResolveKnownFolders" Sequence="51"/>
+    <ROW Action="AI_VerifyPrereq" Sequence="1201"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiInstallUISequenceComponent">
+    <ROW Action="AI_RESTORE_LOCATION" Condition="APPDIR=&quot;&quot;" Sequence="749"/>
+    <ROW Action="AI_AppSearchEx" Sequence="101"/>
+    <ROW Action="AI_ResolveKnownFolders" Sequence="51"/>
+    <ROW Action="AI_InstallPrerequisite" Sequence="1283"/>
+    <ROW Action="AI_InstallPostPrerequisite" Sequence="1301"/>
+    <ROW Action="AI_ExtractPrereq" Sequence="1282"/>
+    <ROW Action="AI_DownloadPrereq" Sequence="1281"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiMediaComponent">
+    <ROW LastSequence="162" DiskPrompt="Disk" Cabinet="Cab" VolumeLabel="Disk" CabinetSize="649" CabinetSizeUnit="2" UseCompressed="0" Compressed="0" InsideCabinet="1" Build="DefaultBuild"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiRegsComponent">
+    <ROW Registry="InstallationPath" Root="-1" Key="Software\[Manufacturer]\[ProductName]" Name="InstallationPath" Value="&quot;[#RemoteImaging.exe]&quot;" Component_="InstallationPath"/>
+    <ROW Registry="NET_Framework_4.0" Root="-1" Key="Software\Caphyon\Advanced Installer\Prereqs\[ProductCode]\[ProductVersion]" Name="NET_Framework_4.0" Value="1" Component_="NET_Framework_4.0"/>
+    <ROW Registry="Visual_C_2010_Redi" Root="-1" Key="Software\Caphyon\Advanced Installer\Prereqs\[ProductCode]\[ProductVersion]" Name="Visual_C_2010_Redi" Value="1" Component_="Visual_C_2010_Redi"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiShortsComponent">
+    <ROW Shortcut="_" Directory_="Damany_DIR" Name="人像抓拍2010" Component_="RemoteImaging.exe" Target="[#RemoteImaging.exe]" Hotkey="0" Icon_="RemoteImaging.exe" IconIndex="0" ShowCmd="1" WkDir="APPDIR"/>
+    <ROW Shortcut="__1" Directory_="StartupFolder" Name="人像抓拍2010" Component_="RemoteImaging.exe" Target="[#RemoteImaging.exe]" Hotkey="0" IconIndex="0" ShowCmd="1" WkDir="APPDIR"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiThemeComponent">
+    <ATTRIBUTE name="UsedTheme" value="classic"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiUpgradeComponent">
+    <ROW UpgradeCode="[|UpgradeCode]" VersionMax="[|ProductVersion]" Attributes="1025" ActionProperty="OLDPRODUCTS"/>
+    <ROW UpgradeCode="[|UpgradeCode]" VersionMin="[|ProductVersion]" Attributes="2" ActionProperty="AI_NEWERPRODUCTFOUND"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.PreReqComponent">
+    <ROW PrereqKey="NET_Framework_4.0" DisplayName=".NET Framework 4.0" SetupFileUrl="M:\software\编程开发\Microsoft\dotNetFx40_Full_x86.exe" Location="0" ExactSize="0" MinWin9xVer="47" MinWinNTVer="25" Operator="1" TargetName="dotNetFx40_Full_x86.exe" Type="1" Feature="NET_Framework_4.0"/>
+    <ROW PrereqKey="SanyoSDK" DisplayName="SanyoSDK" SetupFileUrl="M:\Remoteimaging needed\Sanyo.exe" Location="0" ExactSize="0" Operator="1" TargetName="Sanyo.exe"/>
+    <ROW PrereqKey="VLC" DisplayName="VLC" SetupFileUrl="M:\Remoteimaging needed\vlc-0.9.8a-win32.exe" Location="0" ExactSize="0" Operator="1" TargetName="vlc-0.9.8a-win32.exe"/>
+    <ROW PrereqKey="Visual_C_2010_Redi" DisplayName="Visual C++ 2010 Redistributable" SetupFileUrl="M:\software\编程开发\Microsoft\vc++ 2010 redist_x86.exe" Location="0" ExactSize="0" MinWin9xVer="47" MinWinNTVer="25" MinWinNT64Ver="38" Operator="1" TargetName="vc++ 2010 redist_x86.exe" Type="1" Feature="Visual_C_2010_Redistributable"/>
+    <ATTRIBUTE name="PrereqsOrder" value="VLC SanyoSDK E55947C6_5669_4E82_87AD_AD77D9B6E42C CED1100_560D_4294_91C1_B08F812D811B NET_Framework_4.0 Visual_C_2010_Redi"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.PreReqSearchComponent">
+    <ROW SearchKey="Install" Prereq="NET_Framework_4.0" SearchType="9" SearchString="HKLM\SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full\Install" RefContent="M1" Order="1" Property="PreReqSearch"/>
+    <ROW SearchKey="Install_1" Prereq="Visual_C_2010_Redi" SearchType="7" SearchString="HKLM\SOFTWARE\Microsoft\DevDiv\VC\Servicing\10.0\red\Install" Order="1" Property="PreReqSearch_5"/>
+    <ROW SearchKey="SystemFolder_file.dll" Prereq="VLC" SearchType="0" SearchString="[ProgramFilesFolder]\videolan\vlc\axvlc.dll" VerMin="0.9.8.1" VerMax="0.9.8.1" Order="1" Property="PreReqSearch_1"/>
+    <ROW SearchKey="imgctrl.dll" Prereq="SanyoSDK" SearchType="0" SearchString="[CommonFilesFolder]\sanyo\h264\imgctrl.dll" VerMin="1.0" VerMax="3.0" Order="1" Property="PreReqSearch_2"/>
+  </COMPONENT>
+</DOCUMENT>
