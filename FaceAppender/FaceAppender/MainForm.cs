@@ -79,6 +79,7 @@ namespace FaceAppender
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             Properties.Settings.Default.Save();
+            notifyIcon1.Visible = false;
         }
 
         public static Image CombineImages(Image baseImage, IEnumerable<Image> zoomImages)
@@ -142,13 +143,13 @@ namespace FaceAppender
                 {
                     ProcessIniFile(iniFile);
                 }
-                catch (System.IO.IOException)
+                catch (IOException)
                 {
-                    var destDir = Path.Combine(Properties.Settings.Default.SourceDir, "BadFormat");
-                    if (!Directory.Exists(destDir)) Directory.CreateDirectory(destDir);
+                    //var destDir = Path.Combine(Properties.Settings.Default.SourceDir, "BadFormat");
+                    //if (!Directory.Exists(destDir)) Directory.CreateDirectory(destDir);
 
-                    var destPath = Path.Combine(destDir, Path.GetFileName(iniFile));
-                    File.Move(iniFile, destPath);
+                    //var destPath = Path.Combine(destDir, Path.GetFileName(iniFile));
+                    //File.Move(iniFile, destPath);
                 }
             }
 
@@ -159,9 +160,10 @@ namespace FaceAppender
             UpdateCurrentIniLabel(iniFile);
 
             var parseResult = ParseIniFile(iniFile);
-
             var destDir = Properties.Settings.Default.DestDir;
             var sourceDir = Properties.Settings.Default.SourceDir;
+            var allExist = parseResult.ImageFiles.All(f => File.Exists(Path.Combine(sourceDir, f)));
+            if (!allExist) return;
 
             MoveImageFiles(parseResult, destDir, sourceDir);
             var iniDstPath = Path.Combine(destDir, Path.GetFileName(iniFile));
