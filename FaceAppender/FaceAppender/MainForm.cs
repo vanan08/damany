@@ -307,7 +307,7 @@ namespace FaceAppender
 
         private void UpdateCurrentIniLabel(string iniFile)
         {
-            Action ac = () => labelCurrentIni.Text = iniFile;
+            Action ac = () => labelCurrentIni.Text = Path.GetFileName(iniFile);
             this.BeginInvoke(ac);
         }
         class ParseResult
