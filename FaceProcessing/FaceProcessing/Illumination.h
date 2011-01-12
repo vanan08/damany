@@ -1,3 +1,6 @@
+#ifndef ILLUMINATION_H
+#define ILLUMINATION_H
+
 #include "stdafx.h"
 #include "cv.h"
 
@@ -27,3 +30,4 @@ private:
 		}
 	}
 }
+#endif

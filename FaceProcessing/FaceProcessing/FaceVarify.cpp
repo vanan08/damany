@@ -8,13 +8,92 @@ Damany::Imaging::FaceVarify::FaceVarify()
 	mouth_pt = cvPoint(0, 0); 
 }
 
+void CalcAvg(IplImage *grayIn, float avg[])
+{
+	int width = grayIn->width;
+	CvScalar avgVal;
+	CvRect rect;
+	rect.x = 0;
+	rect.y = 0;
+	rect.width = width/3;
+	rect.height = width/3;
+
+	cvSetImageROI(grayIn, rect);
+	avgVal = cvAvg(grayIn);
+	avg[0] = avgVal.val[0];
+	cvResetImageROI(grayIn);
+
+	rect.x = width/3 - 1;
+	rect.y = 0;
+	cvSetImageROI(grayIn, rect);
+	avgVal = cvAvg(grayIn);
+	avg[1] = avgVal.val[0];
+	cvResetImageROI(grayIn);
+
+	rect.x = 2*width/3 - 1;
+	rect.y = 0;
+	cvSetImageROI(grayIn, rect);
+	avgVal = cvAvg(grayIn);
+	avg[2] = avgVal.val[0];
+	cvResetImageROI(grayIn);
+
+	rect.x = 0;
+	rect.y = width/3 - 1;
+	cvSetImageROI(grayIn, rect);
+	avgVal = cvAvg(grayIn);
+	avg[3] = avgVal.val[0];
+	cvResetImageROI(grayIn);
+
+	rect.x = width/3 - 1;
+	rect.y = width/3 - 1;
+	cvSetImageROI(grayIn, rect);
+	avgVal = cvAvg(grayIn);
+	avg[4] = avgVal.val[0];
+	cvResetImageROI(grayIn);
+
+	rect.x = 2*width/3 - 1;
+	rect.y = width/3 - 1;
+	cvSetImageROI(grayIn, rect);
+	avgVal = cvAvg(grayIn);
+	avg[5] = avgVal.val[0];
+	cvResetImageROI(grayIn);
+
+	rect.x = 0;
+	rect.y = 2*width/3 - 1;
+	cvSetImageROI(grayIn, rect);
+	avgVal = cvAvg(grayIn);
+	avg[6] = avgVal.val[0];
+	cvResetImageROI(grayIn);
+
+	rect.x = width/3 - 1;
+	rect.y = 2*width/3 - 1;
+	cvSetImageROI(grayIn, rect);
+	avgVal = cvAvg(grayIn);
+	avg[7] = avgVal.val[0];
+	cvResetImageROI(grayIn);
+
+	rect.x = 2*width/3 - 1;
+	rect.y = 2*width/3 - 1;
+	cvSetImageROI(grayIn, rect);
+	avgVal = cvAvg(grayIn);
+	avg[8] = avgVal.val[0];
+	cvResetImageROI(grayIn);
+}
+
 bool Damany::Imaging::FaceVarify::IsFaceImg(IplImage* smallFaceImg)
 {
+	if (smallFaceImg->nChannels != 3)
+	{
+		throw 2;
+		return false;
+	}
 	IplImage* faceGray = cvCreateImage(cvGetSize(smallFaceImg), 8, 1);
 	IplImage* faceResize = cvCreateImage(cvSize(100,100), 8, 1);
+	IplImage *colImg = cvCreateImage(cvSize(100,100), 8, 3);
 
 	cvCvtColor(smallFaceImg, faceGray, CV_BGR2GRAY);  
 	cvResize(faceGray, faceResize, CV_INTER_CUBIC);
+	cvResize(smallFaceImg, colImg, CV_INTER_CUBIC);
 
 	int width = 100;
 	int height = 100; 
@@ -52,8 +131,9 @@ bool Damany::Imaging::FaceVarify::IsFaceImg(IplImage* smallFaceImg)
 	cvReleaseImage(&faceGray);
 	cvReleaseImage(&faceResize);   
 	cvReleaseImage(&temp1);
-	cvReleaseImage(&temp2); 
-
+	cvReleaseImage(&temp2);
+	cvReleaseImage(&colImg);
+	 
 	if (temp < 15)
 	{
 		return false;
@@ -65,7 +145,9 @@ bool Damany::Imaging::FaceVarify::IsFaceImg(IplImage* smallFaceImg)
 	int mid_y = (leftEye.y + rightEye.y)/2;
 	float mouthDist = sqrt(float((mid_x-mouth.x)*(mid_x-mouth.x) + (mid_y-mouth.y)*(mid_y-mouth.y)));
 
-	if (((leftEye.x==0) && (leftEye.y==0)) || (rightEye.x==0) && (rightEye.y==0) || ((mouth.x==0) && (mouth.y==0)))
+	if ((leftEye.x==0) || (leftEye.y==0) ||
+	(rightEye.x==0) || (rightEye.y==0) || 
+	(mouth.x==0) || (mouth.y==0))
 	{
 		return false;
 	}

@@ -1,3 +1,6 @@
+#ifndef FACEALIGNMENT_H
+#define FACEALIGNMENT_H
+
 #include "stdafx.h"
 #include "VJfacedetect.h"
 #include "AAM_Util.h"
@@ -48,6 +51,7 @@ private:
 	int MaxX(CvPoint fPt[], int fCount);
 	int MinY(CvPoint fPt[], int fCount);
 	int MinX(CvPoint fPt[], int fCount);
+	bool fptCheck(CvPoint fPt[], int fptCount, int imgWidth, int imgHeight);
 
 private:
 	AAM_Pyramid model;
@@ -58,3 +62,4 @@ private:
 		}
 	}
 }
+#endif

@@ -11,6 +11,7 @@
 #include "cv.h"
 #include "cxcore.h"
 #include "cvaux.h"
+#include "highgui.h"
 
 #ifdef DLL_EXPORTS
 #define DLL_API _declspec(dllexport)

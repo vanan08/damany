@@ -8,13 +8,15 @@ Damany::Imaging::FaceCompare::FaceAlignment::FaceAlignment(char* modelPath, char
 	fptCount = featurePointCount;
 }
 
-bool Damany::Imaging::FaceCompare::FaceAlignment::LibFaceAlignment(IplImage *faceImg, IplImage *faceLbpImg, CvPoint featurePt[])
+bool Damany::Imaging::FaceCompare::FaceAlignment::LibFaceAlignment(IplImage *faceImg, 
+	IplImage *faceLbpImg, CvPoint featurePt[])
 {
 	bool flag = Alignment(faceImg, faceLbpImg, featurePt);
 	return flag;
 }
 
-bool Damany::Imaging::FaceCompare::FaceAlignment::RealTimeAlignment(IplImage *faceImg, IplImage *faceLbpImg)
+bool Damany::Imaging::FaceCompare::FaceAlignment::RealTimeAlignment(IplImage *faceImg, 
+	IplImage *faceLbpImg)
 {
 	bool flag = Alignment(faceImg, faceLbpImg);
 	return flag;
@@ -123,7 +125,130 @@ void LightNorm(IplImage *sourImg, IplImage *refImg, IplImage *destImg)
 	cvReleaseMat(&dstM2);
 }
 
-bool Damany::Imaging::FaceCompare::FaceAlignment::Alignment(IplImage* faceImg, IplImage* faceLbpImg, CvPoint featurePt[])
+void Draw(IplImage *sourImg, CvPoint fpt[])
+{
+	for (int i=0; i<68; i++)
+	{
+		cvCircle(sourImg, fpt[i], 2, CV_RGB(255,0,0)); 
+	}
+}
+
+bool Damany::Imaging::FaceCompare::FaceAlignment::fptCheck(CvPoint fPt[], 
+	int fptCount, int imgWidth, int imgHeight)
+{
+	CvRect rect;
+	int minX, minY, maxX, maxY;
+	minX = MinX(fPt, fptCount);
+	minY = MinY(fPt, fptCount);
+	maxX = MaxX(fPt, fptCount);
+	maxY = MaxY(fPt, fptCount);
+	minX = minX<(imgWidth-1) ? minX:(imgWidth-2);
+	minY = minY<(imgHeight-1) ? minY:(imgHeight-2);
+	maxX = maxX>minX ? maxX:(minX+1);
+	maxY = maxY>minY ? maxY:(minY+1);
+
+	rect.x = minX;
+	rect.y = minY;
+	rect.width = maxX - minX;
+	rect.height = maxY - minY;  
+
+	if ((rect.width<50) || (rect.height<50))
+	{
+		return false;
+	}
+
+	int xLimit = rect.x + rect.width/2;
+	/*for (int i=0; i<fptCount; i++)
+	{
+	cout<<i<<"	"<<fPt[i].x<<" "<<fPt[i].y<<endl;
+	}*/
+/////////////////////////左边脸////////////////////////////////////////////
+	if (fPt[0].x > xLimit)
+	{
+		return false;
+	}
+	if (fPt[1].x > xLimit)
+	{
+		return false;
+	}
+	if (fPt[2].x > xLimit)
+	{
+		return false;
+	}
+	if (fPt[3].x > xLimit)
+	{
+		return false;
+	}
+///////////////////////////右边脸//////////////////////////////////////////
+	if (fPt[11].x < xLimit)
+	{
+		return false;
+	}
+	if (fPt[12].x < xLimit)
+	{
+		return false;
+	}
+	if (fPt[13].x < xLimit)
+	{
+		return false;
+	}
+	if (fPt[14].x < xLimit)
+	{
+		return false;
+	}
+////////////////////////眼睛、眉毛、鼻子根部//////////////////////////////////////////////////	
+	int yLimit = rect.y + rect.height/2;
+	for (int i=15; i<38; i++)
+	{
+		if (fPt[i].y > yLimit)
+		{
+			return false;
+		}
+	}
+	if (fPt[45].y > yLimit)
+	{
+		return false;
+	}
+/////////////////////////////////////////////////////////////////////////////////
+	for (int i=5; i<9; i++)
+	{
+		if (fPt[i].y < yLimit)
+		{
+			return false;
+		}
+	}
+////////////////////////////////////////////////////////////////////////////////
+	if (fPt[0].y <= rect.x)
+	{
+		return false;
+	}
+	for (int i=1; i<7; i++)
+	{
+		if (fPt[i].y <= fPt[i-1].y)
+		{
+			return false;
+		}
+	}
+
+	if (fPt[14].y <= rect.x)
+	{
+		return false;
+	}
+	for (int i=8; i<15; i++)
+	{
+		if (fPt[i].y <= fPt[i+1].y)
+		{
+			return false;
+		}
+	}
+	
+
+	return true;
+}
+
+bool Damany::Imaging::FaceCompare::FaceAlignment::Alignment(IplImage* faceImg, 
+	IplImage* faceLbpImg, CvPoint featurePt[])
+
 {
 	IplImage* sourImg = cvCloneImage(faceImg);
 	CvPoint *fPt = new CvPoint[fptCount];
@@ -168,15 +293,30 @@ bool Damany::Imaging::FaceCompare::FaceAlignment::Alignment(IplImage* faceImg, I
 		}
 	}
 	
-	ImageRotate(sourImg, fPt); 
-
 	float angle = GetAngle(fPt);
+	if (fabs(angle) > 0.87)//如果大于50度
+	{
+		cvReleaseImage(&sourImg);
+		delete[] fPt;
+		return false;
+	}
+	ImageRotate(sourImg, fPt);
+
 	int originX = sourImg->width;
 	originX /= 2;
 	int originY = sourImg->height;
 	originY /= 2;
 	ShapeRotate(fPt, fptCount, angle, originX, originY);
 	CheckRange(fPt, fptCount, 0, 0, sourImg->width, sourImg->height);
+
+	bool checkFlag = fptCheck(fPt, fptCount, sourImg->width, sourImg->height);
+	if (!checkFlag)
+	{
+		cvReleaseImage(&sourImg);
+		delete[] fPt;
+		return false;
+	}
+
 
 	CvRect rect;
 	int minX, minY, maxX, maxY;
