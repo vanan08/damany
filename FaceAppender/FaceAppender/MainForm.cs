@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -57,7 +58,11 @@ namespace FaceAppender
 
         private void browseForSrcDir_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.SourceDir = BrowseForDirectory();
+            var dir = BrowseForDirectory();
+            if (!string.IsNullOrEmpty(dir))
+            {
+                Properties.Settings.Default.SourceDir = BrowseForDirectory();
+            }
         }
 
 
@@ -73,7 +78,11 @@ namespace FaceAppender
 
         private void browseForDstDir_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.DestDir = BrowseForDirectory();
+            var dir = BrowseForDirectory();
+            if (!string.IsNullOrEmpty(dir))
+            {
+                Properties.Settings.Default.DestDir = BrowseForDirectory();
+            }
         }
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -184,10 +193,11 @@ namespace FaceAppender
         {
             for (int i = 0; i < parseResult.ImageFiles.Length; i++)
             {
-                var imgName = parseResult.ImageFiles[i];
+                var imgPath = parseResult.ImageFiles[i];
+                var imgName = Path.GetFileName(imgPath);
                 if (i == parseResult.ImageIndex)
                 {
-                    var baseImg = AForge.Imaging.Image.FromFile(imgName);
+                    var baseImg = AForge.Imaging.Image.FromFile(imgPath);
                     var faceImgs = ExtractSubImages(baseImg, parseResult.FaceRectangles);
                     var lprImg = ExtractSubImages(baseImg, new Rectangle[] { parseResult.PlateRectangle });
 
@@ -197,9 +207,8 @@ namespace FaceAppender
 
                     //save combined new image, and delete old image file;
                     var destPath = Path.Combine(destDir, imgName);
-                    combinedImg.Save(destPath);
-                    var originalPath = Path.Combine(srcDir, imgName);
-                    File.Delete(originalPath);
+                    combinedImg.Save(destPath, ImageFormat.Jpeg);
+                    File.Delete(imgPath);
 
                     UpdatePictureBox(combinedImg);
 
@@ -208,9 +217,8 @@ namespace FaceAppender
                 }
                 else
                 {
-                    var srcImgPath = Path.Combine(srcDir, imgName);
                     var destImgPath = Path.Combine(destDir, imgName);
-                    File.Move(srcImgPath, destImgPath);
+                    File.Move(imgPath, destImgPath);
                 }
             }
         }
@@ -340,7 +348,7 @@ namespace FaceAppender
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (MessageBox.Show(this, "确定要退出吗?", this.Text, MessageBoxButtons.OKCancel) != DialogResult.OK)
+            if (MessageBox.Show(this, "确定要退出吗?\r\n\r\n点击最小化按钮，程序可以以后台的方式运行。", this.Text, MessageBoxButtons.OKCancel, MessageBoxIcon.Question) != DialogResult.OK)
             {
                 e.Cancel = true;
             }
