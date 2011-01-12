@@ -161,6 +161,7 @@
             this.Name = "MainForm";
             this.ShowIcon = false;
             this.Text = "车牌人像融合器";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
             this.SizeChanged += new System.EventHandler(this.MainForm_SizeChanged);
             ((System.ComponentModel.ISupportInitialize)(this.lastPicture)).EndInit();

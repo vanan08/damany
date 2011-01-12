@@ -329,5 +329,13 @@ namespace FaceAppender
             var combined = CombineImages(big, new[] { f1, f2, f3 });
             combined.Save(@"d:\temp.jpg");
         }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (MessageBox.Show(this, "确定要退出吗?", this.Text, MessageBoxButtons.OKCancel) != DialogResult.OK)
+            {
+                e.Cancel = true;
+            }
+        }
     }
 }
