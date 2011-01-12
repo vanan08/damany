@@ -3,7 +3,10 @@
 
 Damany::Imaging::FrontalFaceVarify::FrontalFaceVarify(IplImage* templateEye)
 {
-	//Im1=cvLoadImage(templatePath, 0); 
+	if (templateEye->nChannels != 1)
+	{
+		throw 1;
+	}
 	Im1 = cvCloneImage(templateEye); 
 }
 

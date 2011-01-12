@@ -54,6 +54,12 @@ bool VJfacedetect::DetectFace(std::vector<AAM_Shape> &Shape, const IplImage* ima
     {
 		Shape[i].resize(2);
 		CvRect* r = (CvRect*)cvGetSeqElem(pFaces, i);
+
+		CvRect rect;
+		rect.x = r->x*2;
+		rect.y = r->y*2;
+		rect.width = r->x*2 + 2.0*r->width;
+		rect.height = r->y*2 + 2.0*r->height;
 		
 		CvPoint pt1, pt2;
 		pt1.x = r->x * 2;
