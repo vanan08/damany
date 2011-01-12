@@ -152,7 +152,7 @@ namespace FaceAppender
                 {
                     ProcessIniFile(iniFile);
                 }
-                catch (IOException)
+                catch (Exception)
                 {
                     //var destDir = Path.Combine(Properties.Settings.Default.SourceDir, "BadFormat");
                     //if (!Directory.Exists(destDir)) Directory.CreateDirectory(destDir);
