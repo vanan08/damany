@@ -132,14 +132,16 @@
             // labelCurrentIni
             // 
             this.labelCurrentIni.Name = "labelCurrentIni";
-            this.labelCurrentIni.Size = new System.Drawing.Size(370, 17);
+            this.labelCurrentIni.Size = new System.Drawing.Size(339, 17);
             this.labelCurrentIni.Spring = true;
+            this.labelCurrentIni.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // labelCounter
             // 
             this.labelCounter.Name = "labelCounter";
             this.labelCounter.Size = new System.Drawing.Size(63, 17);
             this.labelCounter.Text = "已处理：0";
+            this.labelCounter.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // MainForm
             // 
