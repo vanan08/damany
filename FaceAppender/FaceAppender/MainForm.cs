@@ -165,13 +165,21 @@ namespace FaceAppender
             var allExist = parseResult.ImageFiles.All(f => File.Exists(Path.Combine(sourceDir, f)));
             if (!allExist) return;
 
-            MoveImageFiles(parseResult, destDir, sourceDir);
-            var iniDstPath = Path.Combine(destDir, Path.GetFileName(iniFile));
-            File.Move(iniFile, iniDstPath);
-
+            MoveFiles(iniFile, parseResult, destDir, sourceDir);
             UpdateCounter();
         }
 
+        private void MoveFiles(string iniFile, ParseResult parseResult, string destDir, string sourceDir)
+        {
+            var files = new List<string>(parseResult.ImageFiles);
+            files.Add(iniFile);
+
+            if (files.Any(IsFileLocked)) return;
+
+            MoveImageFiles(parseResult, destDir, sourceDir);
+            var iniDstPath = Path.Combine(destDir, Path.GetFileName(iniFile));
+            File.Move(iniFile, iniDstPath);
+        }
         private void MoveImageFiles(ParseResult parseResult, string destDir, string srcDir)
         {
             for (int i = 0; i < parseResult.ImageFiles.Length; i++)
@@ -179,8 +187,7 @@ namespace FaceAppender
                 var imgName = parseResult.ImageFiles[i];
                 if (i == parseResult.ImageIndex)
                 {
-                    var imgPath = Path.Combine(Properties.Settings.Default.SourceDir, imgName);
-                    var baseImg = AForge.Imaging.Image.FromFile(imgPath);
+                    var baseImg = AForge.Imaging.Image.FromFile(imgName);
                     var faceImgs = ExtractSubImages(baseImg, parseResult.FaceRectangles);
                     var lprImg = ExtractSubImages(baseImg, new Rectangle[] { parseResult.PlateRectangle });
 
@@ -240,7 +247,8 @@ namespace FaceAppender
                 var img = iniData[carSection]["Img" + idx.ToString()];
                 if (string.IsNullOrEmpty(img)) break;
 
-                images.Add(img);
+                var path = Path.Combine(Properties.Settings.Default.SourceDir, img);
+                images.Add(path);
                 ++idx;
             }
 
@@ -335,6 +343,22 @@ namespace FaceAppender
             if (MessageBox.Show(this, "确定要退出吗?", this.Text, MessageBoxButtons.OKCancel) != DialogResult.OK)
             {
                 e.Cancel = true;
+            }
+        }
+
+        private bool IsFileLocked(string file)
+        {
+            try
+            {
+                using (FileStream fs = File.Open(file, FileMode.Open, FileAccess.ReadWrite, FileShare.None))
+                {
+                    fs.Close();
+                }
+                return false;
+            }
+            catch (Exception)
+            {
+                return true;
             }
         }
     }
