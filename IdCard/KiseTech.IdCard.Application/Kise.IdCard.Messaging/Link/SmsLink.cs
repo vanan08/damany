@@ -58,7 +58,14 @@ namespace Kise.IdCard.Messaging.Link
 
         private void _sms_NewMessageReceived(object sender, NewMessageReceivedEventArgs e)
         {
-            var incommingMsg = new IncomingMessage(e.TextMessage);
+            var commaIndes = e.TextMessage.IndexOf(":");
+            var msg = e.TextMessage;
+            if (commaIndes != -1)
+            {
+                msg = msg.Substring(commaIndes + 1).Trim();
+            }
+
+            var incommingMsg = new IncomingMessage(msg);
             incommingMsg.Sender = e.Phone;
             RaiseNewMessageReceived(new MiscUtil.EventArgs<IncomingMessage>(incommingMsg));
         }
