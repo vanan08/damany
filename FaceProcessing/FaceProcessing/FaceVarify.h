@@ -23,7 +23,6 @@ namespace Damany {
 
 	namespace Imaging {
 
-		namespace FaceSearch{
 
 class DLL_API FaceVarify
 {
@@ -50,6 +49,5 @@ private:
 	CvPoint mouth_pt; 
 };
 		}
-	}
 }
 

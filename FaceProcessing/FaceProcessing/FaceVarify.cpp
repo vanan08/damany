@@ -8,14 +8,14 @@
 #define min(a,b) (((a) < (b)) ? (a) : (b))
 #endif
 
-Damany::Imaging::FaceSearch::FaceVarify::FaceVarify()
+Damany::Imaging::FaceVarify::FaceVarify()
 {
 	leftEye_pt = cvPoint(0, 0);
 	rightEye_pt = cvPoint(0, 0);
 	mouth_pt = cvPoint(0, 0); 
 }
 
-bool Damany::Imaging::FaceSearch::FaceVarify::IsFaceImg(IplImage* smallFaceImg)
+bool Damany::Imaging::FaceVarify::IsFaceImg(IplImage* smallFaceImg)
 {
 	/*if (smallFaceImg->nChannels != 3)
 	{
@@ -186,7 +186,7 @@ bool Damany::Imaging::FaceSearch::FaceVarify::IsFaceImg(IplImage* smallFaceImg)
 	return true;  
 }
 
-bool Damany::Imaging::FaceSearch::FaceVarify::JudgeFaceByColor( IplImage* pImg )
+bool Damany::Imaging::FaceVarify::JudgeFaceByColor( IplImage* pImg )
 {
 	if( !pImg ) return false;
 
@@ -294,7 +294,7 @@ bool Damany::Imaging::FaceSearch::FaceVarify::JudgeFaceByColor( IplImage* pImg )
 	return bFace;
 }
 
-void Damany::Imaging::FaceSearch::FaceVarify::SearchLeftEye(IplImage* grayImg, CvRect eyeRect, CvPoint& eyePt)
+void Damany::Imaging::FaceVarify::SearchLeftEye(IplImage* grayImg, CvRect eyeRect, CvPoint& eyePt)
 {
 	uchar* grayData = (uchar*)grayImg->imageData;
 
@@ -353,7 +353,7 @@ void Damany::Imaging::FaceSearch::FaceVarify::SearchLeftEye(IplImage* grayImg, C
 	}
 }
 
-void Damany::Imaging::FaceSearch::FaceVarify::SearchRightEye(IplImage *grayImg, CvRect eyeRect, CvPoint &eyePt)
+void Damany::Imaging::FaceVarify::SearchRightEye(IplImage *grayImg, CvRect eyeRect, CvPoint &eyePt)
 {
 	int height = grayImg->height;
 	int width = grayImg->width;
@@ -403,7 +403,7 @@ void Damany::Imaging::FaceSearch::FaceVarify::SearchRightEye(IplImage *grayImg, 
 	} 
 }
 
-void Damany::Imaging::FaceSearch::FaceVarify::SearchMouth(IplImage *grayImg, CvRect &mouthRect, CvPoint &mouthPt)
+void Damany::Imaging::FaceVarify::SearchMouth(IplImage *grayImg, CvRect &mouthRect, CvPoint &mouthPt)
 {
 	cvSetImageROI(grayImg, mouthRect);
 	CvScalar avg = cvAvg(grayImg);
@@ -448,7 +448,7 @@ void Damany::Imaging::FaceSearch::FaceVarify::SearchMouth(IplImage *grayImg, CvR
 	}
 }
 
-bool Damany::Imaging::FaceSearch::FaceVarify::SumJudge(IplImage *colorIn)
+bool Damany::Imaging::FaceVarify::SumJudge(IplImage *colorIn)
 {
 	IplImage *sourGray = cvCreateImage(cvGetSize(colorIn), 8, 1);
 	IplImage *gxImg = cvCreateImage(cvGetSize(colorIn), 8, 1);
@@ -559,7 +559,7 @@ bool Damany::Imaging::FaceSearch::FaceVarify::SumJudge(IplImage *colorIn)
 	return true;
 }
 
-bool Damany::Imaging::FaceSearch::FaceVarify::RGBavgDiffJudge(IplImage *sourImg)
+bool Damany::Imaging::FaceVarify::RGBavgDiffJudge(IplImage *sourImg)
 {
 	IplImage *b_img = cvCreateImage(cvGetSize(sourImg), 8, 1);
 	IplImage *g_img = cvCreateImage(cvGetSize(sourImg), 8, 1);
