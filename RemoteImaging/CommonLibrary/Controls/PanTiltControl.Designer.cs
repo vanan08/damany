@@ -46,8 +46,6 @@
             // buttonsContainer1
             // 
             this.buttonsContainer1.AutoSize = true;
-            this.buttonsContainer1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.buttonsContainer1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
             this.buttonsContainer1.Controls.Add(this.simpleButton3);
             this.buttonsContainer1.Controls.Add(this.simpleButton9);
             this.buttonsContainer1.Controls.Add(this.simpleButton1);
