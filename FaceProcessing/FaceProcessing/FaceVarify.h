@@ -19,26 +19,37 @@
 #define DLL_API _declspec(dllimport) 
 #endif
 
-namespace Damany 
+namespace Damany {
+
+	namespace Imaging {
+
+		namespace FaceSearch{
+
+class DLL_API FaceVarify
 {
-	namespace Imaging 
-	{
-		class DLL_API FaceVarify
-		{
-		public:
-			FaceVarify();
-			bool IsFaceImg(IplImage* smallFaceImg);
+public:
+	FaceVarify();
+	/*******************************************************
+	函数名：IsFaceImg()
+	输入：仅含有人脸面部区域的三通道彩图
+	输出：true:该图片为人脸图片，false:该图片不是人脸图片
+	********************************************************/
+	bool IsFaceImg(IplImage* smallFaceImg);
 
-		private:
-			void SearchLeftEye(IplImage* grayImg, CvRect eyeRect, CvPoint& eyePt);
-			void SearchRightEye(IplImage* grayImg, CvRect eyeRect, CvPoint& eyePt);
-			void SearchMouth(IplImage* grayImg, CvRect& mouthRect, CvPoint& mouthPt);
+private:
+	void SearchLeftEye(IplImage* grayImg, CvRect eyeRect, CvPoint& eyePt);
+	void SearchRightEye(IplImage* grayImg, CvRect eyeRect, CvPoint& eyePt);
+	void SearchMouth(IplImage* grayImg, CvRect& mouthRect, CvPoint& mouthPt);
+	bool JudgeFaceByColor(IplImage* pImg);
+	bool SumJudge(IplImage *colorIn);
+	bool RGBavgDiffJudge(IplImage *sourImg);
 
-		private:
-			CvPoint leftEye_pt;
-			CvPoint rightEye_pt;
-			CvPoint mouth_pt; 
-		};
+private:
+	CvPoint leftEye_pt;
+	CvPoint rightEye_pt;
+	CvPoint mouth_pt; 
+};
+		}
 	}
 }
 

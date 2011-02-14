@@ -14,10 +14,14 @@
     <ProjectGuid>{843FD7A9-A1FD-40F8-A036-03BE8A538BF4}</ProjectGuid>
     <RootNamespace>Test</RootNamespace>
     <Keyword>Win32Proj</Keyword>
-    <SccProjectName>&lt;Project Location In Database&gt;</SccProjectName>
-    <SccAuxPath>&lt;Source Control Database&gt;</SccAuxPath>
-    <SccLocalPath>&lt;Local Binding Root of Project&gt;</SccLocalPath>
-    <SccProvider>Mercurial Source Control Package</SccProvider>
+    <SccProjectName>
+    </SccProjectName>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccProvider>
+    </SccProvider>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
