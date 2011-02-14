@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<DOCUMENT Type="Advanced Installer" CreateVersion="8.0.1" version="8.0.1" Modules="professional" RootPath="." Language="zh">
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiPropsComponent">
+    <ROW Property="ALLUSERS" Value="2"/>
+    <ROW Property="ARPCOMMENTS" Value="此 Installer 数据库包含了安装 [|ProductName] 所需的逻辑和数据。" ValueLocId="*"/>
+    <ROW Property="BannerBitmap" MultiBuildValue="DefaultBuild:banner_image.jpg" Type="1"/>
+    <ROW Property="DialogBitmap" MultiBuildValue="DefaultBuild:dialog_image.jpg" Type="1"/>
+    <ROW Property="Manufacturer" Value="成都凯智科技" ValueLocId="*"/>
+    <ROW Property="ProductCode" Value="2052:{02348370-CD83-4ABA-992D-E581EF1685E9} " Type="16"/>
+    <ROW Property="ProductLanguage" Value="2052"/>
+    <ROW Property="ProductName" Value="身份证查询客户端" ValueLocId="*"/>
+    <ROW Property="ProductVersion" Value="1.0.0"/>
+    <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND"/>
+    <ROW Property="UpgradeCode" Value="{DEF74A80-CEF3-48BC-B9DC-5E48692A5A60}"/>
+    <ROW Property="WindowsType9X" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>
+    <ROW Property="WindowsType9XDisplay" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiDirsComponent">
+    <ROW Directory="APPDIR" Directory_Parent="TARGETDIR" DefaultDir="APPDIR:." IsPseudoRoot="1"/>
+    <ROW Directory="DesktopFolder" Directory_Parent="TARGETDIR" DefaultDir="Deskto~1|DesktopFolder" IsPseudoRoot="1"/>
+    <ROW Directory="SHORTCUTDIR" Directory_Parent="TARGETDIR" DefaultDir="SHORTC~1|SHORTCUTDIR" IsPseudoRoot="1"/>
+    <ROW Directory="TARGETDIR" DefaultDir="SourceDir"/>
+    <ROW Directory="WindowsVolume" Directory_Parent="TARGETDIR" DefaultDir="Window~1|WindowsVolume" IsPseudoRoot="1"/>
+    <ROW Directory="zh_CN_DIR" Directory_Parent="APPDIR" DefaultDir="zh-CN"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiCompsComponent">
+    <ROW Component="AForge.Imaging.dll" ComponentId="{43A3221C-03EA-40D8-B7AD-3AEF6A4C7701}" Directory_="APPDIR" Attributes="0" KeyPath="AForge.Imaging.dll"/>
+    <ROW Component="AForge.Math.dll" ComponentId="{FAF6ABE0-2488-4BEE-B2B0-F2CF07E6A333}" Directory_="APPDIR" Attributes="0" KeyPath="AForge.Math.dll"/>
+    <ROW Component="AForge.dll" ComponentId="{D3B477E9-66C2-432D-B34A-BE9D14E3F700}" Directory_="APPDIR" Attributes="0" KeyPath="AForge.dll"/>
+    <ROW Component="AsyncCtpLibrary.dll" ComponentId="{3F6E976C-2CD2-4270-86C5-C67DA06FA8DF}" Directory_="APPDIR" Attributes="0" KeyPath="AsyncCtpLibrary.dll"/>
+    <ROW Component="AsyncCtpLibrary.xml" ComponentId="{29A3E349-CD05-4F7C-8793-2D308553FE0C}" Directory_="APPDIR" Attributes="0" KeyPath="AsyncCtpLibrary.xml" Type="0"/>
+    <ROW Component="DevExpress.BonusSkins.v10.2.dll" ComponentId="{FF00165D-6F4C-4D65-A600-010D8ECE7DE9}" Directory_="APPDIR" Attributes="0" KeyPath="DevExpress.BonusSkins.v10.2.dll"/>
+    <ROW Component="DevExpress.Charts.v10.2.Core.dll" ComponentId="{8234E58C-A5E5-408B-8A45-610AF0C7871D}" Directory_="APPDIR" Attributes="0" KeyPath="DevExpress.Charts.v10.2.Core.dll"/>
+    <ROW Component="DevExpress.Data.v10.2.dll" ComponentId="{BF158AFF-EC5A-4316-8078-BD5F471F6ECA}" Directory_="APPDIR" Attributes="0" KeyPath="DevExpress.Data.v10.2.dll"/>
+    <ROW Component="DevExpress.Data.v10.2.resources.dll" ComponentId="{DCF90421-0743-4E37-B709-8A2B9F787BD3}" Directory_="zh_CN_DIR" Attributes="0" KeyPath="DevExpress.Data.v10.2.resources.dll"/>
+    <ROW Component="DevExpress.OfficeSkins.v10.2.dll" ComponentId="{04208C75-5C0B-4A9B-A9AC-C6DD41C14B3F}" Directory_="APPDIR" Attributes="0" KeyPath="DevExpress.OfficeSkins.v10.2.dll"/>
+    <ROW Component="DevExpress.PivotGrid.v10.2.Core.dll" ComponentId="{FEC53C03-C30F-4408-917A-E5EF45ECA1C1}" Directory_="APPDIR" Attributes="0" KeyPath="DevExpress.PivotGrid.v10.2.Core.dll"/>
+    <ROW Component="DevExpress.PivotGrid.v10.2.Core.resource" ComponentId="{8D0EAB53-1B35-4251-B1A6-BF116D73CD34}" Directory_="zh_CN_DIR" Attributes="0" KeyPath="DevExpress.PivotGrid.v10.2.Core.resources.dll"/>
+    <ROW Component="DevExpress.RichEdit.v10.2.Core.dll" ComponentId="{0825E559-9161-47A2-BC3F-A5491E06E6D2}" Directory_="APPDIR" Attributes="0" KeyPath="DevExpress.RichEdit.v10.2.Core.dll"/>
+    <ROW Component="DevExpress.RichEdit.v10.2.Core.resources" ComponentId="{2CADE5F9-6377-4CB8-AA88-6B4B9E102165}" Directory_="zh_CN_DIR" Attributes="0" KeyPath="DevExpress.RichEdit.v10.2.Core.resources.dll"/>
+    <ROW Component="DevExpress.Utils.v10.2.dll" ComponentId="{DB563678-45B3-4B2B-8299-C13DD514CCE7}" Directory_="APPDIR" Attributes="0" KeyPath="DevExpress.Utils.v10.2.dll"/>
+    <ROW Component="DevExpress.Utils.v10.2.resources.dll" ComponentId="{306B7656-352C-4E4E-B77B-1ADA6E739215}" Directory_="zh_CN_DIR" Attributes="0" KeyPath="DevExpress.Utils.v10.2.resources.dll"/>
+    <ROW Component="DevExpress.Xpf.Grid.v10.2.resources.dll" ComponentId="{66BAC981-B03E-4BC7-BAE5-E7594077800B}" Directory_="zh_CN_DIR" Attributes="0" KeyPath="DevExpress.Xpf.Grid.v10.2.resources.dll"/>
+    <ROW Component="DevExpress.Xpf.NavBar.v10.2.resources.dl" ComponentId="{0A0BD1F6-0C63-46B8-B858-7FB93E2403DF}" Directory_="zh_CN_DIR" Attributes="0" KeyPath="DevExpress.Xpf.NavBar.v10.2.resources.dll"/>
+    <ROW Component="DevExpress.Xpo.v10.2.dll" ComponentId="{FF4FE391-3BF0-4CF7-9A42-48223D62ABF2}" Directory_="APPDIR" Attributes="0" KeyPath="DevExpress.Xpo.v10.2.dll"/>
+    <ROW Component="DevExpress.Xpo.v10.2.resources.dll" ComponentId="{76E7D759-1D72-4F47-9183-755F17BFBEF2}" Directory_="zh_CN_DIR" Attributes="0" KeyPath="DevExpress.Xpo.v10.2.resources.dll"/>
+    <ROW Component="DevExpress.XtraBars.v10.2.dll" ComponentId="{B3441578-82F5-438D-A665-0879CB7C0712}" Directory_="APPDIR" Attributes="0" KeyPath="DevExpress.XtraBars.v10.2.dll"/>
+    <ROW Component="DevExpress.XtraBars.v10.2.resources.dll" ComponentId="{39A148EC-5353-434E-8185-56D627ADE40E}" Directory_="zh_CN_DIR" Attributes="0" KeyPath="DevExpress.XtraBars.v10.2.resources.dll"/>
+    <ROW Component="DevExpress.XtraCharts.v10.2.dll" ComponentId="{2C2CC294-ED62-41CB-9760-F2BFB8344645}" Directory_="APPDIR" Attributes="0" KeyPath="DevExpress.XtraCharts.v10.2.dll"/>
+    <ROW Component="DevExpress.XtraCharts.v10.2.resources.dl" ComponentId="{C541FEF5-DD3D-43C9-B027-CD558ECBB673}" Directory_="zh_CN_DIR" Attributes="0" KeyPath="DevExpress.XtraCharts.v10.2.resources.dll"/>
+    <ROW Component="DevExpress.XtraEditors.v10.2.dll" ComponentId="{05AD943C-9C60-43BA-8B30-207834082C1F}" Directory_="APPDIR" Attributes="0" KeyPath="DevExpress.XtraEditors.v10.2.dll"/>
+    <ROW Component="DevExpress.XtraEditors.v10.2.resources.d" ComponentId="{D75156CC-80D4-4127-BB82-00E26B3EA745}" Directory_="zh_CN_DIR" Attributes="0" KeyPath="DevExpress.XtraEditors.v10.2.resources.dll"/>
+    <ROW Component="DevExpress.XtraGrid.v10.2.dll" ComponentId="{D9440B8A-A498-404D-917E-4DBD349F0C08}" Directory_="APPDIR" Attributes="0" KeyPath="DevExpress.XtraGrid.v10.2.dll"/>
+    <ROW Component="DevExpress.XtraGrid.v10.2.resources.dll" ComponentId="{2BCDA794-A882-4BBD-A251-324594212FC5}" Directory_="zh_CN_DIR" Attributes="0" KeyPath="DevExpress.XtraGrid.v10.2.resources.dll"/>
+    <ROW Component="DevExpress.XtraLayout.v10.2.dll" ComponentId="{4B6C73F3-CB1A-4BCA-8FAB-F2EAD13A8B9A}" Directory_="APPDIR" Attributes="0" KeyPath="DevExpress.XtraLayout.v10.2.dll"/>
+    <ROW Component="DevExpress.XtraLayout.v10.2.resources.dl" ComponentId="{6A8B896D-7836-4241-AE9F-FDC49BB89033}" Directory_="zh_CN_DIR" Attributes="0" KeyPath="DevExpress.XtraLayout.v10.2.resources.dll"/>
+    <ROW Component="DevExpress.XtraNavBar.v10.2.dll" ComponentId="{AD522F3B-85E7-45DD-80D2-B3F555A8B5C9}" Directory_="APPDIR" Attributes="0" KeyPath="DevExpress.XtraNavBar.v10.2.dll"/>
+    <ROW Component="DevExpress.XtraNavBar.v10.2.resources.dl" ComponentId="{40C83771-89B0-425C-B343-E6E36666DC2E}" Directory_="zh_CN_DIR" Attributes="0" KeyPath="DevExpress.XtraNavBar.v10.2.resources.dll"/>
+    <ROW Component="DevExpress.XtraPivotGrid.v10.2.dll" ComponentId="{9D9A56E2-1EEB-4994-8716-F0B520DCE936}" Directory_="APPDIR" Attributes="0" KeyPath="DevExpress.XtraPivotGrid.v10.2.dll"/>
+    <ROW Component="DevExpress.XtraPrinting.v10.2.resources." ComponentId="{550E0337-7111-49A9-BC65-9CFA3D9E7EE6}" Directory_="zh_CN_DIR" Attributes="0" KeyPath="DevExpress.XtraPrinting.v10.2.resources.dll"/>
+    <ROW Component="DevExpress.XtraReports.v10.2.Extensions." ComponentId="{AEE1DB49-3A55-4934-ACF5-99ED02D3CC31}" Directory_="zh_CN_DIR" Attributes="0" KeyPath="DevExpress.XtraReports.v10.2.Extensions.resources.dll"/>
+    <ROW Component="DevExpress.XtraReports.v10.2.dll" ComponentId="{96DDE0FD-B8E7-45F8-B024-6C9EDF41200C}" Directory_="APPDIR" Attributes="0" KeyPath="DevExpress.XtraReports.v10.2.dll"/>
+    <ROW Component="DevExpress.XtraReports.v10.2.resources.d" ComponentId="{029D876F-580E-42D8-A09A-FEED56FDD211}" Directory_="zh_CN_DIR" Attributes="0" KeyPath="DevExpress.XtraReports.v10.2.resources.dll"/>
+    <ROW Component="DevExpress.XtraRichEdit.v10.2.dll" ComponentId="{18CEC7E1-CE63-497B-98A6-3BF8906B8B6F}" Directory_="APPDIR" Attributes="0" KeyPath="DevExpress.XtraRichEdit.v10.2.dll"/>
+    <ROW Component="DevExpress.XtraScheduler.v10.2.Core.reso" ComponentId="{B81704FF-D755-433C-B05E-0782D1A04094}" Directory_="zh_CN_DIR" Attributes="0" KeyPath="DevExpress.XtraScheduler.v10.2.Core.resources.dll"/>
+    <ROW Component="DevExpress.XtraScheduler.v10.2.Extension" ComponentId="{3BC21766-BE53-4C59-B27F-979CD36A130F}" Directory_="zh_CN_DIR" Attributes="0" KeyPath="DevExpress.XtraScheduler.v10.2.Extensions.resources.dll"/>
+    <ROW Component="DevExpress.XtraScheduler.v10.2.resources" ComponentId="{5CDD9596-045F-442E-82C7-7ADBBA668300}" Directory_="zh_CN_DIR" Attributes="0" KeyPath="DevExpress.XtraScheduler.v10.2.resources.dll"/>
+    <ROW Component="DevExpress.XtraSpellChecker.v10.2.resour" ComponentId="{1F9EA618-BE56-494C-BB3F-BEC21745C5E2}" Directory_="zh_CN_DIR" Attributes="0" KeyPath="DevExpress.XtraSpellChecker.v10.2.resources.dll"/>
+    <ROW Component="DevExpress.XtraTreeList.v10.2.resources." ComponentId="{B22057E1-778F-4380-A431-45770C851368}" Directory_="zh_CN_DIR" Attributes="0" KeyPath="DevExpress.XtraTreeList.v10.2.resources.dll"/>
+    <ROW Component="DevExpress.XtraVerticalGrid.v10.2.resour" ComponentId="{4D984FDA-0887-4BC8-BA8F-70C106310B8C}" Directory_="zh_CN_DIR" Attributes="0" KeyPath="DevExpress.XtraVerticalGrid.v10.2.resources.dll"/>
+    <ROW Component="DevExpress.XtraWizard.v10.2.resources.dl" ComponentId="{63948C64-3739-468D-9B02-39B192AE8E03}" Directory_="zh_CN_DIR" Attributes="0" KeyPath="DevExpress.XtraWizard.v10.2.resources.dll"/>
+    <ROW Component="FileHelpers.dll" ComponentId="{2683748A-13EE-467D-B309-D49A048B83A8}" Directory_="APPDIR" Attributes="0" KeyPath="FileHelpers.dll"/>
+    <ROW Component="Kise.IdCard.Application.dll" ComponentId="{04A7E609-F1C4-41E5-A27A-D7A574815753}" Directory_="APPDIR" Attributes="0" KeyPath="Kise.IdCard.Application.dll"/>
+    <ROW Component="Kise.IdCard.Infrastructure.dll" ComponentId="{3879BF9B-C1B9-4F45-A312-2B43ADD413EF}" Directory_="APPDIR" Attributes="0" KeyPath="Kise.IdCard.Infrastructure.dll"/>
+    <ROW Component="Kise.IdCard.Messaging.dll" ComponentId="{86A2A0B5-5D74-4E9A-BB74-6C5679035BA6}" Directory_="APPDIR" Attributes="0" KeyPath="Kise.IdCard.Messaging.dll"/>
+    <ROW Component="Kise.IdCard.Model.dll" ComponentId="{33AAB3BD-317C-49B6-99E8-6538D243786F}" Directory_="APPDIR" Attributes="0" KeyPath="Kise.IdCard.Model.dll"/>
+    <ROW Component="KiseTech.IdCard.Application.exe" ComponentId="{4A35F6A7-63BE-415B-997C-3935C49C1E55}" Directory_="APPDIR" Attributes="0" KeyPath="KiseTech.IdCard.Application.exe"/>
+    <ROW Component="KiseTech.IdCard.Application.vshost.exe" ComponentId="{6F2A949A-77C5-44EB-8AFA-C2C1A6569B95}" Directory_="APPDIR" Attributes="0" KeyPath="KiseTech.IdCard.Application.vshost.exe"/>
+    <ROW Component="MiscUtil.dll" ComponentId="{B64B3F19-F02A-4C8A-8999-1BA43520F75F}" Directory_="APPDIR" Attributes="0" KeyPath="MiscUtil.dll"/>
+    <ROW Component="SHORTCUTDIR" ComponentId="{A76E8455-2446-4743-B632-E22D63ECEA68}" Directory_="SHORTCUTDIR" Attributes="0"/>
+    <ROW Component="Syn_IDCardRead.dll" ComponentId="{DD63A731-9C16-4DD4-B0F6-9422EBC252BD}" Directory_="APPDIR" Attributes="0" KeyPath="Syn_IDCardRead.dll"/>
+    <ROW Component="Util.dll" ComponentId="{484198A8-B779-4131-B1DD-E3AB4EFEB76C}" Directory_="APPDIR" Attributes="0" KeyPath="Util.dll"/>
+    <ROW Component="WltRS.dll" ComponentId="{DD0D396F-4C3B-4B97-AEAA-BB4E70FC87C8}" Directory_="APPDIR" Attributes="0" KeyPath="WltRS.dll"/>
+    <ROW Component="license.dat" ComponentId="{3FC923EF-0ED8-482E-BFF5-EB4DAE18DA57}" Directory_="WindowsVolume" Attributes="0" KeyPath="license.dat" Type="0"/>
+    <ROW Component="mCoreLib.dll" ComponentId="{2D294DF5-B582-41A2-8C88-F7C89BA2B7D1}" Directory_="APPDIR" Attributes="0" KeyPath="mCoreLib.dll"/>
+    <ROW Component="sdtapi.dll" ComponentId="{AC07EBC8-8E4B-4DE2-AF36-BB9FF7C05C69}" Directory_="APPDIR" Attributes="0" KeyPath="sdtapi.dll"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiFeatsComponent">
+    <ROW Feature="MainFeature" Title="MainFeature" Description="描述" Display="1" Level="1" Directory_="APPDIR" Attributes="0" Components="AForge.dll AForge.Imaging.dll AForge.Math.dll AsyncCtpLibrary.dll AsyncCtpLibrary.xml DevExpress.BonusSkins.v10.2.dll DevExpress.Charts.v10.2.Core.dll DevExpress.Data.v10.2.dll DevExpress.OfficeSkins.v10.2.dll DevExpress.PivotGrid.v10.2.Core.dll DevExpress.RichEdit.v10.2.Core.dll DevExpress.Utils.v10.2.dll DevExpress.Xpo.v10.2.dll DevExpress.XtraBars.v10.2.dll DevExpress.XtraCharts.v10.2.dll DevExpress.XtraEditors.v10.2.dll DevExpress.XtraGrid.v10.2.dll DevExpress.XtraLayout.v10.2.dll DevExpress.XtraNavBar.v10.2.dll DevExpress.XtraPivotGrid.v10.2.dll DevExpress.XtraReports.v10.2.dll DevExpress.XtraRichEdit.v10.2.dll FileHelpers.dll Kise.IdCard.Application.dll Kise.IdCard.Infrastructure.dll Kise.IdCard.Messaging.dll Kise.IdCard.Model.dll KiseTech.IdCard.Application.exe KiseTech.IdCard.Application.vshost.exe mCoreLib.dll MiscUtil.dll SHORTCUTDIR sdtapi.dll Syn_IDCardRead.dll WltRS.dll license.dat Util.dll DevExpress.Data.v10.2.resources.dll DevExpress.PivotGrid.v10.2.Core.resource DevExpress.RichEdit.v10.2.Core.resources DevExpress.Utils.v10.2.resources.dll DevExpress.Xpf.Grid.v10.2.resources.dll DevExpress.Xpf.NavBar.v10.2.resources.dl DevExpress.Xpo.v10.2.resources.dll DevExpress.XtraBars.v10.2.resources.dll DevExpress.XtraCharts.v10.2.resources.dl DevExpress.XtraEditors.v10.2.resources.d DevExpress.XtraGrid.v10.2.resources.dll DevExpress.XtraLayout.v10.2.resources.dl DevExpress.XtraNavBar.v10.2.resources.dl DevExpress.XtraPrinting.v10.2.resources. DevExpress.XtraReports.v10.2.Extensions. DevExpress.XtraReports.v10.2.resources.d DevExpress.XtraScheduler.v10.2.Core.reso DevExpress.XtraScheduler.v10.2.Extension DevExpress.XtraScheduler.v10.2.resources DevExpress.XtraSpellChecker.v10.2.resour DevExpress.XtraTreeList.v10.2.resources. DevExpress.XtraVerticalGrid.v10.2.resour DevExpress.XtraWizard.v10.2.resources.dl"/>
+    <ATTRIBUTE name="CurrentFeature" value="MainFeature"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiFilesComponent">
+    <ROW File="AForge.Imaging.dll" Component_="AForge.Imaging.dll" FileName="AForge~1.dll|AForge.Imaging.dll" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\AForge.Imaging.dll" SelfReg="false" Sequence="2"/>
+    <ROW File="AForge.Math.dll" Component_="AForge.Math.dll" FileName="AForge~2.dll|AForge.Math.dll" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\AForge.Math.dll" SelfReg="false" Sequence="3"/>
+    <ROW File="AForge.dll" Component_="AForge.dll" FileName="AForge.dll" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\AForge.dll" SelfReg="false" Sequence="1"/>
+    <ROW File="AsyncCtpLibrary.dll" Component_="AsyncCtpLibrary.dll" FileName="AsyncC~1.dll|AsyncCtpLibrary.dll" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\AsyncCtpLibrary.dll" SelfReg="false" Sequence="4"/>
+    <ROW File="AsyncCtpLibrary.xml" Component_="AsyncCtpLibrary.xml" FileName="AsyncC~1.xml|AsyncCtpLibrary.xml" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\AsyncCtpLibrary.xml" SelfReg="false" Sequence="5"/>
+    <ROW File="DevExpress.BonusSkins.v10.2.dll" Component_="DevExpress.BonusSkins.v10.2.dll" FileName="DevExp~1.dll|DevExpress.BonusSkins.v10.2.dll" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\DevExpress.BonusSkins.v10.2.dll" SelfReg="false" Sequence="6"/>
+    <ROW File="DevExpress.Charts.v10.2.Core.dll" Component_="DevExpress.Charts.v10.2.Core.dll" FileName="DevExp~2.dll|DevExpress.Charts.v10.2.Core.dll" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\DevExpress.Charts.v10.2.Core.dll" SelfReg="false" Sequence="7"/>
+    <ROW File="DevExpress.Data.v10.2.dll" Component_="DevExpress.Data.v10.2.dll" FileName="DevExp~3.dll|DevExpress.Data.v10.2.dll" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\DevExpress.Data.v10.2.dll" SelfReg="false" Sequence="8"/>
+    <ROW File="DevExpress.Data.v10.2.resources.dll" Component_="DevExpress.Data.v10.2.resources.dll" FileName="DevExp~1.dll|DevExpress.Data.v10.2.resources.dll" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\zh-CN\DevExpress.Data.v10.2.resources.dll" SelfReg="false" Sequence="64"/>
+    <ROW File="DevExpress.Data.v10.2.xml" Component_="AsyncCtpLibrary.xml" FileName="DevExp~1.xml|DevExpress.Data.v10.2.xml" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\DevExpress.Data.v10.2.xml" SelfReg="false" Sequence="9"/>
+    <ROW File="DevExpress.OfficeSkins.v10.2.dll" Component_="DevExpress.OfficeSkins.v10.2.dll" FileName="DevExp~4.dll|DevExpress.OfficeSkins.v10.2.dll" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\DevExpress.OfficeSkins.v10.2.dll" SelfReg="false" Sequence="10"/>
+    <ROW File="DevExpress.PivotGrid.v10.2.Core.dll" Component_="DevExpress.PivotGrid.v10.2.Core.dll" FileName="DevExp~5.dll|DevExpress.PivotGrid.v10.2.Core.dll" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\DevExpress.PivotGrid.v10.2.Core.dll" SelfReg="false" Sequence="11"/>
+    <ROW File="DevExpress.PivotGrid.v10.2.Core.resources.dll" Component_="DevExpress.PivotGrid.v10.2.Core.resource" FileName="DevExp~2.dll|DevExpress.PivotGrid.v10.2.Core.resources.dll" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\zh-CN\DevExpress.PivotGrid.v10.2.Core.resources.dll" SelfReg="false" Sequence="65"/>
+    <ROW File="DevExpress.PivotGrid.v10.2.Core.xml" Component_="AsyncCtpLibrary.xml" FileName="DevExp~2.xml|DevExpress.PivotGrid.v10.2.Core.xml" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\DevExpress.PivotGrid.v10.2.Core.xml" SelfReg="false" Sequence="12"/>
+    <ROW File="DevExpress.RichEdit.v10.2.Core.dll" Component_="DevExpress.RichEdit.v10.2.Core.dll" FileName="DevExp~6.dll|DevExpress.RichEdit.v10.2.Core.dll" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\DevExpress.RichEdit.v10.2.Core.dll" SelfReg="false" Sequence="13"/>
+    <ROW File="DevExpress.RichEdit.v10.2.Core.resources.dll" Component_="DevExpress.RichEdit.v10.2.Core.resources" FileName="DevExp~3.dll|DevExpress.RichEdit.v10.2.Core.resources.dll" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\zh-CN\DevExpress.RichEdit.v10.2.Core.resources.dll" SelfReg="false" Sequence="66"/>
+    <ROW File="DevExpress.RichEdit.v10.2.Core.xml" Component_="AsyncCtpLibrary.xml" FileName="DevExp~3.xml|DevExpress.RichEdit.v10.2.Core.xml" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\DevExpress.RichEdit.v10.2.Core.xml" SelfReg="false" Sequence="14"/>
+    <ROW File="DevExpress.Utils.v10.2.dll" Component_="DevExpress.Utils.v10.2.dll" FileName="DevExp~7.dll|DevExpress.Utils.v10.2.dll" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\DevExpress.Utils.v10.2.dll" SelfReg="false" Sequence="15"/>
+    <ROW File="DevExpress.Utils.v10.2.resources.dll" Component_="DevExpress.Utils.v10.2.resources.dll" FileName="DevExp~4.dll|DevExpress.Utils.v10.2.resources.dll" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\zh-CN\DevExpress.Utils.v10.2.resources.dll" SelfReg="false" Sequence="67"/>
+    <ROW File="DevExpress.Utils.v10.2.xml" Component_="AsyncCtpLibrary.xml" FileName="DevExp~4.xml|DevExpress.Utils.v10.2.xml" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\DevExpress.Utils.v10.2.xml" SelfReg="false" Sequence="16"/>
+    <ROW File="DevExpress.Xpf.Grid.v10.2.resources.dll" Component_="DevExpress.Xpf.Grid.v10.2.resources.dll" FileName="DevExp~5.dll|DevExpress.Xpf.Grid.v10.2.resources.dll" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\zh-CN\DevExpress.Xpf.Grid.v10.2.resources.dll" SelfReg="false" Sequence="68"/>
+    <ROW File="DevExpress.Xpf.NavBar.v10.2.resources.dll" Component_="DevExpress.Xpf.NavBar.v10.2.resources.dl" FileName="DevExp~6.dll|DevExpress.Xpf.NavBar.v10.2.resources.dll" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\zh-CN\DevExpress.Xpf.NavBar.v10.2.resources.dll" SelfReg="false" Sequence="69"/>
+    <ROW File="DevExpress.Xpo.v10.2.dll" Component_="DevExpress.Xpo.v10.2.dll" FileName="DevExp~8.dll|DevExpress.Xpo.v10.2.dll" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\DevExpress.Xpo.v10.2.dll" SelfReg="false" Sequence="17"/>
+    <ROW File="DevExpress.Xpo.v10.2.resources.dll" Component_="DevExpress.Xpo.v10.2.resources.dll" FileName="DevExp~7.dll|DevExpress.Xpo.v10.2.resources.dll" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\zh-CN\DevExpress.Xpo.v10.2.resources.dll" SelfReg="false" Sequence="70"/>
+    <ROW File="DevExpress.Xpo.v10.2.xml" Component_="AsyncCtpLibrary.xml" FileName="DevExp~5.xml|DevExpress.Xpo.v10.2.xml" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\DevExpress.Xpo.v10.2.xml" SelfReg="false" Sequence="18"/>
+    <ROW File="DevExpress.XtraBars.v10.2.dll" Component_="DevExpress.XtraBars.v10.2.dll" FileName="DevExp~9.dll|DevExpress.XtraBars.v10.2.dll" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\DevExpress.XtraBars.v10.2.dll" SelfReg="false" Sequence="19"/>
+    <ROW File="DevExpress.XtraBars.v10.2.resources.dll" Component_="DevExpress.XtraBars.v10.2.resources.dll" FileName="DevExp~8.dll|DevExpress.XtraBars.v10.2.resources.dll" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\zh-CN\DevExpress.XtraBars.v10.2.resources.dll" SelfReg="false" Sequence="71"/>
+    <ROW File="DevExpress.XtraBars.v10.2.xml" Component_="AsyncCtpLibrary.xml" FileName="DevExp~6.xml|DevExpress.XtraBars.v10.2.xml" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\DevExpress.XtraBars.v10.2.xml" SelfReg="false" Sequence="20"/>
+    <ROW File="DevExpress.XtraCharts.v10.2.dll" Component_="DevExpress.XtraCharts.v10.2.dll" FileName="DevEx~10.dll|DevExpress.XtraCharts.v10.2.dll" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\DevExpress.XtraCharts.v10.2.dll" SelfReg="false" Sequence="21"/>
+    <ROW File="DevExpress.XtraCharts.v10.2.resources.dll" Component_="DevExpress.XtraCharts.v10.2.resources.dl" FileName="DevExp~9.dll|DevExpress.XtraCharts.v10.2.resources.dll" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\zh-CN\DevExpress.XtraCharts.v10.2.resources.dll" SelfReg="false" Sequence="72"/>
+    <ROW File="DevExpress.XtraCharts.v10.2.xml" Component_="AsyncCtpLibrary.xml" FileName="DevExp~7.xml|DevExpress.XtraCharts.v10.2.xml" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\DevExpress.XtraCharts.v10.2.xml" SelfReg="false" Sequence="22"/>
+    <ROW File="DevExpress.XtraEditors.v10.2.dll" Component_="DevExpress.XtraEditors.v10.2.dll" FileName="DevEx~11.dll|DevExpress.XtraEditors.v10.2.dll" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\DevExpress.XtraEditors.v10.2.dll" SelfReg="false" Sequence="23"/>
+    <ROW File="DevExpress.XtraEditors.v10.2.resources.dll" Component_="DevExpress.XtraEditors.v10.2.resources.d" FileName="DevEx~10.dll|DevExpress.XtraEditors.v10.2.resources.dll" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\zh-CN\DevExpress.XtraEditors.v10.2.resources.dll" SelfReg="false" Sequence="73"/>
+    <ROW File="DevExpress.XtraEditors.v10.2.xml" Component_="AsyncCtpLibrary.xml" FileName="DevExp~8.xml|DevExpress.XtraEditors.v10.2.xml" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\DevExpress.XtraEditors.v10.2.xml" SelfReg="false" Sequence="24"/>
+    <ROW File="DevExpress.XtraGrid.v10.2.dll" Component_="DevExpress.XtraGrid.v10.2.dll" FileName="DevEx~12.dll|DevExpress.XtraGrid.v10.2.dll" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\DevExpress.XtraGrid.v10.2.dll" SelfReg="false" Sequence="25"/>
+    <ROW File="DevExpress.XtraGrid.v10.2.resources.dll" Component_="DevExpress.XtraGrid.v10.2.resources.dll" FileName="DevEx~11.dll|DevExpress.XtraGrid.v10.2.resources.dll" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\zh-CN\DevExpress.XtraGrid.v10.2.resources.dll" SelfReg="false" Sequence="74"/>
+    <ROW File="DevExpress.XtraGrid.v10.2.xml" Component_="AsyncCtpLibrary.xml" FileName="DevExp~9.xml|DevExpress.XtraGrid.v10.2.xml" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\DevExpress.XtraGrid.v10.2.xml" SelfReg="false" Sequence="26"/>
+    <ROW File="DevExpress.XtraLayout.v10.2.dll" Component_="DevExpress.XtraLayout.v10.2.dll" FileName="DevEx~13.dll|DevExpress.XtraLayout.v10.2.dll" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\DevExpress.XtraLayout.v10.2.dll" SelfReg="false" Sequence="27"/>
+    <ROW File="DevExpress.XtraLayout.v10.2.resources.dll" Component_="DevExpress.XtraLayout.v10.2.resources.dl" FileName="DevEx~12.dll|DevExpress.XtraLayout.v10.2.resources.dll" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\zh-CN\DevExpress.XtraLayout.v10.2.resources.dll" SelfReg="false" Sequence="75"/>
+    <ROW File="DevExpress.XtraLayout.v10.2.xml" Component_="AsyncCtpLibrary.xml" FileName="DevEx~10.xml|DevExpress.XtraLayout.v10.2.xml" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\DevExpress.XtraLayout.v10.2.xml" SelfReg="false" Sequence="28"/>
+    <ROW File="DevExpress.XtraNavBar.v10.2.dll" Component_="DevExpress.XtraNavBar.v10.2.dll" FileName="DevEx~14.dll|DevExpress.XtraNavBar.v10.2.dll" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\DevExpress.XtraNavBar.v10.2.dll" SelfReg="false" Sequence="29"/>
+    <ROW File="DevExpress.XtraNavBar.v10.2.resources.dll" Component_="DevExpress.XtraNavBar.v10.2.resources.dl" FileName="DevEx~13.dll|DevExpress.XtraNavBar.v10.2.resources.dll" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\zh-CN\DevExpress.XtraNavBar.v10.2.resources.dll" SelfReg="false" Sequence="76"/>
+    <ROW File="DevExpress.XtraNavBar.v10.2.xml" Component_="AsyncCtpLibrary.xml" FileName="DevEx~11.xml|DevExpress.XtraNavBar.v10.2.xml" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\DevExpress.XtraNavBar.v10.2.xml" SelfReg="false" Sequence="30"/>
+    <ROW File="DevExpress.XtraPivotGrid.v10.2.dll" Component_="DevExpress.XtraPivotGrid.v10.2.dll" FileName="DevEx~15.dll|DevExpress.XtraPivotGrid.v10.2.dll" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\DevExpress.XtraPivotGrid.v10.2.dll" SelfReg="false" Sequence="31"/>
+    <ROW File="DevExpress.XtraPivotGrid.v10.2.xml" Component_="AsyncCtpLibrary.xml" FileName="DevEx~12.xml|DevExpress.XtraPivotGrid.v10.2.xml" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\DevExpress.XtraPivotGrid.v10.2.xml" SelfReg="false" Sequence="32"/>
+    <ROW File="DevExpress.XtraPrinting.v10.2.resources.dll" Component_="DevExpress.XtraPrinting.v10.2.resources." FileName="DevEx~14.dll|DevExpress.XtraPrinting.v10.2.resources.dll" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\zh-CN\DevExpress.XtraPrinting.v10.2.resources.dll" SelfReg="false" Sequence="77"/>
+    <ROW File="DevExpress.XtraReports.v10.2.Extensions.resources.dll" Component_="DevExpress.XtraReports.v10.2.Extensions." FileName="DevEx~15.dll|DevExpress.XtraReports.v10.2.Extensions.resources.dll" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\zh-CN\DevExpress.XtraReports.v10.2.Extensions.resources.dll" SelfReg="false" Sequence="78"/>
+    <ROW File="DevExpress.XtraReports.v10.2.dll" Component_="DevExpress.XtraReports.v10.2.dll" FileName="DevEx~16.dll|DevExpress.XtraReports.v10.2.dll" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\DevExpress.XtraReports.v10.2.dll" SelfReg="false" Sequence="33"/>
+    <ROW File="DevExpress.XtraReports.v10.2.resources.dll" Component_="DevExpress.XtraReports.v10.2.resources.d" FileName="DevEx~16.dll|DevExpress.XtraReports.v10.2.resources.dll" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\zh-CN\DevExpress.XtraReports.v10.2.resources.dll" SelfReg="false" Sequence="79"/>
+    <ROW File="DevExpress.XtraReports.v10.2.xml" Component_="AsyncCtpLibrary.xml" FileName="DevEx~13.xml|DevExpress.XtraReports.v10.2.xml" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\DevExpress.XtraReports.v10.2.xml" SelfReg="false" Sequence="34"/>
+    <ROW File="DevExpress.XtraRichEdit.v10.2.dll" Component_="DevExpress.XtraRichEdit.v10.2.dll" FileName="DevEx~17.dll|DevExpress.XtraRichEdit.v10.2.dll" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\DevExpress.XtraRichEdit.v10.2.dll" SelfReg="false" Sequence="35"/>
+    <ROW File="DevExpress.XtraRichEdit.v10.2.xml" Component_="AsyncCtpLibrary.xml" FileName="DevEx~14.xml|DevExpress.XtraRichEdit.v10.2.xml" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\DevExpress.XtraRichEdit.v10.2.xml" SelfReg="false" Sequence="36"/>
+    <ROW File="DevExpress.XtraScheduler.v10.2.Core.resources.dll" Component_="DevExpress.XtraScheduler.v10.2.Core.reso" FileName="DevEx~17.dll|DevExpress.XtraScheduler.v10.2.Core.resources.dll" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\zh-CN\DevExpress.XtraScheduler.v10.2.Core.resources.dll" SelfReg="false" Sequence="80"/>
+    <ROW File="DevExpress.XtraScheduler.v10.2.Extensions.resources.dll" Component_="DevExpress.XtraScheduler.v10.2.Extension" FileName="DevEx~18.dll|DevExpress.XtraScheduler.v10.2.Extensions.resources.dll" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\zh-CN\DevExpress.XtraScheduler.v10.2.Extensions.resources.dll" SelfReg="false" Sequence="81"/>
+    <ROW File="DevExpress.XtraScheduler.v10.2.resources.dll" Component_="DevExpress.XtraScheduler.v10.2.resources" FileName="DevEx~19.dll|DevExpress.XtraScheduler.v10.2.resources.dll" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\zh-CN\DevExpress.XtraScheduler.v10.2.resources.dll" SelfReg="false" Sequence="82"/>
+    <ROW File="DevExpress.XtraSpellChecker.v10.2.resources.dll" Component_="DevExpress.XtraSpellChecker.v10.2.resour" FileName="DevEx~20.dll|DevExpress.XtraSpellChecker.v10.2.resources.dll" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\zh-CN\DevExpress.XtraSpellChecker.v10.2.resources.dll" SelfReg="false" Sequence="83"/>
+    <ROW File="DevExpress.XtraTreeList.v10.2.resources.dll" Component_="DevExpress.XtraTreeList.v10.2.resources." FileName="DevEx~21.dll|DevExpress.XtraTreeList.v10.2.resources.dll" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\zh-CN\DevExpress.XtraTreeList.v10.2.resources.dll" SelfReg="false" Sequence="84"/>
+    <ROW File="DevExpress.XtraVerticalGrid.v10.2.resources.dll" Component_="DevExpress.XtraVerticalGrid.v10.2.resour" FileName="DevEx~22.dll|DevExpress.XtraVerticalGrid.v10.2.resources.dll" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\zh-CN\DevExpress.XtraVerticalGrid.v10.2.resources.dll" SelfReg="false" Sequence="85"/>
+    <ROW File="DevExpress.XtraWizard.v10.2.resources.dll" Component_="DevExpress.XtraWizard.v10.2.resources.dl" FileName="DevEx~23.dll|DevExpress.XtraWizard.v10.2.resources.dll" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\zh-CN\DevExpress.XtraWizard.v10.2.resources.dll" SelfReg="false" Sequence="86"/>
+    <ROW File="FileHelpers.dll" Component_="FileHelpers.dll" FileName="FileHe~1.dll|FileHelpers.dll" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\FileHelpers.dll" SelfReg="false" Sequence="37"/>
+    <ROW File="FileHelpers.xml" Component_="AsyncCtpLibrary.xml" FileName="FileHe~1.xml|FileHelpers.xml" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\FileHelpers.xml" SelfReg="false" Sequence="38"/>
+    <ROW File="Kise.IdCard.Application.dll" Component_="Kise.IdCard.Application.dll" FileName="KiseId~1.dll|Kise.IdCard.Application.dll" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\Kise.IdCard.Application.dll" SelfReg="false" Sequence="39"/>
+    <ROW File="Kise.IdCard.Application.pdb" Component_="Kise.IdCard.Application.dll" FileName="KiseId~1.pdb|Kise.IdCard.Application.pdb" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\Kise.IdCard.Application.pdb" SelfReg="false" Sequence="40"/>
+    <ROW File="Kise.IdCard.Infrastructure.dll" Component_="Kise.IdCard.Infrastructure.dll" FileName="KiseId~2.dll|Kise.IdCard.Infrastructure.dll" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\Kise.IdCard.Infrastructure.dll" SelfReg="false" Sequence="41"/>
+    <ROW File="Kise.IdCard.Infrastructure.pdb" Component_="Kise.IdCard.Infrastructure.dll" FileName="KiseId~2.pdb|Kise.IdCard.Infrastructure.pdb" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\Kise.IdCard.Infrastructure.pdb" SelfReg="false" Sequence="42"/>
+    <ROW File="Kise.IdCard.Messaging.dll" Component_="Kise.IdCard.Messaging.dll" FileName="KiseId~3.dll|Kise.IdCard.Messaging.dll" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\Kise.IdCard.Messaging.dll" SelfReg="false" Sequence="43"/>
+    <ROW File="Kise.IdCard.Messaging.pdb" Component_="Kise.IdCard.Messaging.dll" FileName="KiseId~3.pdb|Kise.IdCard.Messaging.pdb" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\Kise.IdCard.Messaging.pdb" SelfReg="false" Sequence="44"/>
+    <ROW File="Kise.IdCard.Model.dll" Component_="Kise.IdCard.Model.dll" FileName="KiseId~4.dll|Kise.IdCard.Model.dll" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\Kise.IdCard.Model.dll" SelfReg="false" Sequence="45"/>
+    <ROW File="Kise.IdCard.Model.pdb" Component_="Kise.IdCard.Model.dll" FileName="KiseId~4.pdb|Kise.IdCard.Model.pdb" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\Kise.IdCard.Model.pdb" SelfReg="false" Sequence="46"/>
+    <ROW File="KiseTech.IdCard.Application.exe" Component_="KiseTech.IdCard.Application.exe" FileName="KiseTe~1.exe|KiseTech.IdCard.Application.exe" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\KiseTech.IdCard.Application.exe" SelfReg="false" Sequence="47"/>
+    <ROW File="KiseTech.IdCard.Application.exe.config" Component_="AsyncCtpLibrary.xml" FileName="KiseTe~1.con|KiseTech.IdCard.Application.exe.config" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\KiseTech.IdCard.Application.exe.config" SelfReg="false" Sequence="48"/>
+    <ROW File="KiseTech.IdCard.Application.mdb" Component_="AsyncCtpLibrary.xml" FileName="KiseTe~1.mdb|KiseTech.IdCard.Application.mdb" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\KiseTech.IdCard.Application.mdb" SelfReg="false" Sequence="60"/>
+    <ROW File="KiseTech.IdCard.Application.pdb" Component_="KiseTech.IdCard.Application.exe" FileName="KiseTe~1.pdb|KiseTech.IdCard.Application.pdb" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\KiseTech.IdCard.Application.pdb" SelfReg="false" Sequence="49"/>
+    <ROW File="KiseTech.IdCard.Application.vshost.exe" Component_="KiseTech.IdCard.Application.vshost.exe" FileName="KiseTe~2.exe|KiseTech.IdCard.Application.vshost.exe" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\KiseTech.IdCard.Application.vshost.exe" SelfReg="false" Sequence="50"/>
+    <ROW File="KiseTech.IdCard.Application.vshost.exe.config" Component_="AsyncCtpLibrary.xml" FileName="KiseTe~2.con|KiseTech.IdCard.Application.vshost.exe.config" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\KiseTech.IdCard.Application.vshost.exe.config" SelfReg="false" Sequence="51"/>
+    <ROW File="KiseTech.IdCard.Application.vshost.exe.manifest" Component_="AsyncCtpLibrary.xml" FileName="KiseTe~1.man|KiseTech.IdCard.Application.vshost.exe.manifest" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\KiseTech.IdCard.Application.vshost.exe.manifest" SelfReg="false" Sequence="52"/>
+    <ROW File="MinorityCode.txt" Component_="AsyncCtpLibrary.xml" FileName="Minori~1.txt|MinorityCode.txt" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\MinorityCode.txt" SelfReg="false" Sequence="54"/>
+    <ROW File="MiscUtil.dll" Component_="MiscUtil.dll" FileName="MiscUtil.dll" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\MiscUtil.dll" SelfReg="false" Sequence="55"/>
+    <ROW File="MiscUtil.xml" Component_="AsyncCtpLibrary.xml" FileName="MiscUtil.xml" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\MiscUtil.xml" SelfReg="false" Sequence="56"/>
+    <ROW File="Syn_IDCardRead.dll" Component_="Syn_IDCardRead.dll" FileName="Syn_ID~1.dll|Syn_IDCardRead.dll" Attributes="0" SourcePath="..\lib\CardReader\Syn_IDCardRead.dll" SelfReg="false" Sequence="58"/>
+    <ROW File="Util.dll" Component_="Util.dll" FileName="Util.dll" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\Util.dll" SelfReg="false" Sequence="62"/>
+    <ROW File="Util.pdb" Component_="Util.dll" FileName="Util.pdb" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\Util.pdb" SelfReg="false" Sequence="63"/>
+    <ROW File="WltRS.dll" Component_="WltRS.dll" FileName="WltRS.dll" Attributes="0" SourcePath="..\lib\CardReader\WltRS.dll" SelfReg="false" Sequence="59"/>
+    <ROW File="license.dat" Component_="license.dat" FileName="license.dat" Attributes="0" SourcePath="..\lib\CardReader\license.dat" SelfReg="false" Sequence="61"/>
+    <ROW File="mCoreLib.dll" Component_="mCoreLib.dll" FileName="mCoreLib.dll" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\mCoreLib.dll" SelfReg="false" Sequence="53"/>
+    <ROW File="sdtapi.dll" Component_="sdtapi.dll" FileName="sdtapi.dll" Attributes="0" SourcePath="..\lib\CardReader\sdtapi.dll" SelfReg="false" Sequence="57"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.BuildComponent">
+    <ROW BuildKey="DefaultBuild" BuildName="DefaultBuild" BuildOrder="1" BuildType="0" PackageFolder="C:\Users\Benny\Documents\Advanced Installer\Projects\身份证查询客户端\Setup Files" PackageFileName="身份证查询客户端" Languages="zh" InstallationType="4"/>
+    <ATTRIBUTE name="CurrentBuild" value="DefaultBuild"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.DictionaryComponent">
+    <ROW Path="&lt;AI_DICTS&gt;ui.ail"/>
+    <ROW Path="&lt;AI_DICTS&gt;ui_zh.ail"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.FragmentComponent">
+    <ROW Fragment="CommonUI.aip" Path="&lt;AI_FRAGS&gt;CommonUI.aip"/>
+    <ROW Fragment="FolderDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\FolderDlg.aip"/>
+    <ROW Fragment="SequenceDialogs.aip" Path="&lt;AI_THEMES&gt;classic\fragments\SequenceDialogs.aip"/>
+    <ROW Fragment="Sequences.aip" Path="&lt;AI_FRAGS&gt;Sequences.aip"/>
+    <ROW Fragment="StaticUIStrings.aip" Path="&lt;AI_FRAGS&gt;StaticUIStrings.aip"/>
+    <ROW Fragment="UI.aip" Path="&lt;AI_THEMES&gt;classic\fragments\UI.aip"/>
+    <ROW Fragment="Validation.aip" Path="&lt;AI_FRAGS&gt;Validation.aip"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiBinaryComponent">
+    <ROW Name="aicustact.dll" SourcePath="&lt;AI_CUSTACTS&gt;aicustact.dll"/>
+    <ROW Name="banner_image.jpg" SourcePath="&lt;AI_THEMES&gt;classic\resources\banner-image.jpg"/>
+    <ROW Name="dialog_image.jpg" SourcePath="&lt;AI_THEMES&gt;classic\resources\dialog-image.jpg"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiControlComponent">
+    <ATTRIBUTE name="FixedSizeBitmaps" value="0"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiControlEventComponent">
+    <ROW Dialog_="VerifyReadyDlg" Control_="Back" Event="NewDialog" Argument="FolderDlg" Condition="AI_INSTALL" Ordering="201"/>
+    <ROW Dialog_="WelcomeDlg" Control_="Next" Event="NewDialog" Argument="FolderDlg" Condition="AI_INSTALL" Ordering="1"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Install" Event="EndDialog" Argument="Return" Condition="AI_INSTALL" Ordering="197"/>
+    <ROW Dialog_="FolderDlg" Control_="Next" Event="NewDialog" Argument="VerifyReadyDlg" Condition="AI_INSTALL" Ordering="201"/>
+    <ROW Dialog_="FolderDlg" Control_="Back" Event="NewDialog" Argument="WelcomeDlg" Condition="AI_INSTALL" Ordering="1"/>
+    <ROW Dialog_="MaintenanceTypeDlg" Control_="Back" Event="NewDialog" Argument="MaintenanceWelcomeDlg" Condition="AI_MAINT" Ordering="1"/>
+    <ROW Dialog_="MaintenanceWelcomeDlg" Control_="Next" Event="NewDialog" Argument="MaintenanceTypeDlg" Condition="AI_MAINT" Ordering="99"/>
+    <ROW Dialog_="CustomizeDlg" Control_="Back" Event="NewDialog" Argument="MaintenanceTypeDlg" Condition="AI_MAINT" Ordering="1"/>
+    <ROW Dialog_="MaintenanceTypeDlg" Control_="ChangeButton" Event="NewDialog" Argument="CustomizeDlg" Condition="AI_MAINT" Ordering="301"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Back" Event="NewDialog" Argument="CustomizeDlg" Condition="AI_MAINT" Ordering="202"/>
+    <ROW Dialog_="CustomizeDlg" Control_="Next" Event="NewDialog" Argument="VerifyReadyDlg" Condition="AI_MAINT" Ordering="1"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Install" Event="EndDialog" Argument="Return" Condition="AI_MAINT" Ordering="198"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Back" Event="NewDialog" Argument="PatchWelcomeDlg" Condition="AI_PATCH" Ordering="203"/>
+    <ROW Dialog_="PatchWelcomeDlg" Control_="Next" Event="NewDialog" Argument="VerifyReadyDlg" Condition="AI_PATCH" Ordering="201"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Install" Event="EndDialog" Argument="Return" Condition="AI_PATCH" Ordering="199"/>
+    <ROW Dialog_="ResumeDlg" Control_="Install" Event="EndDialog" Argument="Return" Condition="AI_RESUME" Ordering="299"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiCreateFolderComponent">
+    <ROW Directory_="SHORTCUTDIR" Component_="SHORTCUTDIR"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiCustActComponent">
+    <ROW Action="AI_DOWNGRADE" Type="19" Target="4010"/>
+    <ROW Action="AI_PREPARE_UPGRADE" Type="65" Source="aicustact.dll" Target="PrepareUpgrade"/>
+    <ROW Action="AI_RESTORE_LOCATION" Type="65" Source="aicustact.dll" Target="RestoreLocation"/>
+    <ROW Action="AI_ResolveKnownFolders" Type="1" Source="aicustact.dll" Target="AI_ResolveKnownFolders"/>
+    <ROW Action="AI_STORE_LOCATION" Type="51" Source="ARPINSTALLLOCATION" Target="[APPDIR]"/>
+    <ROW Action="SET_APPDIR" Type="307" Source="APPDIR" Target="[ProgramFilesFolder][Manufacturer]\[ProductName]"/>
+    <ROW Action="SET_SHORTCUTDIR" Type="307" Source="SHORTCUTDIR" Target="[ProgramMenuFolder][ProductName]" MultiBuildTarget="DefaultBuild:[ProgramMenuFolder][Manufacturer]"/>
+    <ROW Action="SET_TARGETDIR_TO_APPDIR" Type="51" Source="TARGETDIR" Target="[APPDIR]"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiInstExSeqComponent">
+    <ROW Action="AI_DOWNGRADE" Condition="AI_NEWERPRODUCTFOUND AND (UILevel &lt;&gt; 5)" Sequence="210"/>
+    <ROW Action="AI_RESTORE_LOCATION" Condition="APPDIR=&quot;&quot;" Sequence="749"/>
+    <ROW Action="AI_STORE_LOCATION" Condition="Not Installed" Sequence="1501"/>
+    <ROW Action="AI_PREPARE_UPGRADE" Condition="AI_UPGRADE=&quot;No&quot; AND (Not Installed)" Sequence="1399"/>
+    <ROW Action="AI_ResolveKnownFolders" Sequence="51"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiInstallUISequenceComponent">
+    <ROW Action="AI_RESTORE_LOCATION" Condition="APPDIR=&quot;&quot;" Sequence="749"/>
+    <ROW Action="AI_ResolveKnownFolders" Sequence="51"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiLaunchConditionsComponent">
+    <ROW Condition="VersionNT" Description="[ProductName] cannot be installed on [WindowsType9XDisplay]" DescriptionLocId="AI.LaunchCondition.No9X" IsPredefined="true" Builds="DefaultBuild"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiShortsComponent">
+    <ROW Shortcut="IdCardReader" Directory_="SHORTCUTDIR" Name="身份证查询客户端" Component_="KiseTech.IdCard.Application.exe" Target="[#KiseTech.IdCard.Application.exe]" Description="IdCardReader" Hotkey="0" IconIndex="0" ShowCmd="1" WkDir="APPDIR"/>
+    <ROW Shortcut="IdCardReader_1" Directory_="DesktopFolder" Name="身份证查询客户端" Component_="KiseTech.IdCard.Application.exe" Target="[#KiseTech.IdCard.Application.exe]" Description="IdCardReader" Hotkey="0" IconIndex="0" ShowCmd="1" WkDir="APPDIR"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiThemeComponent">
+    <ATTRIBUTE name="UsedTheme" value="classic"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiUpgradeComponent">
+    <ROW UpgradeCode="[|UpgradeCode]" VersionMax="[|ProductVersion]" Attributes="1025" ActionProperty="OLDPRODUCTS"/>
+    <ROW UpgradeCode="[|UpgradeCode]" VersionMin="[|ProductVersion]" Attributes="2" ActionProperty="AI_NEWERPRODUCTFOUND"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.SynchronizedFolderComponent">
+    <ROW Directory_="APPDIR" SourcePath="..\KiseTech.IdCard.UI\bin\Release" Feature="MainFeature" ExcludePattern="*~|#*#|%*%|._|CVS|.cvsignore|SCCS|vssver.scc|mssccprj.scc|vssver2.scc|.svn|.DS_Store" ExcludeFlags="6"/>
+  </COMPONENT>
+</DOCUMENT>
