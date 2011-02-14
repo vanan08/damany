@@ -352,7 +352,7 @@ void LbpTest()
 		}
 		//cvSaveImage(add, img);
 
-		cvReleaseImage(&img);
+		cvReleaseImage(&img); 
 	}
 	files.clear();
 
