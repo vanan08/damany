@@ -55,7 +55,7 @@ namespace FaceProcessingWrapper {
 			rect.height = img->ROI.Height;
 
 
-			pLbp->CmpFace((IplImage*) img->CvPtr.ToPointer(), rect, result);
+			pLbp->CmpFace((IplImage*) img->CvPtr.ToPointer(), result);
 			array<float>^ returnResult = gcnew array<float>(count);
 
 			for (int i=0; i<count; ++i)
