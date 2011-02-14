@@ -56,7 +56,6 @@
             // 
             // buttonsContainer1
             // 
-            this.buttonsContainer1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
             this.buttonsContainer1.Controls.Add(this.simpleButton1);
             this.buttonsContainer1.Controls.Add(this.simpleButton3);
             this.buttonsContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
