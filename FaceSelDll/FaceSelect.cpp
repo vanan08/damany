@@ -1,5 +1,6 @@
 //#include "StdAfx.h"
 #include <stdio.h>
+#include <algorithm>
 #include "FaceSelect.h"
 
 #ifndef max
@@ -33,6 +34,22 @@ const int nRgnBound_mouth[4] = { 0, 50, 100, 100 };//ÔÚÈËÁ³µÄ¶à´ó·¶Î§ÄÚËÑË÷£¬°Ù·
 //////////////////////Yuki Add Upperbody Analysis/////////////////////////////////////////
 const char* cascade_name_upperbody = "c:/data/haarcascade_upperbody.xml";
 //////////////////////End--Yuki Add Upperbody Analysis/////////////////////////////////////////
+
+
+CvRect Intersect(CvRect a, CvRect b)
+{
+	int x = max(a.x, b.x);
+	int num2 = min((int) (a.x + a.width), (int) (b.x + b.width));
+    int y = max(a.y, b.y);
+	int num4 = min((int) (a.y + a.height), (int) (b.y + b.height));
+    if ((num2 >= x) && (num4 >= y))
+    {
+        return cvRect(x, y, num2 - x, num4 - y);
+    }
+    return cvRect(0, 0, 0, 0);
+}
+
+
 
 
 void CFaceSelect::InitClass()//Michael Add 20090507
@@ -102,6 +119,7 @@ CFaceSelect::CFaceSelect(void)
 , m_storage_subfacefeature(NULL)
 , m_dFaceChangeRatio(4.0)
 , m_rcROI( cvRect(0,0,0,0) )
+, m_roi ( cvRect(0, 0, 0, 0) )
 , m_casMem_face(NULL)
 , m_casMem_eye(NULL)
 , m_casMem_reye(NULL)
@@ -198,6 +216,12 @@ bool CFaceSelect::AddInImage( IplImage *pImg, CvRect roi )
     pImage = cvCloneImage( pImg );
     assert(pImage != NULL);//´¦ÀíÔØÈëÊ§°ÜµÄÇé¿ö
     m_rcROI = roi;
+
+	if(m_roi.width > 0 && m_roi.height > 0)
+	{
+		m_rcROI = Intersect(m_roi, roi);
+	}
+
 
     //bool bNormROI = false;
     //if( roi.width > 1 && roi.height > 1 )
@@ -4665,6 +4689,7 @@ void CFaceSelect::MergeResultRectSeq( CvSeq* cvResultRectSeq, CvSeq* cvResultRec
 void CFaceSelect::SetROI( int x, int y, int width, int height )
 {
     m_rcROI = cvRect( x, y, width, height );
+	m_roi = cvRect(x, y, width, height );
 }
 
 void CFaceSelect::SetFaceParas( int iMinFace, double dFaceChangeRatio )
