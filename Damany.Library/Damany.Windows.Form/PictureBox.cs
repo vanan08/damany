@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace Damany.Windows.Form
 {
-  
+
 
     public partial class PictureBox : UserControl
     {
@@ -62,6 +62,19 @@ namespace Damany.Windows.Form
             }
         }
 
+        private Color _drawingColor;
+        public Color DrawingColor
+        {
+            get { return _drawingColor; }
+            set
+            {
+                if (_drawingColor == value)
+                    return;
+                _drawingColor = value;
+                Invalidate();
+            }
+        }
+
 
         public event EventHandler<DrawFigureEventArgs> FigureDrawn;
 
@@ -88,6 +101,8 @@ namespace Damany.Windows.Form
 
             this.DragDrop += UserControl_DragDrop;
             this.DragOver += UserControl_DragOver;
+
+            DrawingColor = Color.Black;
         }
 
 
@@ -202,7 +217,7 @@ namespace Damany.Windows.Form
                 _rectangles.ForEach(r =>
                 {
                     var t = WorldToScreen(r);
-                    DrawMarkedRectangle(e.Graphics, this.Font, new Pen(color, 3), t, r);
+                    DrawMarkedRectangle(e.Graphics, this.Font, new Pen(color, 3), t, r, DrawingColor);
                 });
 
             }
@@ -210,13 +225,13 @@ namespace Damany.Windows.Form
             if (_isDrag)
             {
                 e.Graphics.Transform = new Matrix();
-                DrawMarkedRectangle(e.Graphics, this.Font, Pens.Yellow, _drawingRectangle, ScreenToWorld(_drawingRectangle));
+                DrawMarkedRectangle(e.Graphics, this.Font, Pens.Yellow, _drawingRectangle, ScreenToWorld(_drawingRectangle), DrawingColor);
             }
         }
 
-        private static void DrawStringWithTrans(Graphics g, string s, Font font, Brush brush, RectangleF r, bool fill)
+        private static void DrawStringWithTrans(Graphics g, string s, Font font, Brush brush, RectangleF r, bool fill, Color fillColor)
         {
-            var transBlack = Color.FromArgb(125, Color.Black);
+            var transBlack = Color.FromArgb(125, fillColor);
             using (var b = new SolidBrush(transBlack))
             {
                 if (fill)
@@ -231,10 +246,10 @@ namespace Damany.Windows.Form
             }
         }
 
-        private static void DrawMarkedRectangle(Graphics g, Font font, Pen pen, RectangleF rectangle, RectangleF worldRectangle)
+        private static void DrawMarkedRectangle(Graphics g, Font font, Pen pen, RectangleF rectangle, RectangleF worldRectangle, Color fillColor)
         {
             var sz = string.Format("{0}X{1}", worldRectangle.Size.Width, worldRectangle.Size.Height);
-            DrawStringWithTrans(g, sz, font, Brushes.Yellow, rectangle, true);
+            DrawStringWithTrans(g, sz, font, Brushes.Yellow, rectangle, true, fillColor);
 
             var locationFormat = "{0},{1}";
             var locString = string.Format(locationFormat, worldRectangle.Left, worldRectangle.Top);
@@ -246,7 +261,7 @@ namespace Damany.Windows.Form
             var recOfLocation = new RectangleF(l, sizeOfLocationString);
             recOfLocation.Offset(0, -1);
 
-            DrawStringWithTrans(g, locString, font, Brushes.Yellow, recOfLocation, true);
+            DrawStringWithTrans(g, locString, font, Brushes.Yellow, recOfLocation, true, fillColor);
 
             var locationRB = new PointF(rectangle.Right, rectangle.Bottom);
             var locationRBWorld = new PointF(worldRectangle.Right, worldRectangle.Bottom);
@@ -258,7 +273,7 @@ namespace Damany.Windows.Form
             var rectangleOfRB = new RectangleF(locationRB, size);
             rectangleOfRB.Offset(0, 1);
 
-            DrawStringWithTrans(g, ptString, font, Brushes.Yellow, rectangleOfRB, true);
+            DrawStringWithTrans(g, ptString, font, Brushes.Yellow, rectangleOfRB, true, fillColor);
 
             //g.DrawRectangle(pen, rectangle);
 
