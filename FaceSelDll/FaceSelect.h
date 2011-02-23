@@ -186,6 +186,7 @@ private:
 
 	double m_dFaceChangeRatio;//最大脸与最小脸的尺度比例关系
 	CvRect m_rcROI;
+	CvRect m_roi;
 	char m_outputDir[MAXLEN_OUTDIR];
 	char m_resString[MAXLEN_RESSTR];
 	double m_ExRatio_t, m_ExRatio_b, m_ExRatio_l, m_ExRatio_r;
