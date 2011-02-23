@@ -20,6 +20,31 @@ namespace FaceSearcherTester
 
         private readonly FaceSearchConfiguration _faceSearchConfiguration = new FaceSearchConfiguration();
 
+
+        private Rectangle _roi;
+        public Rectangle Roi
+        {
+            get { return _roi; }
+            set
+            {
+                if (_roi == value)
+                    return;
+                _roi = value;
+            }
+        }
+
+        private bool _useRoi;
+        public bool UseRoi
+        {
+            get { return _useRoi; }
+            set
+            {
+                if (_useRoi == value)
+                    return;
+                _useRoi = value;
+            }
+        }
+
         private int _minFaceWidth;
         public int MinFaceWidth
         {
@@ -28,7 +53,6 @@ namespace FaceSearcherTester
             {
                 _minFaceWidth = value;
                 UpdateFaceWidth();
-                SearchFace();
             }
         }
 
@@ -40,7 +64,6 @@ namespace FaceSearcherTester
             {
                 _maxFaceWidth = value;
                 UpdateFaceWidth();
-                SearchFace();
             }
         }
 
@@ -52,7 +75,6 @@ namespace FaceSearcherTester
             {
                 _drawFaceSize = value;
                 RaisePropertyChanged("DrawFaceSize");
-                SearchFace();
             }
         }
 
@@ -80,7 +102,7 @@ namespace FaceSearcherTester
 
 
         private Image _resultImage;
-        public System.Drawing.Image ResultImage
+        public Image ResultImage
         {
             get { return _resultImage; }
             set
@@ -137,12 +159,14 @@ namespace FaceSearcherTester
             _searcher.Configuration = _faceSearchConfiguration;
         }
 
-        private void SearchFace()
+        public void SearchFace()
         {
             if (this.ImageToSearch == null)
             {
                 return;
             }
+
+
 
             var img = (Image)this.ImageToSearch.Clone();
 
@@ -152,7 +176,14 @@ namespace FaceSearcherTester
                                                   var watch = System.Diagnostics.Stopwatch.StartNew();
                                                   var ipl = OpenCvSharp.IplImage.FromBitmap((Bitmap)img);
                                                   var f = new Damany.Imaging.Common.Frame(ipl);
-                                                  f.MotionRectangles.Add(new CvRect(0, 0, ipl.Width, ipl.Height));
+
+                                                  var rectangle = new Rectangle(0, 0, ipl.Width, ipl.Width);
+                                                  if (UseRoi)
+                                                  {
+                                                      rectangle.Intersect(Roi);
+                                                  }
+
+                                                  f.MotionRectangles.Add(new CvRect(rectangle.Left, rectangle.Top, rectangle.Width, rectangle.Height));
                                                   _searcher.AddInFrame(f);
                                                   var result = _searcher.SearchFaces();
                                                   timeTaken = watch.ElapsedMilliseconds;
@@ -203,7 +234,7 @@ namespace FaceSearcherTester
                                        }
                                    }
 
-                                   ResultImage = img;
+                                   _form.SearchResult = img;
 
                                }, CancellationToken.None, TaskContinuationOptions.OnlyOnRanToCompletion, scheduler);
 
