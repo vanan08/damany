@@ -332,8 +332,7 @@ namespace Gma.UserActivityMonitor
                          || ((MyKeyboardHookStruct.VirtualKeyCode == 27) && (MyKeyboardHookStruct.Flags == 32))
                          || ((MyKeyboardHookStruct.VirtualKeyCode == 27) && (MyKeyboardHookStruct.Flags == 0))
                          || ((MyKeyboardHookStruct.VirtualKeyCode == 91) && (MyKeyboardHookStruct.Flags == 1))
-                         || ((MyKeyboardHookStruct.VirtualKeyCode == 92) && (MyKeyboardHookStruct.Flags == 1))
-                         || ((MyKeyboardHookStruct.VirtualKeyCode == 73) && (MyKeyboardHookStruct.Flags == 0));
+                         || ((MyKeyboardHookStruct.VirtualKeyCode == 92) && (MyKeyboardHookStruct.Flags == 1));
 
 
                     if (blnEat)
