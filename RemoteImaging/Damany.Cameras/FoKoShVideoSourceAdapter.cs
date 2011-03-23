@@ -12,6 +12,7 @@ namespace Damany.Cameras
     {
         private System.Threading.Thread _worker;
         private bool _exit;
+        private bool _waitOnce;
 
 
         public FoKoShCamera Camera;
@@ -97,6 +98,13 @@ namespace Damany.Cameras
             {
                 if (Camera != null && Camera.Started)
                 {
+                    if (!_waitOnce)
+                    {
+                        //必须加入延时，否则立即获取图片时会出错。
+                        Thread.Sleep(3000);
+                        _waitOnce = true;
+                    }
+
                     var img = Camera.CaptureImage();
                     var arg = new NewFrameEventArgs((Bitmap)img);
                     FireNewFrameEvent(arg);
