@@ -101,6 +101,7 @@
     <Compile Include="DirectoryFilesCamera.cs" />
     <Compile Include="BkNetClientNative.cs" />
     <Compile Include="FoKoShCamera.cs" />
+    <Compile Include="FoKoShVideoSourceAdapter.cs" />
     <Compile Include="IrisMode.cs" />
     <Compile Include="JPEGExtendStream.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

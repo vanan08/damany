@@ -28,6 +28,9 @@ namespace Damany.Cameras
 
 
 
+        public int FrameIntervalMs { get; set; }
+
+
         public DirectoryFilesCamera(string directory, string imagePattern)
         {
             if (String.IsNullOrEmpty(directory))
@@ -41,6 +44,8 @@ namespace Damany.Cameras
 
             this.directory = directory;
             this.Repeat = true;
+
+            FrameIntervalMs = 2000;
         }
 
         public void Initialize()
@@ -101,7 +106,7 @@ namespace Damany.Cameras
 
                                                           this.InvokeNewFrame(new NewFrameEventArgs(bmp));
 
-                                                          Thread.Sleep(500);
+                                                          Thread.Sleep(FrameIntervalMs);
                                                       }
                                                   }, _cancellationSource.Token);
             }
@@ -120,7 +125,14 @@ namespace Damany.Cameras
         {
             if (_task != null)
             {
-                _task.Wait();
+                try
+                {
+                    _task.Wait();
+                }
+                catch (AggregateException)
+                {
+                }
+
             }
         }
 
