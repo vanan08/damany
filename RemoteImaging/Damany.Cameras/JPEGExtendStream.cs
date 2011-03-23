@@ -564,9 +564,11 @@ namespace Damany.Cameras
                     }
                     // wait for a while before the next try
                     Thread.Sleep(250);
+                    return;
                 }
                 catch (Exception)
                 {
+                    return;
                 }
                 finally
                 {

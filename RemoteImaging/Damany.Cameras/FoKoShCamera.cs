@@ -14,7 +14,6 @@ namespace Damany.Cameras
         private byte[] _header;
         private DateTime _lastRecordTime;
 
-        private bool _started;
         private bool _disposed;
         private byte[] _buf = new byte[512 * 1024];
         private string _tempFile;
@@ -22,6 +21,8 @@ namespace Damany.Cameras
         private BkNetClientNative.StreamReadCallback _streamReadCallback;
         private BkNetClientNative.MessageCallback _messageCallback;
 
+
+        public bool Started { get; set; }
 
         private string _userName;
         public string UserName
@@ -87,8 +88,8 @@ namespace Damany.Cameras
 
         public void Start()
         {
-            BkNetClientNative.MP4_ClientConnectEx(_camHandle, Ip, (uint)Port, 0, (uint) StreamId, 0);
-            _started = true;
+            BkNetClientNative.MP4_ClientConnectEx(_camHandle, Ip, (uint)Port, 0, (uint)StreamId, 0);
+            Started = true;
         }
 
         public void StartRecord()
@@ -108,7 +109,7 @@ namespace Damany.Cameras
 
         public System.Drawing.Image CaptureImage()
         {
-            if (!_started)
+            if (!Started)
             {
                 throw new InvalidOperationException("Start() must be called before calling CaptureImage()");
             }
