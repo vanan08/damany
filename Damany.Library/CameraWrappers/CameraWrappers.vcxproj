@@ -1,9 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Itanium">
+      <Configuration>Debug</Configuration>
+      <Platform>Itanium</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
       <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Itanium">
+      <Configuration>Release</Configuration>
+      <Platform>Itanium</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Release|Win32">
       <Configuration>Release</Configuration>
@@ -110,9 +118,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\RemoteImaging\Damany.Imaging.Common\Damany.Imaging.Common.csproj">
       <Project>{1546e91b-1045-42ba-9caa-d5215ef3c792}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\..\RemoteImaging\FaceProcessingWrapper\FaceProcessingWrapper.vcxproj">
-      <Project>{02b00ea5-d734-429c-bf58-44769501b940}</Project>
     </ProjectReference>
     <ProjectReference Include="..\Damany.Component\Damany.Component.csproj">
       <Project>{80dc56f4-db48-4af2-b1be-6b944a81b293}</Project>
