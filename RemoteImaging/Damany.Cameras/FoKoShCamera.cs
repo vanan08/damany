@@ -62,6 +62,7 @@ namespace Damany.Cameras
         public string Ip { get; set; }
         public int Port { get; set; }
         public string SaveTo { get; set; }
+        public int StreamId { get; set; }
 
         public FoKoShCamera(IntPtr hWnd)
         {
@@ -86,7 +87,7 @@ namespace Damany.Cameras
 
         public void Start()
         {
-            BkNetClientNative.MP4_ClientConnectEx(_camHandle, Ip, (uint)Port, 0, 0, 0);
+            BkNetClientNative.MP4_ClientConnectEx(_camHandle, Ip, (uint)Port, 0, (uint) StreamId, 0);
             _started = true;
         }
 
