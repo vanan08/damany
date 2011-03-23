@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System.Threading;
 using AForge.Video;
 using OpenCvSharp;
-using Damany.Imaging.Common;
 
 namespace Damany.Cameras
 {

@@ -28,8 +28,7 @@ namespace Damany.Windows.Form
 
         private Rectangle _drawingRectangle = Rectangle.Empty;
         private List<Rectangle> _rectangles = new List<Rectangle>();
-
-
+        private List<Point> _points = new List<Point>();
 
         public bool DrawRectangle
         {
@@ -60,6 +59,11 @@ namespace Damany.Windows.Form
                 _image = value;
                 Invalidate();
             }
+        }
+
+        public Point[] Points
+        {
+            get { return _points.ToArray(); }
         }
 
         private Color _drawingColor;
@@ -112,6 +116,18 @@ namespace Damany.Windows.Form
             this.Invalidate();
         }
 
+
+        public void ClearPoints()
+        {
+            this._points.Clear();
+            Invalidate();
+        }
+
+        public void AddPoint(Point point)
+        {
+            _points.Add(point);
+            Invalidate();
+        }
 
         public void AddRectangle(Rectangle rectangle)
         {
@@ -222,6 +238,17 @@ namespace Damany.Windows.Form
 
             }
 
+            if (_points.Count > 0)
+            {
+                var path = new GraphicsPath();
+                var ptsScreen = from p in _points
+                                select WorldToScreen(p);
+                path.AddLines(ptsScreen.ToArray());
+                path.CloseFigure();
+                e.Graphics.DrawPath(Pens.Yellow, path);
+            }
+
+
             if (_isDrag)
             {
                 e.Graphics.Transform = new Matrix();
@@ -279,7 +306,7 @@ namespace Damany.Windows.Form
 
         }
 
-        protected Rectangle WorldToScreen(Rectangle rectangle)
+        public Rectangle WorldToScreen(Rectangle rectangle)
         {
             var start = this.WorldToScreen(rectangle.Location);
             var end = this.WorldToScreen(new Point(rectangle.Right, rectangle.Bottom));
@@ -288,7 +315,7 @@ namespace Damany.Windows.Form
             return rec;
         }
 
-        protected Point WorldToScreen(Point pt)
+        public Point WorldToScreen(Point pt)
         {
             //Creates the drawing matrix with the right zoom;
             var mx = new Matrix(_zoom, 0, 0, _zoom, 0, 0);
@@ -302,8 +329,7 @@ namespace Damany.Windows.Form
         }
 
 
-
-        protected Point ScreenToWorld(Point point)
+        public Point ScreenToWorld(Point point)
         {
             //Creates the drawing matrix with the right zoom;
             var mx = new Matrix(_zoom, 0, 0, _zoom, 0, 0);
@@ -317,7 +343,7 @@ namespace Damany.Windows.Form
             return pa[0];
         }
 
-        protected Rectangle ScreenToWorld(Rectangle rectangle)
+        public Rectangle ScreenToWorld(Rectangle rectangle)
         {
             var start = ScreenToWorld(rectangle.Location);
 
