@@ -65,9 +65,21 @@ namespace Damany.Cameras
         public string SaveTo { get; set; }
         public int StreamId { get; set; }
 
+        public Func<DateTime, string> PathFunc { get; set; }
+
+
         public FoKoShCamera(IntPtr hWnd)
         {
             _camHandle = BkNetClientNative.MP4_ClientInit(hWnd, 0xa0000, 0x200, 0);
+
+            PathFunc = d =>
+                           {
+                               var file =
+                                   string.Format("{0:D}-{1:d}-{2:d} {3:d}-{4:d}-{5:d}", d.Year, d.Month, d.Day, d.Hour, d.Minute,
+                                                 d.Second) + ".avi";
+                               var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, file);
+                               return path;
+                           };
 
             _messageCallback = MessageCallback;
             _streamReadCallback = StreamReadCallback;
@@ -149,8 +161,7 @@ namespace Damany.Cameras
                     if (now.Minute != _lastRecordTime.Minute)
                     {
                         DisposeWriter();
-                        var file = now.ToShortTimeString().Replace(":", "-") + ".avi";
-                        var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, file);
+                        var path = PathFunc(now);
                         _writer = new BinaryWriter(File.OpenWrite(path));
                         _writer.Write(_header);
                         _lastRecordTime = now;
