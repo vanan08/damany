@@ -60,9 +60,18 @@ namespace Damany.Cameras
             }
         }
 
+        public int ImageWidth
+        {
+            get { return BkNetClientNative.MP4_ClientGetImageWidth(_camHandle); }
+        }
+
+        public int ImageHeight
+        {
+            get { return BkNetClientNative.MP4_ClientGetImageHeight(_camHandle); }
+        }
+
         public string Ip { get; set; }
         public int Port { get; set; }
-        public string SaveTo { get; set; }
         public int StreamId { get; set; }
 
         public Func<DateTime, string> PathFunc { get; set; }
@@ -106,11 +115,6 @@ namespace Damany.Cameras
 
         public void StartRecord()
         {
-            if (!Directory.Exists(SaveTo))
-            {
-                throw new InvalidOperationException("SaveTo must be set");
-            }
-
             BkNetClientNative.MP4_ClientStartCapture(_camHandle);
         }
 
@@ -126,7 +130,14 @@ namespace Damany.Cameras
                 throw new InvalidOperationException("Start() must be called before calling CaptureImage()");
             }
 
-            BkNetClientNative.MP4_ClientCapturePicturefile(_camHandle, _tempFile);
+            while (true)
+            {
+                var success =  BkNetClientNative.MP4_ClientCapturePicturefile(_camHandle, _tempFile);
+                if (success == 0) break;
+
+                System.Threading.Thread.Sleep(1000);
+            }
+
             return AForge.Imaging.Image.FromFile(_tempFile);
         }
 
@@ -162,7 +173,7 @@ namespace Damany.Cameras
                     {
                         DisposeWriter();
                         var path = PathFunc(now);
-                        _writer = new BinaryWriter(File.OpenWrite(path));
+                        _writer = new BinaryWriter(File.Open(path, FileMode.Create, FileAccess.Write, FileShare.Read));
                         _writer.Write(_header);
                         _lastRecordTime = now;
                     }
