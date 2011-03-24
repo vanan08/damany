@@ -116,5 +116,11 @@ namespace Damany.Cameras
         [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         public static extern int MP4_ClientGetImageHeight(IntPtr hClient);
 
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern int MP4_ClientSetAutoConnect(
+            IntPtr hClient,
+            [MarshalAsAttribute(UnmanagedType.Bool)] bool bAuto);
+
+
     }
 }

@@ -95,6 +95,7 @@ namespace Damany.Cameras
 
             BkNetClientNative.MP4_ClientRegisterErrorCallBack(_camHandle, _messageCallback, IntPtr.Zero);
             BkNetClientNative.MP4_ClientRegisterStreamCallBack(_camHandle, _streamReadCallback, IntPtr.Zero);
+            BkNetClientNative.MP4_ClientSetAutoConnect(_camHandle, true);
 
             _tempFile = Path.GetTempFileName() + ".jpg";
 
