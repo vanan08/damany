@@ -46,7 +46,7 @@ namespace RemoteImaging.RealtimeDisplay
 
         Thread motionDetectThread = null;
 
-        SVM svm;
+       // SVM svm;
         PCA pca;
         FrontFaceChecker frontChecker;
         SuspectsRepository.SuspectsRepositoryManager suspectsMnger;
@@ -112,11 +112,10 @@ namespace RemoteImaging.RealtimeDisplay
             Properties.Settings.Default.SearchSuspecious = true;
 #endif
 
-
             if (Properties.Settings.Default.SearchSuspecious)
             {
-                this.svm =
-                    SVM.LoadFrom(Properties.Settings.Default.ImageRepositoryDirectory);
+                //this.svm =
+                //    SVM.LoadFrom(Properties.Settings.Default.ImageRepositoryDirectory);
                 this.pca =
                     PCA.LoadFrom(Properties.Settings.Default.ImageRepositoryDirectory);
                 this.frontChecker =
@@ -565,7 +564,7 @@ namespace RemoteImaging.RealtimeDisplay
         private bool IsGoodGuy(float[] imgData)
         {
 
-            double verdict = this.svm.Predict(imgData);
+            double verdict = -1;// this.svm.Predict(imgData);
 
             System.Diagnostics.Debug.WriteLine(string.Format("=======verdict: {0}=======", verdict));
 

@@ -13,12 +13,12 @@ namespace FaceProcessingWrapper.Test
     [TestFixture]
     public class SVMWrapperTest
     {
-        SVM svm;
+        //SVM svm;
 
         [SetUp]
         public void Setup()
         {
-            svm = SVM.LoadFrom(@"C:\faceRecognition");
+            //svm = SVM.LoadFrom(@"C:\faceRecognition");
         }
 
 

@@ -268,7 +268,7 @@ namespace SuspectsRepository
 
         public void UpdateRepository()
         {
-            FaceProcessingWrapper.SVM.Train(this.RootDirectoryPathAbsolute);
+            //FaceProcessingWrapper.SVM.Train(this.RootDirectoryPathAbsolute);
 
             FaceProcessingWrapper.PCA.Train(this.RootDirectoryPathAbsolute);
 
