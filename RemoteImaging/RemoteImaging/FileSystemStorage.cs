@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using RemoteImaging.Core;
 using System.IO;
@@ -228,12 +229,13 @@ namespace RemoteImaging
                         !MotionImagesCapturedWhen(cameraID, startUTC.ToLocalTime());
                     bool isMotionWithoutFace = !isMotionLess && !hasFaceCaptured;
 
-                    videos.Add(new RemoteImaging.Core.Video { 
-                                                            HasFaceCaptured = hasFaceCaptured, 
-                                                            Path = path, 
-                                                            IsMotionWithoutFace = isMotionWithoutFace,
-                                                            IsMotionLess = isMotionLess,
-                                                            });
+                    videos.Add(new RemoteImaging.Core.Video
+                    {
+                        HasFaceCaptured = hasFaceCaptured,
+                        Path = path,
+                        IsMotionWithoutFace = isMotionWithoutFace,
+                        IsMotionLess = isMotionLess,
+                    });
                 }
 
                 startUTC = startUTC.AddMinutes(1);
@@ -256,19 +258,26 @@ namespace RemoteImaging
             string m4vFile = VideoFilePathNameIfExists(time, 2);
             if (File.Exists(m4vFile))
             {
-                File.Delete(m4vFile);
+                EnsureDelete(m4vFile, true);
             }
 
             string idvFile = m4vFile.Replace(".m4v", ".idv");
             if (File.Exists(idvFile))
             {
-                File.Delete(idvFile);
+                EnsureDelete(idvFile, true);
             }
+        }
+
+        private static bool FileOrDirDeleted(string path)
+        {
+            var flagFilePath = GetFlagFile(path);
+            return File.Exists(flagFilePath);
         }
 
         private static string TheOldestSubDirectory(string root, string pattern)
         {
             string oldestName = (from y in System.IO.Directory.GetDirectories(root, pattern)
+                                 where !FileOrDirDeleted(y)
                                  orderby y
                                  select y).FirstOrDefault();
 
@@ -333,7 +342,7 @@ namespace RemoteImaging
 
             if (Directory.GetDirectories(year).Length == 0 && y != now.Year)
             {
-                Directory.Delete(year, true);
+                EnsureDelete(year, false);
                 return;
             }
 
@@ -346,7 +355,7 @@ namespace RemoteImaging
 
             if (Directory.GetDirectories(month).Length == 0 && m != now.Month)
             {
-                Directory.Delete(month, true);
+                EnsureDelete(month, false);
                 return;
             }
 
@@ -359,11 +368,14 @@ namespace RemoteImaging
 
             if (Directory.GetDirectories(day).Length == 0 && d != now.Day)
             {
-                Directory.Delete(day, true);
+                EnsureDelete(day, false);
                 return;
             }
 
-            Directory.Delete(day, true);
+            foreach (var file in Directory.EnumerateFiles(day))
+            {
+                EnsureDelete(file, true);
+            }
 
             DeleteVideoForDay(y, m, d);
 
@@ -371,10 +383,56 @@ namespace RemoteImaging
 
         public static int GetTotalStorageMB()
         {
-            int mb = (int) new System.IO.DriveInfo(Properties.Settings.Default.OutputPath).TotalSize / (1024 * 1024);
+            int mb = (int)new System.IO.DriveInfo(Properties.Settings.Default.OutputPath).TotalSize / (1024 * 1024);
             return mb;
 
         }
+
+        public static void EnsureDelete(string path, bool isFile)
+        {
+            if (!string.IsNullOrEmpty(path) && isFile ? File.Exists(path) : Directory.Exists(path))
+            {
+                if (!FileOrDirDeleted(path))
+                {
+                    try
+                    {
+                        if (isFile)
+                        {
+                            File.Delete(path);
+                        }
+                        else
+                        {
+                            Directory.Delete(path);
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        //在系统重新启动的时候删除文件. 
+                        //参见: http://msdn.microsoft.com/en-us/library/aa365240(v=vs.85).aspx
+                        DeleteFileOrDirOnReboot(path);
+                        var flagFile = GetFlagFile(path);
+                        //create flag file to indicate file is deleted.
+                        using (File.Create(flagFile)) { }
+                        DeleteFileOrDirOnReboot(flagFile);
+                    }
+                }
+            }
+        }
+
+
+        private static string GetFlagFile(string path)
+        {
+            return path + ".del";
+        }
+
+        private static void DeleteFileOrDirOnReboot(string path)
+        {
+            MoveFileEx(path, null, 4);
+        }
+
+        [return: MarshalAs(UnmanagedType.Bool)]
+        [DllImport("kernel32", CharSet = CharSet.Auto, SetLastError = true)]
+        public static extern bool MoveFileEx(string lpExistingFileName, string lpNewFileName, int dwFlags);
 
     }
 }

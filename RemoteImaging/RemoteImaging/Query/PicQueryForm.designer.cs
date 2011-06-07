@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PicQueryForm));
             this.queryBtn = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -39,8 +38,8 @@
             this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
             this.timeEdit1 = new DevExpress.XtraEditors.TimeEdit();
             this.timeEdit2 = new DevExpress.XtraEditors.TimeEdit();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.imageList2 = new System.Windows.Forms.ImageList(this.components);
+            this.imageList1 = new System.Windows.Forms.ImageList();
+            this.imageList2 = new System.Windows.Forms.ImageList();
             this.bestPicListView = new System.Windows.Forms.ListView();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
@@ -79,9 +78,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
@@ -188,11 +189,11 @@
             this.bestPicListView.AutoArrange = false;
             this.bestPicListView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.bestPicListView.HideSelection = false;
-            this.bestPicListView.Location = new System.Drawing.Point(0, 27);
+            this.bestPicListView.Location = new System.Drawing.Point(0, 25);
             this.bestPicListView.MultiSelect = false;
             this.bestPicListView.Name = "bestPicListView";
             this.bestPicListView.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.bestPicListView.Size = new System.Drawing.Size(840, 251);
+            this.bestPicListView.Size = new System.Drawing.Size(840, 253);
             this.bestPicListView.TabIndex = 10;
             this.bestPicListView.UseCompatibleStateImageBehavior = false;
             this.bestPicListView.ItemActivate += new System.EventHandler(this.bestPicListView_ItemActivate);
@@ -396,7 +397,7 @@
             this.saveToolStripButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(840, 27);
+            this.toolStrip1.Size = new System.Drawing.Size(840, 25);
             this.toolStrip1.TabIndex = 13;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -405,7 +406,7 @@
             this.toolStripButtonFirstPage.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonFirstPage.Image")));
             this.toolStripButtonFirstPage.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonFirstPage.Name = "toolStripButtonFirstPage";
-            this.toolStripButtonFirstPage.Size = new System.Drawing.Size(55, 24);
+            this.toolStripButtonFirstPage.Size = new System.Drawing.Size(58, 22);
             this.toolStripButtonFirstPage.Text = "首页";
             this.toolStripButtonFirstPage.Click += new System.EventHandler(this.toolStripButtonFirstPage_Click);
             // 
@@ -414,7 +415,7 @@
             this.toolStripButtonPrePage.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonPrePage.Image")));
             this.toolStripButtonPrePage.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonPrePage.Name = "toolStripButtonPrePage";
-            this.toolStripButtonPrePage.Size = new System.Drawing.Size(55, 24);
+            this.toolStripButtonPrePage.Size = new System.Drawing.Size(58, 22);
             this.toolStripButtonPrePage.Text = "上页";
             this.toolStripButtonPrePage.Click += new System.EventHandler(this.toolStripButtonPrePage_Click);
             // 
@@ -423,7 +424,7 @@
             this.toolStripButtonNextPage.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonNextPage.Image")));
             this.toolStripButtonNextPage.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonNextPage.Name = "toolStripButtonNextPage";
-            this.toolStripButtonNextPage.Size = new System.Drawing.Size(55, 24);
+            this.toolStripButtonNextPage.Size = new System.Drawing.Size(58, 22);
             this.toolStripButtonNextPage.Text = "下页";
             this.toolStripButtonNextPage.Click += new System.EventHandler(this.toolStripButtonNextPage_Click);
             // 
@@ -432,14 +433,14 @@
             this.toolStripButtonLastPage.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonLastPage.Image")));
             this.toolStripButtonLastPage.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonLastPage.Name = "toolStripButtonLastPage";
-            this.toolStripButtonLastPage.Size = new System.Drawing.Size(55, 24);
+            this.toolStripButtonLastPage.Size = new System.Drawing.Size(58, 22);
             this.toolStripButtonLastPage.Text = "末页";
             this.toolStripButtonLastPage.Click += new System.EventHandler(this.toolStripButtonLastPage_Click);
             // 
             // toolStripLabelCurPage
             // 
             this.toolStripLabelCurPage.Name = "toolStripLabelCurPage";
-            this.toolStripLabelCurPage.Size = new System.Drawing.Size(57, 24);
+            this.toolStripLabelCurPage.Size = new System.Drawing.Size(57, 22);
             this.toolStripLabelCurPage.Text = "第1/1页";
             // 
             // toolStripComboBoxPageSize
@@ -451,40 +452,40 @@
             "40",
             "50"});
             this.toolStripComboBoxPageSize.Name = "toolStripComboBoxPageSize";
-            this.toolStripComboBoxPageSize.Size = new System.Drawing.Size(121, 27);
+            this.toolStripComboBoxPageSize.Size = new System.Drawing.Size(121, 25);
             this.toolStripComboBoxPageSize.SelectedIndexChanged += new System.EventHandler(this.toolStripComboBoxPageSize_SelectedIndexChanged);
             // 
             // toolStripLabel1
             // 
             this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(41, 24);
+            this.toolStripLabel1.Size = new System.Drawing.Size(43, 22);
             this.toolStripLabel1.Text = "张/页";
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 27);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
             // 
             // toolStripButtonPlayVideo
             // 
             this.toolStripButtonPlayVideo.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonPlayVideo.Image")));
             this.toolStripButtonPlayVideo.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonPlayVideo.Name = "toolStripButtonPlayVideo";
-            this.toolStripButtonPlayVideo.Size = new System.Drawing.Size(81, 24);
+            this.toolStripButtonPlayVideo.Size = new System.Drawing.Size(88, 22);
             this.toolStripButtonPlayVideo.Text = "相关视频";
             this.toolStripButtonPlayVideo.Click += new System.EventHandler(this.toolStripButtonPlayVideo_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 27);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
             // 
             // saveToolStripButton
             // 
             this.saveToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("saveToolStripButton.Image")));
             this.saveToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.saveToolStripButton.Name = "saveToolStripButton";
-            this.saveToolStripButton.Size = new System.Drawing.Size(97, 24);
+            this.saveToolStripButton.Size = new System.Drawing.Size(106, 22);
             this.saveToolStripButton.Text = "保存图片(&S)";
             this.saveToolStripButton.Click += new System.EventHandler(this.saveToolStripButton_Click);
             // 
@@ -517,9 +518,11 @@
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.splitContainer2.Panel1.ResumeLayout(false);
             this.splitContainer2.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxWholeImg)).EndInit();
