@@ -1,22 +1,42 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{E0F855A2-D8FA-4D2F-9645-C6E8DE8AACD4}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>RemoteImaging</RootNamespace>
     <AssemblyName>RemoteImaging</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ApplicationIcon>MainIcon.ico</ApplicationIcon>
     <SccProjectName>&lt;Project Location In Database&gt;</SccProjectName>
     <SccLocalPath>&lt;Local Binding Root of Project&gt;</SccLocalPath>
     <SccAuxPath>&lt;Source Control Database&gt;</SccAuxPath>
     <SccProvider>Mercurial Source Control Package</SccProvider>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -27,6 +47,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -36,46 +57,50 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AForge.Imaging, Version=1.1.0.0, Culture=neutral, PublicKeyToken=d604c8342bbdeba9, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.BonusSkins.v9.2, Version=9.2.9.0, Culture=neutral, PublicKeyToken=95fc6c5621878f0a">
+    <Reference Include="DevExpress.BonusSkins.v10.2, Version=10.2.3.0, Culture=neutral, PublicKeyToken=95fc6c5621878f0a">
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.Data.v9.2, Version=9.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+    <Reference Include="DevExpress.Data.v10.2, Version=10.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.OfficeSkins.v9.2, Version=9.2.9.0, Culture=neutral, PublicKeyToken=95fc6c5621878f0a">
+    <Reference Include="DevExpress.OfficeSkins.v10.2, Version=10.2.3.0, Culture=neutral, PublicKeyToken=95fc6c5621878f0a">
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.Utils.v9.2, Version=9.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+    <Reference Include="DevExpress.Utils.v10.2, Version=10.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v9.2, Version=9.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+    <Reference Include="DevExpress.Xpo.v10.2, Version=10.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.XtraBars.v9.2, Version=9.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+    <Reference Include="DevExpress.XtraBars.v10.2, Version=10.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.XtraEditors.v9.2, Version=9.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.XtraEditors.v10.2, Version=10.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.XtraGrid.v9.2, Version=9.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+    <Reference Include="DevExpress.XtraGrid.v10.2, Version=10.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.XtraLayout.v9.2, Version=9.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.XtraLayout.v10.2, Version=10.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.XtraNavBar.v9.2, Version=9.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+    <Reference Include="DevExpress.XtraNavBar.v10.2, Version=10.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.XtraRichEdit.v9.2, Version=9.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+    <Reference Include="DevExpress.RichEdit.v10.2.Core, Version=10.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.XtraTreeList.v9.2, Version=9.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+    <Reference Include="DevExpress.XtraRichEdit.v10.2, Version=10.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.XtraVerticalGrid.v9.2, Version=9.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+    <Reference Include="DevExpress.XtraTreeList.v10.2, Version=10.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraVerticalGrid.v10.2, Version=10.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
       <Private>True</Private>
     </Reference>
     <Reference Include="Emcaster, Version=0.1.5.0, Culture=neutral, processorArchitecture=MSIL">
@@ -286,7 +311,7 @@
       <DependentUpon>OptionsForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\licenses.licx" />
+    <None Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Query\PicQueryForm.resx">
       <DependentUpon>PicQueryForm.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -466,7 +491,7 @@
       <Project>{B377F693-4975-4BB6-A6DC-C0C3844517B1}</Project>
       <Name>Encryptor</Name>
     </ProjectReference>
-    <ProjectReference Include="..\FaceProcessingWrapper\FaceProcessingWrapper.vcproj">
+    <ProjectReference Include="..\FaceProcessingWrapper\FaceProcessingWrapper.vcxproj">
       <Project>{02B00EA5-D734-429C-BF58-44769501B940}</Project>
       <Name>FaceProcessingWrapper</Name>
     </ProjectReference>
@@ -474,7 +499,7 @@
       <Project>{21CE9F9A-5A38-437A-96C3-F1D7B7846734}</Project>
       <Name>FaceRecognition</Name>
     </ProjectReference>
-    <ProjectReference Include="..\FaceSearchWrapper\FaceSearchWrapper.vcproj">
+    <ProjectReference Include="..\FaceSearchWrapper\FaceSearchWrapper.vcxproj">
       <Project>{F6F410AA-5D72-49BE-9FFE-6EBECF718EAA}</Project>
       <Name>FaceSearchWrapper</Name>
     </ProjectReference>
@@ -486,7 +511,7 @@
       <Project>{80A13967-C4D2-4B5A-909D-FA595F57F88D}</Project>
       <Name>Messages</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MotionDetectWrapper\MotionDetectWrapper.vcproj">
+    <ProjectReference Include="..\MotionDetectWrapper\MotionDetectWrapper.vcxproj">
       <Project>{135CB419-42DC-468F-A6A5-C368AE5D7E8D}</Project>
       <Name>MotionDetectWrapper</Name>
     </ProjectReference>
@@ -502,6 +527,23 @@
       <Project>{7C6269E8-3954-4451-8F33-67F3916231AF}</Project>
       <Name>Damany.Security</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
