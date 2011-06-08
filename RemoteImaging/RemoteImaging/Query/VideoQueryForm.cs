@@ -118,11 +118,6 @@ namespace RemoteImaging.Query
                         videoList.Items.Add(lvl);
                     }
                 }
-
-               
-
-
-
             }
         }
 

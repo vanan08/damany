@@ -46,9 +46,7 @@ namespace RemoteImaging.Query
             {
                 string searchPath = beginDir + "\\" +
                                     startDir.CameraID + "\\" +
-                                    startDir.Year + "\\" +
-                                    startDir.Month + "\\" +
-                                    startDir.Day + "\\" + subSearchPath + "\\";
+                                    startDir.Year + startDir.Month + startDir.Day + "\\" + subSearchPath + "\\";
                 if (Directory.Exists(searchPath))
                 {
                     string[] dirFile = Directory.GetDirectories(searchPath);
@@ -94,9 +92,7 @@ namespace RemoteImaging.Query
                 {
                     string searchPath = beginDir + "\\" +
                                         startDir.CameraID + "\\" +
-                                        startDir.Year + "\\" +
-                                        startDir.Month + "\\" +
-                                        i.ToString("D2") + "\\" + subSearchPath + "\\";
+                                        startDir.Year + startDir.Month + i.ToString("D2") + "\\" + subSearchPath + "\\";
 
                     if (Directory.Exists(searchPath))
                     {
@@ -156,9 +152,7 @@ namespace RemoteImaging.Query
                     {
                         string searchPath = beginDir + "\\" +
                                             startDir.CameraID + "\\" +
-                                            startDir.Year + "\\" +
-                                            i.ToString("D2") + "\\" +
-                                            j.ToString("D2") + "\\" + subSearchPath + "\\";
+                                            startDir.Year + i.ToString("D2") + j.ToString("D2") + "\\" + subSearchPath + "\\";
                         if (Directory.Exists(searchPath))
                         {
                             string[] dirFile = Directory.GetDirectories(searchPath);
@@ -227,9 +221,7 @@ namespace RemoteImaging.Query
                         {
                             string searchPath = beginDir + "\\" +
                                                 startDir.CameraID + "\\" +
-                                                i.ToString() + "\\" +
-                                                j.ToString("D2") + "\\" +
-                                                k.ToString("D2") + "\\" + subSearchPath + "\\";
+                                                i.ToString() + j.ToString("D2") + k.ToString("D2") + "\\" + subSearchPath + "\\";
                             if (Directory.Exists(searchPath))
                             {
                                 string[] dirFile = Directory.GetDirectories(searchPath);
@@ -296,9 +288,7 @@ namespace RemoteImaging.Query
 
             string searchPath = Query.ImageDirSys.BeginDir + "\\" +
                                 fileName.Substring(0, 2) + "\\" +
-                                (2000 + int.Parse(fileName.Substring(3, 2))).ToString() + "\\" +
-                                fileName.Substring(5, 2) + "\\" +
-                                fileName.Substring(7, 2) + "\\" + RemoteImaging.Query.ImageDirSys.BigIconPath + "\\";
+                                (2000 + int.Parse(fileName.Substring(3, 2))).ToString() + fileName.Substring(5, 2) + fileName.Substring(7, 2) + "\\" + RemoteImaging.Query.ImageDirSys.BigIconPath + "\\";
 
             ArrayList fileList = new ArrayList();
             if (Directory.Exists(searchPath))
@@ -361,8 +351,7 @@ namespace RemoteImaging.Query
             ArrayList filesArr = new ArrayList();
             DateTime dTime = getDateTimeStr(path);
             string imgPath = Properties.Settings.Default.OutputPath + "\\" + int.Parse(camId).ToString("D2") + "\\" +
-                dTime.Year + "\\" + dTime.Month.ToString("D2") + "\\" +
-                dTime.Day.ToString("D2") + "\\" + Properties.Settings.Default.IconDirectoryName + "\\" +
+                dTime.Year +  dTime.Month.ToString("D2") + dTime.Day.ToString("D2") + "\\" + Properties.Settings.Default.IconDirectoryName + "\\" +
                 dTime.Year + dTime.Month.ToString("D2") + dTime.Day.ToString("D2") + dTime.Hour.ToString("D2") + dTime.Minute.ToString("D2") + "\\";
 
             if (Directory.Exists(imgPath))
