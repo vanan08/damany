@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PicQueryForm));
             this.queryBtn = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -38,8 +39,8 @@
             this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
             this.timeEdit1 = new DevExpress.XtraEditors.TimeEdit();
             this.timeEdit2 = new DevExpress.XtraEditors.TimeEdit();
-            this.imageList1 = new System.Windows.Forms.ImageList();
-            this.imageList2 = new System.Windows.Forms.ImageList();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.imageList2 = new System.Windows.Forms.ImageList(this.components);
             this.bestPicListView = new System.Windows.Forms.ListView();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();

@@ -46,7 +46,7 @@ namespace RemoteImaging.RealtimeDisplay
 
         Thread motionDetectThread = null;
 
-       // SVM svm;
+        // SVM svm;
         PCA pca;
         FrontFaceChecker frontChecker;
         SuspectsRepository.SuspectsRepositoryManager suspectsMnger;
@@ -118,7 +118,7 @@ namespace RemoteImaging.RealtimeDisplay
                 this.frontChecker =
                     FrontFaceChecker.FromFile(Properties.Settings.Default.FrontFaceTemplateFile);
 
-                this.suspectsMnger = SuspectsRepository.SuspectsRepositoryManager.LoadFrom( Properties.Settings.Default.ImageRepositoryDirectory );
+                this.suspectsMnger = SuspectsRepository.SuspectsRepositoryManager.LoadFrom(Properties.Settings.Default.ImageRepositoryDirectory);
             }
 
 
@@ -490,10 +490,10 @@ namespace RemoteImaging.RealtimeDisplay
 
                 for (int j = 0; j < t.Faces.Length; ++j)
                 {
-                    string facePath = FileSystemStorage.PathForFaceImage(frame, j);
                     try
                     {
-                        t.Faces[j].SaveImage(facePath);
+                        var path = FileSystemStorage.SaveFace(t.Faces[j], j, frame);
+                        imgs.Add(ImageDetail.FromPath(path));
                     }
                     catch (System.IO.IOException ex)
                     {
@@ -504,7 +504,6 @@ namespace RemoteImaging.RealtimeDisplay
                         }
                     }
 
-                    imgs.Add(ImageDetail.FromPath(facePath));
                 }
 
             }

@@ -94,9 +94,7 @@ namespace RemoteImaging.Query
                 {
                     string searchPath = beginDir + "\\" +
                                         startDir.CameraID + "\\" +
-                                        startDir.Year + "\\" +
-                                        startDir.Month + "\\" +
-                                        i.ToString("D2") + "\\" + subSearchPath + "\\";
+                                        startDir.Year + startDir.Month + i.ToString("D2") + "\\" + subSearchPath + "\\";
 
                     if (Directory.Exists(searchPath))
                     {

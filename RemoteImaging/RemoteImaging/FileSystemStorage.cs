@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Text.RegularExpressions;
 using RemoteImaging.Core;
 using System.IO;
 using ImageProcess;
@@ -57,15 +58,22 @@ namespace RemoteImaging
             ipl.SaveImage(path);
         }
 
+        public static string SaveFace(IplImage face, int idx, Frame baseFrame)
+        {
+            var path = PathForFaceImage(baseFrame, idx);
+            face.SaveImage(path);
+            return path;
+        }
+
 
 
         public static string PathForFaceImage(Frame frame, int sequence)
         {
             DateTime dt = DateTime.FromBinary(frame.timeStamp);
 
-            string folderFace = FileSystemStorage.EnsureFolderForFacesAt(frame.cameraID, dt);
+            string folderFace = EnsureFolderForFacesAt(frame.cameraID, dt);
 
-            string faceFileName = FileSystemStorage.FaceImageFileNameOf(frame.GetFileName(), sequence);
+            string faceFileName = FaceImageFileNameOf(frame.GetFileName(), sequence);
 
             string facePath = Path.Combine(folderFace, faceFileName);
             return facePath;
@@ -134,9 +142,7 @@ namespace RemoteImaging
 
             StringBuilder sb = new StringBuilder();
             sb.Append(dt.Year.ToString("D4"));
-            sb.Append(Path.DirectorySeparatorChar);
             sb.Append(dt.Month.ToString("D2"));
-            sb.Append(Path.DirectorySeparatorChar);
             sb.Append(dt.Day.ToString("D2"));
             sb.Append(Path.DirectorySeparatorChar);
             if (!string.IsNullOrEmpty(subFoldername))
@@ -325,60 +331,106 @@ namespace RemoteImaging
 
         }
 
+        private static DateTime GetOldestDate(string parentDir)
+        {
+            var dates = from dir in
+                            Directory.EnumerateDirectories(parentDir)
+                        let name = GetDirName(dir)
+                        let flagFile = GetFlagFile(dir)
+                        where IsDate(name) && !File.Exists(flagFile)
+                        select ConvertToDateTime(name);
+            var oldest = from d in dates orderby d ascending select d;
+
+            return oldest.FirstOrDefault();
+        }
+
+        private static string GetDirName(string path)
+        {
+            return path.Substring(path.LastIndexOf(Path.DirectorySeparatorChar) + 1);
+        }
+
+        private static DateTime GetOldestVideo()
+        {
+            var videoRoot = Path.Combine(RootStoragePathForCamera(2), "NORMAL");
+            return GetOldestDate(videoRoot);
+        }
+
+        private static DateTime GetOldestFace()
+        {
+            var videoRoot = Path.Combine(RootStoragePathForCamera(2));
+            return GetOldestDate(videoRoot);
+        }
+
+        private static DateTime GetTheOldest()
+        {
+            var dates = new[] {GetOldestFace(), GetOldestVideo()};
+            var oldest = from d in dates orderby d ascending select d;
+            return oldest.FirstOrDefault();
+        }
+
+
+        private static DateTime ConvertToDateTime(string str)
+        {
+            var y = int.Parse(str.Substring(0, 4));
+            var m = int.Parse(str.Substring(4, 2));
+            var d = int.Parse(str.Substring(6, 2));
+            return new DateTime(y, m, d);
+        }
+
+        private static string ConvertDateTimeToDir(DateTime date)
+        {
+            var result = string.Format("{0:d4}{1:d2}{2:d2}", date.Year, date.Month, date.Day);
+            return result;
+        }
+
+        private static bool IsDate(string str)
+        {
+            var result = Regex.IsMatch(str, @"^(19|20)\d\d(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])$");
+            return result;
+        }
+
 
         public static void DeleteMostOutDatedDataForDay(int days)
         {
-            string root = RootStoragePathForCamera(2);
-            DateTime now = DateTime.Now;
-
-            string yS, mS, dS;
-            int y = now.Year, m = now.Month, d = now.Day;
-
-            var year = TheOldestSubDirectory(root, "20??");
-            if (string.IsNullOrEmpty(year)) return;
-
-            yS = new DirectoryInfo(year).Name;
-            int.TryParse(yS, out y);
-
-            if (Directory.GetDirectories(year).Length == 0 && y != now.Year)
+            var oldest = GetTheOldest();
+            if (oldest != default(DateTime))
             {
-                EnsureDelete(year, false);
-                return;
+                DeleteFaceOnDate(oldest);
+                DeleteVideoOnDate(oldest);
+            }
+        }
+
+        private static void DeleteVideoOnDate(DateTime oldest)
+        {
+            var path = VideoDirForDate(oldest);
+            if (Directory.Exists(path))
+            {
+                EnsureDelete(path, false);
             }
 
-            var month = TheOldestSubDirectory(year, "??");
-            if (string.IsNullOrEmpty(month)) return;
+        }
 
 
-            mS = new DirectoryInfo(month).Name;
-            int.TryParse(mS, out m);
-
-            if (Directory.GetDirectories(month).Length == 0 && m != now.Month)
+        private static void DeleteFaceOnDate(DateTime oldest)
+        {
+            var path = FaceDirForDate(oldest);
+            if (Directory.Exists(path))
             {
-                EnsureDelete(month, false);
-                return;
+                EnsureDelete(path, false);
             }
+        }
 
-            var day = TheOldestSubDirectory(month, "??");
-            if (string.IsNullOrEmpty(day)) return;
+        private static string VideoDirForDate(DateTime oldest)
+        {
+            var dir = string.Format("NORMAL\\{0}", ConvertDateTimeToDir(oldest));
+            var result = Path.Combine(RootStoragePathForCamera(2), dir);
+            return result;
+        }
 
-
-            dS = new DirectoryInfo(day).Name; ;
-            int.TryParse(dS, out d);
-
-            if (Directory.GetDirectories(day).Length == 0 && d != now.Day)
-            {
-                EnsureDelete(day, false);
-                return;
-            }
-
-            foreach (var file in Directory.EnumerateFiles(day))
-            {
-                EnsureDelete(file, true);
-            }
-
-            DeleteVideoForDay(y, m, d);
-
+        private static string FaceDirForDate(DateTime oldest)
+        {
+            var result = Path.Combine(RootStoragePathForCamera(2), ConvertDateTimeToDir(oldest));
+            return result;
         }
 
         public static int GetTotalStorageMB()
@@ -402,7 +454,7 @@ namespace RemoteImaging
                         }
                         else
                         {
-                            Directory.Delete(path);
+                            Directory.Delete(path, true);
                         }
                     }
                     catch (Exception)
