@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Damany.RemoteImaging.Common.Forms;
 
 namespace RemoteImaging
 {
@@ -51,6 +52,15 @@ namespace RemoteImaging
 
         void SingleInstanceController_Startup(object sender, Microsoft.VisualBasic.ApplicationServices.StartupEventArgs e)
         {
+            //delete outdated data on boot
+            ProgressForm form = new ProgressForm();
+            form.TopMost = true;
+            form.MessageLabel.Text = "正在删除过期数据，请稍后...";
+            form.Show();
+            form.Update();
+            FileSystemStorage.DeleteMarkedData();
+            form.Dispose();
+
             bool shouldReturn;
             RequestRegistrationIfInvalidKey(out shouldReturn);
             if (shouldReturn)

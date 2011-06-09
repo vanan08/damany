@@ -363,7 +363,7 @@ namespace RemoteImaging
 
         private static DateTime GetTheOldest()
         {
-            var dates = new[] {GetOldestFace(), GetOldestVideo()};
+            var dates = new[] { GetOldestFace(), GetOldestVideo() };
             var oldest = from d in dates orderby d ascending select d;
             return oldest.FirstOrDefault();
         }
@@ -387,6 +387,17 @@ namespace RemoteImaging
         {
             var result = Regex.IsMatch(str, @"^(19|20)\d\d(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])$");
             return result;
+        }
+
+        public static void DeleteMarkedData()
+        {
+            var root = RootStoragePathForCamera(2);
+            var flagFiles = Directory.EnumerateFiles(root, "*.del", SearchOption.AllDirectories);
+            foreach (var flagFile in flagFiles)
+            {
+                var dir = flagFile.Replace(".del", "");
+                EnsureDelete(dir, false);
+            }
         }
 
 
@@ -444,29 +455,29 @@ namespace RemoteImaging
         {
             if (!string.IsNullOrEmpty(path) && isFile ? File.Exists(path) : Directory.Exists(path))
             {
-                if (!FileOrDirDeleted(path))
+                try
                 {
-                    try
+                    if (isFile)
                     {
-                        if (isFile)
-                        {
-                            File.Delete(path);
-                        }
-                        else
-                        {
-                            Directory.Delete(path, true);
-                        }
+                        File.Delete(path);
                     }
-                    catch (Exception)
+                    else
                     {
-                        //在系统重新启动的时候删除文件. 
-                        //参见: http://msdn.microsoft.com/en-us/library/aa365240(v=vs.85).aspx
-                        DeleteFileOrDirOnReboot(path);
-                        var flagFile = GetFlagFile(path);
-                        //create flag file to indicate file is deleted.
+                        Directory.Delete(path, true);
+                    }
+                }
+                catch (Exception)
+                {
+                    //在系统重新启动的时候删除文件. 
+                    //参见: http://msdn.microsoft.com/en-us/library/aa365240(v=vs.85).aspx
+                    DeleteFileOrDirOnReboot(path);
+                    var flagFile = GetFlagFile(path);
+                    //create flag file to indicate file is deleted.
+                    if (!File.Exists(flagFile))
+                    {
                         using (File.Create(flagFile)) { }
-                        DeleteFileOrDirOnReboot(flagFile);
                     }
+                    DeleteFileOrDirOnReboot(flagFile);
                 }
             }
         }

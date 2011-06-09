@@ -396,7 +396,7 @@ namespace RemoteImaging.RealtimeDisplay
                         Frame[] frames = motionFrames.ToArray();
                         motionFrames.Clear();
 
-                        if (frames.Length <= 0) continue;
+                        if (frames.Length <= 0) continue;  
 
                         lock (framesArrayQueueLocker) framesArrayQueue.Enqueue(frames);
 
