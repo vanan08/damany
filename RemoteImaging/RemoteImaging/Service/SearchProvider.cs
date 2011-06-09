@@ -33,11 +33,11 @@ namespace RemoteImaging.Service
 
         public ImagePair GetFace(string path)
         {
-            Bitmap face = (Bitmap)Image.FromFile(path);
+            Bitmap face = AForge.Imaging.Image.FromFile(path);
 
             string bigImgPath = FileSystemStorage.BigImgPathForFace(Core.ImageDetail.FromPath(path));
 
-            Bitmap big = (Bitmap)Image.FromFile(bigImgPath);
+            Bitmap big = AForge.Imaging.Image.FromFile(bigImgPath);
 
             ImagePair ip = new ImagePair();
             ip.Face = face;
@@ -83,7 +83,7 @@ namespace RemoteImaging.Service
             for (int i = 0; i < files.Length; i++)
             {
                 ImagePair ip = new ImagePair();
-                ip.Face = (Bitmap)Bitmap.FromFile(files[i]);
+                ip.Face = AForge.Imaging.Image.FromFile(files[i]);
                 ip.FacePath = files[i];
 
                 bmps[i] = ip;
@@ -104,7 +104,7 @@ namespace RemoteImaging.Service
 
         public Bitmap DownloadBitmap(string file)
         {
-            return (System.Drawing.Bitmap)System.Drawing.Bitmap.FromFile(file);
+            return AForge.Imaging.Image.FromFile(file);
         }
 
 

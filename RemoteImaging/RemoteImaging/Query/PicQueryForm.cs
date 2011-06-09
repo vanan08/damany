@@ -67,7 +67,7 @@ namespace RemoteImaging.Query
                 Image img = null;
                 try
                 {
-                    img = Image.FromFile(imagesFound[i]);
+                    img = AForge.Imaging.Image.FromFile(imagesFound[i]);
                 }
                 catch (System.IO.IOException ex)
                 {
@@ -188,7 +188,7 @@ namespace RemoteImaging.Query
 
             try
             {
-                this.pictureBox1.Image = Image.FromFile(filePath);
+                this.pictureBox1.Image = AForge.Imaging.Image.FromFile(filePath);
 
                 //detail infomation
                 ImageDetail imgInfo = ImageDetail.FromPath(filePath);
@@ -201,7 +201,7 @@ namespace RemoteImaging.Query
 
                 string bigImgPath = FileSystemStorage.BigImgPathForFace(imgInfo);
 
-                this.pictureBoxWholeImg.Image = Image.FromFile(bigImgPath);
+                this.pictureBoxWholeImg.Image = AForge.Imaging.Image.FromFile(bigImgPath);
             }
             catch (System.IO.IOException ex)
             {
@@ -224,7 +224,7 @@ namespace RemoteImaging.Query
 
             for (int i = 0; i < files.Length; i++)
             {
-                this.imageList2.Images.Add(Image.FromFile(files[i]));
+                this.imageList2.Images.Add(AForge.Imaging.Image.FromFile(files[i]));
                 string text = System.IO.Path.GetFileName(files[i]);
                 ListViewItem item = new ListViewItem()
                 {
@@ -352,7 +352,7 @@ namespace RemoteImaging.Query
 
             if (File.Exists(filePath))
             {
-                this.pictureBox1.Image = Image.FromFile(filePath);
+                this.pictureBox1.Image = AForge.Imaging.Image.FromFile(filePath);
             }
             ImageDetail imgInfo = ImageDetail.FromPath(filePath);
             string bigImgPath = FileSystemStorage.BigImgPathForFace(imgInfo);

@@ -173,7 +173,7 @@ namespace RemoteImaging.Query
                 Image img = null;
                 try
                 {
-                    img = Image.FromFile(fileArr[i]);
+                    img = AForge.Imaging.Image.FromFile(fileArr[i]);
                 }
                 catch (System.Exception ex)
                 {
