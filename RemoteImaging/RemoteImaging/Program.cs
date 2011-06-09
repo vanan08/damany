@@ -15,13 +15,13 @@ namespace RemoteImaging
     {
         public static string directory;
         public static int ImageSampleCount = 2230;
-        public static int ImageLen = 100*100;
+        public static int ImageLen = 100 * 100;
         public static int EigenNum = 40;
 
         public static FaceSearchWrapper.FaceSearch faceSearch;
         public static MotionDetectWrapper.MotionDetector motionDetector;
 
-  
+
 
         /// <summary>
         /// The main entry point for the application.
@@ -42,7 +42,6 @@ namespace RemoteImaging
                 = new SingleInstanceController();
 
             controller.Run(argv);
-
         }
 
         static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
@@ -52,18 +51,12 @@ namespace RemoteImaging
                 Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicy.HandleException(
                    e.ExceptionObject as Exception, Constants.ExceptionHandlingLogging
                    );
-
             }
             finally
             {
-                Application.Exit();
+                Application.Restart();
             }
-            
-            
         }
-
-
-        
 
         static void watcher_ImagesUploaded(object Sender, ImageUploadEventArgs args)
         {

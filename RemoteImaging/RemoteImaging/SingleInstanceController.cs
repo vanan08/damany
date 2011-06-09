@@ -53,7 +53,7 @@ namespace RemoteImaging
         void SingleInstanceController_Startup(object sender, Microsoft.VisualBasic.ApplicationServices.StartupEventArgs e)
         {
             //delete outdated data on boot
-            ProgressForm form = new ProgressForm();
+            var form = new ProgressForm();
             form.TopMost = true;
             form.MessageLabel.Text = "正在删除过期数据，请稍后...";
             form.Show();
