@@ -54,7 +54,7 @@ namespace RemoteImaging
             }
             finally
             {
-                Application.Restart();
+                //Application.Restart();
             }
         }
 

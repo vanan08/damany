@@ -76,8 +76,11 @@ namespace RemoteImaging.RealtimeDisplay
 
             args.ImageCaptured.Save("BG.jpg");
 
-            oldIpl.IsEnabledDispose = true;
-            oldIpl.Dispose();
+            if (oldIpl != null)
+            {
+                oldIpl.IsEnabledDispose = true;
+                oldIpl.Dispose();
+            }
         }
 
         public void UpdateBG()
@@ -396,7 +399,7 @@ namespace RemoteImaging.RealtimeDisplay
                         Frame[] frames = motionFrames.ToArray();
                         motionFrames.Clear();
 
-                        if (frames.Length <= 0) continue;  
+                        if (frames.Length <= 0) continue;
 
                         lock (framesArrayQueueLocker) framesArrayQueue.Enqueue(frames);
 
@@ -561,7 +564,7 @@ namespace RemoteImaging.RealtimeDisplay
         private void SaveFaceFrames(IEnumerable<Target> targets)
         {
             var framesHasFaces = (from f in targets
-                                  select f.BaseFrame).GroupBy(f=>f.timeStamp);
+                                  select f.BaseFrame).GroupBy(f => f.timeStamp);
 
             foreach (var framesHasFace in framesHasFaces)
             {
