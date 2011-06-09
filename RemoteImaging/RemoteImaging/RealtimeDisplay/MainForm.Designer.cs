@@ -99,7 +99,6 @@
             this.aboutButton = new System.Windows.Forms.ToolStripLabel();
             this.tsbMonitoring = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
-            this.enhanceImg = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.faceRecognize = new System.Windows.Forms.ToolStripButton();
             this.testButton = new System.Windows.Forms.ToolStripButton();
@@ -179,7 +178,7 @@
             // statusProgressBar
             // 
             this.statusProgressBar.Name = "statusProgressBar";
-            this.statusProgressBar.Size = new System.Drawing.Size(200, 22);
+            this.statusProgressBar.Size = new System.Drawing.Size(200, 19);
             this.statusProgressBar.Step = 1;
             this.statusProgressBar.Visible = false;
             // 
@@ -717,7 +716,6 @@
             this.aboutButton,
             this.tsbMonitoring,
             this.toolStripSeparator5,
-            this.enhanceImg,
             this.toolStripButton1,
             this.faceRecognize,
             this.testButton});
@@ -786,15 +784,6 @@
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
             this.toolStripSeparator5.Size = new System.Drawing.Size(6, 25);
-            // 
-            // enhanceImg
-            // 
-            this.enhanceImg.Image = ((System.Drawing.Image)(resources.GetObject("enhanceImg.Image")));
-            this.enhanceImg.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.enhanceImg.Name = "enhanceImg";
-            this.enhanceImg.Size = new System.Drawing.Size(88, 22);
-            this.enhanceImg.Text = "图片增强";
-            this.enhanceImg.Click += new System.EventHandler(this.enhanceImg_Click);
             // 
             // toolStripButton1
             // 
@@ -944,7 +933,6 @@
         private System.Windows.Forms.ToolStripButton options;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripLabel aboutButton;
-        private System.Windows.Forms.ToolStripButton enhanceImg;
         private System.Windows.Forms.ToolStrip mainToolStrip;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripButton tsbMonitoring;
