@@ -340,7 +340,7 @@ namespace RemoteImaging.Query
 
             for (int i = 0; i < files.Length; i++)
             {
-                this.imageList2.Images.Add(Image.FromFile(files[i]));
+                this.imageList2.Images.Add(AForge.Imaging.Image.FromFile(files[i]));
                 string text = System.IO.Path.GetFileName(files[i]);
                 ListViewItem item = new ListViewItem()
                 {
