@@ -377,7 +377,7 @@ namespace RemoteImaging.RealtimeDisplay
                     {
                         try
                         {
-                            FileSystemStorage.SaveFrame(lastFrame);
+                            //FileSystemStorage.SaveFrame(lastFrame);
                         }
                         catch (System.IO.IOException ex)
                         {
@@ -425,7 +425,7 @@ namespace RemoteImaging.RealtimeDisplay
                     f.searchRect.Height = ipl.Height;
 
                     motionFrames.Enqueue(f);
-                    FileSystemStorage.SaveFrame(f);
+                    //FileSystemStorage.SaveFrame(f);
 
                     if (motionFrames.Count == 6)
                     {
@@ -536,7 +536,9 @@ namespace RemoteImaging.RealtimeDisplay
                         Program.faceSearch.AddInFrame(f);
                     }
 
-                    ImageProcess.Target[] targets = Program.faceSearch.SearchFaces();
+                    var targets = Program.faceSearch.SearchFaces();
+
+                    SaveFaceFrames(targets);
 
                     ImageDetail[] imgs = this.SaveImage(targets);
                     this.screen.ShowImages(imgs);
@@ -553,6 +555,21 @@ namespace RemoteImaging.RealtimeDisplay
                 else
                     goSearch.WaitOne();
 
+            }
+        }
+
+        private void SaveFaceFrames(IEnumerable<Target> targets)
+        {
+            var framesHasFaces = (from f in targets
+                                  select f.BaseFrame).GroupBy(f=>f.timeStamp);
+
+            foreach (var framesHasFace in framesHasFaces)
+            {
+                var f = framesHasFace.FirstOrDefault();
+                if (f != null)
+                {
+                    FileSystemStorage.SaveFrame(f);
+                }
             }
         }
 
