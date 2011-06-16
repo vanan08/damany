@@ -392,11 +392,14 @@ namespace RemoteImaging
         public static void DeleteMarkedData()
         {
             var root = RootStoragePathForCamera(2);
-            var flagFiles = Directory.EnumerateFiles(root, "*.del", SearchOption.AllDirectories);
-            foreach (var flagFile in flagFiles)
+            if (Directory.Exists(root))
             {
-                var dir = flagFile.Replace(".del", "");
-                EnsureDelete(dir, false);
+                var flagFiles = Directory.EnumerateFiles(root, "*.del", SearchOption.AllDirectories);
+                foreach (var flagFile in flagFiles)
+                {
+                    var dir = flagFile.Replace(".del", "");
+                    EnsureDelete(dir, false);
+                }
             }
         }
 
