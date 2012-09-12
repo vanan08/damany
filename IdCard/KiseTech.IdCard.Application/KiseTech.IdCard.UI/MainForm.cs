@@ -20,7 +20,7 @@ namespace Kise.IdCard.UI
     {
         private IdService _idService;
 
-        private EventProgress<ProgressIndicator> _progressReport;
+        private Progress<ProgressIndicator> _progressReport;
         private System.Drawing.Color _normalBkColor;
 
         private bool _isQueryingId;
@@ -280,14 +280,14 @@ namespace Kise.IdCard.UI
 
         private void startButton_ItemClick(object sender, ItemClickEventArgs e)
         {
-            _progressReport = new System.Threading.EventProgress<ProgressIndicator>();
+            _progressReport = new System.Progress<ProgressIndicator>();
             _progressReport.ProgressChanged += (s, arg) =>
             {
-                statusLabel.Caption = arg.Value.Status;
+                statusLabel.Caption = arg.Status;
 
-                if (arg.Value.LongOperation.HasValue)
+                if (arg.LongOperation.HasValue)
                 {
-                    progressBar.Visibility = arg.Value.LongOperation.Value == true
+                    progressBar.Visibility = arg.LongOperation.Value
                               ? BarItemVisibility.Always
                               : BarItemVisibility.Never;
 
