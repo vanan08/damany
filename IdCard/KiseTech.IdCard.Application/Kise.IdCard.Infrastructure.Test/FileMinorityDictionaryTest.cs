@@ -1,17 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Gallio.Framework;
 using Kise.IdCard.Model;
-using MbUnit.Framework;
-using MbUnit.Framework.ContractVerifiers;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Kise.IdCard.Infrastructure.Test
 {
-    [TestFixture]
+    [TestClass]
     public class FileMinorityDictionaryTest
     {
-        [Test]
+        [TestMethod]
         public void Test()
         {
             //

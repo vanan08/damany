@@ -1,13 +1,14 @@
 ﻿using System;
 using Kise.IdCard.Messaging.Link;
-using MbUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 
 namespace Kise.IdCard.Messaging.Test
 {
-    [TestFixture]
+    [TestClass]
     public class SmsLinkTest
     {
-        [Test]
+        [TestMethod]
         public void Test()
         {
             //
@@ -26,7 +27,9 @@ namespace Kise.IdCard.Messaging.Test
                                                   msgReceived = e.Value.Message;
                                                   waitFor.Set();
                                               };
-            smsLink.SendAsync("15928044631", "0000"); //15928044631
+
+            var ep = new CellPhoneEndPoint() {CellNumber = "15928044631"};
+            smsLink.SendAsync(ep, "0000"); //15928044631
 
             waitFor.WaitOne(TimeSpan.FromSeconds(60));
 

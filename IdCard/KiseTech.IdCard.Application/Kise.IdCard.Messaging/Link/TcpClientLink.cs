@@ -2,6 +2,7 @@
 using System.IO;
 using System.Net;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Threading.Tasks;
 
 namespace Kise.IdCard.Messaging.Link
 {
@@ -35,12 +36,13 @@ namespace Kise.IdCard.Messaging.Link
             }
         }
 
-        public void SendAsync(string destination, string message)
+        public Task<IncomingMessage> SendAsync(EndPoint destination, string message)
         {
             if (_tcpClient == null) throw new InvalidOperationException("Start must be called first");
 
             _formatter.Serialize(_tcpClient.GetStream(), message);
             _tcpClient.GetStream().Flush();
+            throw new NotImplementedException();
         }
 
         public event EventHandler<MiscUtil.EventArgs<IncomingMessage>> NewMessageReceived;

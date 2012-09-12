@@ -68,7 +68,7 @@ namespace Kise.IdCard.QueryServer.UI.App
         {
 
             // System.Diagnostics.Debug.WriteLine("====received query result: ====\r\n " + e.Value.ReceiveTime);
-            _incomingMessageLink.SendAsync("13547962367", e.Value.Message);
+            _incomingMessageLink.SendAsync(null, e.Value.Message);
         }
 
         void processQuery(object userState)
@@ -85,7 +85,7 @@ namespace Kise.IdCard.QueryServer.UI.App
                     string queryIdNo = e.Value.Message;
 
                     var entry = new LogEntry();
-                    entry.Sender = e.Value.Sender;
+                    entry.Sender = e.Value.Sender.ToString();
                     entry.Description = e.Value.Message.Insert(0, "收到查询: " + queryIdNo);
                     _logger.Log(entry);
 

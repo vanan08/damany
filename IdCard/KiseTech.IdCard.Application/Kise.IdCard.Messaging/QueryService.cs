@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Concurrent;
+using System.Net;
 using System.Threading.Tasks;
 using Kise.IdCard.Messaging.Link;
 
@@ -35,7 +36,7 @@ namespace Kise.IdCard.Messaging
             System.Threading.Tasks.TaskEx.Run(()=>_link.Start());
         }
 
-        public async Task<ReplyMessage> QueryAsync(string destinationNumber, string message)
+        public async Task<ReplyMessage> QueryAsync(EndPoint destinationNumber, string message)
         {
             //var sn = GetNextSequenceNumber();
             ////string packedMessage = Helper.PackMessage(message, sn);
@@ -43,10 +44,17 @@ namespace Kise.IdCard.Messaging
             var splits = message.Split(new[] { '*' });
 
             _sendQueryTime = DateTime.Now;
-            _link.SendAsync(destinationNumber, message);
-
-            ReplyMessage reply = await GetReplyMessage(splits[0]);
-            return reply;
+            try
+            {
+                var msg = await _link.SendAsync(destinationNumber, message);
+                return new ReplyMessage(msg.Message);
+            }
+            catch (Exception ex)
+            {
+                var reply = new ReplyMessage(string.Empty);
+                reply.Error = ex;
+                return reply;
+            }
         }
 
         private async Task<ReplyMessage> GetReplyMessage(string id)
@@ -61,7 +69,6 @@ namespace Kise.IdCard.Messaging
                 {
                     var rm = new ReplyMessage()
                                  {
-                                     IsTimedOut = false,
                                      Message = msg.Message,
                                      ReceiveTime = msg.ReceiveTime,
                                      Sender = msg.Sender
@@ -70,7 +77,7 @@ namespace Kise.IdCard.Messaging
                 }
                 else if (DateTime.Now - beginTime > TimeSpan.FromSeconds(TimeOutInSeconds))
                 {
-                    return ReplyMessage.TimeOut;
+                    return null;
                 }
 
             }

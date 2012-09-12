@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Net;
 using System.Text;
 using System.Windows.Forms;
 using DevExpress.XtraBars;
@@ -185,8 +186,18 @@ namespace Kise.IdCard.UI
             ILink lnk = null;
             IIdCardReader cardReader = null;
 
+            IPAddress ip = null;
+            if (IPAddress.TryParse(Properties.Settings.Default.ServerIp, out ip))
+            {
 
-            lnk = new SmsLink(Properties.Settings.Default.smsModemComPort, 9600);
+                var serverEp = new IPEndPoint(ip, Properties.Settings.Default.ServerPort);
+                lnk = new UdpClient(serverEp);
+            }
+            else
+            {
+                lnk = new FakeLink();
+            }
+            
 
             if (Program.IsDebug)
             {
@@ -212,8 +223,7 @@ namespace Kise.IdCard.UI
 
         private void MainForm_Shown(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(Properties.Settings.Default.smsModemComPort)
-                || string.IsNullOrEmpty(Properties.Settings.Default.smsCenterNo))
+            if (string.IsNullOrEmpty(Properties.Settings.Default.ServerIp))
             {
                 var dlg = new FormSettings();
                 dlg.ShowDialog(this);
@@ -305,7 +315,7 @@ namespace Kise.IdCard.UI
 
         private void databaseQuery_ItemClick(object sender, ItemClickEventArgs e)
         {
-            _idService.QueryIdAsync(_progressReport, Properties.Settings.Default.smsCenterNo);
+            _idService.QueryIdAsync(_progressReport, Properties.Settings.Default.ServerIp);
         }
 
         void inpc_PropertyChanged(object sender, PropertyChangedEventArgs e)

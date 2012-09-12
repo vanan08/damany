@@ -177,14 +177,15 @@ namespace Kise.IdCard.Application
             indicator.LongOperation = true;
             progressReport.Report(indicator);
 
-            var reply = await _queryService.QueryAsync(destinationNo, CurrentIdCard.IdCardNo);
+            var ep = new CellPhoneEndPoint() {CellNumber = destinationNo};
+            var reply = await _queryService.QueryAsync(ep, CurrentIdCard.IdCardNo);
             IsBusy = false;
 
-            indicator.Status = reply.IsTimedOut ? "查询身份证失败（超时）!" : "查询身份证成功";
+            indicator.Status = reply.Error != null ? "查询身份证失败（超时）!" : "查询身份证成功";
             indicator.LongOperation = false;
             progressReport.Report(indicator);
 
-            if (!reply.IsTimedOut)
+            if (reply.Error == null)
             {
                 var splits = reply.Message.Split(new[] { '*' });
                 //消息应答格式 id*errorCode*Name*SexCode*minorityCode*birthDay*isSuspect
@@ -198,7 +199,7 @@ namespace Kise.IdCard.Application
                     var errorCode = int.Parse(splits[1]);
                     if (errorCode == 1 || splits.Length == 2)
                     {
-                        MessageBox.Show("后端服务器查询错误，请联系技术人员或者稍侯重试。");
+                        MessageBox.Show("后端服务器连接身份证查询中心错误，请联系技术人员或者稍侯重试。");
                     }
                     else
                     {
@@ -273,7 +274,15 @@ namespace Kise.IdCard.Application
             }
             else
             {
-                MessageBox.Show("服务器没有响应。请联系技术人员或者稍侯重试。");
+                if(reply.Error is TaskCanceledException)
+                {
+                    MessageBox.Show("服务器没有响应，请联系技术人员或者稍侯重试。");
+                }
+                else
+                {
+                    MessageBox.Show("程序发生异常，请联系技术人员或者稍侯重试。" + reply.Error.Message);
+                }
+                
             }
 
             IdCardList.Add(CurrentIdCard);

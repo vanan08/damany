@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Net;
+using System.Threading.Tasks;
 using mCore;
 
 namespace Kise.IdCard.Messaging.Link
@@ -38,14 +40,15 @@ namespace Kise.IdCard.Messaging.Link
             }
         }
 
-        public void SendAsync(string destination, string message)
+        public Task<IncomingMessage> SendAsync(EndPoint destination, string message)
         {
             if (_sms == null)
             {
                 throw new InvalidOperationException("Start() must be called first");
             }
 
-            _curRefNumber = _sms.SendSMS(destination, message);
+            _curRefNumber = _sms.SendSMS((destination as CellPhoneEndPoint).CellNumber, message);
+            return null;
         }
 
         public event EventHandler<MiscUtil.EventArgs<IncomingMessage>> NewMessageReceived;
@@ -66,7 +69,8 @@ namespace Kise.IdCard.Messaging.Link
             }
 
             var incommingMsg = new IncomingMessage(msg);
-            incommingMsg.Sender = e.Phone;
+            var ep = new CellPhoneEndPoint {CellNumber = e.Phone};
+            incommingMsg.Sender = ep;
             RaiseNewMessageReceived(new MiscUtil.EventArgs<IncomingMessage>(incommingMsg));
         }
 

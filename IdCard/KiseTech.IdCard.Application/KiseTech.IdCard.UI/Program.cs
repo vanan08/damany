@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace Kise.IdCard.UI
 {
@@ -46,7 +47,7 @@ namespace Kise.IdCard.UI
 
         private static void HandleException(Exception e)
         {
-            System.Windows.Forms.MessageBox.Show("系统发生了异常，建议重新启动程序");
+            System.Windows.Forms.MessageBox.Show("系统发生了异常，建议重新启动程序\r\n\r\n" + e, "异常", MessageBoxButtons.OK, MessageBoxIcon.Stop);
         }
         public static bool IsDebug = false;
     }
