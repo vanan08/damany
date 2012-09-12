@@ -125,7 +125,7 @@ namespace Kise.IdCard.QueryServer.UI.App
                 }
                 else
                 {
-                    System.Threading.Thread.Sleep(3000);
+                    System.Threading.Thread.Sleep(500);
                 }
             }
 

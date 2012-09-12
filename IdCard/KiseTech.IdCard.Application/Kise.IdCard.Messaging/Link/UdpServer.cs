@@ -70,7 +70,16 @@ namespace Kise.IdCard.Messaging.Link
                 var remoteEp = new IPEndPoint(IPAddress.Any, 0);
                 EndPoint ep = remoteEp;
                 var bytes = new byte[1024];
-                var bytesLen = _server.ReceiveFrom(bytes, ref ep);
+                var bytesLen = 0;
+                try
+                {
+                    bytesLen = _server.ReceiveFrom(bytes, ref ep);
+                }
+                catch (Exception)
+                {
+                    continue;
+                }
+               
 
                 string byteString = null;
                 try
