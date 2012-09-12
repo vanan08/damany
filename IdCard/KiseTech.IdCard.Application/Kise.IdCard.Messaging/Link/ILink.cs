@@ -1,4 +1,6 @@
 using System;
+using System.Net;
+using System.Threading.Tasks;
 
 namespace Kise.IdCard.Messaging.Link
 {
@@ -6,7 +8,7 @@ namespace Kise.IdCard.Messaging.Link
     {
         void Start();
 
-        void SendAsync(string destination, string message);
+        Task<IncomingMessage> SendAsync(EndPoint destination, string message);
         event EventHandler<MiscUtil.EventArgs<IncomingMessage>> NewMessageReceived;
     }
 }

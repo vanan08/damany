@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Gallio.Framework;
 using Kise.IdCard.Model;
-using MbUnit.Framework;
-using MbUnit.Framework.ContractVerifiers;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Kise.IdCard.Infrastructure.Test
 {
@@ -12,10 +10,10 @@ namespace Kise.IdCard.Infrastructure.Test
     using System.Threading.Tasks;
     using Kise.IdCard.Messaging;
 
-    [TestFixture]
+    [TestClass]
     public class CardReaderTest
     {
-        [Test]
+        [TestMethod]
         public void ReadSuccess()
         {
             //
@@ -36,14 +34,14 @@ namespace Kise.IdCard.Infrastructure.Test
         }
 
 
-        [Test]
+        [TestMethod]
         [ExpectedException(typeof(Exception))]
         public void ReadReaderDisconnected()
         {
             var info = ReadInfoAsync(1001);
         }
 
-        [Test]
+        [TestMethod]
         [ExpectedException(typeof(Exception))]
         public void ReadWithWrongPortNumber()
         {

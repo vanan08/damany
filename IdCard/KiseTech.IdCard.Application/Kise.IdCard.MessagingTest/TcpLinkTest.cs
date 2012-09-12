@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Text;
-using Gallio.Framework;
-using MbUnit.Framework;
-using MbUnit.Framework.ContractVerifiers;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 
 namespace Kise.IdCard.Messaging.Test
 {
-    [TestFixture]
+    [TestClass]
     public class TcpLinkTest
     {
-        [Test]
+        [TestMethod]
         public void Test()
         {
             //
@@ -37,7 +37,8 @@ namespace Kise.IdCard.Messaging.Test
                                              };
 
             System.Threading.Thread.Sleep(1000);
-            client.SendAsync("", "hi there");
+            var ep = new IPEndPoint(IPAddress.Loopback, 1000);
+            client.SendAsync(ep, "hi there");
 
             System.Threading.Thread.Sleep(2000);
             Assert.AreEqual(serverReceiveMessage.Message, "hi there");

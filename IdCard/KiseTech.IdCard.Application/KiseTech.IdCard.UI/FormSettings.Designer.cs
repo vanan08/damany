@@ -32,8 +32,8 @@
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
             this.okButton = new DevExpress.XtraEditors.SimpleButton();
             this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
-            this.smsNo = new DevExpress.XtraEditors.TextEdit();
-            this.smsComPort = new DevExpress.XtraEditors.TextEdit();
+            this.serverIp = new DevExpress.XtraEditors.TextEdit();
+            this.serverPort = new DevExpress.XtraEditors.TextEdit();
             this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
             this.panelControl2 = new DevExpress.XtraEditors.PanelControl();
             this.pictureEdit1 = new DevExpress.XtraEditors.PictureEdit();
@@ -41,8 +41,8 @@
             this.checkEdit1 = new DevExpress.XtraEditors.CheckEdit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.smsNo.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.smsComPort.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.serverIp.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.serverPort.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).BeginInit();
             this.panelControl2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureEdit1.Properties)).BeginInit();
@@ -72,42 +72,39 @@
             // 
             this.labelControl1.Location = new System.Drawing.Point(32, 98);
             this.labelControl1.Name = "labelControl1";
-            this.labelControl1.Size = new System.Drawing.Size(72, 14);
+            this.labelControl1.Size = new System.Drawing.Size(83, 14);
             this.labelControl1.TabIndex = 1;
-            this.labelControl1.Text = "短信中心号码";
+            this.labelControl1.Text = "服务器IP地址：";
             // 
-            // smsNo
+            // serverIp
             // 
-            this.smsNo.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", global::Kise.IdCard.UI.Properties.Settings.Default, "smsCenterNo", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.smsNo.EditValue = global::Kise.IdCard.UI.Properties.Settings.Default.smsCenterNo;
-            this.smsNo.Location = new System.Drawing.Point(130, 95);
-            this.smsNo.Name = "smsNo";
-            this.smsNo.Properties.EditFormat.FormatString = "d";
-            this.smsNo.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            this.smsNo.Properties.Mask.BeepOnError = true;
-            this.smsNo.Properties.Mask.EditMask = "d";
-            this.smsNo.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
-            this.smsNo.Size = new System.Drawing.Size(330, 21);
-            this.smsNo.TabIndex = 2;
+            this.serverIp.EditValue = global::Kise.IdCard.UI.Properties.Settings.Default.ServerIp;
+            this.serverIp.Location = new System.Drawing.Point(130, 95);
+            this.serverIp.Name = "serverIp";
+            this.serverIp.Properties.EditFormat.FormatString = "d";
+            this.serverIp.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.serverIp.Properties.Mask.BeepOnError = true;
+            this.serverIp.Properties.Mask.EditMask = "d";
+            this.serverIp.Size = new System.Drawing.Size(330, 20);
+            this.serverIp.TabIndex = 2;
             // 
-            // smsComPort
+            // serverPort
             // 
-            this.smsComPort.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", global::Kise.IdCard.UI.Properties.Settings.Default, "smsModemComPort", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.smsComPort.EditValue = global::Kise.IdCard.UI.Properties.Settings.Default.smsModemComPort;
-            this.smsComPort.Location = new System.Drawing.Point(130, 138);
-            this.smsComPort.Name = "smsComPort";
-            this.smsComPort.Properties.Mask.EditMask = "COM\\d\\d?";
-            this.smsComPort.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Regular;
-            this.smsComPort.Size = new System.Drawing.Size(330, 21);
-            this.smsComPort.TabIndex = 5;
+            this.serverPort.EditValue = global::Kise.IdCard.UI.Properties.Settings.Default.ServerPort;
+            this.serverPort.Location = new System.Drawing.Point(130, 138);
+            this.serverPort.Name = "serverPort";
+            this.serverPort.Properties.Mask.EditMask = "d";
+            this.serverPort.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
+            this.serverPort.Size = new System.Drawing.Size(330, 20);
+            this.serverPort.TabIndex = 5;
             // 
             // labelControl2
             // 
             this.labelControl2.Location = new System.Drawing.Point(32, 141);
             this.labelControl2.Name = "labelControl2";
-            this.labelControl2.Size = new System.Drawing.Size(88, 14);
+            this.labelControl2.Size = new System.Drawing.Size(84, 14);
             this.labelControl2.TabIndex = 4;
-            this.labelControl2.Text = "短信Modem串口";
+            this.labelControl2.Text = "服务器端口号：";
             // 
             // panelControl2
             // 
@@ -151,10 +148,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(537, 352);
             this.Controls.Add(this.panelControl2);
-            this.Controls.Add(this.smsComPort);
+            this.Controls.Add(this.serverPort);
             this.Controls.Add(this.labelControl2);
             this.Controls.Add(this.checkEdit1);
-            this.Controls.Add(this.smsNo);
+            this.Controls.Add(this.serverIp);
             this.Controls.Add(this.labelControl1);
             this.Controls.Add(this.panelControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -167,8 +164,8 @@
             this.Text = "选项设置";
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
             this.panelControl1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.smsNo.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.smsComPort.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.serverIp.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.serverPort.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).EndInit();
             this.panelControl2.ResumeLayout(false);
             this.panelControl2.PerformLayout();
@@ -184,9 +181,9 @@
         private DevExpress.XtraEditors.PanelControl panelControl1;
         private DevExpress.XtraEditors.SimpleButton okButton;
         private DevExpress.XtraEditors.LabelControl labelControl1;
-        private DevExpress.XtraEditors.TextEdit smsNo;
+        private DevExpress.XtraEditors.TextEdit serverIp;
         private DevExpress.XtraEditors.CheckEdit checkEdit1;
-        private DevExpress.XtraEditors.TextEdit smsComPort;
+        private DevExpress.XtraEditors.TextEdit serverPort;
         private DevExpress.XtraEditors.LabelControl labelControl2;
         private DevExpress.XtraEditors.PanelControl panelControl2;
         private DevExpress.XtraEditors.PictureEdit pictureEdit1;

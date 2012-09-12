@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 
 namespace Kise.IdCard.Messaging
 {
@@ -7,7 +8,7 @@ namespace Kise.IdCard.Messaging
         public IncomingMessage(string msg) : this()
         {
             Message = msg;
-            Sender = string.Empty;
+            Sender = null;
         }
 
 
@@ -18,7 +19,7 @@ namespace Kise.IdCard.Messaging
 
         public DateTime ReceiveTime { get; set; }
 
-        public string Sender { get; set; }
+        public EndPoint Sender { get; set; }
         public string Message { get; set; }
     }
 }

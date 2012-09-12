@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace Kise.IdCard.Messaging.Link
@@ -20,14 +21,15 @@ namespace Kise.IdCard.Messaging.Link
         }
 
 
-        public async void SendAsync(string destination, string message)
+        public Task<IncomingMessage> SendAsync(EndPoint destination, string message)
         {
             var rndDelay = new Random(DateTime.Now.Millisecond);
-            await TaskEx.Delay(DelayInMs == 0 ? rndDelay.Next(1, 100) : DelayInMs);
+            TaskEx.Delay(DelayInMs == 0 ? rndDelay.Next(1, 100) : DelayInMs);
 
             var reply = _replyFactory(message);
 
             RaiseNewMessageReceived(new MiscUtil.EventArgs<IncomingMessage>(reply));
+            throw new NotImplementedException();
 
         }
 

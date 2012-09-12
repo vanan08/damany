@@ -22,7 +22,7 @@ namespace Kise.IdCard.QueryServer
         private IdQueryServiceContract.IIdQueryProvider _idQueryService;
         TcpServerLink _server = new TcpServerLink(10000);
         TcpClientLink _client = new TcpClientLink();
-        private Messaging.Link.SmsLink _sms;
+        private UdpServer _udpServer;
         private UI.App.QueryHandler _queryHandler;
 
         public Form1()
@@ -35,7 +35,7 @@ namespace Kise.IdCard.QueryServer
         {
             await TaskEx.Delay(12);
 
-            if (string.IsNullOrEmpty(UI.Properties.Settings.Default.GsmComPort))
+            if (UI.Properties.Settings.Default.ListeningPort == 0)
             {
                 var form = new FormOptions();
                 form.ShowDialog();
@@ -43,8 +43,8 @@ namespace Kise.IdCard.QueryServer
 
             _idQueryService = CreateIdQueryProvider();
 
-            _sms = new SmsLink(UI.Properties.Settings.Default.GsmComPort, 9600);
-            _queryHandler = new QueryHandler(_sms, _idQueryService, this, this);
+            _udpServer = new UdpServer(UI.Properties.Settings.Default.ListeningPort);
+            _queryHandler = new QueryHandler(_udpServer, _idQueryService, this, this);
             _queryHandler.Start();
 
         }

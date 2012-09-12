@@ -18,7 +18,10 @@ namespace Kise.IdCard.UI
 
         private void okButton_Click(object sender, EventArgs e)
         {
+            Properties.Settings.Default.ServerIp = (string) serverIp.EditValue;
+            Properties.Settings.Default.ServerPort = (int) serverPort.EditValue;
             Properties.Settings.Default.Save();
+            MessageBox.Show("重新启动程序后，设置生效");
         }
     }
 }

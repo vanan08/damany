@@ -2,6 +2,7 @@
 using System.Net;
 using System.Net.Sockets;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Threading.Tasks;
 
 namespace Kise.IdCard.Messaging.Link
 {
@@ -64,13 +65,15 @@ namespace Kise.IdCard.Messaging.Link
         }
 
 
-        public void SendAsync(string destination, string message)
+        public Task<IncomingMessage> SendAsync(EndPoint destination, string message)
         {
             if (_client != null)
             {
                 _formatter.Serialize(_client.GetStream(), message);
                 _client.GetStream().Flush();
             }
+            
+            throw new NotImplementedException();
         }
 
         public event EventHandler<MiscUtil.EventArgs<IncomingMessage>> NewMessageReceived;
