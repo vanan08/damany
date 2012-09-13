@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<DOCUMENT Type="Advanced Installer" CreateVersion="9.4" version="9.4" Modules="enterprise" RootPath="." Language="zh" Id="{1AC1D9DC-75CF-4E72-9409-1EB3F1A859FE}">
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiValidationComponent">
+    <ROW Table="File" Column="Sequence" MinValue="1" MaxValue="32767" Description="Sequence with respect to the media images; order must track cabinet order." Options="0" ColumnType="2" ColumnIndex="7" ColumnSize="2" MsiKey="File#Sequence"/>
+    <ROW Table="Media" Column="LastSequence" MinValue="0" MaxValue="32767" Description="File sequence number for the last file for this media." Options="0" ColumnType="2" ColumnIndex="1" ColumnSize="2" MsiKey="Media#LastSequence"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiPropsComponent">
+    <ROW Property="ALLUSERS" Value="1"/>
+    <ROW Property="ARPCOMMENTS" Value="此 Installer 数据库包含了安装 [|ProductName] 所需的逻辑和数据。" ValueLocId="*"/>
+    <ROW Property="Manufacturer" Value="凯智科技" ValueLocId="*"/>
+    <ROW Property="ProductCode" Value="2052:{BF2B6796-A483-4746-A7A4-AE45B9B41CD7} " Type="16"/>
+    <ROW Property="ProductLanguage" Value="2052"/>
+    <ROW Property="ProductName" Value="身份证查询服务器" ValueLocId="*"/>
+    <ROW Property="ProductVersion" Value="1.0.0" Type="32"/>
+    <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND"/>
+    <ROW Property="UpgradeCode" Value="{3184212D-1A78-4CC1-A6A1-72DBBA45C4AC}"/>
+    <ROW Property="WindowsType9X" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>
+    <ROW Property="WindowsType9XDisplay" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiDirsComponent">
+    <ROW Directory="APPDIR" Directory_Parent="TARGETDIR" DefaultDir="APPDIR:." IsPseudoRoot="1"/>
+    <ROW Directory="ProgramMenuFolder" Directory_Parent="TARGETDIR" DefaultDir="Progra~1|ProgramMenuFolder" IsPseudoRoot="1"/>
+    <ROW Directory="SHORTCUTDIR" Directory_Parent="TARGETDIR" DefaultDir="SHORTC~1|SHORTCUTDIR" IsPseudoRoot="1"/>
+    <ROW Directory="StartupFolder" Directory_Parent="TARGETDIR" DefaultDir="Startu~1|StartupFolder" IsPseudoRoot="1"/>
+    <ROW Directory="TARGETDIR" DefaultDir="SourceDir"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiCompsComponent">
+    <ROW Component="DevExpress.Data.v12.1.dll" ComponentId="{C7D047B1-A8D7-4989-80EE-39E84B545FE5}" Directory_="APPDIR" Attributes="0" KeyPath="DevExpress.Data.v12.1.dll"/>
+    <ROW Component="DevExpress.Printing.v12.1.Core.dll" ComponentId="{75BB582A-61EC-40D8-9581-D14FC57F924A}" Directory_="APPDIR" Attributes="0" KeyPath="DevExpress.Printing.v12.1.Core.dll"/>
+    <ROW Component="DevExpress.Utils.v12.1.dll" ComponentId="{A9839192-3561-48B0-BA03-4D4C4DB9617B}" Directory_="APPDIR" Attributes="0" KeyPath="DevExpress.Utils.v12.1.dll"/>
+    <ROW Component="DevExpress.Xpo.v12.1.dll" ComponentId="{33ADB48A-0D5D-4F24-8E58-94569C440196}" Directory_="APPDIR" Attributes="0" KeyPath="DevExpress.Xpo.v12.1.dll"/>
+    <ROW Component="DevExpress.XtraEditors.v12.1.dll" ComponentId="{2CDB1BF3-1EE9-40D4-B4C4-5B48626CEC02}" Directory_="APPDIR" Attributes="0" KeyPath="DevExpress.XtraEditors.v12.1.dll"/>
+    <ROW Component="FileHelpers.dll" ComponentId="{131654A8-0A85-4D66-BB7A-E511EFCE5E98}" Directory_="APPDIR" Attributes="0" KeyPath="FileHelpers.dll"/>
+    <ROW Component="FileHelpers.xml" ComponentId="{08D170AB-8354-4BFC-A801-A35C6CC2E632}" Directory_="APPDIR" Attributes="0" KeyPath="FileHelpers.xml" Type="0"/>
+    <ROW Component="IdQueryService.exe" ComponentId="{BB5D7D76-0816-4490-B54B-8957BB1F6E8F}" Directory_="APPDIR" Attributes="0" KeyPath="IdQueryService.exe"/>
+    <ROW Component="IdQueryService.vshost.exe" ComponentId="{A0588EA7-5CF2-462B-B0D4-165949D11322}" Directory_="APPDIR" Attributes="0" KeyPath="IdQueryService.vshost.exe"/>
+    <ROW Component="IdQueryServiceContract.dll" ComponentId="{FBA95F42-0D45-4083-AE3F-A97C081AC098}" Directory_="APPDIR" Attributes="0" KeyPath="IdQueryServiceContract.dll"/>
+    <ROW Component="Interop.RBSPAdapter_COM.dll" ComponentId="{BF1E0A03-2AD7-4132-97FB-B352B9933DD1}" Directory_="APPDIR" Attributes="0" KeyPath="Interop.RBSPAdapter_COM.dll"/>
+    <ROW Component="Kise.IdCard.Messaging.dll" ComponentId="{27EE5F52-AF28-453E-A391-27FA2CA98D36}" Directory_="APPDIR" Attributes="0" KeyPath="Kise.IdCard.Messaging.dll"/>
+    <ROW Component="Kise.IdCard.Model.dll" ComponentId="{22681C4F-BA44-4052-8251-7954CB426C12}" Directory_="APPDIR" Attributes="0" KeyPath="Kise.IdCard.Model.dll"/>
+    <ROW Component="Kise.IdCard.QueryServer.exe" ComponentId="{8D610EEC-B1D8-4130-AC90-D8692CD512F3}" Directory_="APPDIR" Attributes="0" KeyPath="Kise.IdCard.QueryServer.exe"/>
+    <ROW Component="Kise.IdCard.QueryServer.vshost.exe" ComponentId="{90A18362-49BA-488B-834A-05CAD081D6D4}" Directory_="APPDIR" Attributes="0" KeyPath="Kise.IdCard.QueryServer.vshost.exe"/>
+    <ROW Component="Microsoft.CompilerServices.AsyncTargetin" ComponentId="{CB7E8BBE-C51E-4F32-B0F8-EBDF39041F4C}" Directory_="APPDIR" Attributes="0" KeyPath="Microsoft.CompilerServices.AsyncTargetingPack.Net4.dll"/>
+    <ROW Component="MiscUtil.dll" ComponentId="{13970F1B-1A37-445A-84F5-D9A457F7EFFF}" Directory_="APPDIR" Attributes="0" KeyPath="MiscUtil.dll"/>
+    <ROW Component="NLog.dll" ComponentId="{CCDF9544-32F2-4C64-B68B-D885E7B85339}" Directory_="APPDIR" Attributes="0" KeyPath="NLog.dll"/>
+    <ROW Component="ProductInformation" ComponentId="{3C42DB59-9E5C-47E9-93BF-D2A07BB1CC4E}" Directory_="APPDIR" Attributes="4" KeyPath="Version"/>
+    <ROW Component="RBSPAdapter_COM.dll" ComponentId="{BABA701F-5DB9-4860-B4B9-47880BE81D46}" Directory_="APPDIR" Attributes="0" KeyPath="RBSPAdapter_COM.dll"/>
+    <ROW Component="RbspAdapter.dll" ComponentId="{FB19176A-C683-4C2A-B5AF-C8906B387522}" Directory_="APPDIR" Attributes="0" KeyPath="RbspAdapter.dll"/>
+    <ROW Component="SHORTCUTDIR" ComponentId="{9D36BEDA-25D4-4EB3-B534-DED5CBFA32D0}" Directory_="SHORTCUTDIR" Attributes="0"/>
+    <ROW Component="Util.dll" ComponentId="{F44BA8D1-4528-444D-8A2E-48E5B8449016}" Directory_="APPDIR" Attributes="0" KeyPath="Util.dll"/>
+    <ROW Component="mCoreLib.dll" ComponentId="{7BB36DE3-5C6E-489E-B4FF-649CCA11C1F7}" Directory_="APPDIR" Attributes="0" KeyPath="mCoreLib.dll"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiFeatsComponent">
+    <ROW Feature="MainFeature" Title="MainFeature" Description="Description" Display="1" Level="1" Directory_="APPDIR" Attributes="0" Components="DevExpress.Data.v12.1.dll DevExpress.Printing.v12.1.Core.dll DevExpress.Utils.v12.1.dll DevExpress.Xpo.v12.1.dll DevExpress.XtraEditors.v12.1.dll FileHelpers.dll FileHelpers.xml IdQueryService.exe IdQueryService.vshost.exe IdQueryServiceContract.dll Interop.RBSPAdapter_COM.dll Kise.IdCard.Messaging.dll Kise.IdCard.Model.dll Kise.IdCard.QueryServer.exe Kise.IdCard.QueryServer.vshost.exe Microsoft.CompilerServices.AsyncTargetin MiscUtil.dll NLog.dll ProductInformation RBSPAdapter_COM.dll RbspAdapter.dll SHORTCUTDIR Util.dll mCoreLib.dll"/>
+    <ATTRIBUTE name="CurrentFeature" value="MainFeature"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiFilesComponent">
+    <ROW File="DevExpress.Data.v12.1.dll" Component_="DevExpress.Data.v12.1.dll" FileName="DevExp~1.dll|DevExpress.Data.v12.1.dll" Attributes="0" SourcePath="..\Kise.IdCard.QueryServer\bin\Release\DevExpress.Data.v12.1.dll" SelfReg="false" NextFile="DevExpress.Printing.v12.1.Core.dll"/>
+    <ROW File="DevExpress.Data.v12.1.xml" Component_="FileHelpers.xml" FileName="DevExp~1.xml|DevExpress.Data.v12.1.xml" Attributes="0" SourcePath="..\Kise.IdCard.QueryServer\bin\Release\DevExpress.Data.v12.1.xml" SelfReg="false" NextFile="DevExpress.Printing.v12.1.Core.xml"/>
+    <ROW File="DevExpress.Printing.v12.1.Core.dll" Component_="DevExpress.Printing.v12.1.Core.dll" FileName="DevExp~2.dll|DevExpress.Printing.v12.1.Core.dll" Attributes="0" SourcePath="..\Kise.IdCard.QueryServer\bin\Release\DevExpress.Printing.v12.1.Core.dll" SelfReg="false" NextFile="DevExpress.Utils.v12.1.dll"/>
+    <ROW File="DevExpress.Printing.v12.1.Core.xml" Component_="FileHelpers.xml" FileName="DevExp~2.xml|DevExpress.Printing.v12.1.Core.xml" Attributes="0" SourcePath="..\Kise.IdCard.QueryServer\bin\Release\DevExpress.Printing.v12.1.Core.xml" SelfReg="false" NextFile="DevExpress.Utils.v12.1.xml"/>
+    <ROW File="DevExpress.Utils.v12.1.dll" Component_="DevExpress.Utils.v12.1.dll" FileName="DevExp~3.dll|DevExpress.Utils.v12.1.dll" Attributes="0" SourcePath="..\Kise.IdCard.QueryServer\bin\Release\DevExpress.Utils.v12.1.dll" SelfReg="false" NextFile="DevExpress.Xpo.v12.1.dll"/>
+    <ROW File="DevExpress.Utils.v12.1.xml" Component_="FileHelpers.xml" FileName="DevExp~3.xml|DevExpress.Utils.v12.1.xml" Attributes="0" SourcePath="..\Kise.IdCard.QueryServer\bin\Release\DevExpress.Utils.v12.1.xml" SelfReg="false" NextFile="DevExpress.Xpo.v12.1.xml"/>
+    <ROW File="DevExpress.Xpo.v12.1.dll" Component_="DevExpress.Xpo.v12.1.dll" FileName="DevExp~4.dll|DevExpress.Xpo.v12.1.dll" Attributes="0" SourcePath="..\Kise.IdCard.QueryServer\bin\Release\DevExpress.Xpo.v12.1.dll" SelfReg="false" NextFile="DevExpress.XtraEditors.v12.1.dll"/>
+    <ROW File="DevExpress.Xpo.v12.1.xml" Component_="FileHelpers.xml" FileName="DevExp~4.xml|DevExpress.Xpo.v12.1.xml" Attributes="0" SourcePath="..\Kise.IdCard.QueryServer\bin\Release\DevExpress.Xpo.v12.1.xml" SelfReg="false" NextFile="DevExpress.XtraEditors.v12.1.xml"/>
+    <ROW File="DevExpress.XtraEditors.v12.1.dll" Component_="DevExpress.XtraEditors.v12.1.dll" FileName="DevExp~5.dll|DevExpress.XtraEditors.v12.1.dll" Attributes="0" SourcePath="..\Kise.IdCard.QueryServer\bin\Release\DevExpress.XtraEditors.v12.1.dll" SelfReg="false" NextFile="Kise.IdCard.QueryServer.exe"/>
+    <ROW File="DevExpress.XtraEditors.v12.1.xml" Component_="FileHelpers.xml" FileName="DevExp~5.xml|DevExpress.XtraEditors.v12.1.xml" Attributes="0" SourcePath="..\Kise.IdCard.QueryServer\bin\Release\DevExpress.XtraEditors.v12.1.xml" SelfReg="false" NextFile="Kise.IdCard.QueryServer.exe.config"/>
+    <ROW File="FileHelpers.dll" Component_="FileHelpers.dll" FileName="FileHe~1.dll|FileHelpers.dll" Attributes="0" SourcePath="..\IdQueryService\bin\Release\FileHelpers.dll" SelfReg="false" NextFile="IdQueryService.exe"/>
+    <ROW File="FileHelpers.xml" Component_="FileHelpers.xml" FileName="FileHe~1.xml|FileHelpers.xml" Attributes="0" SourcePath="..\IdQueryService\bin\Release\FileHelpers.xml" SelfReg="false" NextFile="IdQueryService.exe.config"/>
+    <ROW File="IdQueryService.exe" Component_="IdQueryService.exe" FileName="IdQuer~1.exe|IdQueryService.exe" Attributes="0" SourcePath="..\IdQueryService\bin\Release\IdQueryService.exe" SelfReg="false" NextFile="IdQueryService.pdb"/>
+    <ROW File="IdQueryService.exe.config" Component_="FileHelpers.xml" FileName="IdQuer~1.con|IdQueryService.exe.config" Attributes="0" SourcePath="..\IdQueryService\bin\Release\IdQueryService.exe.config" SelfReg="false" NextFile="Microsoft.CompilerServices.AsyncTargetingPack.Net4.xml"/>
+    <ROW File="IdQueryService.pdb" Component_="IdQueryService.exe" FileName="IdQuer~1.pdb|IdQueryService.pdb" Attributes="0" SourcePath="..\IdQueryService\bin\Release\IdQueryService.pdb" SelfReg="false" NextFile="IdQueryService.vshost.exe"/>
+    <ROW File="IdQueryService.vshost.exe" Component_="IdQueryService.vshost.exe" FileName="IdQuer~2.exe|IdQueryService.vshost.exe" Attributes="0" SourcePath="..\IdQueryService\bin\Release\IdQueryService.vshost.exe" SelfReg="false" NextFile="IdQueryServiceContract.dll"/>
+    <ROW File="IdQueryServiceContract.dll" Component_="IdQueryServiceContract.dll" FileName="IdQuer~1.dll|IdQueryServiceContract.dll" Attributes="0" SourcePath="..\IdQueryService\bin\Release\IdQueryServiceContract.dll" SelfReg="false" NextFile="IdQueryServiceContract.pdb"/>
+    <ROW File="IdQueryServiceContract.pdb" Component_="IdQueryServiceContract.dll" FileName="IdQuer~2.pdb|IdQueryServiceContract.pdb" Attributes="0" SourcePath="..\IdQueryService\bin\Release\IdQueryServiceContract.pdb" SelfReg="false" NextFile="Interop.RBSPAdapter_COM.dll"/>
+    <ROW File="Interop.RBSPAdapter_COM.dll" Component_="Interop.RBSPAdapter_COM.dll" FileName="Intero~1.dll|Interop.RBSPAdapter_COM.dll" Attributes="0" SourcePath="..\IdQueryService\bin\Release\Interop.RBSPAdapter_COM.dll" SelfReg="false" NextFile="Kise.IdCard.Messaging.dll"/>
+    <ROW File="Kise.IdCard.Messaging.dll" Component_="Kise.IdCard.Messaging.dll" FileName="KiseId~1.dll|Kise.IdCard.Messaging.dll" Attributes="0" SourcePath="..\IdQueryService\bin\Release\Kise.IdCard.Messaging.dll" SelfReg="false" NextFile="Kise.IdCard.Messaging.pdb"/>
+    <ROW File="Kise.IdCard.Messaging.pdb" Component_="Kise.IdCard.Messaging.dll" FileName="KiseId~1.pdb|Kise.IdCard.Messaging.pdb" Attributes="0" SourcePath="..\IdQueryService\bin\Release\Kise.IdCard.Messaging.pdb" SelfReg="false" NextFile="Kise.IdCard.Model.dll"/>
+    <ROW File="Kise.IdCard.Model.dll" Component_="Kise.IdCard.Model.dll" FileName="KiseId~2.dll|Kise.IdCard.Model.dll" Attributes="0" SourcePath="..\IdQueryService\bin\Release\Kise.IdCard.Model.dll" SelfReg="false" NextFile="Kise.IdCard.Model.pdb"/>
+    <ROW File="Kise.IdCard.Model.pdb" Component_="Kise.IdCard.Model.dll" FileName="KiseId~2.pdb|Kise.IdCard.Model.pdb" Attributes="0" SourcePath="..\IdQueryService\bin\Release\Kise.IdCard.Model.pdb" SelfReg="false" NextFile="mCoreLib.dll"/>
+    <ROW File="Kise.IdCard.QueryServer.exe" Component_="Kise.IdCard.QueryServer.exe" FileName="KiseId~1.exe|Kise.IdCard.QueryServer.exe" Attributes="0" SourcePath="..\Kise.IdCard.QueryServer\bin\Release\Kise.IdCard.QueryServer.exe" SelfReg="false" NextFile="Kise.IdCard.QueryServer.pdb"/>
+    <ROW File="Kise.IdCard.QueryServer.exe.config" Component_="FileHelpers.xml" FileName="KiseId~1.con|Kise.IdCard.QueryServer.exe.config" Attributes="0" SourcePath="..\Kise.IdCard.QueryServer\bin\Release\Kise.IdCard.QueryServer.exe.config" SelfReg="false" NextFile="RbspAdapter.dll"/>
+    <ROW File="Kise.IdCard.QueryServer.pdb" Component_="Kise.IdCard.QueryServer.exe" FileName="KiseId~3.pdb|Kise.IdCard.QueryServer.pdb" Attributes="0" SourcePath="..\Kise.IdCard.QueryServer\bin\Release\Kise.IdCard.QueryServer.pdb" SelfReg="false" NextFile="Kise.IdCard.QueryServer.vshost.exe"/>
+    <ROW File="Kise.IdCard.QueryServer.vshost.exe" Component_="Kise.IdCard.QueryServer.vshost.exe" FileName="KiseId~2.exe|Kise.IdCard.QueryServer.vshost.exe" Attributes="0" SourcePath="..\Kise.IdCard.QueryServer\bin\Release\Kise.IdCard.QueryServer.vshost.exe" SelfReg="false" NextFile="MinorityCode.txt"/>
+    <ROW File="Microsoft.CompilerServices.AsyncTargetingPack.Net4.dll" Component_="Microsoft.CompilerServices.AsyncTargetin" FileName="Micros~1.dll|Microsoft.CompilerServices.AsyncTargetingPack.Net4.dll" Attributes="0" SourcePath="..\IdQueryService\bin\Release\Microsoft.CompilerServices.AsyncTargetingPack.Net4.dll" SelfReg="false" NextFile="MiscUtil.dll"/>
+    <ROW File="Microsoft.CompilerServices.AsyncTargetingPack.Net4.xml" Component_="FileHelpers.xml" FileName="Micros~1.xml|Microsoft.CompilerServices.AsyncTargetingPack.Net4.xml" Attributes="0" SourcePath="..\IdQueryService\bin\Release\Microsoft.CompilerServices.AsyncTargetingPack.Net4.xml" SelfReg="false" NextFile="MiscUtil.xml"/>
+    <ROW File="MinorityCode.txt" Component_="FileHelpers.xml" FileName="Minori~1.txt|MinorityCode.txt" Attributes="0" SourcePath="..\Kise.IdCard.QueryServer\bin\Release\MinorityCode.txt" SelfReg="false" NextFile="Util.dll"/>
+    <ROW File="MiscUtil.dll" Component_="MiscUtil.dll" FileName="MiscUtil.dll" Attributes="0" SourcePath="..\IdQueryService\bin\Release\MiscUtil.dll" SelfReg="false" NextFile="NLog.dll"/>
+    <ROW File="MiscUtil.xml" Component_="FileHelpers.xml" FileName="MiscUtil.xml" Attributes="0" SourcePath="..\IdQueryService\bin\Release\MiscUtil.xml" SelfReg="false" NextFile="NLog.xml"/>
+    <ROW File="NLog.dll" Component_="NLog.dll" FileName="NLog.dll" Attributes="0" SourcePath="..\IdQueryService\bin\Release\NLog.dll" SelfReg="false" NextFile="FileHelpers.xml"/>
+    <ROW File="NLog.xml" Component_="FileHelpers.xml" FileName="NLog.xml" Attributes="0" SourcePath="..\IdQueryService\bin\Release\NLog.xml" SelfReg="false" NextFile="rbsp_setup.ini"/>
+    <ROW File="RBSPAdapter_COM.dll" Component_="RBSPAdapter_COM.dll" FileName="RBSPAd~2.dll|RBSPAdapter_COM.dll" Attributes="0" SourcePath="..\lib\IdQueryService\RBSPAdapter_COM.dll" SelfReg="true"/>
+    <ROW File="RbspAdapter.dll" Component_="RbspAdapter.dll" FileName="RbspAd~1.dll|RbspAdapter.dll" Attributes="0" SourcePath="..\lib\IdQueryService\RbspAdapter.dll" SelfReg="false" NextFile="RBSPAdapter_COM.dll"/>
+    <ROW File="Util.dll" Component_="Util.dll" FileName="Util.dll" Attributes="0" SourcePath="..\Kise.IdCard.QueryServer\bin\Release\Util.dll" SelfReg="false" NextFile="Util.pdb"/>
+    <ROW File="Util.pdb" Component_="Util.dll" FileName="Util.pdb" Attributes="0" SourcePath="..\Kise.IdCard.QueryServer\bin\Release\Util.pdb" SelfReg="false" NextFile="DevExpress.Data.v12.1.xml"/>
+    <ROW File="mCoreLib.dll" Component_="mCoreLib.dll" FileName="mCoreLib.dll" Attributes="0" SourcePath="..\IdQueryService\bin\Release\mCoreLib.dll" SelfReg="false" NextFile="Microsoft.CompilerServices.AsyncTargetingPack.Net4.dll"/>
+    <ROW File="rbsp_setup.ini" Component_="FileHelpers.xml" FileName="rbsp_s~1.ini|rbsp_setup.ini" Attributes="0" SourcePath="..\IdQueryService\bin\Release\rbsp_setup.ini" SelfReg="false" NextFile="DevExpress.Data.v12.1.dll"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.BuildComponent">
+    <ROW BuildKey="DefaultBuild" BuildName="DefaultBuild" BuildOrder="1" BuildType="1" Languages="zh" InstallationType="4" UseLargeSchema="true"/>
+    <ATTRIBUTE name="CurrentBuild" value="DefaultBuild"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.DictionaryComponent">
+    <ROW Path="&lt;AI_DICTS&gt;ui.ail"/>
+    <ROW Path="&lt;AI_DICTS&gt;ui_zh.ail"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.FragmentComponent">
+    <ROW Fragment="CommonUI.aip" Path="&lt;AI_FRAGS&gt;CommonUI.aip"/>
+    <ROW Fragment="FolderDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\FolderDlg.aip"/>
+    <ROW Fragment="MaintenanceTypeDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\MaintenanceTypeDlg.aip"/>
+    <ROW Fragment="MaintenanceWelcomeDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\MaintenanceWelcomeDlg.aip"/>
+    <ROW Fragment="SequenceDialogs.aip" Path="&lt;AI_THEMES&gt;classic\fragments\SequenceDialogs.aip"/>
+    <ROW Fragment="Sequences.aip" Path="&lt;AI_FRAGS&gt;Sequences.aip"/>
+    <ROW Fragment="StaticUIStrings.aip" Path="&lt;AI_FRAGS&gt;StaticUIStrings.aip"/>
+    <ROW Fragment="UI.aip" Path="&lt;AI_THEMES&gt;classic\fragments\UI.aip"/>
+    <ROW Fragment="Validation.aip" Path="&lt;AI_FRAGS&gt;Validation.aip"/>
+    <ROW Fragment="VerifyRemoveDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\VerifyRemoveDlg.aip"/>
+    <ROW Fragment="VerifyRepairDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\VerifyRepairDlg.aip"/>
+    <ROW Fragment="WelcomeDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\WelcomeDlg.aip"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiBinaryComponent">
+    <ROW Name="aicustact.dll" SourcePath="&lt;AI_CUSTACTS&gt;aicustact.dll"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiControlComponent">
+    <ATTRIBUTE name="FixedSizeBitmaps" value="2"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiControlEventComponent">
+    <ROW Dialog_="WelcomeDlg" Control_="Next" Event="NewDialog" Argument="FolderDlg" Condition="AI_INSTALL" Ordering="1"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Install" Event="EndDialog" Argument="Return" Condition="AI_INSTALL" Ordering="197"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Back" Event="NewDialog" Argument="FolderDlg" Condition="AI_INSTALL" Ordering="201"/>
+    <ROW Dialog_="FolderDlg" Control_="Next" Event="NewDialog" Argument="VerifyReadyDlg" Condition="AI_INSTALL" Ordering="201"/>
+    <ROW Dialog_="FolderDlg" Control_="Back" Event="NewDialog" Argument="WelcomeDlg" Condition="AI_INSTALL" Ordering="1"/>
+    <ROW Dialog_="MaintenanceWelcomeDlg" Control_="Next" Event="NewDialog" Argument="MaintenanceTypeDlg" Condition="AI_MAINT" Ordering="99"/>
+    <ROW Dialog_="CustomizeDlg" Control_="Next" Event="NewDialog" Argument="VerifyReadyDlg" Condition="AI_MAINT" Ordering="101"/>
+    <ROW Dialog_="CustomizeDlg" Control_="Back" Event="NewDialog" Argument="MaintenanceTypeDlg" Condition="AI_MAINT" Ordering="1"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Install" Event="EndDialog" Argument="Return" Condition="AI_MAINT" Ordering="198"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Back" Event="NewDialog" Argument="CustomizeDlg" Condition="AI_MAINT" Ordering="202"/>
+    <ROW Dialog_="MaintenanceTypeDlg" Control_="ChangeButton" Event="NewDialog" Argument="CustomizeDlg" Condition="AI_MAINT" Ordering="501"/>
+    <ROW Dialog_="MaintenanceTypeDlg" Control_="Back" Event="NewDialog" Argument="MaintenanceWelcomeDlg" Condition="AI_MAINT" Ordering="1"/>
+    <ROW Dialog_="MaintenanceTypeDlg" Control_="RemoveButton" Event="NewDialog" Argument="VerifyRemoveDlg" Condition="AI_MAINT AND InstallMode=&quot;Remove&quot;" Ordering="601"/>
+    <ROW Dialog_="VerifyRemoveDlg" Control_="Back" Event="NewDialog" Argument="MaintenanceTypeDlg" Condition="AI_MAINT AND InstallMode=&quot;Remove&quot;" Ordering="1"/>
+    <ROW Dialog_="MaintenanceTypeDlg" Control_="RepairButton" Event="NewDialog" Argument="VerifyRepairDlg" Condition="AI_MAINT AND InstallMode=&quot;Repair&quot;" Ordering="601"/>
+    <ROW Dialog_="VerifyRepairDlg" Control_="Back" Event="NewDialog" Argument="MaintenanceTypeDlg" Condition="AI_MAINT AND InstallMode=&quot;Repair&quot;" Ordering="1"/>
+    <ROW Dialog_="VerifyRepairDlg" Control_="Repair" Event="EndDialog" Argument="Return" Condition="AI_MAINT AND InstallMode=&quot;Repair&quot;" Ordering="399"/>
+    <ROW Dialog_="VerifyRemoveDlg" Control_="Remove" Event="EndDialog" Argument="Return" Condition="AI_MAINT AND InstallMode=&quot;Remove&quot;" Ordering="299"/>
+    <ROW Dialog_="PatchWelcomeDlg" Control_="Next" Event="NewDialog" Argument="VerifyReadyDlg" Condition="AI_PATCH" Ordering="201"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Install" Event="EndDialog" Argument="Return" Condition="AI_PATCH" Ordering="199"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Back" Event="NewDialog" Argument="PatchWelcomeDlg" Condition="AI_PATCH" Ordering="203"/>
+    <ROW Dialog_="ResumeDlg" Control_="Install" Event="EndDialog" Argument="Return" Condition="AI_RESUME" Ordering="299"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiCreateFolderComponent">
+    <ROW Directory_="SHORTCUTDIR" Component_="SHORTCUTDIR"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiCustActComponent">
+    <ROW Action="AI_DOWNGRADE" Type="19" Target="4010"/>
+    <ROW Action="AI_InstallModeCheck" Type="1" Source="aicustact.dll" Target="UpdateInstallMode" WithoutSeq="true"/>
+    <ROW Action="AI_PREPARE_UPGRADE" Type="65" Source="aicustact.dll" Target="PrepareUpgrade"/>
+    <ROW Action="AI_RESTORE_LOCATION" Type="65" Source="aicustact.dll" Target="RestoreLocation"/>
+    <ROW Action="AI_ResolveKnownFolders" Type="1" Source="aicustact.dll" Target="AI_ResolveKnownFolders"/>
+    <ROW Action="AI_ResolveLocalizedCredentials" Type="1" Source="aicustact.dll" Target="GetLocalizedCredentials"/>
+    <ROW Action="AI_SHOW_LOG" Type="65" Source="aicustact.dll" Target="LaunchLogFile" WithoutSeq="true"/>
+    <ROW Action="AI_STORE_LOCATION" Type="51" Source="ARPINSTALLLOCATION" Target="[APPDIR]"/>
+    <ROW Action="SET_APPDIR" Type="307" Source="APPDIR" Target="[ProgramFilesFolder][Manufacturer]\[ProductName]"/>
+    <ROW Action="SET_SHORTCUTDIR" Type="307" Source="SHORTCUTDIR" Target="[ProgramMenuFolder][ProductName]" MultiBuildTarget="DefaultBuild:[ProgramMenuFolder][Manufacturer]"/>
+    <ROW Action="SET_TARGETDIR_TO_APPDIR" Type="51" Source="TARGETDIR" Target="[APPDIR]"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiInstExSeqComponent">
+    <ROW Action="AI_DOWNGRADE" Condition="AI_NEWERPRODUCTFOUND AND (UILevel &lt;&gt; 5)" Sequence="210"/>
+    <ROW Action="AI_RESTORE_LOCATION" Condition="APPDIR=&quot;&quot;" Sequence="749"/>
+    <ROW Action="AI_STORE_LOCATION" Condition="(Not Installed) OR REINSTALL" Sequence="1501"/>
+    <ROW Action="AI_PREPARE_UPGRADE" Condition="AI_UPGRADE=&quot;No&quot; AND (Not Installed)" Sequence="1399"/>
+    <ROW Action="AI_ResolveKnownFolders" Sequence="52"/>
+    <ROW Action="AI_ResolveLocalizedCredentials" Sequence="51"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiInstallUISequenceComponent">
+    <ROW Action="AI_RESTORE_LOCATION" Condition="APPDIR=&quot;&quot;" Sequence="749"/>
+    <ROW Action="AI_ResolveKnownFolders" Sequence="52"/>
+    <ROW Action="AI_ResolveLocalizedCredentials" Sequence="51"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiLaunchConditionsComponent">
+    <ROW Condition="VersionNT" Description="[ProductName] cannot be installed on [WindowsType9XDisplay]" DescriptionLocId="AI.LaunchCondition.No9X" IsPredefined="true" Builds="DefaultBuild"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiRegsComponent">
+    <ROW Registry="Path" Root="-1" Key="Software\[Manufacturer]\[ProductName]" Name="Path" Value="[APPDIR]" Component_="ProductInformation"/>
+    <ROW Registry="Version" Root="-1" Key="Software\[Manufacturer]\[ProductName]" Name="Version" Value="[ProductVersion]" Component_="ProductInformation"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiShortsComponent">
+    <ROW Shortcut="_" Directory_="SHORTCUTDIR" Name="身份证查询服务器" Component_="IdQueryService.exe" Target="[#IdQueryService.exe]" Hotkey="0" IconIndex="0" ShowCmd="1" WkDir="APPDIR"/>
+    <ROW Shortcut="__1" Directory_="SHORTCUTDIR" Name="身份证查询服~1|身份证查询服务器界面" Component_="Kise.IdCard.QueryServer.exe" Target="[#Kise.IdCard.QueryServer.exe]" Hotkey="0" IconIndex="0" ShowCmd="1" WkDir="APPDIR"/>
+    <ROW Shortcut="__2" Directory_="StartupFolder" Name="身份证查询服务器" Component_="IdQueryService.exe" Target="[#IdQueryService.exe]" Hotkey="0" IconIndex="0" ShowCmd="1" WkDir="APPDIR"/>
+    <ROW Shortcut="__3" Directory_="StartupFolder" Name="身份证查询服~1|身份证查询服务器界面" Component_="Kise.IdCard.QueryServer.exe" Target="[#Kise.IdCard.QueryServer.exe]" Hotkey="0" IconIndex="0" ShowCmd="1" WkDir="APPDIR"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiThemeComponent">
+    <ATTRIBUTE name="UsedTheme" value="classic"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiUpgradeComponent">
+    <ROW UpgradeCode="[|UpgradeCode]" VersionMax="[|ProductVersion]" Attributes="1025" ActionProperty="OLDPRODUCTS"/>
+    <ROW UpgradeCode="[|UpgradeCode]" VersionMin="[|ProductVersion]" Attributes="2" ActionProperty="AI_NEWERPRODUCTFOUND"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.SynchronizedFolderComponent">
+    <ROW Directory_="APPDIR" SourcePath="..\IdQueryService\bin\Release" Feature="MainFeature" ExcludePattern="*~|#*#|%*%|._|CVS|.cvsignore|SCCS|vssver.scc|mssccprj.scc|vssver2.scc|.svn|.DS_Store" ExcludeFlags="6"/>
+  </COMPONENT>
+</DOCUMENT>
