@@ -259,7 +259,6 @@
             this.btnQuery.TabIndex = 9;
             this.btnQuery.Text = "查询";
             this.btnQuery.UseVisualStyleBackColor = true;
-            this.btnQuery.Click += new System.EventHandler(this.btnQuery_Click);
             // 
             // notifyIcon1
             // 
