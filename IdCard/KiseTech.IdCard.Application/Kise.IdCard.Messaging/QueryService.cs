@@ -8,7 +8,6 @@ namespace Kise.IdCard.Messaging
 {
     public class QueryService
     {
-        private readonly ILink _link;
 
         private object _locker = new object();
         private int _nextSequenceNumber;
@@ -23,38 +22,37 @@ namespace Kise.IdCard.Messaging
 
         public QueryService(ILink link)
         {
-            if (link == null) throw new ArgumentNullException("link");
-
-            _link = link;
-            _link.NewMessageReceived += _link_NewMessageReceived;
 
             TimeOutInSeconds = 120;
         }
 
         public void Start()
         {
-            System.Threading.Tasks.TaskEx.Run(()=>_link.Start());
+            
         }
 
-        public async Task<ReplyMessage> QueryAsync(EndPoint destinationNumber, string message)
+        public  Task<ReplyMessage> QueryAsync(EndPoint destinationNumber, string message)
         {
-            //var sn = GetNextSequenceNumber();
-            ////string packedMessage = Helper.PackMessage(message, sn);
+            return TaskEx.Run(() =>
+                           {
+                               var splits = message.Split(new[] {'*'});
 
-            var splits = message.Split(new[] { '*' });
+                               _sendQueryTime = DateTime.Now;
+                               try
+                               {
+                                   var proxy = new WcfService.IdQueryWcfServiceClient();
+                                   var msg = proxy.QueryId(message);
+                                   return new ReplyMessage(msg);
+                               }
+                               catch (Exception ex)
+                               {
+                                   var reply = new ReplyMessage(string.Empty);
+                                   reply.Error = ex;
+                                   return reply;
+                               }
+                           });
 
-            _sendQueryTime = DateTime.Now;
-            try
-            {
-                var msg = await _link.SendAsync(destinationNumber, message);
-                return new ReplyMessage(msg.Message);
-            }
-            catch (Exception ex)
-            {
-                var reply = new ReplyMessage(string.Empty);
-                reply.Error = ex;
-                return reply;
-            }
+
         }
 
         private async Task<ReplyMessage> GetReplyMessage(string id)

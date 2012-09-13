@@ -128,7 +128,7 @@ namespace Kise.IdCard.Application
             try
             {
                 //if (CurrentState == Status.QueryingIdCard) return;
-                _timer.Stop();
+                _timer.Enabled = false;
                 if (_isQuerying) return;
 
                 CurrentState = Status.ReadingIdCard;
@@ -153,7 +153,7 @@ namespace Kise.IdCard.Application
             }
             finally
             {
-                _timer.Start();
+                _timer.Enabled = true;
                 //_view.CanQueryId = true;
                 CurrentState = Status.Idle;
             }
@@ -178,8 +178,12 @@ namespace Kise.IdCard.Application
             progressReport.Report(indicator);
 
             var ep = new CellPhoneEndPoint() {CellNumber = destinationNo};
-            var reply = await _queryService.QueryAsync(ep, CurrentIdCard.IdCardNo);
-            IsBusy = false;
+            ReplyMessage reply = null;
+           
+                reply = await _queryService.QueryAsync(ep, CurrentIdCard.IdCardNo);
+                IsBusy = false;
+            
+           
 
             indicator.Status = reply.Error != null ? "查询身份证失败（超时）!" : "查询身份证成功";
             indicator.LongOperation = false;
@@ -280,7 +284,7 @@ namespace Kise.IdCard.Application
                 }
                 else
                 {
-                    MessageBox.Show("程序发生异常，请联系技术人员或者稍侯重试。" + reply.Error.Message);
+                    MessageBox.Show("程序发生异常，请联系技术人员或者稍侯重试。\r\n\r\n" + reply.Error.Message);
                 }
                 
             }
