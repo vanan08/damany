@@ -57,18 +57,18 @@ namespace Kise.IdCard.Infrastructure.Test
             var fakeEp = new CellPhoneEndPoint();
             fakeT.Return(q => new IncomingMessage("0*abc"));
             var qs = GetQs(fakeT);
-            var result = qs.QueryAsync(null, message).Result;
+            var result = qs.QueryAsync( message).Result;
             Assert.AreEqual("abc", result.Message);
             //Assert.IsFalse(result.IsTimedOut);
 
             fakeT.Return(q => new IncomingMessage("0*abc"));
-            result = qs.QueryAsync(null, message).Result;
+            result = qs.QueryAsync( message).Result;
             Assert.IsTrue(string.IsNullOrEmpty(result.Message));
             //Assert.IsTrue(result.IsTimedOut);
 
 
             fakeT.Return(q => new IncomingMessage("2*def"));
-            result = qs.QueryAsync(null, message).Result;
+            result = qs.QueryAsync( message).Result;
             Assert.AreEqual("def", result.Message);
 
             fakeT.Return(q =>
@@ -80,13 +80,13 @@ namespace Kise.IdCard.Infrastructure.Test
 
             for (int i = 0; i < 10; i++)
             {
-                var t1 = qs.QueryAsync(fakeEp, message);
+                var t1 = qs.QueryAsync( message);
                 System.Threading.Thread.Sleep(5);
-                var t2 = qs.QueryAsync(fakeEp, message);
+                var t2 = qs.QueryAsync( message);
                 System.Threading.Thread.Sleep(10);
-                var t3 = qs.QueryAsync(fakeEp, message);
+                var t3 = qs.QueryAsync( message);
                 System.Threading.Thread.Sleep(15);
-                var t4 = qs.QueryAsync(fakeEp, message);
+                var t4 = qs.QueryAsync( message);
                 System.Threading.Thread.Sleep(20);
 
 
@@ -113,12 +113,12 @@ namespace Kise.IdCard.Infrastructure.Test
             qs.TimeOutInSeconds = 2;
 
             var ep = new IPEndPoint(IPAddress.Loopback, 10000);
-            var reply = qs.QueryAsync(ep, "").Result;
+            var reply = qs.QueryAsync("").Result;
             //Assert.IsTrue(reply.IsTimedOut);
 
             fl.DelayInMs = 1000;
             fl.Return(q=> new IncomingMessage("1*123"));
-            reply = qs.QueryAsync(ep, "dfdf").Result;
+            reply = qs.QueryAsync("dfdf").Result;
             //Assert.IsFalse(reply.IsTimedOut);
             Assert.AreEqual("123", reply.Message);
         }
@@ -143,7 +143,7 @@ namespace Kise.IdCard.Infrastructure.Test
 
         private QueryService GetQs(ILink t)
         {
-            return new QueryService(t);
+            return new QueryService();
         }
 
     }

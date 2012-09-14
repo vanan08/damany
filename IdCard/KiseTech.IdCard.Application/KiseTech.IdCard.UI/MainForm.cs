@@ -182,21 +182,10 @@ namespace Kise.IdCard.UI
             MinorityDictionary = FileMinorityDictionary.Instance;
             _normalBkColor = resultLabel.BackColor;
 
-
-            ILink lnk = null;
             IIdCardReader cardReader = null;
 
-            IPAddress ip = null;
-            if (IPAddress.TryParse(Properties.Settings.Default.ServerIp, out ip))
-            {
-
-                var serverEp = new IPEndPoint(ip, Properties.Settings.Default.ServerPort);
-                lnk = new UdpClient(serverEp);
-            }
-            else
-            {
-                lnk = new FakeLink();
-            }
+           
+           
             
 
             if (Program.IsDebug)
@@ -208,7 +197,7 @@ namespace Kise.IdCard.UI
                 cardReader = new IdCardReader(1001);
             }
 
-            _idService = new IdService(cardReader, lnk);
+            _idService = new IdService(cardReader);
             _idService.AttachView(this);
 
             this.Shown += (s, e) =>
@@ -223,11 +212,7 @@ namespace Kise.IdCard.UI
 
         private void MainForm_Shown(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(Properties.Settings.Default.ServerIp))
-            {
-                var dlg = new FormSettings();
-                dlg.ShowDialog(this);
-            }
+            
 
             if (Properties.Settings.Default.AutoStart)
             {
@@ -315,7 +300,7 @@ namespace Kise.IdCard.UI
 
         private void databaseQuery_ItemClick(object sender, ItemClickEventArgs e)
         {
-            _idService.QueryIdAsync(_progressReport, Properties.Settings.Default.ServerIp);
+            _idService.QueryIdAsync(_progressReport, null);
         }
 
         void inpc_PropertyChanged(object sender, PropertyChangedEventArgs e)

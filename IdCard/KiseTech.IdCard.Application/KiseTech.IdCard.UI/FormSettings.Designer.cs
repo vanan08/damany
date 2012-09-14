@@ -78,7 +78,6 @@
             // 
             // serverIp
             // 
-            this.serverIp.EditValue = global::Kise.IdCard.UI.Properties.Settings.Default.ServerIp;
             this.serverIp.Location = new System.Drawing.Point(130, 95);
             this.serverIp.Name = "serverIp";
             this.serverIp.Properties.EditFormat.FormatString = "d";
@@ -90,7 +89,6 @@
             // 
             // serverPort
             // 
-            this.serverPort.EditValue = global::Kise.IdCard.UI.Properties.Settings.Default.ServerPort;
             this.serverPort.Location = new System.Drawing.Point(130, 138);
             this.serverPort.Name = "serverPort";
             this.serverPort.Properties.Mask.EditMask = "d";
