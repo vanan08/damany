@@ -278,9 +278,9 @@ namespace Kise.IdCard.Application
             }
             else
             {
-                if(reply.Error is TaskCanceledException)
+                if(reply.Error is TaskCanceledException || reply.Error is TimeoutException)
                 {
-                    MessageBox.Show("服务器没有响应，请联系技术人员或者稍侯重试。");
+                    MessageBox.Show("服务器在设定的时间内没有响应，服务器可能繁忙，请稍侯重试。");
                 }
                 else
                 {

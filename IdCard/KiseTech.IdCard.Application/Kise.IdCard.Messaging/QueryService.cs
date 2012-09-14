@@ -38,10 +38,12 @@ namespace Kise.IdCard.Messaging
                                var splits = message.Split(new[] {'*'});
 
                                _sendQueryTime = DateTime.Now;
+                               WcfService.IdQueryWcfServiceClient proxy = null;
                                try
                                {
-                                   var proxy = new WcfService.IdQueryWcfServiceClient();
+                                   proxy = new WcfService.IdQueryWcfServiceClient();
                                    var msg = proxy.QueryId(message);
+                                  
                                    return new ReplyMessage(msg);
                                }
                                catch (Exception ex)
@@ -49,6 +51,13 @@ namespace Kise.IdCard.Messaging
                                    var reply = new ReplyMessage(string.Empty);
                                    reply.Error = ex;
                                    return reply;
+                               }
+                               finally
+                               {
+                                   if (proxy != null)
+                                   {
+                                        proxy.Close();
+                                   }
                                }
                            });
 
