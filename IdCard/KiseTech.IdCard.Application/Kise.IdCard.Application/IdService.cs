@@ -19,7 +19,6 @@ namespace Kise.IdCard.Application
     public class IdService
     {
         private readonly IIdCardReader _idCardReader;
-        private readonly ILink _link;
         private QueryService _queryService;
         private IIdCardView _view;
 
@@ -58,13 +57,11 @@ namespace Kise.IdCard.Application
         }
 
 
-        public IdService(IIdCardReader idCardReader, ILink link)
+        public IdService(IIdCardReader idCardReader)
         {
             if (idCardReader == null) throw new ArgumentNullException("idCardReader");
-            if (link == null) throw new ArgumentNullException("link");
             _idCardReader = idCardReader;
-            _link = link;
-            _queryService = new QueryService(_link);
+            _queryService = new QueryService();
             IdCardList = new BindingList<IdCardInfo>();
             CurrentState = Status.Idle;
 
@@ -96,19 +93,6 @@ namespace Kise.IdCard.Application
             _timer.Enabled = true;
             _view.CanStop = true;
             _view.CanStart = false;
-
-            TaskEx.Run(() =>
-                           {
-                               try
-                               {
-                                   _link.Start();
-                               }
-                               catch (Exception e)
-                               {
-                                   MessageBox.Show(e.Message);
-                               }
-
-                           });
         }
 
         public void Stop()
@@ -177,10 +161,10 @@ namespace Kise.IdCard.Application
             indicator.LongOperation = true;
             progressReport.Report(indicator);
 
-            var ep = new CellPhoneEndPoint() {CellNumber = destinationNo};
+            
             ReplyMessage reply = null;
            
-                reply = await _queryService.QueryAsync(ep, CurrentIdCard.IdCardNo);
+                reply = await _queryService.QueryAsync(CurrentIdCard.IdCardNo);
                 IsBusy = false;
             
            
