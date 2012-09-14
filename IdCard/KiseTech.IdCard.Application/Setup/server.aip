@@ -33,7 +33,6 @@
     <ROW Component="FileHelpers.dll" ComponentId="{131654A8-0A85-4D66-BB7A-E511EFCE5E98}" Directory_="APPDIR" Attributes="0" KeyPath="FileHelpers.dll"/>
     <ROW Component="FileHelpers.xml" ComponentId="{08D170AB-8354-4BFC-A801-A35C6CC2E632}" Directory_="APPDIR" Attributes="0" KeyPath="FileHelpers.xml" Type="0"/>
     <ROW Component="IdQueryService.exe" ComponentId="{BB5D7D76-0816-4490-B54B-8957BB1F6E8F}" Directory_="APPDIR" Attributes="0" KeyPath="IdQueryService.exe"/>
-    <ROW Component="IdQueryService.vshost.exe" ComponentId="{A0588EA7-5CF2-462B-B0D4-165949D11322}" Directory_="APPDIR" Attributes="0" KeyPath="IdQueryService.vshost.exe"/>
     <ROW Component="IdQueryServiceContract.dll" ComponentId="{FBA95F42-0D45-4083-AE3F-A97C081AC098}" Directory_="APPDIR" Attributes="0" KeyPath="IdQueryServiceContract.dll"/>
     <ROW Component="Interop.RBSPAdapter_COM.dll" ComponentId="{BF1E0A03-2AD7-4132-97FB-B352B9933DD1}" Directory_="APPDIR" Attributes="0" KeyPath="Interop.RBSPAdapter_COM.dll"/>
     <ROW Component="Kise.IdCard.Messaging.dll" ComponentId="{27EE5F52-AF28-453E-A391-27FA2CA98D36}" Directory_="APPDIR" Attributes="0" KeyPath="Kise.IdCard.Messaging.dll"/>
@@ -51,7 +50,7 @@
     <ROW Component="mCoreLib.dll" ComponentId="{7BB36DE3-5C6E-489E-B4FF-649CCA11C1F7}" Directory_="APPDIR" Attributes="0" KeyPath="mCoreLib.dll"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiFeatsComponent">
-    <ROW Feature="MainFeature" Title="MainFeature" Description="Description" Display="1" Level="1" Directory_="APPDIR" Attributes="0" Components="DevExpress.Data.v12.1.dll DevExpress.Printing.v12.1.Core.dll DevExpress.Utils.v12.1.dll DevExpress.Xpo.v12.1.dll DevExpress.XtraEditors.v12.1.dll FileHelpers.dll FileHelpers.xml IdQueryService.exe IdQueryService.vshost.exe IdQueryServiceContract.dll Interop.RBSPAdapter_COM.dll Kise.IdCard.Messaging.dll Kise.IdCard.Model.dll Kise.IdCard.QueryServer.exe Kise.IdCard.QueryServer.vshost.exe Microsoft.CompilerServices.AsyncTargetin MiscUtil.dll NLog.dll ProductInformation RBSPAdapter_COM.dll RbspAdapter.dll SHORTCUTDIR Util.dll mCoreLib.dll"/>
+    <ROW Feature="MainFeature" Title="MainFeature" Description="Description" Display="1" Level="1" Directory_="APPDIR" Attributes="0" Components="DevExpress.Data.v12.1.dll DevExpress.Printing.v12.1.Core.dll DevExpress.Utils.v12.1.dll DevExpress.Xpo.v12.1.dll DevExpress.XtraEditors.v12.1.dll FileHelpers.dll FileHelpers.xml IdQueryService.exe IdQueryServiceContract.dll Interop.RBSPAdapter_COM.dll Kise.IdCard.Messaging.dll Kise.IdCard.Model.dll Kise.IdCard.QueryServer.exe Kise.IdCard.QueryServer.vshost.exe Microsoft.CompilerServices.AsyncTargetin MiscUtil.dll NLog.dll ProductInformation RBSPAdapter_COM.dll RbspAdapter.dll SHORTCUTDIR Util.dll mCoreLib.dll"/>
     <ATTRIBUTE name="CurrentFeature" value="MainFeature"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiFilesComponent">
@@ -69,10 +68,8 @@
     <ROW File="FileHelpers.xml" Component_="FileHelpers.xml" FileName="FileHe~1.xml|FileHelpers.xml" Attributes="0" SourcePath="..\IdQueryService\bin\Release\FileHelpers.xml" SelfReg="false" NextFile="IdQueryService.exe.config"/>
     <ROW File="IdQueryService.exe" Component_="IdQueryService.exe" FileName="IdQuer~1.exe|IdQueryService.exe" Attributes="0" SourcePath="..\IdQueryService\bin\Release\IdQueryService.exe" SelfReg="false" NextFile="IdQueryService.pdb"/>
     <ROW File="IdQueryService.exe.config" Component_="FileHelpers.xml" FileName="IdQuer~1.con|IdQueryService.exe.config" Attributes="0" SourcePath="..\IdQueryService\bin\Release\IdQueryService.exe.config" SelfReg="false" NextFile="Microsoft.CompilerServices.AsyncTargetingPack.Net4.xml"/>
-    <ROW File="IdQueryService.pdb" Component_="IdQueryService.exe" FileName="IdQuer~1.pdb|IdQueryService.pdb" Attributes="0" SourcePath="..\IdQueryService\bin\Release\IdQueryService.pdb" SelfReg="false" NextFile="IdQueryService.vshost.exe"/>
-    <ROW File="IdQueryService.vshost.exe" Component_="IdQueryService.vshost.exe" FileName="IdQuer~2.exe|IdQueryService.vshost.exe" Attributes="0" SourcePath="..\IdQueryService\bin\Release\IdQueryService.vshost.exe" SelfReg="false" NextFile="IdQueryServiceContract.dll"/>
-    <ROW File="IdQueryService.vshost.exe.config" Component_="FileHelpers.xml" FileName="IdQuer~2.con|IdQueryService.vshost.exe.config" Attributes="0" SourcePath="..\IdQueryService\bin\Release\IdQueryService.vshost.exe.config" SelfReg="false" NextFile="IdQueryService.vshost.exe.manifest"/>
-    <ROW File="IdQueryService.vshost.exe.manifest" Component_="FileHelpers.xml" FileName="IdQuer~1.man|IdQueryService.vshost.exe.manifest" Attributes="0" SourcePath="..\IdQueryService\bin\Release\IdQueryService.vshost.exe.manifest" SelfReg="false"/>
+    <ROW File="IdQueryService.pdb" Component_="IdQueryService.exe" FileName="IdQuer~1.pdb|IdQueryService.pdb" Attributes="0" SourcePath="..\IdQueryService\bin\Release\IdQueryService.pdb" SelfReg="false" NextFile="IdQueryServiceContract.dll"/>
+    <ROW File="IdQueryService.vshost.exe.config" Component_="FileHelpers.xml" FileName="IdQuer~2.con|IdQueryService.vshost.exe.config" Attributes="0" SourcePath="..\IdQueryService\bin\Release\IdQueryService.vshost.exe.config" SelfReg="false"/>
     <ROW File="IdQueryServiceContract.dll" Component_="IdQueryServiceContract.dll" FileName="IdQuer~1.dll|IdQueryServiceContract.dll" Attributes="0" SourcePath="..\IdQueryService\bin\Release\IdQueryServiceContract.dll" SelfReg="false" NextFile="IdQueryServiceContract.pdb"/>
     <ROW File="IdQueryServiceContract.pdb" Component_="IdQueryServiceContract.dll" FileName="IdQuer~2.pdb|IdQueryServiceContract.pdb" Attributes="0" SourcePath="..\IdQueryService\bin\Release\IdQueryServiceContract.pdb" SelfReg="false" NextFile="Interop.RBSPAdapter_COM.dll"/>
     <ROW File="Interop.RBSPAdapter_COM.dll" Component_="Interop.RBSPAdapter_COM.dll" FileName="Intero~1.dll|Interop.RBSPAdapter_COM.dll" Attributes="0" SourcePath="..\IdQueryService\bin\Release\Interop.RBSPAdapter_COM.dll" SelfReg="false" NextFile="Kise.IdCard.Messaging.dll"/>
@@ -200,6 +197,6 @@
     <ROW UpgradeCode="[|UpgradeCode]" VersionMin="[|ProductVersion]" Attributes="2" ActionProperty="AI_NEWERPRODUCTFOUND"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.SynchronizedFolderComponent">
-    <ROW Directory_="APPDIR" SourcePath="..\IdQueryService\bin\Release" Feature="MainFeature" ExcludePattern="*~|#*#|%*%|._|CVS|.cvsignore|SCCS|vssver.scc|mssccprj.scc|vssver2.scc|.svn|.DS_Store" ExcludeFlags="6"/>
+    <ROW Directory_="APPDIR" SourcePath="..\IdQueryService\bin\Release" Feature="MainFeature" ExcludePattern="*~|#*#|%*%|._|CVS|.cvsignore|SCCS|vssver.scc|mssccprj.scc|vssver2.scc|.svn|.DS_Store|/*.vshost.exe" ExcludeFlags="6"/>
   </COMPONENT>
 </DOCUMENT>
