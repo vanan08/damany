@@ -262,13 +262,15 @@ namespace Kise.IdCard.Application
             }
             else
             {
-                if(reply.Error is TaskCanceledException || reply.Error is TimeoutException)
+                if(reply.Error is TaskCanceledException || 
+                    reply.Error is TimeoutException ||
+                reply.Error is System.ServiceModel.EndpointNotFoundException)
                 {
-                    MessageBox.Show("服务器在设定的时间内没有响应，服务器可能繁忙，请稍侯重试。");
+                    MessageBox.Show("服务器在设定的时间内没有响应，服务器可能繁忙，请稍后重试。\r\n\r\n错误信息如下：\r\n" + reply.Error.Message, "身份证查询", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else
                 {
-                    MessageBox.Show("程序发生异常，请联系技术人员或者稍侯重试。\r\n\r\n" + reply.Error.Message);
+                    MessageBox.Show("程序发生异常，请联系技术人员或者稍侯重试。\r\n\r\n错误信息如下：\r\n" + reply.Error.Message, "身份证查询", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 
             }

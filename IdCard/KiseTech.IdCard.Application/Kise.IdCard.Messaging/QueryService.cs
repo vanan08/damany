@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Concurrent;
 using System.Net;
+using System.ServiceModel;
 using System.Threading.Tasks;
 using Kise.IdCard.Messaging.Link;
 
@@ -35,19 +36,25 @@ namespace Kise.IdCard.Messaging
                                try
                                {
                                    proxy = new WcfService.IdQueryWcfServiceClient();
+                                   
                                    var msg = proxy.QueryId(message);
                                   
                                    return new ReplyMessage(msg);
                                }
                                catch (Exception ex)
                                {
+                                   if (proxy != null)
+                                   {
+                                       proxy.Abort();
+                                   }
+                                   
                                    var reply = new ReplyMessage(string.Empty);
                                    reply.Error = ex;
                                    return reply;
                                }
                                finally
                                {
-                                   if (proxy != null)
+                                   if (proxy != null && proxy.State == CommunicationState.Opened)
                                    {
                                         proxy.Close();
                                    }
