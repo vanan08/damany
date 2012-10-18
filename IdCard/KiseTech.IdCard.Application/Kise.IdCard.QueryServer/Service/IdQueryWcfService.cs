@@ -28,31 +28,28 @@ namespace Kise.IdCard.QueryServer.UI.Service
 
         public string QueryId(string queryString)
         {
+            LogEnter(queryString);
 
-            var unpackedMsg = string.Empty;
-            var sn = -1;
+            var replyResult = new QueryResult();
 
-            var ep = OperationContext.Current.IncomingMessageProperties[RemoteEndpointMessageProperty.Name] as
-                RemoteEndpointMessageProperty;
-            var entry = new LogEntry();
-            entry.Sender = ep.Address;
-                
-                
-            entry.Description =  "收到查询: " + queryString;
-            _logger.Log(entry);
+            DoQuery(queryString, replyResult);
+            var replyString = FormatReplyString(replyResult, queryString);
 
-            QueryResult replyResult = new QueryResult();
+            LogExit(replyString);
 
-            entry = new LogEntry();
-            entry.Description = "查询数据库...";
-            _logger.Log(entry);
+            return replyString;
+        }
 
+        private void DoQuery(string queryString, QueryResult replyResult)
+        {
             try
             {
                 var idQueryString = string.Format("sfzh='{0}'", queryString);
                 var queryResult = _provider.QueryIdCard(idQueryString);
                 var normalIdInfo = Helper.Parse(queryResult.NormalResult);
                 var suspectIdInfo = Helper.Parse(queryResult.SuspectResult);
+
+
 
                 replyResult.ErrorCode = 0;
                 if (normalIdInfo.Length > 0)
@@ -61,20 +58,40 @@ namespace Kise.IdCard.QueryServer.UI.Service
                 }
 
                 replyResult.IsSuspect = suspectIdInfo.Length > 0;
-
             }
             catch (System.Xml.XmlException)
             {
                 replyResult.ErrorCode = 1;
             }
-            var replyString = FormatReplyString(replyResult, queryString);
-            entry = new LogEntry();
-            entry.Description = "发送应答：" + replyString;
-            _logger.Log(entry);
-
-            return replyString;
         }
 
+        private static void LogExit(string replyString)
+        {
+            var entry = new LogEntry();
+            entry.Description = "发送应答：" + replyString;
+            _logger.Log(entry);
+        }
+
+        private static void LogEnter(string queryString)
+        {
+            var ep = OperationContext.Current.IncomingMessageProperties[RemoteEndpointMessageProperty.Name] as
+                     RemoteEndpointMessageProperty;
+            var entry = new LogEntry();
+            entry.Sender = ep.Address;
+
+
+            entry.Description = "收到查询: " + queryString;
+            _logger.Log(entry);
+
+            entry = new LogEntry();
+            entry.Description = "查询数据库...";
+            _logger.Log(entry);
+        }
+
+        public IdCardInfo QueryByIdNumber(string idNumber)
+        {
+            throw new NotImplementedException();
+        }
 
 
         private IdQueryServiceContract.IIdQueryProvider CreateIdQueryProvider()
