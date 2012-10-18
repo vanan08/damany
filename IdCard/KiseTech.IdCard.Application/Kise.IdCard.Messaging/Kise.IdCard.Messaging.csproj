@@ -111,6 +111,12 @@
     <None Include="Service References\WcfService\configuration.svcinfo" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Service References\WcfService\item2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\WcfService\Kise.IdCard.Messaging.WcfService.IdCardInfo.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\WcfService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

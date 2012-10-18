@@ -46,5 +46,25 @@ namespace Kise.IdCard.Messaging
 
 
         }
+
+        public Task<Messaging.WcfService.IdCardInfo> QueryByIdNumberAsync(string idNumber)
+        {
+            return TaskEx.Run(() =>
+                                  {
+                                      WcfService.IdQueryWcfServiceClient proxy = null;
+                                      try
+                                      {
+                                          proxy = new WcfService.IdQueryWcfServiceClient();
+                                          return proxy.QueryByIdNumber(idNumber);
+                                      }
+                                      finally
+                                      {
+                                          if (proxy != null && proxy.State == CommunicationState.Opened)
+                                          {
+                                              proxy.Close();
+                                          }
+                                      }
+                                  });
+        }
     }
 }

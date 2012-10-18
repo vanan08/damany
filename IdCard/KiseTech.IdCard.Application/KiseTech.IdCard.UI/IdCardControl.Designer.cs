@@ -55,6 +55,7 @@
             this.image.Location = new System.Drawing.Point(347, 31);
             this.image.Name = "image";
             this.image.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Office2003;
+            this.image.Properties.SizeMode = DevExpress.XtraEditors.Controls.PictureSizeMode.Zoom;
             this.image.Size = new System.Drawing.Size(150, 166);
             this.image.TabIndex = 17;
             // 
