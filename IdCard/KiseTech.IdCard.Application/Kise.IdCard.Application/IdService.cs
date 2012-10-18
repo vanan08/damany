@@ -99,7 +99,7 @@ namespace Kise.IdCard.Application
         {
             if (_timer != null)
             {
-                _timer.Dispose();
+                _timer.Stop();
             }
 
             _view.CanStart = true;
@@ -164,8 +164,8 @@ namespace Kise.IdCard.Application
             
             ReplyMessage reply = null;
            
-                reply = await _queryService.QueryAsync(CurrentIdCard.IdCardNo);
-                IsBusy = false;
+            reply = await _queryService.QueryAsync(CurrentIdCard.IdCardNo);
+            IsBusy = false;
             
            
 
@@ -293,7 +293,6 @@ namespace Kise.IdCard.Application
 
         private async Task<IdCardInfo> ReadIdCard(IProgress<ProgressIndicator> progressReport)
         {
-            _queryService.Start();
             var indicator = new ProgressIndicator();
             IdCardInfo v = null;
             try

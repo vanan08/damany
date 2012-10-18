@@ -200,6 +200,7 @@
     </EmbeddedResource>
     <None Include="app.config">
       <TransformOnBuild>true</TransformOnBuild>
+      <SubType>Designer</SubType>
     </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

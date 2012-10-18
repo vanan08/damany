@@ -9,23 +9,6 @@ namespace Kise.IdCard.Messaging
 {
     public class QueryService
     {
-
-        private object _locker = new object();
-        private int _nextSequenceNumber;
-        
-        public int TimeOutInSeconds { get; set; }
-
-        public QueryService()
-        {
-
-            TimeOutInSeconds = 120;
-        }
-
-        public void Start()
-        {
-            
-        }
-
         public  Task<ReplyMessage> QueryAsync(string message)
         {
             return TaskEx.Run(() =>
