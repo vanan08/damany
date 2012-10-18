@@ -28,7 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject1 = new DevExpress.Utils.SerializableAppearanceObject();
             this.ribbon = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.buttonQuery = new DevExpress.XtraBars.BarButtonItem();
             this.settingsButton = new DevExpress.XtraBars.BarButtonItem();
@@ -38,6 +40,7 @@
             this.startButton = new DevExpress.XtraBars.BarButtonItem();
             this.stopButton = new DevExpress.XtraBars.BarButtonItem();
             this.databaseQuery = new DevExpress.XtraBars.BarButtonItem();
+            this.barCheckItemManulQuery = new DevExpress.XtraBars.BarCheckItem();
             this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup2 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -45,33 +48,34 @@
             this.repositoryItemProgressBar1 = new DevExpress.XtraEditors.Repository.RepositoryItemProgressBar();
             this.ribbonStatusBar = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
             this.clientPanel = new DevExpress.XtraEditors.PanelControl();
+            this.idCardControl1 = new Kise.IdCard.UI.IdCardControl();
             this.resultLabel = new DevExpress.XtraEditors.LabelControl();
-            this.image = new DevExpress.XtraEditors.PictureEdit();
-            this.idCardNo = new DevExpress.XtraEditors.LabelControl();
-            this.address = new DevExpress.XtraEditors.LabelControl();
-            this.day = new DevExpress.XtraEditors.LabelControl();
-            this.month = new DevExpress.XtraEditors.LabelControl();
-            this.year = new DevExpress.XtraEditors.LabelControl();
-            this.minority = new DevExpress.XtraEditors.LabelControl();
-            this.sex = new DevExpress.XtraEditors.LabelControl();
-            this.name = new DevExpress.XtraEditors.LabelControl();
-            this.xpCollection1 = new DevExpress.Xpo.XPCollection();
+            this.xpCollection1 = new DevExpress.Xpo.XPCollection(this.components);
+            this.xtraTabControl1 = new DevExpress.XtraTab.XtraTabControl();
+            this.xtraTabPageManualQuery = new DevExpress.XtraTab.XtraTabPage();
+            this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
+            this.buttonEdit1 = new DevExpress.XtraEditors.ButtonEdit();
+            this.idCardControl2 = new Kise.IdCard.UI.IdCardControl();
+            this.xtraTabPageIdReader = new DevExpress.XtraTab.XtraTabPage();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemMarqueeProgressBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemProgressBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.clientPanel)).BeginInit();
             this.clientPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.image.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.xpCollection1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl1)).BeginInit();
+            this.xtraTabControl1.SuspendLayout();
+            this.xtraTabPageManualQuery.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
+            this.panelControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.buttonEdit1.Properties)).BeginInit();
+            this.xtraTabPageIdReader.SuspendLayout();
             this.SuspendLayout();
             // 
             // ribbon
             // 
             this.ribbon.ApplicationButtonText = null;
             this.ribbon.ApplicationIcon = ((System.Drawing.Bitmap)(resources.GetObject("ribbon.ApplicationIcon")));
-            // 
-            // 
-            // 
             this.ribbon.ExpandCollapseItem.Id = 0;
             this.ribbon.ExpandCollapseItem.Name = "";
             this.ribbon.Items.AddRange(new DevExpress.XtraBars.BarItem[] {
@@ -82,17 +86,17 @@
             this.statusLabel,
             this.startButton,
             this.stopButton,
-            this.databaseQuery});
+            this.databaseQuery,
+            this.barCheckItemManulQuery});
             this.ribbon.Location = new System.Drawing.Point(0, 0);
-            this.ribbon.MaxItemId = 13;
+            this.ribbon.MaxItemId = 16;
             this.ribbon.Name = "ribbon";
             this.ribbon.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage1});
             this.ribbon.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemProgressBar1,
             this.repositoryItemMarqueeProgressBar1});
-            this.ribbon.SelectedPage = this.ribbonPage1;
-            this.ribbon.Size = new System.Drawing.Size(681, 149);
+            this.ribbon.Size = new System.Drawing.Size(681, 147);
             this.ribbon.StatusBar = this.ribbonStatusBar;
             // 
             // buttonQuery
@@ -157,6 +161,14 @@
             this.databaseQuery.Name = "databaseQuery";
             this.databaseQuery.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.databaseQuery_ItemClick);
             // 
+            // barCheckItemManulQuery
+            // 
+            this.barCheckItemManulQuery.Caption = "手动查询";
+            this.barCheckItemManulQuery.Id = 15;
+            this.barCheckItemManulQuery.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("barCheckItemManulQuery.LargeGlyph")));
+            this.barCheckItemManulQuery.Name = "barCheckItemManulQuery";
+            this.barCheckItemManulQuery.DownChanged += new DevExpress.XtraBars.ItemClickEventHandler(this.barCheckItemManulQuery_DownChanged);
+            // 
             // ribbonPage1
             // 
             this.ribbonPage1.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
@@ -185,6 +197,7 @@
             this.ribbonPageGroup3.ItemLinks.Add(this.startButton);
             this.ribbonPageGroup3.ItemLinks.Add(this.stopButton);
             this.ribbonPageGroup3.ItemLinks.Add(this.databaseQuery);
+            this.ribbonPageGroup3.ItemLinks.Add(this.barCheckItemManulQuery);
             this.ribbonPageGroup3.Name = "ribbonPageGroup3";
             this.ribbonPageGroup3.ShowCaptionButton = false;
             this.ribbonPageGroup3.Text = "控制";
@@ -205,22 +218,24 @@
             // clientPanel
             // 
             this.clientPanel.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.clientPanel.ContentImage = ((System.Drawing.Image)(resources.GetObject("clientPanel.ContentImage")));
+            this.clientPanel.Controls.Add(this.idCardControl1);
             this.clientPanel.Controls.Add(this.resultLabel);
-            this.clientPanel.Controls.Add(this.image);
-            this.clientPanel.Controls.Add(this.idCardNo);
-            this.clientPanel.Controls.Add(this.address);
-            this.clientPanel.Controls.Add(this.day);
-            this.clientPanel.Controls.Add(this.month);
-            this.clientPanel.Controls.Add(this.year);
-            this.clientPanel.Controls.Add(this.minority);
-            this.clientPanel.Controls.Add(this.sex);
-            this.clientPanel.Controls.Add(this.name);
             this.clientPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.clientPanel.Location = new System.Drawing.Point(0, 149);
+            this.clientPanel.Location = new System.Drawing.Point(0, 0);
             this.clientPanel.Name = "clientPanel";
-            this.clientPanel.Size = new System.Drawing.Size(681, 391);
+            this.clientPanel.Size = new System.Drawing.Size(675, 387);
             this.clientPanel.TabIndex = 2;
+            // 
+            // idCardControl1
+            // 
+            this.idCardControl1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.idCardControl1.BirthDayFormat = "{0} 年 {1} 月 {2} 日";
+            this.idCardControl1.IdCardInfo = null;
+            this.idCardControl1.Location = new System.Drawing.Point(79, 36);
+            this.idCardControl1.MinorityDictionary = null;
+            this.idCardControl1.Name = "idCardControl1";
+            this.idCardControl1.Size = new System.Drawing.Size(531, 323);
+            this.idCardControl1.TabIndex = 11;
             // 
             // resultLabel
             // 
@@ -235,99 +250,78 @@
             this.resultLabel.Text = "labelControl1";
             this.resultLabel.Visible = false;
             // 
-            // image
-            // 
-            this.image.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.image.Location = new System.Drawing.Point(427, 58);
-            this.image.MenuManager = this.ribbon;
-            this.image.Name = "image";
-            this.image.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Office2003;
-            this.image.Size = new System.Drawing.Size(133, 142);
-            this.image.TabIndex = 8;
-            // 
-            // idCardNo
-            // 
-            this.idCardNo.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.idCardNo.Appearance.Font = new System.Drawing.Font("SimHei", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.idCardNo.Location = new System.Drawing.Point(252, 297);
-            this.idCardNo.Name = "idCardNo";
-            this.idCardNo.Size = new System.Drawing.Size(0, 19);
-            this.idCardNo.TabIndex = 7;
-            // 
-            // address
-            // 
-            this.address.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.address.Appearance.Font = new System.Drawing.Font("SimHei", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.address.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.Vertical;
-            this.address.Location = new System.Drawing.Point(182, 202);
-            this.address.Name = "address";
-            this.address.Size = new System.Drawing.Size(224, 0);
-            this.address.TabIndex = 6;
-            // 
-            // day
-            // 
-            this.day.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.day.Appearance.Font = new System.Drawing.Font("SimHei", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.day.Location = new System.Drawing.Point(316, 160);
-            this.day.Name = "day";
-            this.day.Size = new System.Drawing.Size(0, 19);
-            this.day.TabIndex = 5;
-            // 
-            // month
-            // 
-            this.month.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.month.Appearance.Font = new System.Drawing.Font("SimHei", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.month.Location = new System.Drawing.Point(269, 160);
-            this.month.Name = "month";
-            this.month.Size = new System.Drawing.Size(0, 19);
-            this.month.TabIndex = 4;
-            // 
-            // year
-            // 
-            this.year.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.year.Appearance.Font = new System.Drawing.Font("SimHei", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.year.Location = new System.Drawing.Point(182, 160);
-            this.year.Name = "year";
-            this.year.Size = new System.Drawing.Size(0, 19);
-            this.year.TabIndex = 3;
-            // 
-            // minority
-            // 
-            this.minority.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.minority.Appearance.Font = new System.Drawing.Font("SimHei", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.minority.Location = new System.Drawing.Point(293, 122);
-            this.minority.Name = "minority";
-            this.minority.Size = new System.Drawing.Size(0, 19);
-            this.minority.TabIndex = 2;
-            // 
-            // sex
-            // 
-            this.sex.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.sex.Appearance.Font = new System.Drawing.Font("SimHei", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.sex.Location = new System.Drawing.Point(182, 122);
-            this.sex.Name = "sex";
-            this.sex.Size = new System.Drawing.Size(0, 19);
-            this.sex.TabIndex = 1;
-            // 
-            // name
-            // 
-            this.name.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.name.Appearance.Font = new System.Drawing.Font("SimHei", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.name.Location = new System.Drawing.Point(182, 83);
-            this.name.Name = "name";
-            this.name.Size = new System.Drawing.Size(0, 19);
-            this.name.TabIndex = 0;
-            // 
             // xpCollection1
             // 
             this.xpCollection1.ObjectType = typeof(Kise.IdCard.Model.IdCardInfo);
+            // 
+            // xtraTabControl1
+            // 
+            this.xtraTabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.xtraTabControl1.HeaderButtonsShowMode = DevExpress.XtraTab.TabButtonShowMode.Never;
+            this.xtraTabControl1.Location = new System.Drawing.Point(0, 147);
+            this.xtraTabControl1.Name = "xtraTabControl1";
+            this.xtraTabControl1.SelectedTabPage = this.xtraTabPageManualQuery;
+            this.xtraTabControl1.ShowTabHeader = DevExpress.Utils.DefaultBoolean.False;
+            this.xtraTabControl1.Size = new System.Drawing.Size(681, 393);
+            this.xtraTabControl1.TabIndex = 5;
+            this.xtraTabControl1.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
+            this.xtraTabPageIdReader,
+            this.xtraTabPageManualQuery});
+            // 
+            // xtraTabPageManualQuery
+            // 
+            this.xtraTabPageManualQuery.Controls.Add(this.panelControl1);
+            this.xtraTabPageManualQuery.Name = "xtraTabPageManualQuery";
+            this.xtraTabPageManualQuery.Size = new System.Drawing.Size(675, 387);
+            this.xtraTabPageManualQuery.Text = "xtraTabPage2";
+            // 
+            // panelControl1
+            // 
+            this.panelControl1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl1.Controls.Add(this.buttonEdit1);
+            this.panelControl1.Controls.Add(this.idCardControl2);
+            this.panelControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelControl1.Location = new System.Drawing.Point(0, 0);
+            this.panelControl1.Name = "panelControl1";
+            this.panelControl1.Size = new System.Drawing.Size(675, 387);
+            this.panelControl1.TabIndex = 3;
+            // 
+            // buttonEdit1
+            // 
+            this.buttonEdit1.Location = new System.Drawing.Point(11, 5);
+            this.buttonEdit1.MenuManager = this.ribbon;
+            this.buttonEdit1.Name = "buttonEdit1";
+            this.buttonEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "查询", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, ((System.Drawing.Image)(resources.GetObject("buttonEdit1.Properties.Buttons"))), new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject1, "", null, null, true)});
+            this.buttonEdit1.Properties.NullText = "输入身份证号码";
+            this.buttonEdit1.Size = new System.Drawing.Size(657, 22);
+            this.buttonEdit1.TabIndex = 12;
+            this.buttonEdit1.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.buttonEdit1_ButtonClick);
+            // 
+            // idCardControl2
+            // 
+            this.idCardControl2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.idCardControl2.BirthDayFormat = "{0} 年 {1} 月 {2} 日";
+            this.idCardControl2.IdCardInfo = null;
+            this.idCardControl2.Location = new System.Drawing.Point(79, 36);
+            this.idCardControl2.MinorityDictionary = null;
+            this.idCardControl2.Name = "idCardControl2";
+            this.idCardControl2.Size = new System.Drawing.Size(531, 323);
+            this.idCardControl2.TabIndex = 11;
+            // 
+            // xtraTabPageIdReader
+            // 
+            this.xtraTabPageIdReader.Controls.Add(this.clientPanel);
+            this.xtraTabPageIdReader.Name = "xtraTabPageIdReader";
+            this.xtraTabPageIdReader.Size = new System.Drawing.Size(675, 387);
+            this.xtraTabPageIdReader.Text = "xtraTabPage1";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(681, 571);
-            this.Controls.Add(this.clientPanel);
+            this.Controls.Add(this.xtraTabControl1);
             this.Controls.Add(this.ribbonStatusBar);
             this.Controls.Add(this.ribbon);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -342,9 +336,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemProgressBar1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.clientPanel)).EndInit();
             this.clientPanel.ResumeLayout(false);
-            this.clientPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.image.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.xpCollection1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl1)).EndInit();
+            this.xtraTabControl1.ResumeLayout(false);
+            this.xtraTabPageManualQuery.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
+            this.panelControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.buttonEdit1.Properties)).EndInit();
+            this.xtraTabPageIdReader.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -368,15 +367,14 @@
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup2;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup3;
         private DevExpress.XtraBars.BarButtonItem databaseQuery;
-        private DevExpress.XtraEditors.PictureEdit image;
-        private DevExpress.XtraEditors.LabelControl idCardNo;
-        private DevExpress.XtraEditors.LabelControl address;
-        private DevExpress.XtraEditors.LabelControl day;
-        private DevExpress.XtraEditors.LabelControl month;
-        private DevExpress.XtraEditors.LabelControl year;
-        private DevExpress.XtraEditors.LabelControl minority;
-        private DevExpress.XtraEditors.LabelControl sex;
-        private DevExpress.XtraEditors.LabelControl name;
         private DevExpress.XtraEditors.LabelControl resultLabel;
+        private IdCardControl idCardControl1;
+        private DevExpress.XtraTab.XtraTabControl xtraTabControl1;
+        private DevExpress.XtraTab.XtraTabPage xtraTabPageIdReader;
+        private DevExpress.XtraTab.XtraTabPage xtraTabPageManualQuery;
+        private DevExpress.XtraEditors.PanelControl panelControl1;
+        private IdCardControl idCardControl2;
+        private DevExpress.XtraBars.BarCheckItem barCheckItemManulQuery;
+        private DevExpress.XtraEditors.ButtonEdit buttonEdit1;
     }
 }

@@ -30,9 +30,7 @@ namespace Kise.IdCard.QueryServer.UI.Service
         {
             LogEnter(queryString);
 
-            var replyResult = new QueryResult();
-
-            DoQuery(queryString, replyResult);
+            var replyResult = DoQuery(queryString);
             var replyString = FormatReplyString(replyResult, queryString);
 
             LogExit(replyString);
@@ -40,16 +38,16 @@ namespace Kise.IdCard.QueryServer.UI.Service
             return replyString;
         }
 
-        private void DoQuery(string queryString, QueryResult replyResult)
+        private QueryResult DoQuery(string queryString)
         {
+            var replyResult = new QueryResult();
+
             try
             {
                 var idQueryString = string.Format("sfzh='{0}'", queryString);
                 var queryResult = _provider.QueryIdCard(idQueryString);
                 var normalIdInfo = Helper.Parse(queryResult.NormalResult);
                 var suspectIdInfo = Helper.Parse(queryResult.SuspectResult);
-
-
 
                 replyResult.ErrorCode = 0;
                 if (normalIdInfo.Length > 0)
@@ -63,6 +61,8 @@ namespace Kise.IdCard.QueryServer.UI.Service
             {
                 replyResult.ErrorCode = 1;
             }
+
+            return replyResult;
         }
 
         private static void LogExit(string replyString)
@@ -90,7 +90,23 @@ namespace Kise.IdCard.QueryServer.UI.Service
 
         public IdCardInfo QueryByIdNumber(string idNumber)
         {
-            throw new NotImplementedException();
+            LogEnter(idNumber);
+            var qr = DoQuery(idNumber);
+
+            var result = new IdCardInfo();
+            result.Address = qr.IdInfo.Address;
+            result.BirthDay = qr.IdInfo.BornDate;
+            result.Icon = Convert.ToBase64String(qr.IdInfo.PhotoData);
+            result.IdNumber = qr.IdInfo.IdCardNo;
+            result.IsWanted = qr.IsSuspect;
+            result.IssueDate = qr.IdInfo.ValidateFrom;
+            result.IssueDepartment = qr.IdInfo.GrantDept;
+            result.Minority = qr.IdInfo.MinorityCode;
+            result.Name = qr.IdInfo.Name;
+            result.Sex = qr.IdInfo.SexCode;
+            result.ValidateUntil = qr.IdInfo.ValidateUntil;
+            LogExit(idNumber);
+            return result;
         }
 
 

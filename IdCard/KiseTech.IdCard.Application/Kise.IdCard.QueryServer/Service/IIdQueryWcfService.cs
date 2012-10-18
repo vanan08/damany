@@ -23,16 +23,19 @@ namespace Kise.IdCard.QueryServer.UI.Service
     public class IdCardInfo
     {
         [DataMember]
+        public string IdNumber { get; set; }
+
+        [DataMember]
         public string Name { get; set; }
 
         [DataMember]
-        public string Sex { get; set; }
+        public int? Sex { get; set; }
 
         [DataMember]
-        public string Minority { get; set; }
+        public int? Minority { get; set; }
 
         [DataMember]
-        public DateTime BirthDay { get; set; }
+        public DateTime? BirthDay { get; set; }
 
         [DataMember]
         public string Address { get; set; }
@@ -41,12 +44,15 @@ namespace Kise.IdCard.QueryServer.UI.Service
         public string IssueDepartment { get; set; }
 
         [DataMember]
-        public DateTime IssueDate { get; set; }
+        public DateTime? IssueDate { get; set; }
 
         [DataMember]
-        public int ValidYears { get; set; }
+        public DateTime? ValidateUntil { get; set; }
 
         [DataMember]
         public string Icon { get; set; }
+
+        [DataMember]
+        public bool IsWanted { get; set; }
     }
 }

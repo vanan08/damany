@@ -110,7 +110,6 @@ namespace Kise.IdCard.Infrastructure.Test
             fl.DelayInMs = 30000;
 
             var qs = GetQs(fl);
-            qs.TimeOutInSeconds = 2;
 
             var ep = new IPEndPoint(IPAddress.Loopback, 10000);
             var reply = qs.QueryAsync("").Result;

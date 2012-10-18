@@ -128,32 +128,32 @@ namespace Kise.IdCard.UI
 
                     resultLabel.Visible = false;
 
-                    this.name.Text = _idCardInfo.Name;
+                    this.idCardControl1.name.Text = _idCardInfo.Name;
 
                     if (_idCardInfo.SexCode.HasValue)
                     {
-                        this.sex.Text = Model.Helper.GetSexName(_idCardInfo.SexCode.Value);
+                        this.idCardControl1.sex.Text = Model.Helper.GetSexName(_idCardInfo.SexCode.Value);
                     }
 
                     if (_idCardInfo.MinorityCode.HasValue)
                     {
-                        this.minority.Text = MinorityDictionary[_idCardInfo.MinorityCode.Value];
+                        this.idCardControl1.minority.Text = MinorityDictionary[_idCardInfo.MinorityCode.Value];
                     }
 
                     if (_idCardInfo.BornDate.HasValue)
                     {
-                        this.year.Text = _idCardInfo.BornDate.Value.Year.ToString();
-                        this.month.Text = _idCardInfo.BornDate.Value.Month.ToString();
-                        this.day.Text = _idCardInfo.BornDate.Value.Day.ToString();
+                        this.idCardControl1.year.Text = _idCardInfo.BornDate.Value.Year.ToString();
+                        this.idCardControl1.month.Text = _idCardInfo.BornDate.Value.Month.ToString();
+                        this.idCardControl1.day.Text = _idCardInfo.BornDate.Value.Day.ToString();
                     }
-                    this.address.Text = _idCardInfo.Address;
+                    this.idCardControl1.address.Text = _idCardInfo.Address;
                     //this.issuedBy.Text = _idCardInfo.GrantDept;
                     //this.expiry.Text = FormatDate(_idCardInfo.ValidateFrom) + " — " + FormatDate(_idCardInfo.ValidateUntil);
-                    this.idCardNo.Text = _idCardInfo.IdCardNo;
+                    this.idCardControl1.idCardNo.Text = _idCardInfo.IdCardNo;
 
                     SetColor();
 
-                    this.image.Image = Image.FromStream(new System.IO.MemoryStream(_idCardInfo.PhotoData));
+                    this.idCardControl1.image.Image = Image.FromStream(new System.IO.MemoryStream(_idCardInfo.PhotoData));
 
                     var inpc = (INotifyPropertyChanged)_idCardInfo;
                     inpc.PropertyChanged += new PropertyChangedEventHandler(inpc_PropertyChanged);
@@ -312,6 +312,17 @@ namespace Kise.IdCard.UI
         private void SetColor()
         {
             //var isNormal = _idCardInfo.IdStatus == Kise.IdCard.Model.IdStatus.UnKnown || _idCardInfo.IdStatus == Kise.IdCard.Model.IdStatus.Normal;
+        }
+
+        private void barCheckItemManulQuery_DownChanged(object sender, ItemClickEventArgs e)
+        {
+            var selectedTab = barCheckItemManulQuery.Down ? xtraTabPageManualQuery : xtraTabPageIdReader;
+            xtraTabControl1.SelectedTabPage = selectedTab;
+        }
+
+        private void buttonEdit1_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
+        {
+            
         }
 
     }
