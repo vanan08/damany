@@ -54,5 +54,8 @@ namespace Kise.IdCard.QueryServer.UI.Service
 
         [DataMember]
         public bool IsWanted { get; set; }
+
+        [DataMember]
+        public int ErrorCode { get; set; }
     }
 }

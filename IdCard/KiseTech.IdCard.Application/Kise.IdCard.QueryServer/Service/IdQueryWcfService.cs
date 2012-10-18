@@ -94,17 +94,25 @@ namespace Kise.IdCard.QueryServer.UI.Service
             var qr = DoQuery(idNumber);
 
             var result = new IdCardInfo();
-            result.Address = qr.IdInfo.Address;
-            result.BirthDay = qr.IdInfo.BornDate;
-            result.Icon = Convert.ToBase64String(qr.IdInfo.PhotoData);
-            result.IdNumber = qr.IdInfo.IdCardNo;
-            result.IsWanted = qr.IsSuspect;
-            result.IssueDate = qr.IdInfo.ValidateFrom;
-            result.IssueDepartment = qr.IdInfo.GrantDept;
-            result.Minority = qr.IdInfo.MinorityCode;
-            result.Name = qr.IdInfo.Name;
-            result.Sex = qr.IdInfo.SexCode;
-            result.ValidateUntil = qr.IdInfo.ValidateUntil;
+            result.ErrorCode = qr.ErrorCode;
+            if (qr.ErrorCode == 0)
+            {
+                result.Address = qr.IdInfo.Address;
+                result.BirthDay = qr.IdInfo.BornDate;
+                if (qr.IdInfo.PhotoData != null)
+                {
+                    result.Icon = Convert.ToBase64String(qr.IdInfo.PhotoData);
+                }
+                result.IdNumber = qr.IdInfo.IdCardNo;
+                result.IsWanted = qr.IsSuspect;
+                result.IssueDate = qr.IdInfo.ValidateFrom;
+                result.IssueDepartment = qr.IdInfo.GrantDept;
+                result.Minority = qr.IdInfo.MinorityCode;
+                result.Name = qr.IdInfo.Name;
+                result.Sex = qr.IdInfo.SexCode;
+                result.ValidateUntil = qr.IdInfo.ValidateUntil;
+            }
+            
             LogExit(idNumber);
             return result;
         }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Net;
 using System.Text;
 using System.Windows.Forms;
@@ -184,10 +185,6 @@ namespace Kise.IdCard.UI
 
             IIdCardReader cardReader = null;
 
-           
-           
-            
-
             if (Program.IsDebug)
             {
                 cardReader = new FakeIdCardReader();
@@ -320,9 +317,44 @@ namespace Kise.IdCard.UI
             xtraTabControl1.SelectedTabPage = selectedTab;
         }
 
-        private void buttonEdit1_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
+        private async void buttonEdit1_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
         {
-            
+            try
+            {
+                buttonEdit1.Enabled = false;
+                var queryClient = new QueryService();
+                var result = await queryClient.QueryByIdNumberAsync((string)buttonEdit1.EditValue);
+
+                if (result.ErrorCode == 0)
+                {
+                    if (!string.IsNullOrEmpty(result.Icon))
+                {
+                    var imgData = Convert.FromBase64String(result.Icon);
+                    var img = Image.FromStream(new MemoryStream(imgData));
+                    idCardControl2.image.Image = img;
+                }
+
+                    var msg = string.Format("{0} {1} {2}", result.Name, result.BirthDay, result.IssueDepartment);
+                    MessageBox.Show(msg);
+                }
+                else
+                {
+                    MessageBox.Show("Error: " + result.ErrorCode);
+
+                }
+
+                
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                buttonEdit1.Enabled = true;
+            }
         }
 
     }

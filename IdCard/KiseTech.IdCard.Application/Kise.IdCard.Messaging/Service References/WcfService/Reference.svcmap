@@ -21,6 +21,7 @@
     <MetadataSource Address="http://localhost:8733/Design_Time_Addresses/Kise.IdCard.QueryServer.UI.Service/IdQueryWcfService/?wsdl" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
+    <MetadataFile FileName="item2.xsd" MetadataType="Schema" ID="d4c0505c-88a0-4260-8ac3-e30e352642bd" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/Kise.IdCard.QueryServer.UI.Service/IdQueryWcfService/?xsd=xsd2" />
     <MetadataFile FileName="IdQueryWcfService.wsdl" MetadataType="Wsdl" ID="92f115dd-4ce1-40fe-ab8b-503e1841c493" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/Kise.IdCard.QueryServer.UI.Service/IdQueryWcfService/?wsdl" />
     <MetadataFile FileName="item.xsd" MetadataType="Schema" ID="2ed29e2b-d477-4c5e-8a3a-bf50d944f251" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/Kise.IdCard.QueryServer.UI.Service/IdQueryWcfService/?xsd=xsd0" />
     <MetadataFile FileName="item1.xsd" MetadataType="Schema" ID="17cd8ca8-7733-4ad7-8e3a-6230a5c0243d" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/Kise.IdCard.QueryServer.UI.Service/IdQueryWcfService/?xsd=xsd1" />
