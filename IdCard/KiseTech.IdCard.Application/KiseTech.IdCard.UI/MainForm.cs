@@ -417,7 +417,7 @@ namespace Kise.IdCard.UI
 
         private void buttonEditManualQuery_MouseEnter(object sender, EventArgs e)
         {
-            buttonEditManualQuery.SelectAll();
+            //buttonEditManualQuery.SelectAll();
         }
     }
 } 
