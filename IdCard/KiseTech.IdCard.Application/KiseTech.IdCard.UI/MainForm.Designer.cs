@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject1 = new DevExpress.Utils.SerializableAppearanceObject();
             this.ribbon = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.buttonQuery = new DevExpress.XtraBars.BarButtonItem();
             this.settingsButton = new DevExpress.XtraBars.BarButtonItem();
@@ -48,13 +49,14 @@
             this.xpCollection1 = new DevExpress.Xpo.XPCollection();
             this.idCardControlRight = new Kise.IdCard.UI.IdCardControl();
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
+            this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
             this.buttonEditManualQuery = new DevExpress.XtraEditors.ButtonEdit();
             this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.simpleSeparator1 = new DevExpress.XtraLayout.SimpleSeparator();
             this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemMarqueeProgressBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemProgressBar1)).BeginInit();
@@ -65,9 +67,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.simpleSeparator1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
             this.SuspendLayout();
             // 
             // ribbon
@@ -211,11 +213,11 @@
             this.idCardControlLeft.BirthDayFormat = "{0} 年 {1} 月 {2} 日";
             this.idCardControlLeft.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.idCardControlLeft.IsSuspect = false;
-            this.idCardControlLeft.Location = new System.Drawing.Point(12, 42);
+            this.idCardControlLeft.Location = new System.Drawing.Point(12, 40);
             this.idCardControlLeft.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.idCardControlLeft.MinorityDictionary = null;
             this.idCardControlLeft.Name = "idCardControlLeft";
-            this.idCardControlLeft.Size = new System.Drawing.Size(567, 429);
+            this.idCardControlLeft.Size = new System.Drawing.Size(567, 431);
             this.idCardControlLeft.TabIndex = 11;
             // 
             // xpCollection1
@@ -229,38 +231,57 @@
             this.idCardControlRight.BirthDayFormat = "{0} 年 {1} 月 {2} 日";
             this.idCardControlRight.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.idCardControlRight.IsSuspect = false;
-            this.idCardControlRight.Location = new System.Drawing.Point(583, 42);
+            this.idCardControlRight.Location = new System.Drawing.Point(583, 40);
             this.idCardControlRight.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.idCardControlRight.MinorityDictionary = null;
             this.idCardControlRight.Name = "idCardControlRight";
-            this.idCardControlRight.Size = new System.Drawing.Size(569, 429);
+            this.idCardControlRight.Size = new System.Drawing.Size(569, 431);
             this.idCardControlRight.TabIndex = 11;
             // 
             // layoutControl1
             // 
+            this.layoutControl1.Controls.Add(this.labelControl1);
             this.layoutControl1.Controls.Add(this.buttonEditManualQuery);
             this.layoutControl1.Controls.Add(this.idCardControlRight);
             this.layoutControl1.Controls.Add(this.idCardControlLeft);
             this.layoutControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.layoutControl1.Location = new System.Drawing.Point(0, 164);
             this.layoutControl1.Name = "layoutControl1";
-            this.layoutControl1.OptionsCustomizationForm.DesignTimeCustomizationFormPositionAndSize = new System.Drawing.Rectangle(757, 506, 395, 457);
+            this.layoutControl1.OptionsCustomizationForm.DesignTimeCustomizationFormPositionAndSize = new System.Drawing.Rectangle(756, 536, 395, 457);
             this.layoutControl1.Root = this.layoutControlGroup1;
             this.layoutControl1.Size = new System.Drawing.Size(1164, 483);
             this.layoutControl1.TabIndex = 23;
             this.layoutControl1.Text = "layoutControl1";
             // 
+            // labelControl1
+            // 
+            this.labelControl1.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.labelControl1.Appearance.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.labelControl1.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
+            this.labelControl1.Location = new System.Drawing.Point(12, 12);
+            this.labelControl1.Name = "labelControl1";
+            this.labelControl1.Size = new System.Drawing.Size(569, 18);
+            this.labelControl1.StyleController = this.layoutControl1;
+            this.labelControl1.TabIndex = 13;
+            this.labelControl1.Text = "现场数据采集结果";
+            // 
             // buttonEditManualQuery
             // 
-            this.buttonEditManualQuery.Location = new System.Drawing.Point(677, 14);
+            this.buttonEditManualQuery.Location = new System.Drawing.Point(916, 12);
             this.buttonEditManualQuery.MenuManager = this.ribbon;
             this.buttonEditManualQuery.Name = "buttonEditManualQuery";
             this.buttonEditManualQuery.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.buttonEditManualQuery.Size = new System.Drawing.Size(475, 24);
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, ((System.Drawing.Image)(resources.GetObject("buttonEditManualQuery.Properties.Buttons"))), new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject1, "", null, null, true)});
+            this.buttonEditManualQuery.Properties.NullText = "输入身份证号码手动查询";
+            this.buttonEditManualQuery.Size = new System.Drawing.Size(236, 24);
             this.buttonEditManualQuery.StyleController = this.layoutControl1;
             this.buttonEditManualQuery.TabIndex = 12;
             this.buttonEditManualQuery.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.buttonEdit1_ButtonClick);
+            this.buttonEditManualQuery.Enter += new System.EventHandler(this.buttonEditManualQuery_Enter);
+            this.buttonEditManualQuery.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.buttonEditManualQuery_KeyPress);
+            this.buttonEditManualQuery.KeyUp += new System.Windows.Forms.KeyEventHandler(this.buttonEditManualQuery_KeyUp);
+            this.buttonEditManualQuery.MouseEnter += new System.EventHandler(this.buttonEditManualQuery_MouseEnter);
+            this.buttonEditManualQuery.MouseUp += new System.Windows.Forms.MouseEventHandler(this.buttonEditManualQuery_MouseUp);
             // 
             // layoutControlGroup1
             // 
@@ -270,9 +291,9 @@
             this.layoutControlGroup1.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlItem1,
             this.layoutControlItem2,
-            this.simpleSeparator1,
             this.layoutControlItem3,
-            this.emptySpaceItem1});
+            this.emptySpaceItem1,
+            this.layoutControlItem4});
             this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup1.Name = "Root";
             this.layoutControlGroup1.Size = new System.Drawing.Size(1164, 483);
@@ -283,12 +304,13 @@
             // 
             this.layoutControlItem1.Control = this.idCardControlLeft;
             this.layoutControlItem1.CustomizationFormText = "layoutControlItem1";
-            this.layoutControlItem1.Location = new System.Drawing.Point(0, 30);
+            this.layoutControlItem1.Location = new System.Drawing.Point(0, 28);
             this.layoutControlItem1.MinSize = new System.Drawing.Size(104, 24);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(571, 433);
+            this.layoutControlItem1.Size = new System.Drawing.Size(571, 435);
             this.layoutControlItem1.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.layoutControlItem1.Text = "layoutControlItem1";
+            this.layoutControlItem1.TextLocation = DevExpress.Utils.Locations.Top;
             this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem1.TextToControlDistance = 0;
             this.layoutControlItem1.TextVisible = false;
@@ -297,44 +319,49 @@
             // 
             this.layoutControlItem2.Control = this.idCardControlRight;
             this.layoutControlItem2.CustomizationFormText = "layoutControlItem2";
-            this.layoutControlItem2.Location = new System.Drawing.Point(571, 30);
+            this.layoutControlItem2.Location = new System.Drawing.Point(571, 28);
             this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(573, 433);
+            this.layoutControlItem2.Size = new System.Drawing.Size(573, 435);
             this.layoutControlItem2.Text = "layoutControlItem2";
             this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem2.TextToControlDistance = 0;
             this.layoutControlItem2.TextVisible = false;
             // 
-            // simpleSeparator1
-            // 
-            this.simpleSeparator1.AllowHotTrack = false;
-            this.simpleSeparator1.CustomizationFormText = "simpleSeparator1";
-            this.simpleSeparator1.Location = new System.Drawing.Point(665, 0);
-            this.simpleSeparator1.Name = "simpleSeparator1";
-            this.simpleSeparator1.Size = new System.Drawing.Size(479, 2);
-            this.simpleSeparator1.Text = "simpleSeparator1";
-            // 
             // layoutControlItem3
             // 
             this.layoutControlItem3.Control = this.buttonEditManualQuery;
             this.layoutControlItem3.CustomizationFormText = "layoutControlItem3";
-            this.layoutControlItem3.Location = new System.Drawing.Point(665, 2);
+            this.layoutControlItem3.Location = new System.Drawing.Point(796, 0);
             this.layoutControlItem3.Name = "layoutControlItem3";
-            this.layoutControlItem3.Size = new System.Drawing.Size(479, 28);
-            this.layoutControlItem3.Text = "layoutControlItem3";
-            this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
-            this.layoutControlItem3.TextToControlDistance = 0;
-            this.layoutControlItem3.TextVisible = false;
+            this.layoutControlItem3.Size = new System.Drawing.Size(348, 28);
+            this.layoutControlItem3.Text = "数据库查询结果";
+            this.layoutControlItem3.TextSize = new System.Drawing.Size(105, 18);
             // 
             // emptySpaceItem1
             // 
             this.emptySpaceItem1.AllowHotTrack = false;
             this.emptySpaceItem1.CustomizationFormText = "emptySpaceItem1";
-            this.emptySpaceItem1.Location = new System.Drawing.Point(0, 0);
+            this.emptySpaceItem1.Location = new System.Drawing.Point(573, 0);
             this.emptySpaceItem1.Name = "emptySpaceItem1";
-            this.emptySpaceItem1.Size = new System.Drawing.Size(665, 30);
+            this.emptySpaceItem1.Size = new System.Drawing.Size(223, 28);
             this.emptySpaceItem1.Text = "emptySpaceItem1";
             this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
+            // 
+            // layoutControlItem4
+            // 
+            this.layoutControlItem4.AppearanceItemCaption.Options.UseTextOptions = true;
+            this.layoutControlItem4.AppearanceItemCaption.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.layoutControlItem4.Control = this.labelControl1;
+            this.layoutControlItem4.ControlAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            this.layoutControlItem4.CustomizationFormText = "layoutControlItem4";
+            this.layoutControlItem4.Location = new System.Drawing.Point(0, 0);
+            this.layoutControlItem4.Name = "layoutControlItem4";
+            this.layoutControlItem4.Size = new System.Drawing.Size(573, 28);
+            this.layoutControlItem4.Text = "layoutControlItem4";
+            this.layoutControlItem4.TextAlignMode = DevExpress.XtraLayout.TextAlignModeItem.CustomSize;
+            this.layoutControlItem4.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem4.TextToControlDistance = 0;
+            this.layoutControlItem4.TextVisible = false;
             // 
             // MainForm
             // 
@@ -361,9 +388,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.simpleSeparator1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -392,9 +419,10 @@
         private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup1;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem2;
-        private DevExpress.XtraLayout.SimpleSeparator simpleSeparator1;
         private DevExpress.XtraEditors.ButtonEdit buttonEditManualQuery;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem3;
+        private DevExpress.XtraEditors.LabelControl labelControl1;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem1;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem4;
     }
 }

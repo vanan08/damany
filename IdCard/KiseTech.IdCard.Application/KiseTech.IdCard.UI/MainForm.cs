@@ -298,6 +298,12 @@ namespace Kise.IdCard.UI
             databaseQuery.Enabled = false;
             buttonEditManualQuery.Enabled = false;
 
+            if (string.IsNullOrEmpty(idNo))
+            {
+                MessageBox.Show("请输入有效身份证号码");
+                return;
+            }
+
             try
             {
                 var queryClient = new QueryService();
@@ -383,6 +389,35 @@ namespace Kise.IdCard.UI
             }
 
             return result;
+        }
+
+        private void buttonEditManualQuery_Enter(object sender, EventArgs e)
+        {
+            buttonEditManualQuery.SelectAll();
+        }
+
+        private void buttonEditManualQuery_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            
+        }
+
+        private async void buttonEditManualQuery_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                await QueryIdCardFromUi((string)buttonEditManualQuery.EditValue);
+            }
+        }
+
+        private void buttonEditManualQuery_MouseUp(object sender, MouseEventArgs e)
+        {
+           // buttonEditManualQuery.SelectAll();
+
+        }
+
+        private void buttonEditManualQuery_MouseEnter(object sender, EventArgs e)
+        {
+            buttonEditManualQuery.SelectAll();
         }
     }
 } 

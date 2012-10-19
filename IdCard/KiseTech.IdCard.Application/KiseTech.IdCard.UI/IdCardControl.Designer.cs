@@ -52,6 +52,7 @@
             // 
             // image
             // 
+            this.image.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.image.Location = new System.Drawing.Point(395, 18);
             this.image.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.image.Name = "image";
@@ -242,6 +243,7 @@
             // 
             // labelControlSuspectTip
             // 
+            this.labelControlSuspectTip.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelControlSuspectTip.Appearance.Font = new System.Drawing.Font("Tahoma", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelControlSuspectTip.Appearance.ForeColor = System.Drawing.Color.Red;
             this.labelControlSuspectTip.Location = new System.Drawing.Point(422, 226);
@@ -275,6 +277,7 @@
             this.Controls.Add(this.minority);
             this.Controls.Add(this.sex);
             this.Controls.Add(this.name);
+            this.DoubleBuffered = true;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "IdCardControl";
             this.Size = new System.Drawing.Size(589, 327);

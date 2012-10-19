@@ -443,6 +443,20 @@
   <metadata name="xpCollection1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <data name="buttonEditManualQuery.Properties.Buttons" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAgtJREFUOE9j
+        QAZMjIxcZmZmPt7e3immpqauTExMrFApwsDV1TV9/pIl7zfv2vVj+549Pzdu3/5rzvz5L+3s7IKgSnAD
+        VxeX7A179729/+HjrU+/fr/4/ufv20+//7y48+btnXU7dn4wNzPzhyrFCvg27dj57NyLVztvvXt/6OHH
+        T6cff/p87u77D8cuv3678/DDx1sWLl12G6iOGaIcDRgYGITuu3jpxLkXr+eef/56wdkXrxYcffJs+pHH
+        z6YdfPR08r5HT/v3nDl3UUJc3ByqBRU4OznlbT93Yc3J5y+bTzx70bL7weOKPQ8el8PxwydlO8+c26am
+        qhoA1YIK1NXU/PeeObvl+LOXmYcfPUsDakrY+/AJHO9++CR+98lTh3h5eAyhWjAA75q1667vvnUn/MCj
+        Z75AG72BGsEYyPZaf/5S1KTJk04C1bFAlGMBysrKEUdOnT67++Zt7133H5kBvWG26/5js62XrvofPHbs
+        jo2NTQtQGTtENQ4gISEROHXq1EvHz184ePbGzZWHT5462tbaetLayrqnvLziv4WF5WWgMgGIatyAE5j6
+        jIH+9QGydYAYlBIFlJVVbnV0dP63srK+AuIDMclAVklJ+VZjU/N/c3ML8g1RVlG9VVZe+d/Q0IgCQ4De
+        yczK/q+rq0e+IfIKirejo2P/s7CwGEHFSAZSjIyMwKTNwAAA1HMAwCjiuFgAAAAASUVORK5CYII=
+</value>
+  </data>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>39</value>
   </metadata>
