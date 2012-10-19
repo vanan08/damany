@@ -47,7 +47,7 @@ namespace Kise.IdCard.Messaging
 
         }
 
-        public Task<Messaging.WcfService.IdCardInfo> QueryByIdNumberAsync(string idNumber)
+        public Task<Messaging.WcfService.IdQueryResult> QueryByIdNumberAsync(string idNumber)
         {
             return TaskEx.Run(() =>
                                   {

@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.Net;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using DevExpress.XtraBars;
 using Kise.IdCard.Application;
@@ -23,7 +24,7 @@ namespace Kise.IdCard.UI
         private IdService _idService;
 
         private Progress<ProgressIndicator> _progressReport;
-        private System.Drawing.Color _normalBkColor;
+        private static NLog.Logger _logger = NLog.LogManager.GetCurrentClassLogger();
 
         private bool _isQueryingId;
 
@@ -78,90 +79,75 @@ namespace Kise.IdCard.UI
 
         public void ShowQueryResult(IList<string> unmatchFields, bool isSuspect)
         {
-            Action doAction = () =>
-                                  {
-                                      var sb = new StringBuilder();
-                                      if (unmatchFields.Count > 0)
-                                      {
-                                          var m = string.Join(",", unmatchFields);
-                                          sb.Append(m).Append("与数据库不符");
-                                      }
-                                      if (isSuspect)
-                                      {
-                                          sb.Append("，").Append("网上追逃人员");
-                                      }
 
-                                      if (sb.Length == 0)
-                                      {
-                                          sb.Append("正常");
-                                      }
-
-                                      if (isSuspect)
-                                      {
-                                          this.resultLabel.BackColor = Color.Red;
-                                      }
-                                      else if (unmatchFields.Count > 0)
-                                      {
-                                          this.resultLabel.BackColor = Color.Orange;
-                                      }
-                                      else
-                                      {
-                                          this.resultLabel.BackColor = _normalBkColor;
-                                      }
-
-                                      this.resultLabel.Text = sb.ToString();
-                                      this.resultLabel.Visible = true;
-                                  };
-            this.BeginInvoke(doAction);
         }
 
 
-        private IdCardInfo _idCardInfo;
-        public IdCardInfo IdCardInfo
+        private IdCardInfo _idCardInfoLeft;
+        public IdCardInfo IdCardInfoLeft
         {
-            get { return _idCardInfo; }
+            get { return _idCardInfoLeft; }
             set
             {
                 if (value != null)
                 {
-                    _idCardInfo = value;
+                    _idCardInfoLeft = value;
 
+                    ShowIdCard(idCardControlLeft, value);
 
-                    resultLabel.Visible = false;
-
-                    this.idCardControl1.name.Text = _idCardInfo.Name;
-
-                    if (_idCardInfo.SexCode.HasValue)
-                    {
-                        this.idCardControl1.sex.Text = Model.Helper.GetSexName(_idCardInfo.SexCode.Value);
-                    }
-
-                    if (_idCardInfo.MinorityCode.HasValue)
-                    {
-                        this.idCardControl1.minority.Text = MinorityDictionary[_idCardInfo.MinorityCode.Value];
-                    }
-
-                    if (_idCardInfo.BornDate.HasValue)
-                    {
-                        this.idCardControl1.year.Text = _idCardInfo.BornDate.Value.Year.ToString();
-                        this.idCardControl1.month.Text = _idCardInfo.BornDate.Value.Month.ToString();
-                        this.idCardControl1.day.Text = _idCardInfo.BornDate.Value.Day.ToString();
-                    }
-                    this.idCardControl1.address.Text = _idCardInfo.Address;
-                    //this.issuedBy.Text = _idCardInfo.GrantDept;
-                    //this.expiry.Text = FormatDate(_idCardInfo.ValidateFrom) + " — " + FormatDate(_idCardInfo.ValidateUntil);
-                    this.idCardControl1.idCardNo.Text = _idCardInfo.IdCardNo;
-
-                    SetColor();
-
-                    this.idCardControl1.image.Image = Image.FromStream(new System.IO.MemoryStream(_idCardInfo.PhotoData));
-
-                    var inpc = (INotifyPropertyChanged)_idCardInfo;
+                    var inpc = (INotifyPropertyChanged)_idCardInfoLeft;
                     inpc.PropertyChanged += new PropertyChangedEventHandler(inpc_PropertyChanged);
 
                 }
-
             }
+        }
+
+        private IdCardInfo _idCardInfoRight;
+        public IdCardInfo IdCardInfoRight
+        {
+            get { return _idCardInfoRight; }
+            set
+            {
+                if (value != null)
+                {
+                    _idCardInfoRight = value;
+
+                    ShowIdCard(idCardControlRight, value);
+
+                    var inpc = (INotifyPropertyChanged)_idCardInfoRight;
+                    inpc.PropertyChanged += new PropertyChangedEventHandler(inpc_PropertyChanged);
+                }
+            }
+        }
+
+        private static void ShowIdCard(IdCardControl dest, IdCardInfo info)
+        {
+            dest.name.Text = info.Name;
+
+            if (info.SexCode.HasValue)
+            {
+                dest.sex.Text = Model.Helper.GetSexName(info.SexCode.Value);
+            }
+
+            if (info.MinorityCode.HasValue)
+            {
+                dest.minority.Text = MinorityDictionary[info.MinorityCode.Value];
+            }
+
+            if (info.BornDate.HasValue)
+            {
+                dest.year.Text = info.BornDate.Value.Year.ToString();
+                dest.month.Text = info.BornDate.Value.Month.ToString();
+                dest.day.Text = info.BornDate.Value.Day.ToString();
+            }
+            dest.address.Text = info.Address;
+            //this.issuedBy.Text = _idCardInfoLeft.GrantDept;
+            //this.expiry.Text = FormatDate(_idCardInfoLeft.ValidateFrom) + " — " + FormatDate(_idCardInfoLeft.ValidateUntil);
+            dest.idCardNo.Text = info.IdCardNo;
+
+
+            dest.image.Image = info.PhotoData != null ? Image.FromStream(new System.IO.MemoryStream(info.PhotoData)) : null;
+            dest.IsSuspect = info.IsSuspect;
         }
 
         public event EventHandler ViewShown;
@@ -174,14 +160,13 @@ namespace Kise.IdCard.UI
         }
 
 
-        public IDictionary<int, string> MinorityDictionary { get; set; }
+        public static IDictionary<int, string> MinorityDictionary { get; set; }
 
         public MainForm()
         {
             InitializeComponent();
 
             MinorityDictionary = FileMinorityDictionary.Instance;
-            _normalBkColor = resultLabel.BackColor;
 
             IIdCardReader cardReader = null;
 
@@ -222,9 +207,10 @@ namespace Kise.IdCard.UI
         {
         }
 
+        
         public IdCardInfo CurrentIdCardInfo
         {
-            get { throw new NotImplementedException(); }
+            get { return IdCardInfoLeft ; }
             set
             {
                 if (InvokeRequired)
@@ -234,7 +220,8 @@ namespace Kise.IdCard.UI
                     return;
                 }
 
-                this.IdCardInfo = value;
+                this.IdCardInfoLeft = value;
+                
             }
         }
 
@@ -295,9 +282,64 @@ namespace Kise.IdCard.UI
             dlg.ShowDialog(this);
         }
 
-        private void databaseQuery_ItemClick(object sender, ItemClickEventArgs e)
+        private async void databaseQuery_ItemClick(object sender, ItemClickEventArgs e)
         {
-            _idService.QueryIdAsync(_progressReport, null);
+            if (CurrentIdCardInfo == null)
+            {
+                MessageBox.Show("请先读取身份证，或者手动输入号码查询");
+                return;
+            }
+
+            await QueryIdCardFromUi(CurrentIdCardInfo.IdCardNo);
+        }
+
+        private async Task QueryIdCardFromUi(string idNo)
+        {
+            databaseQuery.Enabled = false;
+            buttonEditManualQuery.Enabled = false;
+
+            try
+            {
+                var queryClient = new QueryService();
+                var result = await queryClient.QueryByIdNumberAsync(idNo);
+
+
+                if (result.ErrorCode == 0)
+                {
+                    if (result.Info != null)
+                    {
+                        var msg =
+                            string.Format(
+                                "name: {0}, sex:{1}, minority:{2}, birthday:{3}, add:{4}, issueDate:{5}, idNumber:{6}",
+                                result.Info.Name, result.Info.Sex, result.Info.Minority, result.Info.BirthDay,
+                                result.Info.Address, result.Info.IssueDate, result.Info.IdNumber);
+
+                        _logger.Trace(msg);
+
+                        var info = ConvertWcfToInfo(result.Info);
+                        IdCardInfoRight = info;
+                    }
+                    else
+                    {
+                        MessageBox.Show("没有查询到身份证信息，请确保身份证号码输入正确");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("查询身份证出现错误，请稍后重试");
+                }
+
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("查询身份证出现异常，请重试");
+            }
+            finally
+            {
+                databaseQuery.Enabled = true;
+                buttonEditManualQuery.Enabled = true;
+            }
+           
         }
 
         void inpc_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -308,54 +350,39 @@ namespace Kise.IdCard.UI
 
         private void SetColor()
         {
-            //var isNormal = _idCardInfo.IdStatus == Kise.IdCard.Model.IdStatus.UnKnown || _idCardInfo.IdStatus == Kise.IdCard.Model.IdStatus.Normal;
+            //var isNormal = _idCardInfoLeft.IdStatus == Kise.IdCard.Model.IdStatus.UnKnown || _idCardInfoLeft.IdStatus == Kise.IdCard.Model.IdStatus.Normal;
         }
 
         private void barCheckItemManulQuery_DownChanged(object sender, ItemClickEventArgs e)
         {
-            var selectedTab = barCheckItemManulQuery.Down ? xtraTabPageManualQuery : xtraTabPageIdReader;
-            xtraTabControl1.SelectedTabPage = selectedTab;
         }
 
         private async void buttonEdit1_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
         {
-            try
-            {
-                buttonEdit1.Enabled = false;
-                var queryClient = new QueryService();
-                var result = await queryClient.QueryByIdNumberAsync((string)buttonEdit1.EditValue);
-
-                if (result.ErrorCode == 0)
-                {
-                    if (!string.IsNullOrEmpty(result.Icon))
-                {
-                    var imgData = Convert.FromBase64String(result.Icon);
-                    var img = Image.FromStream(new MemoryStream(imgData));
-                    idCardControl2.image.Image = img;
-                }
-
-                    var msg = string.Format("{0} {1} {2}", result.Name, result.BirthDay, result.IssueDepartment);
-                    MessageBox.Show(msg);
-                }
-                else
-                {
-                    MessageBox.Show("Error: " + result.ErrorCode);
-
-                }
-
-                
-
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            finally
-            {
-                buttonEdit1.Enabled = true;
-            }
+            await QueryIdCardFromUi((string) buttonEditManualQuery.EditValue);
         }
 
+       
+
+        private IdCardInfo ConvertWcfToInfo(Messaging.WcfService.IdCardInfo info)
+        {
+            var result = new IdCardInfo();
+            result.Address = info.Address;
+            result.BornDate = info.BirthDay;
+            result.GrantDept = info.IssueDepartment;
+            result.IdCardNo = info.IdNumber;
+            result.IsSuspect = info.IsWanted;
+            result.MinorityCode = info.Minority;
+            result.Name = info.Name;
+            result.SexCode = info.Sex;
+            result.ValidateFrom = info.IssueDate;
+
+            if (!string.IsNullOrEmpty(info.Icon))
+            {
+                result.PhotoData = Convert.FromBase64String(info.Icon);
+            }
+
+            return result;
+        }
     }
-}
+} 
