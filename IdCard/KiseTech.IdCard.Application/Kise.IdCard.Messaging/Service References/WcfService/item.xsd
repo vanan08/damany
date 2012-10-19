@@ -25,7 +25,7 @@
   <xs:element name="QueryByIdNumberResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Kise.IdCard.QueryServer.UI.Service" minOccurs="0" name="QueryByIdNumberResult" nillable="true" type="q1:IdCardInfo" />
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Kise.IdCard.QueryServer.UI.Service" minOccurs="0" name="QueryByIdNumberResult" nillable="true" type="q1:IdQueryResult" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

@@ -28,9 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject1 = new DevExpress.Utils.SerializableAppearanceObject();
             this.ribbon = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.buttonQuery = new DevExpress.XtraBars.BarButtonItem();
             this.settingsButton = new DevExpress.XtraBars.BarButtonItem();
@@ -40,36 +38,36 @@
             this.startButton = new DevExpress.XtraBars.BarButtonItem();
             this.stopButton = new DevExpress.XtraBars.BarButtonItem();
             this.databaseQuery = new DevExpress.XtraBars.BarButtonItem();
-            this.barCheckItemManulQuery = new DevExpress.XtraBars.BarCheckItem();
             this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup2 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup3 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.repositoryItemProgressBar1 = new DevExpress.XtraEditors.Repository.RepositoryItemProgressBar();
             this.ribbonStatusBar = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
-            this.clientPanel = new DevExpress.XtraEditors.PanelControl();
-            this.idCardControl1 = new Kise.IdCard.UI.IdCardControl();
-            this.resultLabel = new DevExpress.XtraEditors.LabelControl();
-            this.xpCollection1 = new DevExpress.Xpo.XPCollection(this.components);
-            this.xtraTabControl1 = new DevExpress.XtraTab.XtraTabControl();
-            this.xtraTabPageManualQuery = new DevExpress.XtraTab.XtraTabPage();
-            this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
-            this.buttonEdit1 = new DevExpress.XtraEditors.ButtonEdit();
-            this.idCardControl2 = new Kise.IdCard.UI.IdCardControl();
-            this.xtraTabPageIdReader = new DevExpress.XtraTab.XtraTabPage();
+            this.idCardControlLeft = new Kise.IdCard.UI.IdCardControl();
+            this.xpCollection1 = new DevExpress.Xpo.XPCollection();
+            this.idCardControlRight = new Kise.IdCard.UI.IdCardControl();
+            this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
+            this.buttonEditManualQuery = new DevExpress.XtraEditors.ButtonEdit();
+            this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
+            this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.simpleSeparator1 = new DevExpress.XtraLayout.SimpleSeparator();
+            this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemMarqueeProgressBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemProgressBar1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.clientPanel)).BeginInit();
-            this.clientPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.xpCollection1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl1)).BeginInit();
-            this.xtraTabControl1.SuspendLayout();
-            this.xtraTabPageManualQuery.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
-            this.panelControl1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.buttonEdit1.Properties)).BeginInit();
-            this.xtraTabPageIdReader.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
+            this.layoutControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.buttonEditManualQuery.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.simpleSeparator1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
             this.SuspendLayout();
             // 
             // ribbon
@@ -86,9 +84,9 @@
             this.statusLabel,
             this.startButton,
             this.stopButton,
-            this.databaseQuery,
-            this.barCheckItemManulQuery});
+            this.databaseQuery});
             this.ribbon.Location = new System.Drawing.Point(0, 0);
+            this.ribbon.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.ribbon.MaxItemId = 16;
             this.ribbon.Name = "ribbon";
             this.ribbon.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
@@ -96,7 +94,7 @@
             this.ribbon.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemProgressBar1,
             this.repositoryItemMarqueeProgressBar1});
-            this.ribbon.Size = new System.Drawing.Size(681, 147);
+            this.ribbon.Size = new System.Drawing.Size(1164, 164);
             this.ribbon.StatusBar = this.ribbonStatusBar;
             // 
             // buttonQuery
@@ -155,19 +153,10 @@
             // databaseQuery
             // 
             this.databaseQuery.Caption = "数据库查询";
-            this.databaseQuery.Enabled = false;
             this.databaseQuery.Id = 12;
             this.databaseQuery.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("databaseQuery.LargeGlyph")));
             this.databaseQuery.Name = "databaseQuery";
             this.databaseQuery.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.databaseQuery_ItemClick);
-            // 
-            // barCheckItemManulQuery
-            // 
-            this.barCheckItemManulQuery.Caption = "手动查询";
-            this.barCheckItemManulQuery.Id = 15;
-            this.barCheckItemManulQuery.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("barCheckItemManulQuery.LargeGlyph")));
-            this.barCheckItemManulQuery.Name = "barCheckItemManulQuery";
-            this.barCheckItemManulQuery.DownChanged += new DevExpress.XtraBars.ItemClickEventHandler(this.barCheckItemManulQuery_DownChanged);
             // 
             // ribbonPage1
             // 
@@ -197,7 +186,6 @@
             this.ribbonPageGroup3.ItemLinks.Add(this.startButton);
             this.ribbonPageGroup3.ItemLinks.Add(this.stopButton);
             this.ribbonPageGroup3.ItemLinks.Add(this.databaseQuery);
-            this.ribbonPageGroup3.ItemLinks.Add(this.barCheckItemManulQuery);
             this.ribbonPageGroup3.Name = "ribbonPageGroup3";
             this.ribbonPageGroup3.ShowCaptionButton = false;
             this.ribbonPageGroup3.Text = "控制";
@@ -210,122 +198,154 @@
             // 
             this.ribbonStatusBar.ItemLinks.Add(this.progressBar);
             this.ribbonStatusBar.ItemLinks.Add(this.statusLabel);
-            this.ribbonStatusBar.Location = new System.Drawing.Point(0, 540);
+            this.ribbonStatusBar.Location = new System.Drawing.Point(0, 647);
+            this.ribbonStatusBar.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.ribbonStatusBar.Name = "ribbonStatusBar";
             this.ribbonStatusBar.Ribbon = this.ribbon;
-            this.ribbonStatusBar.Size = new System.Drawing.Size(681, 31);
+            this.ribbonStatusBar.Size = new System.Drawing.Size(1164, 33);
             // 
-            // clientPanel
+            // idCardControlLeft
             // 
-            this.clientPanel.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.clientPanel.Controls.Add(this.idCardControl1);
-            this.clientPanel.Controls.Add(this.resultLabel);
-            this.clientPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.clientPanel.Location = new System.Drawing.Point(0, 0);
-            this.clientPanel.Name = "clientPanel";
-            this.clientPanel.Size = new System.Drawing.Size(675, 387);
-            this.clientPanel.TabIndex = 2;
-            // 
-            // idCardControl1
-            // 
-            this.idCardControl1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.idCardControl1.BirthDayFormat = "{0} 年 {1} 月 {2} 日";
-            this.idCardControl1.IdCardInfo = null;
-            this.idCardControl1.Location = new System.Drawing.Point(79, 36);
-            this.idCardControl1.MinorityDictionary = null;
-            this.idCardControl1.Name = "idCardControl1";
-            this.idCardControl1.Size = new System.Drawing.Size(531, 323);
-            this.idCardControl1.TabIndex = 11;
-            // 
-            // resultLabel
-            // 
-            this.resultLabel.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.resultLabel.Appearance.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.resultLabel.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.resultLabel.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
-            this.resultLabel.Location = new System.Drawing.Point(3, 3);
-            this.resultLabel.Name = "resultLabel";
-            this.resultLabel.Size = new System.Drawing.Size(675, 27);
-            this.resultLabel.TabIndex = 10;
-            this.resultLabel.Text = "labelControl1";
-            this.resultLabel.Visible = false;
+            this.idCardControlLeft.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.idCardControlLeft.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.idCardControlLeft.BirthDayFormat = "{0} 年 {1} 月 {2} 日";
+            this.idCardControlLeft.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.idCardControlLeft.IsSuspect = false;
+            this.idCardControlLeft.Location = new System.Drawing.Point(12, 42);
+            this.idCardControlLeft.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            this.idCardControlLeft.MinorityDictionary = null;
+            this.idCardControlLeft.Name = "idCardControlLeft";
+            this.idCardControlLeft.Size = new System.Drawing.Size(567, 429);
+            this.idCardControlLeft.TabIndex = 11;
             // 
             // xpCollection1
             // 
             this.xpCollection1.ObjectType = typeof(Kise.IdCard.Model.IdCardInfo);
             // 
-            // xtraTabControl1
+            // idCardControlRight
             // 
-            this.xtraTabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.xtraTabControl1.HeaderButtonsShowMode = DevExpress.XtraTab.TabButtonShowMode.Never;
-            this.xtraTabControl1.Location = new System.Drawing.Point(0, 147);
-            this.xtraTabControl1.Name = "xtraTabControl1";
-            this.xtraTabControl1.SelectedTabPage = this.xtraTabPageManualQuery;
-            this.xtraTabControl1.ShowTabHeader = DevExpress.Utils.DefaultBoolean.False;
-            this.xtraTabControl1.Size = new System.Drawing.Size(681, 393);
-            this.xtraTabControl1.TabIndex = 5;
-            this.xtraTabControl1.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
-            this.xtraTabPageIdReader,
-            this.xtraTabPageManualQuery});
+            this.idCardControlRight.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.idCardControlRight.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.idCardControlRight.BirthDayFormat = "{0} 年 {1} 月 {2} 日";
+            this.idCardControlRight.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.idCardControlRight.IsSuspect = false;
+            this.idCardControlRight.Location = new System.Drawing.Point(583, 42);
+            this.idCardControlRight.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            this.idCardControlRight.MinorityDictionary = null;
+            this.idCardControlRight.Name = "idCardControlRight";
+            this.idCardControlRight.Size = new System.Drawing.Size(569, 429);
+            this.idCardControlRight.TabIndex = 11;
             // 
-            // xtraTabPageManualQuery
+            // layoutControl1
             // 
-            this.xtraTabPageManualQuery.Controls.Add(this.panelControl1);
-            this.xtraTabPageManualQuery.Name = "xtraTabPageManualQuery";
-            this.xtraTabPageManualQuery.Size = new System.Drawing.Size(675, 387);
-            this.xtraTabPageManualQuery.Text = "xtraTabPage2";
+            this.layoutControl1.Controls.Add(this.buttonEditManualQuery);
+            this.layoutControl1.Controls.Add(this.idCardControlRight);
+            this.layoutControl1.Controls.Add(this.idCardControlLeft);
+            this.layoutControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.layoutControl1.Location = new System.Drawing.Point(0, 164);
+            this.layoutControl1.Name = "layoutControl1";
+            this.layoutControl1.OptionsCustomizationForm.DesignTimeCustomizationFormPositionAndSize = new System.Drawing.Rectangle(757, 506, 395, 457);
+            this.layoutControl1.Root = this.layoutControlGroup1;
+            this.layoutControl1.Size = new System.Drawing.Size(1164, 483);
+            this.layoutControl1.TabIndex = 23;
+            this.layoutControl1.Text = "layoutControl1";
             // 
-            // panelControl1
+            // buttonEditManualQuery
             // 
-            this.panelControl1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.panelControl1.Controls.Add(this.buttonEdit1);
-            this.panelControl1.Controls.Add(this.idCardControl2);
-            this.panelControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelControl1.Location = new System.Drawing.Point(0, 0);
-            this.panelControl1.Name = "panelControl1";
-            this.panelControl1.Size = new System.Drawing.Size(675, 387);
-            this.panelControl1.TabIndex = 3;
+            this.buttonEditManualQuery.Location = new System.Drawing.Point(677, 14);
+            this.buttonEditManualQuery.MenuManager = this.ribbon;
+            this.buttonEditManualQuery.Name = "buttonEditManualQuery";
+            this.buttonEditManualQuery.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton()});
+            this.buttonEditManualQuery.Size = new System.Drawing.Size(475, 24);
+            this.buttonEditManualQuery.StyleController = this.layoutControl1;
+            this.buttonEditManualQuery.TabIndex = 12;
+            this.buttonEditManualQuery.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.buttonEdit1_ButtonClick);
             // 
-            // buttonEdit1
+            // layoutControlGroup1
             // 
-            this.buttonEdit1.Location = new System.Drawing.Point(11, 5);
-            this.buttonEdit1.MenuManager = this.ribbon;
-            this.buttonEdit1.Name = "buttonEdit1";
-            this.buttonEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "查询", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, ((System.Drawing.Image)(resources.GetObject("buttonEdit1.Properties.Buttons"))), new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject1, "", null, null, true)});
-            this.buttonEdit1.Properties.NullText = "输入身份证号码";
-            this.buttonEdit1.Size = new System.Drawing.Size(657, 22);
-            this.buttonEdit1.TabIndex = 12;
-            this.buttonEdit1.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.buttonEdit1_ButtonClick);
+            this.layoutControlGroup1.CustomizationFormText = "Root";
+            this.layoutControlGroup1.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
+            this.layoutControlGroup1.GroupBordersVisible = false;
+            this.layoutControlGroup1.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.layoutControlItem1,
+            this.layoutControlItem2,
+            this.simpleSeparator1,
+            this.layoutControlItem3,
+            this.emptySpaceItem1});
+            this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
+            this.layoutControlGroup1.Name = "Root";
+            this.layoutControlGroup1.Size = new System.Drawing.Size(1164, 483);
+            this.layoutControlGroup1.Text = "Root";
+            this.layoutControlGroup1.TextVisible = false;
             // 
-            // idCardControl2
+            // layoutControlItem1
             // 
-            this.idCardControl2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.idCardControl2.BirthDayFormat = "{0} 年 {1} 月 {2} 日";
-            this.idCardControl2.IdCardInfo = null;
-            this.idCardControl2.Location = new System.Drawing.Point(79, 36);
-            this.idCardControl2.MinorityDictionary = null;
-            this.idCardControl2.Name = "idCardControl2";
-            this.idCardControl2.Size = new System.Drawing.Size(531, 323);
-            this.idCardControl2.TabIndex = 11;
+            this.layoutControlItem1.Control = this.idCardControlLeft;
+            this.layoutControlItem1.CustomizationFormText = "layoutControlItem1";
+            this.layoutControlItem1.Location = new System.Drawing.Point(0, 30);
+            this.layoutControlItem1.MinSize = new System.Drawing.Size(104, 24);
+            this.layoutControlItem1.Name = "layoutControlItem1";
+            this.layoutControlItem1.Size = new System.Drawing.Size(571, 433);
+            this.layoutControlItem1.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
+            this.layoutControlItem1.Text = "layoutControlItem1";
+            this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem1.TextToControlDistance = 0;
+            this.layoutControlItem1.TextVisible = false;
             // 
-            // xtraTabPageIdReader
+            // layoutControlItem2
             // 
-            this.xtraTabPageIdReader.Controls.Add(this.clientPanel);
-            this.xtraTabPageIdReader.Name = "xtraTabPageIdReader";
-            this.xtraTabPageIdReader.Size = new System.Drawing.Size(675, 387);
-            this.xtraTabPageIdReader.Text = "xtraTabPage1";
+            this.layoutControlItem2.Control = this.idCardControlRight;
+            this.layoutControlItem2.CustomizationFormText = "layoutControlItem2";
+            this.layoutControlItem2.Location = new System.Drawing.Point(571, 30);
+            this.layoutControlItem2.Name = "layoutControlItem2";
+            this.layoutControlItem2.Size = new System.Drawing.Size(573, 433);
+            this.layoutControlItem2.Text = "layoutControlItem2";
+            this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem2.TextToControlDistance = 0;
+            this.layoutControlItem2.TextVisible = false;
+            // 
+            // simpleSeparator1
+            // 
+            this.simpleSeparator1.AllowHotTrack = false;
+            this.simpleSeparator1.CustomizationFormText = "simpleSeparator1";
+            this.simpleSeparator1.Location = new System.Drawing.Point(665, 0);
+            this.simpleSeparator1.Name = "simpleSeparator1";
+            this.simpleSeparator1.Size = new System.Drawing.Size(479, 2);
+            this.simpleSeparator1.Text = "simpleSeparator1";
+            // 
+            // layoutControlItem3
+            // 
+            this.layoutControlItem3.Control = this.buttonEditManualQuery;
+            this.layoutControlItem3.CustomizationFormText = "layoutControlItem3";
+            this.layoutControlItem3.Location = new System.Drawing.Point(665, 2);
+            this.layoutControlItem3.Name = "layoutControlItem3";
+            this.layoutControlItem3.Size = new System.Drawing.Size(479, 28);
+            this.layoutControlItem3.Text = "layoutControlItem3";
+            this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem3.TextToControlDistance = 0;
+            this.layoutControlItem3.TextVisible = false;
+            // 
+            // emptySpaceItem1
+            // 
+            this.emptySpaceItem1.AllowHotTrack = false;
+            this.emptySpaceItem1.CustomizationFormText = "emptySpaceItem1";
+            this.emptySpaceItem1.Location = new System.Drawing.Point(0, 0);
+            this.emptySpaceItem1.Name = "emptySpaceItem1";
+            this.emptySpaceItem1.Size = new System.Drawing.Size(665, 30);
+            this.emptySpaceItem1.Text = "emptySpaceItem1";
+            this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(681, 571);
-            this.Controls.Add(this.xtraTabControl1);
+            this.ClientSize = new System.Drawing.Size(1164, 680);
+            this.Controls.Add(this.layoutControl1);
             this.Controls.Add(this.ribbonStatusBar);
             this.Controls.Add(this.ribbon);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "MainForm";
             this.Ribbon = this.ribbon;
             this.StatusBar = this.ribbonStatusBar;
@@ -334,16 +354,16 @@
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemMarqueeProgressBar1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemProgressBar1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.clientPanel)).EndInit();
-            this.clientPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.xpCollection1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl1)).EndInit();
-            this.xtraTabControl1.ResumeLayout(false);
-            this.xtraTabPageManualQuery.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
-            this.panelControl1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.buttonEdit1.Properties)).EndInit();
-            this.xtraTabPageIdReader.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
+            this.layoutControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.buttonEditManualQuery.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.simpleSeparator1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -354,7 +374,6 @@
         private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPage1;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup1;
         private DevExpress.XtraBars.Ribbon.RibbonStatusBar ribbonStatusBar;
-        private DevExpress.XtraEditors.PanelControl clientPanel;
         private DevExpress.XtraBars.BarButtonItem buttonQuery;
         private DevExpress.XtraBars.BarButtonItem settingsButton;
         private DevExpress.XtraBars.BarEditItem progressBar;
@@ -367,14 +386,15 @@
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup2;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup3;
         private DevExpress.XtraBars.BarButtonItem databaseQuery;
-        private DevExpress.XtraEditors.LabelControl resultLabel;
-        private IdCardControl idCardControl1;
-        private DevExpress.XtraTab.XtraTabControl xtraTabControl1;
-        private DevExpress.XtraTab.XtraTabPage xtraTabPageIdReader;
-        private DevExpress.XtraTab.XtraTabPage xtraTabPageManualQuery;
-        private DevExpress.XtraEditors.PanelControl panelControl1;
-        private IdCardControl idCardControl2;
-        private DevExpress.XtraBars.BarCheckItem barCheckItemManulQuery;
-        private DevExpress.XtraEditors.ButtonEdit buttonEdit1;
+        private IdCardControl idCardControlLeft;
+        private IdCardControl idCardControlRight;
+        private DevExpress.XtraLayout.LayoutControl layoutControl1;
+        private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup1;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem2;
+        private DevExpress.XtraLayout.SimpleSeparator simpleSeparator1;
+        private DevExpress.XtraEditors.ButtonEdit buttonEditManualQuery;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem3;
+        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem1;
     }
 }

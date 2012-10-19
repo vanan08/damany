@@ -15,9 +15,18 @@ namespace Kise.IdCard.QueryServer.UI.Service
         string QueryId(string queryString);
 
         [OperationContract]
-        IdCardInfo QueryByIdNumber(string idNumber);
+        IdQueryResult QueryByIdNumber(string idNumber);
     }
 
+    [DataContract]
+    public class IdQueryResult
+    {
+        [DataMember]
+        public int ErrorCode { get; set; }
+
+        [DataMember]
+        public IdCardInfo Info { get; set; }
+    }
 
     [DataContract]
     public class IdCardInfo
@@ -54,8 +63,5 @@ namespace Kise.IdCard.QueryServer.UI.Service
 
         [DataMember]
         public bool IsWanted { get; set; }
-
-        [DataMember]
-        public int ErrorCode { get; set; }
     }
 }

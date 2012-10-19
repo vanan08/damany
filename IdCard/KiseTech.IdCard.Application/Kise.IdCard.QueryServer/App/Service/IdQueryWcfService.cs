@@ -21,6 +21,8 @@ namespace Kise.IdCard.QueryServer.UI.Service
         private IdQueryServiceContract.IIdQueryProvider _provider;
         public static ILog _logger;
 
+        private static NLog.Logger _fileLogger = NLog.LogManager.GetCurrentClassLogger();
+
         public IdQueryWcfService()
         {
             _provider = CreateIdQueryProvider();
@@ -88,29 +90,40 @@ namespace Kise.IdCard.QueryServer.UI.Service
             _logger.Log(entry);
         }
 
-        public IdCardInfo QueryByIdNumber(string idNumber)
+        public IdQueryResult QueryByIdNumber(string idNumber)
         {
             LogEnter(idNumber);
             var qr = DoQuery(idNumber);
 
-            var result = new IdCardInfo();
+            var result = new IdQueryResult();
             result.ErrorCode = qr.ErrorCode;
-            if (qr.ErrorCode == 0)
+            if (qr.ErrorCode == 0 && qr.IdInfo != null)
             {
-                result.Address = qr.IdInfo.Address;
-                result.BirthDay = qr.IdInfo.BornDate;
+                var info = new IdCardInfo();
+
+                info.Address = qr.IdInfo.Address;
+                info.BirthDay = qr.IdInfo.BornDate;
                 if (qr.IdInfo.PhotoData != null)
                 {
-                    result.Icon = Convert.ToBase64String(qr.IdInfo.PhotoData);
+                    info.Icon = Convert.ToBase64String(qr.IdInfo.PhotoData);
                 }
-                result.IdNumber = qr.IdInfo.IdCardNo;
-                result.IsWanted = qr.IsSuspect;
-                result.IssueDate = qr.IdInfo.ValidateFrom;
-                result.IssueDepartment = qr.IdInfo.GrantDept;
-                result.Minority = qr.IdInfo.MinorityCode;
-                result.Name = qr.IdInfo.Name;
-                result.Sex = qr.IdInfo.SexCode;
-                result.ValidateUntil = qr.IdInfo.ValidateUntil;
+                info.IdNumber = qr.IdInfo.IdCardNo;
+                info.IsWanted = qr.IsSuspect;
+                info.IssueDate = qr.IdInfo.ValidateFrom;
+                info.IssueDepartment = qr.IdInfo.GrantDept;
+                info.Minority = qr.IdInfo.MinorityCode;
+                info.Name = qr.IdInfo.Name;
+                info.Sex = qr.IdInfo.SexCode;
+                info.ValidateUntil = qr.IdInfo.ValidateUntil;
+
+                var msg =
+                    string.Format(
+                        "name: {0}, sex:{1}, minority:{2}, birthday:{3}, add:{4}, issuedate:{5}, idnumber:{6}",
+                        info.Name, info.Sex, info.Minority, info.BirthDay, info.Address, info.IssueDate,
+                        info.IdNumber);
+                _fileLogger.Trace(msg);
+
+                result.Info = info;
             }
             
             LogExit(idNumber);

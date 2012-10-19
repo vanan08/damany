@@ -15,6 +15,67 @@ namespace Kise.IdCard.Messaging.WcfService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="IdQueryResult", Namespace="http://schemas.datacontract.org/2004/07/Kise.IdCard.QueryServer.UI.Service")]
+    [System.SerializableAttribute()]
+    public partial class IdQueryResult : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int ErrorCodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Kise.IdCard.Messaging.WcfService.IdCardInfo InfoField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int ErrorCode {
+            get {
+                return this.ErrorCodeField;
+            }
+            set {
+                if ((this.ErrorCodeField.Equals(value) != true)) {
+                    this.ErrorCodeField = value;
+                    this.RaisePropertyChanged("ErrorCode");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public Kise.IdCard.Messaging.WcfService.IdCardInfo Info {
+            get {
+                return this.InfoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.InfoField, value) != true)) {
+                    this.InfoField = value;
+                    this.RaisePropertyChanged("Info");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="IdCardInfo", Namespace="http://schemas.datacontract.org/2004/07/Kise.IdCard.QueryServer.UI.Service")]
     [System.SerializableAttribute()]
     public partial class IdCardInfo : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -27,9 +88,6 @@ namespace Kise.IdCard.Messaging.WcfService {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Nullable<System.DateTime> BirthDayField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int ErrorCodeField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string IconField;
@@ -90,19 +148,6 @@ namespace Kise.IdCard.Messaging.WcfService {
                 if ((this.BirthDayField.Equals(value) != true)) {
                     this.BirthDayField = value;
                     this.RaisePropertyChanged("BirthDay");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int ErrorCode {
-            get {
-                return this.ErrorCodeField;
-            }
-            set {
-                if ((this.ErrorCodeField.Equals(value) != true)) {
-                    this.ErrorCodeField = value;
-                    this.RaisePropertyChanged("ErrorCode");
                 }
             }
         }
@@ -247,12 +292,12 @@ namespace Kise.IdCard.Messaging.WcfService {
         string EndQueryId(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IIdQueryWcfService/QueryByIdNumber", ReplyAction="http://tempuri.org/IIdQueryWcfService/QueryByIdNumberResponse")]
-        Kise.IdCard.Messaging.WcfService.IdCardInfo QueryByIdNumber(string idNumber);
+        Kise.IdCard.Messaging.WcfService.IdQueryResult QueryByIdNumber(string idNumber);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IIdQueryWcfService/QueryByIdNumber", ReplyAction="http://tempuri.org/IIdQueryWcfService/QueryByIdNumberResponse")]
         System.IAsyncResult BeginQueryByIdNumber(string idNumber, System.AsyncCallback callback, object asyncState);
         
-        Kise.IdCard.Messaging.WcfService.IdCardInfo EndQueryByIdNumber(System.IAsyncResult result);
+        Kise.IdCard.Messaging.WcfService.IdQueryResult EndQueryByIdNumber(System.IAsyncResult result);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -289,10 +334,10 @@ namespace Kise.IdCard.Messaging.WcfService {
             this.results = results;
         }
         
-        public Kise.IdCard.Messaging.WcfService.IdCardInfo Result {
+        public Kise.IdCard.Messaging.WcfService.IdQueryResult Result {
             get {
                 base.RaiseExceptionIfNecessary();
-                return ((Kise.IdCard.Messaging.WcfService.IdCardInfo)(this.results[0]));
+                return ((Kise.IdCard.Messaging.WcfService.IdQueryResult)(this.results[0]));
             }
         }
     }
@@ -386,7 +431,7 @@ namespace Kise.IdCard.Messaging.WcfService {
                         queryString}, this.onEndQueryIdDelegate, this.onQueryIdCompletedDelegate, userState);
         }
         
-        public Kise.IdCard.Messaging.WcfService.IdCardInfo QueryByIdNumber(string idNumber) {
+        public Kise.IdCard.Messaging.WcfService.IdQueryResult QueryByIdNumber(string idNumber) {
             return base.Channel.QueryByIdNumber(idNumber);
         }
         
@@ -396,7 +441,7 @@ namespace Kise.IdCard.Messaging.WcfService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public Kise.IdCard.Messaging.WcfService.IdCardInfo EndQueryByIdNumber(System.IAsyncResult result) {
+        public Kise.IdCard.Messaging.WcfService.IdQueryResult EndQueryByIdNumber(System.IAsyncResult result) {
             return base.Channel.EndQueryByIdNumber(result);
         }
         
@@ -406,7 +451,7 @@ namespace Kise.IdCard.Messaging.WcfService {
         }
         
         private object[] OnEndQueryByIdNumber(System.IAsyncResult result) {
-            Kise.IdCard.Messaging.WcfService.IdCardInfo retVal = this.EndQueryByIdNumber(result);
+            Kise.IdCard.Messaging.WcfService.IdQueryResult retVal = this.EndQueryByIdNumber(result);
             return new object[] {
                     retVal};
         }

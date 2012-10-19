@@ -114,7 +114,7 @@
     <None Include="Service References\WcfService\item2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\WcfService\Kise.IdCard.Messaging.WcfService.IdCardInfo.datasource">
+    <None Include="Service References\WcfService\Kise.IdCard.Messaging.WcfService.IdQueryResult.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\WcfService\Reference.svcmap">

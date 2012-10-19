@@ -8,6 +8,9 @@ namespace Kise.IdCard.Server
 {
     public class Helper
     {
+
+        private static NLog.Logger _logger = NLog.LogManager.GetCurrentClassLogger();
+
         public static Model.IdCardInfo[] Parse(string xmlString)
         {
             var doc = XDocument.Parse(xmlString);
@@ -64,6 +67,7 @@ namespace Kise.IdCard.Server
                         break;
                     case "SFZH":
                         spec.IdCardNo = v;
+                        _logger.Trace("id card no: " + v);
                         break;
                     case "XB":
                         spec.SexCode = IsMale(v) ? 1 : 2;
@@ -71,11 +75,14 @@ namespace Kise.IdCard.Server
                     case "XP":
                         spec.PhotoData = Convert.FromBase64String(v);
                         break;
-                    //case "FWCS":
+                    //case "FWCS": //工作单位
                     //    spec.Employer = v;
                     //    break;
                     case "MZ":
                         spec.MinorityCode = int.Parse(v);
+                        break;
+                    case "ZZXZ": //住址
+                        spec.Address = v;
                         break;
                     default:
                         break;
