@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject1 = new DevExpress.Utils.SerializableAppearanceObject();
             this.ribbon = new DevExpress.XtraBars.Ribbon.RibbonControl();
@@ -46,7 +47,7 @@
             this.repositoryItemProgressBar1 = new DevExpress.XtraEditors.Repository.RepositoryItemProgressBar();
             this.ribbonStatusBar = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
             this.idCardControlLeft = new Kise.IdCard.UI.IdCardControl();
-            this.xpCollection1 = new DevExpress.Xpo.XPCollection();
+            this.xpCollection1 = new DevExpress.Xpo.XPCollection(this.components);
             this.idCardControlRight = new Kise.IdCard.UI.IdCardControl();
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
             this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
@@ -272,6 +273,9 @@
             this.buttonEditManualQuery.Name = "buttonEditManualQuery";
             this.buttonEditManualQuery.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, ((System.Drawing.Image)(resources.GetObject("buttonEditManualQuery.Properties.Buttons"))), new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject1, "", null, null, true)});
+            this.buttonEditManualQuery.Properties.Mask.EditMask = "(\\d{18,18}|\\d{15,15}|\\d{17,17}x)";
+            this.buttonEditManualQuery.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.RegEx;
+            this.buttonEditManualQuery.Properties.Mask.ShowPlaceHolders = false;
             this.buttonEditManualQuery.Properties.NullText = "输入身份证号码手动查询";
             this.buttonEditManualQuery.Size = new System.Drawing.Size(236, 24);
             this.buttonEditManualQuery.StyleController = this.layoutControl1;

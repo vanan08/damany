@@ -12,7 +12,6 @@ namespace Kise.IdCard.Messaging
         {
             ErrorCode = 0;
             IsSuspect = false;
-            IdInfo = new Model.IdCardInfo();
         }
     }
 }
