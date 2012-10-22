@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<DOCUMENT Type="Advanced Installer" CreateVersion="8.0.1" version="9.4" Modules="enterprise" RootPath="." Language="zh" Id="{9B9E73C0-4153-4F8D-A1CA-D8DEED0980AB}">
+<DOCUMENT Type="Advanced Installer" CreateVersion="8.0.1" version="9.5" Modules="enterprise" RootPath="." Language="zh" Id="{9B9E73C0-4153-4F8D-A1CA-D8DEED0980AB}">
   <COMPONENT cid="caphyon.advinst.msicomp.ProjectOptionsComponent">
     <ROW Name="HiddenItems" Value="MsiJavaComponent;MultipleInstancesComponent;AutorunComponent;ScheduledTasksComponent;GameUxComponent;FirewallExceptionComponent;UserAccountsComponent;SqlConnectionComponent;SharePointSlnComponent;SilverlightSlnComponent;MsiDirectEditorComponent"/>
   </COMPONENT>
@@ -133,11 +133,12 @@
     <ROW File="MinorityCode.txt" Component_="DevExpress.Data.v12.1.xml" FileName="Minori~1.txt|MinorityCode.txt" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\MinorityCode.txt" SelfReg="false" NextFile="MiscUtil.dll"/>
     <ROW File="MiscUtil.dll" Component_="MiscUtil.dll" FileName="MiscUtil.dll" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\MiscUtil.dll" SelfReg="false" NextFile="MiscUtil.xml"/>
     <ROW File="MiscUtil.xml" Component_="DevExpress.Data.v12.1.xml" FileName="MiscUtil.xml" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\MiscUtil.xml" SelfReg="false" NextFile="NLog.dll"/>
+    <ROW File="NLog.config" Component_="DevExpress.Data.v12.1.xml" FileName="NLog~1.con|NLog.config" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\NLog.config" SelfReg="false"/>
     <ROW File="NLog.dll" Component_="NLog.dll" FileName="NLog.dll" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\NLog.dll" SelfReg="false" NextFile="NLog.xml"/>
     <ROW File="NLog.xml" Component_="DevExpress.Data.v12.1.xml" FileName="NLog.xml" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\NLog.xml" SelfReg="false" NextFile="Util.dll"/>
     <ROW File="Syn_IDCardRead.dll" Component_="Syn_IDCardRead.dll" FileName="Syn_ID~1.dll|Syn_IDCardRead.dll" Attributes="0" SourcePath="..\lib\CardReader\Syn_IDCardRead.dll" SelfReg="false" NextFile="WltRS.dll"/>
     <ROW File="USBDrv.sys" Component_="UsbDrv.inf" FileName="USBDrv.sys" Attributes="0" SourcePath="..\lib\IdCardReader Driver\USBDrv.sys" SelfReg="false" NextFile="UsbDrv.inf"/>
-    <ROW File="UsbDrv.inf" Component_="UsbDrv.inf" FileName="UsbDrv.inf" Attributes="0" SourcePath="..\lib\IdCardReader Driver\UsbDrv.inf" SelfReg="false"/>
+    <ROW File="UsbDrv.inf" Component_="UsbDrv.inf" FileName="UsbDrv.inf" Attributes="0" SourcePath="..\lib\IdCardReader Driver\UsbDrv.inf" SelfReg="false" NextFile="NLog.config"/>
     <ROW File="Util.dll" Component_="Util.dll" FileName="Util.dll" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\Util.dll" SelfReg="false" NextFile="Util.pdb"/>
     <ROW File="Util.pdb" Component_="Util.dll" FileName="Util.pdb" Attributes="0" SourcePath="..\KiseTech.IdCard.UI\bin\Release\Util.pdb" SelfReg="false" NextFile="KiseTech.IdCard.Application.resources.dll"/>
     <ROW File="WltRS.dll" Component_="WltRS.dll" FileName="WltRS.dll" Attributes="0" SourcePath="..\lib\CardReader\WltRS.dll" SelfReg="false" NextFile="license.dat"/>
