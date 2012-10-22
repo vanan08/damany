@@ -304,6 +304,13 @@ namespace Kise.IdCard.UI
                 return;
             }
 
+            if (idNo.Length != 15 && idNo.Length != 18)
+            {
+                MessageBox.Show("身份证长度不足15位或者18位");
+                return;
+            }
+
+
             try
             {
                 var queryClient = new QueryService();
