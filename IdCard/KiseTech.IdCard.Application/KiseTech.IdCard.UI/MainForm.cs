@@ -298,21 +298,23 @@ namespace Kise.IdCard.UI
             databaseQuery.Enabled = false;
             buttonEditManualQuery.Enabled = false;
 
-            if (string.IsNullOrEmpty(idNo))
-            {
-                MessageBox.Show("请输入有效身份证号码");
-                return;
-            }
-
-            if (idNo.Length != 15 && idNo.Length != 18)
-            {
-                MessageBox.Show("身份证长度不足15位或者18位");
-                return;
-            }
-
 
             try
             {
+
+                if (string.IsNullOrEmpty(idNo))
+                {
+                    MessageBox.Show("请输入有效身份证号码");
+                    return;
+                }
+
+                if (idNo.Length != 15 && idNo.Length != 18)
+                {
+                    MessageBox.Show("身份证长度不足15位或者18位");
+                    return;
+                }
+
+
                 var queryClient = new QueryService();
                 var result = await queryClient.QueryByIdNumberAsync(idNo);
 
