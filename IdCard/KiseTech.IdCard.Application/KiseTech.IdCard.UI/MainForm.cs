@@ -297,7 +297,7 @@ namespace Kise.IdCard.UI
         {
             databaseQuery.Enabled = false;
             buttonEditManualQuery.Enabled = false;
-
+            progressBar.Visibility = BarItemVisibility.Always;
 
             try
             {
@@ -353,6 +353,7 @@ namespace Kise.IdCard.UI
             {
                 databaseQuery.Enabled = true;
                 buttonEditManualQuery.Enabled = true;
+                progressBar.Visibility = BarItemVisibility.Never;
             }
            
         }
