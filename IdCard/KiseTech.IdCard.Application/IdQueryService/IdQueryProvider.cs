@@ -21,11 +21,11 @@ namespace IdQueryService
             var q = new RBSPAdapter_COM.RSBPAdapterCOMObjClass();
 
             q.queryCondition = queryString;
-            q.queryType = "QueryQGRK";
+            q.queryType = "QueryCarInfo";
             var normalResult = q.queryCondition;
             Console.WriteLine(normalResult);
 
-            q.queryType = "QueryZTK";
+            q.queryType = "QueryStolenCar";
             var suspectResult = string.Empty;
             suspectResult = q.queryCondition;
             Console.WriteLine(suspectResult);

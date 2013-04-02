@@ -15,18 +15,21 @@ namespace IdQueryService
     {
         static void Main(string[] args)
         {
-            var channel = new TcpServerChannel(Properties.Settings.Default.TcpPortNo);
+            var queryProvider = new IdQueryProvider();
+            queryProvider.QueryIdCard(args[0]);
 
-            ChannelServices.RegisterChannel(channel, false);
+            //var channel = new TcpServerChannel(Properties.Settings.Default.TcpPortNo);
 
-            var remObj = new WellKnownServiceTypeEntry
-            (
-                typeof(IdQueryProvider),
-                "IdQueryService",
-                WellKnownObjectMode.SingleCall
-            );
+            //ChannelServices.RegisterChannel(channel, false);
 
-            RemotingConfiguration.RegisterWellKnownServiceType(remObj);
+            //var remObj = new WellKnownServiceTypeEntry
+            //(
+            //    typeof(IdQueryProvider),
+            //    "IdQueryService",
+            //    WellKnownObjectMode.SingleCall
+            //);
+
+            //RemotingConfiguration.RegisterWellKnownServiceType(remObj);
 
             Console.WriteLine("Press [ENTER] to exit.");
 

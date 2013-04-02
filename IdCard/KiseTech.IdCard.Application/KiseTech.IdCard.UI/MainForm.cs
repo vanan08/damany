@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DevExpress.XtraBars;
+using DevExpress.XtraReports.UI;
 using Kise.IdCard.Application;
 using Kise.IdCard.Infrastructure.CardReader;
 using Kise.IdCard.Messaging;
